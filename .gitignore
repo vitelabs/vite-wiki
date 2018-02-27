@@ -15,4 +15,9 @@ wp-content/plugins/hello.php
 /readme.html
 /sitemap.xml
 /sitemap.xml.gz
+node_modules
+*.log
+.idea
+dist
+.nuxt
 
