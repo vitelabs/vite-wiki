@@ -31,4 +31,5 @@ sw.*
 workbox-*
 
 .DS_store
+package-lock.json
 

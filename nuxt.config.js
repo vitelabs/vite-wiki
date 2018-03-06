@@ -35,6 +35,7 @@ module.exports = {
       'mdi': {
         active: false // Do not load Material Design Icons
       }
-    }]
+    }],
+    'nuxtent'
   ]
 }

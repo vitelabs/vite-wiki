@@ -1,0 +1,9 @@
+{
+  "nav": {
+    "feature": "Feature",
+    "tech": "Tech",
+    "roadmap": "Roadmap",
+    "team": "Team",
+    "faq": "FAQ"
+  }
+}

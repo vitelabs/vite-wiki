@@ -9,8 +9,8 @@ export default function ({ isHMR, app, store, route, params, error, redirect }) 
   // Set locale
   store.commit('SET_LANG', locale)
   app.i18n.locale = store.state.locale
-  // If route is /en/... -> redirect to /...
-  if (locale === 'en' && route.fullPath.indexOf('/en') === 0) {
-    return redirect(route.fullPath.replace(/^\/en/, '/'))
-  }
+  // // If route is /en/... -> redirect to /...
+  // if (locale === 'en' && route.fullPath.indexOf('/en') === 0 && route.fullPath.indexOf('/en/wiki') === -1) {
+  //   return redirect(route.fullPath.replace(/^\/en/, '/'))
+  // }
 }
