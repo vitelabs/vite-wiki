@@ -1,5 +1,5 @@
 <template>
-  <div class="Content">
+  <div class="content wiki-content">
     <nuxtent-body :body="message.body" />
   </div>
 </template>
@@ -15,3 +15,25 @@
     }
   }
 </script>
+
+<style lang="scss">
+  @import "~prismjs/themes/prism.css";
+
+  .wiki-content {
+    /* bulma bugfix */
+    .number {
+      align-items: initial;
+      background-color: transparent;
+      border-radius: 0;
+      display: inherit;
+      font-size: inherit;
+      height: inherit;
+      justify-content: inherit;
+      margin-right: initial;
+      min-width: initial;
+      padding: 0;
+      text-align: left;
+      vertical-align: initial;
+    }
+  }
+</style>

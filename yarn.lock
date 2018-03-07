@@ -1524,7 +1524,7 @@ clone@^1.0.2:
   version "1.0.3"
   resolved "http://registry.npm.taobao.org/clone/download/clone-1.0.3.tgz#298d7e2231660f40c003c2ed3140decf3f53085f"
 
-clone@^2.1.1:
+clone@^2.1.0, clone@^2.1.1:
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/clone/download/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
 
@@ -4038,9 +4038,20 @@ markdown-it-emoji@^1.4.0:
   version "1.4.0"
   resolved "http://registry.npm.taobao.org/markdown-it-emoji/download/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
 
+markdown-it-headinganchor@^1.3.0:
+  version "1.3.0"
+  resolved "http://registry.npm.taobao.org/markdown-it-headinganchor/download/markdown-it-headinganchor-1.3.0.tgz#65556577ad702983f4b89bf30bab4702cedcbbfa"
+
 markdown-it-link-attributes@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/markdown-it-link-attributes/download/markdown-it-link-attributes-2.0.0.tgz#24803e7a2331c54cbd1450b8b03dc7f5f89a3c27"
+
+markdown-it-toc-and-anchor@^4.1.2:
+  version "4.1.2"
+  resolved "http://registry.npm.taobao.org/markdown-it-toc-and-anchor/download/markdown-it-toc-and-anchor-4.1.2.tgz#b271f694a70bf719e6b728056d7bd931d364214d"
+  dependencies:
+    clone "^2.1.0"
+    uslug "^1.0.4"
 
 markdown-it@^8.4.0:
   version "8.4.1"
@@ -6744,6 +6755,10 @@ universalify@^0.1.0:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/universalify/download/universalify-0.1.1.tgz#fa71badd4437af4c148841e3b3b165f9e9e590b7"
 
+"unorm@>= 1.0.0":
+  version "1.4.1"
+  resolved "http://registry.npm.taobao.org/unorm/download/unorm-1.4.1.tgz#364200d5f13646ca8bcd44490271335614792300"
+
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/unpipe/download/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
@@ -6800,6 +6815,12 @@ use@^2.0.0:
     define-property "^0.2.5"
     isobject "^3.0.0"
     lazy-cache "^2.0.2"
+
+uslug@^1.0.4:
+  version "1.0.4"
+  resolved "http://registry.npm.taobao.org/uslug/download/uslug-1.0.4.tgz#b9a22f0914e0a86140633dacc302e5f4fa450677"
+  dependencies:
+    unorm ">= 1.0.0"
 
 util-deprecate@~1.0.1:
   version "1.0.2"
@@ -6911,6 +6932,12 @@ vue-router@^2.7.0:
 vue-scrollactive@^0.4.5:
   version "0.4.6"
   resolved "http://registry.npm.taobao.org/vue-scrollactive/download/vue-scrollactive-0.4.6.tgz#6202c7592d444e583b904e1de833e710c0285303"
+  dependencies:
+    bezier-easing "^2.0.3"
+
+vue-scrollactive@^0.6.1:
+  version "0.6.1"
+  resolved "http://registry.npm.taobao.org/vue-scrollactive/download/vue-scrollactive-0.6.1.tgz#2091bf25364ad37f32dfee2d9ead47d2005d3f28"
   dependencies:
     bezier-easing "^2.0.3"
 

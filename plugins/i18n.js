@@ -20,10 +20,12 @@ export default ({ app, store }) => {
       link = link.substring(1)
     }
 
-    if (app.i18n.locale === app.i18n.fallbackLocale) {
-      return `/${link}`
-    }
+    return `/${link}`
 
-    return `/${app.i18n.locale}/${link}`
+    // if (app.i18n.locale === app.i18n.fallbackLocale) {
+    //
+    // }
+    //
+    // return `/${app.i18n.locale}/${link}`
   }
 }

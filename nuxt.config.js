@@ -37,5 +37,8 @@ module.exports = {
       }
     }],
     'nuxtent'
+  ],
+  css: [
+    '~/assets/main.scss'
   ]
 }

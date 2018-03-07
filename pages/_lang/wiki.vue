@@ -1,40 +1,60 @@
 <template>
-  <div class="container is-fullhd">
-    <div class="columns">
-      <aside class="column is-3 sidebar-menu-wrapper">
-        <div class="menu affix sidebar-menu">
-          <template v-for="item in navs">
-            <template v-if="item && item.navs && item.navs.length">
-              <p class="menu-label">
-                {{item.label}}
-              </p>
-              <ul class="menu-list">
-                <template v-for="subNav in item.navs">
-                  <li v-if="subNav && subNav.meta">
-                    <nuxt-link class="Header__Link" :to="$i18n.path(subNav.permalink)" exact>
-                      {{subNav.label}}
-                    </nuxt-link>
-                  </li>
+  <div class="section">
+    <div class="container is-fullhd">
+      <div class="columns">
+        <aside class="column is-3 sidebar-menu-wrapper">
+            <no-ssr>
+              <my-affix class="sidebar-menu menu affix sidebar-menu"
+                     relative-element-selector="#wiki-content-wrapper"
+                     style="width: 300px"
+                     @scrollaffixscrolling="scrollaffixscrolling"
+                     :scroll-affix="false"
+                     :offset="{ top: 80, bottom: 40 }"
+              >
+                <template v-for="item in navs">
+                  <template v-if="item && item.navs && item.navs.length">
+                    <p class="menu-label">
+                      {{item.label}}
+                    </p>
+                    <ul class="menu-list">
+                      <template v-for="subNav in item.navs">
+                        <li v-if="subNav && subNav.meta">
+                          <nuxt-link class="main-link" :to="$i18n.path(subNav.permalink)">
+                            {{subNav.label}}
+                          </nuxt-link>
+                        </li>
+                        <my-scrollactive v-if="subNav.anchors && subNav.anchors.length && subNav.permalink === $route.path"
+                                         class="menu-list anchor-nav">
+                          <a v-for="anchor in subNav.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
+                            {{anchor[1].substr(0, 12)}}
+                          </a>
+                        </my-scrollactive>
+                      </template>
+                    </ul>
+                  </template>
+                  <template v-if="item && !item.navs">
+                    <p class="menu-label">
+                      <nuxt-link class="main-link" :to="$i18n.path(item.permalink)">
+                        {{item.label}}
+                      </nuxt-link>
+                    </p>
+                    <my-scrollactive v-if="item.anchors && item.anchors.length && item.permalink === $route.path"
+                                     class="menu-list anchor-nav">
+                      <a v-for="anchor in item.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
+                        {{anchor[1].substr(0, 12)}}
+                      </a>
+                    </my-scrollactive>
+                  </template>
                 </template>
-              </ul>
-            </template>
-            <template v-if="item && !item.navs">
-              <p>{{item.label}}</p>
-            </template>
-          </template>
-          <!--<affix class="menu sidebar-menu" relative-element-selector="#example-content" :offset="{ top: 30, bottom: 40 }" :scroll-affix="false">-->
-          <!--<div class="menu-label">-->
-          <!--<h2>Affix sidebar</h2>-->
-          <!--</div>-->
-          <!--<a href="" v-for="item in list">{{item.title}}</a>-->
-          <!--</affix>-->
-        </div>
-      </aside>
+              </my-affix>
+            </no-ssr>
+        </aside>
 
 
-      <div class="column">
-        <div class="wiki-content-wrapper">
-          <nuxt-child/>
+        <div class="column">
+          <div class="wiki-content-wrapper content" id="wiki-content-wrapper">
+            <nuxt-child/>
+          </div>
         </div>
       </div>
     </div>
@@ -45,13 +65,14 @@
   import Vue from 'vue'
 
   if (process.browser) {
-    window.onNuxtReady(() => {
-      const Affix = require('vue-affix')
-      Vue.use(Affix)
-    })
+    const Affix = require('~/components/Affix')
+    const Scrollactive = require('~/components/Scrollactive')
+    Vue.component('my-affix', Affix.default)
+    Vue.component('my-scrollactive', Scrollactive.default)
   }
 
   export default {
+    layout: 'wiki',
     data () {
       return {
         navs: []
@@ -101,16 +122,31 @@
         }
       }
       let parserdNavs = parseDocsConfig(docsConfig.body, 0)
+      console.log(parserdNavs)
+
       return {
         list,
         config: docsConfig,
         navs: parserdNavs && parserdNavs.navs
       }
+    },
+    methods: {
+      scrollaffixscrolling () {
+        console.log(arguments)
+      },
+      slugify(s) {
+        var spaceRegex = new RegExp('[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]', 'g');
+        return '#' + encodeURIComponent(s.replace(spaceRegex, ''));
+      }
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .container {
+    margin-top: 1.5em;
+  }
+
   .menu.affix {
     position: fixed;
   }
@@ -129,13 +165,26 @@
 
     .menu-list {
       a:visited {
-        color: #4a4a4a
+        color: initial;
       }
-      .nuxt-link-active {
-        background: #23d160;
+      a.main-link.nuxt-link-active, a.main-link.is-active {
+        background: #3498DB;
         color: white;
       }
     }
+
+    .anchor-nav.menu-list a {
+      font-size: 0.8em;
+      color: rgba(0,0,0,0.89);
+      padding-left: 1.5em;
+      &:first-child {
+        margin-top: 0.5em;
+      }
+      &.is-active {
+        background: rgba(0,0,0,0.05);
+      }
+    }
+
     .menu-label {
       text-align: left;
     }
@@ -169,233 +218,5 @@
     .card-content {
       padding: 15px;
     }
-  }
-
-
-  .wiki-content-wrapper {
-    padding: 0.5em;
-  }
-
-
-
-  /* markdown css */
-  @media print {
-    *,
-    *:before,
-    *:after {
-      background: transparent !important;
-      color: #000 !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-      text-decoration: underline;
-    }
-
-    a[href]:after {
-      content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-      content: " (" attr(title) ")";
-    }
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-      content: "";
-    }
-
-    pre,
-    blockquote {
-      border: 1px solid #999;
-      page-break-inside: avoid;
-    }
-
-    thead {
-      display: table-header-group;
-    }
-
-    tr,
-    img {
-      page-break-inside: avoid;
-    }
-
-    img {
-      max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-      orphans: 3;
-      widows: 3;
-    }
-
-    h2,
-    h3 {
-      page-break-after: avoid;
-    }
-  }
-
-  pre,
-  code {
-    font-family: Menlo, Monaco, "Courier New", monospace;
-  }
-
-  pre {
-    padding: .5rem;
-    line-height: 1.25;
-    overflow-x: scroll;
-  }
-
-  a,
-  a:visited {
-    color: #3498db;
-  }
-
-  a:hover,
-  a:focus,
-  a:active {
-    color: #2980b9;
-  }
-
-  .modest-no-decoration {
-    text-decoration: none;
-  }
-
-  html {
-    font-size: 12px;
-  }
-
-  @media screen and (min-width: 32rem) and (max-width: 48rem) {
-    html {
-      font-size: 15px;
-    }
-  }
-
-  @media screen and (min-width: 48rem) {
-    html {
-      font-size: 16px;
-    }
-  }
-
-  body {
-    line-height: 1.85;
-  }
-
-  p,
-  .modest-p {
-    font-size: 1rem;
-    margin-bottom: 1.3rem;
-  }
-
-  h1,
-  .modest-h1,
-  h2,
-  .modest-h2,
-  h3,
-  .modest-h3,
-  h4,
-  .modest-h4 {
-    margin: 1.414rem 0 .5rem;
-    font-weight: inherit;
-    line-height: 1.42;
-  }
-
-  h1,
-  .modest-h1 {
-    margin-top: 0;
-    font-size: 3.998rem;
-  }
-
-  h2,
-  .modest-h2 {
-    font-size: 2.827rem;
-  }
-
-  h3,
-  .modest-h3 {
-    font-size: 1.999rem;
-  }
-
-  h4,
-  .modest-h4 {
-    font-size: 1.414rem;
-  }
-
-  h5,
-  .modest-h5 {
-    font-size: 1.121rem;
-  }
-
-  h6,
-  .modest-h6 {
-    font-size: .88rem;
-  }
-
-  small,
-  .modest-small {
-    font-size: .707em;
-  }
-
-  /* https://github.com/mrmrs/fluidity */
-
-  img,
-  canvas,
-  iframe,
-  video,
-  svg,
-  select,
-  textarea {
-    max-width: 100%;
-  }
-
-  @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,300);
-  @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
-
-  html {
-    font-size: 18px;
-    max-width: 100%;
-  }
-
-  body {
-    color: #444;
-    font-family: 'Open Sans', Helvetica, sans-serif;
-    font-weight: 300;
-    margin: 0 auto;
-    line-height: 1.45;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: Arimo, Helvetica, sans-serif;
-  }
-
-  h1,
-  h2,
-  h3 {
-    border-bottom: 2px solid #fafafa;
-    margin-bottom: 1.15rem;
-    padding-bottom: .5rem;
-    text-align: left;
-  }
-
-  blockquote {
-    border-left: 8px solid #fafafa;
-    padding: 1rem;
-    p:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  pre,
-  code {
-    background-color: #fafafa;
   }
 </style>
