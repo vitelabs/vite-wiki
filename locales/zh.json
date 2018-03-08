@@ -1,9 +1,10 @@
 {
+  "lang": "中文",
   "nav": {
-    "feature": "Feature",
-    "tech": "Tech",
-    "roadmap": "Roadmap",
-    "team": "Team",
-    "faq": "FAQ"
+    "feature": "特性",
+    "tech": "技术",
+    "roadmap": "路线图",
+    "team": "团队",
+    "faq": "问题答疑"
   }
 }

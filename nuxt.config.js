@@ -34,6 +34,9 @@ module.exports = {
     ['xui-module', {
       'mdi': {
         active: false // Do not load Material Design Icons
+      },
+      'bulma': {
+        active: false
       }
     }],
     'nuxtent'

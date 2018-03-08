@@ -1,9 +1,14 @@
 {
+  "lang": "English",
   "nav": {
     "feature": "Feature",
     "tech": "Tech",
     "roadmap": "Roadmap",
     "team": "Team",
     "faq": "FAQ"
+  },
+  "home": {
+    "typingText": ["Fast", "No Fee", "Scalability"],
+    "contract": "Contract Platform"
   }
 }
