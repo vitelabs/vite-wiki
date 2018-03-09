@@ -1,5 +1,7 @@
+import config from '~/config.js'
+
 export const state = () => ({
-  locales: ['en', 'zh'],
+  locales: config.langs.map(item => item.key),
   locale: 'en'
 })
 

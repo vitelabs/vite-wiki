@@ -204,8 +204,6 @@
     max-width: 100%;
   }
 
-  @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,300);
-  @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
 
   html {
     font-size: 18px;

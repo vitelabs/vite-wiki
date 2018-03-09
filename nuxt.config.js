@@ -1,3 +1,14 @@
+const config = require('./config')
+const generatePages = ['/', '/wiki']
+let generateRoutes = [].concat(generatePages)
+config.langs.forEach(item => {
+  generateRoutes = generateRoutes.concat(generatePages.map(page => {
+    return `/${item.key}${page}`
+  }))
+})
+
+console.log(generateRoutes)
+
 module.exports = {
   head: {
     title: 'Vite',
@@ -27,7 +38,7 @@ module.exports = {
   },
   plugins: ['~/plugins/i18n.js'],
   generate: {
-    routes: ['/', '/about', '/fr', '/fr/about']
+    routes: generateRoutes
   },
   modules: [
     '@nuxtjs/pwa',

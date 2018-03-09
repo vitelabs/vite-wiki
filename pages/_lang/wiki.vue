@@ -23,7 +23,7 @@
                             {{subNav.label}}
                           </nuxt-link>
                         </li>
-                        <my-scrollactive v-if="subNav.anchors && subNav.anchors.length && subNav.permalink === $route.path"
+                        <my-scrollactive v-if="subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path)"
                                          class="menu-list anchor-nav">
                           <a v-for="anchor in subNav.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                             {{anchor[1].substr(0, 12)}}
@@ -38,7 +38,7 @@
                         {{item.label}}
                       </nuxt-link>
                     </p>
-                    <my-scrollactive v-if="item.anchors && item.anchors.length && item.permalink === $route.path"
+                    <my-scrollactive v-if="item.anchors && item.anchors.length && isSamePath(item.permalink, $route.path) "
                                      class="menu-list anchor-nav">
                       <a v-for="anchor in item.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                         {{anchor[1].substr(0, 12)}}
@@ -134,9 +134,18 @@
       scrollaffixscrolling () {
         console.log(arguments)
       },
-      slugify(s) {
-        var spaceRegex = new RegExp('[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]', 'g');
-        return '#' + encodeURIComponent(s.replace(spaceRegex, ''));
+      slugify (s) {
+        var spaceRegex = new RegExp('[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]', 'g')
+        return '#' + encodeURIComponent(s.replace(spaceRegex, ''))
+      },
+      isSamePath (permalink, path) {
+        if (path[path.length - 1] === '/') {
+          path = path.substring(0, path.length - 1)
+        }
+        if (permalink[permalink.length - 1] === '/') {
+          permalink = permalink.substring(0, permalink.length - 1)
+        }
+        return path === permalink
       }
     }
   }

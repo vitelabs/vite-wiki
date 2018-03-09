@@ -22,10 +22,8 @@
 </template>
 
 <script type="text/babel">
-  const supportLangs = [
-    {key: 'zh', name: '中文'},
-    {key: 'en', name: 'English'}
-  ]
+  import config from '~/config.js'
+  const supportLangs = config.langs
 
   export default {
     data: function () {
