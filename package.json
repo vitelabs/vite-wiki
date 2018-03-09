@@ -8,9 +8,7 @@
     "p": "npm run build && npm run generate"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.0.1",
     "@nuxtjs/pwa": "^2.0.5",
-    "add": "^2.0.6",
     "babel-polyfill": "^6.26.0",
     "bezier-easing": "^2.0.3",
     "markdown-it-emoji": "^1.4.0",
