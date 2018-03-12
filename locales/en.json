@@ -8,7 +8,13 @@
     "faq": "FAQ"
   },
   "home": {
-    "typingText": ["Fast", "No Fee", "Scalability"],
-    "contract": "Contract Platform"
+    "header": "Fast, No Fee, Scalability",
+    "contract": "Contract Platform",
+    "features": {
+      "fast": {
+        "title": "Fast",
+        "description": "Fast"
+      }
+    }
   }
 }

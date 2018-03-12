@@ -6,5 +6,39 @@
     "roadmap": "路线图",
     "team": "团队",
     "faq": "问题答疑"
+  },
+  "home": {
+    "header": "快速, 无手续费, 高性能",
+    "contract": "智能合约平台",
+    "whitePaper": "白皮书"
+  },
+  "features": {
+    "fast": {
+      "title": "快速",
+      "description": "..."
+    },
+    "noFee": {
+      "title": "无手续费",
+      "description": "任何交易都无手续费，只需付出微小的计算资源即可"
+    },
+    "scalability": {
+      "title": "高性能",
+      "description": "摒弃blockchian的账本结构，采用DAG的账本结构，支持高吞吐，高并发，一个账户一条链，单条链交易拥堵不会阻塞其他链"
+    },
+    "contract": {
+      "title": "智能合约",
+      "description": "支持智能合约， EVM compatibility"
+    },
+    "multiLayer": {
+      "title": "多层架构",
+      "description": "系统分为结算层和合约层，结算层支持多种货币"
+    },
+    "pruning": {
+      "title": "区块缩减",
+      "description": "支持区块缩减和快照，废旧的交易可以被丢弃"
+    }
+  },
+  "tech": {
+    "title": "Tech Details"
   }
 }

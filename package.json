@@ -8,13 +8,13 @@
     "p": "npm run build && npm run generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.1.1",
     "@nuxtjs/pwa": "^2.0.5",
     "babel-polyfill": "^6.26.0",
     "bezier-easing": "^2.0.3",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-headinganchor": "^1.3.0",
     "markdown-it-link-attributes": "^2.0.0",
-    "markdown-it-toc-and-anchor": "^4.1.2",
     "node-sass": "^4.7.2",
     "nuxt": "1.0.0-rc11",
     "nuxtent": "1.2.2",
@@ -23,6 +23,7 @@
     "sass-loader": "^6.0.7",
     "twemoji": "^2.5.1",
     "vue-affix": "^0.2.4",
+    "vue-carousel": "^0.6.9",
     "vue-i18n": "^7.3.2",
     "vue-scrollactive": "^0.6.1",
     "vue-typer": "^1.2.0",

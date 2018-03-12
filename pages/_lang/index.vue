@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="page-home">
     <section id="home" class="hero is-info is-fullheight" v-in-viewport.once>
       <!-- Hero header: will stick at the top -->
       <div class="hero-head animated fadeIn delay-1-6" v-headroom>
-        <nav class="navbar">
-          <div class="container is-widescreen">
+        <nav class="navbar home-navbar">
+          <div class="container is-widescreen" :class="{ 'is-active': navbarActive }">
             <div class="navbar-brand">
               <a class="navbar-item" href="http://bulma.io">
                 <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
@@ -24,7 +24,9 @@
                 <a :href="`#${item}`" class="scrollactive-item nav-item" v-for="item in navs">
                   {{$t(`nav.${item}`)}}
                 </a>
-                <lang-select></lang-select>
+                <div class="nav-item">
+                  <lang-select></lang-select>
+                </div>
               </div>
             </scrollactive>
 
@@ -34,33 +36,63 @@
 
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
-        <div class="container has-text-centered hvr-bounce-in home-text-wrapper">
-          <no-ssr>
-            <div>
-              <vue-typer :text="$t('home.typingText')"></vue-typer>
-              {{$t('home.contract')}}
+          <div class="container">
+            <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch">
+              <h1>{{$t("home.header")}}</h1>
+              <h2>{{$t("home.contract")}}</h2>
             </div>
-          </no-ssr>
-        </div>
+            <div class="hero-btn-wrapper">
+              <nuxt-link class="button" :to="`/${$i18n.locale}/wiki`" active-class="none">
+                {{$t('home.whitePaper')}}
+              </nuxt-link>
+            </div>
+          </div>
       </div>
     </section>
-    <section id="feature" class="hero is-light is-fullheight" v-in-viewport.once>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title is-1 animated inview3 flipInX delay-0-5">
-            Feature
-          </h1>
+
+    <section id="feature" class="hero is-fullheight" v-in-viewport.once>
+      <div class="container">
+        <div class="columns is-multiline">
+          <div class="column feature-item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile" v-for="item in features">
+            <div class="is-info">
+              <div class="icon-wrapper">
+                <img :src="item.icon"/>
+              </div>
+              <h3>{{$t(`features.${item.key}.title`)}}</h3>
+              <div class="feature-des">{{$t(`features.${item.key}.description`)}}</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="tech" class="hero is-success is-medium" v-in-viewport.once>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title is-1 animated inview3 tada delay-0-5">
-            Tech
-          </h1>
-        </div>
+    <section id="tech" class="hero is-fullheight" v-in-viewport.once>
+      <div class="container">
+          <h2 class="title">
+            Tech Details
+          </h2>
+          <div>
+            <carousel :per-page="1" :autoplay="false">
+              <slide>
+                  <div class="columns">
+                    <div class="column tech-img-wrapper">
+                      <img src="lllllll" alt="">
+                    </div>
+                    <div class="column">
+                      <h3>DAG Ledger</h3>
+                      <p>
+                        adflkajdslfjasdlkfjaklsdfjklas\a
+                        asdflajsdlfjasdlf
+                        asdflajsdflkafsd
+                      </p>
+                    </div>
+                  </div>
+              </slide>
+              <slide>
+                Slide 2 Content
+              </slide>
+            </carousel>
+          </div>
       </div>
     </section>
 
@@ -119,7 +151,9 @@
 
 <script>
   import Vue from 'vue'
+  import { Carousel, Slide } from 'vue-carousel'
   import LangSelect from '~/components/LangSelect.vue'
+
 
   if (process.browser) {
     require('particles.js')
@@ -129,7 +163,9 @@
 
   export default {
     components: {
-      LangSelect
+      LangSelect,
+      Carousel,
+      Slide
     },
     mounted () {
       if (process.browser) {
@@ -141,44 +177,188 @@
     data () {
       return {
         navbarActive: false,
-        navs: ['feature', 'tech', 'roadmap', 'team', 'faq']
+        navs: ['feature', 'tech', 'roadmap', 'team', 'faq'],
+        features: [
+          {
+            icon: require('~/assets/images/nofee/white@3x.png'),
+            key: 'noFee'
+          },
+          {
+            icon: require('~/assets/images/fast/white@3x.png'),
+            key: 'fast'
+          },
+          {
+            icon: require('~/assets/images/scalability/white@3x.png'),
+            key: 'scalability'
+          },
+          {
+            icon: require('~/assets/images/smartcontract/white@3x.png'),
+            key: 'contract'
+          },
+          {
+            icon: require('~/assets/images/multilayer/white@3x.png'),
+            key: 'multiLayer'
+          },
+          {
+            icon: require('~/assets/images/crop/white@3x.png'),
+            key: 'pruning'
+          }
+        ]
       }
     }
   }
 </script>
 
 <style lang="scss">
-  #home {
-    .navbar-menu {
-      &.is-active {
-        background: rgba(0,0,0,0.7);
-      }
-    }
-  }
+  $nav-item-size: 1.25rem;
 
-  .particles-js-canvas-el {
-    position: absolute;
-    top: 0;
-  }
-
-  .vue-typer {
-    font-size: 50px;
-    .custom.char {
-      color: white;
-      &.typed {
-        color: white;
-      }
-      &.selected {
-        background: transparent;
-      }
-      &.erased {
-        background: transparent;
-      }
+  .page-home {
+    .particles-js-canvas-el {
+      position: absolute;
+      top: 0;
     }
 
-    .custom.caret {
-      background-color: dodgerblue;
-      width: 5px;
+    #home {
+      background: rgba(1,52,98, 1);
+      color: rgba(255,255,255,0.9);
+      .hero-head {
+        z-index: 100000;
+      }
+      .hero-body {
+        z-index: 8;
+        .container {
+          text-align: center;
+        }
+        .hero-btn-wrapper {
+          margin-top: 4rem;
+          padding: 0;
+          .button {
+            height: 4.44rem;
+            padding-right: (43rem/16);
+            padding-left: (43rem/16);
+            font-size: 1.88rem * 0.8;
+            width: (260rem/16);
+            color: rgba(45,45,45,1);
+            border: none;
+            line-height: 2.25rem;
+
+            &:hover {
+              color: rgba(255,255,255, 1);
+              background: rgba(54, 130, 222, 1)
+            }
+            &:focus {
+              border: none;
+            }
+          }
+        }
+      }
+      .home-navbar {
+        height: 130px;
+        font-size: $nav-item-size;
+        & > .container {
+          &.is-active {
+            background: rgba(1,52,98,1);
+            .navbar-brand {
+              border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            .navbar-menu {
+              background: rgba(1,52,98,1);
+            }
+            .nav-item {
+              color: rgba(255,255,255,0.7);
+            }
+          }
+        }
+        .nav-item {
+          font-size: $nav-item-size;
+          padding-left: 2rem;
+          padding-right: 2rem;
+          color: rgba(255,255,255,0.8);
+          &:last-child {
+            &:hover {
+              background: transparent;
+            }
+          }
+          &:hover {
+            color: rgba(255,255,255,1);
+            background: rgba(255,255,255, 0.05);
+          }
+          &.lang-btn {
+            .dropdown-trigger {
+              height: 40px;
+              button {
+                height: 40px;
+              }
+            }
+          }
+        }
+      }
+
+      .hero-body {
+        h1, h2 {
+          /*font-size: 4.06rem;*/
+          /*line-height: 5.63rem;*/
+        },
+        h2 {
+          color: rgba(255,255,255, 0.8)
+        }
+      }
+    }
+
+    #feature {
+      padding-top: 88px;
+      padding-bottom: 88px;
+      background: white;
+      .feature-item {
+        height: 336px;
+        .is-info {
+          background: rgba(54,130,222,1);
+          height: 100%;
+          color: white;
+          text-align: center;
+          &>h3 {
+            font-size: 1.5rem;
+          }
+          &>.feature-des {
+            color:rgba(255,255,255,0.9);
+            padding: 1rem;
+          }
+        }
+        .icon-wrapper {
+          text-align: center;
+          width: 100%;
+          &>img {
+            height: 5rem;
+            width: 5rem;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+          }
+        }
+      }
+    }
+
+    #tech {
+      background: rgba(247,247,247,1);
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      h2 {
+        margin-bottom: 4rem;
+        text-align: center;
+        font-size: 3.75rem;
+        color: #111111;
+        font-family: HelveticaNeue-Light;
+        font-weight: normal;
+      }
+
+      .tech-img-wrapper {
+        height: 30rem;
+        width: 100%;
+        background: rgba(0,0,0,0.1);
+        img {
+          height: 30rem;
+          width: 100%;
+        }
+      }
     }
   }
 

@@ -11,11 +11,13 @@ console.log(generateRoutes)
 
 module.exports = {
   head: {
-    title: 'Vite',
+    title: 'Vite · Fast, No Fee, Scalability Contract Platform',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      {charset: 'utf-8'},
+      {name: 'description', content: 'Vite is a fast, no fee and scalability content platform'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {name: 'author', content: 'vite lab'},
+      {name: 'keywords', content: 'vite,crypto,dag,bitcoin,vitecoin,contract platform'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
