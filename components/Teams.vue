@@ -1,15 +1,16 @@
 <template>
   <div class="columns is-multiline">
-    <div class="column item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile" v-for="item in teams">
+    <div class="column item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile hvr-float-shadow"
+         v-for="item in teams">
       <div class="is-info">
         <figure class="image is-square">
           <img src="https://avatars1.githubusercontent.com/u/28188208?s=400&v=4">
         </figure>
 
         <div class="description">
-          <h3>{{$t(`team.nameMap.${item.key}.position`)}}</h3>
-          <h4>{{$t(`team.nameMap.${item.key}.name`)}}</h4>
-          <div class="team-des">{{$t(`team.nameMap.${item.key}.description`)}}</div>
+          <h3 class="inview animated fadeInDown delay-0-500" v-in-viewport>{{$t(`team.nameMap.${item.key}.position`)}}</h3>
+          <h4 class="inview animated fadeInUp delay-0-500" v-in-viewport>{{$t(`team.nameMap.${item.key}.name`)}}</h4>
+          <div class="team-des inview animated flipInX delay-0-500" v-in-viewport>{{$t(`team.nameMap.${item.key}.description`)}}</div>
           <div class="item-footer">
             <a :href="url.url" target="_blank" :key="url.type" v-for="url in item.urls">
               <font-awesome-icon class="icon" :icon="getIcon(url.type)" />
@@ -81,6 +82,12 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "~assets/vars";
+
+  .hvr-float-shadow {
+    &:before {
+      background: none;
+    }
+  }
 
   .columns {
     margin: 0;

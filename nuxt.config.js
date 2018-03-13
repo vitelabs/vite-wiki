@@ -50,6 +50,15 @@ module.exports = {
       },
       'bulma': {
         active: false
+      },
+      'hover.css': {
+        active: false
+      },
+      'spacing': {
+        active: false
+      },
+      'vue-headroom': {
+        active: true
       }
     }],
     'nuxtent'

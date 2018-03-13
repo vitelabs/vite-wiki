@@ -1,8 +1,11 @@
 <template>
   <div class="timeline">
-    <ul>
-      <li class="li-spacer in-view" :class="{ 'is-finish': finished.indexOf(index) > -1 }" :key="item.time" v-for="(item, index) in timelines">
-        <div>
+    <ul v-in-viewport>
+      <li class="li-spacer in-view"
+          :class="{ 'is-finish': finished.indexOf(index) > -1 }"
+          :key="item.time"
+          v-for="(item, index) in timelines">
+        <div class="inview2 animated" :class="{'fadeInLeft': (index + 1) % 2 === 0, 'fadeInRight': (index + 1) % 2 === 1}">
           <span class="time">{{item.time}}</span>
           <p>
             {{item.description}}

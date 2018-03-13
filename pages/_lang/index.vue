@@ -1,10 +1,10 @@
 <template>
   <div class="page-home">
-    <section id="home" class="hero is-info is-fullheight" v-in-viewport.once>
+    <section id="home" class=" is-info is-fullheight " v-in-viewport.once>
       <!-- Hero header: will stick at the top -->
-      <div class="hero-head animated fadeIn delay-1-6" v-headroom>
+      <div class="hero-head animated fadeIn delay-1-6 headroom" v-headroom>
         <nav class="navbar home-navbar">
-          <div class="container is-widescreen" :class="{ 'is-active': navbarActive }">
+          <div class="container is-widescreen" :class="{ 'is-open': navbarActive }">
             <div class="navbar-brand">
               <a class="navbar-item" href="http://bulma.io">
                 <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
@@ -36,13 +36,13 @@
 
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
-          <div class="container">
-            <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch">
-              <h1>{{$t("home.header")}}</h1>
-              <h2>{{$t("home.contract")}}</h2>
+          <div class="container" v-in-viewport.once>
+            <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
+              <h1 class="inview2 delay-0-700 animated fadeInDown">{{$t("home.header")}}</h1>
+              <h2 class="inview2 delay-0-700 animated fadeInUp">{{$t("home.contract")}}</h2>
             </div>
-            <div class="hero-btn-wrapper">
-              <nuxt-link class="button" :to="`/${$i18n.locale}/wiki`" active-class="none">
+            <div class="hero-btn-wrapper inview1 delay-0-800 animated fadeInUp">
+              <nuxt-link class="button hvr-float-shadow" :to="`/${$i18n.locale}/wiki`" active-class="none">
                 {{$t('home.whitePaper')}}
               </nuxt-link>
             </div>
@@ -50,24 +50,26 @@
       </div>
     </section>
 
-    <section id="feature" class="hero" v-in-viewport.once>
-      <div class="container">
+    <section id="feature" class="hero">
+      <div class="container" v-in-viewport.once>
         <div class="columns is-multiline">
-          <div class="column feature-item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile" v-for="item in features">
-            <div class="is-info">
-              <div class="icon-wrapper">
+          <div class="column feature-item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile animated inview2"
+               :class="{'fadeInLeft': (index + 1) % 3 === 1,'fadeInRight': (index + 1) % 3 === 0, 'fadeInUp': (index + 1) % 3 === 2, 'delay-0-200': index <= 2, 'delay-2-900': index > 2 }"
+               v-for="(item, index) in features">
+            <div class="is-info" v-in-viewport>
+              <div class="icon-wrapper hvr-grow-rotate">
                 <img :src="item.icon"/>
               </div>
-              <h3>{{$t(`features.${item.key}.title`)}}</h3>
-              <div class="feature-des">{{$t(`features.${item.key}.description`)}}</div>
+              <h3 class="animated inview1 fadeInDown" >{{$t(`features.${item.key}.title`)}}</h3>
+              <div class="feature-des animated inview1 fadeInUp">{{$t(`features.${item.key}.description`)}}</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="tech" class="hero" v-in-viewport.once>
-      <div class="container">
+    <section id="tech" class="hero">
+      <div class="container" v-in-viewport.once>
           <h2 class="title section-title">
             Tech Details
           </h2>
@@ -91,21 +93,21 @@
       </div>
     </section>
 
-    <section id="roadmap" class="hero" v-in-viewport.once>
+    <section id="roadmap" class="hero">
       <div class="container">
-        <h2 class="title section-title">
+        <h2 class="title section-title animated fadeInUp inview" v-in-viewport>
           Roadmap
         </h2>
         <timeline></timeline>
       </div>
     </section>
 
-    <section id="team" class="hero" v-in-viewport.once>
+    <section id="team" class="hero">
       <div class="container">
-        <h2 class="title section-title">
+        <h2 class="title section-title inview animated fadeInDown delay-0-800" v-in-viewport>
           {{$t('team.title')}}
         </h2>
-        <div class="sub-title">
+        <div class="sub-title inview animated fadeInUp delay-0-800" v-in-viewport>
           {{$t('team.subTitle')}}
         </div>
         <teams></teams>
@@ -228,6 +230,7 @@
   @import "assets/vars.scss";
 
   $nav-item-size: 1.25rem;
+  $background-image: linear-gradient(-179deg, #032841 3%, #013462 100%);
 
   .page-home {
     .particles-js-canvas-el {
@@ -244,15 +247,41 @@
     }
 
     #home {
-      background-image: linear-gradient(-179deg, #032841 3%, #013462 100%);
+      background-image: $background-image;
       color: rgba(255,255,255,0.9);
+      .headroom {
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        transition: transform 0.4s ease;
+        &.headroom--top {
+          height: 8.125rem;
+          .navbar {
+            height: 8.125rem;
+          }
+        }
+        &.headroom--not-top {
+          .home-navbar {
+            .nav-item {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+
       .hero-head {
         z-index: 100000;
       }
       .hero-body {
         z-index: 8;
+        height: 100vh;
         .container {
           text-align: center;
+          margin-top: 10rem;
+          z-index: 100;
+          max-width: 50rem;
         }
         .hero-btn-wrapper {
           margin-top: 4rem;
@@ -266,10 +295,15 @@
             color: rgba(45,45,45,1);
             border: none;
             line-height: 2.25rem;
+            display: inline-flex;
+
+            &:before {
+              background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
+            }
 
             &:hover {
               color: rgba(255,255,255, 1);
-              background: rgba(54, 130, 222, 1)
+              background: rgba(54, 130, 222, 1);
             }
             &:focus {
               border: none;
@@ -278,10 +312,10 @@
         }
       }
       .home-navbar {
-        height: 130px;
+        /*height: 130px;*/
         font-size: $nav-item-size;
         & > .container {
-          &.is-active {
+          &.is-open {
             background: rgba(1,52,98,1);
             .navbar-brand {
               border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -308,6 +342,12 @@
             color: rgba(255,255,255,1);
             background: rgba(255,255,255, 0.05);
           }
+
+          &.is-active {
+            color: white;
+            background: $light-blue;
+          }
+
           &.lang-btn {
             .dropdown-trigger {
               height: 40px;
@@ -365,7 +405,6 @@
       }
     }
 
-
     #tech {
       background: rgba(247,247,247,1);
       padding-top: 4rem;
@@ -409,8 +448,10 @@
     #roadmap {
       padding-top: 4rem;
       padding-bottom: 4rem;
-      .container {
-        margin: 0;
+      @include mobile {
+        .container {
+          margin: 0;
+        }
       }
       h2 {
         margin-bottom: 4rem;
@@ -447,14 +488,6 @@
     }
   }
 
-  .headroom {
-    /*position: fixed;*/
-    /*right: 0;*/
-    /*left: 0;*/
-    /*top: 0;*/
-    /*z-index: 1;*/
-    transition: transform 0.4s ease;
-  }
   .headroom.headroom--pinned {
     transform: translateY(0);
   }
@@ -462,7 +495,7 @@
     transform: translateY(-100%);
   }
   nav.navbar {
-    transition: background-color 0.4s ease;
+    transition: background-color 0.5s ease;
     background-color: rgba(0, 0, 0, 0.2);
   }
   .headroom.headroom--unpinned>nav.navbar,
@@ -470,6 +503,6 @@
     background-color: transparent;
   }
   .headroom.headroom--pinned.headroom--not-top>nav.navbar {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 </style>
