@@ -1,8 +1,5 @@
-// 1. Import the initial variables
-@import "~bulma/sass/utilities/initial-variables";
-@import "~bulma/sass/utilities/mixins";
+@import "vars";
+
 @import "~bulma/sass/utilities/functions";
 
-$gap:32px;
-$fullhd:1280px + (2 * $gap);
 @import "~bulma";

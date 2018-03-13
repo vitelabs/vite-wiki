@@ -2,7 +2,8 @@ import config from '~/config.js'
 
 export const state = () => ({
   locales: config.langs.map(item => item.key),
-  locale: 'en'
+  locale: 'en',
+  loadedLangs: ['en']
 })
 
 export const mutations = {

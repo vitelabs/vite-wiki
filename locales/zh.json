@@ -39,6 +39,62 @@
     }
   },
   "tech": {
-    "title": "Tech Details"
+    "title": "Tech Details",
+    "dag": {
+      "title": "DAG ledger",
+      "description": "Vite账本结构不是基于Block Chain的，其主体是一个由伴生的Request Block和Reponse Block构成的树型结构，这和nano的Block Lattice非常相似，考虑到Block之间存在的关系，整个账本的结构实际上是一个DAG。普通账户：能生成交易的Request Block和Response Block合约账户：不能生成交易的Request Block，只能生成Response Block。"
+    },
+    "snapshotChain": {
+      "title": "Snapshot chain",
+      "description": "合约账户的Response Block和普通账户的Response Block写入不一样，合约账户没有私钥，所以任何人都可以写入，为了防止意外频繁的分叉。我们往引入一条主链，我们称为：Snapshot chain。"
+    }
+  },
+  "roadmap": {
+    "timelines": [
+      {
+        "time": "2018 三月",
+        "description": "asdfasdfasdfasdfasdf"
+      },
+      {
+        "time": "2018 四月",
+        "description": "asdfasdfasdfasdfasdf"
+      },
+      {
+        "time": "2018 五月",
+        "description": "asdfasdfasdfasdfasdf"
+      }
+    ]
+  },
+  "team": {
+    "title": "Creative Team",
+    "subTitle": "我们的阿萨德离开房间啊克鲁赛德发送到了开发商的发",
+    "nameMap": {
+      "liuchunming": {
+        "name": "刘春明",
+        "position": "CEO",
+        "description": "Google Tech Lead, Cofounder & VP of Yunrang Technology, Senior Engineering Director at JD.com, Cofounder & CEO of Coinport Exchange, Cofounder & VP of Hygene Online, Senior Director & Blockchain Researcher of Zhongan Technology"
+      }
+    }
+  },
+  "faq": {
+    "title": "FAQ",
+    "questions": [
+      {
+        "question": "清完倒垃圾的说法冻死了开发商垫付？",
+        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+      },
+      {
+        "question": "清完倒垃圾的说法冻死了开发商垫付？",
+        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+      },
+      {
+        "question": "清完倒垃圾的说法冻死了开发商垫付？",
+        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+      },
+      {
+        "question": "清完倒垃圾的说法冻死了开发商垫付？",
+        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+      }
+    ]
   }
 }

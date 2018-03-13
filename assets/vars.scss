@@ -1,0 +1,7 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/mixins";
+
+$fullhd:1280px + (2 * $gap);
+$gap:32px;
+$dark-blue: #032841;
+$light-blue: rgba(54,130,222,1);

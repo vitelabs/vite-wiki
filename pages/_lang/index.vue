@@ -50,7 +50,7 @@
       </div>
     </section>
 
-    <section id="feature" class="hero is-fullheight" v-in-viewport.once>
+    <section id="feature" class="hero" v-in-viewport.once>
       <div class="container">
         <div class="columns is-multiline">
           <div class="column feature-item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile" v-for="item in features">
@@ -66,67 +66,60 @@
       </div>
     </section>
 
-    <section id="tech" class="hero is-fullheight" v-in-viewport.once>
+    <section id="tech" class="hero" v-in-viewport.once>
       <div class="container">
-          <h2 class="title">
+          <h2 class="title section-title">
             Tech Details
           </h2>
-          <div>
+          <no-ssr>
             <carousel :per-page="1" :autoplay="false">
-              <slide>
-                  <div class="columns">
-                    <div class="column tech-img-wrapper">
-                      <img src="lllllll" alt="">
-                    </div>
-                    <div class="column">
-                      <h3>DAG Ledger</h3>
-                      <p>
-                        adflkajdslfjasdlkfjaklsdfjklas\a
-                        asdflajsdlfjasdlf
-                        asdflajsdflkafsd
-                      </p>
+              <slide :key="item.key" v-for="item in techDetails">
+                <div class="columns tech-item-wrapper">
+                  <div class="column">
+                    <div class="tech-img-wrapper image">
+                      <img :src="item.img" alt="">
                     </div>
                   </div>
-              </slide>
-              <slide>
-                Slide 2 Content
+                  <div class="column tech-item-detail">
+                    <h3>{{$t(`tech.${item.key}.title`)}}</h3>
+                    <p>{{$t(`tech.${item.key}.description`)}}</p>
+                  </div>
+                </div>
               </slide>
             </carousel>
-          </div>
+          </no-ssr>
       </div>
     </section>
 
-    <section id="roadmap" class="hero is-success is-medium" v-in-viewport.once>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title is-1 animated inview3 tada delay-0-5">
-            Roadmap
-          </h1>
+    <section id="roadmap" class="hero" v-in-viewport.once>
+      <div class="container">
+        <h2 class="title section-title">
+          Roadmap
+        </h2>
+        <timeline></timeline>
+      </div>
+    </section>
+
+    <section id="team" class="hero" v-in-viewport.once>
+      <div class="container">
+        <h2 class="title section-title">
+          {{$t('team.title')}}
+        </h2>
+        <div class="sub-title">
+          {{$t('team.subTitle')}}
         </div>
+        <teams></teams>
       </div>
     </section>
 
-    <section id="team" class="hero is-success is-medium" v-in-viewport.once>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title is-1 animated inview3 tada delay-0-5">
-            Team
-          </h1>
-        </div>
+    <section id="faq" class="hero" v-in-viewport.once>
+      <div class="container">
+        <h2 class="title section-title">
+          {{$t('faq.title')}}
+        </h2>
+        <faq></faq>
       </div>
     </section>
-
-    <section id="faq" class="hero is-success is-medium" v-in-viewport.once>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title is-1 animated inview3 tada delay-0-5">
-            Faq
-          </h1>
-        </div>
-      </div>
-    </section>
-
-
 
     <footer class="footer">
       <div class="container">
@@ -145,7 +138,6 @@
         </div>
       </div>
     </footer>
-
   </div>
 </template>
 
@@ -153,8 +145,11 @@
   import Vue from 'vue'
   import { Carousel, Slide } from 'vue-carousel'
   import LangSelect from '~/components/LangSelect.vue'
+  import Timeline from '~/components/Timeline.vue'
+  import Teams from '~/components/Teams.vue'
+  import Faq from '~/components/FAQ'
 
-
+  // Only run on brower
   if (process.browser) {
     require('particles.js')
     const VueTyper = require('vue-typer').VueTyper
@@ -165,7 +160,10 @@
     components: {
       LangSelect,
       Carousel,
-      Slide
+      Slide,
+      Timeline,
+      Teams,
+      Faq
     },
     mounted () {
       if (process.browser) {
@@ -203,6 +201,23 @@
             icon: require('~/assets/images/crop/white@3x.png'),
             key: 'pruning'
           }
+        ],
+        techDetails: [
+          {
+            img: require('~/assets/images/bg.jpg'),
+            key: 'dag',
+            url: ''
+          },
+          {
+            img: require('~/assets/images/bg.jpg'),
+            key: 'snapshotChain',
+            url: ''
+          },
+          {
+            img: require('~/assets/images/bg.jpg'),
+            key: 'dpos',
+            url: ''
+          }
         ]
       }
     }
@@ -210,6 +225,8 @@
 </script>
 
 <style lang="scss">
+  @import "assets/vars.scss";
+
   $nav-item-size: 1.25rem;
 
   .page-home {
@@ -218,8 +235,16 @@
       top: 0;
     }
 
+    .section-title {
+      text-align: center;
+      font-size: 3.75rem;
+      color: #111111;
+      font-family: HelveticaNeue-Light;
+      font-weight: normal;
+    }
+
     #home {
-      background: rgba(1,52,98, 1);
+      background-image: linear-gradient(-179deg, #032841 3%, #013462 100%);
       color: rgba(255,255,255,0.9);
       .hero-head {
         z-index: 100000;
@@ -309,6 +334,9 @@
       padding-top: 88px;
       padding-bottom: 88px;
       background: white;
+      .columns {
+        margin: 0;
+      }
       .feature-item {
         height: 336px;
         .is-info {
@@ -337,37 +365,94 @@
       }
     }
 
+
     #tech {
       background: rgba(247,247,247,1);
       padding-top: 4rem;
       padding-bottom: 4rem;
-      h2 {
-        margin-bottom: 4rem;
-        text-align: center;
-        font-size: 3.75rem;
-        color: #111111;
-        font-family: HelveticaNeue-Light;
-        font-weight: normal;
-      }
-
-      .tech-img-wrapper {
-        height: 30rem;
-        width: 100%;
-        background: rgba(0,0,0,0.1);
-        img {
-          height: 30rem;
+      @include mobile {
+        & > .container {
           width: 100%;
         }
+      }
+
+      h2 {
+        margin-bottom: 4rem;
+      }
+      .tech-item-wrapper {
+        padding: 1rem;
+        .tech-img-wrapper {
+          height: 30rem;
+          img {
+            height: 30rem;
+            width: 100%;
+          }
+        }
+        .tech-item-detail {
+          &>h3 {
+            font-size: 3.13rem;
+            color: #111111;
+            line-height: 3.81rem;
+            font-weight: normal;
+            margin-bottom: 1.66rem;
+          }
+          &>p {
+            line-height: 2.34rem;
+            color: #111111;
+            font-size: 1.56rem;
+            font-weight: 200;
+          }
+        }
+      }
+    }
+
+    #roadmap {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      .container {
+        margin: 0;
+      }
+      h2 {
+        margin-bottom: 4rem;
+      }
+    }
+
+    #team {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      .section-title {
+        margin-bottom: 0.63rem;
+      }
+      .sub-title {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        overflow: hidden;
+        font-family: HelveticaNeue-Light;
+        font-size: 1.56rem;
+        color: #111111;
+        text-align: center;
+        line-height: 2.34rem;
+        font-weight: 300;
+        margin-bottom: 4.44rem;
+      }
+    }
+
+    #faq {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      background: rgba(214,230,247,1);;
+      .section-title {
+        margin-bottom: 0.63rem;
       }
     }
   }
 
   .headroom {
-    position: fixed;
-    right: 0;
-    left: 0;
-    top: 0;
-    z-index: 1;
+    /*position: fixed;*/
+    /*right: 0;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*z-index: 1;*/
     transition: transform 0.4s ease;
   }
   .headroom.headroom--pinned {
