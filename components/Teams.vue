@@ -1,72 +1,96 @@
 <template>
-  <div class="columns is-multiline">
+  <div class="columns is-multiline" v-in-viewport>
     <div class="column item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile hvr-float-shadow"
          v-for="item in teams">
       <div class="is-info">
         <figure class="image is-square">
-          <img src="https://avatars1.githubusercontent.com/u/28188208?s=400&v=4">
+          <img :src="item.img">
         </figure>
 
         <div class="description">
-          <h3 class="inview animated fadeInDown delay-0-500" v-in-viewport>{{$t(`team.nameMap.${item.key}.position`)}}</h3>
-          <h4 class="inview animated fadeInUp delay-0-500" v-in-viewport>{{$t(`team.nameMap.${item.key}.name`)}}</h4>
-          <div class="team-des inview animated flipInX delay-0-500" v-in-viewport>{{$t(`team.nameMap.${item.key}.description`)}}</div>
+          <h3 class="inview4 animated fadeInDown delay-0-500">{{$t(`team.nameMap.${item.key}.position`)}}</h3>
+          <h4 class="inview4 animated fadeInUp delay-0-500">{{$t(`team.nameMap.${item.key}.name`)}}</h4>
+          <div class="team-des">{{$t(`team.nameMap.${item.key}.description`)}}</div>
           <div class="item-footer">
-            <a :href="url.url" target="_blank" :key="url.type" v-for="url in item.urls">
-              <font-awesome-icon class="icon" :icon="getIcon(url.type)" />
+            <a :href="url.url" target="_blank" :key="url.url" v-for="url in item.urls">
+              <fa-icon class="icon" :icon="url.icon" />
             </a>
           </div>
         </div>
 
       </div>
     </div>
+
+    <div class="sub-team" v-in-viewport>
+      <div class="column item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile hvr-float-shadow"
+           v-for="item in teams2">
+        <div class="is-info">
+          <div class="description">
+            <h3 class="inview4 animated fadeInDown delay-0-500">{{$t(`team.nameMap.${item.key}.position`)}}</h3>
+            <h4 class="inview4 animated fadeInUp delay-0-500">{{$t(`team.nameMap.${item.key}.name`)}}</h4>
+            <div class="team-des">{{$t(`team.nameMap.${item.key}.description`)}}</div>
+            <div class="item-footer">
+              <a :href="url.url" target="_blank" :key="url.url" v-for="url in item.urls">
+                <fa-icon class="icon" :icon="url.icon" />
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/babel">
-  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-  import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
-  import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
-  import faLinkin from '@fortawesome/fontawesome-free-brands/faLinkedin'
-
   export default {
-    components: {
-      FontAwesomeIcon
-    },
-    computed: {
-      fatwitter () {
-        return faTwitter
-      },
-      fagithub () {
-        return faGithub
-      },
-      falinkin () {
-        return faLinkin
-      }
-    },
     data: function () {
       return {
         teams: [
           {
-            img: '',
+            img: 'https://avatars1.githubusercontent.com/u/28188208?s=400&v=4',
             key: 'liuchunming',
             urls: [
               {
-                type: 'twitter',
+                icon: ['fab', 'twitter'],
                 url: 'https://baidu.com'
               },
               {
-                type: 'github',
+                icon: ['fab', 'github'],
                 url: 'https://baidu.com'
               }
             ]
           },
           {
-            img: '',
+            img: 'https://avatars1.githubusercontent.com/u/28188208?s=400&v=4',
             key: 'liuchunming'
           },
           {
-            img: '',
+            img: 'https://avatars1.githubusercontent.com/u/28188208?s=400&v=4',
+            key: 'liuchunming'
+          }
+        ],
+        teams2: [
+          {
+            img: 'https://avatars1.githubusercontent.com/u/28188208?s=400&v=4',
+            key: 'liuchunming',
+            urls: [
+              {
+                icon: ['fab', 'twitter'],
+                url: 'https://baidu.com'
+              },
+              {
+                icon: ['fab', 'github'],
+                url: 'https://baidu.com'
+              }
+            ]
+          },
+          {
+            img: 'https://avatars1.githubusercontent.com/u/28188208?s=400&v=4',
+            key: 'liuchunming'
+          },
+          {
+            img: 'https://avatars1.githubusercontent.com/u/28188208?s=400&v=4',
             key: 'liuchunming'
           }
         ]
@@ -90,7 +114,11 @@
   }
 
   .columns {
-    margin: 0;
+    .sub-team {
+      .is-info {
+        background-color: #F7F7F7;
+      }
+    }
 
     .is-info {
       border: 1px solid #EAEAEA;

@@ -1,6 +1,6 @@
 <template>
   <div class="page-home">
-    <section id="home" class=" is-info is-fullheight " v-in-viewport.once>
+    <section id="home" class="is-info is-fullheight " v-in-viewport>
       <!-- Hero header: will stick at the top -->
       <div class="hero-head animated fadeIn delay-1-6 headroom" v-headroom>
         <nav class="navbar home-navbar">
@@ -50,18 +50,18 @@
       </div>
     </section>
 
-    <section id="feature" class="hero">
+    <section id="feature" class="section">
       <div class="container" v-in-viewport.once>
-        <div class="columns is-multiline">
-          <div class="column feature-item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile animated inview2"
-               :class="{'fadeInLeft': (index + 1) % 3 === 1,'fadeInRight': (index + 1) % 3 === 0, 'fadeInUp': (index + 1) % 3 === 2, 'delay-0-200': index <= 2, 'delay-2-900': index > 2 }"
+        <div class="columns is-multiline" v-in-viewport>
+          <div class="column feature-item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile animated inview2 delay-0-500"
+               :class="{'fadeInLeft': (index + 1) % 3 === 1,'fadeInRight': (index + 1) % 3 === 0, 'fadeInUp': (index + 1) % 3 === 2}"
                v-for="(item, index) in features">
-            <div class="is-info" v-in-viewport>
+            <div class="is-info">
               <div class="icon-wrapper hvr-grow-rotate">
                 <img :src="item.icon"/>
               </div>
-              <h3 class="animated inview1 fadeInDown" >{{$t(`features.${item.key}.title`)}}</h3>
-              <div class="feature-des animated inview1 fadeInUp">{{$t(`features.${item.key}.description`)}}</div>
+              <h3 class="animated inview3 fadeInDown" >{{$t(`features.${item.key}.title`)}}</h3>
+              <div class="feature-des animated inview3 fadeInUp">{{$t(`features.${item.key}.description`)}}</div>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
       </div>
     </section>
 
-    <section id="team" class="hero">
+    <section id="team" class="section">
       <div class="container">
         <h2 class="title section-title inview animated fadeInDown delay-0-800" v-in-viewport>
           {{$t('team.title')}}
@@ -114,9 +114,9 @@
       </div>
     </section>
 
-    <section id="faq" class="hero" v-in-viewport.once>
+    <section id="faq" class="section">
       <div class="container">
-        <h2 class="title section-title">
+        <h2 class="title section-title inview animated fadeInUp delay-0-800" v-in-viewport>
           {{$t('faq.title')}}
         </h2>
         <faq></faq>
@@ -125,18 +125,17 @@
 
     <footer class="footer">
       <div class="container">
-        <div class="content has-text-centered">
-          <p>
-            <strong>Bulma</strong> by
-            <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed
-            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-          </p>
-          <p>
-            <a class="icon" href="https://github.com/jgthms/bulma">
-              <i class="fa fa-github"></i>
-            </a>
-          </p>
+        <div class="columns">
+          <div class="column icon-wrapper">
+            <div class="links-wrapper">
+              <fa-icon :icon="['fab', 'github']"></fa-icon>
+              <fa-icon :icon="['fab', 'discord']"></fa-icon>
+              <fa-icon :icon="['fab', 'twitter']"></fa-icon>
+            </div>
+          </div>
+          <div class="column">
+
+          </div>
         </div>
       </div>
     </footer>
@@ -154,8 +153,6 @@
   // Only run on brower
   if (process.browser) {
     require('particles.js')
-    const VueTyper = require('vue-typer').VueTyper
-    Vue.component('vue-typer', VueTyper)
   }
 
   export default {
@@ -269,6 +266,11 @@
             }
           }
         }
+        &.headroom--unpinned, &.headroom--not-top {
+          .navbar {
+            background-color: rgba(0,0,0,0.5);
+          }
+        }
       }
 
       .hero-head {
@@ -312,7 +314,7 @@
         }
       }
       .home-navbar {
-        /*height: 130px;*/
+        background-color: transparent;
         font-size: $nav-item-size;
         & > .container {
           &.is-open {
@@ -374,9 +376,6 @@
       padding-top: 88px;
       padding-bottom: 88px;
       background: white;
-      .columns {
-        margin: 0;
-      }
       .feature-item {
         height: 336px;
         .is-info {
@@ -465,8 +464,6 @@
         margin-bottom: 0.63rem;
       }
       .sub-title {
-        padding-left: 1rem;
-        padding-right: 1rem;
         overflow: hidden;
         font-family: HelveticaNeue-Light;
         font-size: 1.56rem;
@@ -483,20 +480,24 @@
       padding-bottom: 4rem;
       background: rgba(214,230,247,1);;
       .section-title {
-        margin-bottom: 0.63rem;
+        margin-bottom: 3.69rem;
       }
+    }
+
+    .footer {
+      padding-top: 5.44rem;
     }
   }
 
   .headroom.headroom--pinned {
     transform: translateY(0);
+    &.headroom--top {
+      transform: none;
+      background-color: transparent;
+    }
   }
   .headroom.headroom--unpinned {
     transform: translateY(-100%);
-  }
-  nav.navbar {
-    transition: background-color 0.5s ease;
-    background-color: rgba(0, 0, 0, 0.2);
   }
   .headroom.headroom--unpinned>nav.navbar,
   .headroom.headroom--top>nav.navbar {

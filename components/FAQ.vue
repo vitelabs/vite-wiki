@@ -1,8 +1,8 @@
 <template>
   <div class="columns is-multiline">
-    <div class="column item is-destop is-6-desktop is-12-tablet is-6-widescreen is-12-mobile" v-for="item in faqs">
+    <div class="column item is-destop is-6-desktop is-12-tablet is-6-widescreen is-12-mobile" v-for="(item, index) in faqs">
       <div class="is-info">
-        <h3>{{item.question}}</h3>
+        <h3> {{`${index + 1}. ${item.question}`}}</h3>
         <div class="answer">
           {{item.answer}}
         </div>
@@ -29,7 +29,6 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   .is-info {
-    padding: 1rem;
     h3 {
       font-size: 1.56rem;
       color: #111111;

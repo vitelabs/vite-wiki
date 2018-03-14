@@ -121,6 +121,7 @@
             font-size: 1.88rem;
             line-height: 2.19rem;
             color: #666666;
+            word-wrap: break-word;
           }
         }
       }
