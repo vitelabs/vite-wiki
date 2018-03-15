@@ -36,6 +36,9 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   $timelineColor: #3381D3;
+  $dot-size: 2.5rem;
+  $dot-gap:  0.95;
+  $dot-size-inner: (2.5rem * $dot-gap);
 
   .timeline {
     padding: 1rem;
@@ -62,16 +65,17 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
+            width: $dot-size;
+            height: $dot-size;
             border-radius: 50%;
             top: 0px;
-            background: transparent;
+            background: white;
             border: 1px solid #018DFF;
           }
           &::after {
-            width: 38px;
-            height: 38px;
+            width: $dot-size-inner;
+            height: $dot-size-inner;
+            top: ($dot-size * ((1 - $dot-gap) / 2));
             background: #018DFF;
             border: 3px solid #F8F8F8;
           }
@@ -111,14 +115,13 @@
           .time {
             margin-top: -20px;
             display: block;
-            font-size: 1.56rem;
-            line-height: 1.88rem;
+            font-size: 1.13rem;
+            line-height: 1.38rem;
             text-transform: uppercase;
-            margin-bottom: 8px;
             color: #666666;
           }
           & > p {
-            font-size: 1.88rem;
+            font-size: 1.13rem;
             line-height: 2.19rem;
             color: #666666;
             word-wrap: break-word;

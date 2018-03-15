@@ -133,22 +133,7 @@
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="container">
-        <div class="columns">
-          <div class="column icon-wrapper">
-            <div class="links-wrapper">
-              <fa-icon :icon="['fab', 'github']"></fa-icon>
-              <fa-icon :icon="['fab', 'discord']"></fa-icon>
-              <fa-icon :icon="['fab', 'twitter']"></fa-icon>
-            </div>
-          </div>
-          <div class="column">
-
-          </div>
-        </div>
-      </div>
-    </footer>
+    <v-footer></v-footer>
   </div>
 </template>
 
@@ -159,6 +144,7 @@
   import Teams from '~/components/Teams.vue'
   import Faq from '~/components/FAQ'
   import Token from '~/components/Token.vue'
+  import Footer from '~/components/Footer.vue'
 
   // Only run on brower
   if (process.browser) {
@@ -173,7 +159,8 @@
       Timeline,
       Teams,
       Faq,
-      Token
+      Token,
+      VFooter: Footer
     },
     mounted () {
       if (process.browser) {
@@ -237,8 +224,10 @@
 <style lang="scss">
   @import "assets/vars.scss";
 
-  $nav-item-size: 1.25rem;
+  $nav-item-size: 1rem;
   $background-image: linear-gradient(-179deg, #032841 3%, #013462 100%);
+  $nav-height: (130rem/16);
+  $font-family-bold: HelveticaNeue-Bold,HelveticaNeue;
 
   .page-home {
     .particles-js-canvas-el {
@@ -248,10 +237,11 @@
 
     .section-title {
       text-align: center;
-      font-size: 3.75rem;
+      font-size: 2.5rem;
       color: #111111;
       font-family: HelveticaNeue-Light;
       font-weight: normal;
+      line-height: 3.06rem;
     }
 
     #home {
@@ -265,9 +255,9 @@
         z-index: 1;
         transition: transform 0.4s ease;
         &.headroom--top {
-          height: 8.125rem;
+          height: $nav-height;
           .navbar {
-            height: 8.125rem;
+            height: $nav-height;
           }
         }
         &.headroom--not-top {
@@ -292,7 +282,7 @@
         height: 100vh;
         .container {
           text-align: center;
-          margin-top: 10rem;
+          margin-top: 13.13rem;
           z-index: 100;
           max-width: 50rem;
         }
@@ -300,15 +290,18 @@
           margin-top: 4rem;
           padding: 0;
           .button {
-            height: 4.44rem;
-            padding-right: (43rem/16);
-            padding-left: (43rem/16);
-            font-size: 1.88rem * 0.8;
-            width: (260rem/16);
+            height: 3.75rem;
+            font-size: 1.13rem;
+            width: 13.44rem;
             color: rgba(45,45,45,1);
             border: none;
-            line-height: 2.25rem;
+            line-height: 1.38rem;
             display: inline-flex;
+
+            @include mobile {
+              height: 3rem;
+              font-size: 1rem;
+            }
 
             &:before {
               background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
@@ -374,21 +367,33 @@
 
       .hero-body {
         h1, h2 {
-          /*font-size: 4.06rem;*/
-          /*line-height: 5.63rem;*/
+          font-size: 3.44rem;
+          line-height: 5rem;
+          @include mobile {
+            font-size: 2rem;
+          }
+          @include tablet {
+            font-size: 2.5rem;
+          }
+          @include desktop {
+            font-size: 3rem;
+          }
+          @include fullhd {
+            font-size: 3.3rem;
+          }
         },
         h2 {
-          color: rgba(255,255,255, 0.8)
+          color: rgba(255,255,255, 0.8);
         }
       }
     }
 
     #feature {
-      padding-top: 88px;
-      padding-bottom: 88px;
+      padding-top: 6.25rem;
+      padding-bottom: 6.25rem;
       background: white;
       .feature-item {
-        height: 336px;
+        height: 21.31rem;
         .is-info {
           background: rgba(54,130,222,1);
           height: 100%;
@@ -400,6 +405,7 @@
           &>.feature-des {
             color:rgba(255,255,255,0.9);
             padding: 1rem;
+            font-size: 1rem;
           }
         }
         .icon-wrapper {
@@ -439,16 +445,16 @@
         }
         .tech-item-detail {
           &>h3 {
-            font-size: 3.13rem;
+            font-size: 1.5rem;
             color: #111111;
-            line-height: 3.81rem;
+            line-height: 1.81rem;
             font-weight: normal;
-            margin-bottom: 1.66rem;
+            margin-bottom: 1.25rem;
           }
           &>p {
-            line-height: 2.34rem;
+            line-height: 1.75rem;
             color: #111111;
-            font-size: 1.56rem;
+            font-size: 1.13rem;
             font-weight: 200;
           }
         }
@@ -477,10 +483,10 @@
       .sub-title {
         overflow: hidden;
         font-family: HelveticaNeue-Light;
-        font-size: 1.56rem;
+        font-size: 1.13rem;
         color: #111111;
         text-align: center;
-        line-height: 2.34rem;
+        line-height: 1.75rem;
         font-weight: 300;
         margin-bottom: 4.44rem;
       }
@@ -495,8 +501,13 @@
       }
     }
 
-    .footer {
-      padding-top: 5.44rem;
+    #token {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      background-color: rgba(216,216,216, 0.2);
+      .section-title {
+        margin-bottom: 4rem;
+      }
     }
   }
 

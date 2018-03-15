@@ -40,7 +40,7 @@
     }
   },
   "tech": {
-    "title": "Tech Details",
+    "title": "核心技术",
     "dag": {
       "title": "DAG ledger",
       "description": "Vite账本结构不是基于Block Chain的，其主体是一个由伴生的Request Block和Reponse Block构成的树型结构，这和nano的Block Lattice非常相似，考虑到Block之间存在的关系，整个账本的结构实际上是一个DAG。普通账户：能生成交易的Request Block和Response Block合约账户：不能生成交易的Request Block，只能生成Response Block。"
@@ -68,28 +68,51 @@
     ]
   },
   "token": {
-    "title": "Token",
+    "title": "股权分配",
     "pie": {
-      "foundation": "Vite Lab 基金会",
-      "community": "社区基金",
-      "investor1": "第一轮融资",
-      "investor2": "第二轮融资",
-      "investor3": "第三轮融资"
+      "foundation": {
+        "name": "Vite Lab 基金会",
+        "des": "于阿拉丁拉力赛的风景, 阿斯兰的房间啊法拉盛地方卡迪夫，啊速度快放假啊考虑到是否按时，打飞机阿卡士大夫，as.dfasdf阿里斯顿发克里斯多夫拉手动阀水电费"
+      },
+      "community": {
+        "name": "社区基金",
+        "des": "aldfasdfjakldf奥斯卡的风景爱的色放"
+      },
+      "investor1": {
+        "name": "第一轮融资",
+        "des": "阿斯顿发扣水电费奥斯卡的风景啊"
+      },
+      "investor2": {
+        "name": "第二轮融资",
+        "des": "ad书法家阿卡丽时代峰峻卡迪夫"
+      },
+      "investor3": {
+        "name": "第三轮融资",
+        "des": "asdfasdfasdfasdf"
+      }
+    },
+    "detail": {
+      "initial": "初始发行币量",
+      "unit": "单位",
+      "consensus": "主链共识算法",
+      "blockTime": "主链出块时间",
+      "delegatedLimit": "主链代理节点数量",
+      "blockReward": "主链出块奖励"
     }
   },
   "team": {
-    "title": "Creative Team",
+    "title": "我们的团队",
     "subTitle": "我们的阿萨德离开房间啊克鲁赛德发送到了开发商的发",
     "nameMap": {
       "liuchunming": {
         "name": "刘春明",
         "position": "CEO",
-        "description": "Google Tech Lead, Cofounder & VP of Yunrang Technology, Senior Engineering Director at JD.com, Cofounder & CEO of Coinport Exchange, Cofounder & VP of Hygene Online, Senior Director & Blockchain Researcher of Zhongan Technology"
+        "description": "打算发送到发送到啊速度快放假啊扣水电费ADSL看风景啊"
       }
     }
   },
   "faq": {
-    "title": "FAQ",
+    "title": "问题答疑",
     "questions": [
       {
         "question": "清完倒垃圾的说法冻死了开发商垫付？",

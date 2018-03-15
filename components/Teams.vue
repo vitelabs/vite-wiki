@@ -145,7 +145,8 @@
       border-top: none;
       .team-des {
         padding: 1rem;
-        font-size: 1.2rem;
+        font-size: 1.13rem;
+        line-height: 1.75rem;
         color: #818181;
         text-align: center;
         font-weight: 300;

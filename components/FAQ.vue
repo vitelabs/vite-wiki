@@ -30,16 +30,16 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   .is-info {
     h3 {
-      font-size: 1.56rem;
+      font-size: 1.13rem;
       color: #111111;
-      line-height: 2.34rem;
-      margin-bottom: 1.88rem;
+      line-height: 1.75rem;
+      margin-bottom: 0.56rem;
     }
     .answer {
       font-family: HelveticaNeue-Light;
       font-weight: 300;
-      font-size: 1.56rem;
-      line-height: 2.34rem;
+      font-size: 1.13rem;
+      line-height: 1.75rem;
     }
   }
 </style>
