@@ -24,7 +24,7 @@ module.exports = {
   }),
   api: function (isStatic) {
     return {
-      browserBaseURL: isStatic ? 'http://localhost:5000' : '',
+      browserBaseURL: isStatic ? 'http://69.171.64.178:5000' : '',
       baseURL: 'http://localhost:3000'
     }
   },
