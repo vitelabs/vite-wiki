@@ -23,7 +23,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  loading: { color: 'cyan' },
+  loading: {
+    color: '#7FB2FE'
+  },
   build: {
     extractCSS: true,
     vendor: ['vue-i18n', 'babel-polyfill'],

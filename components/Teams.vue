@@ -21,21 +21,23 @@
       </div>
     </div>
 
-    <div class="sub-team" v-in-viewport>
-      <div class="column item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile hvr-float-shadow"
-           v-for="item in teams2">
-        <div class="is-info">
-          <div class="description">
-            <h3 class="inview4 animated fadeInDown delay-0-500">{{$t(`team.nameMap.${item.key}.position`)}}</h3>
-            <h4 class="inview4 animated fadeInUp delay-0-500">{{$t(`team.nameMap.${item.key}.name`)}}</h4>
-            <div class="team-des">{{$t(`team.nameMap.${item.key}.description`)}}</div>
-            <div class="item-footer">
-              <a :href="url.url" target="_blank" :key="url.url" v-for="url in item.urls">
-                <fa-icon class="icon" :icon="url.icon" />
-              </a>
+    <div class="sub-team column">
+      <div class="columns" v-in-viewport>
+        <div class="column item is-destop is-6-desktop is-6-tablet is-4-widescreen is-12-mobile hvr-float-shadow"
+             v-for="item in teams2">
+          <div class="is-info">
+            <div class="description">
+              <h3 class="inview4 animated fadeInDown delay-0-500">{{$t(`team.nameMap.${item.key}.position`)}}</h3>
+              <h4 class="inview4 animated fadeInUp delay-0-500">{{$t(`team.nameMap.${item.key}.name`)}}</h4>
+              <div class="team-des">{{$t(`team.nameMap.${item.key}.description`)}}</div>
+              <div class="item-footer">
+                <a :href="url.url" target="_blank" :key="url.url" v-for="url in item.urls">
+                  <fa-icon class="icon" :icon="url.icon" />
+                </a>
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </div>

@@ -48,22 +48,34 @@
     "snapshotChain": {
       "title": "Snapshot chain",
       "description": "合约账户的Response Block和普通账户的Response Block写入不一样，合约账户没有私钥，所以任何人都可以写入，为了防止意外频繁的分叉。我们往引入一条主链，我们称为：Snapshot chain。"
+    },
+    "dpos": {
+      "title": "共识算法",
+      "description": "TODO"
     }
   },
   "roadmap": {
     "title": "路线图",
     "timelines": [
       {
-        "time": "2018 三月",
-        "description": "asdfasdfasdfasdfasdf"
+        "time": "2018 二月月",
+        "description": "项目启动，设计技术架构，编写白皮书"
       },
       {
         "time": "2018 四月",
-        "description": "asdfasdfasdfasdfasdf"
+        "description": "第一轮融资，将出让30%的股权"
       },
       {
-        "time": "2018 五月",
-        "description": "asdfasdfasdfasdfasdf"
+        "time": "2018 八月",
+        "description": "测试网络上线，并进行第二轮融资，将出让20%的股权<br/>免费发放3%的Vite给loopring的持有者"
+      },
+      {
+        "time": "2018 九月",
+        "description": "主网上线，并进行第三轮融资，将出让10%的股权<br/>漏洞修复和节点程序优化"
+      },
+      {
+        "time": "2018 十二月",
+        "description": "测试网络上线智能合约功能"
       }
     ]
   },
@@ -72,23 +84,23 @@
     "pie": {
       "foundation": {
         "name": "Vite Lab 基金会",
-        "des": "于阿拉丁拉力赛的风景, 阿斯兰的房间啊法拉盛地方卡迪夫，啊速度快放假啊考虑到是否按时，打飞机阿卡士大夫，as.dfasdf阿里斯顿发克里斯多夫拉手动阀水电费"
+        "des": "该资金分为两部分：创始团队股份和期权池。TODO"
       },
       "community": {
         "name": "社区基金",
-        "des": "aldfasdfjakldf奥斯卡的风景爱的色放"
+        "des": "将来用于社区推广和【糖果】分发的资金池，计划将拿出一部分分发给loopring的持有用户"
       },
       "investor1": {
         "name": "第一轮融资",
-        "des": "阿斯顿发扣水电费奥斯卡的风景啊"
+        "des": "TODO"
       },
       "investor2": {
         "name": "第二轮融资",
-        "des": "ad书法家阿卡丽时代峰峻卡迪夫"
+        "des": "TODO"
       },
       "investor3": {
         "name": "第三轮融资",
-        "des": "asdfasdfasdfasdf"
+        "des": "TODO"
       }
     },
     "detail": {
@@ -102,12 +114,12 @@
   },
   "team": {
     "title": "我们的团队",
-    "subTitle": "我们的阿萨德离开房间啊克鲁赛德发送到了开发商的发",
+    "subTitle": "团队成员大部分来自于谷歌、微软、美团等互联网企业，创始团队是资深区块链创业者，和loopring团队有着十分深度的合作。",
     "nameMap": {
       "liuchunming": {
         "name": "刘春明",
         "position": "CEO",
-        "description": "打算发送到发送到啊速度快放假啊扣水电费ADSL看风景啊"
+        "description": "这里是刘春明的描述"
       }
     }
   },
@@ -115,20 +127,32 @@
     "title": "问题答疑",
     "questions": [
       {
-        "question": "清完倒垃圾的说法冻死了开发商垫付？",
-        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+        "question": "什么是Vite？",
+        "answer": "TODO"
       },
       {
-        "question": "清完倒垃圾的说法冻死了开发商垫付？",
-        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+        "question": "Vite和loopring团队是什么关系？",
+        "answer": "TODO"
       },
       {
-        "question": "清完倒垃圾的说法冻死了开发商垫付？",
-        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+        "question": "Vite相对与eth、eos、ada、nano有什么不一样的地方？",
+        "answer": "TODO"
       },
       {
-        "question": "清完倒垃圾的说法冻死了开发商垫付？",
-        "answer": "怀地方卡的说法就爱看了房间卡第三方刻录机啊的身份杰卡斯的福利卡惊世毒妃 阿斯兰的风景阿卡丽打扫房间"
+        "question": "Vite里的主链起到了什么作用？",
+        "answer": "TODO"
+      },
+      {
+        "question": "Snapshot Chain如何能做到区块缩减？",
+        "answer": "TODO"
+      },
+      {
+        "question": "Vite智能合约是如何实现？",
+        "answer": "TODO"
+      },
+      {
+        "question": "Vite主链上的DPOS和其他DPOS算法有什么不一样？",
+        "answer": "TODO"
       }
     ]
   }

@@ -15,17 +15,27 @@
             </a>
           </div>
         </div>
-        <div class="column links-wrapper">
-          <div>学习</div>
-          <ul>
-            <li><a href="">白皮书</a></li>
-            <li><a href="">白皮书</a></li>
-            <li><a href="">白皮书</a></li>
-            <li><a href="">白皮书</a></li>
-          </ul>
-        </div>
-        <div class="column links-wrapper">
-          <div>关于</div>
+        <div class="column">
+          <div class="columns is-mobile">
+            <div class="column links-wrapper is-half">
+              <div>学习</div>
+              <ul>
+                <li><a href="">TODO</a></li>
+                <li><a href="">TODO</a></li>
+                <li><a href="">TODO</a></li>
+                <li><a href="">TODO</a></li>
+              </ul>
+            </div>
+            <div class="column links-wrapper">
+              <div>关于</div>
+              <ul>
+                <li><a href="">TODO</a></li>
+                <li><a href="">TODO</a></li>
+                <li><a href="">TODO</a></li>
+                <li><a href="">TODO</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -42,10 +52,15 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  @import "~assets/vars";
+
   .footer {
     padding-top: 5.44rem;
     .icon-links-wrapper {
       font-size: 2rem;
+      @include mobile {
+        text-align: center;
+      }
       .icon {
         color: rgba(255,255,255,0.8);
         margin-left: 2rem;
@@ -59,6 +74,9 @@
     }
     .links-wrapper {
       line-height: 1.75rem;
+      @include mobile {
+        text-align: center;
+      }
       & > div {
         &:first-child {
           color: white;

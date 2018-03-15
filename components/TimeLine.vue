@@ -7,9 +7,7 @@
           v-for="(item, index) in timelines">
         <div class="inview2 animated" :class="{'fadeInLeft': (index + 1) % 2 === 0, 'fadeInRight': (index + 1) % 2 === 1}">
           <span class="time">{{item.time}}</span>
-          <p>
-            {{item.description}}
-          </p>
+          <p v-html="item.description"></p>
         </div>
       </li>
     </ul>

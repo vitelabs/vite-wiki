@@ -7,7 +7,6 @@
           <div class="container is-widescreen" :class="{ 'is-open': navbarActive }">
             <div class="navbar-brand">
               <a class="navbar-item" href="http://bulma.io">
-                <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
               </a>
               <div class="navbar-burger" @click="navbarActive = !navbarActive">
                 <span></span>
@@ -68,7 +67,7 @@
       </div>
     </section>
 
-    <section id="tech" class="hero">
+    <section id="tech" class="section">
       <div class="container" v-in-viewport.once>
           <h2 class="title section-title">
             {{$t('tech.title')}}
@@ -435,11 +434,12 @@
         margin-bottom: 4rem;
       }
       .tech-item-wrapper {
-        padding: 1rem;
         .tech-img-wrapper {
-          height: 30rem;
+          max-height: 30rem;
+          height: auto;
           img {
-            height: 30rem;
+            max-height: 30rem;
+            height: auto;
             width: 100%;
           }
         }
