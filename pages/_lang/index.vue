@@ -71,7 +71,7 @@
     <section id="tech" class="hero">
       <div class="container" v-in-viewport.once>
           <h2 class="title section-title">
-            Tech Details
+            {{$t('tech.title')}}
           </h2>
           <no-ssr>
             <carousel :per-page="1" :autoplay="false">
@@ -96,11 +96,21 @@
     <section id="roadmap" class="hero">
       <div class="container">
         <h2 class="title section-title animated fadeInUp inview" v-in-viewport>
-          Roadmap
+          {{$t('roadmap.title')}}
         </h2>
         <timeline></timeline>
       </div>
     </section>
+
+    <section id="token" class="section">
+      <div class="container">
+        <h2 class="title section-title animated fadeInUp inview" v-in-viewport>
+          {{$t('token.title')}}
+        </h2>
+        <token></token>
+      </div>
+    </section>
+
 
     <section id="team" class="section">
       <div class="container">
@@ -143,12 +153,12 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import { Carousel, Slide } from 'vue-carousel'
   import LangSelect from '~/components/LangSelect.vue'
   import Timeline from '~/components/Timeline.vue'
   import Teams from '~/components/Teams.vue'
   import Faq from '~/components/FAQ'
+  import Token from '~/components/Token.vue'
 
   // Only run on brower
   if (process.browser) {
@@ -162,7 +172,8 @@
       Slide,
       Timeline,
       Teams,
-      Faq
+      Faq,
+      Token
     },
     mounted () {
       if (process.browser) {
@@ -174,7 +185,7 @@
     data () {
       return {
         navbarActive: false,
-        navs: ['feature', 'tech', 'roadmap', 'team', 'faq'],
+        navs: ['feature', 'tech', 'roadmap', 'token', 'team', 'faq'],
         features: [
           {
             icon: require('~/assets/images/nofee/white@3x.png'),

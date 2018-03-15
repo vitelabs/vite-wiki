@@ -1430,6 +1430,26 @@ chardet@^0.4.0:
   version "0.4.2"
   resolved "http://registry.npm.taobao.org/chardet/download/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
 
+chart.js@^2.7.2:
+  version "2.7.2"
+  resolved "http://registry.npm.taobao.org/chart.js/download/chart.js-2.7.2.tgz#3c9fde4dc5b95608211bdefeda7e5d33dffa5714"
+  dependencies:
+    chartjs-color "^2.1.0"
+    moment "^2.10.2"
+
+chartjs-color-string@^0.5.0:
+  version "0.5.0"
+  resolved "http://registry.npm.taobao.org/chartjs-color-string/download/chartjs-color-string-0.5.0.tgz#8d3752d8581d86687c35bfe2cb80ac5213ceb8c1"
+  dependencies:
+    color-name "^1.0.0"
+
+chartjs-color@^2.1.0:
+  version "2.2.0"
+  resolved "http://registry.npm.taobao.org/chartjs-color/download/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
+  dependencies:
+    chartjs-color-string "^0.5.0"
+    color-convert "^0.5.3"
+
 check-types@^7.3.0:
   version "7.3.0"
   resolved "http://registry.npm.taobao.org/check-types/download/check-types-7.3.0.tgz#468f571a4435c24248f5fd0cb0e8d87c3c341e7d"
@@ -1570,6 +1590,10 @@ collection-visit@^1.0.0:
   dependencies:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
+
+color-convert@^0.5.3:
+  version "0.5.3"
+  resolved "http://registry.npm.taobao.org/color-convert/download/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
 
 color-convert@^1.3.0, color-convert@^1.8.2, color-convert@^1.9.0, color-convert@^1.9.1:
   version "1.9.1"
@@ -2168,6 +2192,16 @@ ecc-jsbn@~0.1.1:
   resolved "http://registry.npm.taobao.org/ecc-jsbn/download/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
   dependencies:
     jsbn "~0.1.0"
+
+echarts-amap@^1.0.0-rc.6:
+  version "1.0.0-rc.6"
+  resolved "http://registry.npm.taobao.org/echarts-amap/download/echarts-amap-1.0.0-rc.6.tgz#5782a74daee52ed44ce3f8f62577561783f09e16"
+
+echarts@^4.0.4:
+  version "4.0.4"
+  resolved "http://registry.npm.taobao.org/echarts/download/echarts-4.0.4.tgz#36aa8a47d33543d3dfe6a7bc1228ddc3a1e41157"
+  dependencies:
+    zrender "4.0.3"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -4257,6 +4291,10 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "http://registry.npm.taobao.org/mkdirp/download/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@^2.10.2:
+  version "2.21.0"
+  resolved "http://registry.npm.taobao.org/moment/download/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
 ms@2.0.0:
   version "2.0.0"
@@ -6861,6 +6899,12 @@ uuid@^3.0.0, uuid@^3.1.0:
   version "3.2.1"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
+v-charts@^1.16.5:
+  version "1.16.5"
+  resolved "http://registry.npm.taobao.org/v-charts/download/v-charts-1.16.5.tgz#1a92a0cc52fd0644dd8595cd4907eccaeb157f22"
+  dependencies:
+    echarts-amap "^1.0.0-rc.6"
+
 validate-npm-package-license@^3.0.1:
   version "3.0.2"
   resolved "http://registry.npm.taobao.org/validate-npm-package-license/download/validate-npm-package-license-3.0.2.tgz#ec39d030e27d1ee714515162c547f66356e49f41"
@@ -6901,6 +6945,10 @@ vue-affix@^0.2.4:
 vue-carousel@^0.6.9:
   version "0.6.9"
   resolved "http://registry.npm.taobao.org/vue-carousel/download/vue-carousel-0.6.9.tgz#b5cdd0abefdc8ae99fe48ecde1d765869f91df6d"
+
+vue-chartjs@^3.2.1:
+  version "3.2.1"
+  resolved "http://registry.npm.taobao.org/vue-chartjs/download/vue-chartjs-3.2.1.tgz#8fd207e7f09a6bf13d86026071f598c4c2ff1f68"
 
 vue-hot-reload-api@^2.2.0:
   version "2.3.0"
@@ -7274,3 +7322,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+zrender@4.0.3:
+  version "4.0.3"
+  resolved "http://registry.npm.taobao.org/zrender/download/zrender-4.0.3.tgz#801ef001101750a61857f84e64c4d5fb3c88cca7"

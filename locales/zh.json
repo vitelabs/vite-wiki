@@ -5,7 +5,8 @@
     "tech": "技术",
     "roadmap": "路线图",
     "team": "团队",
-    "faq": "问题答疑"
+    "faq": "问题答疑",
+    "token": "股权分配"
   },
   "home": {
     "header": "快速, 无手续费, 高性能",
@@ -50,6 +51,7 @@
     }
   },
   "roadmap": {
+    "title": "路线图",
     "timelines": [
       {
         "time": "2018 三月",
@@ -64,6 +66,16 @@
         "description": "asdfasdfasdfasdfasdf"
       }
     ]
+  },
+  "token": {
+    "title": "Token",
+    "pie": {
+      "foundation": "Vite Lab 基金会",
+      "community": "社区基金",
+      "investor1": "第一轮融资",
+      "investor2": "第二轮融资",
+      "investor3": "第三轮融资"
+    }
   },
   "team": {
     "title": "Creative Team",
