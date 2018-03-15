@@ -19,7 +19,6 @@
       computed: {
         faqs () {
           let faqs = this.$t('faq.questions')
-          console.log(faqs)
           return Array.isArray(faqs) ? faqs : []
         }
       },

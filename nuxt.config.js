@@ -7,8 +7,6 @@ config.langs.forEach(item => {
   }))
 })
 
-console.log(generateRoutes)
-
 module.exports = {
   head: {
     title: 'Vite · Fast, No Fee, Scalability Contract Platform',
@@ -67,5 +65,8 @@ module.exports = {
   ],
   css: [
     '~/assets/main.scss'
-  ]
+  ],
+  render: {
+    gzip: { threshold: 1 }
+  }
 }

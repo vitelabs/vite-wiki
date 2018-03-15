@@ -33,6 +33,9 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  @import "~assets/vars";
+
+
   $timelineColor: #3381D3;
   $dot-size: 2.5rem;
   $dot-gap:  0.95;
@@ -105,13 +108,13 @@
           position: relative;
           bottom: 0;
           width: 400px;
-          padding: 15px;
+          padding: 1rem 1rem 2rem 1rem;
           border-radius: 4px;
           min-height: 150px;
           font-family: HelveticaNeue-Light;
 
           .time {
-            margin-top: -20px;
+            margin-top: -1.13rem;
             display: block;
             font-size: 1.13rem;
             line-height: 1.38rem;
@@ -159,7 +162,6 @@
     }
     .timeline ul li:nth-child(even) div {
       left: -289px; /*250+45-6*/
-
     }
   }
 
@@ -171,7 +173,12 @@
       width: calc(100vw - 91px);
     }
     .timeline ul li:nth-child(even) div {
-      left: 45px;
+      left: 1.5rem;
+      text-align: left;
+    }
+
+    .timeline ul li:nth-child(odd) div {
+      left: 1.5rem;
       text-align: left;
     }
   }
