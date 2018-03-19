@@ -16,6 +16,7 @@
 
             <scrollactive class="navbar-menu"
                           :modify-url="false"
+                          :class="{ 'is-active': navbarActive }"
                           :offset="0">
               <div class="navbar-end">
                 <a :href="`#${item}`" @click="onNavClick" class="scrollactive-item nav-item" v-for="item in navs">
