@@ -98,11 +98,7 @@
         ]
       }
     },
-    methods: {
-      getIcon (name) {
-        return this[`fa${name}`]
-      }
-    }
+    methods: {}
   }
 </script>
 

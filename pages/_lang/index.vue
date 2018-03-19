@@ -1,7 +1,6 @@
 <template>
   <div class="page-home">
     <section id="home" class="is-info is-fullheight " v-in-viewport>
-      <!-- Hero header: will stick at the top -->
       <div class="hero-head animated fadeIn delay-1-6 headroom" v-headroom>
         <nav class="navbar home-navbar">
           <div class="container is-widescreen" :class="{ 'is-open': navbarActive }">
@@ -33,7 +32,6 @@
         </nav>
       </div>
 
-      <!-- Hero content: will be in the middle -->
       <div class="hero-body">
           <div class="container" v-in-viewport.once>
             <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
@@ -69,7 +67,7 @@
 
     <section id="tech" class="section">
       <div class="container" v-in-viewport.once>
-          <h2 class="title section-title">
+          <h2 class="title section-title animated fadeInUp inview1">
             {{$t('tech.title')}}
           </h2>
           <no-ssr>
@@ -93,8 +91,8 @@
     </section>
 
     <section id="roadmap" class="hero">
-      <div class="container">
-        <h2 class="title section-title animated fadeInUp inview" v-in-viewport>
+      <div class="container" v-in-viewport>
+        <h2 class="title section-title animated fadeInUp inview1">
           {{$t('roadmap.title')}}
         </h2>
         <timeline></timeline>
@@ -102,8 +100,8 @@
     </section>
 
     <section id="token" class="section">
-      <div class="container">
-        <h2 class="title section-title animated fadeInUp inview" v-in-viewport>
+      <div class="container" v-in-viewport>
+        <h2 class="title section-title animated fadeInUp inview1">
           {{$t('token.title')}}
         </h2>
         <token></token>
@@ -112,11 +110,11 @@
 
 
     <section id="team" class="section">
-      <div class="container">
-        <h2 class="title section-title inview animated fadeInDown delay-0-800" v-in-viewport>
+      <div class="container" v-in-viewport>
+        <h2 class="title section-title inview1 animated fadeInDown delay-0-800">
           {{$t('team.title')}}
         </h2>
-        <div class="sub-title inview animated fadeInUp delay-0-800" v-in-viewport>
+        <div class="sub-title inview1 animated fadeInUp delay-0-800">
           {{$t('team.subTitle')}}
         </div>
         <teams></teams>
@@ -124,8 +122,8 @@
     </section>
 
     <section id="faq" class="section">
-      <div class="container">
-        <h2 class="title section-title inview animated fadeInUp delay-0-800" v-in-viewport>
+      <div class="container" v-in-viewport>
+        <h2 class="title section-title inview1 animated fadeInUp delay-0-800">
           {{$t('faq.title')}}
         </h2>
         <faq></faq>
@@ -266,9 +264,23 @@
             }
           }
         }
-        &.headroom--unpinned, &.headroom--not-top {
+
+        &.headroom--top {
           .navbar {
-            background-color: rgba(0,0,0,0.5);
+            background: transparent;
+          }
+        }
+
+        &.headroom--not-top{
+          &.headroom--pinned, &:not(.headroom--unpinned):not(.headroom--pinned){
+            .navbar {
+              background-color: rgba(0,0,0,0.5);
+            }
+          }
+          &.headroom--unpinned {
+            .navbar {
+              background: transparent;
+            }
           }
         }
       }
@@ -398,10 +410,10 @@
           height: 100%;
           color: white;
           text-align: center;
-          &>h3 {
+          & > h3 {
             font-size: 1.5rem;
           }
-          &>.feature-des {
+          & > .feature-des {
             color:rgba(255,255,255,0.9);
             padding: 1rem;
             font-size: 1rem;
@@ -410,7 +422,7 @@
         .icon-wrapper {
           text-align: center;
           width: 100%;
-          &>img {
+          & > img {
             height: 5rem;
             width: 5rem;
             margin-top: 3rem;
@@ -444,14 +456,14 @@
           }
         }
         .tech-item-detail {
-          &>h3 {
+          & > h3 {
             font-size: 1.5rem;
             color: #111111;
             line-height: 1.81rem;
             font-weight: normal;
             margin-bottom: 1.25rem;
           }
-          &>p {
+          & > p {
             line-height: 1.75rem;
             color: #111111;
             font-size: 1.13rem;
@@ -521,8 +533,8 @@
   .headroom.headroom--unpinned {
     transform: translateY(-100%);
   }
-  .headroom.headroom--unpinned>nav.navbar,
-  .headroom.headroom--top>nav.navbar {
+  .headroom.headroom--unpinned > nav.navbar,
+  .headroom.headroom--top > nav.navbar {
     background-color: transparent;
   }
   .headroom.headroom--pinned.headroom--not-top>nav.navbar {
