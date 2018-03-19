@@ -15,11 +15,10 @@
             </div>
 
             <scrollactive class="navbar-menu"
-                          :class="{ 'is-active': navbarActive }"
                           :modify-url="false"
                           :offset="0">
               <div class="navbar-end">
-                <a :href="`#${item}`" class="scrollactive-item nav-item" v-for="item in navs">
+                <a :href="`#${item}`" @click="onNavClick" class="scrollactive-item nav-item" v-for="item in navs">
                   {{$t(`nav.${item}`)}}
                 </a>
                 <div class="nav-item">
@@ -214,6 +213,11 @@
           }
         ]
       }
+    },
+    methods: {
+      onNavClick () {
+        this.navbarActive = false
+      }
     }
   }
 </script>
@@ -293,7 +297,7 @@
         height: 100vh;
         .container {
           text-align: center;
-          margin-top: 13.13rem;
+          margin-top: 25vh;
           z-index: 100;
           max-width: 50rem;
         }
@@ -378,19 +382,21 @@
 
       .hero-body {
         h1, h2 {
-          font-size: 3.44rem;
-          line-height: 5rem;
           @include mobile {
             font-size: 2rem;
+            line-height: 3rem;
           }
           @include tablet {
             font-size: 2.5rem;
+            line-height: 3.6rem;
           }
           @include desktop {
             font-size: 3rem;
+            line-height: 4.35rem;
           }
           @include fullhd {
-            font-size: 3.3rem;
+            font-size: 3.44rem;
+            line-height: 5.63rem;
           }
         },
         h2 {
