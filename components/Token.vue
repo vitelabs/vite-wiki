@@ -1,10 +1,10 @@
 <template>
-    <div class="columns">
-        <div class="column">
-          <div class="chart-wrapper">
-            <ve-pie :data="chartData" :settings="chartSettings"></ve-pie>
-            <div class="detail-wrapper">
-              <div class="detail" v-for="item in detailList">
+    <div class="columns  is-multiline">
+      <div class="column is-6 is-7-fullhd">
+        <div class="chart-wrapper">
+          <div class="detail-wrapper">
+            <pie-chart :chart-data="chartData" :options="options"></pie-chart>
+            <div class="detail" v-for="item in detailList">
                 <div class="label-item">
                   <div>{{$t(`token.detail.${item.name}`)}}: </div>
                 </div>
@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-        <div class="column investor-detail">
+      <div class="column investor-detail is-6 is-5-fullhd">
           <div v-for="(item, index) in investorList">
             <span class="investor" :style="{ color: colorList[index] }">
               {{$t(`token.pie.${item.key}.name`)}}
@@ -25,9 +25,9 @@
 </template>
 
 <script type="text/babel">
-  import VePie from 'v-charts/lib/pie'
+  import PieChart from './PieChart'
 
-  const investorList = [
+  let investorList = [
     {
       key: 'foundation',
       value: 350000000
@@ -49,43 +49,20 @@
       value: 50000000
     }
   ]
+  investorList = investorList.map(item => {
+    return {
+      ...item,
+      percent: item.value / 1000000000 * 100
+    }
+  })
 
   export default {
     components: {
-      VePie
-    },
-    created () {
-      this.chartData = {
-        columns: ['type', 'value'],
-        rows: this.investorList.map(item => {
-          return {
-            'type': this.$t(`token.pie.${item.key}.name`),
-            'value': item.value
-          }
-        })
-      }
+      PieChart
     },
     data: function () {
       return {
-        chartData: null,
-        chartSettings: {
-          dimension: 'type',
-          metrics: 'value',
-          itemStyle: {
-            color: ({dataIndex, percent}) => {
-              return this.colorList[dataIndex]
-            }
-          },
-          label: {
-            formatter: '{b} {d}%'
-          }
-        },
-        investorList: investorList.map(item => {
-          return {
-            ...item,
-            percent: item.value / 1000000000 * 100
-          }
-        }),
+        investorList,
         colorList: ['#7168D8', '#3381D3', '#4D9FF2', '#9FC2FF', '#CFD3FF'],
         detailList: [
           {
@@ -108,7 +85,43 @@
             name: 'delegatedLimit',
             value: '21'
           }
-        ]
+        ],
+        chartData: {
+          labels: investorList.map(item => this.$t(`token.pie.${item.key}.name`)),
+          datasets: [
+            {
+              backgroundColor: ['#7168D8', '#3381D3', '#4D9FF2', '#9FC2FF', '#CFD3FF'],
+              data: investorList.map(item => item.value),
+              borderWidth: 0,
+              hoverBorderWidth: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          padding: 0,
+          legend: {
+            display: true,
+            labels: {
+              lineWidth: 0,
+              borderRadius: 4
+            }
+          },
+          tooltips: {
+            callbacks: {
+              label: function ({index}, {labels, datasets}) {
+                return `${labels[index]}: ${investorList[index].value} vite`
+              }
+            }
+          },
+          plugins: {
+            outlabels: {
+              lineWidth: 1,
+              borderRadius: 4
+            }
+          }
+        }
       }
     },
     methods: {}

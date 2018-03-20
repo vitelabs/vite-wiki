@@ -33,6 +33,9 @@ module.exports = {
           warnings: false // Fix bulma css warnings
         }
       }
+    },
+    extend (config) {
+      config.resolve.alias['chart.js'] = 'chart.js/dist/Chart.min'
     }
   },
   router: {
