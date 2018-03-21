@@ -15,6 +15,8 @@ git clone git@github.com:vitelabs/website.git
 yarn
 ```
 
+If the node-sass is not installed correctly, you can run `npm rebuild node-sass`.
+
 ### Cli
 
 * `npm run dev`: run local dev server, you can see result by visit: `http://localhost:3000`
