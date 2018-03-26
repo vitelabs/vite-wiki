@@ -16,27 +16,27 @@
   "features": {
     "fast": {
       "title": "快速",
-      "description": "..."
+      "description": "依托于Block-lattice的优势，实现秒级确认交易"
     },
     "noFee": {
       "title": "无手续费",
-      "description": "任何交易都无手续费，只需付出微小的计算资源即可"
+      "description": "任何交易都无手续费，只需付出微小的计算资源；以股权和动态pow来调整全网TPS限额"
     },
     "scalability": {
       "title": "高性能",
-      "description": "摒弃blockchian的账本结构，采用DAG的账本结构，支持高吞吐，高并发，一个账户一条链，单条链交易拥堵不会阻塞其他链"
+      "description": "摒弃blockchian的账本结构，采用Block-lattice账本结构，支持高吞吐，高并发，一个账户一条链，单条链交易拥堵不会阻塞其他链"
     },
     "contract": {
       "title": "智能合约",
-      "description": "支持智能合约， EVM compatibility"
+      "description": "支持智能合约， EVM compatibility；一个合约为一条链，并且单条合约链支持自定义共识算法，支持扩展为私有链"
     },
     "multiLayer": {
       "title": "多层架构",
-      "description": "系统分为结算层和合约层，结算层支持多种货币"
+      "description": "系统分为传输层、价值层、交易层、合约层；将结算功能从合约层抽离"
     },
     "pruning": {
-      "title": "区块缩减",
-      "description": "支持区块缩减和快照，废旧的交易可以被丢弃"
+      "title": "快照链",
+      "description": "在Block-lattice基础上引入快照链，解决无法固化交易的问题；保证区块缩减（Block Pruning）的可实施性"
     }
   },
   "tech": {
