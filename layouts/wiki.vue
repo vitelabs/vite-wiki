@@ -1,22 +1,53 @@
 <template>
     <div>
       <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <a class="navbar-item">
-          <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-        </a>
+        <div class="navbar-brand">
+          <nuxt-link class="navbar-item" :to="'/'">
+            Vite
+          </nuxt-link>
+          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <wiki-nav-search></wiki-nav-search>
+          </div>
+          <div class="navbar-item">
+            <lang-select class="dark-lang-btn"></lang-select>
+          </div>
+        </div>
       </nav>
-
       <nuxt/>
     </div>
 </template>
 
 <script type="text/babel">
-    export default {
-      data: function () {
-        return {}
-      },
-      methods: {}
+  import LangSelect from '~/components/LangSelect'
+  import WikiNavSearch from '~/components/WikiNavSearch'
+
+  let scriptInjected = false
+
+  export default {
+    components: {
+      LangSelect,
+      WikiNavSearch
+    },
+    data: function () {
+      return {}
+    },
+    mounted () {
+      if (scriptInjected) return
+      // mathjax
+      const script = document.createElement('script')
+      script.setAttribute('type', 'text/javascript')
+      script.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML')
+      document.getElementsByTagName('body')[0].appendChild(script)
+      scriptInjected = true
     }
+  }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -28,6 +59,13 @@
     z-index: 233;
     transition: all .3s;
     box-shadow: 0 1px 0 #e5e5e5;
+    .dark-lang-btn {
+      /deep/ .dropdown-trigger {
+        button {
+          color: rgba(0,0,0,0.8);
+        }
+      }
+    }
   }
 
   /* markdown css */

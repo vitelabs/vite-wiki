@@ -23,7 +23,7 @@
                             {{subNav.label}}
                           </nuxt-link>
                         </li>
-                        <my-scrollactive v-if="subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path)"
+                        <my-scrollactive v-if="subNav && subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path)"
                                          class="menu-list anchor-nav">
                           <a v-for="anchor in subNav.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                             {{anchor[1].substr(0, 12)}}

@@ -3,6 +3,7 @@ const externalLinks = require('markdown-it-link-attributes')
 const emoji = require('markdown-it-emoji')
 const twemoji = require('twemoji')
 const markdownItAnchor = require('markdown-it-headinganchor')
+const markdownItMathjax = require('markdown-it-mathjax')
 
 const anchorsLevel = 2
 
@@ -40,7 +41,8 @@ module.exports = {
         [ externalLinks, { target: '_blank', rel: 'noopener' } ],
         [
           markdownItAnchor, {}
-        ]
+        ],
+        markdownItMathjax
       ],
       customize (parser) {
         parser.linkify.tlds('onion')

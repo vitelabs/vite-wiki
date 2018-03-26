@@ -12,6 +12,20 @@
       return {
         message: await data.get(`/${lang}/wiki/${params.slug}`)
       }
+    },
+    watch: {
+      'message' () {
+        this.init()
+      }
+    },
+    methods: {
+      init () {
+        this.$nextTick(() => {
+          if (window.MathJax) {
+            window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub])
+          }
+        })
+      }
     }
   }
 </script>

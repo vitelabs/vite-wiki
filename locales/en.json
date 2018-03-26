@@ -16,5 +16,8 @@
         "description": "Fast"
       }
     }
+  },
+  "wiki": {
+    "searchInputPlaceholder": "Search"
   }
 }

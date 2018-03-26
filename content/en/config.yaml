@@ -1,13 +1,7 @@
 label: wiki
 navs:
  -
-   label: 测试
-   path: /section
+   label: Tech Detail
+   path: /tech
    navs:
-   	- test3.md
- -
-   label: 测试2
-   path: /section2
-   navs:
-   	- test2.md
- - test.md
+   	- snapshot.md

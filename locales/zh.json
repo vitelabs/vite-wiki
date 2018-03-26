@@ -155,5 +155,8 @@
         "answer": "TODO"
       }
     ]
+  },
+  "wiki": {
+    "searchInputPlaceholder": "搜索"
   }
 }
