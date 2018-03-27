@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "9.9.0"
+cache:
+  directories:
+  - node_modules
+script:
+  - npm run p
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token
+  local_dir: dist
+  on:
+    branch: master
