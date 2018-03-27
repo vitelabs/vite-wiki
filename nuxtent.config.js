@@ -9,20 +9,28 @@ const anchorsLevel = 2
 
 const contentConfig = {
   page: '/_slug',
-  permalink: '/wiki/:slug',
+  permalink: '/:slug',
   isPost: false,
   generate: ['get', 'getAll'],
   anchorsLevel: anchorsLevel
 }
 
 const supportLangs = ['en', 'zh']
+const supportNavs = ['tech', 'whitePaper', 'faq', 'about']
+let content = []
+
+supportLangs.forEach(lang => {
+  supportNavs.forEach(item => {
+    content.push([`${lang}/${item}`, Object.assign({}, contentConfig, {
+      permalink: `/${lang}/${item}${contentConfig.permalink}`
+    })])
+  })
+})
+
+console.log(content)
 
 module.exports = {
-  content: supportLangs.map(item => {
-    return [item, Object.assign({}, contentConfig, {
-      permalink: `/${item}${contentConfig.permalink}`
-    })]
-  }),
+  content,
   api: function (isStatic) {
     return {
       browserBaseURL: isStatic ? 'http://69.171.64.178:5000' : '',

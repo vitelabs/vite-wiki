@@ -13,5 +13,6 @@ module.exports = {
   },
   searchDoc: {
     apiKey: 'ff80fbf046ce827f64f06e16f82f1401'
-  }
+  },
+  defaultActiveNav: 'wiki'
 }

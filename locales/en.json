@@ -1,21 +1,15 @@
 {
   "lang": "English",
   "nav": {
-    "feature": "Feature",
+    "whitePaper": "White paper",
     "tech": "Tech",
-    "roadmap": "Roadmap",
-    "team": "Team",
+    "about": "About",
     "faq": "FAQ"
   },
   "home": {
     "header": "Fast, No Fee, Scalability",
     "contract": "Contract Platform",
-    "features": {
-      "fast": {
-        "title": "Fast",
-        "description": "Fast"
-      }
-    }
+    "start": "Start"
   },
   "wiki": {
     "searchInputPlaceholder": "Search"

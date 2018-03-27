@@ -8,10 +8,13 @@
   export default {
     asyncData: async ({ app, payload, params, route }) => {
       let lang = params.lang || app.i18n.locale
-      let data = app.$content(lang)
+      let data = app.$content(`/${lang}/${params.nav}`)
       return {
-        message: await data.get(`/${lang}/wiki/${params.slug}`)
+        message: await data.get(`/${lang}/${params.nav}/${params.slug}`)
       }
+    },
+    mounted () {
+      this.init()
     },
     watch: {
       'message' () {

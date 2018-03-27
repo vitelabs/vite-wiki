@@ -11,7 +11,7 @@
                      :scroll-affix="false"
                      :offset="{ top: 80, bottom: 40 }"
               >
-                <template v-for="item in navs">
+                <template v-for="(item, index) in navs">
                   <template v-if="item && item.navs && item.navs.length">
                     <p class="menu-label">
                       {{item.label}}
@@ -19,7 +19,7 @@
                     <ul class="menu-list">
                       <template v-for="subNav in item.navs">
                         <li v-if="subNav && subNav.meta">
-                          <nuxt-link class="main-link" :to="$i18n.path(subNav.permalink)">
+                          <nuxt-link class="main-link" :to="$i18n.path(subNav.permalink)" :class="{'is-active': !$route.params.slug && index ===0 }">
                             {{subNav.label}}
                           </nuxt-link>
                         </li>
@@ -32,9 +32,10 @@
                       </template>
                     </ul>
                   </template>
+
                   <template v-if="item && !item.navs">
-                    <p class="menu-label">
-                      <nuxt-link class="main-link" :to="$i18n.path(item.permalink)">
+                    <p class="menu-list">
+                      <nuxt-link class="main-link" :class="{'is-active': !$route.params.slug && index ===0 }" :to="$i18n.path(item.permalink)">
                         {{item.label}}
                       </nuxt-link>
                     </p>
@@ -63,6 +64,7 @@
 
 <script>
   import Vue from 'vue'
+  import config from '~/config'
 
   if (process.browser) {
     const Affix = require('~/components/Affix')
@@ -71,48 +73,49 @@
     Vue.component('my-scrollactive', Scrollactive.default)
   }
 
+  function getTitle (item) {
+    return item.title || item.meta.fileName.replace('.md', '')
+  }
+
   export default {
-    layout: 'wiki',
+    layout: 'index',
     data () {
       return {
         navs: []
       }
     },
-    asyncData: async ({ app, payload, params }) => {
+    asyncData: async ({ app, payload, params, store }) => {
       let lang = params.lang || app.i18n.locale
-      let docs = app.$content(lang)
-      let docsConfig = await docs.get(`${lang}/wiki/config`)
+      let nav = params.nav || config.defaultActiveNav
+      let docs = app.$content(`${lang}/${nav}`)
       let list = await docs.query({exclude: ['body']}).getAll()
+      let parserdNavs
+      store.commit('setIndexNav', {})
 
-      let findMd = (section, name) => {
+      let findMd = (name) => {
         for (let i = 0; i < list.length; i++) {
-          if (list[i] && list[i].meta && list[i].meta.section === section && list[i].meta.fileName === name) {
+          if (list[i] && list[i].meta && list[i].meta.fileName === name) {
             return list[i]
           }
         }
         return null
       }
 
-      let parseDocsConfig = (nav, index = 0, section) => {
-        section = section || '/'
+      let parseDocsConfig = (nav) => {
         if (typeof nav === 'string' && nav) {
-          let docItem = findMd(section, nav)
+          let docItem = findMd(nav)
           if (!docItem) return null
           return {
-            label: docItem.title,
-            ...docItem,
-            path: docItem.meta.fileName.replace(/.md$/, '')
+            label: getTitle(docItem),
+            ...docItem
           }
         }
 
-        if (nav && nav.label) {
-          if (index !== 0 && !nav.path) {
-            throw new Error('section nav config should have path')
-          }
+        if (nav && nav.navs) {
           let result = []
           if (Array.isArray(nav.navs)) {
             result = nav.navs.map(item => {
-              return parseDocsConfig(item, index++, nav.path)
+              return parseDocsConfig(item)
             })
           }
           return {
@@ -120,14 +123,34 @@
             navs: result
           }
         }
+        return {
+          navs: []
+        }
       }
-      let parserdNavs = parseDocsConfig(docsConfig.body, 0)
-      console.log(parserdNavs)
+
+      try {
+        let docsConfig = await app.$content(`${lang}/${nav}`).get(`${lang}/${nav}/config`)
+        parserdNavs = parseDocsConfig(docsConfig.body).navs
+      } catch (err) {
+        console.log(err)
+        parserdNavs = list.map(item => {
+          return {
+            ...item,
+            label: getTitle(item)
+          }
+        })
+      }
+
+      console.log(JSON.stringify(parserdNavs, 2, 2))
+
+      if (parserdNavs && parserdNavs.length && parserdNavs[0].permalink) {
+        let indexDoc = await app.$content(`${lang}/${nav}`).get(parserdNavs[0].permalink)
+        store.commit('setIndexNav', indexDoc)
+      }
 
       return {
         list,
-        config: docsConfig,
-        navs: parserdNavs && parserdNavs.navs
+        navs: parserdNavs
       }
     },
     methods: {

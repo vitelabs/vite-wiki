@@ -3,7 +3,8 @@ import config from '~/config.js'
 export const state = () => ({
   locales: config.langs.map(item => item.key),
   locale: 'en',
-  loadedLangs: ['en']
+  loadedLangs: ['en'],
+  indexNav: {}
 })
 
 export const mutations = {
@@ -11,5 +12,8 @@ export const mutations = {
     if (state.locales.indexOf(locale) !== -1) {
       state.locale = locale
     }
+  },
+  setIndexNav (state, ob) {
+    state.indexNav = ob
   }
 }

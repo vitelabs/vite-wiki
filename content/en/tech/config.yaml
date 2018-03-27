@@ -1,7 +1,5 @@
-label: wiki
 navs:
  -
    label: Tech Detail
-   path: /tech
    navs:
    	- snapshot.md
