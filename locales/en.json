@@ -9,7 +9,8 @@
   "home": {
     "header": "Fast, No Fee, Scalability",
     "contract": "Contract Platform",
-    "start": "Start"
+    "start": "Start",
+    "contribute": "contribute"
   },
   "wiki": {
     "searchInputPlaceholder": "Search"

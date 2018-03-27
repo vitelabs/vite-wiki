@@ -9,7 +9,9 @@
           <nuxt-link class="button" :to="`/${$i18n.locale}/whitePaper/index`" active-class="none">
             {{$t('home.start')}}
           </nuxt-link>
-          <a :href="urls.github" target="_blank" class="button">Github</a>
+          <nuxt-link class="button white-btn" :to="`/${$i18n.locale}/about/start-contribute`" active-class="none">
+            {{$t('home.contribute')}}
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -48,6 +50,15 @@
         font-size: 1.3rem;
         padding-right: 2rem;
         padding-left: 2rem;
+        &.white-btn {
+          background: transparent;
+          border: 1px solid rgba(0,0,0,0.1);
+          color: rgba(0,0,0,0.5);
+          &:hover {
+            background: transparent;
+            color: rgba(0,0,0,0.6);
+          }
+        }
         &:first-child {
           margin-left: 0;
         }
