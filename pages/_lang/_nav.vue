@@ -26,7 +26,7 @@
                         <my-scrollactive v-if="subNav && subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path, index)"
                                          class="menu-list anchor-nav">
                           <a v-for="anchor in subNav.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
-                            {{anchor[1].substr(0, 12)}}
+                            {{anchor[1]}}
                           </a>
                         </my-scrollactive>
                       </template>
@@ -42,7 +42,7 @@
                     <my-scrollactive v-if="item.anchors && item.anchors.length && isSamePath(item.permalink, $route.path, index) "
                                      class="menu-list anchor-nav">
                       <a v-for="anchor in item.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
-                        {{anchor[1].substr(0, 12)}}
+                        {{anchor[1]}}
                       </a>
                     </my-scrollactive>
                   </template>
