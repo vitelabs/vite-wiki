@@ -1,30 +1,35 @@
 <template>
   <div>
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar is-fixed-top" role="navigation" aria-label="main navigation" :class="{ 'is-open': navbarActive }">
       <div class="navbar-brand">
         <nuxt-link class="navbar-item" :to="'/'">
-          Vite Labs Documents
+          <span @click="onNavClick">
+            Vite Labs Documents
+          </span>
         </nuxt-link>
-        <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+        <div class="navbar-burger burger" @click="navbarActive = !navbarActive">
           <span></span>
           <span></span>
           <span></span>
         </div>
       </div>
-      <div class="navbar-start">
-        <div class="navbar-item">
-          <wiki-nav-search></wiki-nav-search>
+
+      <div class="navbar-menu" :class="{ 'is-active': navbarActive }">
+        <div class="navbar-start">
+          <div class="navbar-item">
+            <wiki-nav-search></wiki-nav-search>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <nuxt-link :to="`/${$i18n.locale}/${item}`" class="navbar-item" v-for="item in navs" :key="item">
+            <span @click="onNavClick">{{$t(`nav.${item}`)}}</span>
+          </nuxt-link>
+          <div class="navbar-item">
+            <lang-select class="dark-lang-btn"></lang-select>
+          </div>
         </div>
       </div>
-      <div class="navbar-end">
-        <nuxt-link v-for="item in navs" :key="item" class="navbar-item" :to="`/${$i18n.locale}/${item}`">
-          {{$t(`nav.${item}`)}}
-        </nuxt-link>
-        <div class="navbar-item">
-          <lang-select class="dark-lang-btn"></lang-select>
-        </div>
-      </div>
-    </nav>
+    </div>
     <nuxt/>
   </div>
 </template>
@@ -42,7 +47,8 @@
     },
     data: function () {
       return {
-        navs: ['whitePaper', 'tech', 'faq', 'about']
+        navs: ['whitePaper', 'tech', 'faq', 'about'],
+        navbarActive: false
       }
     },
     mounted () {
@@ -53,11 +59,27 @@
       script.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML')
       document.getElementsByTagName('body')[0].appendChild(script)
       scriptInjected = true
+    },
+    methods: {
+      onNavClick () {
+        this.navbarActive = false
+      }
     }
   }
 </script>
 
+<style rel="stylesheet/scss" lang="scss">
+  .mjx-chtml {
+    overflow: scroll;
+    &:focus {
+      border: 0;
+    }
+  }
+</style>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
+  @import "~assets/vars";
+
   .navbar {
     position: fixed;
     top: 0;
@@ -66,8 +88,29 @@
     z-index: 233;
     transition: all .3s;
     box-shadow: 0 1px 0 #e5e5e5;
+    .navbar-menu {
+      &.is-active {
+        /*text-align: center;*/
+      }
+    }
+
+
+    .navbar-start {
+      .navbar-item {
+        height: 3.25rem;
+      }
+    }
+
     .navbar-item {
       color: rgba(0,0,0,0.6);
+      padding-top: 0;
+      padding-bottom: 0;
+      & > span {
+        height: 100%;
+        line-height: 3.25rem;
+        display: inline-block;
+        width: 100%;
+      }
       &.nuxt-link-active {
         color: #3498DB;
       }
@@ -79,6 +122,18 @@
           color: rgba(0,0,0,0.8);
         }
       }
+    }
+
+    &.is-open {
+      /deep/ .algolia-autocomplete {
+        width: 100%;
+        border-left: 2px solid rgba(0,0,0,0.1);
+      }
+     /deep/ .algolia-autocomplete .ds-dropdown-menu {
+       @include mobile {
+         min-width: 90vw;
+       }
+     }
     }
   }
 
