@@ -7,6 +7,7 @@
     "generate": "nuxt generate",
     "p": "npm run build && npm run generate"
   },
+  "homepage": "https://vitelabs.github.io/doc.vite.org/",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
     "@fortawesome/fontawesome-free-brands": "^5.0.8",
