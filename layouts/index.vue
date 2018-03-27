@@ -66,6 +66,13 @@
     z-index: 233;
     transition: all .3s;
     box-shadow: 0 1px 0 #e5e5e5;
+    .navbar-item {
+      color: rgba(0,0,0,0.6);
+      &.nuxt-link-active {
+        color: #3498DB;
+      }
+    }
+
     .dark-lang-btn {
       /deep/ .dropdown-trigger {
         button {

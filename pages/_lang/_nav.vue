@@ -23,7 +23,7 @@
                             {{subNav.label}}
                           </nuxt-link>
                         </li>
-                        <my-scrollactive v-if="subNav && subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path)"
+                        <my-scrollactive v-if="subNav && subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path, index)"
                                          class="menu-list anchor-nav">
                           <a v-for="anchor in subNav.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                             {{anchor[1].substr(0, 12)}}
@@ -39,7 +39,7 @@
                         {{item.label}}
                       </nuxt-link>
                     </p>
-                    <my-scrollactive v-if="item.anchors && item.anchors.length && isSamePath(item.permalink, $route.path) "
+                    <my-scrollactive v-if="item.anchors && item.anchors.length && isSamePath(item.permalink, $route.path, index) "
                                      class="menu-list anchor-nav">
                       <a v-for="anchor in item.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                         {{anchor[1].substr(0, 12)}}
@@ -82,6 +82,13 @@
     data () {
       return {
         navs: []
+      }
+    },
+    head () {
+      return {
+        htmlAttrs: {
+          lang: this.$i18n.locale
+        }
       }
     },
     asyncData: async ({ app, payload, params, store }) => {
@@ -143,9 +150,12 @@
 
       console.log(JSON.stringify(parserdNavs, 2, 2))
 
-      if (parserdNavs && parserdNavs.length && parserdNavs[0].permalink) {
-        let indexDoc = await app.$content(`${lang}/${nav}`).get(parserdNavs[0].permalink)
-        store.commit('setIndexNav', indexDoc)
+      if (parserdNavs && parserdNavs.length) {
+        let firstNav = parserdNavs[0].navs && parserdNavs[0].navs.length ? parserdNavs[0].navs[0] : parserdNavs[0]
+        if (firstNav && firstNav.permalink) {
+          let indexDoc = await app.$content(`${lang}/${nav}`).get(firstNav.permalink)
+          store.commit('setIndexNav', indexDoc)
+        }
       }
 
       return {
@@ -161,7 +171,10 @@
         var spaceRegex = new RegExp('[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]', 'g')
         return '#' + encodeURIComponent(s.replace(spaceRegex, ''))
       },
-      isSamePath (permalink, path) {
+      isSamePath (permalink, path, index) {
+        if (index === 0 && !this.$route.params.slug) {
+          return true
+        }
         if (path[path.length - 1] === '/') {
           path = path.substring(0, path.length - 1)
         }

@@ -9,7 +9,7 @@
           <nuxt-link class="button" :to="`/${$i18n.locale}/whitePaper/index`" active-class="none">
             {{$t('home.start')}}
           </nuxt-link>
-          <a href="" class="button">Github</a>
+          <a :href="urls.github" target="_blank" class="button">Github</a>
         </div>
       </div>
     </div>
@@ -17,10 +17,13 @@
 </template>
 
 <script type="text/babel">
+  import config from '~/config'
   export default {
     layout: 'index',
     data: function () {
-      return {}
+      return {
+        urls: config.urls
+      }
     },
     methods: {}
   }

@@ -12,7 +12,20 @@
       data: function () {
         return {}
       },
-      methods: {}
+      watch: {
+        'indexNav' () {
+          this.init()
+        }
+      },
+      methods: {
+        init () {
+          this.$nextTick(() => {
+            if (window.MathJax) {
+              window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub])
+            }
+          })
+        }
+      }
     }
 </script>
 

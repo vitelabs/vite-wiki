@@ -13,6 +13,15 @@
         message: await data.get(`/${lang}/${params.nav}/${params.slug}`)
       }
     },
+    head () {
+      return {
+        titleTemplate: '%s - Vite: A fast, feeless, decentralized transaction ledger',
+        title: this.message.title,
+        meta: [
+          { hid: 'description', name: 'description', content: this.message.description }
+        ]
+      }
+    },
     mounted () {
       this.init()
     },
