@@ -6,6 +6,11 @@
     "about": "关于",
     "searchInputPlaceholder": "搜索"
   },
+  "head": {
+    "title": "Vite: 一个快速无手续费的分布式交易账本",
+    "document": "文档",
+    "homeDesc": "Vite: 一个快速无手续费的分布式交易账本"
+  },
   "home": {
     "header": "快速, 无手续费, 高性能",
     "contract": "智能合约平台",

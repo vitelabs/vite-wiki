@@ -15,7 +15,7 @@
     },
     head () {
       return {
-        titleTemplate: '%s - Vite: A fast, feeless, decentralized transaction ledger',
+        titleTemplate: `%s - ${this.$t('head.title')}`,
         title: this.message.title,
         meta: [
           { hid: 'description', name: 'description', content: this.message.description }

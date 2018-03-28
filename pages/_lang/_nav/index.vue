@@ -9,6 +9,15 @@
           return this.$store.state.indexNav
         }
       },
+      head () {
+        return {
+          titleTemplate: '%s - Vite: A fast, feeless, decentralized transaction ledger',
+          title: this.$t(`nav.${this.$route.params.nav}`),
+          meta: [
+            { hid: 'description', name: 'description', content: this.$t('head.title') }
+          ]
+        }
+      },
       data: function () {
         return {}
       },

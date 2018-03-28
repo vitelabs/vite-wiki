@@ -40,6 +40,32 @@
 
   export default {
     layout: 'index',
+    head () {
+      let title = this.$t('head.title')
+      let description = this.$t('head.homeDesc')
+      return {
+        titleTemplate: `%s - ${title}`,
+        title: this.$t('head.document'),
+        meta: [
+          { hid: 'description', name: 'description', content: description },
+
+          // Open Grapg
+          { name: 'og:title', content: title, hid: 'og:title' },
+          { name: 'og:description', content: description, hid: 'og:description' },
+          { name: 'og:type', content: 'website', hid: 'og:type' },
+          { name: 'og:url', content: 'http://doc.vite.org', hid: 'og:url' },
+          // { name: 'og:image', content: 'https://i.imgur.com/PzEm5j2.png' },
+
+          // Twitter Card
+          { name: 'twitter:card', content: 'summary', hid: 'twitter:card' },
+          { name: 'twitter:site', content: '@vitelabs', hid: 'twitter:site' },
+          { name: 'twitter:title', content: title, hid: 'twitter:title' },
+          { name: 'twitter:description', content: description, hid: 'twitter:description' },
+          // { name: 'twitter:image', content: 'https://i.imgur.com/PzEm5j2.png' },
+          { name: 'twitter:image:alt', content: 'Vite Logo', hid: 'twitter:image:alt' }
+        ]
+      }
+    },
     data: function () {
       return {
         urls: config.urls,
