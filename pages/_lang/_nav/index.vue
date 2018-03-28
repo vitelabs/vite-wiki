@@ -12,6 +12,11 @@
       data: function () {
         return {}
       },
+      mounted () {
+        if (this.indexNav.body) {
+          this.initMathjax()
+        }
+      },
       watch: {
         'indexNav' () {
           this.init()
@@ -20,10 +25,13 @@
       methods: {
         init () {
           this.$nextTick(() => {
-            if (window.MathJax) {
-              window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub])
-            }
+            this.initMathjax()
           })
+        },
+        initMathjax () {
+          if (window.MathJax) {
+            window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub])
+          }
         }
       }
     }
