@@ -21,6 +21,11 @@
         </div>
       </div>
     </div>
+    <div class="social">
+      <a :href="urls.discord" target="_blank"><fa-icon class="icon" :icon="['fab', 'discord']" /></a>
+      <a :href="urls.twitter" target="_blank"><fa-icon class="icon" :icon="['fab', 'twitter']" /></a>
+      <a :href="urls.github" target="_blank"><fa-icon class="icon" :icon="['fab', 'github']" /></a>
+    </div>
   </section>
 </template>
 
@@ -58,6 +63,19 @@
       font-size: 1.5rem;
       line-height: 2rem;
       font-weight: 200;
+    }
+    .social {
+      font-size: 3rem;
+      position: absolute;
+      bottom: 1rem;
+      width: 100%;
+      text-align: center;
+      .icon {
+        color: rgba(0,0,0,0.1);
+        &:hover {
+          color: rgba(54, 130, 222, 1);
+        }
+      }
     }
     .hero-btn-wrapper {
       margin-top: 2.5rem;

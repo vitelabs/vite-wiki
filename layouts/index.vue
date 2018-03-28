@@ -17,7 +17,7 @@
       <div class="navbar-menu" :class="{ 'is-active': navbarActive }">
         <div class="navbar-start">
           <div class="navbar-item">
-            <wiki-nav-search></wiki-nav-search>
+            <!--<wiki-nav-search></wiki-nav-search>-->
           </div>
         </div>
         <div class="navbar-end">
