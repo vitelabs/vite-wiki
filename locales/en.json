@@ -1,10 +1,11 @@
 {
   "lang": "English",
   "nav": {
-    "whitePaper": "White paper",
+    "whitePaper": "White Paper",
     "tech": "Tech",
     "about": "About",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "searchInputPlaceholder": "Search"
   },
   "home": {
     "header": "Fast, No Fee, Scalability",
@@ -12,7 +13,7 @@
     "start": "Start",
     "contribute": "contribute"
   },
-  "wiki": {
-    "searchInputPlaceholder": "Search"
+  "error": {
+    "backHome": "Return To Home"
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="content wiki-content">
-    <nuxtent-body :body="message.body" />
+    <nuxtent-body v-if="message.body" :body="message.body" />
   </div>
 </template>
 

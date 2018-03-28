@@ -1,6 +1,6 @@
 <template>
   <div class="Search">
-    <input class="Search__Input" type="text" name="search" id="algolia" :placeholder="$t('wiki.searchInputPlaceholder')" />
+    <input class="Search__Input" type="text" name="search" id="algolia" :placeholder="$t('nav.searchInputPlaceholder')" />
   </div>
 </template>
 

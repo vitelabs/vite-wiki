@@ -1,5 +1,5 @@
 <template>
-  <nuxtent-body :body="indexNav.body" />
+  <nuxtent-body v-if="indexNav.body" :body="indexNav.body" />
 </template>
 
 <script type="text/babel">

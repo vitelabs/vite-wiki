@@ -3,7 +3,8 @@
   "nav": {
     "whitePaper": "白皮书",
     "tech": "技术细节",
-    "about": "关于"
+    "about": "关于",
+    "searchInputPlaceholder": "搜索"
   },
   "home": {
     "header": "快速, 无手续费, 高性能",
@@ -12,7 +13,7 @@
     "start": "开始学习",
     "contribute": "参与贡献"
   },
-  "wiki": {
-    "searchInputPlaceholder": "搜索"
+  "error": {
+    "backHome": "回到首页"
   }
 }

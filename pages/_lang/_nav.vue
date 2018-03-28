@@ -139,7 +139,6 @@
         let docsConfig = await app.$content(`${lang}/${nav}`).get(`${lang}/${nav}/config`)
         parserdNavs = parseDocsConfig(docsConfig.body).navs
       } catch (err) {
-        console.log(err)
         parserdNavs = list.map(item => {
           return {
             ...item,
@@ -147,8 +146,6 @@
           }
         })
       }
-
-      console.log(JSON.stringify(parserdNavs, 2, 2))
 
       if (parserdNavs && parserdNavs.length) {
         let firstNav = parserdNavs[0].navs && parserdNavs[0].navs.length ? parserdNavs[0].navs[0] : parserdNavs[0]
