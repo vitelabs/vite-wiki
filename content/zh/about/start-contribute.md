@@ -112,3 +112,29 @@ $$
 Q_{tps} = T \cdot \left ( \frac{2}{1+exp\left ( -P_{d}\cdot D - P_{s}\cdot S - P_{b}\cdot B \right )} - 1  \right )
 $$
 
+## 如何展示静态资源？
+
+### 方法一：存放到本项目里
+
+静态资源可以放到 `static`目录下，然后引用时通过`/your-static-path`地址来访问。
+
+例如：需要引用图片 `bg.jpg`，将文件放到 `static`目录下
+
+```markdown
+![bg.jpg](/bg.jpg)
+```
+展示效果如下：
+
+![bg.jpg](/bg.jpg)
+
+### 方法二：上传到其他图片服务器上
+
+例如：可以在[cnode 发帖栏目](https://cnodejs.org/topic/create)里上传图片，然后复制上传之后的url到这里。
+
+```markdown
+![diqiu-008.jpg](//dn-cnode.qbox.me/Fhpq63ktXpJ3LJxMB21L9WazxbKi)
+```
+
+显示为：
+
+![diqiu-008.jpg](//dn-cnode.qbox.me/Fhpq63ktXpJ3LJxMB21L9WazxbKi)

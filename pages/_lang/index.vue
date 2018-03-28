@@ -3,7 +3,13 @@
     <div class="hero-body">
       <div class="container" v-in-viewport.once>
         <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
-          <h1 class="inview2 delay-0-700 animated fadeInDown">Vite Labs</h1>
+          <no-ssr>
+            <h1 class="inview2 delay-0-700 animated fadeInDown">
+              <vue-typer :text='typerText' :repeat='Infinity' pre-type-delay='700'>Vite Labs</vue-typer>
+              Contract Platform
+            </h1>
+          </no-ssr>
+          <p class="slogan inview2 delay-0-700 animated fadeInDown">{{$t('home.slogan')}}</p>
         </div>
         <div class="hero-btn-wrapper inview1 delay-0-800 animated fadeInUp">
           <nuxt-link class="button" :to="`/${$i18n.locale}/whitePaper/index`" active-class="none">
@@ -19,12 +25,20 @@
 </template>
 
 <script type="text/babel">
+  import Vue from 'vue'
   import config from '~/config'
+
+  if (process.browser) {
+    let {VueTyper} = require('vue-typer')
+    Vue.component('vue-typer', VueTyper)
+  }
+
   export default {
     layout: 'index',
     data: function () {
       return {
-        urls: config.urls
+        urls: config.urls,
+        typerText: ['Fast', 'No Fee', 'Scalability']
       }
     },
     methods: {}
@@ -38,10 +52,15 @@
   .hero {
     text-align: center;
     h1 {
-      font-size: 5rem;
+      font-size: 4rem;
+    }
+    .slogan{
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-weight: 200;
     }
     .hero-btn-wrapper {
-      margin-top: 1.6rem;
+      margin-top: 2.5rem;
       .button {
         background: rgba(54,130,222,0.9);
         color: white;

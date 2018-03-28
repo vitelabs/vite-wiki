@@ -11,7 +11,8 @@
     "header": "Fast, No Fee, Scalability",
     "contract": "Contract Platform",
     "start": "Start",
-    "contribute": "contribute"
+    "contribute": "contribute",
+    "slogan": "Vite: A fast, feeless, decentralized transaction ledger"
   },
   "error": {
     "backHome": "Return To Home"

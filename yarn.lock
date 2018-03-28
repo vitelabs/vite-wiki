@@ -4111,6 +4111,10 @@ lodash.mergewith@^4.6.0:
   version "4.6.1"
   resolved "http://registry.npm.taobao.org/lodash.mergewith/download/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
 
+lodash.split@^4.4.2:
+  version "4.4.2"
+  resolved "http://registry.npm.taobao.org/lodash.split/download/lodash.split-4.4.2.tgz#a7f7bd9f37968b9312428e2f3ac3fb3173c4c3c6"
+
 lodash.tail@^4.1.1:
   version "4.1.1"
   resolved "http://registry.npm.taobao.org/lodash.tail/download/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
@@ -7308,6 +7312,12 @@ vue-template-compiler@^2.5.13:
 vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
+
+vue-typer@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/vue-typer/download/vue-typer-1.2.0.tgz#08d95785a2817959b92276055cdf272d8986500b"
+  dependencies:
+    lodash.split "^4.4.2"
 
 vue@^2.5.13:
   version "2.5.16"

@@ -11,7 +11,8 @@
     "contract": "智能合约平台",
     "whitePaper": "白皮书",
     "start": "开始学习",
-    "contribute": "参与贡献"
+    "contribute": "参与贡献",
+    "slogan": "Vite: 一个快速无手续费的分布式交易账本"
   },
   "error": {
     "backHome": "回到首页"

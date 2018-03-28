@@ -26,7 +26,7 @@ module.exports = {
   },
   build: {
     extractCSS: true,
-    vendor: ['vue-i18n', 'babel-polyfill'],
+    vendor: ['vue-i18n', 'babel-polyfill', 'vue-typer'],
     postcss: {
       plugins: {
         'postcss-custom-properties': {
