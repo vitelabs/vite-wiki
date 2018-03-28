@@ -5,7 +5,7 @@
         <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
           <no-ssr>
             <h1 class="inview2 delay-0-700 animated fadeInDown">
-              <vue-typer :text='typerText' :repeat='Infinity' pre-type-delay='700'>Vite Labs</vue-typer>
+              <vue-typer :text='typerText' :repeat='Infinity' :pre-type-delay='700'>Vite Labs</vue-typer>
               Contract Platform
             </h1>
           </no-ssr>
@@ -51,6 +51,8 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  @import "~assets/vars";
+
   body {
     background: rgba(247,247,247,1);
   }
@@ -58,11 +60,17 @@
     text-align: center;
     h1 {
       font-size: 4rem;
+      @include mobile {
+        font-size: 1.8rem;
+      }
     }
     .slogan{
       font-size: 1.5rem;
       line-height: 2rem;
       font-weight: 200;
+      @include mobile {
+        font-size: 1.2rem;
+      }
     }
     .social {
       font-size: 3rem;
