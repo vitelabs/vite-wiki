@@ -33,7 +33,7 @@ module.exports = {
   content,
   api: function (isStatic) {
     return {
-      browserBaseURL: isStatic ? 'http://69.171.64.178:5000' : '',
+      browserBaseURL: isStatic ? 'http://doc.vite.org' : '',
       baseURL: 'http://localhost:3000'
     }
   },
