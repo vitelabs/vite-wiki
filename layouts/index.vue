@@ -15,11 +15,11 @@
       </div>
 
       <div class="navbar-menu" :class="{ 'is-active': navbarActive }">
-        <div class="navbar-start">
-          <div class="navbar-item">
+        <!--<div class="navbar-start">-->
+          <!--<div class="navbar-item">-->
             <!--<wiki-nav-search></wiki-nav-search>-->
-          </div>
-        </div>
+          <!--</div>-->
+        <!--</div>-->
         <div class="navbar-end">
           <nuxt-link :to="`/${$i18n.locale}/${item}`" class="navbar-item" v-for="item in navs" :key="item">
             <span @click="onNavClick">{{$t(`nav.${item}`)}}</span>
@@ -75,6 +75,9 @@
       border: 0;
     }
   }
+  span,a,p,div {
+    word-wrap: break-word;
+  }
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -85,7 +88,7 @@
     top: 0;
     width: 100%;
     background-color: #fff;
-    z-index: 233;
+    z-index: 2000;
     transition: all .3s;
     box-shadow: 0 1px 0 #e5e5e5;
     .navbar-menu {

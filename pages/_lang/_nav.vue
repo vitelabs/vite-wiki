@@ -1,16 +1,13 @@
 <template>
   <div class="section">
-    <div class="container is-fullhd">
-      <div class="columns">
-        <aside class="column is-3 sidebar-menu-wrapper">
+    <div class="columns">
+        <aside class="column is-3 sidebar-menu-wrapper" :class="{'is-open': isNavbarOpen}">
             <no-ssr>
               <my-affix class="sidebar-menu menu affix sidebar-menu"
                      relative-element-selector="#wiki-content-wrapper"
-                     style="width: 300px"
                      @scrollaffixscrolling="scrollaffixscrolling"
                      :scroll-affix="false"
-                     :offset="{ top: 80, bottom: 40 }"
-              >
+                     :offset="{ top: 80, bottom: 40 }">
                 <template v-for="(item, index) in navs">
                   <template v-if="item && item.navs && item.navs.length">
                     <p class="menu-label">
@@ -24,7 +21,8 @@
                           </nuxt-link>
                         </li>
                         <my-scrollactive v-if="subNav && subNav.anchors && subNav.anchors.length && isSamePath(subNav.permalink, $route.path, index)"
-                                         class="menu-list anchor-nav">
+                                         class="menu-list anchor-nav"
+                                         :offset="scrollOffset">
                           <a v-for="anchor in subNav.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                             {{anchor[1]}}
                           </a>
@@ -40,7 +38,8 @@
                       </nuxt-link>
                     </p>
                     <my-scrollactive v-if="item.anchors && item.anchors.length && isSamePath(item.permalink, $route.path, index) "
-                                     class="menu-list anchor-nav">
+                                     class="menu-list anchor-nav"
+                                     :offset="scrollOffset">
                       <a v-for="anchor in item.anchors" class="scrollactive-item" :href="slugify(anchor[1])">
                         {{anchor[1]}}
                       </a>
@@ -51,14 +50,16 @@
             </no-ssr>
         </aside>
 
-
         <div class="column">
           <div class="wiki-content-wrapper content" id="wiki-content-wrapper">
             <nuxt-child/>
           </div>
         </div>
-      </div>
     </div>
+    <button class="mobile-menu-icon button is-hidden-desktop" @click="onMobileMenuClick">
+      <fa-icon class="icon" :icon="['fas', 'ellipsis-h']" />
+    </button>
+    <div class="bg" v-show="isNavbarOpen" @click="isNavbarOpen = false"></div>
   </div>
 </template>
 
@@ -81,7 +82,9 @@
     layout: 'index',
     data () {
       return {
-        navs: []
+        navs: [],
+        scrollOffset: 70,
+        isNavbarOpen: false
       }
     },
     head () {
@@ -179,14 +182,28 @@
           permalink = permalink.substring(0, permalink.length - 1)
         }
         return path === permalink
+      },
+      onMobileMenuClick () {
+        this.isNavbarOpen = !this.isNavbarOpen
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    margin-top: 1.5em;
+  @import "~assets/vars";
+
+
+  .section {
+    padding-top: 3.25rem + 1.5rem;
+    .bg {
+      background: rgba(0,0,0,0.1);
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
   }
 
   .menu.affix {
@@ -198,10 +215,27 @@
       display: none;
       transition: 1s;
     }
+    &.is-open {
+      display: block;
+      position: fixed;
+      top: 52px !important;
+      background: white;
+      z-index: 1000;
+      .sidebar-menu {
+        width: 60vw;
+        display: block;
+        position: fixed;
+        top: 52px !important;
+        left: 0;
+        overflow: hidden;
+        height: 100vh;
+        background: white;
+      }
+    }
   }
 
   .sidebar-menu {
-    width: 318px;
+    width: 22vw;
 
     overflow: scroll;
 
@@ -231,15 +265,7 @@
       text-align: left;
     }
 
-    @media screen and (max-width: 1383px) {
-      width: 270px;
-    }
-
-    @media screen and (max-width: 1191px) {
-      width: 222px;
-    }
-
-    @media screen and (max-width: 960px) {
+    @include mobile {
       display: none;
     }
   }
@@ -260,5 +286,22 @@
     .card-content {
       padding: 15px;
     }
+  }
+
+  .mobile-menu-icon {
+    position: fixed;
+    z-index: 2147222222;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    bottom: 20px;
+    left: 20px;
+    line-height: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    border: none;
   }
 </style>
