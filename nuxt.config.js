@@ -1,6 +1,6 @@
 const config = require('./config')
 
-const generatePages = ['/', '/about', '/faq', '/whitePaper']
+const generatePages = ['/', '/about', '/faq', '/whitePaper', '/tech']
 let generateRoutes = [].concat(generatePages)
 config.langs.forEach(item => {
   generateRoutes = generateRoutes.concat(generatePages.map(page => {
