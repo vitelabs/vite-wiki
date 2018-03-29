@@ -1,5 +1,5 @@
 <template>
-  <div class="Search">
+  <div class="Search" :key="id">
     <input class="Search__Input" type="text" name="search" id="algolia" :placeholder="$t('nav.searchInputPlaceholder')" />
   </div>
 </template>
@@ -13,31 +13,46 @@
   let scriptLoaded = () => callbacks.forEach((cb) => cb())
 
   export default {
+    data () {
+      return {
+        id: 0
+      }
+    },
     mounted () {
       onScriptLoaded(() => this.addInstantSearch())
       if (scriptInjected) return
       // Load JS
       const script = document.createElement('script')
       script.setAttribute('type', 'text/javascript')
-      script.setAttribute('src', '//cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js')
+      script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js')
       document.getElementsByTagName('body')[0].appendChild(script)
       script.onload = scriptLoaded
       // Load CSS
       var link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       link.setAttribute('type', 'text/css')
-      link.setAttribute('href', 'https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css')
+      link.setAttribute('href', 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css')
       document.getElementsByTagName('body')[0].appendChild(link)
       scriptInjected = true
+    },
+    watch: {
+      '$i18n.locale': function (newVal, oldVal) {
+        if (newVal !== oldVal && this.$i18n.locale) {
+          this.id++
+          this.$nextTick(() => {
+            this.addInstantSearch()
+          })
+        }
+      }
     },
     methods: {
       addInstantSearch () {
         window.docsearch({
           apiKey: config.searchDoc.apiKey,
-          indexName: 'nuxtjs',
+          indexName: 'vite_labs',
           inputSelector: '#algolia',
-          // algoliaOptions: { 'facetFilters': [`tags:${this.$i18n.locale}`] },
-          debug: true // Set debug to true if you want to inspect the dropdown
+          algoliaOptions: { 'facetFilters': [`lang:${this.$i18n.locale}`] },
+          debug: false // Set debug to true if you want to inspect the dropdown
         })
       }
     }

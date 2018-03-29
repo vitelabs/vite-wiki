@@ -12,7 +12,7 @@ module.exports = {
     github: 'https://github.com/vitelabs'
   },
   searchDoc: {
-    apiKey: 'ff80fbf046ce827f64f06e16f82f1401'
+    apiKey: 'fe006d1336f2a85d144fdfaf4a089378'
   },
   defaultActiveNav: 'wiki'
 }

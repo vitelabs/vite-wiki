@@ -15,11 +15,11 @@
       </div>
 
       <div class="navbar-menu" :class="{ 'is-active': navbarActive }">
-        <!--<div class="navbar-start">-->
-          <!--<div class="navbar-item">-->
-            <!--<wiki-nav-search></wiki-nav-search>-->
-          <!--</div>-->
-        <!--</div>-->
+        <div class="navbar-start">
+          <div class="navbar-item">
+            <wiki-nav-search></wiki-nav-search>
+          </div>
+        </div>
         <div class="navbar-end">
           <nuxt-link :to="`/${$i18n.locale}/${item}`" class="navbar-item" v-for="item in navs" :key="item">
             <span @click="onNavClick">{{$t(`nav.${item}`)}}</span>

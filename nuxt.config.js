@@ -64,7 +64,10 @@ module.exports = {
         active: true
       }
     }],
-    'nuxtent'
+    'nuxtent',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-116567941-1'
+    }]
   ],
   css: [
     '~/assets/main.scss'

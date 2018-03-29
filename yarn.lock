@@ -107,6 +107,12 @@
     chalk "^2.3.2"
     debug "^3.1.0"
 
+"@nuxtjs/google-analytics@^2.0.2":
+  version "2.0.2"
+  resolved "http://registry.npm.taobao.org/@nuxtjs/google-analytics/download/@nuxtjs/google-analytics-2.0.2.tgz#75353143628fd7697b41eb5aa7da38a513394eca"
+  dependencies:
+    vue-analytics "^5.4.0"
+
 "@nuxtjs/icon@^2.0.2":
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/@nuxtjs/icon/download/@nuxtjs/icon-2.0.2.tgz#a560ea96644e575c2a51ae320aa31af025c4e2ad"
@@ -7221,6 +7227,10 @@ vm-browserify@0.0.4:
 vue-affix@^0.2.4:
   version "0.2.4"
   resolved "http://registry.npm.taobao.org/vue-affix/download/vue-affix-0.2.4.tgz#4f599f10517cab95a2d628029f91edb83316afe7"
+
+vue-analytics@^5.4.0:
+  version "5.9.1"
+  resolved "http://registry.npm.taobao.org/vue-analytics/download/vue-analytics-5.9.1.tgz#3ac9810f56dbe54bca4fd1c3ee42354b433d932b"
 
 vue-carousel@^0.6.9:
   version "0.6.9"
