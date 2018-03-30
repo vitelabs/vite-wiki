@@ -9,8 +9,9 @@
     asyncData: async ({ app, payload, params, route }) => {
       let lang = params.lang || app.i18n.locale
       let data = app.$content(`/${lang}/${params.nav}`)
+      let message = await data.get(`/${lang}/${params.nav}/${params.slug}`)
       return {
-        message: await data.get(`/${lang}/${params.nav}/${params.slug}`)
+        message: message || {}
       }
     },
     head () {
