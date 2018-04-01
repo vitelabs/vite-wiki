@@ -3,9 +3,7 @@
     <div class="navbar is-fixed-top" role="navigation" aria-label="main navigation" :class="{ 'is-open': navbarActive }">
       <div class="navbar-brand">
         <nuxt-link class="navbar-item" :to="'/'">
-          <span @click="onNavClick">
-            Vite Labs Documents
-          </span>
+          <logo class="logo"></logo>
         </nuxt-link>
         <div class="navbar-burger burger" @click="navbarActive = !navbarActive">
           <span></span>
@@ -37,13 +35,15 @@
 <script type="text/babel">
   import LangSelect from '~/components/LangSelect'
   import WikiNavSearch from '~/components/WikiNavSearch'
+  import Logo from '~/components/Logo.vue'
 
   let scriptInjected = false
 
   export default {
     components: {
       LangSelect,
-      WikiNavSearch
+      WikiNavSearch,
+      Logo
     },
     data: function () {
       return {
@@ -108,6 +108,10 @@
       color: rgba(0,0,0,0.6);
       padding-top: 0;
       padding-bottom: 0;
+      .logo {
+        height: 3.25rem - 1rem;
+      }
+
       & > span {
         height: 100%;
         line-height: 3.25rem;

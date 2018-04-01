@@ -2,9 +2,12 @@
   <section class="hero is-fullheight " v-in-viewport>
     <div class="hero-body">
       <div class="container" v-in-viewport.once>
+        <div>
+          <logo class="logo"></logo>
+        </div>
         <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
           <no-ssr>
-            <h1 class="inview2 delay-0-700 animated fadeInDown">
+            <h1 class="inview2 delay-0-700 animated fadeInDown is-hidden-touch">
               <vue-typer :text='typerText' :repeat='Infinity' :pre-type-delay='700'>Vite Labs</vue-typer>
               Contract Platform
             </h1>
@@ -32,6 +35,7 @@
 <script type="text/babel">
   import Vue from 'vue'
   import config from '~/config'
+  import Logo from '~/components/Logo.vue'
 
   if (process.browser) {
     let {VueTyper} = require('vue-typer')
@@ -40,6 +44,9 @@
 
   export default {
     layout: 'index',
+    components: {
+      Logo
+    },
     head () {
       let title = this.$t('head.title')
       let description = this.$t('head.homeDesc')
@@ -84,8 +91,15 @@
   }
   .hero {
     text-align: center;
+
+    .logo {
+      margin-bottom: 2rem;
+      height: 10rem;
+      width: auto;
+      color: $light-blue;
+    }
     h1 {
-      font-size: 4rem;
+      font-size: 3rem;
       @include mobile {
         font-size: 1.8rem;
       }
