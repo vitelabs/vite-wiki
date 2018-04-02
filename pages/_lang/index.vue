@@ -2,7 +2,9 @@
   <section class="hero is-fullheight " v-in-viewport>
     <div class="hero-body">
       <div class="container" v-in-viewport.once>
-        <h1 class="header">V I T E</h1>
+        <h1 class="header">
+          <logo-word></logo-word>
+        </h1>
         <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
           <no-ssr>
             <p class="slogan inview2 delay-0-700 animated fadeInDown">
@@ -32,6 +34,7 @@
   import Vue from 'vue'
   import config from '~/config'
   import Logo from '~/components/Logo.vue'
+  import LogoWord from '~/components/LogoWord'
 
   if (process.browser) {
     let {VueTyper} = require('vue-typer')
@@ -41,7 +44,8 @@
   export default {
     layout: 'index',
     components: {
-      Logo
+      Logo,
+      LogoWord
     },
     head () {
       let title = this.$t('head.title')
