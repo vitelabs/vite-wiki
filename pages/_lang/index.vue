@@ -2,17 +2,13 @@
   <section class="hero is-fullheight " v-in-viewport>
     <div class="hero-body">
       <div class="container" v-in-viewport.once>
-        <div>
-          <logo class="logo"></logo>
-        </div>
+        <h1 class="header">V I T E</h1>
         <div class="has-text-centered hvr-bounce-in is-size-1-desktop is-size-2-touch hvr-grow">
           <no-ssr>
-            <h1 class="inview2 delay-0-700 animated fadeInDown is-hidden-touch">
-              <vue-typer :text='typerText' :repeat='Infinity' :pre-type-delay='700'>Vite Labs</vue-typer>
-              Contract Platform
-            </h1>
+            <p class="slogan inview2 delay-0-700 animated fadeInDown">
+              <vue-typer :text="typerText" :repeat='0' :pre-type-delay='500'>Vite Labs</vue-typer>
+            </p>
           </no-ssr>
-          <p class="slogan inview2 delay-0-700 animated fadeInDown">{{$t('home.slogan')}}</p>
         </div>
         <div class="hero-btn-wrapper inview1 delay-0-800 animated fadeInUp">
           <nuxt-link class="button" :to="`/${$i18n.locale}/whitePaper/index`" active-class="none">
@@ -76,7 +72,7 @@
     data: function () {
       return {
         urls: config.urls,
-        typerText: ['Fast', 'No Fee', 'Scalability']
+        typerText: this.$t('home.slogan')
       }
     },
     methods: {}
@@ -90,6 +86,7 @@
     background: rgba(247,247,247,1);
   }
   .hero {
+    font-family: $font-family-light;
     text-align: center;
 
     .logo {
@@ -98,10 +95,31 @@
       width: auto;
       color: $light-blue;
     }
-    h1 {
+    h2 {
       font-size: 3rem;
+      color: rgba(0,0,0,0.5);
       @include mobile {
         font-size: 1.8rem;
+      }
+    }
+    .header {
+      margin-bottom: 1rem;
+      color: $light-blue;
+      @include mobile {
+        font-size: 3.2rem;
+        line-height: 3.2rem * 1.5;
+      }
+      @include tablet {
+        font-size: 3.6rem;
+        line-height: 3.6rem * 1.5;
+      }
+      @include desktop {
+        font-size: 4rem;
+        line-height: 4rem * 1.5;
+      }
+      @include fullhd {
+        font-size: 4.5rem;
+        line-height: 4.5rem * 1.5;
       }
     }
     .slogan{
