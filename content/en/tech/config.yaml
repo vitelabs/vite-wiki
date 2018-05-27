@@ -1,5 +1,0 @@
-navs:
- -
-   label: Tech Detail
-   navs:
-   	- snapshot.md

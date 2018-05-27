@@ -1,39 +1,10 @@
 {
   "name": "doc.vite.org",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "p": "npm run build && npm run generate"
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
   },
   "homepage": "https://vitelabs.github.io/doc.vite.org/",
-  "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.4",
-    "@fortawesome/fontawesome-free-brands": "^5.0.8",
-    "@fortawesome/fontawesome-free-solid": "^5.0.9",
-    "@fortawesome/vue-fontawesome": "^0.0.22",
-    "@nuxtjs/axios": "^5.1.1",
-    "@nuxtjs/google-analytics": "^2.0.2",
-    "@nuxtjs/pwa": "^2.0.5",
-    "babel-polyfill": "^6.26.0",
-    "bezier-easing": "^2.0.3",
-    "chart.js": "^2.7.2",
-    "chartjs-plugin-piechart-outlabels": "^0.1.4",
-    "markdown-it-mathjax": "^2.0.0",
-    "node-watch": "^0.5.8",
-    "nuxt": "^1.4.0",
-    "nuxtent": "^1.4.1",
-    "particles.js": "^2.0.0",
-    "prismjs": "^1.11.0",
-    "twemoji": "^2.5.1",
-    "vue-affix": "^0.2.4",
-    "vue-carousel": "^0.6.9",
-    "vue-i18n": "^7.3.2",
-    "vue-scrollactive": "^0.6.1",
-    "vue-typer": "^1.2.0",
-    "xui-module": "^0.1.5"
-  },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "eslint": "^4.18.2",
@@ -44,10 +15,8 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "markdown-it-emoji": "^1.4.0",
-    "markdown-it-headinganchor": "^1.3.0",
-    "markdown-it-link-attributes": "^2.0.0",
     "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.7"
+    "sass-loader": "^6.0.7",
+    "vuepress": "^0.10.0"
   }
 }
