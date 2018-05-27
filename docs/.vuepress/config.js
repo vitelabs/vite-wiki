@@ -17,7 +17,7 @@ module.exports = {
     }
   },
   head: [
-    ['link', { rel: 'icon', href: `/logo.png` }],
+    ['link', { rel: 'icon', href: `/icon.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
@@ -55,10 +55,10 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          {
-            text: 'FAQ',
-            link: '/faq/'
-          }
+          // {
+          //   text: 'FAQ',
+          //   link: '/faq/'
+          // }
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('Guide')
@@ -74,10 +74,10 @@ module.exports = {
             text: '介绍',
             link: '/zh/introduction/',
           },
-          {
-            text: '问题答疑',
-            link: '/zh/faq/'
-          }
+          // {
+          //   text: '问题答疑',
+          //   link: '/zh/faq/'
+          // }
         ],
         sidebar: {
           '/zh/introduction/': genSidebarConfig('介绍')

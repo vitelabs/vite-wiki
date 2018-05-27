@@ -1,6 +1,4 @@
-# [vite.org](http://vite.org)
-
-> Source code for vite.org.
+# [doc.vite.org](https://doc.vite.org)
 
 ## Start
 
@@ -9,91 +7,27 @@
 * node: >= 9.xx
 * yarn: >= 1.3.xx
 
+#### Install yarn
+
 ```
-git clone git@github.com:vitelabs/website.git
+brew install yarn
+```
+
+About yarn Installation, please move to [yarn document](https://yarnpkg.com/en/docs/install#mac-stable)
+
+```
+git clone https://github.com/vitelabs/doc.vite.org.git
 
 yarn
 ```
 
 If the node-sass is not installed correctly, you can run `npm rebuild node-sass`.
 
-### Cli
+### Write document
 
-* `npm run dev`: run local dev server, you can see result by visit: `http://localhost:3000`
-* `npm run build`: build production assets
-* `npm run start`: start server
-* `npm run generate`: generate static html
-* `npm run p`: run `npm run build` and `npm run generate`
+Just run : `yarn dev`
 
-## i18n
+### How To Include Static Assets?
 
-You can edit lang translate data from [locales](https://github.com/vitelabs/website/tree/master/locales). The default language is : `en`.
-
-Wiki also support multi languages, you can edit it at [content](https://github.com/vitelabs/website/tree/master/content)
-
-## Wiki
-
-### config.yaml
-
-Each language wiki should have a `config.yaml`. This is for configure wiki sidebar menu.
-
-Example:
-
-```yaml
-navs:
- -
-   label: 测试
-   path: /section
-   navs:
-   	- test3.md
- -
-   label: 测试2
-   path: /section2
-   navs:
-   	- test2.md
- - test.md
-```
-
-### edit
-
-#### title
-
-You can add title by this: 
-
-
-```
-
----
-title: This is title
----
-
-This is content...
-
-
-```
-
-This `This is title` will be the label of sidebar menu. 
-In the markdown, you can add subtitles by add `h2` title.
-
-Example:
-
-```markdown
-
----
-title: This is title
----
-
-## This is subtitle
-
-this is content....
-
-## This is subtitle2
-
-```
-
-
-
-
-
-
+See [https://vuepress.vuejs.org/zh/guide/assets.html](https://vuepress.vuejs.org/zh/guide/assets.html)
 
