@@ -1,13 +1,11 @@
 # [doc.vite.org](https://doc.vite.org)
 
-## Start
-
 ### Env
 
 * node: >= 9.xx
 * yarn: >= 1.3.xx
 
-#### Install yarn
+### Install yarn
 
 ```
 brew install yarn
@@ -15,17 +13,17 @@ brew install yarn
 
 About yarn Installation, please move to [yarn document](https://yarnpkg.com/en/docs/install#mac-stable)
 
+### Install vuepress
+
 ```
-git clone https://github.com/vitelabs/doc.vite.org.git
-
-yarn
+yarn global add vuepress # 或者：npm install -g vuepress
 ```
 
-If the node-sass is not installed correctly, you can run `npm rebuild node-sass`.
+### Start Writing
 
-### Write document
-
-Just run : `yarn dev`
+```
+vuepress dev docs
+```
 
 ### How To Include Static Assets?
 
