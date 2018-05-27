@@ -39,10 +39,6 @@ module.exports = {
     editLinks: true,
     docsDir: 'docs',
     search: true,
-    algolia: {
-      apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
-      indexName: 'vite_labs'
-    },
     repo: 'vitelabs/doc.vite.org',
     locales: {
       '/': {
@@ -61,7 +57,12 @@ module.exports = {
           // }
         ],
         sidebar: {
-          '/introduction/': genSidebarConfig('Guide')
+          '/introduction/': genSidebarConfig('Introduction')
+        },
+        algolia: {
+          apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
+          indexName: 'vite_labs',
+          algoliaOptions: { facetFilters: ["lang:en"] }
         }
       },
       '/zh/': {
@@ -81,6 +82,11 @@ module.exports = {
         ],
         sidebar: {
           '/zh/introduction/': genSidebarConfig('介绍')
+        },
+        algolia: {
+          apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
+          indexName: 'vite_labs',
+          algoliaOptions: { facetFilters: ["lang:zh"] }
         }
       }
     }
