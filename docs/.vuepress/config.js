@@ -1,5 +1,40 @@
 const path = require('path')
 
+const sidebarConfigs = {
+  introduction: [
+    {
+      collapsable: false,
+      children: [
+        '',
+        'dag-ledger',
+        'asynchronous-architecture',
+        'other',
+        'vite-token'
+      ]
+    }
+  ],
+  technology: [
+    {
+      collapsable: false,
+      children: [
+        ''
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'gen-address'
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'ledger-struct'
+      ]
+    }
+  ]
+}
+
 
 module.exports = {
   dest: 'dist',
@@ -51,18 +86,22 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          // {
-          //   text: 'FAQ',
-          //   link: '/faq/'
-          // }
+          {
+            text: 'Technology Detail',
+            link: '/technology/'
+          }
         ],
         sidebar: {
-          '/introduction/': genSidebarConfig('Introduction')
+          '/introduction/': genSidebarConfig('introduction', 'Introduction'),
+          '/technology/': genSidebarConfig('technology', 'Technology Detail')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
           indexName: 'vite_labs',
-          algoliaOptions: { facetFilters: ["lang:en"] }
+          algoliaOptions: {
+            facetFilters: ["lang:en"],
+            hitsPerPage: 10
+          }
         }
       },
       '/zh/': {
@@ -75,36 +114,32 @@ module.exports = {
             text: '介绍',
             link: '/zh/introduction/',
           },
-          // {
-          //   text: '问题答疑',
-          //   link: '/zh/faq/'
-          // }
+          {
+            text: '技术细节',
+            link: '/zh/technology/'
+          }
         ],
         sidebar: {
-          '/zh/introduction/': genSidebarConfig('介绍')
+          '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
+          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
           indexName: 'vite_labs',
-          algoliaOptions: { facetFilters: ["lang:zh"] }
+          algoliaOptions: {
+            facetFilters: ["lang:zh"],
+            hitsPerPage: 10
+          }
         }
       }
     }
   }
 }
 
-function genSidebarConfig (title) {
-  return [
-    {
-      title,
-      collapsable: false,
-      children: [
-        '',
-        'dag-ledger',
-        'asynchronous-architecture',
-        'other',
-        'vite-token'
-      ]
-    }
-  ]
+function genSidebarConfig (nav, ...titles) {
+  return sidebarConfigs[nav].map((item, index) => {
+    return Object.assign({}, item, {
+      title: titles[index]
+    })
+  })
 }
