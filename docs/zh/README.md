@@ -17,7 +17,7 @@ Vite 项目正在开发，有关Vite的相关的技术文档均会放此处，�
 :::
 
 ::: warning 注意
-请确保你的 Node.js 版本 >= 9。
+请确保你的 Node.js 版本 >= 9
 :::
 
 ## doc.vite.org 运行指南
