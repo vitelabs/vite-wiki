@@ -23,6 +23,12 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
+        'design-features'
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
         'gen-address'
       ]
     },
@@ -121,7 +127,7 @@ module.exports = {
         ],
         sidebar: {
           '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
-          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本')
+          '/zh/technology/': genSidebarConfig('technology', '开始', '设计特点', '地址', '账本')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
