@@ -37,6 +37,7 @@ Blake2的前身是Blake，Blake和keccak当时一起竞争SHA3标准的时候失
 事实上在安全性评估上NIST给了Blake相当高的评价，其 [report](https://nvlpubs.nist.gov/nistpubs/ir/2012/NIST.IR.7896.pdf)形容Blake，
 
 >"BLAKE and Keccak have very large security margins."。
+
 所以一般而言我们可以认为blake2的安全性和keccak不会有大的区别。
 
 ### 性能考量
