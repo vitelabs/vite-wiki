@@ -17,12 +17,7 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
-        ''
-      ]
-    },
-    {
-      collapsable: false,
-      children: [
+        '',
         'design-features'
       ]
     },
@@ -68,7 +63,7 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
-  serviceWorker: true,
+  serviceWorker: false,
   configureWebpack: {
     resolve: {
       alias: {
@@ -127,7 +122,7 @@ module.exports = {
         ],
         sidebar: {
           '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
-          '/zh/technology/': genSidebarConfig('technology', '开始', '设计特点', '地址', '账本')
+          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
