@@ -6,7 +6,7 @@
 
 ## Signing algorithm -  [Ed25519](https://ed25519.cr.yp.to/)
 ### 背景
-在签名算法的选择上，我们必须兼顾 **安全**和 **性能**，其中安全是首要的，中本聪当时选择的是ECDSA over secp256k1，secp256k1是SECG定义的一个Koblitz曲线，在中本聪使用前几乎无人问津，它设计透明，而不像NIST选中的secp256r1（也就是P256）曲线中有一些诡异的参数，这些参数被广泛地认为是NSA植入的[后门](https://www.ams.org/notices/201402/rnoti-p190.pdf)，后来的一系列事件也确实证明了中本聪的选择是非常具有前瞻性的，于是以太坊、EOS等也都跟进了中本聪的想法，但是随着Ed25519专利期限制解除，包括 [比特币的核心开发者们](https://bitcointalk.org/index.php?topic=103172.msg1134832#msg1134832 )和[V神](https://blog.ethereum.org/2015/07/05/on-abstraction/)都讨论过是否迁移到Ed25519，链接中可见他们的态度都比较暧昧地倾向于使用Ed25519，但可能由于迁移成本太大所以未能成行，而ripple则是在14年就果断迁移了过去。
+在签名算法的选择上，我们必须兼顾 **安全** 和 **性能**，其中安全是首要的，中本聪当时选择的是ECDSA over secp256k1，secp256k1是SECG定义的一个Koblitz曲线，在中本聪使用前几乎无人问津，它设计透明，而不像NIST选中的secp256r1（也就是P256）曲线中有一些诡异的参数，这些参数被广泛地认为是NSA植入的[后门](https://www.ams.org/notices/201402/rnoti-p190.pdf)，后来的一系列事件也确实证明了中本聪的选择是非常具有前瞻性的，于是以太坊、EOS等也都跟进了中本聪的想法，但是随着Ed25519专利期限制解除，包括 [比特币的核心开发者们](https://bitcointalk.org/index.php?topic=103172.msg1134832#msg1134832 )和[Vitalik Buterin](https://blog.ethereum.org/2015/07/05/on-abstraction/)都讨论过是否迁移到Ed25519，链接中可见他们的态度都比较暧昧地倾向于使用Ed25519，但可能由于迁移成本太大所以未能成行，而ripple则是在14年就果断迁移了过去。
 
 ### 安全性考量
 
