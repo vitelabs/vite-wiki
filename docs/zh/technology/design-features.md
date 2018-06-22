@@ -45,6 +45,11 @@ Blake2的前身是Blake，Blake和keccak当时一起竞争SHA3标准的时候失
 
 Blake2的另一个特点是用ASIC设计的Blake2算法能达到的峰值并不会很高，这就意味着挖矿的峰值速率相对较低，这也是我们希望的。
 
+## KDF - [scrypt](https://github.com/Tarsnap/scrypt)
+从技术角度来看scrypt相比于获得15年的Password Hashing Competition的argon2来说安全性上并没有大的区别，但是由于其诞生更早使用更广泛所以在实践角度看显得更成熟一点，argon2如果再有两到三年年仍然没有被发现大的问题，我们也有可能会使用它。
+
+
+
 ## 名词解释
 
 ECDSA(Elliptic Curve Digital Signature Algorithm)是使用椭圆曲线的数字签名算法
@@ -61,6 +66,8 @@ Ed25519 是一个使用SHA512/256的和[Curve25519](https://en.wikipedia.org/wik
 NIST(National Institute of Standards and Technology) 美国国家标准与技术研究院，他们制定了一些安全标准，比如SHA3,P256等
 
 NSA(National Security Agency) 美国国家安全局
+
+KDF(key derivation function) 密钥派生函数，简单而言就是使用一个主密钥派生其它子密钥的函数，比如把用户输入的密钥作为MasterKey，然后通过KDF的运算得到另一个用于AES的密钥
 
 
 
