@@ -161,21 +161,53 @@ export default {
           border-bottom none
         p
           min-height 60px
-@media (max-width: $MQMobileNarrow)
+          color #7f8c8d
+@media (max-width: $MQNarrow)
   .home
     padding-left 1.5rem
     padding-right 1.5rem
     .hero
-      img
-        max-height 210px
-        margin 2rem auto 1.2rem
-      h1
-        font-size 2rem
-      h1, .description, .action
-        margin 1.2rem auto
-      .description
-        font-size 1.2rem
-      .action-button
-        font-size 1rem
-        padding 0.6rem 1.2rem
+      .right
+        h1
+          font-size 2rem
+
+      .left
+        svg
+          max-width 170px
+          max-height 170px
+      .button
+        font-size 0.95em
+      a.button
+        padding 0.6em 1.7em
+
+@media (max-width: $MQMobile)
+  .home
+    padding-top 0
+    .hero
+      .right
+        h1
+          font-size 1.6rem
+      .right, .left
+        width 100%
+        text-align center
+
+      .left
+        & > svg
+          float none
+          margin-right auto
+          max-width 140px
+    .projects
+      padding 10px 0
+      .inner
+        .item
+          display: block;
+          margin: 0 auto;
+          width: 300px;
+          padding: 0 40px 30px;
+          &:before
+            content: "—";
+            color: $accentColor
+          p
+            min-height auto
+
 </style>
