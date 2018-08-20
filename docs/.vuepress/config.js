@@ -43,12 +43,12 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'Vite Document',
+      title: 'VITE Document',
       description: 'A Next Generation High-performance Decentralized Application Platform'
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: 'Vite 文档',
+      title: 'VITE 文档',
       description: '新一代高性能去中心化应用平台'
     }
   },
@@ -63,7 +63,7 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
-  serviceWorker: false,
+  serviceWorker: true,
   configureWebpack: {
     resolve: {
       alias: {
@@ -133,7 +133,16 @@ module.exports = {
           }
         }
       }
-    }
+    },
+    serviceWorker: {
+      updatePopup: true // Boolean | Object, 默认值是 undefined.
+      // 如果设置为 true, 默认的文本配置将是:
+      // updatePopup: {
+      //    message: "New content is available.",
+      //    buttonText: "Refresh"
+      // }
+    },
+    logo: '/logo_black.svg'
   }
 }
 

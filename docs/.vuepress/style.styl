@@ -1,0 +1,49 @@
+.custom-block.tip
+  border-color #409EFF !important
+
+body
+  font-size 15px
+  background #fff
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+
+.navbar
+  border-bottom none;
+  box-shadow 0 6px 36px 0 rgba(0,62,100,.04)
+
+.sidebar
+  border-right none
+
+.can-hide
+  &.site-name
+    display none
+
+.home-page
+  .navbar
+    box-shadow none
+    position relative
+
+.sw-update-popup
+  box-shadow: 0 4px 16px rgba(0,0,0,.2)
+  border none
+  padding 1.2rem
+  button
+    border: none;
+    border-radius: 40px;
+    background: #409EFF;
+    color: white;
+    margin-top: 1.2rem;
+    cursor: pointer;
+    padding: 5px 1.5rem;
+@media (max-width: 719px)
+  .navbar
+    .logo
+      display none
+    .site-name
+      &.can-hide
+        display block
+
+  .sidebar
+    box-shadow 0 6px 36px 0 rgba(0,62,100,.04)
+    .nav-links
+      border-bottom none
+
