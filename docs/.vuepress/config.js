@@ -33,6 +33,17 @@ const sidebarConfigs = {
         'ledger-struct'
       ]
     }
+  ],
+  'go-vite': [
+    {
+      collapsable: false,
+      children: [
+        '',
+        'account',
+        'net',
+        'transaction'
+      ]
+    }
   ]
 }
 
@@ -72,6 +83,7 @@ module.exports = {
     }
   },
   themeConfig: {
+    displayAllHeaders: true,
     editLinks: true,
     docsDir: 'docs',
     search: true,
@@ -87,10 +99,19 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          {
-            text: 'Technology Detail',
-            link: '/technology/'
-          }
+          // {
+          //   text: 'Technology Detail',
+          //   link: '/technology/'
+          // },
+          // {
+          //   text: 'API',
+          //   items: [
+          //     {
+          //       text: 'go-vite',
+          //       link: '/api/go-vite/'
+          //     }
+          //   ]
+          // }
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
@@ -118,11 +139,21 @@ module.exports = {
           {
             text: '技术细节',
             link: '/zh/technology/'
+          },
+          {
+            text: 'API',
+            items: [
+              {
+                text: 'go-vite',
+                link: '/zh/api/go-vite/'
+              }
+            ]
           }
         ],
         sidebar: {
           '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
-          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本')
+          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本'),
+          '/zh/api/go-vite/': genSidebarConfig('go-vite', 'Vite Core')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
