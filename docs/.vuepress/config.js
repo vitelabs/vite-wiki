@@ -38,10 +38,7 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
-        '',
-        'account',
-        'net',
-        'transaction'
+        ''
       ]
     }
   ]
@@ -82,12 +79,16 @@ module.exports = {
       }
     }
   },
+  markdown: {
+     toc: { includeLevel: [2, 3, 4] }
+  },
   themeConfig: {
     displayAllHeaders: true,
     editLinks: true,
     docsDir: 'docs',
     search: true,
     repo: 'vitelabs/doc.vite.org',
+    sidebarDepth: 3,
     locales: {
       '/': {
         label: 'English',
@@ -148,6 +149,10 @@ module.exports = {
                 link: '/zh/api/go-vite/'
               }
             ]
+          },
+          {
+            text: '关于',
+            link: '/zh/about/'
           }
         ],
         sidebar: {
