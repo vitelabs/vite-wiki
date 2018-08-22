@@ -8,7 +8,7 @@ title: API
 ## 说明
 * **这一期暂时只支持IPC方式调用具体各平台实现**：
 
-    1. **\*nix(linux darwin)**: Unix domain Socket 文件名称    `$HOME/viteisbest/vite.ipc`
+    1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `$HOME/viteisbest/vite.ipc`
 
     2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是  `\\.\pipe\vite.ipc`
 
@@ -18,19 +18,19 @@ title: API
 
     2. 暂时不支持发布订阅模式，后续会支持；
 
-    3. 项目迭代很快，很多API特别是legder那块不稳定。
+    3. 项目迭代很快，目前的API在之后版本中会很大改变。
 
 * **注意**:
-    1. 尽量使用标准的Json rpc2 的库
+    1. 尽量使用标准的 ***Json rpc2*** 的库
     2. 术语 交易（transaction 或者Tx） = account block
 
 * **业务错误汇总**:
 
 |  描述 | code | message | example |
 |:------------:|:-----------:|:-----:|:-----:|
-| 余额不足|  5001 |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
-| 密码错误	|  4001 | error decrypting key |{"code":4001,"message":"error decrypting key"}|
-| 账户重复解锁	|  4002 |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
+| 余额不足|  `5001` |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
+| 密码错误	|  `4001` | error decrypting key |{"code":4001,"message":"error decrypting key"}|
+| 账户重复解锁	|  `4002` |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
 
 ## JSON-RPC Support
 
