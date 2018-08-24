@@ -87,8 +87,10 @@ module.exports = {
     editLinks: true,
     docsDir: 'docs',
     search: true,
-    repo: 'vitelabs/doc.vite.org',
+    docsRepo: 'vitelabs/doc.vite.org',
     sidebarDepth: 3,
+    logo: '/logo_black.svg',
+    repo: 'vitelabs/go-vite',
     locales: {
       '/': {
         label: 'English',
@@ -157,7 +159,7 @@ module.exports = {
             text: 'API',
             items: [
               {
-                text: 'go-vite',
+                text: 'RPC 接口',
                 link: '/zh/api/go-vite/'
               }
             ]
@@ -182,7 +184,6 @@ module.exports = {
         }
       }
     },
-    logo: '/logo_black.svg'
   }
 }
 

@@ -1,9 +1,10 @@
 ---
 sidebarDepth: 4
-title: API
+title: RPC 接口
+sidebar: auto
 ---
 
-# API
+# RPC 接口
 
 ## 说明
 * **这一期暂时只支持IPC方式调用具体各平台实现**：
