@@ -54,21 +54,26 @@ sidebar: auto
 - **Example**:
 
 
-```js
-// request
+::: demo
+
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.ListAddress",
 	"id": 0
 }
+```
 
-// response
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 0,
 	"result": "[\"vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389\",\"vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae\"]"
 }
 ```
+
+:::
 
 ### wallet.NewAddress
 新建一个账户，需要用户输入一个密码
@@ -81,21 +86,24 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.NewAddress",
 	"params": ["123456"],
 	"id": 1
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 1,
 	"result": "vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1"
 }
 ```
+:::
 
 ### wallet.Status
 
@@ -107,21 +115,23 @@ sidebar: auto
 
 - **Example**: 
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.Status",
 	"id": 2
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 2,
 	"result": "{\"vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae\":\"Locked\",\"vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389\":\"Locked\",\"vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1\":\"Unlocked\"}"
 }
 ```
-
+:::
 
 ### wallet.UnLock
 解锁账户，解锁成功后账户会不停去自动确认它的待接受的交易
@@ -141,33 +151,40 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.UnLock",
 	"params": ["vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae", "123456", "0"],
 	"id": 3
 }
-// response success
+```
+
+```json tab:Response Success
 {
 	"jsonrpc": "2.0",
 	"id": 3,
 	"result": "success"
 }
-// response password error
+```
+
+```json tab:密码错误
 {
 	"jsonrpc": "2.0",
 	"id": 5,
 	"result": "{\"code\":4001,\"message\":\"error decrypting key\"}"
 }
-// response unlock an unlocked address 
+```
+
+```json tab:解锁一个账户
 {
 	"jsonrpc": "2.0",
 	"id": 6,
 	"result": "{\"code\":4002,\"message\":\"the address was previously unlocked\"}"
 }
 ```
+:::
 
 ### wallet.Lock
 锁定账户
@@ -180,21 +197,25 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.Lock",
 	"params": ["vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1"],
 	"id": 11
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 11,
 	"result": ""
 }
 ```
+:::
+
 
 ### wallet.ReloadAndFixAddressFile
 强制更新keystore文件夹下文件，会修复错误的文件名，更新wallet中的Address 缓存，即使不调用这个方法，内部也会每个几秒调用一次

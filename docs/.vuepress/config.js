@@ -1,4 +1,5 @@
 const path = require('path')
+const markdownConfig = require('./markdown')
 
 const sidebarConfigs = {
   introduction: [
@@ -80,7 +81,8 @@ module.exports = {
     }
   },
   markdown: {
-     toc: { includeLevel: [2, 3, 4] }
+     toc: { includeLevel: [2, 3, 4] },
+     config: markdownConfig
   },
   themeConfig: {
     displayAllHeaders: true,
