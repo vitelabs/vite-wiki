@@ -250,20 +250,24 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.IsMayValidKeystoreFile",
 	"id": 12
 }
-// response 
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12,
 	"result": "vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae"
 }
 ```
+:::
+
 
 ### wallet.GetDataDir
 获得钱包的keystore文件夹路径
@@ -274,20 +278,26 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.GetDataDir",
 	"id": 1
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 1,
 	"result": "/Users/xxx/viteisbest/wallet"
 }
 ```
+
+:::
+
 
 ### p2p.NetworkAvailable
 现在节点网络是否可用
@@ -298,20 +308,24 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "p2p.NetworkAvailable",
 	"id": 5
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 5,
 	"result": "false"
 }
 ```
+:::
 
 ### p2p.PeersCount
 当前节点连接的外部节点数量
@@ -322,20 +336,23 @@ sidebar: auto
 
 - **Example**: 
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "p2p.PeersCount",
 	"id": 6
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 6,
 	"result": "1"
 }
 ```
+:::
 
 ### ledger.CreateTxWithPassphrase
 创建一个转账交易
@@ -356,8 +373,8 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.CreateTxWithPassphrase",
@@ -370,13 +387,15 @@ sidebar: auto
 	},
 	"id": 8
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 8,
 	"result": "success"
 }
 ```
+:::
 
 ### ledger.GetBlocksByAccAddr
 获得一个账户的交易列表
@@ -401,8 +420,9 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetBlocksByAccAddr",
@@ -413,13 +433,17 @@ sidebar: auto
 	},
 	"id": 9
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 9,
 	"result": "[{\"Timestamp\":1534503797,\"Amount\":\"180000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"e84889a16002199ff47368b0d48b7b40a3b3638904718371a9fe8526e9d9ea94\",\"Balance\":\"999945382000000000000000000\",\"ConfirmedTimes\":\"25636\"},{\"Timestamp\":1534503796,\"Amount\":\"173000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"55189a3ffea0485142406738b1c49440ca4b4e1598026bf69f2a7d532d22b65c\",\"Balance\":\"999945562000000000000000000\",\"ConfirmedTimes\":\"25636\"},{\"Timestamp\":1534503796,\"Amount\":\"72000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"a7eac3a5e0e89687e1f0fde3fb330cb79b5245504c431cc69955900854cd35fe\",\"Balance\":\"999945735000000000000000000\",\"ConfirmedTimes\":\"25636\"}]"
 }
 ```
+:::
+
 
 ### ledger.GetAccountByAccAddr
 获取一个账户的详情
@@ -442,21 +466,24 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetAccountByAccAddr",
 	"params": ["vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"],
 	"id": 11
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 11,
 	"result": "{\"Addr\":\"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68\",\"BalanceInfos\":[{\"TokenSymbol\":\"VITE\",\"TokenName\":\"vite\",\"TokenTypeId\":\"tti_000000000000000000004cfd\",\"Balance\":\"999945382000000000000000000\"}],\"BlockHeight\":\"537\"}"
 }
 ```
+:::
 
 ### ledger.GetUnconfirmedInfo
 获取一个账户的待确认交易的详情
@@ -474,21 +501,25 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetAccountByAccAddr",
 	"params": ["vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"],
 	"id": 11
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 11,
 	"result": "{\"Addr\":\"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68\",\"BalanceInfos\":[{\"TokenSymbol\":\"VITE\",\"TokenName\":\"vite\",\"TokenTypeId\":\"tti_000000000000000000004cfd\",\"Balance\":\"999945382000000000000000000\"}],\"BlockHeight\":\"537\"}"
 }
 ```
+:::
+
 ### ledger.GetInitSyncInfo
 实时地去获取 初始化过程x
 
@@ -503,20 +534,23 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetInitSyncInfo",
 	"id": 12
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12,
 	"result": "{\"StartHeight\":\"1\",\"TargetHeight\":\"3\",\"CurrentHeight\":\"2\",\"IsFirstSyncDone\":false,\"IsStartFirstSync\":true}"
 }
 ```
+:::
+
 
 ### ledger.GetSnapshotChainHeight
 获取当前快照链高度
@@ -528,14 +562,18 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetSnapshotChainHeight",
 	"id": 12
 }
-// response
+
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12,
@@ -543,6 +581,7 @@ sidebar: auto
 }
 ```
 
+:::
 ### types.IsValidHexAddress
 判断一个字符串是否是合法的地址
 
@@ -554,21 +593,24 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "types.IsValidHexAddress",
 	"params": ["vite_1cb2ab2738cd913654658e879bef8115eb1aa61a9be9d15c3a"],
 	"id": 3
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 3,
 	"result": "true"
 }
 ```
+:::
 
 ### types.IsValidHexTokenTypeId
 判断一个字符串是否是合法的tokentypeid
@@ -582,18 +624,21 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "types.IsValidHexTokenTypeId",
 	"params": ["asd"],
 	"id": 2
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 2,
 	"result": "false"
 }
 ```
+:::

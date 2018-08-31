@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tabs>
+    <tabs :options="{ useUrlFragment: false }">
       <tab v-for="tab in codeList" :name="tab.name" :key="tab.name">
         <vnodes :vnodes="tab.dom"></vnodes>
       </tab>
@@ -85,7 +85,6 @@
   }
 
   .tabs-component-tabs {
-    border: solid 1px #ddd;
     border-radius: 6px;
     margin-bottom: 5px;
     padding-left: 0;
@@ -107,6 +106,7 @@
     font-weight: 600;
     margin-right: 0;
     list-style: none;
+    border-left: 3px solid transparent;
   }
 
   .tabs-component-tab:not(:last-child) {
@@ -119,6 +119,7 @@
 
   .tabs-component-tab.is-active {
     color: #000;
+    border-left: 3px solid $accentColor;
   }
 
   .tabs-component-tab.is-disabled * {
@@ -126,29 +127,38 @@
     cursor: not-allowed !important;
   }
 
+  .tabs-component-tab-a {
+    align-items: center;
+    color: inherit;
+    display: flex;
+    padding: .5em 0em .5em 1em;
+    text-decoration: none;
+  }
+
   @media (min-width: 700px) {
     .tabs-component-tab {
       background-color: #fff;
-      /*border: solid 1px #ddd;*/
       border-radius: 3px 3px 0 0;
       margin-right: .5em;
       /*transform: translateY(2px);*/
       transition: transform .3s ease;
+      border-left: none;
     }
 
     .tabs-component-tab.is-active {
       border-bottom: solid 2px $accentColor;
       z-index: 2;
+      border-left: none;
       /*transform: translateY(0);*/
     }
-  }
 
-  .tabs-component-tab-a {
-    align-items: center;
-    color: inherit;
-    display: flex;
-    padding: .75em 1em;
-    text-decoration: none;
+    .tabs-component-tab-a {
+      align-items: center;
+      color: inherit;
+      display: flex;
+      padding: .75em 1em;
+      text-decoration: none;
+    }
   }
 
   .tabs-component-panels {
