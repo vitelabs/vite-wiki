@@ -226,19 +226,22 @@ sidebar: auto
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.ReloadAndFixAddressFile",
 	"id": 12
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12
 }
 ```
+:::
 
 ### wallet.IsMayValidKeystoreFile
 判断任意一个文件是否可能是Keystore文件，如果文件符合keystore文件规范，就返回这个keystore文件的包含的addrees但这不意味这个文件完全有效，判断文件完全有效只能用密码去尝试解密才知道，如果确定这**一定不是**一个keystore文件则返回空，
