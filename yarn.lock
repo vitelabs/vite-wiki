@@ -6976,6 +6976,10 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
+vue-tabs-component@^1.4.0:
+  version "1.4.0"
+  resolved "http://registry.npm.taobao.org/vue-tabs-component/download/vue-tabs-component-1.4.0.tgz#05f6a82b05f1a29ae3ff23aaabf3c7bd1d9e57f0"
+
 vue-template-compiler@^2.5.16:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.17.tgz#52a4a078c327deb937482a509ae85c06f346c3cb"

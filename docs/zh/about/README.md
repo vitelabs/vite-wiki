@@ -34,20 +34,71 @@ brew install yarn
 
 有关yarn的其他安装说明，请移步： [yarn document](https://yarnpkg.com/en/docs/install#mac-stable)
 
-### 安装 vuepress
+### 安装依赖
+
+在doc.vite.org项目路径下，执行以下代码：
 
 ```
-yarn global add vuepress # 或者：npm install -g vuepress
+yarn
 ```
 
 ### 开始写作
 
-
 ```
-vuepress dev docs # 必须在该项目目录下运行
+npm run dev
 ```
 
-### 在文档中如何添加静态资源，例如图片?
+### 静态资源管理
 
-请移步： [https://vuepress.vuejs.org/zh/guide/assets.html](https://vuepress.vuejs.org/zh/guide/assets.html)
+详情请移步： [https://vuepress.vuejs.org/zh/guide/assets.html](https://vuepress.vuejs.org/zh/guide/assets.html)
 
+例如：
+
+```markdown
+![dag-ledger](~/images/dag-ledger.png)
+```
+
+![dag-ledger](~/images/dag-ledger.png)
+
+## 内置组件
+
+### Demo 组件
+
+内置Demo组件，用于分Tab展示示例代码。
+
+* **用法**：
+
+      :::demo
+      ``` language tab:TabName
+      // There is the code  
+      ```  
+      :::
+
+
+* **Example**:
+
+      :::demo
+      ``` json tab: Request
+      {
+        test: 1
+      }
+      ```
+      ``` json tab: Response
+      {
+        result: success
+      }
+      ```
+      :::
+    
+  :::demo
+  ``` json tab: Request
+      {
+        test: 1
+      }
+  ```
+  ``` json tab: Response
+      {
+        result: success
+      }
+  ```
+  :::

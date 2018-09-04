@@ -1,4 +1,5 @@
 const path = require('path')
+const markdownConfig = require('./markdown')
 
 const sidebarConfigs = {
   introduction: [
@@ -80,21 +81,30 @@ module.exports = {
     }
   },
   markdown: {
-     toc: { includeLevel: [2, 3, 4] }
+     toc: { includeLevel: [2, 3, 4] },
+     config: markdownConfig
   },
   themeConfig: {
     displayAllHeaders: true,
     editLinks: true,
     docsDir: 'docs',
     search: true,
-    repo: 'vitelabs/doc.vite.org',
+    docsRepo: 'vitelabs/doc.vite.org',
     sidebarDepth: 3,
+    logo: '/logo_black.svg',
+    repo: 'vitelabs/go-vite',
     locales: {
       '/': {
         label: 'English',
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
+        serviceWorker: {
+          updatePopup: {
+             message: "New content is available.",
+             buttonText: "Refresh"
+          }
+        },
         nav: [
           {
             text: 'Introduction',
@@ -132,6 +142,12 @@ module.exports = {
         selectText: '选择语言',
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
+        serviceWorker: {
+          updatePopup: {
+            message: "发现新内容可用",
+            buttonText: "刷新"
+          }
+        },
         nav: [
           {
             text: '介绍',
@@ -145,7 +161,7 @@ module.exports = {
             text: 'API',
             items: [
               {
-                text: 'go-vite',
+                text: 'RPC 接口',
                 link: '/zh/api/go-vite/'
               }
             ]
@@ -170,15 +186,6 @@ module.exports = {
         }
       }
     },
-    serviceWorker: {
-      updatePopup: true // Boolean | Object, 默认值是 undefined.
-      // 如果设置为 true, 默认的文本配置将是:
-      // updatePopup: {
-      //    message: "New content is available.",
-      //    buttonText: "Refresh"
-      // }
-    },
-    logo: '/logo_black.svg'
   }
 }
 

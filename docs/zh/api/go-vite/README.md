@@ -1,14 +1,15 @@
 ---
 sidebarDepth: 4
-title: API
+title: RPC 接口
+sidebar: auto
 ---
 
-# API
+# RPC 接口
 
 ## 说明
 * **这一期暂时只支持IPC方式调用具体各平台实现**：
 
-    1. **\*nix(linux darwin)**: Unix domain Socket 文件名称    `$HOME/viteisbest/vite.ipc`
+    1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `$HOME/viteisbest/vite.ipc`
 
     2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是  `\\.\pipe\vite.ipc`
 
@@ -18,19 +19,19 @@ title: API
 
     2. 暂时不支持发布订阅模式，后续会支持；
 
-    3. 项目迭代很快，很多API特别是legder那块不稳定。
+    3. 项目迭代很快，目前的API在之后版本中会很大改变。
 
 * **注意**:
-    1. 尽量使用标准的Json rpc2 的库
+    1. 尽量使用标准的 ***Json rpc2*** 的库
     2. 术语 交易（transaction 或者Tx） = account block
 
 * **业务错误汇总**:
 
 |  描述 | code | message | example |
 |:------------:|:-----------:|:-----:|:-----:|
-| 余额不足|  5001 |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
-| 密码错误	|  4001 | error decrypting key |{"code":4001,"message":"error decrypting key"}|
-| 账户重复解锁	|  4002 |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
+| 余额不足|  `5001` |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
+| 密码错误	|  `4001` | error decrypting key |{"code":4001,"message":"error decrypting key"}|
+| 账户重复解锁	|  `4002` |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
 
 ## JSON-RPC Support
 
@@ -53,21 +54,26 @@ title: API
 - **Example**:
 
 
-```js
-// request
+::: demo
+
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.ListAddress",
 	"id": 0
 }
+```
 
-// response
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 0,
 	"result": "[\"vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389\",\"vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae\"]"
 }
 ```
+
+:::
 
 ### wallet.NewAddress
 新建一个账户，需要用户输入一个密码
@@ -80,21 +86,24 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.NewAddress",
 	"params": ["123456"],
 	"id": 1
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 1,
 	"result": "vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1"
 }
 ```
+:::
 
 ### wallet.Status
 
@@ -106,21 +115,23 @@ title: API
 
 - **Example**: 
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.Status",
 	"id": 2
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 2,
 	"result": "{\"vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae\":\"Locked\",\"vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389\":\"Locked\",\"vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1\":\"Unlocked\"}"
 }
 ```
-
+:::
 
 ### wallet.UnLock
 解锁账户，解锁成功后账户会不停去自动确认它的待接受的交易
@@ -140,33 +151,40 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.UnLock",
 	"params": ["vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae", "123456", "0"],
 	"id": 3
 }
-// response success
+```
+
+```json tab:Response Success
 {
 	"jsonrpc": "2.0",
 	"id": 3,
 	"result": "success"
 }
-// response password error
+```
+
+```json tab:密码错误
 {
 	"jsonrpc": "2.0",
 	"id": 5,
 	"result": "{\"code\":4001,\"message\":\"error decrypting key\"}"
 }
-// response unlock an unlocked address 
+```
+
+```json tab:解锁一个账户
 {
 	"jsonrpc": "2.0",
 	"id": 6,
 	"result": "{\"code\":4002,\"message\":\"the address was previously unlocked\"}"
 }
 ```
+:::
 
 ### wallet.Lock
 锁定账户
@@ -179,21 +197,25 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.Lock",
 	"params": ["vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1"],
 	"id": 11
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 11,
 	"result": ""
 }
 ```
+:::
+
 
 ### wallet.ReloadAndFixAddressFile
 强制更新keystore文件夹下文件，会修复错误的文件名，更新wallet中的Address 缓存，即使不调用这个方法，内部也会每个几秒调用一次
@@ -204,19 +226,22 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.ReloadAndFixAddressFile",
 	"id": 12
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12
 }
 ```
+:::
 
 ### wallet.IsMayValidKeystoreFile
 判断任意一个文件是否可能是Keystore文件，如果文件符合keystore文件规范，就返回这个keystore文件的包含的addrees但这不意味这个文件完全有效，判断文件完全有效只能用密码去尝试解密才知道，如果确定这**一定不是**一个keystore文件则返回空，
@@ -228,20 +253,24 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.IsMayValidKeystoreFile",
 	"id": 12
 }
-// response 
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12,
 	"result": "vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae"
 }
 ```
+:::
+
 
 ### wallet.GetDataDir
 获得钱包的keystore文件夹路径
@@ -252,20 +281,26 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "wallet.GetDataDir",
 	"id": 1
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 1,
 	"result": "/Users/xxx/viteisbest/wallet"
 }
 ```
+
+:::
+
 
 ### p2p.NetworkAvailable
 现在节点网络是否可用
@@ -276,20 +311,24 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "p2p.NetworkAvailable",
 	"id": 5
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 5,
 	"result": "false"
 }
 ```
+:::
 
 ### p2p.PeersCount
 当前节点连接的外部节点数量
@@ -300,20 +339,23 @@ title: API
 
 - **Example**: 
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "p2p.PeersCount",
 	"id": 6
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 6,
 	"result": "1"
 }
 ```
+:::
 
 ### ledger.CreateTxWithPassphrase
 创建一个转账交易
@@ -334,8 +376,8 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.CreateTxWithPassphrase",
@@ -348,13 +390,15 @@ title: API
 	},
 	"id": 8
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 8,
 	"result": "success"
 }
 ```
+:::
 
 ### ledger.GetBlocksByAccAddr
 获得一个账户的交易列表
@@ -379,8 +423,9 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetBlocksByAccAddr",
@@ -391,13 +436,17 @@ title: API
 	},
 	"id": 9
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 9,
 	"result": "[{\"Timestamp\":1534503797,\"Amount\":\"180000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"e84889a16002199ff47368b0d48b7b40a3b3638904718371a9fe8526e9d9ea94\",\"Balance\":\"999945382000000000000000000\",\"ConfirmedTimes\":\"25636\"},{\"Timestamp\":1534503796,\"Amount\":\"173000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"55189a3ffea0485142406738b1c49440ca4b4e1598026bf69f2a7d532d22b65c\",\"Balance\":\"999945562000000000000000000\",\"ConfirmedTimes\":\"25636\"},{\"Timestamp\":1534503796,\"Amount\":\"72000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"a7eac3a5e0e89687e1f0fde3fb330cb79b5245504c431cc69955900854cd35fe\",\"Balance\":\"999945735000000000000000000\",\"ConfirmedTimes\":\"25636\"}]"
 }
 ```
+:::
+
 
 ### ledger.GetAccountByAccAddr
 获取一个账户的详情
@@ -420,21 +469,24 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetAccountByAccAddr",
 	"params": ["vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"],
 	"id": 11
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 11,
 	"result": "{\"Addr\":\"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68\",\"BalanceInfos\":[{\"TokenSymbol\":\"VITE\",\"TokenName\":\"vite\",\"TokenTypeId\":\"tti_000000000000000000004cfd\",\"Balance\":\"999945382000000000000000000\"}],\"BlockHeight\":\"537\"}"
 }
 ```
+:::
 
 ### ledger.GetUnconfirmedInfo
 获取一个账户的待确认交易的详情
@@ -452,21 +504,25 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetAccountByAccAddr",
 	"params": ["vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"],
 	"id": 11
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 11,
 	"result": "{\"Addr\":\"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68\",\"BalanceInfos\":[{\"TokenSymbol\":\"VITE\",\"TokenName\":\"vite\",\"TokenTypeId\":\"tti_000000000000000000004cfd\",\"Balance\":\"999945382000000000000000000\"}],\"BlockHeight\":\"537\"}"
 }
 ```
+:::
+
 ### ledger.GetInitSyncInfo
 实时地去获取 初始化过程x
 
@@ -481,20 +537,23 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetInitSyncInfo",
 	"id": 12
 }
-// response
+```
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12,
 	"result": "{\"StartHeight\":\"1\",\"TargetHeight\":\"3\",\"CurrentHeight\":\"2\",\"IsFirstSyncDone\":false,\"IsStartFirstSync\":true}"
 }
 ```
+:::
+
 
 ### ledger.GetSnapshotChainHeight
 获取当前快照链高度
@@ -506,14 +565,18 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetSnapshotChainHeight",
 	"id": 12
 }
-// response
+
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 12,
@@ -521,6 +584,7 @@ title: API
 }
 ```
 
+:::
 ### types.IsValidHexAddress
 判断一个字符串是否是合法的地址
 
@@ -532,21 +596,24 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "types.IsValidHexAddress",
 	"params": ["vite_1cb2ab2738cd913654658e879bef8115eb1aa61a9be9d15c3a"],
 	"id": 3
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 3,
 	"result": "true"
 }
 ```
+:::
 
 ### types.IsValidHexTokenTypeId
 判断一个字符串是否是合法的tokentypeid
@@ -560,18 +627,21 @@ title: API
 
 - **Example**:
 
-```js
-// request
+::: demo
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"method": "types.IsValidHexTokenTypeId",
 	"params": ["asd"],
 	"id": 2
 }
-// response
+```
+
+```json tab:Response
 {
 	"jsonrpc": "2.0",
 	"id": 2,
 	"result": "false"
 }
 ```
+:::
