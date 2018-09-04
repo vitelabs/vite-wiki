@@ -2,7 +2,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { faPlay, faUndo } from '@fortawesome/free-solid-svg-icons'
-import Demo from './components/Demo'
 
 
 export default ({Vue, options, router, siteData}) => {
@@ -17,5 +16,4 @@ export default ({Vue, options, router, siteData}) => {
     Vue.use(VueCodemirror)
   }
   Vue.component('v-icon', FontAwesomeIcon)
-  Vue.component('demo', Demo)
 }

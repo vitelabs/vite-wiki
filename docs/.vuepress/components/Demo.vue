@@ -45,10 +45,9 @@
 </template>
 
 <script type="text/babel">
-  import _ from 'lodash'
   import Vue from 'vue'
+  import merge from 'deepmerge'
   import {Tabs, Tab} from 'vue-tabs-component'
-  import Loading from './Loading'
 
   import 'codemirror/lib/codemirror.css'
   import 'codemirror/theme/solarized.css'
@@ -62,7 +61,6 @@
     components: {
       Tab,
       Tabs,
-      Loading,
       Vnodes: {
         functional: true,
         render: (h, ctx) => ctx.props.vnodes
@@ -140,7 +138,7 @@
         }
       })
 
-      let originData = _.cloneDeep({
+      let originData = merge({}, {
         testSourceCode,
         tabSourceCode
       })

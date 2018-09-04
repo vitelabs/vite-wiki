@@ -23,7 +23,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
-    "lodash": "^4.17.10",
+    "deepmerge": "^2.1.1",
     "vue-codemirror": "^4.0.5",
     "vue-tabs-component": "^1.4.0",
     "vue-toasted": "^1.1.24"
