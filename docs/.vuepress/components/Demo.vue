@@ -13,10 +13,10 @@
           >
           </codemirror>
           <span class="code-play-btn" @click="onPlayClick(index)">
-            <v-icon name="play"></v-icon>
+            <v-icon icon="play"></v-icon>
           </span>
           <span class="code-play-btn right" @click="onResetClick(index)">
-            <v-icon name="refresh-ccw"></v-icon>
+            <v-icon icon="undo"></v-icon>
           </span>
           <div v-if="tab.error">
             {{demoConfig.errorMessage}}
@@ -33,6 +33,11 @@
                         :value="tab.result">
             </codemirror>
           </div>
+          <div v-if="tab.pending" class="loading-wrapper">
+            <div>
+              <loading></loading>
+            </div>
+          </div>
         </ClientOnly>
       </tab>
     </tabs>
@@ -40,12 +45,11 @@
 </template>
 
 <script type="text/babel">
-  import Vue from 'vue'
   import _ from 'lodash'
+  import Vue from 'vue'
   import {Tabs, Tab} from 'vue-tabs-component'
-  import { codemirror } from 'vue-codemirror'
+  import Loading from './Loading'
 
-  import 'codemirror/mode/javascript/javascript.js'
   import 'codemirror/lib/codemirror.css'
   import 'codemirror/theme/solarized.css'
 
@@ -58,7 +62,7 @@
     components: {
       Tab,
       Tabs,
-      codemirror,
+      Loading,
       Vnodes: {
         functional: true,
         render: (h, ctx) => ctx.props.vnodes
@@ -66,7 +70,6 @@
     },
     computed: {
       demoConfig() {
-        console.log(this)
         let {demo} = this.$themeLocaleConfig
         return demo || defaultDemoConfig
       }
@@ -168,13 +171,6 @@
       }
     },
     methods: {
-      getName(index) {
-        if (index === 0) {
-          return 'Test'
-        } else {
-          return `Test ${index + 1}`
-        }
-      },
       onTabChanged(selectedTab) {
         this.selectedTab = selectedTab.tab.name
         let cm = this.$refs[`cm_${selectedTab.tab.name}`]
@@ -184,23 +180,32 @@
       },
       run(reqData) {
         return new Promise((resolve, reject)=> {
-          resolve(reqData)
+          setTimeout(() => {
+            resolve(reqData)
+          }, 1000)
         })
       },
       onPlayClick (index) {
         let testCodeItem = this.testSourceCode[index]
         let code = testCodeItem.content
         testCodeItem.error = null
+
+        Vue.set(this.testSourceCode, index, {
+          ...testCodeItem,
+          pending: true,
+          result: false,
+          success: false
+        })
+
         try {
           let json = JSON.parse(code)
-          console.log(JSON.stringify(json, null, 2))
-          console.log(json)
 
           this.run(json).then(data => {
             Vue.set(this.testSourceCode, index, {
               ...testCodeItem,
               success: true,
-              result: JSON.stringify(json, null, 4)
+              result: JSON.stringify(data, null, 4),
+              pending: false
             })
             let cm = this.$refs[`cmResult_${index}`]
             if (Array.isArray(cm) && cm[0]) {
@@ -209,14 +214,16 @@
           }).catch((e) => {
             Vue.set(this.testSourceCode, index, {
               ...testCodeItem,
-              error: e
+              error: e,
+              pending: false
             })
           })
         } catch (e) {
           console.error(e)
           Vue.set(this.testSourceCode, index, {
             ...testCodeItem,
-            error: e
+            error: e,
+            pending: false
           })
         }
       },
@@ -231,7 +238,7 @@
           error: null,
           success: null
         })
-        this.$toasted.show(this.demoConfig.resetMessage, {
+        Vue.toasted.show(this.demoConfig.resetMessage, {
           duration : 1000,
           theme: "primary",
         })
@@ -341,11 +348,7 @@
       text-align: center;
       background: rgba(255,255,255,0.2);
       border-top-left-radius: 5px;
-      & > svg {
-        width:18px;
-        height: 18px;
-        margin-top: 7px;
-      }
+      line-height: 32px;
       &:hover {
         background: $accentColor;
         color: white;
@@ -363,6 +366,23 @@
       color: red;
       & > code {
         color: #f56c6c;
+      }
+    }
+    .loading-wrapper {
+      text-align: center;
+      background-color: rgba(255,255,255,0.1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
       }
     }
   }

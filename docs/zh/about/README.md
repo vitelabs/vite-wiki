@@ -79,26 +79,36 @@ npm run dev
 
       :::demo
       ``` json tab: Request
-      {
-        test: 1
-      }
+          {
+            "test": 1
+          }
       ```
       ``` json tab: Response
-      {
-        result: success
-      }
+          {
+            "result": success
+          }
+      ```
+      ``` json test: 测试
+            {
+              "test": 1
+            }
       ```
       :::
     
-  :::demo
+  ::: demo
   ``` json tab: Request
       {
-        test: 1
+        "test": 1
       }
   ```
   ``` json tab: Response
       {
-        result: success
+        "result": success
       }
+  ```
+  ``` json test: 测试
+        {
+          "test": 1
+        }
   ```
   :::

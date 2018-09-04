@@ -1,7 +1,4 @@
 const container = require('markdown-it-container')
-const fs = require('fs')
-const path = require('path')
-
 
 module.exports = md => {
   md
@@ -18,6 +15,7 @@ function findCode (index, tokens) {
   let result = [];
   for (let i = index + 1; i < tokens.length; i++) {
     if (tokens[i].markup === '```') {
+      tokens[i].content = tokens[i].content && tokens[i].content.substring(0, tokens[i].content.length - 1)
       result.push(tokens[i])
     }
     if (tokens[i].type === 'container_demo_close') {
