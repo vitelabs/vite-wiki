@@ -1,11 +1,17 @@
 <template>
   <div>
     <tabs>
-      <tab v-for="tab in codeList" :name="tab.name" :key="tab.name">
+      <tab v-for="tab in codeList" :name="tab.name" :key="tab.name" @changed="onTabChanged">
         <vnodes :vnodes="tab.dom"></vnodes>
       </tab>
-      <tab v-for="(tab, index) in testList" :name="getName(index)" :key="tab.name">
-        <vnodes :vnodes="tab.dom"></vnodes>
+      <tab v-for="(tab, index) in testSourceCode" :name="tab.name" :key="tab.name">
+        <ClientOnly>
+          <codemirror ref="myCm"
+                      :options="cmOptions"
+                      :value="tab.content"
+          >
+          </codemirror>
+        </ClientOnly>
       </tab>
     </tabs>
   </div>
@@ -13,11 +19,18 @@
 
 <script type="text/babel">
   import {Tabs, Tab} from 'vue-tabs-component'
+  import { codemirror } from 'vue-codemirror'
+
+  import 'codemirror/mode/javascript/javascript.js'
+  import 'codemirror/lib/codemirror.css'
+  import 'codemirror/theme/solarized.css'
+
 
   export default {
     components: {
       Tab,
       Tabs,
+      codemirror,
       Vnodes: {
         functional: true,
         render: (h, ctx) => ctx.props.vnodes
@@ -29,7 +42,7 @@
       if (!Array.isArray(codeList)) {
         codeList = []
       }
-      const testList = []
+      let testList = []
       codeList = codeList.map(item => {
         let staticClass = (item && item.data && item.data.staticClass || '').trim().replace('extra-class', '').replace(/language-\w*/g, '')
         return {
@@ -54,15 +67,56 @@
           name: item.name.replace('tab:', '').trim()
         }
       })
+      testList = testList.map(item => {
+        return {
+          ...item,
+          name: item.name.replace('test:', '').trim()
+        }
+      })
       let codeSlot = this.$slots.code || []
 
 
-      const sourceCode = JSON.parse(codeSlot.length && codeSlot[0] && codeSlot[0].text || '')
+      let sourceCode = JSON.parse(codeSlot.length && codeSlot[0] && codeSlot[0].text || '')
 
+      if (!Array.isArray(sourceCode)) {
+        sourceCode = []
+      }
+      let testSourceCode = []
+      let tabSourceCode = []
+      sourceCode.filter(item => item && item.info).forEach(item => {
+        let {info = ''} = item
+        let testMatchArr = info.match(/(\s|^)test:\s*(.*)/)
+        let tabMatchArr = info.match(/(\s|^)tab:\s*(.*)/)
+        if (!testMatchArr && !tabMatchArr) {
+          return
+        }
+        if (testMatchArr) {
+          testSourceCode.push({
+            ...item,
+            name: testMatchArr[2].trim()
+          })
+        } else if (tabMatchArr) {
+          tabSourceCode.push({
+            ...item,
+            name: tabMatchArr[2].trim()
+          })
+        }
+      })
+
+      console.log(testSourceCode)
+      console.log(tabSourceCode)
       return {
-         codeList,
-         testList,
-         sourceCode
+        codeList,
+        testList,
+        testSourceCode,
+        tabSourceCode,
+        cmOptions: {
+          tabSize: 4,
+          mode: 'application/json',
+          theme: 'solarized dark',
+          lineNumbers: false,
+          line: false,
+        }
       }
     },
     methods: {
@@ -72,6 +126,9 @@
         } else {
           return `Test ${index + 1}`
         }
+      },
+      onTabChanged(selectedTab) {
+
       }
     }
   };
@@ -162,5 +219,15 @@
       border-radius: 0 6px 6px 6px;
       padding: 1rem 0;
     }
+  }
+  .CodeMirror {
+    height: auto;
+    box-shadow: 0 6px 36px 0 rgba(0,62,100,0.04);
+    padding: 1.25rem 1.5rem;
+    margin: 0.85rem 0;
+    border-radius: 6px;
+  }
+  .cm-s-solarized.cm-s-dark {
+    background-color: #282c34;
   }
 </style>

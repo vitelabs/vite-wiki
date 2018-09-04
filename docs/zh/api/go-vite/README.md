@@ -73,6 +73,13 @@ sidebar: auto
 }
 ```
 
+```json test: 测试
+{
+	"jsonrpc": "2.0",
+	"method": "wallet.ListAddress",
+	"id": 0
+}
+```
 :::
 
 ### wallet.NewAddress
