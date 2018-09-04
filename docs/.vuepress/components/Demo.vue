@@ -1,16 +1,38 @@
 <template>
   <div>
-    <tabs>
-      <tab v-for="tab in codeList" :name="tab.name" :key="tab.name" @changed="onTabChanged">
+    <tabs :options="{ useUrlFragment: false }" @changed="onTabChanged">
+      <tab v-for="tab in codeList" :name="tab.name" :key="tab.name">
         <vnodes :vnodes="tab.dom"></vnodes>
       </tab>
       <tab v-for="(tab, index) in testSourceCode" :name="tab.name" :key="tab.name">
         <ClientOnly>
-          <codemirror ref="myCm"
+          <codemirror v-if="selectedTab === tab.name" :ref="`cm_${tab.name}`"
                       :options="cmOptions"
                       :value="tab.content"
+                      @input="onCmCodeChange(index, $event)"
           >
           </codemirror>
+          <span class="code-play-btn" @click="onPlayClick(index)">
+            <v-icon name="play"></v-icon>
+          </span>
+          <span class="code-play-btn right" @click="onResetClick(index)">
+            <v-icon name="refresh-ccw"></v-icon>
+          </span>
+          <div v-if="tab.error">
+            {{demoConfig.errorMessage}}
+            <pre class="error">
+              <code>
+                {{tab.error.stack}}
+              </code>
+            </pre>
+          </div>
+          <div v-else-if="tab.success">
+            {{demoConfig.successMessage}}
+            <codemirror :ref="`cmResult_${index}`"
+                        :options="cmResultOptions"
+                        :value="tab.result">
+            </codemirror>
+          </div>
         </ClientOnly>
       </tab>
     </tabs>
@@ -18,12 +40,18 @@
 </template>
 
 <script type="text/babel">
+  import Vue from 'vue'
+  import _ from 'lodash'
   import {Tabs, Tab} from 'vue-tabs-component'
   import { codemirror } from 'vue-codemirror'
 
   import 'codemirror/mode/javascript/javascript.js'
   import 'codemirror/lib/codemirror.css'
   import 'codemirror/theme/solarized.css'
+
+  const defaultDemoConfig = {
+    errorMessage: 'Json parse failed. Please check it.'
+  }
 
 
   export default {
@@ -36,9 +64,15 @@
         render: (h, ctx) => ctx.props.vnodes
       }
     },
+    computed: {
+      demoConfig() {
+        console.log(this)
+        let {demo} = this.$themeLocaleConfig
+        return demo || defaultDemoConfig
+      }
+    },
     data: function () {
       let codeList = this.$slots.default
-      console.log(codeList)
       if (!Array.isArray(codeList)) {
         codeList = []
       }
@@ -103,20 +137,34 @@
         }
       })
 
-      console.log(testSourceCode)
-      console.log(tabSourceCode)
+      let originData = _.cloneDeep({
+        testSourceCode,
+        tabSourceCode
+      })
+
+      let defaultCmOptions = {
+        tabSize: 4,
+        mode: 'application/json',
+        theme: 'solarized dark',
+        lineNumbers: false,
+        line: false,
+        styleActiveLine: true,
+      }
+
       return {
         codeList,
         testList,
         testSourceCode,
         tabSourceCode,
+        originData,
         cmOptions: {
-          tabSize: 4,
-          mode: 'application/json',
-          theme: 'solarized dark',
-          lineNumbers: false,
-          line: false,
-        }
+          ...defaultCmOptions
+        },
+        cmResultOptions: {
+          ...defaultCmOptions,
+          readOnly: true
+        },
+        selectedTab: null
       }
     },
     methods: {
@@ -128,7 +176,65 @@
         }
       },
       onTabChanged(selectedTab) {
+        this.selectedTab = selectedTab.tab.name
+        let cm = this.$refs[`cm_${selectedTab.tab.name}`]
+        if (Array.isArray(cm) && cm[0]) {
+          cm[0].codemirror.refresh()
+        }
+      },
+      run(reqData) {
+        return new Promise((resolve, reject)=> {
+          resolve(reqData)
+        })
+      },
+      onPlayClick (index) {
+        let testCodeItem = this.testSourceCode[index]
+        let code = testCodeItem.content
+        testCodeItem.error = null
+        try {
+          let json = JSON.parse(code)
+          console.log(JSON.stringify(json, null, 2))
+          console.log(json)
 
+          this.run(json).then(data => {
+            Vue.set(this.testSourceCode, index, {
+              ...testCodeItem,
+              success: true,
+              result: JSON.stringify(json, null, 4)
+            })
+            let cm = this.$refs[`cmResult_${index}`]
+            if (Array.isArray(cm) && cm[0]) {
+              cm[0].codemirror.refresh()
+            }
+          }).catch((e) => {
+            Vue.set(this.testSourceCode, index, {
+              ...testCodeItem,
+              error: e
+            })
+          })
+        } catch (e) {
+          console.error(e)
+          Vue.set(this.testSourceCode, index, {
+            ...testCodeItem,
+            error: e
+          })
+        }
+      },
+      onCmCodeChange (index, code) {
+        this.testSourceCode[index].content = code
+      },
+      onResetClick (index) {
+        Vue.set(this.testSourceCode, index, {
+          ...this.testSourceCode[index],
+          content: this.originData.testSourceCode[index].content,
+          result: null,
+          error: null,
+          success: null
+        })
+        this.$toasted.show(this.demoConfig.resetMessage, {
+          duration : 1000,
+          theme: "primary",
+        })
       }
     }
   };
@@ -142,7 +248,6 @@
   }
 
   .tabs-component-tabs {
-    border: solid 1px #ddd;
     border-radius: 6px;
     margin-bottom: 5px;
     padding-left: 0;
@@ -164,6 +269,7 @@
     font-weight: 600;
     margin-right: 0;
     list-style: none;
+    border-left: 3px solid transparent;
   }
 
   .tabs-component-tab:not(:last-child) {
@@ -176,6 +282,7 @@
 
   .tabs-component-tab.is-active {
     color: #000;
+    border-left: 3px solid $accentColor;
   }
 
   .tabs-component-tab.is-disabled * {
@@ -183,33 +290,81 @@
     cursor: not-allowed !important;
   }
 
+  .tabs-component-tab-a {
+    align-items: center;
+    color: inherit;
+    display: flex;
+    padding: .5em 0em .5em 1em;
+    text-decoration: none;
+  }
+
   @media (min-width: 700px) {
     .tabs-component-tab {
       background-color: #fff;
-      /*border: solid 1px #ddd;*/
       border-radius: 3px 3px 0 0;
       margin-right: .5em;
       /*transform: translateY(2px);*/
       transition: transform .3s ease;
+      border-left: none;
     }
 
     .tabs-component-tab.is-active {
       border-bottom: solid 2px $accentColor;
       z-index: 2;
+      border-left: none;
       /*transform: translateY(0);*/
     }
-  }
 
-  .tabs-component-tab-a {
-    align-items: center;
-    color: inherit;
-    display: flex;
-    padding: .75em 1em;
-    text-decoration: none;
+    .tabs-component-tab-a {
+      align-items: center;
+      color: inherit;
+      display: flex;
+      padding: .75em 1em;
+      text-decoration: none;
+    }
   }
 
   .tabs-component-panels {
     padding: 1rem 0;
+  }
+  .tabs-component-panel {
+    position: relative;
+    .code-play-btn {
+      width: 2rem;
+      height: 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border:none;
+      color: $accentColor;
+      cursor: pointer;
+      text-align: center;
+      background: rgba(255,255,255,0.2);
+      border-top-left-radius: 5px;
+      & > svg {
+        width:18px;
+        height: 18px;
+        margin-top: 7px;
+      }
+      &:hover {
+        background: $accentColor;
+        color: white;
+      }
+      &.right {
+        right: 0;
+        left: auto;
+        border-top-left-radius: 0;
+        border-top-right-radius: 5px;
+
+      }
+    }
+
+    pre.error {
+      color: red;
+      & > code {
+        color: #f56c6c;
+      }
+    }
   }
 
   @media (min-width: 700px) {
@@ -223,7 +378,7 @@
   .CodeMirror {
     height: auto;
     box-shadow: 0 6px 36px 0 rgba(0,62,100,0.04);
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem 1.25rem 2rem;
     margin: 0.85rem 0;
     border-radius: 6px;
   }

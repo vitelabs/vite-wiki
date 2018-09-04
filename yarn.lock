@@ -6957,6 +6957,10 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
+vue-icon@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/vue-icon/download/vue-icon-2.0.0.tgz#b99d20a57a4150ed1f7d7b9a28e2cf90d647bb89"
+
 vue-loader@^15.2.4:
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.3.0.tgz#b474d10a4e93d934a78c147fc3e314b370e9fc54"
@@ -7005,6 +7009,10 @@ vue-template-compiler@^2.5.16:
 vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
+
+vue-toasted@^1.1.24:
+  version "1.1.24"
+  resolved "http://registry.npm.taobao.org/vue-toasted/download/vue-toasted-1.1.24.tgz#715a371dfa490cc710ffedaaeae61fd8a8c4f7ad"
 
 vue@^2.5.16:
   version "2.5.17"

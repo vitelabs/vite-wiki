@@ -20,7 +20,10 @@
     "vuepress": "^0.14.2"
   },
   "dependencies": {
+    "lodash": "^4.17.10",
     "vue-codemirror": "^4.0.5",
-    "vue-tabs-component": "^1.4.0"
+    "vue-icon": "^2.0.0",
+    "vue-tabs-component": "^1.4.0",
+    "vue-toasted": "^1.1.24"
   }
 }

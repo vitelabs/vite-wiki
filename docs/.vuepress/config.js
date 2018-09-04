@@ -183,6 +183,11 @@ module.exports = {
             facetFilters: ["lang:zh"],
             hitsPerPage: 10
           }
+        },
+        demo: {
+          errorMessage: 'JSON解析失败，请检查代码格式是否正确。以下是错误信息：',
+          successMessage: '运行结果:',
+          resetMessage: '重置代码成功'
         }
       }
     },
