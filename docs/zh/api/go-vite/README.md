@@ -7,49 +7,48 @@ sidebar: auto
 # RPC 接口
 
 ## 说明
-* **这一期暂时只支持IPC方式调用具体各平台实现**：
+* **IPC方式**：支持所有API调用
 
     1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `$HOME/viteisbest/vite.ipc`
 
     2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是  `\\.\pipe\vite.ipc`
+* **Http**：仅支持公共API 默认端口**48132**
 
+* **WebSocket**：仅支持公共API 默认端口**31420**
 * **不足**:
 
-    1. 这一期使用的RPC框架非常轻量导致，接受的参数必须是数组或者其它数据类型，所以类似于 `wallet.NewAddress()` 虽然只需要接受一个参数，也必须传递一个长度为1的数组进来，会在后面合适的时候改造这一块；
+    1. 暂时不支持发布订阅模式，后续会支持；
 
-    2. 暂时不支持发布订阅模式，后续会支持；
-
-    3. 项目迭代很快，目前的API在之后版本中会很大改变。
+    2. 项目迭代很快，目前的API在之后版本中会很大改变。
 
 * **注意**:
     1. 尽量使用标准的 ***Json rpc2*** 的库
     2. 术语 交易（transaction 或者Tx） = account block
 
-* **业务错误汇总**:
+* **常见业务错误汇总**:
 
 |  描述 | code | message | example |
 |:------------:|:-----------:|:-----:|:-----:|
-| 余额不足|  `5001` |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
-| 密码错误	|  `4001` | error decrypting key |{"code":4001,"message":"error decrypting key"}|
-| 账户重复解锁	|  `4002` |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
+| 余额不足|  `-35001` |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
+| 密码错误	|  `-34001` | error decrypting key |{"code":4001,"message":"error decrypting key"}|
+| 账户重复解锁	|  `-34002` |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
 
 ## JSON-RPC Support
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |
-|:------------:|:-----------:|:-----:|:-----:|
-| &#x2713;|  waiting |  &#x2713; |waiting|
+|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Publish–subscribe |
+|:------------:|:-----------:|:-----:|:-----:|:-----:|
+| &#x2713;|  &#x2713; |  &#x2713; |waiting|&#x2713;|
 
 ## API Reference
 
 
-### wallet.ListAddress
+### wallet_listAddress
 返回所有在标准Keystore目录下的地址
 
 - **Parameters**: `none`
 
-- **Returns**: `Array of HexAddress String`
-
-  所有在标准Keystore目录下的地址
+- **Returns**: 
+	- `Array of HexAddress String` 所有在标准Keystore目录下的地址
 
 - **Example**:
 
@@ -58,59 +57,65 @@ sidebar: auto
 
 
 ```json tab:Request
-{
-	"jsonrpc": "2.0",
-	"method": "wallet.ListAddress",
-	"id": 0
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"wallet_listAddress",
+   "params":null
 }
 ```
 
 ```json tab:Response
-{
-	"jsonrpc": "2.0",
-	"id": 0,
-	"result": "[\"vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389\",\"vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae\"]"
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result":[  
+      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+      "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+      "vite_a394f8dd8ee65b33e30f3fe250a61be138317ad901b03448d5"
+   ]
 }
+
 ```
 :::
 
-### wallet.NewAddress
+### wallet_newAddress
 新建一个账户，需要用户输入一个密码
 
-- **Parameters**: `Array of String` 
+- **Parameters**: `string` - 密码
 
-  * Array[0] = password
-
-- **Returns**: `string`  新生成的账户的地址
+- **Returns**: `string`  新生成的账户的地址的字符串
 
 - **Example**:
 
 ::: demo
 ```json tab:Request
 {
-	"jsonrpc": "2.0",
-	"method": "wallet.NewAddress",
-	"params": ["123456"],
-	"id": 1
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "wallet_newAddress",
+    "params": [
+        "123456"
+    ]
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 1,
-	"result": "vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1"
+	"id": 3,
+	"result": "vite_7cf6dd1dd4deb68d29a56326091652595f4b93d8f60e4132f9"
 }
 ```
 :::
 
-### wallet.Status
+### wallet_status
 
 返回所有账户的解锁状态
 
 - **Parameters**: `none`
 
-- **Returns**: `map` 所有账户的锁定状态
+- **Returns**: `map` 所有账户的锁定状态，如果账户处于解锁状态则返回`Unlocked`，反之则返回`Locked`
 
 - **Example**: 
 
@@ -118,35 +123,41 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "wallet.Status",
-	"id": 2
+	"id": 2,
+	"method": "wallet_status",
+	"params": null
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 2,
-	"result": "{\"vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae\":\"Locked\",\"vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389\":\"Locked\",\"vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1\":\"Unlocked\"}"
+	"id": 5,
+	"result": {
+		"vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada": "Locked",
+		"vite_535c28d4adef167de88d22b946cb29727fd11086382df777cd": "Locked",
+		"vite_7cf6dd1dd4deb68d29a56326091652595f4b93d8f60e4132f9": "Unlocked",
+		"vite_8e019a4a134bb7e16aea1ea11c7a807fab36641a22c8c911b1": "Locked"
+	}
 }
 ```
 :::
 
-### wallet.UnLock
+### wallet_unlockAddress
 解锁账户，解锁成功后账户会不停去自动确认它的待接受的交易
 
-- **Parameters**: `Array of String `
+- **Parameters**: 
 
-  * Array[0] = hexAddr
-  * Array[1] = password
-  * Array[2] = UnLockTime (单位秒 如果UnLockTime等于0 表示账户不会自动上锁，会一直保持解锁状态)
+  1. string: 有效的地址
+  *  string: 该地址对应的keystore文件的密码
+  *  uint64: 账户保持解锁状态的时间，单位秒，缺省或者`<=0`都认为是一直保持解锁，不会自动上锁
 
 
 - **Returns**:
 
-  * 解锁成功 返回 `success`
-  * 密码错误导致的解锁失败  code 4001
-  * 解锁一个已经解锁的账号  code 4002
+  * 解锁成功 返回 true
+  * 密码错误导致的解锁失败  code -34001
+  * 解锁一个已经解锁的账号  code -34002
 
 - **Example**:
 
@@ -154,43 +165,49 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "wallet.UnLock",
-	"params": ["vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae", "123456", "0"],
-	"id": 3
+	"id": 4,
+	"method": "wallet_unlockAddress",
+	"params": ["vite_7cf6dd1dd4deb68d29a56326091652595f4b93d8f60e4132f9", "123456", 0]
 }
 ```
 
 ```json tab:Response Success
 {
 	"jsonrpc": "2.0",
-	"id": 3,
-	"result": "success"
-}
-```
-
-```json tab:密码错误
-{
-	"jsonrpc": "2.0",
-	"id": 5,
-	"result": "{\"code\":4001,\"message\":\"error decrypting key\"}"
-}
-```
-
-```json tab:解锁一个账户
-{
-	"jsonrpc": "2.0",
 	"id": 6,
-	"result": "{\"code\":4002,\"message\":\"the address was previously unlocked\"}"
+	"result": true
+}
+```
+
+```json tab:Error by wrong password
+{
+	"jsonrpc": "2.0",
+	"id": 7,
+	"error": {
+		"code": -34001,
+		"message": "error decrypting key"
+	}
+}
+```
+
+```json tab:Error by unlock an unlocked address
+{
+	"jsonrpc": "2.0",
+	"id": 4,
+	"error": {
+		"code": -34002,
+		"message": "the address was previously unlocked"
+	}
 }
 ```
 :::
 
-### wallet.Lock
+### wallet_lockAddress
 锁定账户
 
-- **Parameters**: `Array of String` 
+- **Parameters**: 
 
-  * Array[0] = hexAddr
+  * string: 需要加锁的地址
 
 - **Returns**: `none` （锁定一个未解锁的账户不认为是错误）
 
@@ -201,23 +218,23 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "wallet.Lock",
-	"params": ["vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1"],
-	"id": 11
+	"id": 9,
+	"method": "wallet_lockAddress",
+	"params": ["vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"]
 }
 ```
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 11,
-	"result": ""
+	"id": 9,
+	"result": null
 }
 ```
 :::
 
 
-### wallet.ReloadAndFixAddressFile
-强制更新keystore文件夹下文件，会修复错误的文件名，更新wallet中的Address 缓存，即使不调用这个方法，内部也会每个几秒调用一次
+### wallet_reloadAndFixAddressFile
+强制更新keystore文件夹下文件，会修复错误的文件名，更新wallet中的Address 缓存，即使不调用这个方法，内部也会每隔几秒调用一次
 
 - **Parameters**: `none`
 
@@ -229,25 +246,30 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "wallet.ReloadAndFixAddressFile",
-	"id": 12
+	"id": 1,
+	"method": "wallet_reloadAndFixAddressFile",
+	"params": null
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 12
+	"id": 1,
+	"result": null
 }
 ```
 :::
 
-### wallet.IsMayValidKeystoreFile
-判断任意一个文件是否可能是Keystore文件，如果文件符合keystore文件规范，就返回这个keystore文件的包含的addrees但这不意味这个文件完全有效，判断文件完全有效只能用密码去尝试解密才知道，如果确定这**一定不是**一个keystore文件则返回空，
+### wallet_isMayValidKeystoreFile
+判断任意一个文件是否可能是Keystore文件，如果文件符合keystore文件规范，就返回这个keystore文件的包含的addrees但这不意味这个文件完全有效，因为判断文件完全有效只能用密码去尝试解密才知道
 
-- **Parameters**: `none`
+- **Parameters**: 
+	- `string` : 要判断的keystore的文件路径
 
-- **Returns**: `string` 如果格式正确并且能解析出包含的地址 则返回地址
+- **Returns**: 
+ 	-  `Maybe` : `bool` true代表可能是个keystore，false代表肯定不是
+	- `MayAddress`: `string` 如果`Maybe`是`true`则返回可能的地址，不然则返回一个默认的地址
 
 
 - **Example**:
@@ -256,22 +278,26 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "wallet.IsMayValidKeystoreFile",
-	"id": 12
+	"id": 1,
+	"method": "wallet_isMayValidKeystoreFile",
+	"params": ["/Users/xxxx/viteisbest/wallet/vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d"]
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 12,
-	"result": "vite_3db2796c14ce9d77391a1aa2eb4174c14386cdea18095320ae"
+	"id": 1,
+	"result": {
+		"Maybe": true,
+		"MayAddress": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d"
+	}
 }
 ```
 :::
 
 
-### wallet.GetDataDir
+### wallet_getDataDir
 获得钱包的keystore文件夹路径
 
 - **Parameters**: `none`
@@ -283,25 +309,17 @@ sidebar: auto
 ::: demo
 
 ```json tab:Request
-{
-	"jsonrpc": "2.0",
-	"method": "wallet.GetDataDir",
-	"id": 1
-}
+{"jsonrpc":"2.0","id":1,"method":"wallet_getDataDir","params":null}
 ```
 
 ```json tab:Response
-{
-	"jsonrpc": "2.0",
-	"id": 1,
-	"result": "/Users/xxx/viteisbest/wallet"
-}
+{"jsonrpc":"2.0","id":1,"result":"/Users/xxx/viteisbest/wallet"}
 ```
 
 :::
 
 
-### p2p.NetworkAvailable
+### p2p_networkAvailable
 现在节点网络是否可用
 
 - **Parameters**: `none`
@@ -315,26 +333,27 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "p2p.NetworkAvailable",
-	"id": 5
+	"id": 2,
+	"method": "p2p_networkAvailable",
+	"params": null
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 5,
-	"result": "false"
+	"id": 2,
+	"result": true
 }
 ```
 :::
 
-### p2p.PeersCount
+### p2p_peersCount
 当前节点连接的外部节点数量
 
 - **Parameters**: `none`
 
-- **Returns**: `int`
+- **Returns**: `int` 
 
 - **Example**: 
 
@@ -342,21 +361,22 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "p2p.PeersCount",
-	"id": 6
+	"id": 3,
+	"method": "p2p_peersCount",
+	"params": null
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 6,
-	"result": "1"
+	"id": 3,
+	"result": 10
 }
 ```
 :::
 
-### ledger.CreateTxWithPassphrase
+### ledger_createTxWithPassphrase
 创建一个转账交易
 
 - **Parameters**:
@@ -367,11 +387,12 @@ sidebar: auto
   * `TokenTypeId`: `string of tokentypeid`  交易的币种id
   * `Amount`:`big int`  交易数量，按照该币种的最小分割单位
 
-- **Returns**: ` string `
+- **Returns**: 
+	- 成功则返回 null
 
-  success 可能的错误有:
-    * 4001 密码错误
-    * 5001 余额不足
+	- 需要关注的失败的可能有
+    	* -34001 密码错误
+    	* -35001 余额不足
 
 - **Example**:
 
@@ -379,37 +400,59 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "ledger.CreateTxWithPassphrase",
-	"params": {
-		"SelfAddr": "vite_e2fa75b28da5e60a4d775bf915d58bf78b0a8d5ab0123bddc1",
-		"ToAddr": "vite_94b3d5a813d13214cad0c7f2984a738224254ccd939f6dc389",
-		"Passphrase": "123456",
+	"id": 9,
+	"method": "ledger_createTxWithPassphrase",
+	"params": [{
+		"SelfAddr": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+		"ToAddr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
 		"TokenTypeId": "tti_000000000000000000004cfd",
+		"Passphrase": "123456",
 		"Amount": "1"
-	},
-	"id": 8
+	}]
 }
 ```
-```json tab:Response
+```json tab:Response success
 {
 	"jsonrpc": "2.0",
-	"id": 8,
-	"result": "success"
+	"id": 9,
+	"result": null
+}
+```
+
+```json tab:Error by balance not enough
+{
+	"jsonrpc": "2.0",
+	"id": 13,
+	"error": {
+		"code": -35001,
+		"message": "The balance is not enough."
+	}
+}
+```
+
+```json tab:Error by wrong password
+{
+	"jsonrpc": "2.0",
+	"id": 15,
+	"error": {
+		"code": -34001,
+		"message": "error decrypting key"
+	}
 }
 ```
 :::
 
-### ledger.GetBlocksByAccAddr
+### ledger_getBlocksByAccAddr
 获得一个账户的交易列表
 
 - **Parameters**:
 
-  * `Addr`: `string of addr`  要查询的addr
-  * `Index`: `int`  页码
-  * `Count`: `int`  每页大小
+  * `string`: `Addr`  要查询的addr
+  * `int`:  `Index` 页码
+  * `int`: `Count`  每页大小
 
 
-- **Returns**: `Array of blocks` 交易列表
+- **Returns**:  交易列表
   
   * `block`:
      -  `Timestamp` : `uint64` 交易时间戳 单位秒
@@ -427,38 +470,124 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "ledger.GetBlocksByAccAddr",
-	"params": {
-		"Addr": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
-		"Index": 0,
-		"Count": 20
-	},
-	"id": 9
+	"id": 17,
+	"method": "ledger_getBlocksByAccAddr",
+	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada", 0, 10]
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 9,
-	"result": "[{\"Timestamp\":1534503797,\"Amount\":\"180000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"e84889a16002199ff47368b0d48b7b40a3b3638904718371a9fe8526e9d9ea94\",\"Balance\":\"999945382000000000000000000\",\"ConfirmedTimes\":\"25636\"},{\"Timestamp\":1534503796,\"Amount\":\"173000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"55189a3ffea0485142406738b1c49440ca4b4e1598026bf69f2a7d532d22b65c\",\"Balance\":\"999945562000000000000000000\",\"ConfirmedTimes\":\"25636\"},{\"Timestamp\":1534503796,\"Amount\":\"72000000000000000000\",\"FromAddr\":\"\",\"ToAddr\":\"vite_250a4e7c5a2e00c96920cbafc2d2952b1c134ffbe9dffae457\",\"Status\":2,\"Hash\":\"a7eac3a5e0e89687e1f0fde3fb330cb79b5245504c431cc69955900854cd35fe\",\"Balance\":\"999945735000000000000000000\",\"ConfirmedTimes\":\"25636\"}]"
+	"id": 17,
+	"result": [{
+		"Timestamp": 1536148531,
+		"Amount": "1",
+		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"ToAddr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
+		"Status": 2,
+		"Hash": "3387d262a38343fd5e413efd7124361994477ced20d26050ca0cba43c8ab49a9",
+		"Balance": "85",
+		"ConfirmedTimes": ""
+	}, {
+		"Timestamp": 1535809141,
+		"Amount": "1",
+		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"Status": 2,
+		"Hash": "2ed46e222678ad60b675909212a327ed1084fcc7580f6e955c6b74a8247981ca",
+		"Balance": "86",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809138,
+		"Amount": "1",
+		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"Status": 2,
+		"Hash": "3d145ed11fe0e9826f7ac3d2540b9f30999544611931f6082e607dca6a21cc0a",
+		"Balance": "85",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809136,
+		"Amount": "1",
+		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"Status": 2,
+		"Hash": "c0f6d84fb89bb263dc57f6bb23634c4ef04d95fd52b42fd3be815bcb31ce7773",
+		"Balance": "86",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809132,
+		"Amount": "1",
+		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"Status": 2,
+		"Hash": "bfb61bcca11dbd6787c27a58908ac345a098d224ca20e47f5a2f76120af63e38",
+		"Balance": "85",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809130,
+		"Amount": "1",
+		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"Status": 2,
+		"Hash": "a7103f1e98987ef8e7f59ae3c313aba4c6c3669cb906a04545d484f54580f484",
+		"Balance": "86",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809127,
+		"Amount": "1",
+		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"Status": 2,
+		"Hash": "2bc0d0ba46652074a034f559c772b99875d8b6f21b6119d5a5a57bfc84af95da",
+		"Balance": "85",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809125,
+		"Amount": "1",
+		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"Status": 2,
+		"Hash": "63f07cf2e3152230df93d116e9bb6d8005ac089813b3c70076b50b09b380b5c2",
+		"Balance": "86",
+		"ConfirmedTimes": "37886"
+	}, {
+		"Timestamp": 1535809121,
+		"Amount": "1",
+		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"Status": 2,
+		"Hash": "db904308129c31441db60876bf78518dec0554fa05caf5776df7df89243ac752",
+		"Balance": "85",
+		"ConfirmedTimes": "37887"
+	}, {
+		"Timestamp": 1535809119,
+		"Amount": "1",
+		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+		"Status": 2,
+		"Hash": "a46c724df5077126dd0acc89323bd4deaaec6d5aa37f47288a85b382f84c0157",
+		"Balance": "86",
+		"ConfirmedTimes": "37887"
+	}]
 }
 ```
 :::
 
 
-### ledger.GetAccountByAccAddr
-获取一个账户的详情
+### ledger_getAccountByAccAddr
+获取一个账户的详情,包含账户链的高度，账户的各个token的余额等
 
-- **Parameters**: `Array of HexAddress String`
-  * Array[0] = HexAddress
+- **Parameters**: 
+  * string: 需要查询的账户的地址
 
 - **Returns**:
 
   `Object` : 账户详情
    -  `Addr` : `string` 账户地址
-   -  `BalanceInfos` : `Array of Balance` 余额信息
-  -  `BlockHeight` : `string of bigint` 账户交易数量 或者是账户链高度
+   -  `BalanceInfos` : `Array of Balance` 各个代币的余额信息
+	-  `BlockHeight` : `string of bigint` 账户交易数量 等同于是账户链高度
   
   `Object` : `Balance` 余额信息
   -  `TokenSymbol` : `string` token的单位比如 人名币 100 元的『元』
@@ -472,26 +601,35 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "ledger.GetAccountByAccAddr",
-	"params": ["vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"],
-	"id": 11
+	"id": 5,
+	"method": "ledger_getAccountByAccAddr",
+	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
 }
 ```
 
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 11,
-	"result": "{\"Addr\":\"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68\",\"BalanceInfos\":[{\"TokenSymbol\":\"VITE\",\"TokenName\":\"vite\",\"TokenTypeId\":\"tti_000000000000000000004cfd\",\"Balance\":\"999945382000000000000000000\"}],\"BlockHeight\":\"537\"}"
+	"id": 5,
+	"result": {
+		"Addr": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+		"BalanceInfos": [{
+			"TokenSymbol": "VITE",
+			"TokenName": "vite",
+			"TokenTypeId": "tti_000000000000000000004cfd",
+			"Balance": "86"
+		}],
+		"BlockHeight": "666"
+	}
 }
 ```
 :::
 
-### ledger.GetUnconfirmedInfo
+### ledger_getUnconfirmedInfo
 获取一个账户的待确认交易的详情
 
-- **Parameters**: `Array of HexAddress String`
-  * Array[0] = HexAddress
+- **Parameters**: 
+  * string: 需要获取的地址
   
 - **Returns**:
 
@@ -508,16 +646,25 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "ledger.GetAccountByAccAddr",
-	"params": ["vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"],
-	"id": 11
+	"id": 10,
+	"method": "ledger_getUnconfirmedInfo",
+	"params": ["vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d"]
 }
 ```
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 11,
-	"result": "{\"Addr\":\"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68\",\"BalanceInfos\":[{\"TokenSymbol\":\"VITE\",\"TokenName\":\"vite\",\"TokenTypeId\":\"tti_000000000000000000004cfd\",\"Balance\":\"999945382000000000000000000\"}],\"BlockHeight\":\"537\"}"
+	"id": 10,
+	"result": {
+		"Addr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
+		"BalanceInfos": [{
+			"TokenSymbol": "VITE",
+			"TokenName": "vite",
+			"TokenTypeId": "tti_000000000000000000004cfd",
+			"Balance": "1"
+		}],
+		"UnConfirmedBlocksLen": "1"
+	}
 }
 ```
 :::
@@ -554,7 +701,7 @@ sidebar: auto
 :::
 
 
-### ledger.GetSnapshotChainHeight
+### ledger_getSnapshotChainHeight
 获取当前快照链高度
 
 - **Parameters**: `none`
@@ -569,8 +716,9 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "ledger.GetSnapshotChainHeight",
-	"id": 12
+	"id": 1,
+	"method": "ledger_getSnapshotChainHeight",
+	"params": null
 }
 
 ```
@@ -578,18 +726,18 @@ sidebar: auto
 ```json tab:Response
 {
 	"jsonrpc": "2.0",
-	"id": 12,
-	"result": "11"
+	"id": 1,
+	"result": "161646"
 }
 ```
 
 :::
-### types.IsValidHexAddress
+### types_isValidHexAddress
 判断一个字符串是否是合法的地址
 
-- **Parameters**: `Array of String`
+- **Parameters**: 
 
-  * Array[0] = 待校验的string
+  * string : 待校验的string
 
 - **Returns**: `bool` : 是否是合法地址
 
@@ -599,9 +747,9 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "types.IsValidHexAddress",
-	"params": ["vite_1cb2ab2738cd913654658e879bef8115eb1aa61a9be9d15c3a"],
-	"id": 3
+	"id": 3,
+	"method": "types_isValidHexAddress",
+	"params": ["vite_1cb2ab2738cd913654658e879bef8115eb1aa61a9be9d15c3a"]
 }
 ```
 
@@ -614,12 +762,12 @@ sidebar: auto
 ```
 :::
 
-### types.IsValidHexTokenTypeId
+### types_isValidHexTokenTypeId
 判断一个字符串是否是合法的tokentypeid
 
-- **Parameters**: `Array of String`
+- **Parameters**: 
 
-  * Array[0] = 待校验的string
+  * `string`: 待校验的string
 
 
 - **Returns**: `bool` : 是否是合法tokentypeid
@@ -630,9 +778,9 @@ sidebar: auto
 ```json tab:Request
 {
 	"jsonrpc": "2.0",
-	"method": "types.IsValidHexTokenTypeId",
-	"params": ["asd"],
-	"id": 2
+	"id": 2,
+	"method": "types_isValidHexTokenTypeId",
+	"params": ["asd"]
 }
 ```
 
@@ -642,5 +790,24 @@ sidebar: auto
 	"id": 2,
 	"result": "false"
 }
+```
+:::
+### common_logDir
+返回go-vite的日志文件夹
+
+- **Parameters**: none
+
+
+- **Returns**: `string` : 返回go-vite的日志文件夹
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{"jsonrpc":"2.0","id":1,"method":"common_logDir","params":null}
+```
+
+```json tab:Response
+{"jsonrpc":"2.0","id":1,"result":"/Users/xxx/viteisbest/runlog"}
 ```
 :::
