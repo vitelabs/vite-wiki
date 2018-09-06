@@ -12,9 +12,9 @@ sidebar: auto
     1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `$HOME/viteisbest/vite.ipc`
 
     2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是  `\\.\pipe\vite.ipc`
-* **Http**：仅支持公共API 默认端口**48132**
+* **Http**：仅支持公共API(非wallet模块) 默认端口**48132**
 
-* **WebSocket**：仅支持公共API 默认端口**31420**
+* **WebSocket**：仅支持公共API(非wallet模块) 默认端口**31420**
 * **不足**:
 
     1. 暂时不支持发布订阅模式，后续会支持；
@@ -35,7 +35,7 @@ sidebar: auto
 
 ## JSON-RPC Support
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Publish–subscribe |
+|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |waiting|&#x2713;|
 
