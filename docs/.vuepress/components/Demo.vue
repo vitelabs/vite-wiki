@@ -4,41 +4,46 @@
       <tab v-for="tab in codeList" :name="tab.name" :key="tab.name">
         <vnodes :vnodes="tab.dom"></vnodes>
       </tab>
-      <tab v-for="(tab, index) in testSourceCode" :name="tab.name" :key="tab.name">
-        <ClientOnly>
-          <codemirror v-if="selectedTab === tab.name" :ref="`cm_${tab.name}`"
-                      :options="cmOptions"
-                      :value="tab.content"
-                      @input="onCmCodeChange(index, $event)"
-          >
-          </codemirror>
-          <span class="code-play-btn" @click="onPlayClick(index)">
+      <tab v-if="testSourceCode.length" name="Play" key="play" @changed="onTabChanged">
+        <div v-for="(tab, index) in testSourceCode" :key="tab.name">
+          <div class="tools-wrapper">
+            <input type="url" v-model="url">
+            <span class="code-play-btn" @click="onPlayClick(index)">
             <v-icon icon="play"></v-icon>
           </span>
-          <span class="code-play-btn right" @click="onResetClick(index)">
+            <span class="code-play-btn right" @click="onResetClick(index)">
             <v-icon icon="undo"></v-icon>
           </span>
-          <div v-if="tab.error">
-            {{demoConfig.errorMessage}}
-            <pre class="error">
+          </div>
+          <ClientOnly>
+            <codemirror v-if="selectedTab === 'Play'" :ref="`cm_${tab.name}`"
+                        :options="cmOptions"
+                        :value="tab.content"
+                        @input="onCmCodeChange(index, $event)"
+            >
+            </codemirror>
+            <div v-if="tab.error">
+              {{demoConfig.errorMessage}}
+              <pre class="error">
               <code>
                 {{tab.error.stack}}
               </code>
             </pre>
-          </div>
-          <div v-else-if="tab.success">
-            {{demoConfig.successMessage}}
-            <codemirror :ref="`cmResult_${index}`"
-                        :options="cmResultOptions"
-                        :value="tab.result">
-            </codemirror>
-          </div>
-          <div v-if="tab.pending" class="loading-wrapper">
-            <div>
-              <loading></loading>
             </div>
-          </div>
-        </ClientOnly>
+            <div v-else-if="tab.success">
+              {{demoConfig.successMessage}}
+              <codemirror :ref="`cmResult_${index}`"
+                          :options="cmResultOptions"
+                          :value="tab.result">
+              </codemirror>
+            </div>
+            <div v-if="tab.pending" class="loading-wrapper">
+              <div>
+                <loading></loading>
+              </div>
+            </div>
+          </ClientOnly>
+        </div>
       </tab>
     </tabs>
   </div>
@@ -54,6 +59,22 @@
 
   const defaultDemoConfig = {
     errorMessage: 'Json parse failed. Please check it.'
+  }
+
+  const REQ_URL = 'http://127.0.0.1:48132/'
+
+  function saveReqUrl(url) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('reqUrl', url);
+    }
+  }
+
+  function getReqUrl() {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('reqUrl') || REQ_URL;
+    } else {
+      return REQ_URL
+    }
   }
 
 
@@ -165,23 +186,30 @@
           ...defaultCmOptions,
           readOnly: true
         },
-        selectedTab: null
+        selectedTab: null,
+        url: getReqUrl()
       }
     },
     methods: {
       onTabChanged(selectedTab) {
         this.selectedTab = selectedTab.tab.name
-        let cm = this.$refs[`cm_${selectedTab.tab.name}`]
-        if (Array.isArray(cm) && cm[0]) {
-          cm[0].codemirror.refresh()
-        }
       },
       run(reqData) {
-        return new Promise((resolve, reject)=> {
-          setTimeout(() => {
-            resolve(reqData)
-          }, 1000)
-        })
+        return fetch(this.url || getReqUrl(), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(reqData)
+        }).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response
+          } else {
+            var error = new Error(response.statusText)
+            error.response = response
+            throw error
+          }
+        }).then(response => response.json())
       },
       onPlayClick (index) {
         let testCodeItem = this.testSourceCode[index]
@@ -190,10 +218,9 @@
 
         Vue.set(this.testSourceCode, index, {
           ...testCodeItem,
-          pending: true,
-          result: false,
-          success: false
+          pending: true
         })
+        saveReqUrl(this.url)
 
         try {
           let json = JSON.parse(code)
@@ -334,32 +361,6 @@
   }
   .tabs-component-panel {
     position: relative;
-    .code-play-btn {
-      width: 2rem;
-      height: 2rem;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border:none;
-      color: $accentColor;
-      cursor: pointer;
-      text-align: center;
-      background: rgba(255,255,255,0.2);
-      border-top-left-radius: 5px;
-      line-height: 32px;
-      &:hover {
-        background: $accentColor;
-        color: white;
-      }
-      &.right {
-        right: 0;
-        left: auto;
-        border-top-left-radius: 0;
-        border-top-right-radius: 5px;
-
-      }
-    }
-
     pre.error {
       color: red;
       & > code {
@@ -381,6 +382,36 @@
         justify-content: center;
         width: 100%;
         height: 100%;
+      }
+    }
+    .tools-wrapper {
+      position: relative;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      text-align: right;
+      & > input {
+        height: 28px;
+        border-radius: 3px;
+        border: 1px solid rgba(0,0,0,0.05);
+        width: 40%;
+        font-family: monospace;
+        padding-left: 0.3rem;
+      }
+      .code-play-btn {
+        margin-bottom: 5px;
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid rgba(0,0,0,0.05);
+        color: $accentColor;
+        cursor: pointer;
+        text-align: center;
+        background: rgba(255,255,255,0.2);
+        line-height: 32px;
+        border-radius: 3px;
+        &:hover {
+          background: $accentColor;
+          color: white;
+        }
       }
     }
   }

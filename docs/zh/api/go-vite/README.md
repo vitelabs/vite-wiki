@@ -79,7 +79,7 @@ sidebar: auto
 ```
 :::
 
-### wallet_newAddress
+### wallet_newAddress 
 新建一个账户，需要用户输入一个密码
 
 - **Parameters**: `string` - 密码
@@ -346,6 +346,14 @@ sidebar: auto
 	"result": true
 }
 ```
+```json test:测试
+{
+	"jsonrpc": "2.0",
+	"id": 2,
+	"method": "p2p_networkAvailable",
+	"params": null
+}
+```
 :::
 
 ### p2p_peersCount
@@ -372,6 +380,14 @@ sidebar: auto
 	"jsonrpc": "2.0",
 	"id": 3,
 	"result": 10
+}
+```
+```json test:测试
+{
+	"jsonrpc": "2.0",
+	"id": 3,
+	"method": "p2p_peersCount",
+	"params": null
 }
 ```
 :::
@@ -438,6 +454,20 @@ sidebar: auto
 		"code": -34001,
 		"message": "error decrypting key"
 	}
+}
+```
+```json test:测试
+{
+	"jsonrpc": "2.0",
+	"id": 9,
+	"method": "ledger_createTxWithPassphrase",
+	"params": [{
+		"SelfAddr": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+		"ToAddr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
+		"TokenTypeId": "tti_000000000000000000004cfd",
+		"Passphrase": "123456",
+		"Amount": "1"
+	}]
 }
 ```
 :::
@@ -573,6 +603,15 @@ sidebar: auto
 	}]
 }
 ```
+
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"id": 17,
+	"method": "ledger_getBlocksByAccAddr",
+	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada", 0, 10]
+}
+```
 :::
 
 
@@ -623,6 +662,14 @@ sidebar: auto
 	}
 }
 ```
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"id": 5,
+	"method": "ledger_getAccountByAccAddr",
+	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
+}
+```
 :::
 
 ### ledger_getUnconfirmedInfo
@@ -667,6 +714,14 @@ sidebar: auto
 	}
 }
 ```
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"id": 10,
+	"method": "ledger_getUnconfirmedInfo",
+	"params": ["vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d"]
+}
+```
 :::
 
 ### ledger.GetInitSyncInfo
@@ -696,6 +751,13 @@ sidebar: auto
 	"jsonrpc": "2.0",
 	"id": 12,
 	"result": "{\"StartHeight\":\"1\",\"TargetHeight\":\"3\",\"CurrentHeight\":\"2\",\"IsFirstSyncDone\":false,\"IsStartFirstSync\":true}"
+}
+```
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"method": "ledger.GetInitSyncInfo",
+	"id": 12
 }
 ```
 :::
@@ -730,7 +792,15 @@ sidebar: auto
 	"result": "161646"
 }
 ```
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "ledger_getSnapshotChainHeight",
+	"params": null
+}
 
+```
 :::
 ### types_isValidHexAddress
 判断一个字符串是否是合法的地址
@@ -758,6 +828,14 @@ sidebar: auto
 	"jsonrpc": "2.0",
 	"id": 3,
 	"result": "true"
+}
+```
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"id": 3,
+	"method": "types_isValidHexAddress",
+	"params": ["vite_1cb2ab2738cd913654658e879bef8115eb1aa61a9be9d15c3a"]
 }
 ```
 :::
@@ -791,6 +869,14 @@ sidebar: auto
 	"result": "false"
 }
 ```
+```json test:Request
+{
+	"jsonrpc": "2.0",
+	"id": 2,
+	"method": "types_isValidHexTokenTypeId",
+	"params": ["asd"]
+}
+```
 :::
 ### common_logDir
 返回go-vite的日志文件夹
@@ -809,5 +895,8 @@ sidebar: auto
 
 ```json tab:Response
 {"jsonrpc":"2.0","id":1,"result":"/Users/xxx/viteisbest/runlog"}
+```
+```json test:Request
+{"jsonrpc":"2.0","id":1,"method":"common_logDir","params":null}
 ```
 :::
