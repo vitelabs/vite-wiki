@@ -35,11 +35,14 @@ const sidebarConfigs = {
       ]
     }
   ],
-  'go-vite': [
+  api: [
     {
       collapsable: false,
       children: [
-        ''
+        'rpc/',
+        'rpc/wallet',
+        'rpc/p2p',
+        'rpc/ledger'
       ]
     }
   ]
@@ -85,7 +88,6 @@ module.exports = {
      config: markdownConfig
   },
   themeConfig: {
-    displayAllHeaders: true,
     editLinks: true,
     docsDir: 'docs',
     search: true,
@@ -162,7 +164,7 @@ module.exports = {
             items: [
               {
                 text: 'RPC 接口',
-                link: '/zh/api/go-vite/'
+                link: '/zh/api/rpc/'
               }
             ]
           },
@@ -174,7 +176,7 @@ module.exports = {
         sidebar: {
           '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本'),
-          '/zh/api/go-vite/': genSidebarConfig('go-vite', 'Vite Core')
+          '/zh/api/': genSidebarConfig('api', 'RPC 接口')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
