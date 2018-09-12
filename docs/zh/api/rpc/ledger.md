@@ -515,6 +515,149 @@ AccountBlock
 ```
 :::
 
+### ledger_getTokenMintage
+获取某个token的铸币详情
+
+- **Parameters**: `string` : `TokenTypeId`
+
+- **Returns**: `Object`
+   -  `Name` : `string` 币的名称
+   -  `Id` : `TokenTypeId` 币的iD
+   -  `Symbol` : `string` 币的单位
+   -  `Owner` : `Address` 币的创建者
+   -  `Decimals` : `int` 币的最小分割单位
+   -  `TotalSupply` : `bigint` 币的总量
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "ledger_getTokenMintage",
+    "params": [
+        "tti_000000000000000000004cfd"
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "result": {
+        "Name": "vite",
+        "Id": "tti_000000000000000000004cfd",
+        "Symbol": "VITE",
+        "Owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "Decimals": 18,
+        "TotalSupply": 1000000000
+    }
+}
+```
+```json test
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "ledger_getTokenMintage",
+    "params": [
+        "tti_000000000000000000004cfd"
+    ]
+}
+```
+:::
+### ledger_getBlocksByHash
+从某个账户链获取某个交易的hash开始向前得N个块
+
+- **Parameters**: 
+    - `string` : `address` 要获取的账户
+    - `string` : `hash`  起始的交易Hash
+    - `int` :   需要获取的长度
+
+- **Returns**: `AccountBlock`列表
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlocksByHash",
+    "params": [
+        "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+        "eda7915d62c8fb23e6aa4483f4a4467fd76238d852da6c85269bf57a93bae4fd",
+        2
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "Meta": {
+                "Height": 976,
+                "Status": 0,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "PublicKey": "0f29d2519749da79ed9078654a657dd1b94b4f402b8f78e5a3574c9eb8931ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "284e180920b5b1b5d43aa6cfe4bef2ed4b08f68c7688b492d3767c342250cebc",
+            "Hash": "eda7915d62c8fb23e6aa4483f4a4467fd76238d852da6c85269bf57a93bae4fd",
+            "Balance": 10,
+            "Amount": 1,
+            "Timestamp": 1536674382,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "9ed62276cd6e3603fe3d0fd994d02affc15258cc8db053460142fbe68ed77c97",
+            "Signature": "8feba549231012023b2101231e8966a41535ef05fbca4557f0da69361d24a38c060f871b0885a8389120a1d90457089d3647e9c9412050894c3ae2058e31e40f",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0,
+            "ConfirmedTimes": 8880
+        },
+        {
+            "Meta": {
+                "Height": 975,
+                "Status": 0,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "PublicKey": "0f29d2519749da79ed9078654a657dd1b94b4f402b8f78e5a3574c9eb8931ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "a4b8155e9ad783a1ec77d871ee86791ede88a26ff596607e5fa497713a55caf3",
+            "Hash": "284e180920b5b1b5d43aa6cfe4bef2ed4b08f68c7688b492d3767c342250cebc",
+            "Balance": 11,
+            "Amount": 1,
+            "Timestamp": 1536674381,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "dbb81337d709eec4ce6a29ef134b6f8fce7e4b701a23d20836cfb61bac1841ff",
+            "Signature": "49557b1426338886c859891616b48b29f71eacbc508ed43548531a6c03b42b6b564d6fdb84047df8f9fb2c52ba74b7c42aeb81fb6289a2117d1972eebb16810b",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0,
+            "ConfirmedTimes": 8880
+        }
+    ]
+}
+```
+```json test
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlocksByHash",
+    "params": [
+        "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+        "eda7915d62c8fb23e6aa4483f4a4467fd76238d852da6c85269bf57a93bae4fd",
+        2
+    ]
+}
+```
+:::
 ### ledger_getInitSyncInfo
 实时地去获取 初始化过程
 
