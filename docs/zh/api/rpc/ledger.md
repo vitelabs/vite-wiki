@@ -8,7 +8,52 @@
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  `false` |  &#x2713; |waiting|`false`|
 
+## 交易结构体字段说明
+该结构体是用户发送完整的交易，或者获取账户交易统一返回，下表对其中的字段和缺省情况进行说明
+### AccountBlock
+|  名称  | 类型 | 发送时必填 |返回时必有|说明 |
+|:------------:|:-----------:|:-----:|:-----:|:-----:|
+| Meta |  AccountBlockMeta |  &#x2713; | &#x2713;|用于描述账户情况的字段，下表具体阐述|
+| AccountAddress |  Address |  &#x2713; | &#x2713;|该交易的产生方地址|
+| PublicKey |  hex string |  &#x2713; | &#x2715;|对交易签名产生的公钥|
+| To |  Address |  &#x2713; | &#x2713;|交易的目的地址|
+| From |  Address |  &#x2715; | &#x2715;|如果此字段不为空表示这是一个响应交易,所以如果发送一个响应交易必须填这个，表示该交易的发起方|
+| FromHash |  hex format 256Hash |  &#x2715; | &#x2715;|表示该交易对应的发送交易的hash，配个From 字段使用|
+| PrevHash |  hex format 256Hash |  &#x2715; | &#x2715;|该交易在其账户链上的上一个交易的hash,如果该交易是该账户的第一笔交易，可以为空|
+| Hash |  hex format 256Hash |  &#x2713; | &#x2713;|该交易的Hash|
+| Balance |  big.Int |  &#x2713; | &#x2713;|该交易发生后账户余额|
+| Amount |  big.Int |  &#x2713; | &#x2713;|该交易发生的金额|
+| Timestamp |  秒 |  &#x2713; | &#x2713;|该交易发生的时间戳|
+| TokenId |  TokenTypeId |  &#x2713; | &#x2713;|该交易的币种ID|
+| LastBlockHeightInToken |  秒 |  &#x2715; | &#x2715;|该账户链上一个同币种交易的高度|
+| Data |  string |  &#x2715; | &#x2715;|可用作交易备注|
+| SnapshotTimestamp | hex format 256Hash  |  &#x2713; | &#x2713;|快照块秒为单位时间戳的256Hash |
+| Signature |  hex format 256Hash |  &#x2713; | &#x2713;|交易的签名|
+| Nonce |  hex format 256Hash |  &#x2713; | &#x2713;|该交易Pow的nonce|
+| Difficulty |  hex format 256Hash |  &#x2713; | &#x2713;|该交易Pow的|
+| ConfirmedTimes |  big.Int |  &#x2715; | &#x2713;|该交易被确认的次数|
+
+### AccountBlockMeta
+|  名称  | 类型 | 发送时必填 |返回时必有|说明 |
+|:------------:|:-----------:|:-----:|:-----:|:-----:|
+| Height |  big.Int |  &#x2713; | &#x2713;|作为返回标识账户链的高度，作为发送应该把获取到底Height+1填倒这里|
+| Status |  int |  &#x2715; | &#x2713;|0 是状态错误, 1 表示没有结对的响应交易, 2 代表已经有结对的响应交易|
+| IsSnapshotted |  bool |  &#x2715; | &#x2713;|该交易是否被快照|
 ## API
+
+### ledger_createTx
+用一个完整的Block创建交易
+
+- **Parameters**:
+AccountBlock
+
+- **Returns**: 
+	- 成功则返回 null
+
+	- 需要关注的失败的可能有
+    	* -34001 密码错误
+    	* -35001 余额不足
+
 
 ### ledger_createTxWithPassphrase
 创建一个转账交易
@@ -100,17 +145,8 @@
   * `int`: `Count`  每页大小
 
 
-- **Returns**:  交易列表
+- **Returns**:  AccountBlock列表
   
-  * `block`:
-     -  `Timestamp` : `uint64` 交易时间戳 单位秒
-     -  `FromAddr` :  `string of addr` 如果此字段不为空表示这是一个响应交易。 什么是响应交易 请参考白皮书
-     -  `ToAddr` :  `string of addr` 交易的目的地址
-     -  `Status` :  `int` 0 是状态错误, 1 表示没有结对的响应交易, 2 代表已经有结对的响应交易
-     -  `Hash` :  `string of bigint` 交易的Hash
-     -  `Balance` :  `string of bigint` 当前vite余额。 todo 后续会改成map结构
-     -  `ConfirmedTimes` :  `string of bigint` 当前交易被快照链确认次数
-
 - **Example**:
 
 ::: demo
@@ -126,99 +162,76 @@
 
 ```json tab:Response
 {
-	"jsonrpc": "2.0",
-	"id": 17,
-	"result": [{
-		"Timestamp": 1536148531,
-		"Amount": "1",
-		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"ToAddr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
-		"Status": 2,
-		"Hash": "3387d262a38343fd5e413efd7124361994477ced20d26050ca0cba43c8ab49a9",
-		"Balance": "85",
-		"ConfirmedTimes": ""
-	}, {
-		"Timestamp": 1535809141,
-		"Amount": "1",
-		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"Status": 2,
-		"Hash": "2ed46e222678ad60b675909212a327ed1084fcc7580f6e955c6b74a8247981ca",
-		"Balance": "86",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809138,
-		"Amount": "1",
-		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"Status": 2,
-		"Hash": "3d145ed11fe0e9826f7ac3d2540b9f30999544611931f6082e607dca6a21cc0a",
-		"Balance": "85",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809136,
-		"Amount": "1",
-		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"Status": 2,
-		"Hash": "c0f6d84fb89bb263dc57f6bb23634c4ef04d95fd52b42fd3be815bcb31ce7773",
-		"Balance": "86",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809132,
-		"Amount": "1",
-		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"Status": 2,
-		"Hash": "bfb61bcca11dbd6787c27a58908ac345a098d224ca20e47f5a2f76120af63e38",
-		"Balance": "85",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809130,
-		"Amount": "1",
-		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"Status": 2,
-		"Hash": "a7103f1e98987ef8e7f59ae3c313aba4c6c3669cb906a04545d484f54580f484",
-		"Balance": "86",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809127,
-		"Amount": "1",
-		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"Status": 2,
-		"Hash": "2bc0d0ba46652074a034f559c772b99875d8b6f21b6119d5a5a57bfc84af95da",
-		"Balance": "85",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809125,
-		"Amount": "1",
-		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"Status": 2,
-		"Hash": "63f07cf2e3152230df93d116e9bb6d8005ac089813b3c70076b50b09b380b5c2",
-		"Balance": "86",
-		"ConfirmedTimes": "37886"
-	}, {
-		"Timestamp": 1535809121,
-		"Amount": "1",
-		"FromAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"ToAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"Status": 2,
-		"Hash": "db904308129c31441db60876bf78518dec0554fa05caf5776df7df89243ac752",
-		"Balance": "85",
-		"ConfirmedTimes": "37887"
-	}, {
-		"Timestamp": 1535809119,
-		"Amount": "1",
-		"FromAddr": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-		"ToAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-		"Status": 2,
-		"Hash": "a46c724df5077126dd0acc89323bd4deaaec6d5aa37f47288a85b382f84c0157",
-		"Balance": "86",
-		"ConfirmedTimes": "37887"
-	}]
+    "jsonrpc": "2.0",
+    "id": 3,
+    "result": [
+        {
+            "Meta": {
+                "Height": 985,
+                "Status": 1,
+                "IsSnapshotted": true
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "f5b4e253491e21e5a2e6dc75bbd417274a8f224fc43d0f41b42766a4b5449398",
+            "Hash": "de657fa44954f9fba7ffc61e24894508d1e53c92154c325121496414bc1c9e4d",
+            "Balance": 1,
+            "Amount": 1,
+            "Timestamp": 1536674398,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
+            "Signature": "7a89c3398c751f977d9b5d322a8b9d399adde8238ee8fd1c058e4eb07b75aebd00db0129d250cfac5d8fa4f70f7d9bf76ce2303658a409be6dbadb516ab6ad05",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0,
+            "ConfirmedTimes": 6544
+        },
+        {
+            "Meta": {
+                "Height": 984,
+                "Status": 1,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "deb013a550186ecf25ff0a1c2a74afd22557bd1e6a8bba82b5ca56ab943bec77",
+            "Hash": "f5b4e253491e21e5a2e6dc75bbd417274a8f224fc43d0f41b42766a4b5449398",
+            "Balance": 2,
+            "Amount": 1,
+            "Timestamp": 1536674397,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
+            "Signature": "2fc9760469756a615fb7b95c7efb8361cd3323f67af9a06add04814a0c95e15292b4413711bfa312ec8e3d5211383ca5483521d010b7c2c943fe4c0048f3e501",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0,
+            "ConfirmedTimes": 6544
+        },
+        {
+            "Meta": {
+                "Height": 983,
+                "Status": 1,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "7ccecfc3afcd03b39208109d6d6001c039af90cc56c03b3599b375bcdbf16bee",
+            "Hash": "deb013a550186ecf25ff0a1c2a74afd22557bd1e6a8bba82b5ca56ab943bec77",
+            "Balance": 3,
+            "Amount": 1,
+            "Timestamp": 1536674395,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
+            "Signature": "2ed4fc80d86fc495fdee1ff67a8ad7ebf758843c57d516c48932f7e09dd6a579d69af8caf3df85387a22d68ee59de68f1a62e4a9ed604c26ffa23d8e9a5b1804",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0,
+            "ConfirmedTimes": 6544
+        }
+    ]
 }
 ```
 
@@ -342,8 +355,172 @@
 ```
 :::
 
-### ledger.GetInitSyncInfo
-实时地去获取 初始化过程x
+### ledger_getLatestBlock
+获取账户的最近一个交易
+
+- **Parameters**: `Address` 
+
+- **Returns**: `AccountBlock`
+
+- **Example**:
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "ledger_getLatestBlock",
+    "params": [
+        "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "result": {
+        "Meta": {
+            "Height": 985,
+            "Status": 1,
+            "IsSnapshotted": true
+        },
+        "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+        "PrevHash": "f5b4e253491e21e5a2e6dc75bbd417274a8f224fc43d0f41b42766a4b5449398",
+        "Hash": "de657fa44954f9fba7ffc61e24894508d1e53c92154c325121496414bc1c9e4d",
+        "Balance": 1,
+        "Amount": 1,
+        "Timestamp": 1536674398,
+        "TokenId": "tti_000000000000000000004cfd",
+        "Data": "",
+        "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
+        "Signature": "7a89c3398c751f977d9b5d322a8b9d399adde8238ee8fd1c058e4eb07b75aebd00db0129d250cfac5d8fa4f70f7d9bf76ce2303658a409be6dbadb516ab6ad05",
+        "Nonce": "0000000000",
+        "Difficulty": "0000000000",
+        "FAmount": 0
+    }
+}
+```
+```json test:Request
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "ledger_getLatestBlock",
+    "params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
+}
+```
+
+### ledger_getUnconfirmedBlocksByAccAddr
+获取账户的待确认交易列表
+
+- **Parameters**: 
+  * `string`: `Addr`  要查询的addr
+  * `int`:  `Index` 页码
+  * `int`: `Count`  每页大小 
+
+- **Returns**: `AccountBlock` 列表
+
+- **Example**:
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getUnconfirmedBlocksByAccAddr",
+    "params": [
+        "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+        0,
+        10
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "Meta": {
+                "Height": 789,
+                "Status": 1,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "a6555d57e77723dd17bbb8a9b4204141184be7b68e7307ffdfed444cc8f59eb2",
+            "Hash": "30ad134de9639b46f8f2600e87ccc15909686ed4e22b4beeb0103f4c0fd7b6e5",
+            "Balance": 57,
+            "Amount": 1,
+            "Timestamp": 1536650495,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "b6828d59bdf58b73fd0d36fa1be9c0a410653ba891905294c5f8abc1e3b58b53",
+            "Signature": "831a7c88080887c92ccf9e9e87d8d41391a8da81fd0ca2bf5c4af07c1eddf326a2268650c4ca36917566300226d059913d4c94d5b09264ae805218d658146304",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0
+        },
+        {
+            "Meta": {
+                "Height": 795,
+                "Status": 1,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "c879d8ec7cea235c46ffddde113c63ca7413c5c8722df209d6ad3256d51f6bbf",
+            "Hash": "5fe77d257a472835af2d0cdca57572ac0ea6be234f95255f26bfad66a73820a5",
+            "Balance": 59,
+            "Amount": 1,
+            "Timestamp": 1536650505,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "f23ff46b23e77f8891478069cb60461020b1ae1a69c08d538cb1dbfc995ee39f",
+            "Signature": "16e025576b991b57152986ac70c7a4ba796287ca5ed7a65fce0f0844de34d091c97c1da23d480a5aa3d418f95bf57d539087d65dbc84b63968b2d77e4f28ff02",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0
+        },
+        {
+            "Meta": {
+                "Height": 816,
+                "Status": 1,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "06bc14839586324b5c88279a284eaea223914f90920dc2b25d88453f24860f6c",
+            "Hash": "cb757e0ddebd6c87b19b3c94a050e9ce54181485d177455e7c846d9d2d57bed9",
+            "Balance": 66,
+            "Amount": 1,
+            "Timestamp": 1536650543,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "03c784ba619f07070d01620906db381e601f23eac8e941427b6ce36a3e30bf46",
+            "Signature": "fa2521a8734dd8a852043c0f95da884d901915be08652107b5ac1afe803ad7c66bfc2ffd2afd4b30c5ac42c92bed317b6726d1c93a8e291c1b19f75bf98a4204",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": 0
+        }
+    ]
+}
+    
+```
+```json test:Request
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "ledger_getLatestBlock",
+    "params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
+}
+```
+
+
+
+
+### ledger_getInitSyncInfo
+实时地去获取 初始化过程
 
 - **Parameters**: `none`
 
