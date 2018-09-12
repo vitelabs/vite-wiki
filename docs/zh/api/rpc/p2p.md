@@ -37,7 +37,7 @@
 	"result": true
 }
 ```
-```json test:测试
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 2,
@@ -73,7 +73,7 @@
 	"result": 10
 }
 ```
-```json test:测试
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 3,

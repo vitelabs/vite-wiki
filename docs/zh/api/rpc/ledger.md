@@ -118,7 +118,7 @@ AccountBlock
 	}
 }
 ```
-```json test:测试
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 9,
@@ -234,7 +234,7 @@ AccountBlock
 }
 ```
 
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 17,
@@ -267,7 +267,7 @@ AccountBlock
 - **Example**:
 
 ::: demo
-```json tab:Request
+```json tab
 {
 	"jsonrpc": "2.0",
 	"id": 5,
@@ -292,7 +292,7 @@ AccountBlock
 	}
 }
 ```
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 5,
@@ -344,7 +344,7 @@ AccountBlock
 	}
 }
 ```
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 10,
@@ -363,7 +363,6 @@ AccountBlock
 
 - **Example**:
 ::: demo
-
 ```json tab:Request
 {
     "jsonrpc": "2.0",
@@ -400,7 +399,7 @@ AccountBlock
     }
 }
 ```
-```json test:Request
+```json test
 {
     "jsonrpc": "2.0",
     "id": 3,
@@ -408,6 +407,7 @@ AccountBlock
     "params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
 }
 ```
+::: 
 
 ### ledger_getUnconfirmedBlocksByAccAddr
 获取账户的待确认交易列表
@@ -420,8 +420,7 @@ AccountBlock
 - **Returns**: `AccountBlock` 列表
 
 - **Example**:
-::: demo
-
+:::demo
 ```json tab:Request
 {
     "jsonrpc": "2.0",
@@ -506,7 +505,7 @@ AccountBlock
 }
     
 ```
-```json test:Request
+```json test
 {
     "jsonrpc": "2.0",
     "id": 3,
@@ -514,9 +513,7 @@ AccountBlock
     "params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
 }
 ```
-
-
-
+:::
 
 ### ledger_getInitSyncInfo
 实时地去获取 初始化过程
@@ -547,7 +544,7 @@ AccountBlock
 	"result": "{\"StartHeight\":\"1\",\"TargetHeight\":\"3\",\"CurrentHeight\":\"2\",\"IsFirstSyncDone\":false,\"IsStartFirstSync\":true}"
 }
 ```
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"method": "ledger.GetInitSyncInfo",
@@ -586,7 +583,7 @@ AccountBlock
 	"result": "161646"
 }
 ```
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 1,
@@ -624,7 +621,7 @@ AccountBlock
 	"result": "true"
 }
 ```
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 3,
@@ -663,7 +660,7 @@ AccountBlock
 	"result": "false"
 }
 ```
-```json test:Request
+```json test
 {
 	"jsonrpc": "2.0",
 	"id": 2,
@@ -690,7 +687,7 @@ AccountBlock
 ```json tab:Response
 {"jsonrpc":"2.0","id":1,"result":"/Users/xxx/viteisbest/runlog"}
 ```
-```json test:Request
+```json test
 {"jsonrpc":"2.0","id":1,"method":"common_logDir","params":null}
 ```
 :::

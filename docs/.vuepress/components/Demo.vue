@@ -7,6 +7,9 @@
       <tab v-if="testSourceCode.length" name="Play" key="play" @changed="onTabChanged">
         <div v-for="(tab, index) in testSourceCode" :key="tab.name">
           <div class="tools-wrapper">
+            <div class="demo-test-title">
+              {{tab.name}}
+            </div>
             <input type="url" v-model="url">
             <span class="code-play-btn" @click="onPlayClick(index)">
             <v-icon icon="play"></v-icon>
@@ -141,7 +144,7 @@
       let tabSourceCode = []
       sourceCode.filter(item => item && item.info).forEach(item => {
         let {info = ''} = item
-        let testMatchArr = info.match(/(\s|^)test:\s*(.*)/)
+        let testMatchArr = info.match(/(\s|^)test(:\s*|$)(.*)/)
         let tabMatchArr = info.match(/(\s|^)tab:\s*(.*)/)
         if (!testMatchArr && !tabMatchArr) {
           return
@@ -149,7 +152,7 @@
         if (testMatchArr) {
           testSourceCode.push({
             ...item,
-            name: testMatchArr[2].trim()
+            name: testMatchArr[3].trim()
           })
         } else if (tabMatchArr) {
           tabSourceCode.push({
@@ -388,6 +391,16 @@
       position: relative;
       border-bottom: 1px solid rgba(0,0,0,0.05);
       text-align: right;
+      .demo-test-title {
+        display: inline-block;
+        float: left;
+        line-height: 36px;
+        padding-left: 1rem;
+        font-weight: 500;
+        font-size: 14px;
+        color: rgba(0,0,0,0.5);
+      }
+
       & > input {
         height: 28px;
         border-radius: 3px;
