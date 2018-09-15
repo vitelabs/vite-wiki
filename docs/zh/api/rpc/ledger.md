@@ -27,11 +27,12 @@
 | TokenId |  TokenTypeId |  &#x2713; | &#x2713;|该交易的币种ID|
 | LastBlockHeightInToken |  秒 |  &#x2715; | &#x2715;|该账户链上一个同币种交易的高度|
 | Data |  string |  &#x2715; | &#x2715;|可用作交易备注|
-| SnapshotTimestamp | hex format 256Hash  |  &#x2713; | &#x2713;|快照块秒为单位时间戳的256Hash |
-| Signature |  hex format 256Hash |  &#x2713; | &#x2713;|交易的签名|
-| Nonce |  hex format 256Hash |  &#x2713; | &#x2713;|该交易Pow的nonce|
-| Difficulty |  hex format 256Hash |  &#x2713; | &#x2713;|该交易Pow的|
+| SnapshotTimestamp | hex string  |  &#x2713; | &#x2713;|最近的快照块的hash |
+| Signature |  hex  string |  &#x2713; | &#x2713;|交易的签名|
+| Nonce |  hex  string |  &#x2713; | &#x2713;|该交易Pow的nonce|
+| Difficulty |  hex  string |  &#x2713; | &#x2713;|该交易Pow的|
 | ConfirmedTimes |  big.Int |  &#x2715; | &#x2713;|该交易被确认的次数|
+| FAmount |  big.Int |  &#x2713; | &#x2713;|交易费|
 
 ### AccountBlockMeta
 |  名称  | 类型 | 发送时必填 |返回时必有|说明 |
@@ -354,6 +355,29 @@ AccountBlock
 ```
 :::
 
+### ledger_getLatestSnapshotChainHash
+获取最近的快照块的hash
+
+- **Parameters**: null 
+
+- **Returns**: `Hash` snapshot hash
+
+- **Example**:
+::: demo
+```json tab:Request
+{"jsonrpc":"2.0","id":1,"method":"ledger_getLatestSnapshotChainHash","params":null}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7"
+}
+```
+```json test
+{"jsonrpc":"2.0","id":1,"method":"ledger_getLatestSnapshotChainHash","params":null}
+```
+::: 
 ### ledger_getLatestBlock
 获取账户的最近一个交易
 
