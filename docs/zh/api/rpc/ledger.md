@@ -1,5 +1,7 @@
 # Ledger
-
+## 注意
+1. 如无特殊说明 时间戳是秒为单位 bigInt的字符串是10进制的；
+2. 注意区分空字符串和空指针的区别，比如PrevHash在发送交易的时候如果事实有就填正确的hash，如果没有就不要传这个字段，或者给它设置为json标准的null，千万别传空字符串
 ## 说明
 
 **支持调用方式：**
@@ -427,7 +429,7 @@ AccountBlock
 - **Example**:
 
 ::: demo
-```json tab
+```json tab::Request
 {
 	"jsonrpc": "2.0",
 	"id": 5,
