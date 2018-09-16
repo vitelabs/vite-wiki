@@ -21,8 +21,8 @@
 | FromHash |  hex format 256Hash |  &#x2715; | &#x2715;|表示该交易对应的发送交易的hash，配个From 字段使用|
 | PrevHash |  hex format 256Hash |  &#x2715; | &#x2715;|该交易在其账户链上的上一个交易的hash,如果该交易是该账户的第一笔交易，可以为空|
 | Hash |  hex format 256Hash |  &#x2713; | &#x2713;|该交易的Hash|
-| Balance |  big.Int |  &#x2713; | &#x2713;|该交易发生后账户余额|
-| Amount |  big.Int |  &#x2713; | &#x2713;|该交易发生的金额|
+| Balance |  big.Int string |  &#x2713; | &#x2713;|该交易发生后账户余额|
+| Amount |  big.Int string |  &#x2713; | &#x2713;|该交易发生的金额|
 | Timestamp |  秒 |  &#x2713; | &#x2713;|该交易发生的时间戳|
 | TokenId |  TokenTypeId |  &#x2713; | &#x2713;|该交易的币种ID|
 | LastBlockHeightInToken |  秒 |  &#x2715; | &#x2715;|该账户链上一个同币种交易的高度|
@@ -31,13 +31,13 @@
 | Signature |  hex  string |  &#x2713; | &#x2713;|交易的签名|
 | Nonce |  hex  string |  &#x2713; | &#x2713;|该交易Pow的nonce|
 | Difficulty |  hex  string |  &#x2713; | &#x2713;|该交易Pow的|
-| ConfirmedTimes |  big.Int |  &#x2715; | &#x2713;|该交易被确认的次数|
-| FAmount |  big.Int |  &#x2713; | &#x2713;|交易费|
+| ConfirmedTimes |  big.Int string|  &#x2715; | &#x2713;|该交易被确认的次数|
+| FAmount |  big.Int string |  &#x2713; | &#x2713;|交易费|
 
 ### AccountBlockMeta
 |  名称  | 类型 | 发送时必填 |返回时必有|说明 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| Height |  big.Int |  &#x2713; | &#x2713;|作为返回标识账户链的高度，作为发送应该把获取到底Height+1填倒这里|
+| Height |  big.Int string|  &#x2713; | &#x2713;|作为返回标识账户链的高度，作为发送应该把获取到底Height+1填倒这里|
 | Status |  int |  &#x2715; | &#x2713;|0 是状态错误, 1 表示没有结对的响应交易, 2 代表已经有结对的响应交易|
 | IsSnapshotted |  bool |  &#x2715; | &#x2713;|该交易是否被快照|
 ## API
@@ -64,7 +64,7 @@ AccountBlock
   * `ToAddr`: `string of addr`  交易的接收方
   * `Passphrase`: `string`  交易发起方的账户密码
   * `TokenTypeId`: `string of tokentypeid`  交易的币种id
-  * `Amount`:`big int`  交易数量，按照该币种的最小分割单位
+  * `Amount`:`big int string`  交易数量，按照该币种的最小分割单位
 
 - **Returns**: 
 	- 成功则返回 null
@@ -163,73 +163,232 @@ AccountBlock
 ```json tab:Response
 {
     "jsonrpc": "2.0",
-    "id": 3,
+    "id": 17,
     "result": [
         {
             "Meta": {
-                "Height": 985,
-                "Status": 1,
+                "Height": "1255",
+                "Status": 2,
                 "IsSnapshotted": true
             },
             "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
             "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-            "PrevHash": "f5b4e253491e21e5a2e6dc75bbd417274a8f224fc43d0f41b42766a4b5449398",
-            "Hash": "de657fa44954f9fba7ffc61e24894508d1e53c92154c325121496414bc1c9e4d",
-            "Balance": 1,
-            "Amount": 1,
-            "Timestamp": 1536674398,
+            "PrevHash": "a413878c7e4b356155e984c204fd93047d260b5a84e58fe71c5575cd522a7c93",
+            "Hash": "1caa4574a46c71846963d35315783765023d47214dbc98ae70bfb8c42a57b7f6",
+            "Balance": "169",
+            "Amount": "1",
+            "Timestamp": 1536808025,
             "TokenId": "tti_000000000000000000004cfd",
             "Data": "",
-            "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
-            "Signature": "7a89c3398c751f977d9b5d322a8b9d399adde8238ee8fd1c058e4eb07b75aebd00db0129d250cfac5d8fa4f70f7d9bf76ce2303658a409be6dbadb516ab6ad05",
+            "SnapshotTimestamp": "c4c1e3b1a8031524643cbc659dfb86435c8fe4dba919877631c8c2fe63638c5f",
+            "Signature": "4f677077002d6a4449ef1daa81981d3e196b6d8b8dac4c74022f9b60889882acb5d5e298e040c19d1827544ece22b7212a624312ba22999a6192ddc8a97bd20b",
             "Nonce": "0000000000",
             "Difficulty": "0000000000",
-            "FAmount": 0,
-            "ConfirmedTimes": 6544
+            "FAmount": "0",
+            "ConfirmedTimes": "29796"
         },
         {
             "Meta": {
-                "Height": 984,
-                "Status": 1,
+                "Height": "1254",
+                "Status": 2,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "From": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "FromHash": "af135e7907db89e13261711d16e74c74cd2d3dac902ce267e75f614270b7761f",
+            "PrevHash": "988cef44c722df3a6cc6031f5294fd4f921c52ca4d71f0e491f6b6335aa2c94f",
+            "Hash": "a413878c7e4b356155e984c204fd93047d260b5a84e58fe71c5575cd522a7c93",
+            "Balance": "170",
+            "Amount": "1",
+            "Timestamp": 1536808023,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "c4c1e3b1a8031524643cbc659dfb86435c8fe4dba919877631c8c2fe63638c5f",
+            "Signature": "343a16bd4b9bf472a130c985eeee518ebb586c7ba3f3baa61767319d65d26e4e90a1515f3143d3c852dc16ccdd9d82d4745e36f47f8bab5085741d12f44b830d",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29796"
+        },
+        {
+            "Meta": {
+                "Height": "1253",
+                "Status": 2,
                 "IsSnapshotted": false
             },
             "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
             "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-            "PrevHash": "deb013a550186ecf25ff0a1c2a74afd22557bd1e6a8bba82b5ca56ab943bec77",
-            "Hash": "f5b4e253491e21e5a2e6dc75bbd417274a8f224fc43d0f41b42766a4b5449398",
-            "Balance": 2,
-            "Amount": 1,
-            "Timestamp": 1536674397,
+            "PrevHash": "3718719400936d2862509e9db7aa2a9e461d9e5b4afe62fd5787d0adccfa27e3",
+            "Hash": "988cef44c722df3a6cc6031f5294fd4f921c52ca4d71f0e491f6b6335aa2c94f",
+            "Balance": "169",
+            "Amount": "1",
+            "Timestamp": 1536808020,
             "TokenId": "tti_000000000000000000004cfd",
             "Data": "",
-            "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
-            "Signature": "2fc9760469756a615fb7b95c7efb8361cd3323f67af9a06add04814a0c95e15292b4413711bfa312ec8e3d5211383ca5483521d010b7c2c943fe4c0048f3e501",
+            "SnapshotTimestamp": "c4c1e3b1a8031524643cbc659dfb86435c8fe4dba919877631c8c2fe63638c5f",
+            "Signature": "f488a40f38a8ca7cb5e2122f5075c0e919711ebb2b2e63db7f6ac02d6e3e0824afc07cc9be240d2cbc1d3d2c3e13ec95844587ce512036bc34b04d5928bcc70e",
             "Nonce": "0000000000",
             "Difficulty": "0000000000",
-            "FAmount": 0,
-            "ConfirmedTimes": 6544
+            "FAmount": "0",
+            "ConfirmedTimes": "29796"
         },
         {
             "Meta": {
-                "Height": 983,
-                "Status": 1,
+                "Height": "1252",
+                "Status": 2,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "From": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "FromHash": "bced2110cca240cde3778146e9816bbf02baf36a4055977739eb876e54871298",
+            "PrevHash": "0b93b94cf3fc01fc80955fd637d51d736ad54d0f156dd69695df6d24a5c5a817",
+            "Hash": "3718719400936d2862509e9db7aa2a9e461d9e5b4afe62fd5787d0adccfa27e3",
+            "Balance": "170",
+            "Amount": "1",
+            "Timestamp": 1536808018,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "914113e6e5e0542f97112af0e061325e7d5a4ed16ab9cc1841bcc5c9a9cee722",
+            "Signature": "ec908b498504beef3ee7c884cee5bfdfb7937fb6504182f1b02de1b338ce372f4b7dbdbe88cc97e00f24fcdbede56b5f05dd4179c926e3e6841ee12d329bd40d",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29796"
+        },
+        {
+            "Meta": {
+                "Height": "1251",
+                "Status": 2,
+                "IsSnapshotted": true
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "a906ad8a4745ee602119598d1207e67c5f3cc6dc0c15773f477f58996e869c17",
+            "Hash": "0b93b94cf3fc01fc80955fd637d51d736ad54d0f156dd69695df6d24a5c5a817",
+            "Balance": "169",
+            "Amount": "1",
+            "Timestamp": 1536808014,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "914113e6e5e0542f97112af0e061325e7d5a4ed16ab9cc1841bcc5c9a9cee722",
+            "Signature": "eb81e4fcdae31b07d44e2fd24268f55d30e09dec88ba33a7f84fa93a5f7a36a772b9ced42d6e8a8d4d0113bc2b94f97e98634d36ffd16e46dc124afea73f8f0e",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29797"
+        },
+        {
+            "Meta": {
+                "Height": "1250",
+                "Status": 2,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "From": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "FromHash": "582e2edaf510a2565809a41c51881bf0cb059c078b92506a39546c577fc7cb51",
+            "PrevHash": "be123b8acb2fed100d723811cf0aa2fb9e3ad009a0d356df60c21ab834dc0469",
+            "Hash": "a906ad8a4745ee602119598d1207e67c5f3cc6dc0c15773f477f58996e869c17",
+            "Balance": "170",
+            "Amount": "1",
+            "Timestamp": 1536808012,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "1d8d02e1d43ecce7e496b0d50fd25197d16ac4845bef37d54999f66e2a4ccb5b",
+            "Signature": "192ac4ebbab97888305c1e8aabc795431a6c2a6f0c46148a70223e3b8fd3b83f6328a45ab7085546f8a014aaddcea2e32511243dec74394415b54f87c04fdc0e",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29797"
+        },
+        {
+            "Meta": {
+                "Height": "1249",
+                "Status": 2,
+                "IsSnapshotted": true
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "PrevHash": "2e08a2d88302b24deb447cb224b0fb203ac672eb13b18a2064822f3605832fc3",
+            "Hash": "be123b8acb2fed100d723811cf0aa2fb9e3ad009a0d356df60c21ab834dc0469",
+            "Balance": "169",
+            "Amount": "1",
+            "Timestamp": 1536808009,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "1d8d02e1d43ecce7e496b0d50fd25197d16ac4845bef37d54999f66e2a4ccb5b",
+            "Signature": "675cf1ab46f10a8e6f07713cdcd505b47fcc6f030bf689348ed68faaac19d8b5706864558641d06c1b1e090d68abee7262140d7bbed129316cc50fc105030300",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29798"
+        },
+        {
+            "Meta": {
+                "Height": "1248",
+                "Status": 2,
+                "IsSnapshotted": false
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "From": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "FromHash": "fb3effc3d40448ed69478e27683daae2d8ee3da330b9356072bf69a846e6bf81",
+            "PrevHash": "e9bb82d6f9ee13a23486da837d1bd951f453ad3a940e05e7756b430dc185f547",
+            "Hash": "2e08a2d88302b24deb447cb224b0fb203ac672eb13b18a2064822f3605832fc3",
+            "Balance": "170",
+            "Amount": "1",
+            "Timestamp": 1536808007,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "1d8d02e1d43ecce7e496b0d50fd25197d16ac4845bef37d54999f66e2a4ccb5b",
+            "Signature": "660ff0f17617ac3f67c0f76a851d0b6a499400a89625ce458861c4394dede21ae1027d0249c57acf5917202611455e8d4303f8fccaa2945b8634073530796908",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29798"
+        },
+        {
+            "Meta": {
+                "Height": "1247",
+                "Status": 2,
                 "IsSnapshotted": false
             },
             "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
             "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-            "PrevHash": "7ccecfc3afcd03b39208109d6d6001c039af90cc56c03b3599b375bcdbf16bee",
-            "Hash": "deb013a550186ecf25ff0a1c2a74afd22557bd1e6a8bba82b5ca56ab943bec77",
-            "Balance": 3,
-            "Amount": 1,
-            "Timestamp": 1536674395,
+            "PrevHash": "41dcc050dffaebf17a54caf8c6b36241634852019d7fe754d81732bb03408659",
+            "Hash": "e9bb82d6f9ee13a23486da837d1bd951f453ad3a940e05e7756b430dc185f547",
+            "Balance": "169",
+            "Amount": "1",
+            "Timestamp": 1536808004,
             "TokenId": "tti_000000000000000000004cfd",
             "Data": "",
-            "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
-            "Signature": "2ed4fc80d86fc495fdee1ff67a8ad7ebf758843c57d516c48932f7e09dd6a579d69af8caf3df85387a22d68ee59de68f1a62e4a9ed604c26ffa23d8e9a5b1804",
+            "SnapshotTimestamp": "a60bdeaa1b7fda21661e43321d3bcd066a11fe40e75bfddceb52146edb13d23a",
+            "Signature": "e8581f19093d39978bf53ab2a1937524021071fdb95ccfe3c092421046a606ecf6f780769315a91a5c2cfe050ce003765630333b3b1b95d9c6e2b5e41479ca08",
             "Nonce": "0000000000",
             "Difficulty": "0000000000",
-            "FAmount": 0,
-            "ConfirmedTimes": 6544
+            "FAmount": "0",
+            "ConfirmedTimes": "29798"
+        },
+        {
+            "Meta": {
+                "Height": "1246",
+                "Status": 2,
+                "IsSnapshotted": true
+            },
+            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "From": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+            "FromHash": "d9f0cc6e3b1b96df754146cde281447047f0ea31a91ad87c30ae68675cd47868",
+            "PrevHash": "9eec1381ed059e078da226196180bbf3cddd9ce5131a14b32dcb45f370822107",
+            "Hash": "41dcc050dffaebf17a54caf8c6b36241634852019d7fe754d81732bb03408659",
+            "Balance": "170",
+            "Amount": "1",
+            "Timestamp": 1536808002,
+            "TokenId": "tti_000000000000000000004cfd",
+            "Data": "",
+            "SnapshotTimestamp": "a60bdeaa1b7fda21661e43321d3bcd066a11fe40e75bfddceb52146edb13d23a",
+            "Signature": "5153be57cafe1e0290f7c7c7dd47e4479413df299c2443c64e2b33f1778c68efcc5bc7087688d875a23ede74148f89818843baba2bfec51dcc57a511213cc90e",
+            "Nonce": "0000000000",
+            "Difficulty": "0000000000",
+            "FAmount": "0",
+            "ConfirmedTimes": "29799"
         }
     ]
 }
@@ -257,13 +416,13 @@ AccountBlock
   `Object` : 账户详情
    -  `Addr` : `string` 账户地址
    -  `BalanceInfos` : `Array of Balance` 各个代币的余额信息
-	-  `BlockHeight` : `string of bigint` 账户交易数量 等同于是账户链高度
+	-  `BlockHeight` : `string bigint` 账户交易数量 等同于是账户链高度
   
   `Object` : `Balance` 余额信息
   -  `TokenSymbol` : `string` token的单位比如 人名币 100 元的『元』
   -  `TokenName` : `string` token的名字 比如 人民币
   -  `TokenTypeId` : `string` token id 唯一标识一个token
-   -  `Balance` : `string of bigint` 账户拥有的该token的余额
+   -  `Balance` : `string bigint` 账户拥有的该token的余额
 
 - **Example**:
 
@@ -314,7 +473,7 @@ AccountBlock
   `Object` : 账户详情
     -  `Addr` : `string` 账户地址
     -  `BalanceInfos` : `Array of Balance` 余额信息
-    -  `UnConfirmedBlocksLen` : `string of bigint` 账户未确认交易数量
+    -  `UnConfirmedBlocksLen` : `string bigint` 账户未确认交易数量
 
 
 - **Example**:
@@ -403,23 +562,23 @@ AccountBlock
     "id": 3,
     "result": {
         "Meta": {
-            "Height": 985,
-            "Status": 1,
+            "Height": "1255",
+            "Status": 2,
             "IsSnapshotted": true
         },
         "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-        "PrevHash": "f5b4e253491e21e5a2e6dc75bbd417274a8f224fc43d0f41b42766a4b5449398",
-        "Hash": "de657fa44954f9fba7ffc61e24894508d1e53c92154c325121496414bc1c9e4d",
-        "Balance": 1,
-        "Amount": 1,
-        "Timestamp": 1536674398,
+        "PrevHash": "a413878c7e4b356155e984c204fd93047d260b5a84e58fe71c5575cd522a7c93",
+        "Hash": "1caa4574a46c71846963d35315783765023d47214dbc98ae70bfb8c42a57b7f6",
+        "Balance": "169",
+        "Amount": "1",
+        "Timestamp": 1536808025,
         "TokenId": "tti_000000000000000000004cfd",
         "Data": "",
-        "SnapshotTimestamp": "76fac6609fc0a89b9e700d78e8f3496295f0bc53b89b706fdf0d4a80e81ff09b",
-        "Signature": "7a89c3398c751f977d9b5d322a8b9d399adde8238ee8fd1c058e4eb07b75aebd00db0129d250cfac5d8fa4f70f7d9bf76ce2303658a409be6dbadb516ab6ad05",
+        "SnapshotTimestamp": "c4c1e3b1a8031524643cbc659dfb86435c8fe4dba919877631c8c2fe63638c5f",
+        "Signature": "4f677077002d6a4449ef1daa81981d3e196b6d8b8dac4c74022f9b60889882acb5d5e298e040c19d1827544ece22b7212a624312ba22999a6192ddc8a97bd20b",
         "Nonce": "0000000000",
         "Difficulty": "0000000000",
-        "FAmount": 0
+        "FAmount": "0"
     }
 }
 ```
@@ -464,66 +623,66 @@ AccountBlock
     "result": [
         {
             "Meta": {
-                "Height": 789,
+                "Height": "1245",
                 "Status": 1,
                 "IsSnapshotted": false
             },
             "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
             "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-            "PrevHash": "a6555d57e77723dd17bbb8a9b4204141184be7b68e7307ffdfed444cc8f59eb2",
-            "Hash": "30ad134de9639b46f8f2600e87ccc15909686ed4e22b4beeb0103f4c0fd7b6e5",
-            "Balance": 57,
-            "Amount": 1,
-            "Timestamp": 1536650495,
+            "PrevHash": "a625a1c142f8e79e56364d1bade189eedd4b60554f2396b0bbefb8b11b3a1f68",
+            "Hash": "9eec1381ed059e078da226196180bbf3cddd9ce5131a14b32dcb45f370822107",
+            "Balance": "169",
+            "Amount": "1",
+            "Timestamp": 1536807998,
             "TokenId": "tti_000000000000000000004cfd",
             "Data": "",
-            "SnapshotTimestamp": "b6828d59bdf58b73fd0d36fa1be9c0a410653ba891905294c5f8abc1e3b58b53",
-            "Signature": "831a7c88080887c92ccf9e9e87d8d41391a8da81fd0ca2bf5c4af07c1eddf326a2268650c4ca36917566300226d059913d4c94d5b09264ae805218d658146304",
+            "SnapshotTimestamp": "a60bdeaa1b7fda21661e43321d3bcd066a11fe40e75bfddceb52146edb13d23a",
+            "Signature": "509f841e3ab9317fe9fa6f7a0a07b904e2b6e4b1cada907fcb02de51bb0b4d570f83d15a801e4a70184f50e398d845370fe8296f10259cf62c7041749f79980f",
             "Nonce": "0000000000",
             "Difficulty": "0000000000",
-            "FAmount": 0
+            "FAmount": "0"
         },
         {
             "Meta": {
-                "Height": 795,
+                "Height": "140",
                 "Status": 1,
-                "IsSnapshotted": false
+                "IsSnapshotted": true
             },
-            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "AccountAddress": "vite_67aea8f9cf1d8db69812f6bb39e34964f14fce45ee38097eb7",
             "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-            "PrevHash": "c879d8ec7cea235c46ffddde113c63ca7413c5c8722df209d6ad3256d51f6bbf",
-            "Hash": "5fe77d257a472835af2d0cdca57572ac0ea6be234f95255f26bfad66a73820a5",
-            "Balance": 59,
-            "Amount": 1,
-            "Timestamp": 1536650505,
+            "PrevHash": "1c3fb9a321e365f1a1b18a2ff7c4b57c3acd264f71d06e3ee1ab55feed436b5a",
+            "Hash": "a1eeb5495eb4d3c5bcee2552bac96c237511ecb9b769bcbec5bb46062d1943a7",
+            "Balance": "2509000000000000000000",
+            "Amount": "10000000000000000000",
+            "Timestamp": 1536810531,
             "TokenId": "tti_000000000000000000004cfd",
             "Data": "",
-            "SnapshotTimestamp": "f23ff46b23e77f8891478069cb60461020b1ae1a69c08d538cb1dbfc995ee39f",
-            "Signature": "16e025576b991b57152986ac70c7a4ba796287ca5ed7a65fce0f0844de34d091c97c1da23d480a5aa3d418f95bf57d539087d65dbc84b63968b2d77e4f28ff02",
+            "SnapshotTimestamp": "12d0b6b8ea79767ff0ccca1a43b246c3a0f7515f654233e0fb04808cfd2d1b72",
+            "Signature": "12fed7abe74bc7fc558ed6004b3a1037da046507940d23bb14ed91f01ba527006b38cd3c23051f16b85b4bc63bd93dcab0db536a7a1bffa1dafafa1905f7680c",
             "Nonce": "0000000000",
             "Difficulty": "0000000000",
-            "FAmount": 0
+            "FAmount": "0"
         },
         {
             "Meta": {
-                "Height": 816,
+                "Height": "141",
                 "Status": 1,
-                "IsSnapshotted": false
+                "IsSnapshotted": true
             },
-            "AccountAddress": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+            "AccountAddress": "vite_67aea8f9cf1d8db69812f6bb39e34964f14fce45ee38097eb7",
             "To": "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
-            "PrevHash": "06bc14839586324b5c88279a284eaea223914f90920dc2b25d88453f24860f6c",
-            "Hash": "cb757e0ddebd6c87b19b3c94a050e9ce54181485d177455e7c846d9d2d57bed9",
-            "Balance": 66,
-            "Amount": 1,
-            "Timestamp": 1536650543,
+            "PrevHash": "a1eeb5495eb4d3c5bcee2552bac96c237511ecb9b769bcbec5bb46062d1943a7",
+            "Hash": "504eae3869ddbbfe350130cb51ed71676dbb9786bd85c5ffe6d79a752097190b",
+            "Balance": "2499000000000000000000",
+            "Amount": "10000000000000000000",
+            "Timestamp": 1536810538,
             "TokenId": "tti_000000000000000000004cfd",
             "Data": "",
-            "SnapshotTimestamp": "03c784ba619f07070d01620906db381e601f23eac8e941427b6ce36a3e30bf46",
-            "Signature": "fa2521a8734dd8a852043c0f95da884d901915be08652107b5ac1afe803ad7c66bfc2ffd2afd4b30c5ac42c92bed317b6726d1c93a8e291c1b19f75bf98a4204",
+            "SnapshotTimestamp": "b6404d6fcb0b4b47ba8aa2de5e6d0e8c8a1e4f2ec4e70b1d2342f5cbb24bdba9",
+            "Signature": "693a27aa34d8c6c189f16647c39d5078cbe84eac9153641a1cb3c5616e2a7c1968d57f124dbcafb2219971c78e65a8f1aa3ab7b1947a0b0250604a6b6f426f09",
             "Nonce": "0000000000",
             "Difficulty": "0000000000",
-            "FAmount": 0
+            "FAmount": "0"
         }
     ]
 }
@@ -532,9 +691,13 @@ AccountBlock
 ```json test
 {
     "jsonrpc": "2.0",
-    "id": 3,
-    "method": "ledger_getLatestBlock",
-    "params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada"]
+    "id": 2,
+    "method": "ledger_getUnconfirmedBlocksByAccAddr",
+    "params": [
+        "vite_c5adc192ec5a6661e49dc312e56d870550642abcc827134c7e",
+        0,
+        10
+    ]
 }
 ```
 :::
@@ -550,7 +713,7 @@ AccountBlock
    -  `Symbol` : `string` 币的单位
    -  `Owner` : `Address` 币的创建者
    -  `Decimals` : `int` 币的最小分割单位
-   -  `TotalSupply` : `bigint` 币的总量
+   -  `TotalSupply` : `string bigint` 币的总量 
 
 - **Example**:
 
@@ -575,7 +738,7 @@ AccountBlock
         "Symbol": "VITE",
         "Owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
         "Decimals": 18,
-        "TotalSupply": 1000000000
+        "TotalSupply": "1000000000"
     }
 }
 ```
@@ -688,9 +851,9 @@ AccountBlock
 - **Parameters**: `none`
 
 - **Returns**: `Object`
-   -  `StartHeight` : `string of bigint` 初始化开始的快照链高度
-   -  `TargetHeight` : `string of bigint` 初始化要去同步的目标快照链高度
-   -  `CurrentHeight` : `string of bigint` 当前同步到的高度
+   -  `StartHeight` : `string bigint` 初始化开始的快照链高度
+   -  `TargetHeight` : `string bigint` 初始化要去同步的目标快照链高度
+   -  `CurrentHeight` : `string bigint` 当前同步到的高度
    -  `IsFirstSyncDone` : `bool` 是否初始化完成
    -  `IsStartFirstSync` : `bool` 是否开始初始化，如果这个值是false 以上四个值都不可用
 
@@ -726,7 +889,7 @@ AccountBlock
 
 - **Parameters**: `none`
 
-- **Returns**: `string of bigint`
+- **Returns**: `string bigint`
  当前快照链高度
 
 - **Example**:
