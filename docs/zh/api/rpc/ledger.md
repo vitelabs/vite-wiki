@@ -25,7 +25,7 @@
 | Amount |  big.Int string |  &#x2713; | &#x2713;|该交易发生的金额|
 | Timestamp |  秒 |  &#x2713; | &#x2713;|该交易发生的时间戳|
 | TokenId |  TokenTypeId |  &#x2713; | &#x2713;|该交易的币种ID|
-| LastBlockHeightInToken |  秒 |  &#x2715; | &#x2715;|该账户链上一个同币种交易的高度|
+| LastBlockHeightInToken |  big.Int string |  &#x2715; | &#x2715;|该账户链上一个同币种交易的高度|
 | Data |  string |  &#x2715; | &#x2715;|可用作交易备注|
 | SnapshotTimestamp | hex string  |  &#x2713; | &#x2713;|最近的快照块的hash |
 | Signature |  hex  string |  &#x2713; | &#x2713;|交易的签名|
