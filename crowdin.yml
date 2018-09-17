@@ -1,3 +1,3 @@
 files:
   - source: /docs/zh/**/*.md
-    translation: /docs/%two_letters_code%/%original_file_name%
+    translation: /docs/%two_letters_code%/**/%original_file_name%
