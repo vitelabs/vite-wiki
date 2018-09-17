@@ -2,7 +2,7 @@
 
 ::: tip This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf) :::
 
-## Transaction quotas
+## Transaction Quotas
 
 The VITE tokens are primarily used to quantify the amount of computing and storage resources on the Vite platform.
 
