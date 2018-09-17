@@ -10,17 +10,9 @@ sidebar: auto
 
 At present, the pre-technical design documents please put in `docs/zh/technology` folder, `docs/zh/technology/readme.md` is the first page of the column.
 
-This project uses <div class= "Notranslate" >0 </div> vuepress <div class= "Notranslate" >1 </div>, for the sidebar configuration instructions, please visit: <div class= " Notranslate ">2 </div> vuepress sidebar 
+本项目使用[vuePress](https://vuepress.vuejs.org/zh/)，有关侧边栏的配置说明，请移步: [vuePress 侧边栏](https://vuepress.vuejs.org/zh/default-theme-config/#%E4%BE%A7%E8%BE%B9%E6%A0%8F) :::
 
-<div class=" notranslate ">
-  3
-</div>
-
-<div class=" Notranslate ">
-  4
-</div>:::
-
-::: Warning Note <div class= "notranslate" >0 </div> make sure that your node. js version >= 9. <div class= "Notranslate" >1 </div>:::
+::: warning 注意 请确保你的 Node.js 版本 >= 9。 :::
 
 ## Operation Guide
 
