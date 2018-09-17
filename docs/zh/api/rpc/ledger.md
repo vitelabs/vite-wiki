@@ -145,6 +145,7 @@ AccountBlock
   * `string`: `Addr`  要查询的addr
   * `int`:  `Index` 页码
   * `int`: `Count`  每页大小
+  * `bool`: `needTokenInfo` 是否需要带上token详情，不传或者传false 都是不带，传true，会带上
 
 
 - **Returns**:  AccountBlock列表
@@ -158,7 +159,7 @@ AccountBlock
 	"jsonrpc": "2.0",
 	"id": 17,
 	"method": "ledger_getBlocksByAccAddr",
-	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada", 0, 10]
+	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada", 0, 10, false]
 }
 ```
 
@@ -400,7 +401,7 @@ AccountBlock
 	"jsonrpc": "2.0",
 	"id": 17,
 	"method": "ledger_getBlocksByAccAddr",
-	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada", 0, 10]
+	"params": ["vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada", 0, 10, true]
 }
 ```
 :::
@@ -420,10 +421,7 @@ AccountBlock
 	-  `blockHeight` : `string bigint` 账户交易数量 等同于是账户链高度
   
   `Object` : `balance` 余额信息
-  -  `tokenSymbol` : `string` token的单位比如 人名币 100 元的『元』
-  -  `tokenName` : `string` token的名字 比如 人民币
-  -  `tokenTypeId` : `string` token id 唯一标识一个token
-   -  `balance` : `string bigint` 账户拥有的该token的余额
+  -  `Object` : 详见 ledger_getTokenMintage接口的返回值
 
 - **Example**:
 
@@ -445,9 +443,14 @@ AccountBlock
         "addr": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
         "balanceInfos": [
             {
-                "tokenSymbol": "VITE",
-                "tokenName": "vite",
-                "tokenTypeId": "tti_000000000000000000004cfd",
+                "mintage": {
+                    "name": "vite",
+                    "id": "tti_000000000000000000004cfd",
+                    "symbol": "VITE",
+                    "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+                    "decimals": 18,
+                    "totalSupply": "1000000000"
+                },
                 "balance": "168"
             }
         ],
@@ -499,9 +502,14 @@ AccountBlock
         "addr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
         "balanceInfos": [
             {
-                "tokenSymbol": "VITE",
-                "tokenName": "vite",
-                "tokenTypeId": "tti_000000000000000000004cfd",
+                "mintage": {
+                    "name": "vite",
+                    "id": "tti_000000000000000000004cfd",
+                    "symbol": "VITE",
+                    "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+                    "decimals": 18,
+                    "totalSupply": "1000000000"
+                },
                 "balance": "3"
             }
         ],
@@ -711,7 +719,7 @@ AccountBlock
 
 - **Parameters**: `string` : `TokenTypeId`
 
-- **Returns**: `Object`
+- **Returns**: `Object` : `TokenMintage`
    -  `name` : `string` 币的名称
    -  `id` : `TokenTypeId` 币的iD
    -  `symbol` : `string` 币的单位
