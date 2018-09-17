@@ -54,21 +54,21 @@
 
 ### ledger_createTx
 
-用一个完整的Block创建交易
+Create a transaction with a complete block
 
 - **Parameters**: AccountBlock
 
 - **Returns**:
     
-    - 成功则返回 null
+    - Success: `null`
     
-    - 需要关注的失败的可能有
+    - Failures:
         
-        - -35001 余额不足
+        - `-35001` Insufficient Balance
 
 ### ledger_createTxWithPassphrase
 
-创建一个转账交易
+Create a Transfer Transaction
 
 - **Parameters**:
     
