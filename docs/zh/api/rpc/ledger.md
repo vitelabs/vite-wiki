@@ -44,8 +44,8 @@
 | isSnapshotted |  bool |  &#x2715; | &#x2713;|该交易是否被快照|
 ## API
 
-### ledger_createTx
-用一个完整的Block创建交易
+### ledger_sendTx
+利用服务端广播一个完整的交易
 
 - **Parameters**:
 AccountBlock
