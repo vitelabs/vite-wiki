@@ -27,8 +27,7 @@ sidebarDepth: 4
 
 ::: demo
 
-```json tab:Request {  
-"jsonrpc":"2.0", "id":1, "method":"wallet_listAddress", "params":null }
+```json tab:Request { "jsonrpc":"2.0", "id":1, "method":"wallet_listAddress", "params":null } ```
 
     <br />```json tab:Response
     {  
@@ -40,6 +39,7 @@ sidebarDepth: 4
           "vite_a394f8dd8ee65b33e30f3fe250a61be138317ad901b03448d5"
        ]
     }
+    ```
     
     
 
