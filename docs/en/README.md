@@ -1,116 +1,85 @@
 ---
-title: 关于
-sidebar: auto
+sidebarDepth: 4
+title: 开始
 ---
-# 简介
+# 开始
 
-::: tip Vite Labs Vite 项目正在开发，有关Vite的相关的技术文档均会放此处，若有什么建议，欢迎提PR。
+## 构建
 
-有关文档内容的修正，请勿直接修改，可以另开分支修改，然后提PR。修改入口在每个页面左下角。
+### 构建步骤
 
-目前技术设计前期的文档请放到 `docs/zh/technology`文件夹下，`docs/zh/technology/README.md`为该栏目首页。
+1. [Install Go](https://golang.org/doc/install)
+2. Run `go get github.com/vitelabs/go-vite` in your terminal, then you will find the source code here: `$GOPATH/src/github.com/vitelabs/go-vite/` (as default, $GOPATH is `~/go`)
+3. Go to the source code directory and run `make all`, you will get executable files of darwin, linux, windows here: `$GOPATH/src/github.com/vitelabs/go-vite/build/cmd/rpc` 
+4. Run the appropriate binary file on your OS.
 
-本项目使用[vuePress](https://vuepress.vuejs.org/zh/)，有关侧边栏的配置说明，请移步: [vuePress 侧边栏](https://vuepress.vuejs.org/zh/default-theme-config/#%E4%BE%A7%E8%BE%B9%E6%A0%8F) :::
+### 配置
 
-::: warning 注意 请确保你的 Node.js 版本 >= 9。 :::
+As default, Vite will give a default config. but you can set your config use two way as following.
 
-## 运行指南
+#### cmd
 
-### 环境要求
+| key      | type   | default        | meaning                                                             |
+|:-------- |:------ |:-------------- |:------------------------------------------------------------------- |
+| name     | string | "vite-server"  | the server name, use for log                                        |
+| maxpeers | number | 50             | the maximum number of peers can be connected                        |
+| addr     | string | "0.0.0.0:8483" | will be listen by vite                                              |
+| dir      | string | "~/viteisbest" | the directory in which vite will store all files (like log, ledger) |
+| netid    | number | 2              | the network vite will connect, default 2 means TestNet              |
+| priv     | string | ""             | the hex code string of ed25519 privateKey                           |
 
-* node: >= 9.xx
-* yarn: >= 1.3.xx
+#### configFile
 
-### 安装 yarn
+we can also use config file `vite.config.json` to set Config. for example:
 
-    brew install yarn
-    
-
-有关yarn的其他安装说明，请移步： [yarn document](https://yarnpkg.com/en/docs/install#mac-stable)
-
-### 安装依赖
-
-在doc.vite.org项目路径下，执行以下代码：
-
-    yarn
-    
-
-### 开始写作
-
-    npm run dev
-    
-
-### 静态资源管理
-
-详情请移步： <https://vuepress.vuejs.org/zh/guide/assets.html>
-
-例如：
-
-```markdown
-![dag-ledger](~/images/dag-ledger.png)
+```json
+{
+    "P2P": {
+        "Name":                 "vite-server",
+        "PrivateKey":           "",
+        "MaxPeers":             100,
+        "Addr":                 "0.0.0.0:8483",
+        "NetID":                2
+    },
+    "DataDir": ""
+}
 ```
 
-![dag-ledger](~/images/dag-ledger.png)
+`vite.config.json` should be in the same directory of vite.
 
-## 内置组件
+## 说明
 
-### Demo 组件
+* **IPC方式**：支持所有API调用
+    
+    1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称 `$HOME/viteisbest/vite.ipc`
+    
+    2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是 `\\.\pipe\vite.ipc`
 
-内置Demo组件，用于分Tab展示示例代码。
+* **Http**：仅支持公共API(非wallet模块) 默认端口**48132**
 
-* **用法**：
-    
-    :::demo 
-    
-        language tab:TabName
-          // There is the code
-    
-      
-    
-    
-        language test:TestCaseName
-          // There is the code
-    
-    // Test without testname ```language test``` :::
+* **WebSocket**：仅支持公共API(非wallet模块) 默认端口**31420**
 
-* **Example**:
+* **不足**:
     
-    :::demo 
+    1. 暂时不支持发布订阅模式，后续会支持；
     
-        json tab: Tab1 名称
-              {
-                "test": 1
-              }
+    2. 项目迭代很快，目前的API在之后版本中会很大改变。
+
+* **注意**:
     
-        json tab: Tab2 名称
-              {
-                "result": success
-              }
-    
-        json test
-                {
-                  "test": 1
-                }
-    
-        json test: 这是test标题
-                {
-                  "test": 1
-                } :::
-    
-    ::: demo ``` json tab: Tab1 名称 { "test": 1 }
-    
-        ``` json tab: Tab2 名称
-          {
-            "result": success
-          }
-        
-    
-    ``` json test { "test": 1 }
-    
-        ``` json test: 这是test标题
-                  {
-                    "test": 1
-                  }
-        
-    
-    :::
+    1. 尽量使用标准的 ***Json rpc2*** 的库
+    2. 术语 交易（transaction 或者Tx） = account block
+
+## 常见业务错误汇总
+
+|   描述   |   code   |               message               |                            example                            |
+|:------:|:--------:|:-----------------------------------:|:-------------------------------------------------------------:|
+|  余额不足  | `-35001` |     The balance is not enough.      |     {"code":5001,"message":"The balance is not enough."}      |
+|  密码错误  | `-34001` |        error decrypting key         |        {"code":4001,"message":"error decrypting key"}         |
+| 账户重复解锁 | `-34002` | the address was previously unlocked | {"code":4002,"message":"the address was previously unlocked"} |
+
+## JSON-RPC Support
+
+| JSON-RPC 2.0 |   HTTP   |   IPC    | Publish–subscribe | Websocket |
+|:------------:|:--------:|:--------:|:-----------------:|:---------:|
+|   &#x2713;   | &#x2713; | &#x2713; |      waiting      | &#x2713;  |
