@@ -1,33 +1,34 @@
-# Introduction
+---
+- 
+  description: Vite是新一代响应式区块链(Reactive Blockchain)，采用了基于消息驱动的异步架构以及DAG账本，设计目标是超高吞吐能力和扩展性，为工业级去中心化应用提供一个可靠的公共平台。
+- '}'
+---
+# 简介
 
-::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
-:::
+::: tip 此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf) :::
 
-## What is Vite？
+## 什么是 Vite ？
 
-Vite is a next-generation Reactive Blockchain that adopts a message-driven, asynchronous architecture and a DAG-based ledger.  The goal for Vite’s design is to provide a reliable public platform for industrial dApps, with features of ultra-high throughput and scalability. 
+Vite是新一代响应式区块链(Reactive Blockchain)， 采用了基于消息驱动的异步架构以及DAG账本，设计目标是超高吞吐能力和扩展性，为工业级去中心化应用提供一个可靠的公共平台。
 
-## Innovation
+## Vite 核心创新
 
-The most important innovation of Vite is its asynchronous architecture. 
+Vite最重要的创新是异步架构。Vite中的**异步设计**主要包括：
 
-The following are the main asynchronous characteristics in Vite’s designs:
+* **请求和响应**的异步设计
+* **交易写入和确认**的异步设计
+* **合约间通信**的异步设计
 
-* Asynchronous model of requests and responses
-* Asynchronous model of writing and confirmation of transactions
-* Asynchronous model of communications between contracts
+## Vite 特性
 
-## Feature
+Vite采用一种称为Block-Lattice的DAG账本结构，在性能方面远远超越传统的区块链结构。同时，Vite独创性的引入了Snapshot Chain技术，弥补了这种DAG结构在安全性方面的先天不足。
 
-Vite makes use of a DAG ledger structure called block-lattice, which has far better performance than the traditional blockchain structure.  To make up for the inherent security deficiency of the DAG structure, Vite incorporates the Snapshot Chain technology. 
+Vite的共识算法称为HDPoS，是一种分层共识算法，具有低延迟、可扩展的特性。
 
-Vite's consensus algorithm, called HDPoS, is a hierarchical consensus algorithm with low latency and high scalability. 
+为了照顾现有生态，Vite虚拟机保持对EVM的最大兼容，同时，提供了功能更为强大的智能合约语言**Solidity++**。
 
-In order to accommodate the existing ecosystem, the Vite virtual machine maintains maximum compatibility with EVM,  while providing a more powerful smart contract language, which we call Solidity++.
+Vite独创的基于配额的资源模型以及配额租赁功能，可以确保系统资源以最大效率进行分配。商业级用户可以保障足够的配额，而轻量级用户无需支付手续费。
 
-Vite's original quota-based resource model and resource-leasing function ensure that system resources get allocated with maximum efficiency. Commercial Heavy users can be guaranteed sufficient quotas, while lightweight users do not have to pay commissions.
+Vite中的资产发行、环路撮合交易、跨链中继等设计，构成了完整的价值闭环。用户可以在Vite中方便的发行、保管、转换自己的数字资产。
 
-Vite's design of token issuing, token exchanging via loopring protocol and cross-chain protocol constitutes a complete closed-loop value system. Users can conveniently issue, store and exchange their digital assets in Vite system.
-
-In the future, Vite’s mobile app will come with an HTML5 engine for creating dApplets (Decentralized Applets).  Smart contracts on the Vite platform and corresponding SDK support will make it easy to develop and deploy dApps on Vite.
+未来，Vite手机客户端App中将内置去中心化小程序引擎。配合Vite平台的智能合约，以及相应的SDK支持，dApp开发者在Vite上开发和部署应用将变得前所未有的简单。
