@@ -1,45 +1,48 @@
-# Asynchronous Architecture
+---
+- 
+  description: Vite最重要的创新是异步架构。包括以下三个方面：请求和响应的异步设计、交易写入和确认的异步设计、合约间通信的异步设计
+- '}'
+---
+# 异步架构
 
-::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
-:::
- 
-The following are the main asynchronous characteristics in Vite’s designs:
+::: tip 此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf) :::
 
-* Asynchronous model of requests and responses
-* Asynchronous model of writing and confirmation of transactions
-* Asynchronous model of communications between contracts
+Vite中的**异步设计**主要包括三个方面：
 
-## The Model of Asynchronous Requests 
+* **请求和响应**的异步设计
+* **交易写入和确认**的异步设计
+* **合约间通信**的异步设计
 
-Transactions in Vite can be categorized as request transactions and response transactions.  Regardless of whether an event is a transfer or the call of a contract, two successive transactions get generated on the ledger.
+## 异步请求模型
+
+Vite中的交易分为请求交易和响应交易。无论是一笔转账还是一次合约调用，均会在账本上先后生成两笔交易。
 
 ![异步请求图解](~/images/async-transaction.png)
 
-A transfer can be split into a receive transaction and a send transaction; a transaction to invoke a contract can be split into a contract request transaction and a contract response transaction; the message call within each contract can be split into a request transaction and a response transaction.
+一笔转账交易可以拆分成一个出账交易和一个入账交易；一个合约调用交易可以拆分成一个合约请求交易和一个合约响应交易；每个合约内部的消息调用，可以拆分成一个合约请求交易和一个合约响应交易。
 
-After the split, each transaction only affects the state of a single account, and transactions do not interfere with one another, which improves throughput.  In addition, transactions by different accounts are also allocated to different nodes in the network, thereby increasing scalability.
+这样拆分之后，每个交易只影响一个账户的状态，交易之间不会彼此阻塞，有利于与提高系统的吞吐能力。同时，不同账户的交易可以分布在网络中的不同的节点上，为系统带来了扩展性。
 
-## The Model of Asynchronous Confirmation
+## 异步确认模型
 
-In the Vite framework, writing transactions into a ledger and receiving confirmations by the system are also asynchronous.  Different users may write transactions into the ledger in parallel., and the snapshot chain will take snapshots of the ledger at a constant rate.  A confirmation happens once a snapshot of a transaction is taken.  As the snapshot chain grows, the number of confirmations will also increase.
+Vite中，交易写入账本和被系统确认也是异步的。不同的用户可以并行的将交易写入账本，快照链将以固定的速度对账本进行快照。一旦交易被快照，就可以认为是1次确认，随着快照链的增长，确认数也会累积。
 
 ![异步确认图解](~/images/async-confirm.png)
 
-The mechanism of asynchronous confirmation will reduce the peaks and troughs of the speed of transaction writing, thus optimizing usage of resources.
+异步确认机制可以削平交易写入速率的峰谷，最大化利用系统资源。
 
-Vite employs a hierarchical HDPoS consensus algorithm. Each account chain in the ledger generates local consensus results,  and the snapshot chain at the highest level selects the final consensus result from the local consensus results.
+Vite采用分层的HDPoS共识算法，账本中每条账户链产生候选的局部共识结果，最高层级的快照链从局部共识结果中选择出最终的共识结果。
 
-## The Model of Asynchronous Communication 
+## 异步通信模型
 
-Vite's inter-contract communications incorporate a message-driven architecture, where the contracts do not share states but only communicate by sending messages to each other.
+Vite的合约间通信采用了一种基于消息驱动的架构，合约间不共享状态，只通过彼此发送消息进行通信。
 
 ![异步通信模型图解](~/images/async-contract.png)
 
-If a contract calls another contract, the former needs to send a request transaction first. This is logically similar to producing a message in MQ.  After the node running the target contract observes the request transaction, the node writes a corresponding response transaction in the ledger, and updates the state of the contract. This process is equivalent to consuming a message from MQ.if a return value is needed,  the target contract will send another message to the source contract in the same way.
+一个合约调用另一个合约，需要先发送一个请求交易，在逻辑上类似于向MQ中生产一个消息。运行目标合约的节点观测到这条请求交易后，向账本中写入一个对应的响应交易，并更新合约的状态。这个操作相当于从MQ中消费一条消息。如果需要返回结果，目标合约会以同样的方式向源合约发送另一条消息。
 
-In this model, Vite's ledger serves the role of the message middleware, and can guarantee the exactly-once semantics of messages.
+在这个模型中，Vite的账本担任了消息中间件的角色，并且可以保障消息的Exactly Once语义。
 
-The message-based architecture features high throughput and scalability.  But on the flip side, the programming models become more complex. Not only is strong consistency not guaranteed, but latencies may become longer.
+基于消息的架构具有高吞吐和扩展性的优势。但与此相应，付出的代价是编程模型变得相对复杂，无法保证强一致性，而且有可能使延迟变大。
 
-To address the above issues and reduce the cost of asynchronous programming, Vite will provide a contract language called Solidity++ and a full SDK associated with it. After rigorous research, we found that in actual scenarios , BASE semantics can replace ACID semantics. The increase in delay is still under control since the HDPoS consensus algorithm guarantees completion of the transaction confirmation  within 1 second.
+Vite将提供Solidity++合约语言以及完善的SDK，降低异步编程的成本。经过认真的研究，我们发现在实际场景中，强一致性语义是可以用BASE语义替代的。由于Vite的HDPoS共识算法可以保障交易确认在1秒之内完成，因此，延迟的增加仍然在可控范围之内。
