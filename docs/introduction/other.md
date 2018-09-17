@@ -1,20 +1,22 @@
-# Other Designs
+---
+- 
+  description: Vite中还有一些其他的细节设计，面向去中心化应用实践中的一些问题和痛点，给出了现实可行的解决方案。
+- '}'
+---
+# 其他设计
 
-::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
-:::
+::: tip 此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf) :::
 
-Vite’s design also comes with a few other features.  They are practical solutions to problems and pain points in the realm of decentralized applications. The development of Vite's community and implementation of the VEPs( Vite Enhancement Proposals) will drive continual improvement of Vite protocol.
+Vite中还有一些其他的细节设计，面向去中心化应用实践中的一些问题和痛点，给出了现实可行的解决方案。随着Vite社区的发展和VEP改进计划的实施，Vite将成为一个持续迭代的开放平台，会有越来越多的改进和优化方案被采纳。
 
-Vite’s protocol supports multiple tokens. Unlike the ERC20 scheme, user-issued tokens and Vite tokens share the same underlying trading protocol.  This ensures identical level of security between types of tokens, and obviates security concerns due to poor implementation (e.g., those caused by stack overflow). 
+Vite协议内置多代币支持，与ERC20方案不同，用户发行的代币与VITE代币共享交易的底层协议，具有同样的安全性，不会因不良实践而产生类似于溢出漏洞之类的安全隐患。
 
-Vite will have the Loopring protocol built in, enabling exchange of multiple tokens. Therefore, the Vite wallet has functions of a decentralized exchange.
+Vite将内置Loopring协议，实现多种代币之间的互换。因此，Vite钱包本身就具备去中心化交易所的功能。
 
-In addition, Vite proposed the VCTP cross-chain protocol that allows the transfer of assets between chains. The Vite team will implement the cross chain gateways with Ethereum.  Cross-chain gateways with other target chains will open to the community.
+此外，Vite还提出了VCTP跨链协议，可以实现跨链资产传输。Vite团队将会负责与以太坊的跨链实现，其他目标链的跨链实现将会与项目团队以及社区共同推进。
 
-The resource allocation mechanism in Vite is based on the stake of VITE tokens, the one-time fee, and the difficulty of PoW for a transaction.  The mechanism provides flexibility for users with different needs. Users can choose to stake  VITE for a period, to get fixed amount of TPS quotas. They can also pay a one-time fee to increase quotas temporarily.  They could also lease resource quotas from existing VITE stake holders.  Lastly, they could even obtain quotas by computing  a PoW.
+Vite中的资源配置是基于用户持有的VITE代币、一次性支付的费用以及交易PoW难度综合计算。这为不同需求的用户提供了足够的灵活性。用户可以长期持有VITE，锁定平台资源；也可以支付一次性费用，临时提高配额；还可以从既有的VITE持有者手中租赁资源配额；也可以通过PoW算力获取相应的配额。
 
-Moreover, the design of Vite includes the naming services, contract updating, timer scheduling, Solidity++ standard library, block pruning, and so on.
+除此之外，Vite中还有关于VNS命名服务、合约升级、合约定时调度、Solidity++标准库支持、区块裁剪等相关的设计。
 
-
-[The white paper contains more specifics](https://www.vite.org/whitepaper/vite_en.pdf)。
+具体的技术方案请参阅[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)。
