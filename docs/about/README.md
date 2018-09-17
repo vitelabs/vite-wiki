@@ -1,27 +1,35 @@
 ---
-title: 关于
+title: About
 sidebar: auto
 ---
-# 简介
+# Introduction
 
-::: tip Vite Labs Vite 项目正在开发，有关Vite的相关的技术文档均会放此处，若有什么建议，欢迎提PR。
+::: tip Vite project is being developed, relevant technical documents related to Vite will be put here, if any suggestions, welcome to mention PR.
 
 有关文档内容的修正，请勿直接修改，可以另开分支修改，然后提PR。修改入口在每个页面左下角。
 
-目前技术设计前期的文档请放到 `docs/zh/technology`文件夹下，`docs/zh/technology/README.md`为该栏目首页。
+At present, the pre-technical design documents please put in `docs/zh/technology` folder, `docs/zh/technology/readme.md` is the first page of the column.
 
-本项目使用[vuePress](https://vuepress.vuejs.org/zh/)，有关侧边栏的配置说明，请移步: [vuePress 侧边栏](https://vuepress.vuejs.org/zh/default-theme-config/#%E4%BE%A7%E8%BE%B9%E6%A0%8F) :::
+This project uses <div class= "Notranslate" >0 </div> vuepress <div class= "Notranslate" >1 </div>, for the sidebar configuration instructions, please visit: <div class= " Notranslate ">2 </div> vuepress sidebar 
 
-::: warning 注意 请确保你的 Node.js 版本 >= 9。 :::
+<div class=" notranslate ">
+  3
+</div>
 
-## 运行指南
+<div class=" Notranslate ">
+  4
+</div>:::
 
-### 环境要求
+::: Warning Note <div class= "notranslate" >0 </div> make sure that your node. js version >= 9. <div class= "Notranslate" >1 </div>:::
+
+## Operation Guide
+
+### Environmental requirements
 
 * node: >= 9.xx
 * yarn: >= 1.3.xx
 
-### 安装 yarn
+### Installing yarn
 
     brew install yarn
     
