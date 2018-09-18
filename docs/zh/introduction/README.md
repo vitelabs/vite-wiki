@@ -1,18 +1,15 @@
 ---
-{
-  "description": "Vite是新一代响应式区块链(Reactive Blockchain)，采用了基于消息驱动的异步架构以及DAG账本，设计目标是超高吞吐能力和扩展性，为工业级去中心化应用提供一个可靠的公共平台。"
-}
+- 
+  description: Vite是新一代响应式区块链(Reactive Blockchain)，采用了基于消息驱动的异步架构以及DAG账本，设计目标是超高吞吐能力和扩展性，为工业级去中心化应用提供一个可靠的公共平台。
+- '}'
 ---
-
 # 简介
 
-::: tip
-此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)
-:::
+::: tip 此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf) :::
 
 ## 什么是 Vite ？
-Vite是新一代响应式区块链(Reactive Blockchain)，
-采用了基于消息驱动的异步架构以及DAG账本，设计目标是超高吞吐能力和扩展性，为工业级去中心化应用提供一个可靠的公共平台。
+
+Vite是新一代响应式区块链(Reactive Blockchain)， 采用了基于消息驱动的异步架构以及DAG账本，设计目标是超高吞吐能力和扩展性，为工业级去中心化应用提供一个可靠的公共平台。
 
 ## Vite 核心创新
 
