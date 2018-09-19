@@ -1,3 +1,6 @@
+"project_identifier": "vite"
+"api_key_env": "CROWDIN_API_KEY"
+"base_path": "."
 "files" : [
   {
     "source" : "/docs/*/**/*.md",
