@@ -1,4 +1,4 @@
-"project_identifier": "vite"
+"project_identifier": "vite-documentation"
 "api_key_env": "CROWDIN_API_KEY"
 "base_path": "."
 "files" : [
