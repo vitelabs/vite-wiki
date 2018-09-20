@@ -28,7 +28,7 @@
 | timestamp |  秒 |  &#x2713; | &#x2713;|该交易发生的时间戳|
 | tokenId |  TokenTypeId |  &#x2713; | &#x2713;|该交易的币种ID|
 | lastBlockHeightInToken |  big.Int string |  &#x2715; | &#x2715;|该账户链上一个同币种交易的高度|
-| data |  string |  &#x2715; | &#x2715;|可用作交易备注|
+| data |  string |  &#x2715; | &#x2715;|可用作交易备注,10月份002版本必须是utf8的string，003版本会有变化 ！！|
 | snapshotTimestamp | hex string  |  &#x2713; | &#x2713;|最近的快照块的hash |
 | signature |  hex  string |  &#x2713; | &#x2713;|交易的签名|
 | nonce |  hex  string |  &#x2713; | &#x2713;|该交易Pow的nonce|
@@ -44,8 +44,8 @@
 | isSnapshotted |  bool |  &#x2715; | &#x2713;|该交易是否被快照|
 ## API
 
-### ledger_createTx
-用一个完整的Block创建交易
+### ledger_sendTx
+利用服务端广播一个完整的交易
 
 - **Parameters**:
 AccountBlock
