@@ -25,6 +25,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "deepmerge": "^2.1.1",
     "vue-codemirror": "^4.0.5",
+    "vue-instantsearch": "^1.7.0",
     "vue-tabs-component": "^1.4.0",
     "vue-toasted": "^1.1.24",
     "whatwg-fetch": "^2.0.4"

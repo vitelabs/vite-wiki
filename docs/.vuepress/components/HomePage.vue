@@ -25,6 +25,31 @@
       </p>
     </div>
     </div>
+
+    <ClientOnly>
+      <ais-index
+        app-id="BH4D9OD16A"
+        api-key="fe006d1336f2a85d144fdfaf4a089378"
+        index-name="vite_labs"
+      >
+        <ais-search-box></ais-search-box>
+        <ais-results>
+          <template slot-scope="{ result }">
+            <div v-for="(lvl, value) of result._highlightResult.hierarchy">
+                <h3 v-if="value === 'lvl0' && lvl && value" class="ais-lvl0" v-html="lvl.value"></h3>
+                <p v-if="lvl && value">
+                  {{lvl.value}}
+                </p>
+            </div>
+            <div class="ais-content">
+              <ais-highlight :result="result" attribute-name="content"></ais-highlight>
+            </div>
+          </template>
+        </ais-results>
+      </ais-index>
+    </ClientOnly>
+
+
     <div class="projects">
       <div class="inner">
         <div v-for="item in projects" class="item">
