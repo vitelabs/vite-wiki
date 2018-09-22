@@ -1,4 +1,4 @@
-# [doc.vite.org](https://doc.vite.org)
+# [vite.wiki](https://vite.wiki)
 
 ### Env
 

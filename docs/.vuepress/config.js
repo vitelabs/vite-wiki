@@ -91,7 +91,7 @@ module.exports = {
     editLinks: true,
     docsDir: 'docs',
     search: true,
-    docsRepo: 'vitelabs/doc.vite.org',
+    docsRepo: 'vitelabs/vite-wiki',
     sidebarDepth: 3,
     logo: '/logo_black.svg',
     repo: 'vitelabs/go-vite',
