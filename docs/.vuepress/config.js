@@ -45,6 +45,15 @@ const sidebarConfigs = {
         'rpc/ledger'
       ]
     }
+  ],
+  vep: [
+    {
+      collapsable: false,
+      children: [
+        '',
+        'uri-standard.md'
+      ]
+    }
   ]
 }
 
@@ -169,14 +178,19 @@ module.exports = {
             ]
           },
           {
+            text: 'VEP',
+            link: '/zh/vep/'
+          },
+          {
             text: '关于',
             link: '/zh/about/'
           }
         ],
         sidebar: {
           '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
-          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本'),
-          '/zh/api/': genSidebarConfig('api', 'RPC 接口')
+          '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
+          '/zh/api/': genSidebarConfig('api', 'RPC 接口'),
+          '/zh/vep/': genSidebarConfig('vep', '提案')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
