@@ -289,3 +289,43 @@ sidebarDepth: 4
 ```
 
 :::
+
+### wallet_createTxWithPassphrase
+创建一个转账交易
+
+- **Parameters**:
+
+`Object`
+  1. `SelfAddr`: `Address`  交易的发起方
+  2. `ToAddr`: `Address`  交易的接收方
+  3. `Passphrase`: `string`  交易发起方的账户密码
+  4. `TokenTypeId`: `string of tokentypeid`  交易的币种id
+  5. `Amount`:`string`  bigint的string交易数量，按照该币种的最小分割单位
+  6. `Data`: `string` 可以是转账留言或者其它，不管是什么编码，转为byte数组后，再进行base64变成string后传过来
+
+- **Returns**: 
+	- 成功则返回 null
+
+	- 需要关注的失败的可能有
+    	* -34001 密码错误
+    	* -35001 余额不足
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 9,
+	"method": "ledger_createTxWithPassphrase",
+	"params": [{
+		"SelfAddr": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
+		"ToAddr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
+		"TokenTypeId": "tti_000000000000000000004cfd",
+		"Passphrase": "123456",
+		"Amount": "1"
+	}]
+}
+```
+
+:::
