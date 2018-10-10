@@ -12,7 +12,7 @@
   3. `int`- 每页大小 
 
 -**Return**: 
-* []AccountBlock
+* `[]AccountBlock`
 
 ## onroad_getAccountOnroadInfo
 获取某个账户的在途资金情况
@@ -23,7 +23,28 @@
   1. `Address`- 要查询的addr
 
 -**Return**: 
-* RpcAccountInfo
+* `RpcAccountInfo`
+```json tab:: 返回值Demo
+{
+    "AccountAddress": "vite_13712181754b1a5941f21b7dd8aac0acd021dc9be0b49c98e8",
+    "TotalNumber": "433",
+    "TokenBalanceInfoMap": {
+        "tti_8816f463487a9cc3c3886b8c": {
+            "TokenInfo": {
+                "TokenName": "as",
+                "TokenSymbol": "aa",
+                "TotalSupply": "10000",
+                "Decimals": 19,
+                "Owner": "vite_13712181754b1a5941f21b7dd8aac0acd021dc9be0b49c98e8",
+                "PledgeAmount": "10000",
+                "WithdrawHeight": "12"
+            },
+            "TotalAmount": "132",
+            "Number": "88"
+        }
+    }
+}
+```
 
 ## onroad_listWorkingAutoReceiveWorker
 获取正在工作中的自动接收交易的工人
