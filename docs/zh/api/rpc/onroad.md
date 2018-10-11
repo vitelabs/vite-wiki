@@ -26,21 +26,21 @@
 * `RpcAccountInfo`
 ```json tab:: 返回值Demo
 {
-    "AccountAddress": "vite_13712181754b1a5941f21b7dd8aac0acd021dc9be0b49c98e8",
-    "TotalNumber": "433",
-    "TokenBalanceInfoMap": {
+    "accountAddress": "vite_f84b6eede43969a938dfd1c381e197ed47dd06f329b7c92328",
+    "totalNumber": "433",
+    "tokenBalanceInfoMap": {
         "tti_8816f463487a9cc3c3886b8c": {
-            "TokenInfo": {
-                "TokenName": "as",
-                "TokenSymbol": "aa",
-                "TotalSupply": "10000",
-                "Decimals": 19,
-                "Owner": "vite_13712181754b1a5941f21b7dd8aac0acd021dc9be0b49c98e8",
-                "PledgeAmount": "10000",
-                "WithdrawHeight": "12"
+            "tokenInfo": {
+                "tokenName": "as",
+                "tokenSymbol": "aa",
+                "totalSupply": "10000",
+                "decimals": 19,
+                "owner": "vite_f84b6eede43969a938dfd1c381e197ed47dd06f329b7c92328",
+                "pledgeAmount": "10000",
+                "withdrawHeight": "12"
             },
-            "TotalAmount": "132",
-            "Number": "88"
+            "totalAmount": "132",
+            "number": "10000"
         }
     }
 }
