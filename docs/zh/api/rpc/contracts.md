@@ -93,14 +93,14 @@ sidebarDepth: 4
 - **Parameters**: 
 
 `Object`
-  1. `SelfAddr`: `Address`  交易的发起方
-  2. `Height`: `uint64`  当前块高度
-  3. `PrevHash`: `Hash`  前一个账户块的哈希
-  4. `SnapshotHash`: `Hash`  当前块引用的快照块哈希
-  5. `TokenName`:`string`  代币名称
-  6. `TokenSymbol`: `string` 代币简称
-  7. `TotalSupply`: `uint256` 总发行量
-  8. `Decimals`: `uint8` 小数位数
+  1. `selfAddr`: `Address`  交易的发起方
+  2. `height`: `uint64`  当前块高度
+  3. `prevHash`: `Hash`  前一个账户块的哈希
+  4. `snapshotHash`: `Hash`  当前块引用的快照块哈希
+  5. `tokenName`:`string`  代币名称
+  6. `tokenSymbol`: `string` 代币简称
+  7. `totalSupply`: `uint256` 总发行量
+  8. `decimals`: `uint8` 小数位数
 
 
 - **Returns**: 
@@ -118,14 +118,14 @@ sidebarDepth: 4
    "id":1,
    "method":"contracts_getMintageData",
    "params": [{
-   	  "SelfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-   		"Height":2,
-   		"PrevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"SnapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"TokenName":"Test Token",
-   		"TokenSymbol":"test",
-   		"TotalSupply":100000000000,
-   		"Decimals":6
+   	  "selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+   		"height":2,
+   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
+   		"snapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
+   		"tokenName":"Test Token",
+   		"tokenSymbol":"test",
+   		"totalSupply":100000000000,
+   		"decimals":6
    	}]
 }
 ```
@@ -566,20 +566,20 @@ sidebarDepth: 4
 
 - **Parameters**: 
 `Object`
-  1. `SelfAddr`: `Address`  交易的发起方
-  2. `Height`: `uint64`  当前块高度
-  3. `PrevHash`: `Hash`  前一个账户块的哈希
-  4. `SnapshotHash`: `Hash`  当前块引用的快照块哈希
-  5. `NodeCount`:`uint8`  出块节点总数
-  6. `Interval`: `int64` 出块间隔
-  7. `PerCount`: `int64` 连续出款间隔数
-  8. `RandCount`: `uint8` 随机出块节点数
-  9. `RandRank`: `uint8` 随机出块节点选取范围
-  10. `CountingTokenId`: `TokenId` 计票代币id
-  11. `RegisterConditionId`: `uint8` 超级节点注册条件id，取1
-  12. `RegisterConditionParam`: `[]byte` 超级节点注册条件参数
-  13. `VoteConditionId`: `uint8` 超级节点投票条件id，取1或2，值为1时VoteConditionParam通过contracts_getConditionVoteOfDefault获取；值为2时VoteConditionParam通过contracts_getConditionVoteOfKeepToken获取
-  14. `VoteConditionParam`: `[]byte` 超级节点投票条件参数
+  1. `selfAddr`: `Address`  交易的发起方
+  2. `height`: `uint64`  当前块高度
+  3. `prevHash`: `Hash`  前一个账户块的哈希
+  4. `snapshotHash`: `Hash`  当前块引用的快照块哈希
+  5. `nodeCount`:`uint8`  出块节点总数
+  6. `interval`: `int64` 出块间隔
+  7. `perCount`: `int64` 连续出款间隔数
+  8. `randCount`: `uint8` 随机出块节点数
+  9. `randRank`: `uint8` 随机出块节点选取范围
+  10. `countingTokenId`: `TokenId` 计票代币id
+  11. `registerConditionId`: `uint8` 超级节点注册条件id，取1
+  12. `registerConditionParam`: `[]byte` 超级节点注册条件参数
+  13. `voteConditionId`: `uint8` 超级节点投票条件id，取1或2，值为1时VoteConditionParam通过contracts_getConditionVoteOfDefault获取；值为2时VoteConditionParam通过contracts_getConditionVoteOfKeepToken获取
+  14. `voteConditionParam`: `[]byte` 超级节点投票条件参数
 
 
 - **Returns**: 
@@ -597,20 +597,20 @@ sidebarDepth: 4
    "id":1,
    "method":"contracts_getCreateConsensusGroupData",
    "params":[{
-      "SelfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      "Height":2,
-      "PrevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-      "SnapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-      "NodeCount":25,
-      "Interval":3,
-      "PerCount":1,
-      "RandCount":2,
-      "RandRank":50,
-      "CountingTokenId":"tti_5649544520544f4b454e6e40",
-      "RegisterConditionId":1,
-      "RegisterConditionParam":"00000000000000000000000000000000000000000000000000000000000f4240000000000000000000000000000000000000000000005649544520544f4b454e0000000000000000000000000000000000000000000000000000000000015180",
-      "VoteConditionId":1,
-      "VoteConditionParam":""
+      "selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+      "height":2,
+      "prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
+      "snapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
+      "nodeCount":25,
+      "interval":3,
+      "perCount":1,
+      "randCount":2,
+      "randRank":50,
+      "countingTokenId":"tti_5649544520544f4b454e6e40",
+      "registerConditionId":1,
+      "registerConditionParam":"00000000000000000000000000000000000000000000000000000000000f4240000000000000000000000000000000000000000000005649544520544f4b454e0000000000000000000000000000000000000000000000000000000000015180",
+      "voteConditionId":1,
+      "voteConditionParam":""
     }]
 }
 ```
