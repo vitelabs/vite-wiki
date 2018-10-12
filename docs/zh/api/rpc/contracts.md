@@ -23,7 +23,7 @@ sidebarDepth: 4
   * `Address`: 抵押受益账户
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -58,7 +58,7 @@ sidebarDepth: 4
   * `uint256`: 撤销金额
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -104,7 +104,7 @@ sidebarDepth: 4
 
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -147,7 +147,7 @@ sidebarDepth: 4
   * `TokenId`: 取回哪个代币的铸币抵押
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -226,7 +226,7 @@ sidebarDepth: 4
   * `Address`: 奖励提取账户地址
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -266,7 +266,7 @@ sidebarDepth: 4
   * `string`: 超级节点名称
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -307,7 +307,7 @@ sidebarDepth: 4
   * `uint256`: 出块奖励金额
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -350,7 +350,7 @@ sidebarDepth: 4
   * `Address`: 奖励提取账户地址
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -390,7 +390,7 @@ sidebarDepth: 4
   * `string`: 超级节点名称
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -427,7 +427,7 @@ sidebarDepth: 4
   * `Gid`: 共识组id
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -463,7 +463,7 @@ sidebarDepth: 4
   * `uint64`: 超级节点注册时的抵押时间
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -499,7 +499,7 @@ sidebarDepth: 4
 - **Parameters**: `none`
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -532,7 +532,7 @@ sidebarDepth: 4
   * `uint256`: 超级节点注册时抵押的金额
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -583,7 +583,7 @@ sidebarDepth: 4
 
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -632,7 +632,7 @@ sidebarDepth: 4
   * `Gid`: 共识组id
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
@@ -666,7 +666,7 @@ sidebarDepth: 4
   * `Gid`: 共识组id
 
 - **Returns**: 
-	- `string` Data
+	- `[]byte` Data
 
 - **Example**:
 
