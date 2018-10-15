@@ -42,7 +42,6 @@ const sidebarConfigs = {
         'rpc/',
         'rpc/wallet',
         'rpc/p2p',
-        'rpc/ledger',
         'rpc/onroad',
         'rpc/contracts',
         'rpc/common_models',
