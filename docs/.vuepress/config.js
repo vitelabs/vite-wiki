@@ -45,6 +45,7 @@ const sidebarConfigs = {
         'rpc/onroad',
         'rpc/contracts',
         'rpc/common_models',
+        'rpc/ledger',
         'rpc/testapi',
         'rpc/pow',
       ]
