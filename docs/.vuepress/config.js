@@ -48,6 +48,7 @@ const sidebarConfigs = {
         'rpc/ledger',
         'rpc/testapi',
         'rpc/pow',
+        'rpc/tx',
       ]
     }
   ],
