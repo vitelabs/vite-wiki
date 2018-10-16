@@ -41,14 +41,13 @@ const sidebarConfigs = {
       children: [
         'rpc/',
         'rpc/wallet',
-        'rpc/p2p',
+        'rpc/net',
         'rpc/onroad',
         'rpc/contracts',
         'rpc/common_models',
         'rpc/ledger',
         'rpc/testapi',
         'rpc/pow',
-        'rpc/tx',
       ]
     }
   ],
