@@ -318,7 +318,7 @@ sidebarDepth: 4
 {
 	"jsonrpc": "2.0",
 	"id": 9,
-	"method": "ledger_createTxWithPassphrase",
+	"method": "wallet_createTxWithPassphrase",
 	"params": [{
 		"selfAddr": "vite_269ecd4bef9cef499e991eb9667ec4a33cfdfed832c8123ada",
 		"toAddr": "vite_89ab1052584d8e5c68dc4883336da31bc924f355b5cff28f5d",
