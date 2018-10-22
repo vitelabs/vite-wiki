@@ -216,6 +216,44 @@ sidebarDepth: 4
 ```
 :::
 
+### contracts_getSignDataForRegister
+获取注册超级节点时的签名数据
+
+- **Parameters**: 
+
+  * `Address`: 注册超级节点时的抵押地址
+  * `Gid`: 注册的共识组id
+
+- **Returns**: 
+	- `[]byte` SignData，用出块地址私钥签名后得到注册超级节点的最后一个字段
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"contracts_getSignDataForRegister",
+   "params": [
+   	  "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+   		"00000000000000000001"
+   	]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": "a5a7f08011c2f0e40ccd41b5b79afbfb818d565f00000000000000000001"
+}
+```
+:::
+
 ### contracts_getRegisterData
 返回超级节点注册交易请求数据
 
