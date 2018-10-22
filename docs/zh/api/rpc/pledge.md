@@ -36,7 +36,7 @@ sidebarDepth: 4
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "method":"contracts_getPledgeData",
+   "method":"pledge_getPledgeData",
    "params":["vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"]
 }
 ```
@@ -71,7 +71,7 @@ sidebarDepth: 4
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "method":"contracts_getCancelPledgeData",
+   "method":"pledge_getCancelPledgeData",
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       10
