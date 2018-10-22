@@ -1,6 +1,8 @@
 const path = require('path')
 const markdownConfig = require('./markdown')
 
+const docBranch = process.env.BRANCH || 'master'
+
 const sidebarConfigs = {
   introduction: [
     {
@@ -41,14 +43,13 @@ const sidebarConfigs = {
       children: [
         'rpc/',
         'rpc/wallet',
-        'rpc/p2p',
+        'rpc/net',
         'rpc/onroad',
         'rpc/contracts',
         'rpc/common_models',
         'rpc/ledger',
         'rpc/testapi',
         'rpc/pow',
-        'rpc/tx',
       ]
     }
   ],
@@ -110,6 +111,7 @@ module.exports = {
     sidebarDepth: 3,
     logo: '/logo_black.svg',
     repo: 'vitelabs/go-vite',
+    docsBranch: docBranch,
     locales: {
       '/': {
         label: 'English',
