@@ -4,7 +4,7 @@ sidebarDepth: 4
 
 # Pledge
 ## viteLiz
-抵押内置合约
+抵押内置合约，合约账户地址：vite_000000000000000000000000000000000000000309508ba646
 
 ## 说明
 
@@ -96,9 +96,10 @@ sidebarDepth: 4
   * `Address`: 账户地址
 
 - **Returns**: 
-	`Object`
-    1. `Quota`: `uint64`  交易的发起方
-    2. `TxNum`: `uint64`  当前块高度
+
+`Object`
+  1. `Quota`: `uint64`  交易的发起方
+  2. `TxNum`: `uint64`  当前块高度
 
 - **Example**:
 
@@ -137,11 +138,12 @@ sidebarDepth: 4
   * `int`: 每页条数
 
 - **Returns**: 
-	`Object`
-      1. `Amount`: `uint256`  抵押金额
-      2. `WithdrawHeight`: `uint64`  到期快照块高度
-      3. `BeneficialAddr`: `Address`  受益地址
-      4. `WithdrawTime`: `int64`  预计到期时间
+
+`Object`
+  1. `Amount`: `uint256`  抵押金额
+  2. `WithdrawHeight`: `uint64`  到期快照块高度
+  3. `BeneficialAddr`: `Address`  受益地址
+  4. `WithdrawTime`: `int64`  预计到期时间
 
 - **Example**:
 
