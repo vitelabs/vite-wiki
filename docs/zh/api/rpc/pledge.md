@@ -98,8 +98,8 @@ sidebarDepth: 4
 - **Returns**: 
 
 `Object`
-  1. `Quota`: `uint64`  交易的发起方
-  2. `TxNum`: `uint64`  当前块高度
+  1. `quota`: `uint64`  当前额度
+  2. `txNum`: `uint64`  最大能发起的交易数
 
 - **Example**:
 
@@ -121,8 +121,8 @@ sidebarDepth: 4
    "jsonrpc":"2.0",
    "id":1,
    "result": {
-      "Quota": 21000,
-      "TxNum":1
+      "quota": 21000,
+      "txNum":1
    }
 }
 ```
@@ -139,11 +139,11 @@ sidebarDepth: 4
 
 - **Returns**: 
 
-`Object`
-  1. `Amount`: `uint256`  抵押金额
-  2. `WithdrawHeight`: `uint64`  到期快照块高度
-  3. `BeneficialAddr`: `Address`  受益地址
-  4. `WithdrawTime`: `int64`  预计到期时间
+`Array&lt;PledgeInfo&gt;`
+  1. `amount`: `uint256`  抵押金额
+  2. `withdrawHeight`: `uint64`  到期快照块高度
+  3. `beneficialAddr`: `Address`  受益地址
+  4. `withdrawTime`: `int64`  预计到期时间
 
 - **Example**:
 
@@ -165,10 +165,10 @@ sidebarDepth: 4
    "jsonrpc":"2.0",
    "id":1,
    "result":  [{
-      "Amount":10000000000000000000,
-      "WithdrawHeight":259200,
-      "BeneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      "WithdrawTime":1540213336
+      "amount":10000000000000000000,
+      "withdrawHeight":259200,
+      "beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+      "withdrawTime":1540213336
    }]
 }
 ```
