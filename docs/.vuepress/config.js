@@ -2,6 +2,7 @@ const path = require('path')
 const markdownConfig = require('./markdown')
 
 const docBranch = process.env.BRANCH || 'master'
+const searchFilter = 'version: ' + docBranch
 
 const sidebarConfigs = {
   introduction: [
@@ -157,7 +158,7 @@ module.exports = {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
           indexName: 'vite_labs',
           algoliaOptions: {
-            facetFilters: ["lang:en"],
+            facetFilters: ['lang:en', searchFilter],
             hitsPerPage: 10
           }
         }
@@ -210,7 +211,7 @@ module.exports = {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
           indexName: 'vite_labs',
           algoliaOptions: {
-            facetFilters: ["lang:zh"],
+            facetFilters: ['lang:zh', searchFilter],
             hitsPerPage: 10
           }
         },
