@@ -51,7 +51,8 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         '',
-        'uri-standard.md'
+        'vep-2',
+        'vep-3'
       ]
     }
   ]

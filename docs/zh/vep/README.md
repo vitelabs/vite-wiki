@@ -8,4 +8,5 @@ title: "Vite 提案"
 
 ## 提案列表
 
-* [VEP 2: 二维码规范](./uri-standard.html)
+* [VEP 2: 二维码规范](./vep-2.html)
+* [VEP 3: Vite 钱包私钥派生方法](./vep-3.html)
