@@ -38,6 +38,9 @@ const sidebarConfigs = {
       ]
     }
   ],
+  tutorial: [
+
+  ],
   api: [
     {
       collapsable: false,
@@ -181,8 +184,8 @@ module.exports = {
             link: '/zh/introduction/',
           },
           {
-            text: '技术细节',
-            link: '/zh/technology/'
+            text: '教程',
+            link: '/zh/tutorial/'
           },
           {
             text: 'API',
