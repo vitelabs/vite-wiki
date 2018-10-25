@@ -17,13 +17,13 @@ sidebarDepth: 4
 ## API
 
 ### consensusGroup_getConditionRegisterOfPledge
-返回共识组超级节点注册条件
+创建委托共识组时registerConditionId为1时通过本接口生成registerConditionParam，指定注册成为共识组出块节点的条件，要求抵押一定数量的代币
 
 - **Parameters**: 
 
-  * `uint256`: 超级节点注册时抵押的金额
-  * `TokenId`: 超级节点注册时抵押金额的代币类型
-  * `uint64`: 超级节点注册时的抵押时间
+  * `big.int`: 注册时抵押的金额
+  * `TokenId`: 注册时抵押金额的代币id
+  * `uint64`: 注册时抵押代币的时间（即快照块高度）
 
 - **Returns**: 
 	- `[]byte` Data
@@ -56,52 +56,19 @@ sidebarDepth: 4
 ```
 :::
 
-### consensusGroup_getConditionVoteOfDefault
-返回共识组超级节点默认投票条件，默认无条件
-
-- **Parameters**: `none`
-
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"consensusGroup_getConditionVoteOfDefault",
-   "params":[]
-}
-```
-
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": ""
-}
-```
-:::
-
 ### consensusGroup_getConditionVoteOfKeepToken
-返回共识组超级节点投票条件，要求投票账户持有某种代币
+创建委托共识组时voteConditionId为2时通过本接口生成voteConditionParam，指定为共识组出块节点投票时的条件，要求投票账户持有一定数量的代币
 
 - **Parameters**: 
-  * `uint256`: 超级节点注册时抵押的金额
+  * `big.Int`: 投票时持有的代币数量
+  * `TokenId`: 投票时持有的代币id
 
 - **Returns**: 
 	- `[]byte` Data
 
 - **Example**:
 
-
 ::: demo
-
 
 ```json tab:Request
 {  
@@ -125,7 +92,7 @@ sidebarDepth: 4
 :::
 
 ### consensusGroup_getCreateConsensusGroupData
-返回创建委托共识组交易请求数据
+获取创建共识组交易请求数据
 
 - **Parameters**: 
 
@@ -140,10 +107,10 @@ sidebarDepth: 4
   8. `randCount`: `uint8` 随机出块节点数
   9. `randRank`: `uint8` 随机出块节点选取范围
   10. `countingTokenId`: `TokenId` 计票代币id
-  11. `registerConditionId`: `uint8` 超级节点注册条件id，取1，值为1时registerConditionParam通过consensusGroup_getConditionRegisterOfPledge获取
-  12. `registerConditionParam`: `[]byte` 超级节点注册条件参数
-  13. `voteConditionId`: `uint8` 超级节点投票条件id，取1或2，值为1时VoteConditionParam通过consensusGroup_getConditionVoteOfDefault获取；值为2时VoteConditionParam通过consensusGroup_getConditionVoteOfKeepToken获取
-  14. `voteConditionParam`: `[]byte` 超级节点投票条件参数
+  11. `registerConditionId`: `uint8` 出块节点注册条件id，取1，值为1时表示注册时需要抵押代币
+  12. `registerConditionParam`: `[]byte` 出块节点注册条件参数
+  13. `voteConditionId`: `uint8` 出块节点投票条件id，取1或2，值为1时表示无条件，voteConditionParam为空字符串；值为2时表示投票时需要持有代币
+  14. `voteConditionParam`: `[]byte` 出块节点投票条件参数
 
 
 - **Returns**: 
@@ -189,7 +156,7 @@ sidebarDepth: 4
 :::
 
 ### consensusGroup_getCancelConsensusGroupData
-返回撤回超级节点抵押交易请求数据
+获取撤回共识组抵押交易请求数据
 
 - **Parameters**: 
 
@@ -223,7 +190,7 @@ sidebarDepth: 4
 :::
 
 ### consensusGroup_getReCreateConsensusGroupData
-返回重新为超级节点抵押交易请求数据
+获取重新为共识组抵押交易请求数据
 
 - **Parameters**: 
 

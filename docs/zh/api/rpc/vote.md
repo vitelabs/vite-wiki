@@ -4,7 +4,7 @@ sidebarDepth: 4
 
 # Vote
 ## viteLiz
-超级节点投票内置合约，合约账户地址：vite_000000000000000000000000000000000000000270a48cc491
+出块节点投票内置合约，合约账户地址：vite_000000000000000000000000000000000000000270a48cc491
 
 ## 说明
 
@@ -17,12 +17,12 @@ sidebarDepth: 4
 ## API
 
 ### vote_getVoteData
-返回为超级节点投票交易请求数据
+返回为出块节点投票交易请求数据
 
 - **Parameters**: 
 
   * `Gid`: 共识组id
-  * `string`: 超级节点名称
+  * `string`: 出块节点名称
 
 - **Returns**: 
 	- `[]byte` Data
@@ -55,7 +55,7 @@ sidebarDepth: 4
 :::
 
 ### vote_getCancelVoteData
-返回为超级节点投票交易请求数据
+返回为出块节点投票交易请求数据
 
 - **Parameters**: 
 

@@ -54,7 +54,6 @@ const sidebarConfigs = {
         'rpc/register',
         'rpc/vote',
         'rpc/mintage',
-        'rpc/consensus_group',
         'rpc/common_models',
         'rpc/ledger',
         'rpc/testapi',

@@ -17,7 +17,7 @@ sidebarDepth: 4
 ## API
 
 ### mintage_getMintageData
-返回铸币交易请求数据
+获取铸币交易请求数据
 
 - **Parameters**: 
 
@@ -26,10 +26,10 @@ sidebarDepth: 4
   2. `height`: `uint64`  当前块高度
   3. `prevHash`: `Hash`  前一个账户块的哈希
   4. `snapshotHash`: `Hash`  当前块引用的快照块哈希
-  5. `tokenName`:`string`  代币名称
-  6. `tokenSymbol`: `string` 代币简称
-  7. `totalSupply`: `uint256` 总发行量
-  8. `decimals`: `uint8` 小数位数
+  5. `tokenName`:`string`  代币名称，1-40个字符，包含大小写字母、空格和下划线，不能有连续空格，不能以空格开头或结尾
+  6. `tokenSymbol`: `string` 代币简称，1-10个字符，包含大小写字母、空格和下划线，不能有连续空格，不能以空格开头或结尾
+  7. `totalSupply`: `big.int` 总发行量，不能超过2**256-1
+  8. `decimals`: `uint8` 小数位数，10**decimals不能超过totalSupply
 
 
 - **Returns**: 
@@ -69,11 +69,11 @@ sidebarDepth: 4
 :::
 
 ### mintage_getMintageCancelPledgeData
-返回取回铸币抵押交易请求数据
+获取取回铸币抵押交易请求数据
 
 - **Parameters**: 
 
-  * `TokenId`: 取回哪个代币的铸币抵押
+  * `TokenId`: 取回铸币抵押的代币id
 
 - **Returns**: 
 	- `[]byte` Data

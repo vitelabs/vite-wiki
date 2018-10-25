@@ -17,7 +17,7 @@ sidebarDepth: 4
 ## API
 
 ### pledge_getPledgeData
-返回抵押交易请求数据
+获取抵押交易请求数据
 
 - **Parameters**: 
 
@@ -51,12 +51,12 @@ sidebarDepth: 4
 :::
 
 ### pledge_getCancelPledgeData
-返回撤销抵押交易请求数据
+获取撤销抵押交易请求数据
 
 - **Parameters**: 
 
   * `Address`: 抵押受益账户
-  * `uint256`: 撤销金额
+  * `big.int`: 撤销金额
 
 - **Returns**: 
 	- `[]byte` Data
@@ -129,7 +129,7 @@ sidebarDepth: 4
 :::
 
 ### pledge_getPledgeList
-返回本账户的抵押金额列表
+获取本账户的抵押金额列表
 
 - **Parameters**: 
 
@@ -138,12 +138,13 @@ sidebarDepth: 4
   * `int`: 每页条数
 
 - **Returns**: 
-
-`Array&lt;PledgeInfo&gt;`
-  1. `amount`: `uint256`  抵押金额
-  2. `withdrawHeight`: `uint64`  到期快照块高度
-  3. `beneficialAddr`: `Address`  受益地址
-  4. `withdrawTime`: `int64`  预计到期时间
+`Object`
+  1. `totalPledgeAmount`: `big.Int`  本账户抵押的总金额
+  2. `Array&lt;PledgeInfo&gt;` 抵押信息列表
+    * `amount`: `big.int`  抵押金额
+    * `withdrawHeight`: `uint64`  到期快照块高度
+    * `beneficialAddr`: `Address`  受益地址
+    * `withdrawTime`: `int64`  预计到期时间
 
 - **Example**:
 
@@ -164,12 +165,17 @@ sidebarDepth: 4
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "result":  [{
-      "amount":10000000000000000000,
-      "withdrawHeight":259200,
-      "beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      "withdrawTime":1540213336
-   }]
+   "result":  {
+      "totalPledgeAmount": "5000000000000000000000",
+      "pledgeInfoList": [
+        {
+          "amount":10000000000000000000,
+          "withdrawHeight":259200,
+          "beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+          "withdrawTime":1540213336
+        }
+      ]
+   }
 }
 ```
 :::
