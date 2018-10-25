@@ -1,6 +1,9 @@
 const path = require('path')
 const markdownConfig = require('./markdown')
 
+const docBranch = process.env.BRANCH || 'master'
+const searchFilter = 'version: ' + docBranch
+
 const sidebarConfigs = {
   introduction: [
     {
@@ -41,8 +44,19 @@ const sidebarConfigs = {
       children: [
         'rpc/',
         'rpc/wallet',
-        'rpc/p2p',
-        'rpc/ledger'
+        'rpc/net',
+        'rpc/onroad',
+        'rpc/contract',
+        'rpc/pledge',
+        'rpc/register',
+        'rpc/vote',
+        'rpc/mintage',
+        'rpc/consensus_group',
+        'rpc/common_models',
+        'rpc/ledger',
+        'rpc/testapi',
+        'rpc/pow',
+        'rpc/tx',
       ]
     }
   ],
@@ -105,6 +119,7 @@ module.exports = {
     sidebarDepth: 3,
     logo: '/logo_black.svg',
     repo: 'vitelabs/go-vite',
+    docsBranch: docBranch,
     locales: {
       '/': {
         label: 'English',
@@ -144,7 +159,7 @@ module.exports = {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
           indexName: 'vite_labs',
           algoliaOptions: {
-            facetFilters: ["lang:en"],
+            facetFilters: ['lang:en', searchFilter],
             hitsPerPage: 10
           }
         }
@@ -197,7 +212,7 @@ module.exports = {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
           indexName: 'vite_labs',
           algoliaOptions: {
-            facetFilters: ["lang:zh"],
+            facetFilters: ['lang:zh', searchFilter],
             hitsPerPage: 10
           }
         },
