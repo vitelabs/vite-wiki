@@ -208,9 +208,9 @@ sidebarDepth: 4
 
 - **Returns**: 
 	- `Object`:
-		- * `mnemonic : string` : 助记词
-		- * `primaryAddr : string` : 地址
-		- * `filename : string`: 文件地址  
+		- `mnemonic : string` : 助记词
+		- `primaryAddr : string` : 地址
+		- `filename : string`: 文件地址  
 
 - **Example**:
 
@@ -248,9 +248,9 @@ sidebarDepth: 4
 
 - **Returns**: 
 	- `Object`:
-		- * `index : uint32` : index
-		- * `address : string` : 地址
-		- * `privateKey : []byte`: 地址对应的私钥 Base64 
+		-  `index : uint32` : index
+		-  `address : string` : 地址
+		-  `privateKey : []byte`: 地址对应的私钥 Base64 
 
 - **Example**:
 
@@ -289,9 +289,9 @@ sidebarDepth: 4
 
 - **Returns**: 
 - `Object`:
-	- * `mnemonic : string` : 助记词
-	- * `primaryAddr : string` : 地址
-	- * `filename : string`: 文件地址  
+	- `mnemonic : string` : 助记词
+	- `primaryAddr : string` : 地址
+	- `filename : string`: 文件地址  
 
 - **Example**:
 
@@ -360,8 +360,8 @@ sidebarDepth: 4
 检查某个EntropyStore下的地址是否解锁， 必须确保EntropyStore已经解锁
 
 - **Parameters**: 
-	- * `string`: `Primry address` 或者 `EntropyStore abs filepath`
-	- * `string`:`address`： 具体的地址
+	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
+	- `string`:`address`： 具体的地址
 
 - **Returns**: `bool` 是否解锁
 
@@ -426,13 +426,13 @@ sidebarDepth: 4
 在某个EntropyStore解锁的情况下 ，搜索某个地址
 
 - **Parameters**:  
-	- * `string`: `Primry address` 或者 `EntropyStore abs filepath`
-	- * `string`:`address`： 具体的地址
+	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
+	- `string`:`address`： 具体的地址
 
 - **Returns**:
-	- * `Object` 
-		- * `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- * `index : uint32 `: 该地址在该Entropy下的序号
+	- `Object` 
+		- `entropyStoreFile : string` : 该EntropyStore的完整路径
+		- `index : uint32 `: 该地址在该Entropy下的序号
 - **Example**: 
 
 ::: demo
@@ -469,9 +469,9 @@ sidebarDepth: 4
 	 * `string`:`address`： 具体的地址
 
 - **Returns**:
-	- * `Object` 
-		- * `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- * `index : uint32 `: 该地址在该Entropy下的序号
+	- `Object` 
+		- `entropyStoreFile : string` : 该EntropyStore的完整路径
+		- `index : uint32 `: 该地址在该Entropy下的序号
 - **Example**: 
 
 ::: demo
@@ -503,15 +503,15 @@ sidebarDepth: 4
 发送交易
 
 - **Parameters**:  
-	- * `Object`:
-		- * `entropystoreFile : string` :  `Primry address` 或者 `EntropyStore abs filepath`，可不填
-		- * `selfAddr : string address` : 自己的地址，必填
-		- * `toAddr : string address` : 转给谁，必填
-		- * `tokenTypeId : string tokentypeid` : 哪个币，必填
-		- * `passphrase : string` : 密码，必填
-		- * `amount : string bigint` : 转多少钱，必填
-		- * `data : string base64` : 转账留言，可不填
-		- * `difficulty : string bigint` : pow难度，可不填
+	-  `Object`:
+		- `entropystoreFile : string` :  `Primry address` 或者 `EntropyStore abs filepath`，可不填
+		- `selfAddr : string address` : 自己的地址，必填
+		- `toAddr : string address` : 转给谁，必填
+		- `tokenTypeId : string tokentypeid` : 哪个币，必填
+		- `passphrase : string` : 密码，必填
+		- `amount : string bigint` : 转多少钱，必填
+		- `data : string base64` : 转账留言，可不填
+		- `difficulty : string bigint` : pow难度，可不填
 
 - **Returns**: `none`
 
