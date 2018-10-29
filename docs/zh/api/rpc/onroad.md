@@ -194,7 +194,8 @@
 **Private Api**
 
 -**Parameters**: 
-  1. `Address`
+  1. `string`: `Primry address` 或者 `EntropyStore abs filepath`
+  1. `string`:  `Address`
   2.  `map[types.TokenTypeId]string`- 一个简单的filter，key是要接收的币种，value是接收该币种的最少数量（大于等于 value），如果没设置，就会全部接收
 
 

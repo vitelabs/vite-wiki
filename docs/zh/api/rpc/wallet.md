@@ -174,7 +174,7 @@ sidebarDepth: 4
 	"id": 4,
 	"method": "wallet_listEntropyStoreAddresses",
 	"params": [
-		"/Users/zhutiantao/Library/GVite/testdata/wallet/vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
+		"/Users/xxx/Library/GVite/testdata/wallet/vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
 		0,
 		10
 	]
@@ -317,7 +317,7 @@ sidebarDepth: 4
     "result": {
         "mnemonic": "utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource",
         "primaryAddr": "vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0",
-        "filename": "/Users/zhutiantao/Library/GVite/testdata/wallet/vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0"
+        "filename": "/Users/xxx/Library/GVite/testdata/wallet/vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0"
     }
 }
 
@@ -516,4 +516,15 @@ sidebarDepth: 4
 - **Returns**: `none`
 
 
+:::
+### wallet_addEntropyStore
+增加某个EntropyStore文件，可以用于应用非标准目录下托管的entropystore文件
 
+- **Parameters**:  
+	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
+	- `string`:`address`： 具体的地址
+
+- **Returns**:
+	- `Object` 
+		- `entropyStoreFile : string` : 该EntropyStore的完整路径
+		- `index : uint32 `: 该地址在该Entropy下的序号
