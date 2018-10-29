@@ -289,9 +289,9 @@ sidebarDepth: 4
 
 - **Returns**: 
 - `Object`:
-		- * `mnemonic : string` : 助记词
-		- * `primaryAddr : string` : 地址
-		- * `filename : string`: 文件地址  
+	- * `mnemonic : string` : 助记词
+	- * `primaryAddr : string` : 地址
+	- * `filename : string`: 文件地址  
 
 - **Example**:
 
@@ -514,6 +514,6 @@ sidebarDepth: 4
 		- * `difficulty : string bigint` : pow难度，可不填
 
 - **Returns**: `none`
-- **Example**: 
+
 
 
