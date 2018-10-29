@@ -41,13 +41,6 @@ sidebarDepth: 4
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "8de7dcfd000000000000000000000000a5a7f08011c2f0e40ccd41b5b79afbfb818d565f"
-}
-```
 :::
 
 ### pledge_getCancelPledgeData
@@ -79,13 +72,6 @@ sidebarDepth: 4
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "9ff9c7b6000000000000000000000000a5a7f08011c2f0e40ccd41b5b79afbfb818d565f000000000000000000000000000000000000000000000000000000000000000a"
-}
-```
 :::
 
 ### pledge_getPledgeQuota
@@ -138,9 +124,11 @@ sidebarDepth: 4
   * `int`: 每页条数
 
 - **Returns**: 
+
 `Object`
   1. `totalPledgeAmount`: `big.Int`  本账户抵押的总金额
-  2. `Array&lt;PledgeInfo&gt;` 抵押信息列表
+  2. `totalCount`: `int`  抵押信息总数
+  3. `pledgeInfoList`: `Array&lt;PledgeInfo&gt;` 抵押信息列表
     * `amount`: `big.int`  抵押金额
     * `withdrawHeight`: `uint64`  到期快照块高度
     * `beneficialAddr`: `Address`  受益地址
@@ -167,6 +155,7 @@ sidebarDepth: 4
    "id":1,
    "result":  {
       "totalPledgeAmount": "5000000000000000000000",
+      "totalCount": 1,
       "pledgeInfoList": [
         {
           "amount":10000000000000000000,
