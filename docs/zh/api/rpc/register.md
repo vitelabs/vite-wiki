@@ -163,6 +163,7 @@ sidebarDepth: 4
   4. `pledgeAmount`: `big.Int`  抵押金额
   5. `withdrawHeight`: `uint64`  抵押到期高度
   5. `availableReward`: `big.Int`  可提取的出块奖励（不包含最近30分钟的出块奖励）
+  5. `availableRewardOneTx`: `big.Int`  一次交易可提取的出块奖励（不包含最近30分钟的出块奖励），从上一次提取到的高度开始，90天的出块奖励，如果不满90天，则availableRewardOneTx=availableReward
 
 - **Example**:
 
@@ -194,6 +195,7 @@ sidebarDepth: 4
       "pledgeAmount": 100000000000,
       "withdrawHeight": 100,
       "availableReward": 1051200000
+      "availableRewardOneTx": 1051200000
     }
    ]
 }

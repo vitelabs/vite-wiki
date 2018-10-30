@@ -75,7 +75,7 @@ sidebarDepth: 4
 :::
 
 ### vote_getVoteInfo
-查询用户当前投票信息，包含未确认的投票
+查询用户当前投票信息
 
 - **Parameters**: 
 
@@ -87,7 +87,6 @@ sidebarDepth: 4
 `Object`
   1. `name`: `string`  出块节点名称
   2. `balance`: `big.Int`  用户账户余额
-  3. `voteStatus`: `uint8` 投票状态：1 投票中 2 投票成功 
   
 - **Example**:
 
@@ -112,7 +111,6 @@ sidebarDepth: 4
    "result": {
       "registerName": "super",
       "balance": 10,
-      "voteStatus": 1
    }
 ```
 :::
