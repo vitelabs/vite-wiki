@@ -239,7 +239,7 @@ sidebarDepth: 4
 ```
 :::
 
-### wallet_deriveForIndexPath
+### wallet_deriveByIndex
 派生地址
 
 - **Parameters**: 
@@ -248,7 +248,7 @@ sidebarDepth: 4
 
 - **Returns**: 
 	- `Object`:
-		-  `index : uint32` : index
+		-  `bip44Path : string` : bip44形式的地址编号
 		-  `address : string` : 地址
 		-  `privateKey : []byte`: 地址对应的私钥 Base64 
 
@@ -272,12 +272,55 @@ sidebarDepth: 4
     "jsonrpc": "2.0",
     "id": 2,
     "result": {
-        "index": 0,
-        "address": "vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
-        "privateKey": "yRtseW1XmqmwNIPnmIEPWaxSIxVSrETKdNQ6k+NQBC/jjzkAR/XVm1pEPkhLEGDJ7HKUBpckiWGGh6y2Mxht/g=="
+        "bip44Path": "m/44'/666666'/1'",
+        "address": "vite_8431a5acb599da19529c3e8bd099087a9d550fb29039dada28",
+        "privateKey": "SKxAWibv4u85xMdRByCaveOwjw0bhempG9/zi59TjJUESNFMNvoE+wP/X/Zz+Tc3ObdZVO53UQT5BS8xATefbg=="
     }
 }
 ```
+
+:::
+
+### wallet_deriveByFullPath
+派生地址
+
+- **Parameters**: 
+	- `string` : 文件地址或者初始地址,支持更多级的地址
+	- `string`: bip44形式的地址编号
+
+- **Returns**: 
+	- `Object`:
+		-  `bip44Path : string` : bip44形式的地址编号
+		-  `address : string` : 地址
+		-  `privateKey : []byte`: 地址对应的私钥 Base64 
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "wallet_deriveByFullPath",
+    "params": [
+    	"vite_b1c00ae7dfd5b935550a6e2507da38886abad2351ae78d4d9a",
+        "m/44'/666666'/2'/4'"
+    ]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+        "bip44Path": "m/44'/666666'/2'/4'",
+        "address": "vite_a5efba49303b46c42c7e89b6cf5facd897d3a444fdb37af64e",
+        "privateKey": "HSe4vB20dKTHYz+xzlAJ+wDhQQTJnJfemLTjbkPBb6ql/LS+lob/77NOdRfky3VWjai4g81mGR8L+goQDgEKoA=="
+    }
+}
+```
+
 :::
 
 ### wallet_recoverEntropyStoreFromMnemonic
