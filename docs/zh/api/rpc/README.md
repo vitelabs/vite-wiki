@@ -73,9 +73,9 @@ we can also use config file `vite.config.json` to set Config. for example:
 
 |  描述 | code | message | example |
 |:------------:|:-----------:|:-----:|:-----:|
-| 余额不足|  `-35001` |  The balance is not enough. |{"code":5001,"message":"The balance is not enough."}|
-| 密码错误	|  `-34001` | error decrypting key |{"code":4001,"message":"error decrypting key"}|
-| 账户重复解锁	|  `-34002` |  the address was previously unlocked |{"code":4002,"message":"the address was previously unlocked"}|
+| 余额不足|  `-35001` |  The balance is not enough. |{"code":-35001,"message":"The balance is not enough."}|
+| 密码错误	|  `-34001` | error decrypting key |{"code":-34001,"message":"error decrypting key"}|
+| 账户重复解锁	|  `-34002` |  the address was previously unlocked |{"code":-34002,"message":"the address was previously unlocked"}|
 
 ## JSON-RPC Support
 
