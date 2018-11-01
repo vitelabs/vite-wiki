@@ -85,8 +85,9 @@ sidebarDepth: 4
 - **Returns**: 
 
 `Object`
-  1. `name`: `string`  出块节点名称
-  2. `balance`: `big.Int`  用户账户余额
+  1. `nodeName`: `string`  出块节点名称
+  2. `nodeStatus`: `uint8`  出块节点注册状态：1 有效 2 无效
+  3. `balance`: `big.Int`  用户账户余额
   
 - **Example**:
 
@@ -109,7 +110,8 @@ sidebarDepth: 4
    "jsonrpc":"2.0",
    "id":1,
    "result": {
-      "registerName": "super",
+      "nodeName": "super",
+      "nodeStatus": 1
       "balance": 10,
    }
 ```
