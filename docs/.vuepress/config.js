@@ -39,7 +39,18 @@ const sidebarConfigs = {
     }
   ],
   tutorial: [
-
+    {
+      collapsable: false,
+      children: [
+        ''
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'sbp'
+      ]
+    }
   ],
   api: [
     {
@@ -208,7 +219,8 @@ module.exports = {
           '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
           '/zh/api/': genSidebarConfig('api', 'RPC 接口'),
-          '/zh/vep/': genSidebarConfig('vep', '提案')
+          '/zh/vep/': genSidebarConfig('vep', '提案'),
+          '/zh/tutorial/': genSidebarConfig('tutorial'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
