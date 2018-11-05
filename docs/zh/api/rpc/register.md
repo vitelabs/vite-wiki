@@ -162,10 +162,12 @@ sidebarDepth: 4
   3. `pledgeAddr`: `Address`  抵押账户地址
   4. `pledgeAmount`: `big.Int`  抵押金额
   5. `withdrawHeight`: `uint64`  抵押到期高度
-  6. `availableReward`: `big.Int`  可提取的出块奖励（不包含最近30分钟的出块奖励）
-  7. `availableRewardOneTx`: `big.Int`  一次交易可提取的出块奖励（不包含最近30分钟的出块奖励），从上一次提取到的高度开始，90天的出块奖励，如果不满90天，则availableRewardOneTx=availableReward
-  8. `rewardStartHeight`: `uint64` 上一次提取出块奖励时提取到的高度
-  9. `rewardEndHeight`: `uint64`  本次提取出块奖励时可提取到的高度
+  6. `withdrawTime`: `uint64`  预计抵押到期时间
+  7. `cancelHeight`: `uint64`  抵押取消时间，值大于0时表示已注销
+  8. `availableReward`: `big.Int`  可提取的出块奖励（不包含最近30分钟的出块奖励）
+  9. `availableRewardOneTx`: `big.Int`  一次交易可提取的出块奖励（不包含最近30分钟的出块奖励），从上一次提取到的高度开始，90天的出块奖励，如果不满90天，则availableRewardOneTx=availableReward
+  10. `rewardStartHeight`: `uint64` 上一次提取出块奖励时提取到的高度
+  11. `rewardEndHeight`: `uint64`  本次提取出块奖励时可提取到的高度
 
 - **Example**:
 
