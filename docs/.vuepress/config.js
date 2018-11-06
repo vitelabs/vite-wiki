@@ -48,7 +48,8 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
-        'sbp'
+        'sbp',
+        'quota'
       ]
     }
   ],
