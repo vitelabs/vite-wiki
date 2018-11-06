@@ -41,7 +41,26 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
-        ''
+        '',
+        'start/',
+        'start/introduction',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'wallet/',
+        'wallet/install',
+        'wallet/manage',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'node/install',
+        'node/fullnode',
+        'node/sbp',
+        'node/example',
       ]
     },
     {
@@ -215,7 +234,7 @@ module.exports = {
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
           '/zh/api/': genSidebarConfig('api', 'RPC 接口'),
           '/zh/vep/': genSidebarConfig('vep', '提案'),
-          '/zh/tutorial/': genSidebarConfig('tutorial'),
+          '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '规则'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
