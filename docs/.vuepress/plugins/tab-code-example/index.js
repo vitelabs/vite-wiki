@@ -23,6 +23,9 @@ module.exports = (options, ctx) => {
     },
     enhanceAppFiles: [
       path.resolve(__dirname, 'client.js')
+    ],
+    plugins: [
+      '@vuepress/plugin-notification'
     ]
   }
 }

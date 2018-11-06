@@ -29,6 +29,7 @@
     "@vite/vuepress-plugin-mathjax": "^1.0.0",
     "@vuepress/plugin-google-analytics": "^1.0.0-alpha.0",
     "@vuepress/plugin-medium-zoom": "^1.0.0-alpha.0",
+    "@vuepress/plugin-notification": "^1.0.0-alpha.5",
     "deepmerge": "^2.1.1",
     "markdown-it-mathjax-chtml": "^0.1.0",
     "vue-codemirror": "^4.0.5",

@@ -128,6 +128,7 @@ module.exports = {
     '@vuepress/back-to-top',
     '@vuepress/i18n-ui',
     '@vite/vuepress-plugin-mathjax',
+    '@vuepress/plugin-notification',
     [require('./plugins/tab-code-example')]
   ],
   themeConfig: {

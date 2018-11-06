@@ -6,15 +6,13 @@ import 'whatwg-fetch'
 
 import Demo from './components/Demo'
 
-export default ({Vue, options, router, siteData}) => {
+export default ({Vue, isServer, options, router, siteData}) => {
   library.add(faPlay, faUndo)
 
   // only load on client side
-  if (typeof window !== 'undefined') {
-    const Toasted = require('vue-toasted')
+  if (!isServer) {
     const VueCodemirror = require('vue-codemirror')
     require('codemirror/mode/javascript/javascript.js')
-    Vue.use(Toasted.default)
     Vue.use(VueCodemirror)
     Vue.component('demo', Demo)
   }
