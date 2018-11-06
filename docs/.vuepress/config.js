@@ -113,7 +113,6 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
-  serviceWorker: true,
   configureWebpack: {
     resolve: {
       alias: {
@@ -121,10 +120,19 @@ module.exports = {
       }
     }
   },
-  markdown: {
-     toc: { includeLevel: [2, 3, 4] },
-     config: markdownConfig
+  extendMarkdown(md) {
+    markdownConfig(md)
   },
+  plugins: [
+    ['@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
+    }],
+    '@vuepress/back-to-top',
+    '@vuepress/medium-zoom',
+    '@vuepress/i18n-ui',
+    '@vite/vuepress-plugin-mathjax'
+  ],
   themeConfig: {
     editLinks: true,
     docsDir: 'docs',
@@ -140,12 +148,6 @@ module.exports = {
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
-        serviceWorker: {
-          updatePopup: {
-             message: "New content is available.",
-             buttonText: "Refresh"
-          }
-        },
         nav: [
           {
             text: 'Introduction',
@@ -183,12 +185,6 @@ module.exports = {
         selectText: '选择语言',
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
-        serviceWorker: {
-          updatePopup: {
-            message: "发现新内容可用",
-            buttonText: "刷新"
-          }
-        },
         nav: [
           {
             text: '介绍',

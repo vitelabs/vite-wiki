@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Navbar/>
     <div class="hero">
       <div class="left">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -42,7 +43,11 @@
 </template>
 
 <script>
+import Navbar from '@vuepress/theme-default/components/Navbar.vue'
 export default {
+  components: {
+    Navbar
+  },
   data() {
     return {
       githubScriptIsLoad: false
@@ -71,10 +76,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../override.styl'
+@import '../styles/palette.styl'
 
 .home
-  padding $navbarHeight 2rem 0
+  padding ($navbarHeight * 2)  2rem 0
   max-width 1260px
   margin 0px auto
   .hero

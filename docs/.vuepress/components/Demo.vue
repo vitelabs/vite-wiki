@@ -276,7 +276,7 @@
 </script>
 
 <style lang="stylus">
-  @import '../override.styl'
+  @import '../styles/palette.styl'
 
   .tabs-component {
     margin: 1.5rem 0;
