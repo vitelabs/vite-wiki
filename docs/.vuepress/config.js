@@ -1,5 +1,4 @@
 const path = require('path')
-const markdownConfig = require('./markdown')
 
 const docBranch = process.env.BRANCH || 'master'
 const searchFilter = 'version: ' + docBranch
@@ -120,18 +119,16 @@ module.exports = {
       }
     }
   },
-  extendMarkdown(md) {
-    markdownConfig(md)
-  },
   plugins: [
     ['@vuepress/pwa', {
       serviceWorker: true,
       updatePopup: true
     }],
-    '@vuepress/back-to-top',
     '@vuepress/medium-zoom',
+    '@vuepress/back-to-top',
     '@vuepress/i18n-ui',
-    '@vite/vuepress-plugin-mathjax'
+    '@vite/vuepress-plugin-mathjax',
+    [require('./plugins/tab-code-example')]
   ],
   themeConfig: {
     editLinks: true,
