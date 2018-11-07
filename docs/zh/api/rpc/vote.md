@@ -116,3 +116,192 @@ sidebarDepth: 4
    }
 ```
 :::
+
+### vote_getVoteDetails
+查询超级节点投票详情
+
+- **Parameters**: 
+
+无
+
+- **Returns**: 
+
+`Object`
+  1. `nodeName`: `string`  出块节点名称
+  2. `nodeStatus`: `uint8`  出块节点注册状态：1 有效 2 无效
+  3. `balance`: `string`  用户账户余额
+  4. `nodeAddr`: `string` 节点当前注册出块地址
+  
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"vote_getVoteDetails",
+   "params": null
+     
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": [
+        {
+            "nodeName": "s1",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s10",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s11",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s12",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s13",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s14",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s15",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s16",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s17",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s18",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s19",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s2",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s20",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s21",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s22",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s23",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s24",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s25",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s3",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s4",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s5",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s6",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s7",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s8",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        },
+        {
+            "nodeName": "s9",
+            "nodeStatus": 1,
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "balance": "0"
+        }
+    ]
+}
+```
+:::
