@@ -187,7 +187,8 @@ module.exports = {
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/technology/': genSidebarConfig('technology', 'Technology Detail')
+          '/technology/': genSidebarConfig('technology', 'Technology Detail'),
+          '/api/': genSidebarConfig('api', 'RPC interface'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
