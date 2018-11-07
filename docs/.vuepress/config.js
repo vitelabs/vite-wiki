@@ -192,7 +192,7 @@ module.exports = {
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/technology/': genSidebarConfig('technology', 'Technology Detail'),
+          '/tutorial/': genSidebarConfig('tutorial', 'Regulation'),
           '/api/': genSidebarConfig('api', 'RPC interface'),
         },
         algolia: {
