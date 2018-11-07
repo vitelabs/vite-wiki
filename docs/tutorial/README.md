@@ -6,51 +6,50 @@
 
 ### The introduction of TestNet v0.1
 
-* 0.1测试网络相关产品 [soliury]
-* 0.1测试网络涵盖的功能 [soliury]
+* 0.1 TestNet products [soliury]
+* 0.1 TestNet features [soliury]
 
 ### Wallet related
 
-* HD钱包
-* go-vite运行指南（win/mac/linux）
-* iOS钱包和web钱包的使用指南
-* 如何备份钱包（web钱包、桌面钱包、go-vite、iOS）
-* 全节点下如何管理钱包
-* 如何管理百万个地址
+* HD wallet
+* go-vite operation guide（win/mac/linux）
+* iOS wallet and web wallet guide
+* How to backup wallet(web wallet, desktop wallet, go-vite, iOS)
+* How to manage wallet in full node
+* How to manage millions of addresses
 
 ### Node
 
-* 超级节点挖矿规则
-* 全节点奖励规则
+* Super node mining rules
+* Full node reward rules
 
 ### How to run a node
 
-* 构建指南
-* 如何运行一个超级节点
-* 命令行教程
-* 配置文件教程
-* vite相关文件夹
-* 如何查看log
+* Build Guide
+* How to run a super node
+* Command line tutorial
+* Configuration tutorial
+* Vite folder
+* How to view the log
 
 ### Quota
 
-* 解释什么是配额
-* 配额使用规则
+* What is quota
+* Quota rules
 * POW
 
 ### Contract
 
-* 超级节点注册
-* 超级节点投票
-* 抵押Vite
-* 创建委托共识组
-* 铸币
+* Super node registration
+* Super node voting
+* Staking
+* Creating a delegated consensus group
+* Token forging
 
 ### Contribution & Feedback
 
-* 如何贡献代码
-* 代码规范
-* 如何反馈问题和如何debug
-
+* How to contribute code
+* Code specification
+* How to ask questions and how to debug
 
 [soliury]: <https://github.com/soliury>
