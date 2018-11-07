@@ -164,7 +164,6 @@ sidebarDepth: 4
   5. `withdrawHeight`: `uint64`  抵押到期高度
   6. `withdrawTime`: `uint64`  预计抵押到期时间
   7. `cancelHeight`: `uint64`  抵押取消时间，值大于0时表示已注销
-  8. `minRewardTime`: `bint64`  最小可提取奖励的时间
 
 - **Example**:
 
@@ -197,56 +196,8 @@ sidebarDepth: 4
       "withdrawHeight": 100,
       "withdrawTime":1541573925,
       "cancelHeight":0,
-      "minRewardTime": 1541573925
     }
    ]
-}
-```
-:::
-
-### register_getReward
-查询注册信息列表
-
-- **Parameters**: 
-
-  * `Gid`: 共识组id
-  * `string`: 共识组名称
-
-- **Returns**: 
-
-`Object`
-  1. `reward`: `string`  本次可提取奖励金额
-  2. `startTime`: `int64`  本次提取开始时间
-  3. `endTime`: `int64`  本次提取结束时间
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getReward",
-   "params": [
-      "00000000000000000001",
-      "super"
-    ]
-}
-```
-
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": 
-    {
-      "reward": "25684931506849315065",
-      "startTime": "1540200222",
-      "endTime": "1541576022"
-    }
 }
 ```
 :::
