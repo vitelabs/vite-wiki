@@ -1,15 +1,15 @@
-# 大纲
+# Outline
 
-## 大纲（TODO LIST）
+## Outline（TODO LIST）
 
 各自认领自己负责的模块，然后把名字添加到列表后面
 
-### 测试网络0.1介绍
+### The introduction of TestNet v0.1
 
 * 0.1测试网络相关产品 [soliury]
 * 0.1测试网络涵盖的功能 [soliury]
 
-### 钱包相关
+### Wallet related
 
 * HD钱包
 * go-vite运行指南（win/mac/linux）
@@ -18,12 +18,12 @@
 * 全节点下如何管理钱包
 * 如何管理百万个地址
 
-### 节点
+### Node
 
 * 超级节点挖矿规则
 * 全节点奖励规则
 
-### 节点运行教程
+### How to run a node
 
 * 构建指南
 * 如何运行一个超级节点
@@ -32,13 +32,13 @@
 * vite相关文件夹
 * 如何查看log
 
-### 配额
+### Quota
 
 * 解释什么是配额
 * 配额使用规则
 * POW
 
-### 内置合约
+### Contract
 
 * 超级节点注册
 * 超级节点投票
@@ -46,7 +46,7 @@
 * 创建委托共识组
 * 铸币
 
-### 反馈和贡献
+### Contribution & Feedback
 
 * 如何贡献代码
 * 代码规范

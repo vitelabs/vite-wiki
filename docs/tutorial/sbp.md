@@ -1,22 +1,22 @@
-# 超级节点hahhaha
+# SBP (Snapshot Block Producer)
 
 ::: tip
-本文主要描述有关超级节点相关规则，并非详细的技术文档，详细技术文档会在技术黄皮书里提及。
+This article essentially describes the rules related to SBPs, not the technical documents in detail, detailed technical documents might be found in the yellow book.
 
-相关词汇解释：
-* **SBP**： Snapshot Block Producer，指超级节点。
-* **抵押**： 指账户中的一部分vite被冻结，无法交易，无法使用。
-* **一个轮次**： 指每过一段时间会重新统计票数，一轮次时间为：75s，每个轮次理论上有75个块产生。
-* **一个周期**： 指1152轮次，约一天。
-* **SBP注册地址**：指注册超级节点时的交易发起方，也就是抵押发起方。
-* **SBP运行地址**：指运行超级节点时，服务器上配置的地址。
+The Definitions of Terms:
+* **SBP**: Snapshot Block Producer
+* **Stake**: Parts of VITE tokens are locked up, cannot be transferred and used.
+* **A round**: The VITE system will recalculate the polls periodically, each round will be 75s and theoretically generate 75 blocks.
+* **A circle**: Refers to 1152 rounds, approximately one day.
+* **The registration address of SBP**: Refers to the transaction initiator when registering SBP, in other words, staking initiator.
+* **The running address of SBP**: Refers to the address configured on server when running SBP.
 :::
 
-Vite 快照链采用和DPOS共识算法，在核心逻辑上和BTS的DPOS算法一致，Vite 在这之上做了些许改进。
+Vite introduces Snapshot Chain technology and DPoS consensus algorithm and is consistent with the DPoS algorithm of BTS in core logic. Based on current technology, Vite has made a bit more improvement.
 
-**相关改动简要如下（详细规则请阅读下文）**：
+**The relevant modifications are as follows (For detailed rules, please read the article below)**:
 
-* **SBP注册**：注册SBP需要抵押100万的vite（测试网络需要抵押50万 vite）
+* **SBP Registration**：注册SBP需要抵押100万的vite（测试网络需要抵押50万 vite）
 * **出块权**：每一轮：随机选出前25个节点中的23个节点出块，随机选择排名26-100名中的2个节点出块
 * **出块奖励**：出块奖励的50%分配给出块者，50%分配给前100名超级节点（按投票数权重来计算）
 
