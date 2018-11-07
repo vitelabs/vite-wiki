@@ -164,10 +164,7 @@ sidebarDepth: 4
   5. `withdrawHeight`: `uint64`  抵押到期高度
   6. `withdrawTime`: `uint64`  预计抵押到期时间
   7. `cancelHeight`: `uint64`  抵押取消时间，值大于0时表示已注销
-  8. `availableReward`: `big.Int`  可提取的出块奖励（不包含最近30分钟的出块奖励）
-  9. `availableRewardOneTx`: `big.Int`  一次交易可提取的出块奖励（不包含最近30分钟的出块奖励），从上一次提取到的高度开始，90天的出块奖励，如果不满90天，则availableRewardOneTx=availableReward
-  10. `rewardStartHeight`: `uint64` 上一次提取出块奖励时提取到的高度
-  11. `rewardEndHeight`: `uint64`  本次提取出块奖励时可提取到的高度
+  8. `minRewardTime`: `bint64`  最小可提取奖励的时间
 
 - **Example**:
 
@@ -198,10 +195,57 @@ sidebarDepth: 4
       "pledgeAddr": "",
       "pledgeAmount": 100000000000,
       "withdrawHeight": 100,
-      "availableReward": 1051200000,
-      "availableRewardOneTx": 1051200000,
-      "rewardStartHeight": 1,
-      "rewardEndHeight": 100
+      "withdrawTime":1541573925,
+      "cancelHeight":0,
+      "minRewardTime": 1541573925
+    }
+   ]
+}
+```
+:::
+
+### register_getReward
+查询注册信息列表
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `string`: 共识组名称
+
+- **Returns**: 
+
+`Object`
+  1. `reward`: `string`  本次可提取奖励金额
+  2. `startTime`: `int64`  本次提取开始时间
+  3. `endTime`: `int64`  本次提取结束时间
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getReward",
+   "params": [
+      "00000000000000000001",
+      "super"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": [
+    {
+      "reward": "25684931506849315065",
+      "startTime": "1540200222",
+      "endTime": "1541576022"
     }
    ]
 }
