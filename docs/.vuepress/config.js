@@ -42,7 +42,6 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         '',
-        'wallet',
         'start/',
         'start/introduction',
       ]
@@ -171,10 +170,10 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          {
-            text: 'Tutorial',
-            link: '/tutorial/'
-          },
+          // {
+          //   text: 'Tutorial',
+          //   link: '/tutorial/'
+          // },
           {
             text: 'API',
             items: [
@@ -192,7 +191,7 @@ module.exports = {
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/tutorial/': genSidebarConfig('tutorial', 'Regulation'),
+          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Regulation'),
           '/api/': genSidebarConfig('api', 'RPC interface'),
         },
         algolia: {
