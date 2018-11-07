@@ -1,77 +1,77 @@
-# 配额
+# Quota
 
 ::: tip
-本文主要描述配额相关逻辑，并非详细的技术文档，详细技术文档会在技术黄皮书里提及。
+Please note this document is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
 
-相关词汇解释：
-* **配额**： 在Vite系统中，交易时使用配额来支付计算和存储资源。
-* **${\rm PoW}$**： 即工作量证明（Proof of Work），简单来说就是用来证明进行了一定量的计算。
-* **抵押**： 指账户中的一部分${\it vite}$被冻结，无法交易，无法使用。
-* **抵押地址**：指抵押发起方。
-* **配额受益地址**：指抵押成功后获得配额的账户地址。
+Related terms:
+* **Quota**： In Vite system, transactions consume quota for exchanging computing and storage resources.
+* **${\rm PoW}$**： Proof of Work, used to prove that a certain amount of computation are performed.
+* **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
+* **Staking address**：The account who starts the staking transaction.
+* **Staking beneficiary address**：The account who obtains the quota.
 :::
 
-## 什么是配额
+## What is quota
 
-在以太坊的设计中，每个交易在发起时需要指定gas和gas price,从而与其他交易竞争写入账本的机会。这是一个典型的竞价模型，原则上可以通过价格有效调控供给和需求的平衡。但由于用户在出价之前，很难量化当前的供需情况，也无法预测其他竞争者的出价，很容易发生市场失灵（market failure）。而且，每次出价所竞争的资源都是针对一个交易的，没有一个按账户维度对资源进行合理配置的协议。
+In Ethereum, each transaction has to specify gas and gas price as transaction fee to compete with others to write the ledger. This is a typical bidding model. In principle, the gap between supply and demand can be effectively balanced by price. However, because it is difficult for users to determine the current supply and demand before bidding, and also not possible to predict the bids of other competitors, market failure could be caused in ease. Moreover, all of the competing bids are simply applying on transactions. There is no protocol to allocate TPS resources by account.
+In Vite, a certain amount of quota is consumed when the user starts a transaction, such as transfer, deploying new smart contract, invoking contract method, forging new token, registering super node, retrieving mining rewards, voting and staking. Vite introduces a quota model to achieve the balance between supply and demand.
 
-在Vite中，当用户发起一笔交易，即发起转账交易、部署合约、调用合约方法、发行新代币、注册超级节点、提取出块奖励、投票、抵押时，需要消耗一定的配额。Vite通过配额模型来调整供需平衡。
+Users are able to acquire quota in two ways:
+* Compute a ${\rm PoW}$ when sending a transaction;
+* Stake a certain amount of ${\it vite}$ in the account.
 
-用户可以通过两种方式来获取更高的资源配额：
-* 在发起交易时计算一个${\rm PoW}$；
-* 在账户中抵押一定数量的${\it vite}$。
+If the user only needs to send a transaction, he may calculate a ${\rm PoW}$ to get an one-time quota.
+If the user need send transactions frequently, he should stake a certain amount of ${\it vite}$ to obtain more quota.
 
-如果用户希望一次性地发起一笔交易，可以选择计算一个${\rm PoW}$来一次性的获取配额；如果希望频繁发起交易，可以抵押一定数量的${\it vite}$来获取持久的配额。
+Vite advocates users to obtain quota by staking.
 
-Vite提倡用户通过抵押的方式来获取配额。
+## Quota usage rules
 
-## 配额使用规则
-用户发起的交易类型不同，所需的配额也不同，测试网络中，各种交易类型所需的配额见下表：
+Different transaction type consumes different amount of quota. In Vite TestNet, the quota required for various transaction types are as follows:
 
-|  交易类型  | 所需配额 |
+|  Transaction type  | Quota consumed |
 |:------------:|:-----------:|
-| 不带备注的转出交易 | 21000 |
-| 转入交易 | 21000 |
-| 注册超级节点交易 | 62200 |
-| 更新注册信息交易 | 62200 |
-| 注销超级节点交易 | 83200 |
-| 提取出块奖励交易 | 238800 |
-| 投票交易 | 62000 |
-| 撤销投票交易 | 62000 |
-| 抵押获取配额交易 | 21000 |
-| 撤销抵押交易 | 21000 |
-| 铸币交易 | 83200 |
-| 撤回铸币抵押交易 | 83200 |
+| Transfer-out without annotation | 21000 |
+| Transfer-in | 21000 |
+| Register super node | 62200 |
+| Update super node registration | 62200 |
+| Cancel super node registration | 83200 |
+| Retrieve mining rewards | 238800 |
+| Vote | 62000 |
+| Cancel voting | 62000 |
+| Stake for quota | 21000 |
+| Cancel staking | 21000 |
+| Forge token | 83200 |
+| Cancel token forging | 83200 |
 
-另外，对于转账交易中的备注，每个字符都需要收取额外的配额，每个0字符收取4配额，每个非0字符收取68配额。
+In addition, each character in the annotation of the transfer transaction consumes additional quota, 4 for zero character and 68 for each non-zero character.
 
-例如，如果用十六进制编码来表示备注，发起一笔备注为0x0001（共两个字符，第一个字符为0，第二个字符非0）的转账交易，需要的配额为：
+For example, if hex encoding is used, to send a transfer transaction with annotation of 0x0001 (having two characters in total while the first is zero and the second is non-zero). The required quota is:
 
 $${\it Q} = 21000 + 4 * 1 + 68 * 1 = 21072$$
 
-## 配额计算逻辑
+## Quota calculation
 
-配额可以通过下面的公式来计算：
+Quota are calculated by the following formula:
 
 $${\it Q}={\it Qm} \times (1- \frac{2}{1+e^{\xi d \times \rho d +\xi s \times T \times \rho s}})$$
 
-其中，
-* ${\it Q}$: 一个账户的当前可用配额；
-* ${\it Qm}$: 单个账户配额上限，和系统总吞吐以及账户总数相关；
-* $\xi d$: 用户在发起一笔交易时计算出的${\rm PoW}$难度；
-* $\rho d$: 通过计算${\rm PoW}$获取配额的权重；
-* $\xi s$: 账户受益的抵押${\it vite}$数量；
-* $T$: 发起交易前等待的时间；
-* $\rho s$: 抵押获取配额的权重。
+* ${\it Q}$: The current available quota of the account;
+* ${\it Qm}$: The quota cap of a single account, relevant to total system throughput and total number of accounts;
+* $\xi d$: The ${\rm PoW}$ difficulty computed by the account when sending a transaction;
+* $\rho d$: The weight of the quota obtained by computing ${\rm PoW}$;
+* $\xi s$: The amount of ${\it vite}$ staked by the account;
+* $T$: The waiting time before sending a transaction;
+* $\rho s$: The weight of the quota obtained by staking.
 
-目前测试网络中，各参数取值如下：
+In the TestNet, some parameters are specified as constant, as follows:
 * ${\it Qm}$ = 1000000
 * $\rho d$ = 6.259419649e-10
 * $\rho s$ = 4.200627522e-24
 
-为了计算方便，实际计算配额时，只计算$(\xi d \times \rho d +\xi s \times T \times \rho s)$的值，并将计算结果分段映射成相应的配额。映射表如下：
+For the convenience in real calculation, only the value of $(\xi d \times \rho d +\xi s \times T \times \rho s)$ is calculated. The result is mapped into corresponding quota based on the following table:
 
-|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | 每等待一个快照块能发起的不带备注交易数量 | 大约相当于在不算${\rm PoW}$的情况下抵押多少${\it vite}$ |
+|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | The number of un-annotated transactions that can be sent by waiting a snapshot block | Approximately equivalent to how much ${\it vite}$ is staked without computing ${\rm PoW}$|
 |:------------:|:-----------:|:-----------:|:-----------:|
 | 0.0 | 0 | 0 | 0 |
 | $(0.0, 0.042006175634155006]$ | 21000 | 1 | 10000 |
@@ -122,69 +122,65 @@ $${\it Q}={\it Qm} \times (1- \frac{2}{1+e^{\xi d \times \rho d +\xi s \times T 
 | $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 965904 |
 | $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 1197296 |
 
-即，在不计算${\rm PoW}$的情况下，抵押10000${\it vite}$可以获得最高1${\rm TPS}$的交易频率，抵押20009可以获得最高2${\rm TPS}$的交易频率。抵押10${\it vite}$等待1000个快照块（16分钟40秒）也可以发起一笔不带备注的转账交易。
+In other words, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should meet the transaction frequency of up to 1${\rm TPS}$ and staking 20009 can allow maximum 2${\rm TPS}$. Staking 10${\it vite}$ and waiting 1000 snapshot blocks (16 minutes and 40 seconds) also support to send a transfer transaction without annotation.
+## Two ways of obtaining quota
 
-## 获取配额的两种方式
+### Staking
 
-### 抵押
+Users can obtain quota by sending a staking transaction to the built-in staking contract. When the transaction is received and confirmed, the staking beneficiary account will be granted with the corresponding quota.
 
-用户可以发起一笔抵押交易来获取配额。抵押时，由抵押地址发起一笔抵押交易（实际上是调用内置合约），当该交易被内置合约接收并被快照链打包确认后，抵押受益账户就能获取到相应的配额。
+#### Parameters
+* Staking amount: The minimum staking amount is 10${\it vite}$.
+* Staking beneficiary address: The account that obtains quota, could be staking account or any other account. In other words, staking for others is permitted.
 
-#### 参数
-* 抵押金额：抵押金额最少为10${\it vite}$。
-* 配额受益地址：抵押成功后获取配额的账户，可以填写抵押地址，也可以填写其他账户地址。即Vite允许给别人抵押。
+The staking account can retrieve the staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. When the transaction is received and confirmed, the staking beneficiary account will lose the corresponding quota.
 
-抵押账户可以在抵押成功后等待259200个快照块（大约3天），取回抵押的金额。取回抵押时，同样由抵押地址发起一笔撤销抵押的交易，当该交易被内置合约接收并被快照链打包确认后，抵押受益账户也就不再能获得相应的配额。
+### Computing PoW
 
-### 计算PoW
+The user can obtain an one-time quota by computing a ${\rm PoW}$ when sending a transaction. According to the formula, the expected ${\rm PoW}$ difficulty is 0x3FFFFFF for sending an un-annotated transfer transaction in the absence of staking,.
+In the TestNet, Vite will provide a pool that calculates ${\rm PoW}$.
 
-用户可以在发起一笔交易时计算一个${\rm PoW}$来一次性获取配额。根据配额公式，在没有抵押的情况下，要发起一笔不带备注的转账交易，需要计算的${\rm PoW}$难度为 0x3FFFFFF。
+#### PoW formula
 
-测试网络中，Vite会提供计算${\rm PoW}$的矿池。
-
-#### PoW计算公式
-
-1. 首先将$difficulty$转换为$target$，计算公式为：
+1. Convert $difficulty$ to $target$ in following formula:
 
 $target$ = 2**256 / (1 + 1/$difficulty$)
 
-其中，
-* $difficulty$: ${\rm PoW}$难度，长度为256位的数字，不足256位时前面补0；
-* $target$: ${\rm PoW}$目标，长度为256位的数字，通常第0位为1。
+* $difficulty$: ${\rm PoW}$ difficulty, 256-bit number, padding zeros at front when less than 256 bits;
+* $target$: ${\rm PoW}$ target, 256-bit number, usually the first bit is 1.
 
-例如，当$difficulty$ = 0x3FFFFFF 时，对应的$target$ = 0xFFFFFFC000000000。
+For example, when $difficulty$ = 0x3FFFFFF, the $target$ = 0xFFFFFFC000000000.
 
-2. 然后根据交易数据计算$nonce$，$nonce$即为工作量证明，计算时，不断将随机数赋值给$nonce$，直到满足下面的条件：
+2. Calculate $nonce$ based on the transaction data. $nonce$ is the proof of work. To calculate ${\rm PoW}$, a random number is continuously assigned to $nonce$ until the following conditions are met:
 
 $$blake2b(address+prevHash) + nonce < target$$
 
-其中，
-* $blake2b$: Vite使用的哈希函数
-* $address$: 用户账户的地址
-* $prevHash$: 用户账户中最后一个账户块的哈希
+* $blake2b$: The hash function
+* $address$: The user account address
+* $prevHash$: The hash of previous account block
 
 ## FAQ
 
-* 一个抵押地址能否给多个配额受益地址抵押？
+* Can an address stake for multiple beneficiary addresses?
 
-可以。每一个配额受益地址的抵押到期时间不同。
+Yes. The staking expiration time of each beneficiary address is different.
 
-* 一个抵押地址能否多次给同一个配额受益地址抵押？
+* Can an address stake for the same beneficiary address multiple times?
 
-可以。抵押到期的高度为最后一次抵押被内置合约接收时引用的快照块高度+259200。
+Yes. The height of staking expiration is 259200 + the height of the snapshot block referenced when the last staking transaction was received by the built-in contract.
 
-* 抵押给一个配额受益地址的${\it vite}$是否可以分批取回？
+* Can ${\it vite}$, which is staked to a beneficiary address, be retrieved in multiple times?
 
-可以。抵押到期后可以分批取回，取回操作不影响到期时间。
+Yes. After a staking expires, the staked ${\it vite}$ can be retrieved in multiple times. This does not affect the expiration time.
 
-* 抵押还没到期是否可以取回？
+* Is the staking retrievable if it has not expired yet?
 
-不可以。但抵押到期后随时可以取回。
+No. However, the staking can be retrieved at any time after it expires.
 
-* 入账交易是否需要消耗配额？
+* Does the receiving transaction consume quota?
 
-需要，一笔入账交易需要消耗21000配额。
+Yes, a receiving transaction needs to consume 21,000 quota.
 
-* 一个账户收到的第一笔转账交易，在没有抵押的情况下，怎么接收？
+* How to receive the first transaction on a new account without staking?
 
-如果没有抵押，可以计算${\rm PoW}$来一次性获取配额。
+If you don't have ${\it vite}$ to stake, instead, you can calculate ${\rm PoW}$ to get quota once.
