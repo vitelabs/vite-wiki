@@ -209,10 +209,10 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
         nav: [
-          {
-            text: '介绍',
-            link: '/zh/introduction/',
-          },
+          // {
+          //   text: '介绍',
+          //   link: '/zh/introduction/',
+          // },
           {
             text: '教程',
             link: '/zh/tutorial/'
