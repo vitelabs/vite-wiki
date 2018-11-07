@@ -170,10 +170,10 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          // {
-          //   text: 'Tutorial',
-          //   link: '/tutorial/'
-          // },
+          {
+            text: 'Tutorial',
+            link: '/tutorial/'
+          },
           {
             text: 'API',
             items: [
