@@ -170,19 +170,20 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          // {
-          //   text: 'Technology Detail',
-          //   link: '/technology/'
-          // },
-          // {
-          //   text: 'API',
-          //   items: [
-          //     {
-          //       text: 'go-vite',
-          //       link: '/api/go-vite/'
-          //     }
-          //   ]
-          // }
+          {
+            text: 'API',
+            items: [
+              {
+                text: 'RPC interface',
+                link: '/api/rpc/'
+              }
+            ]
+          }
+         /* // {
+            text: 'Technology Detail',
+            link: '/technology/'
+          },
+          */
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
