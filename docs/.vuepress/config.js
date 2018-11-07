@@ -42,6 +42,7 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         '',
+        'wallet',
         'start/',
         'start/introduction',
       ]
@@ -121,15 +122,15 @@ module.exports = {
     }
   },
   head: [
-    ['link', { rel: 'icon', href: `/icon.png` }],
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
-    ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
-    ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
-    ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+    ['link', {rel: 'icon', href: `/icon.png`}],
+    ['link', {rel: 'manifest', href: '/manifest.json'}],
+    ['meta', {name: 'theme-color', content: '#3eaf7c'}],
+    ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
+    ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}],
+    ['link', {rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png`}],
+    ['link', {rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c'}],
+    ['meta', {name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png'}],
+    ['meta', {name: 'msapplication-TileColor', content: '#000000'}]
   ],
   configureWebpack: {
     resolve: {
@@ -174,21 +175,25 @@ module.exports = {
             text: 'Tutorial',
             link: '/tutorial/'
           },
-
           {
             text: 'API',
             items: [
               {
-                text: 'RPC',
+                text: 'RPC interface',
                 link: '/api/rpc/'
               }
             ]
           }
+          /* // {
+             text: 'Technology Detail',
+             link: '/technology/'
+           },
+           */
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Regulation'),
-          '/api/': genSidebarConfig('api', 'RPC')
+          '/technology/': genSidebarConfig('technology', 'Technology Detail'),
+          '/api/': genSidebarConfig('api', 'RPC interface'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -256,7 +261,7 @@ module.exports = {
   }
 }
 
-function genSidebarConfig (nav, ...titles) {
+function genSidebarConfig(nav, ...titles) {
   return sidebarConfigs[nav].map((item, index) => {
     return Object.assign({}, item, {
       title: titles[index]

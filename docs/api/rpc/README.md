@@ -82,4 +82,4 @@ You can also setup configuration with a config file `vite.config.json`. For exam
 
 |  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |pending|&#x2713;|
+| &#x2713;|  &#x2713; |  &#x2713; |future version|&#x2713;|
