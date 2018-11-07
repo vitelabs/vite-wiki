@@ -102,7 +102,7 @@ const sidebarConfigs = {
       ]
     }
   ]
-}
+};
 
 
 module.exports = {
@@ -170,23 +170,25 @@ module.exports = {
             text: 'Introduction',
             link: '/introduction/',
           },
-          // {
-          //   text: 'Technology Detail',
-          //   link: '/technology/'
-          // },
-          // {
-          //   text: 'API',
-          //   items: [
-          //     {
-          //       text: 'go-vite',
-          //       link: '/api/go-vite/'
-          //     }
-          //   ]
-          // }
+          {
+            text: 'Tutorial',
+            link: '/tutorial/'
+          },
+
+          {
+            text: 'API',
+            items: [
+              {
+                text: 'RPC',
+                link: '/api/rpc/'
+              }
+            ]
+          }
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/technology/': genSidebarConfig('technology', 'Technology Detail')
+          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Regulation'),
+          '/api/': genSidebarConfig('api', 'RPC')
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -261,3 +263,5 @@ function genSidebarConfig (nav, ...titles) {
     })
   })
 }
+
+
