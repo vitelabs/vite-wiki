@@ -1,0 +1,253 @@
+---
+sidebarDepth: 4
+---
+
+# Register
+## viteLiz
+The built-in super node registration contract. Contract address: vite_0000000000000000000000000000000000000001c9e9f25417
+
+## Description
+
+**Supported protocol:**
+
+|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
+|:------------:|:-----------:|:-----:|:-----:|:-----:|
+| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
+
+## API
+
+### register_getRegisterData
+Return the composed request data to register a new super node
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID
+  * `string`: The node name of block producer
+  * `Address`: The account address of block producer
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRegisterData",
+   "params": [
+      "00000000000000000001",
+      "super", 
+      "vite_080b2d68a06f52c0fbb454f675ee5435fb7872526771840d22", 
+    ]
+}
+```
+
+:::
+
+### register_getCancelRegisterData
+Return the composed request data to cancel an existing registration
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID
+  * `string`: The node name of block producer
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getCancelRegisterData",
+   "params": [
+      "00000000000000000001",
+      "super"
+    ]
+}
+```
+
+:::
+
+### register_getRewardData
+Return the composed request data to retrieve mining rewards. Rewards mined within 90 days since the last retrieval block are retrieved per request. All rewards except mined in recent 30 minutes will be retrieved if the height between last retrieval block and current block is less than 90 days. Rewards mined within latest 30 minutes are not allowed to retrieve.
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID
+  * `string`: The node name of block producer
+  * `Address`: The address of account to receive rewards
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRewardData",
+   "params": [
+      "00000000000000000001", 
+      "super",
+      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+    ]
+}
+```
+
+:::
+
+### register_getUpdateRegistrationData
+Return the composed request data to update the information of an existing registration
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID, must be the same value as registered
+  * `string`: The node name of block producer, must be the same value as registered
+  * `Address`: The account address of new block producer
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getUpdateRegistrationData",
+   "params": [
+      "00000000000000000001", 
+      "super",
+      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+    ]
+}
+```
+
+:::
+
+### register_getRegistrationList
+Return the registered super node list
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID
+  * `Address`: The staking account address
+
+- **Returns**: 
+
+`Array&lt;RegistartionInfo&gt;`
+  1. `name`: `string`  The node name of block producer
+  2. `nodeAddr`: `Address`  The account address of block producer
+  3. `pledgeAddr`: `Address`  The staking account address
+  4. `pledgeAmount`: `big.Int`  The staking amount
+  5. `withdrawHeight`: `uint64`  The due height of staking
+  6. `withdrawTime`: `uint64`  The estimated due time of staking
+  7. `cancelHeight`: `uint64`  The cancellation time of staking. If the value is greater than 0, it implies that the staking has already been cancelled.
+  8. `availableReward`: `big.Int`  The retrievable mining rewards. Rewards mined in latest 30 minutes are not included.
+  9. `availableRewardOneTx`: `big.Int`  The retrievable mining rewards in a transaction, equivalent to the rewards mined within 90 days since the height of last retrieval block. The value is equal to `availableReward` if the height between last retrieval block and current block is less than 90 days.
+  10. `rewardStartHeight`: `uint64` The height of block to which mining rewards were retrieved last time
+  11. `rewardEndHeight`: `uint64`  The height of block to which mining rewards can be retrieved currently
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRegistrationList",
+   "params": [
+      "00000000000000000001",
+      "vite_080b2d68a06f52c0fbb454f675ee5435fb7872526771840d22"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": [
+    {
+      "name": "super",
+      "nodeAddr": "",
+      "pledgeAddr": "",
+      "pledgeAmount": 100000000000,
+      "withdrawHeight": 100,
+      "availableReward": 1051200000,
+      "availableRewardOneTx": 1051200000,
+      "rewardStartHeight": 1,
+      "rewardEndHeight": 100
+    }
+   ]
+}
+```
+:::
+
+### register_getCandidateList
+Return the candidate list
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID
+
+- **Returns**: 
+
+`Array&lt;CandidateInfo&gt;`
+  1. `name`: `string`  The node name of block producer
+  2. `nodeAddr`: `Address`  The account address of block producer
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getCandidateList",
+   "params": [
+      "00000000000000000001"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": [
+    {
+      "name": "super",
+      "nodeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
+    }
+   ]
+}
+```
+:::
