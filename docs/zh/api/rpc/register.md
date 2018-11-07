@@ -241,13 +241,12 @@ sidebarDepth: 4
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "result": [
+   "result": 
     {
       "reward": "25684931506849315065",
       "startTime": "1540200222",
       "endTime": "1541576022"
     }
-   ]
 }
 ```
 :::
