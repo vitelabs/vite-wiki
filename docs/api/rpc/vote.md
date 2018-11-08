@@ -4,25 +4,25 @@ sidebarDepth: 4
 
 # Vote
 ## viteLiz
-出块节点投票内置合约，合约账户地址：vite_000000000000000000000000000000000000000270a48cc491
+The built-in voting contract. Contract address：vite_000000000000000000000000000000000000000270a48cc491
 
-## 说明
+## Description
 
-**支持调用方式：**
+**Supported protocols:**
 
 |  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
+| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
 ## API
 
 ### vote_getVoteData
-获取为出块节点投票交易请求数据
+Return the composed request data to vote for the super node
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id
-  * `string`: 出块节点名称
+  * `Gid`: Consensus group ID
+  * `string`: The super node name
 
 - **Returns**: 
 	- `[]byte` Data
@@ -48,11 +48,11 @@ sidebarDepth: 4
 :::
 
 ### vote_getCancelVoteData
-获取为出块节点投票交易请求数据
+Return the composed request data to cancel voting
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id
+  * `Gid`: Consensus group ID
 
 - **Returns**: 
 	- `[]byte` Data
@@ -75,19 +75,19 @@ sidebarDepth: 4
 :::
 
 ### vote_getVoteInfo
-查询用户当前投票信息
+Return the voting information of the account
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id
-  * `Address`: 用户账户地址
+  * `Gid`: Consensus group ID
+  * `Address`: The account address
 
 - **Returns**: 
 
 `Object`
-  1. `nodeName`: `string`  出块节点名称
-  2. `nodeStatus`: `uint8`  出块节点注册状态：1 有效 2 无效
-  3. `balance`: `big.Int`  用户账户余额
+  1. `nodeName`: `string`  The super node name
+  2. `nodeStatus`: `uint8`  The super node status - 1 valid, 2 invalid
+  3. `balance`: `big.Int`  The account balance
   
 - **Example**:
 

@@ -6,7 +6,7 @@ Please note this document is not a technical document, but mainly describes quot
 Related terms:
 * **Quota**： In Vite system, transactions consume quota for exchanging computing and storage resources.
 * **${\rm PoW}$**： Proof of Work, used to prove that a certain amount of computation are performed.
-* **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
+* **Staking**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
 * **Staking address**：The account who starts the staking transaction.
 * **Staking beneficiary address**：The account who obtains the quota.
 :::
@@ -44,7 +44,7 @@ Different transaction type consumes different amount of quota. In Vite TestNet, 
 | Forge token | 83200 |
 | Cancel token forging | 83200 |
 
-In addition, each character in the annotation of the transfer transaction consumes additional quota, 4 for zero character and 68 for each non-zero character.
+In addition, each character in annotation consumes additional quota - 4 quota for zero character and 68 quota for each non-zero character.
 
 For example, if hex encoding is used, to send a transfer transaction with annotation of 0x0001 (having two characters in total while the first is zero and the second is non-zero). The required quota is:
 
