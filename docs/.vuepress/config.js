@@ -42,7 +42,7 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         '',
-        'wallet',
+        '',
         'start/',
         'start/introduction',
       ]
