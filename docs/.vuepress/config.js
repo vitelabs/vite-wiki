@@ -42,7 +42,6 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         '',
-        '',
         'start/',
         'start/introduction',
       ]
@@ -103,7 +102,7 @@ const sidebarConfigs = {
       ]
     }
   ]
-}
+};
 
 
 module.exports = {
@@ -122,15 +121,15 @@ module.exports = {
     }
   },
   head: [
-    ['link', { rel: 'icon', href: `/icon.png` }],
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
-    ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
-    ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
-    ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+    ['link', {rel: 'icon', href: `/icon.png`}],
+    ['link', {rel: 'manifest', href: '/manifest.json'}],
+    ['meta', {name: 'theme-color', content: '#3eaf7c'}],
+    ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
+    ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}],
+    ['link', {rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png`}],
+    ['link', {rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c'}],
+    ['meta', {name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png'}],
+    ['meta', {name: 'msapplication-TileColor', content: '#000000'}]
   ],
   configureWebpack: {
     resolve: {
@@ -172,6 +171,10 @@ module.exports = {
             link: '/introduction/',
           },
           {
+            text: 'Tutorial',
+            link: '/tutorial/'
+          },
+          {
             text: 'API',
             items: [
               {
@@ -180,15 +183,15 @@ module.exports = {
               }
             ]
           }
-         /* // {
-            text: 'Technology Detail',
-            link: '/technology/'
-          },
-          */
+          /* // {
+             text: 'Technology Detail',
+             link: '/technology/'
+           },
+           */
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/technology/': genSidebarConfig('technology', 'Technology Detail'),
+          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Regulation'),
           '/api/': genSidebarConfig('api', 'RPC interface'),
         },
         algolia: {
@@ -206,10 +209,10 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
         nav: [
-          {
-            text: '介绍',
-            link: '/zh/introduction/',
-          },
+          // {
+          //   text: '介绍',
+          //   link: '/zh/introduction/',
+          // },
           {
             text: '教程',
             link: '/zh/tutorial/'
@@ -257,10 +260,12 @@ module.exports = {
   }
 }
 
-function genSidebarConfig (nav, ...titles) {
+function genSidebarConfig(nav, ...titles) {
   return sidebarConfigs[nav].map((item, index) => {
     return Object.assign({}, item, {
       title: titles[index]
     })
   })
 }
+
+

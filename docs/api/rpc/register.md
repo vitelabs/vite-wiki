@@ -164,10 +164,6 @@ Return the registered super node list
   5. `withdrawHeight`: `uint64`  The due height of staking
   6. `withdrawTime`: `uint64`  The estimated due time of staking
   7. `cancelHeight`: `uint64`  The cancellation time of staking. If the value is greater than 0, it implies that the staking has already been cancelled.
-  8. `availableReward`: `big.Int`  The retrievable mining rewards. Rewards mined in latest 30 minutes are not included.
-  9. `availableRewardOneTx`: `big.Int`  The retrievable mining rewards in a transaction, equivalent to the rewards mined within 90 days since the height of last retrieval block. The value is equal to `availableReward` if the height between last retrieval block and current block is less than 90 days.
-  10. `rewardStartHeight`: `uint64` The height of block to which mining rewards were retrieved last time
-  11. `rewardEndHeight`: `uint64`  The height of block to which mining rewards can be retrieved currently
 
 - **Example**:
 
@@ -198,10 +194,8 @@ Return the registered super node list
       "pledgeAddr": "",
       "pledgeAmount": 100000000000,
       "withdrawHeight": 100,
-      "availableReward": 1051200000,
-      "availableRewardOneTx": 1051200000,
-      "rewardStartHeight": 1,
-      "rewardEndHeight": 100
+      "withdrawTime":1541573925,
+      "cancelHeight":0
     }
    ]
 }
