@@ -162,10 +162,12 @@ sidebarDepth: 4
   3. `pledgeAddr`: `Address`  抵押账户地址
   4. `pledgeAmount`: `big.Int`  抵押金额
   5. `withdrawHeight`: `uint64`  抵押到期高度
-  6. `availableReward`: `big.Int`  可提取的出块奖励（不包含最近30分钟的出块奖励）
-  7. `availableRewardOneTx`: `big.Int`  一次交易可提取的出块奖励（不包含最近30分钟的出块奖励），从上一次提取到的高度开始，90天的出块奖励，如果不满90天，则availableRewardOneTx=availableReward
-  8. `rewardStartHeight`: `uint64` 上一次提取出块奖励时提取到的高度
-  9. `rewardEndHeight`: `uint64`  本次提取出块奖励时可提取到的高度
+  6. `withdrawTime`: `uint64`  预计抵押到期时间
+  7. `cancelHeight`: `uint64`  抵押取消时间，值大于0时表示已注销
+  8. `availableReward`: `big.Int`  可提取的出块奖励（不包含最近30分钟的出块奖励）
+  9. `availableRewardOneTx`: `big.Int`  一次交易可提取的出块奖励（不包含最近30分钟的出块奖励），从上一次提取到的高度开始，90天的出块奖励，如果不满90天，则availableRewardOneTx=availableReward
+  10. `rewardStartHeight`: `uint64` 上一次提取出块奖励时提取到的高度
+  11. `rewardEndHeight`: `uint64`  本次提取出块奖励时可提取到的高度
 
 - **Example**:
 
@@ -218,6 +220,7 @@ sidebarDepth: 4
 `Array&lt;CandidateInfo&gt;`
   1. `name`: `string`  出块节点名称
   2. `nodeAddr`: `Address`  出块账户地址
+  3. `voteNum`: `string`  投票数
 
 - **Example**:
 
@@ -228,7 +231,7 @@ sidebarDepth: 4
 ```json tab:Request
 {  
    "jsonrpc":"2.0",
-   "id":1,
+   "id": 1,
    "method":"register_getCandidateList",
    "params": [
       "00000000000000000001"
@@ -237,15 +240,136 @@ sidebarDepth: 4
 ```
 
 ```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": [
-    {
-      "name": "super",
-      "nodeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
-    }
-   ]
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": [
+        {
+            "name": "s1",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s10",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s11",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s12",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s13",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s14",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s15",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s16",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s17",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s18",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s19",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s2",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s20",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s21",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s22",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s23",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s24",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s25",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s3",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s4",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s5",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s6",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s7",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s8",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        },
+        {
+            "name": "s9",
+            "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "voteNum": "0"
+        }
+    ]
 }
 ```
 :::

@@ -1,5 +1,4 @@
 const path = require('path')
-const markdownConfig = require('./markdown')
 
 const docBranch = process.env.BRANCH || 'master'
 const searchFilter = 'version: ' + docBranch
@@ -43,7 +42,33 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         '',
-        'wallet'
+        'wallet',
+        'start/',
+        'start/introduction',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'wallet/',
+        'wallet/install',
+        'wallet/manage',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'node/install',
+        'node/fullnode',
+        'node/sbp',
+        'node/example',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'sbp',
+        'quota'
       ]
     }
   ],
@@ -107,7 +132,6 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
-  serviceWorker: true,
   configureWebpack: {
     resolve: {
       alias: {
@@ -115,10 +139,18 @@ module.exports = {
       }
     }
   },
-  markdown: {
-     toc: { includeLevel: [2, 3, 4] },
-     config: markdownConfig
-  },
+  plugins: [
+    ['@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
+    }],
+    '@vuepress/medium-zoom',
+    '@vuepress/back-to-top',
+    '@vuepress/i18n-ui',
+    '@vite/vuepress-plugin-mathjax',
+    '@vuepress/plugin-notification',
+    [require('./plugins/tab-code-example')]
+  ],
   themeConfig: {
     editLinks: true,
     docsDir: 'docs',
@@ -134,34 +166,30 @@ module.exports = {
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
-        serviceWorker: {
-          updatePopup: {
-             message: "New content is available.",
-             buttonText: "Refresh"
-          }
-        },
         nav: [
           {
             text: 'Introduction',
             link: '/introduction/',
           },
-          // {
-          //   text: 'Technology Detail',
-          //   link: '/technology/'
-          // },
-          // {
-          //   text: 'API',
-          //   items: [
-          //     {
-          //       text: 'go-vite',
-          //       link: '/api/go-vite/'
-          //     }
-          //   ]
-          // }
+          {
+            text: 'API',
+            items: [
+              {
+                text: 'RPC interface',
+                link: '/api/rpc/'
+              }
+            ]
+          }
+         /* // {
+            text: 'Technology Detail',
+            link: '/technology/'
+          },
+          */
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/technology/': genSidebarConfig('technology', 'Technology Detail')
+          '/technology/': genSidebarConfig('technology', 'Technology Detail'),
+          '/api/': genSidebarConfig('api', 'RPC interface'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -177,12 +205,6 @@ module.exports = {
         selectText: '选择语言',
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
-        serviceWorker: {
-          updatePopup: {
-            message: "发现新内容可用",
-            buttonText: "刷新"
-          }
-        },
         nav: [
           {
             text: '介绍',
@@ -211,11 +233,11 @@ module.exports = {
           }
         ],
         sidebar: {
-          '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
+          // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
           '/zh/api/': genSidebarConfig('api', 'RPC 接口'),
           '/zh/vep/': genSidebarConfig('vep', '提案'),
-          '/zh/tutorial/': genSidebarConfig('tutorial', '教程')
+          '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '规则'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
