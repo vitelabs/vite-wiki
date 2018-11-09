@@ -2,7 +2,7 @@
 ## tiantao
 
 ## testapi_getTestToken
-Acquire Vite testing tokens. This method will send 1-1000 random VTT to the address.
+Acquire Vite testing tokens. This method will send 1-1001 random VTT to the address.
 
 - **Parameters**: 
 `toAddress`: `address` - The account address to receive test tokens

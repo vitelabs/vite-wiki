@@ -1,18 +1,18 @@
 # SBP (Snapshot Block Producer)
 
 ::: tip
-This article essentially describes the rules related to SBPs, not the technical documents in detail, detailed technical documents might be found in the yellow book.
+Please note this document is not a technical document, but mainly describes SBP and SBP-related topics. Technical details will be introduced in the yellow paper.
 
 The Definitions of Terms:
 * **SBP**: Snapshot Block Producer
-* **Stake**: Parts of VITE tokens are locked up, cannot be transferred and used.
-* **A round**: The VITE system will recalculate the polls periodically, each round will be 75s and theoretically generate 75 blocks.
-* **A circle**: Refers to 1152 rounds, approximately one day.
-* **The registration address of SBP**: Refers to the transaction initiator when registering SBP, in other words, staking initiator.
-* **The running address of SBP**: Refers to the address configured on server when running SBP.
+* **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
+* **A round**: Vite system recalculates votes after each round(75 seconds). Ideally, 75 blocks are produced in a round.
+* **A cycle**: Refers to 1152 rounds, approximately one day.
+* **SBP staker address**: Refers to the SBP registration transaction initiator, aka staker.
+* **SBP address**: Refers to the address configured on the SBP server.
 :::
 
-Vite introduces Snapshot Chain technology and DPoS consensus algorithm and is consistent with the DPoS algorithm of BTS in core logic. Based on current technology, Vite has made a bit more improvement.
+Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which is consistent with the DPoS algorithm of BTS in essence. However, compared with original DPoS, Vite has made some improvements.
 
 **The relevant modifications are as follows (For detailed rules, please read the article below)**:
 

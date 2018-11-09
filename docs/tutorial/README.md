@@ -1,13 +1,10 @@
 # Outline
 
-## Outline（TODO LIST）
 
-各自认领自己负责的模块，然后把名字添加到列表后面
+### The introduction of TestNet v1.0.0
 
-### The introduction of TestNet v0.1
-
-* 0.1 TestNet products [soliury]
-* 0.1 TestNet features [soliury]
+* 0.1 TestNet products
+* 0.1 TestNet features
 
 ### Wallet related
 
