@@ -42,6 +42,34 @@ Prepare the Node success!!!
 Start the Node success!!!
 ```
 
+### mac 安装示例
+
+```bash
+## 下载
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-darwin-amd64.tar.gz
+## 解压
+tar -xzvf gvite-1.0.0-darwin-amd64.tar.gz
+## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
+cd gvite-1.0.0-darwin-amd64
+## 启动
+./bootstrap
+```
+
+程序是否正常启动，通过查看启动脚本所在目录的 gvite.log 看日志来确定, 这个文件
+
+```bash
+cat gvite.log
+```
+
+如下说明启动成功
+
+```bash
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+Prepare the Node success!!!
+Start the Node success!!!
+```
+
 ### 目录文件说明
 
 * `gvite`： 执行程序
