@@ -133,18 +133,19 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 ## 超级节点配置说明
 和全节点基本一样，额外需要开启挖矿，并且配置keystore文件。
 
-* 生成keystore文：keystore是助记词加密存储文件，也就是保存了私钥，所以非常重要。keyStore的生成参见keyStore生成方法。
+* 生成keystore文件：keystore是助记词加密存储文件，也就是保存了私钥，所以非常重要。keyStore的生成参见keyStore生成方法。
 
 
 * 修改node_config.json的配置
 在node_config.json 末尾新增4个配置，Miner、CoinBase和EntropyStorePath及EntropyStorePassword
 
 a、增加Miner属性值为 true
-增加 CoinBase为格式为 `索引:地址`的格式，例如 0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
 
-b、增加 EntropyStorePath属性值 为自己的地址，例如vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+b、增加 CoinBase为格式为 `索引:地址`的格式，例如 0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
 
-c、增加EntropyStorePassword属性值为自己的keystore 对应的密码，keyStore 文件生成方法中的输入的123456，`请修改为自己的密码`
+c、增加 EntropyStorePath属性值 为自己的地址，例如vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+
+d、增加EntropyStorePassword属性值为自己的keystore 对应的密码，keyStore 文件生成方法中的输入的123456，`请修改为自己的密码`
 
 完整的示例如下：
 
@@ -177,10 +178,7 @@ c、增加EntropyStorePassword属性值为自己的keystore 对应的密码，ke
 		"vote",
 		"mintage",
 		"consensusGroup",
-		"tx",
-		"debug",
-		"pow",
-		"testapi"
+		"tx"
 	],
 	"Miner": true,
 	"CoinBase": "0:vite_d2fef1e5ffa7d9139bd7c80a672e0530789bac6c7c9ff58dc6",
