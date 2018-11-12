@@ -19,13 +19,13 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 ubuntu:
 ```
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/archive/1.0.0.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-linux-amd64.tar.gz
 ## 解压
-tar -xzvf 1.0.0.tar.gz
-## 进入解压目录，包含三个文件 gvite、gvite-bootstrap 和 node_config.json
-cd 1.0.0.tar.gz
+tar -xzvf gvite-1.0.0-linux-amd64.tar.gz
+## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
+cd gvite-1.0.0-linux-amd64/
 ## 启动
-./gvite-bootstrap
+./bootstrap
 ```
 程序是否正常启动，通过查看启动脚本所在目录的 gvite.log 看日志来确定, 这个文件
 ```
@@ -40,8 +40,8 @@ Start the Node success!!!
 ```
 
 * gvite 执行程序
-* gvite-bootstrap 启动脚本
-* node_config.json 配置文件 [配置说明](https://github.com/vitelabs/go-vite/archive/1.0.0.tar.gz)
+* bootstrap 启动脚本
+* node_config.json 配置文件 [配置说明]()
 
 系统默认端口 8483、8484，需要保证没有被其他程序占用，并且防火墙允许其通信
 ```
@@ -135,10 +135,10 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
 
 2、修改node_config.json的配置
-a、修改Miner 的值为 true
-修改 CoinBase为格式为 `索引:地址`的格式，例如 0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
-b、修改 EntropyStorePath 为自己的地址，例如vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
-c、修改EntropyStorePassword为自己的keystore 对应的密码，keyStore 文件生成方法中的输入的123456，`请修改为自己的密码`
+a、增加Miner 的值为 true
+增加 CoinBase为格式为 `索引:地址`的格式，例如 0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+b、增加 EntropyStorePath 为自己的地址，例如vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+c、增加EntropyStorePassword为自己的keystore 对应的密码，keyStore 文件生成方法中的输入的123456，`请修改为自己的密码`
 
 3、重启全节点即可
 找到进程
