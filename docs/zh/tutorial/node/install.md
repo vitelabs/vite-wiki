@@ -40,6 +40,7 @@ Prepare the Node success!!!
 Start the Node success!!!
 ```
 -----
+
 目录文件说明
 * gvite 执行程序
 * bootstrap 启动脚本
