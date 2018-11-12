@@ -151,8 +151,9 @@ sidebarDepth: 4
 
 :::
 
-## wallet_listEntropyStoreAddresses
-列出该EntropyStroe下指定范围内的地址
+
+### wallet_listEntropyStoreAddresses
+列出该EntropyStore下指定范围内的地址
 
 - **Parameters**: 
 	- `string`: 地址或者文件名
@@ -503,8 +504,9 @@ sidebarDepth: 4
 
 
 :::
-## wallet_globalFindAddr
-在已经解锁的EntropyStore中搜索某个地址
+
+### wallet_globalFindAddr
+全局搜索某个地址
 
 - **Parameters**:  
 	 * `string`:`address`： 具体的地址
@@ -558,8 +560,9 @@ sidebarDepth: 4
 
 
 :::
-## wallet_addEntropyStore
-增加某个EntropyStore文件，可以用于应用非标准目录下托管的entropystore文件
+
+### wallet_addEntropyStore
+增加某个EntropyStore文件，可以用于应用非标准目录下托管的EntropyStore文件
 
 - **Parameters**:  
 	- `string`: `Primry address` 或者 `EntropyStore abs filepath`

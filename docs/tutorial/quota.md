@@ -3,12 +3,12 @@
 ::: tip
 Please note this document is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
 
-Related terms:
+The Definitions of Terms:
 * **Quota**： In Vite system, transactions consume quota for exchanging computing and storage resources.
 * **${\rm PoW}$**： Proof of Work, used to prove that a certain amount of computation are performed.
 * **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
-* **Staking address**：The account who starts the staking transaction.
-* **Staking beneficiary address**：The account who obtains the quota.
+* **Stake address**：The account who starts the stake transaction.
+* **Stake beneficiary address**：The account who obtains the quota.
 :::
 
 ## What is quota
@@ -44,7 +44,7 @@ Different transaction type consumes different amount of quota. In Vite TestNet, 
 | Forge token | 83200 |
 | Cancel token forging | 83200 |
 
-In addition, each character in the annotation of the transfer transaction consumes additional quota, 4 for zero character and 68 for each non-zero character.
+In addition, each character in annotation consumes additional quota - 4 quota for zero character and 68 quota for each non-zero character.
 
 For example, if hex encoding is used, to send a transfer transaction with annotation of 0x0001 (having two characters in total while the first is zero and the second is non-zero). The required quota is:
 
@@ -71,69 +71,69 @@ In the TestNet, some parameters are specified as constant, as follows:
 
 For the convenience in real calculation, only the value of $(\xi d \times \rho d +\xi s \times T \times \rho s)$ is calculated. The result is mapped into corresponding quota based on the following table:
 
-|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | The number of un-annotated transactions that can be sent by waiting a snapshot block | Approximately equivalent to how much ${\it vite}$ is staked without computing ${\rm PoW}$|
+|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | The number of un-annotated transactions that can be sent by waiting a snapshot block | Approximately equivalent to how much ${\it vite}$ is staked without computing ${\rm PoW}$| Approximately equivalent to how much ${\rm PoW}$ is calculated without staking|
 |:------------:|:-----------:|:-----------:|:-----------:|
-| 0.0 | 0 | 0 | 0 |
-| $(0.0, 0.042006175634155006]$ | 21000 | 1 | 10000 |
-| $(0.042006175634155006, 0.08404944434245186]$ | 42000 | 2 | 20009 |
-| $(0.08404944434245186, 0.1261670961035256]$ | 63000 | 3 | 30035 |
-| $(0.1261670961035256, 0.16839681732546105]$ | 84000 | 4 | 40088 |
-| $(0.16839681732546105, 0.2107768956769977]$ | 105000 | 5 | 50178 |
-| $(0.2107768956769977, 0.25334643304410037]$ | 126000 | 6 | 60311 |
-| $(0.25334643304410037, 0.2961455696376917]$ | 147000 | 7 | 70500 |
-| $(0.2961455696376917, 0.3392157225669637]$ | 168000 | 8 | 80754 |
-| $(0.3392157225669637, 0.382599842575369]$ | 189000 | 9 | 91082 |
-| $(0.382599842575369, 0.4263426931297194]$ | 210000 | 10 | 101494 |
-| $(0.4263426931297194, 0.4704911566788094]$ | 231000 | 11 | 112005 |
-| $(0.4704911566788094, 0.5150945736855665]$ | 252000 | 12 | 122623 |
-| $(0.5150945736855665, 0.5602051210238872]$ | 273000 | 13 | 133362 |
-| $(0.5602051210238872, 0.605878237567604]$ | 294000 | 14 | 144235 |
-| $(0.605878237567604, 0.6521731063496397]$ | 315000 | 15 | 155256 |
-| $(0.6521731063496397, 0.6991532046201573]$ | 336000 | 16 | 166440 |
-| $(0.6991532046201573, 0.7468869355972497]$ | 357000 | 17 | 177803 |
-| $(0.7468869355972497, 0.7954483588344243]$ | 378000 | 18 | 189364 |
-| $(0.7954483588344243, 0.8449180401302736]$ | 399000 | 19 | 201141 |
-| $(0.8449180401302736, 0.8953840470548413]$ | 420000 | 20 | 213155 |
-| $(0.8953840470548413, 0.9469431228444231]$ | 441000 | 21 | 225428 |
-| $(0.9469431228444231, 0.9997020801479394]$ | 462000 | 22 | 237988 |
-| $(0.9997020801479394, 1.053779467629503]$ | 483000 | 23 | 250862 |
-| $(1.053779467629503, 1.1093075777848576]$ | 504000 | 24 | 264080 |
-| $(1.1093075777848576, 1.1664348850068706]$ | 525000 | 25 | 277680 |
-| $(1.1664348850068706, 1.2253290311060194]$ | 546000 | 26 | 291700 |
-| $(1.2253290311060194, 1.286180514353531]$ | 567000 | 27 | 306188 |
-| $(1.286180514353531, 1.3492072924575544]$ | 588000 | 28 | 321192 |
-| $(1.3492072924575544, 1.4146605870070175]$ | 609000 | 29 | 336772 |
-| $(1.4146605870070175, 1.4828322881625378]$ | 630000 | 30 | 353004 |
-| $(1.4828322881625378, 1.554064521717701]$ | 651000 | 31 | 369958 |
-| $(1.554064521717701, 1.6287621852605034]$ | 672000 | 32 | 387740 |
-| $(1.6287621852605034, 1.707409634545938]$ | 693000 | 33 | 406466 |
-| $(1.707409634545938, 1.7905932883378723]$ | 714000 | 34 | 426270 |
-| $(1.7905932883378723, 1.8790328663947373]$ | 735000 | 35 | 447322 |
-| $(1.8790328663947373, 1.97362554890186]$ | 756000 | 36 | 469840 |
-| $(1.97362554890186, 2.0755100566945326]$ | 777000 | 37 | 494096 |
-| $(2.0755100566945326, 2.186162517630361]$ | 798000 | 38 | 520434 |
-| $(2.186162517630361, 2.3075451472522963]$ | 819000 | 39 | 549332 |
-| $(2.3075451472522963, 2.4423470353692043]$ | 840000 | 40 | 581424 |
-| $(2.4423470353692043, 2.594395323511559]$ | 861000 | 41 | 617620 |
-| $(2.594395323511559, 2.7694056956796604]$ | 882000 | 42 | 659284 |
-| $(2.7694056956796604, 2.976475888792767]$ | 903000 | 43 | 708576 |
-| $(2.976475888792767, 3.2314282909393213]$ | 924000 | 44 | 769276 |
-| $(3.2314282909393213, 3.5656840708200748]$ | 945000 | 45 | 848844 |
-| $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 965904 |
-| $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 1197296 |
+| 0.0 | 0 | 0 | 0 | 0 |
+| $(0.0, 0.042006175634155006]$ | 21000 | 1 | 10000 | 67108864 |
+| $(0.042006175634155006, 0.08404944434245186]$ | 42000 | 2 | 20009 | 134276096 |
+| $(0.08404944434245186, 0.1261670961035256]$ | 63000 | 3 | 30035 | 201564160 |
+| $(0.1261670961035256, 0.16839681732546105]$ | 84000 | 4 | 40088 | 269029376 |
+| $(0.16839681732546105, 0.2107768956769977]$ | 105000 | 5 | 50178 | 336736256 |
+| $(0.2107768956769977, 0.25334643304410037]$ | 126000 | 6 | 60311 | 404742144 |
+| $(0.25334643304410037, 0.2961455696376917]$ | 147000 | 7 | 70500 | 473120768 |
+| $(0.2961455696376917, 0.3392157225669637]$ | 168000 | 8 | 80754 | 541929472 |
+| $(0.3392157225669637, 0.382599842575369]$ | 189000 | 9 | 91082 | 611241984 |
+| $(0.382599842575369, 0.4263426931297194]$ | 210000 | 10 | 101494 | 681119744 |
+| $(0.4263426931297194, 0.4704911566788094]$ | 231000 | 11 | 112005 | 751652864 |
+| $(0.4704911566788094, 0.5150945736855665]$ | 252000 | 12 | 122623 | 822910976 |
+| $(0.5150945736855665, 0.5602051210238872]$ | 273000 | 13 | 133362 | 894976000 |
+| $(0.5602051210238872, 0.605878237567604]$ | 294000 | 14 | 144235 | 967946240 |
+| $(0.605878237567604, 0.6521731063496397]$ | 315000 | 15 | 155256 | 1041903616 |
+| $(0.6521731063496397, 0.6991532046201573]$ | 336000 | 16 | 166440 | 1116962816 |
+| $(0.6991532046201573, 0.7468869355972497]$ | 357000 | 17 | 177803 | 1193222144 |
+| $(0.7468869355972497, 0.7954483588344243]$ | 378000 | 18 | 189364 | 1270800384 |
+| $(0.7954483588344243, 0.8449180401302736]$ | 399000 | 19 | 201141 | 1349836800 |
+| $(0.8449180401302736, 0.8953840470548413]$ | 420000 | 20 | 213155 | 1430462464 |
+| $(0.8953840470548413, 0.9469431228444231]$ | 441000 | 21 | 225428 | 1512824832 |
+| $(0.9469431228444231, 0.9997020801479394]$ | 462000 | 22 | 237988 | 1597120512 |
+| $(0.9997020801479394, 1.053779467629503]$ | 483000 | 23 | 250862 | 1683513344 |
+| $(1.053779467629503, 1.1093075777848576]$ | 504000 | 24 | 264080 | 1772216320 |
+| $(1.1093075777848576, 1.1664348850068706]$ | 525000 | 25 | 277680 | 1863491584 |
+| $(1.1664348850068706, 1.2253290311060194]$ | 546000 | 26 | 291700 | 1957568512 |
+| $(1.2253290311060194, 1.286180514353531]$ | 567000 | 27 | 306188 | 2054791168 |
+| $(1.286180514353531, 1.3492072924575544]$ | 588000 | 28 | 321192 | 2155479040 |
+| $(1.3492072924575544, 1.4146605870070175]$ | 609000 | 29 | 336772 | 2260041728 |
+| $(1.4146605870070175, 1.4828322881625378]$ | 630000 | 30 | 353004 | 2368962560 |
+| $(1.4828322881625378, 1.554064521717701]$ | 651000 | 31 | 369958 | 2482749440 |
+| $(1.554064521717701, 1.6287621852605034]$ | 672000 | 32 | 387740 | 2602090496 |
+| $(1.6287621852605034, 1.707409634545938]$ | 693000 | 33 | 406466 | 2727755776 |
+| $(1.707409634545938, 1.7905932883378723]$ | 714000 | 34 | 426270 | 2860646400 |
+| $(1.7905932883378723, 1.8790328663947373]$ | 735000 | 35 | 447322 | 3001925632 |
+| $(1.8790328663947373, 1.97362554890186]$ | 756000 | 36 | 469840 | 3153051648 |
+| $(1.97362554890186, 2.0755100566945326]$ | 777000 | 37 | 494096 | 3315826688 |
+| $(2.0755100566945326, 2.186162517630361]$ | 798000 | 38 | 520434 | 3492593664 |
+| $(2.186162517630361, 2.3075451472522963]$ | 819000 | 39 | 549332 | 3686514688 |
+| $(2.3075451472522963, 2.4423470353692043]$ | 840000 | 40 | 581424 | 3901882368 |
+| $(2.4423470353692043, 2.594395323511559]$ | 861000 | 41 | 617620 | 4144775168 |
+| $(2.594395323511559, 2.7694056956796604]$ | 882000 | 42 | 659284 | 4424400896 |
+| $(2.7694056956796604, 2.976475888792767]$ | 903000 | 43 | 708576 | 4755193856 |
+| $(2.976475888792767, 3.2314282909393213]$ | 924000 | 44 | 769276 | 5162500096 |
+| $(3.2314282909393213, 3.5656840708200748]$ | 945000 | 45 | 848844 | 5696520192 |
+| $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 965904 | 6482067456 |
+| $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 1197296 | 8034975744 |
 
 In other words, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should meet the transaction frequency of up to 1${\rm TPS}$ and staking 20009 can allow maximum 2${\rm TPS}$. Staking 10${\it vite}$ and waiting 1000 snapshot blocks (16 minutes and 40 seconds) also support to send a transfer transaction without annotation.
 ## Two ways of obtaining quota
 
-### Staking
+### Stake
 
-Users can obtain quota by sending a staking transaction to the built-in staking contract. When the transaction is received and confirmed, the staking beneficiary account will be granted with the corresponding quota.
+Users can obtain quota by sending a stake transaction to the built-in stake contract. When the transaction is received and confirmed, the stake beneficiary account will be granted with the corresponding quota.
 
 #### Parameters
-* Staking amount: The minimum staking amount is 10${\it vite}$.
-* Staking beneficiary address: The account that obtains quota, could be staking account or any other account. In other words, staking for others is permitted.
+* Stake amount: The minimum stake amount is 10${\it vite}$.
+* Stake beneficiary address: The account that obtains quota, could be stake account or any other account. In other words, staking for others is permitted.
 
-The staking account can retrieve the staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. When the transaction is received and confirmed, the staking beneficiary account will lose the corresponding quota.
+The stake account can retrieve the staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. When the transaction is received and confirmed, the stake beneficiary account will lose the corresponding quota.
 
 ### Computing PoW
 
@@ -163,19 +163,19 @@ $$blake2b(address+prevHash) + nonce < target$$
 
 * Can an address stake for multiple beneficiary addresses?
 
-Yes. The staking expiration time of each beneficiary address is different.
+Yes. The stake expiration time of each beneficiary address is different.
 
 * Can an address stake for the same beneficiary address multiple times?
 
-Yes. The height of staking expiration is 259200 + the height of the snapshot block referenced when the last staking transaction was received by the built-in contract.
+Yes. The height of stake expiration is 259200 + the height of the snapshot block referenced when the last stake transaction was received by the built-in contract.
 
 * Can ${\it vite}$, which is staked to a beneficiary address, be retrieved in multiple times?
 
-Yes. After a staking expires, the staked ${\it vite}$ can be retrieved in multiple times. This does not affect the expiration time.
+Yes. After a stake expires, the staked ${\it vite}$ can be retrieved in multiple times. This does not affect the expiration time.
 
-* Is the staking retrievable if it has not expired yet?
+* Is the stake retrievable if it has not expired yet?
 
-No. However, the staking can be retrieved at any time after it expires.
+No. However, the stake can be retrieved at any time after it expires.
 
 * Does the receiving transaction consume quota?
 

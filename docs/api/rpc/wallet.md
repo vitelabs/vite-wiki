@@ -8,19 +8,20 @@ sidebarDepth: 4
 [TiantaoZhu](https://github.com/TiantaoZhu)
 :::
 
-**支持调用方式：**
+**Supported protocols:**
 
 |  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  `false` |  &#x2713; |waiting|`false`|
+| &#x2713;|  `false` |  &#x2713; |future version|`false`|
 
-## wallet_listEntropyFilesInStandardDir
-返回所有在标准EntropyStore目录下的地址
+
+### wallet_listEntropyFilesInStandardDir
+Return all EntropyStore in the standard directory
 
 - **Parameters**: `none`
 
 - **Returns**: 
-	- `Array[string]` EntropyStore绝对路径
+	- `Array[string]` An array of EntropyStore paths
 
 - **Example**:
 
@@ -52,13 +53,13 @@ sidebarDepth: 4
 ```
 :::
 
-## wallet_listAllEntropyFiles 
-列出已经在钱包管理的所有EntropyStore
+### wallet_listAllEntropyFiles 
+Return all EntropyStore managed by the wallet
 
 - **Parameters**: `none`
 
 - **Returns**: 
-	- `Array[string]` EntropyStore绝对路径
+	- `Array[string]` An array of EntropyStore paths
 
 
 - **Example**:
@@ -86,12 +87,12 @@ sidebarDepth: 4
 ```
 :::
 
-## wallet_unlock
-解锁某个EntropyStore
+### wallet_unlock
+Unlock the specified EntropyStore
 
 - **Parameters**: 
-	- `string` : EntropyStore的绝对路径，如果EntropyStore文件在标准钱包目录下，只要传文件名就可以，标准的文件名是用0号地址命名
-	- `string` : 密码 
+	- `string` : The absolute file path of the EntropyStore, or EntropyStore name if the file is in standard directory. The standard EntropyStore name is Address 0.
+	- `string` : Wallet password
 
 - **Returns**: 
 	- `null`
@@ -119,11 +120,11 @@ sidebarDepth: 4
 ```
 :::
 
-## wallet_lock
-加锁账户
+### wallet_lock
+Lock the specified EntropyStore
 
 - **Parameters**: 
-	- `string` : EntropyStore的绝对路径，如果EntropyStore文件在标准钱包目录下，只要传文件名就可以，标准的文件名是用0号地址命名
+	- `string` : The absolute file path of the EntropyStore, or EntropyStore name if the file is in standard directory. The standard EntropyStore name is Address 0.
 
 
 - **Returns**:
@@ -152,16 +153,16 @@ sidebarDepth: 4
 
 :::
 
-## wallet_listEntropyStoreAddresses
-列出该EntropyStroe下指定范围内的地址
+### wallet_listEntropyStoreAddresses
+Return a specified range of addresses in the EntropyStore
 
 - **Parameters**: 
-	- `string`: 地址或者文件名
-	- `uint32`:左边界（包含）
-	- `uint32`:右边届（不包含）
+	- `string` : The absolute file path of the EntropyStore, or EntropyStore name if the file is in standard directory. The standard EntropyStore name is Address 0.
+	- `uint32`: Starting index, included
+	- `uint32`: Ending index, excluded
 
 - **Returns**: 
-	- `Array[string]`: 地址
+	- `Array[string]`: An array of account addresses
 
 - **Example**:
 
@@ -198,18 +199,17 @@ sidebarDepth: 4
 ```
 :::
 
-
-## wallet_newMnemonicAndEntropyStore
-创建助记词和EntropyStore
+### wallet_newMnemonicAndEntropyStore
+Create new mnemonics and EntropyStore
 
 - **Parameters**: 
-	- `string`: 密码
+	- `string`: Wallet password
 
 - **Returns**: 
 	- `Object`:
-		- `mnemonic : string` : 助记词
-		- `primaryAddr : string` : 地址
-		- `filename : string`: 文件地址  
+		- `mnemonic : string` : The newly created mnemonics
+		- `primaryAddr : string` : The primary account address
+		- `filename : string`: The EntropyStore path
 
 - **Example**:
 
@@ -238,18 +238,18 @@ sidebarDepth: 4
 ```
 :::
 
-## wallet_deriveByIndex
-派生地址
+### wallet_deriveByIndex
+Derive sub account address by index
 
 - **Parameters**: 
-	- `string` : 文件地址或者初始地址
-	- `uint32`: 派生index
+	- `string` : The EntropyStore path or primary account address
+	- `uint32`: The sub address index
 
 - **Returns**: 
 	- `Object`:
-		-  `bip44Path : string` : bip44形式的地址编号
-		-  `address : string` : 地址
-		-  `privateKey : []byte`: 地址对应的私钥 Base64 
+		-  `bip44Path : string` : The address bip44 path
+		-  `address : string` : Derived sub address
+		-  `privateKey : []byte`: The private key in Base64 encoding
 
 - **Example**:
 
@@ -280,18 +280,18 @@ sidebarDepth: 4
 
 :::
 
-## wallet_deriveByFullPath
-派生地址
+### wallet_deriveByFullPath
+Derive sub account address by bip44 path. This method supports deriving sub address at more flexible hierarchy.
 
 - **Parameters**: 
-	- `string` : 文件地址或者初始地址,支持更多级的地址
-	- `string`: bip44形式的地址编号
+	- `string` : The EntropyStore path or primary account address
+	- `string`: The address bip44 path
 
 - **Returns**: 
 	- `Object`:
-		-  `bip44Path : string` : bip44形式的地址编号
-		-  `address : string` : 地址
-		-  `privateKey : []byte`: 地址对应的私钥 Base64 
+		-  `bip44Path : string` : The address bip44 path
+		-  `address : string` : Derived sub address
+		-  `privateKey : []byte`: The private key in Base64 encoding
 
 - **Example**:
 
@@ -322,18 +322,18 @@ sidebarDepth: 4
 
 :::
 
-## wallet_recoverEntropyStoreFromMnemonic
-助记词恢复EntropyStore
+### wallet_recoverEntropyStoreFromMnemonic
+Recover EntropyStore from the mnemonics
 
 - **Parameters**: 
-	- `string` : 助记词
-	- `string`: 新的EntropyStore密码
+	- `string` : Mnemonics
+	- `string`: New wallet password
 
 - **Returns**: 
 - `Object`:
-	- `mnemonic : string` : 助记词
-	- `primaryAddr : string` : 地址
-	- `filename : string`: 文件地址  
+	- `mnemonic : string` : Mnemonics
+	- `primaryAddr : string` : The primary account address
+	- `filename : string`: The EntropyStore path 
 
 - **Example**:
 
@@ -366,12 +366,13 @@ sidebarDepth: 4
 ```
 
 :::
-## wallet_globalCheckAddrUnlocked
-全局检查地址是否解锁
 
-- **Parameters**: `string` : `address`
+### wallet_globalCheckAddrUnlocked
+Check if the specified address is unlocked globally.
 
-- **Returns**: `bool` 是否解锁
+- **Parameters**: `string` : `address` The account address to check
+
+- **Returns**: `bool` True if the address is unlocked
 
 - **Example**:
 
@@ -398,14 +399,15 @@ sidebarDepth: 4
 
 
 :::
-## wallet_isAddrUnlocked
-检查某个EntropyStore下的地址是否解锁， 必须确保EntropyStore已经解锁
+
+### wallet_isAddrUnlocked
+Check if the specified address in the EntropyStore is unlocked. The EntropyStore should be unlocked in advance.
 
 - **Parameters**: 
-	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
-	- `string`:`address`： 具体的地址
+	- `string` : The primary account address or the absolute file path of the EntropyStore.
+	- `string`:`address`： The account address to check
 
-- **Returns**: `bool` 是否解锁
+- **Returns**: `bool` True if the address is unlocked
 
 - **Example**:
 
@@ -433,12 +435,13 @@ sidebarDepth: 4
 
 
 :::
-## wallet_isUnlocked
-检查EntropyStore是否解锁
 
-- **Parameters**:  `string`: `Primry address` 或者 `EntropyStore abs filepath`
+### wallet_isUnlocked
+Check if the specified EntropyStore is unlocked.
 
-- **Returns**: `bool` 是否解锁
+- **Parameters**:  `string`: The primary account address or the absolute file path of the EntropyStore.
+
+- **Returns**: `bool` True if the EntropyStore is unlocked
 
 - **Example**:
 
@@ -464,17 +467,18 @@ sidebarDepth: 4
 ```
 
 :::
-## wallet_findAddr
-在某个EntropyStore解锁的情况下 ，搜索某个地址
+
+### wallet_findAddr
+Return the index of the specified address in the EntropyStore. The EntropyStore should be unlocked in advance.
 
 - **Parameters**:  
-	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
-	- `string`:`address`： 具体的地址
+	- `string`: The primary account address or the absolute file path of the EntropyStore.
+	- `string`:`address`： The account address to look for
 
 - **Returns**:
 	- `Object` 
-		- `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- `index : uint32 `: 该地址在该Entropy下的序号
+		- `entropyStoreFile : string` : The absolute file path of the EntropyStore
+		- `index : uint32 `: The address index in the EntropyStore
 - **Example**: 
 
 ::: demo
@@ -504,16 +508,17 @@ sidebarDepth: 4
 
 
 :::
-## wallet_globalFindAddr
-在已经解锁的EntropyStore中搜索某个地址
+
+### wallet_globalFindAddr
+Return the index of the specified address in the EntropyStore globally.
 
 - **Parameters**:  
-	 * `string`:`address`： 具体的地址
+	 * `string`:`address`： The account address to look for
 
 - **Returns**:
 	- `Object` 
-		- `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- `index : uint32 `: 该地址在该Entropy下的序号
+		- `entropyStoreFile : string` : The absolute file path of the EntropyStore
+		- `index : uint32 `: The address index in the EntropyStore
 - **Example**: 
 
 ::: demo
@@ -541,32 +546,34 @@ sidebarDepth: 4
 ```
 
 :::
-## wallet_createTxWithPassphrase
-发送交易
+
+### wallet_createTxWithPassphrase
+Send a transaction
 
 - **Parameters**:  
 	-  `Object`:
-		- `entropystoreFile : string` :  `Primry address` 或者 `EntropyStore abs filepath`，可不填
-		- `selfAddr : string address` : 自己的地址，必填
-		- `toAddr : string address` : 转给谁，必填
-		- `tokenTypeId : string tokentypeid` : 哪个币，必填
-		- `passphrase : string` : 密码，必填
-		- `amount : string bigint` : 转多少钱，必填
-		- `data : string base64` : 转账留言，可不填
-		- `difficulty : string bigint` : pow难度，可不填
+		- `entropystoreFile : string` :  The primary account address or the absolute file path of the EntropyStore, optional
+		- `selfAddr : string address` : Transaction sender address, required
+		- `toAddr : string address` : Transaction receiver address, required
+		- `tokenTypeId : string tokentypeid` : The token ID, required
+		- `passphrase : string` : Wallet password, required
+		- `amount : string bigint` : The transfer amount, required
+		- `data : string base64` : Transaction annotation, optional
+		- `difficulty : string bigint` : PoW difficulty, optional
 
 - **Returns**: `none`
 
 
 :::
-## wallet_addEntropyStore
-增加某个EntropyStore文件，可以用于应用非标准目录下托管的entropystore文件
+
+### wallet_addEntropyStore
+Add a new EntropyStore. This method is used to manage EntropyStore in non-standard directory.
 
 - **Parameters**:  
-	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
-	- `string`:`address`： 具体的地址
+	- `string`: The primary account address or the absolute file path of the EntropyStore
+	- `string`:`address`： The account address to add
 
 - **Returns**:
 	- `Object` 
-		- `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- `index : uint32 `: 该地址在该Entropy下的序号
+		- `entropyStoreFile : string` : The absolute file path of the EntropyStore
+		- `index : uint32 `: The address index in the EntropyStore

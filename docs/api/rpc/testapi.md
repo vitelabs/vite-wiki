@@ -5,11 +5,12 @@
 :::
 
 ## testapi_getTestToken
-获取测试代币 随机发送1-1001个vite 
+Acquire Vite testing tokens. This method will send 1-1001 random VTT to the address.
 
 - **Parameters**: 
-`toAddress`: `address` - 要发送的地址
+`toAddress`: `address` - The account address to receive test tokens
 
 - **return**:
-1. `string`:`bigint` - 实际发送的代币数量
-2. `error`: 如果有错误
+
+1. `string`:`bigint` - The amount of test tokens that have been sent
+2. `error`: Error message

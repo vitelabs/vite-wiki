@@ -65,7 +65,9 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         'sbp',
-        'quota'
+        'quota',
+        'mintage',
+        'vote'
       ]
     }
   ],
