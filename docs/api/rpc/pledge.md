@@ -3,10 +3,10 @@ sidebarDepth: 4
 ---
 
 # Pledge
-## viteLiz
+:::tip Maintainer
+[viteLiz](https://github.com/viteLiz)
+:::
 Built-in staking contract. Contract address is vite_000000000000000000000000000000000000000309508ba646
-
-## Description
 
 **Supported protocol：**
 
@@ -14,9 +14,7 @@ Built-in staking contract. Contract address is vite_0000000000000000000000000000
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
-## API
-
-### pledge_getPledgeData
+## pledge_getPledgeData
 Return the composed request data to stake for quota
 
 - **Parameters**: 
@@ -43,7 +41,7 @@ Return the composed request data to stake for quota
 
 :::
 
-### pledge_getCancelPledgeData
+## pledge_getCancelPledgeData
 Return the composed request data to withdraw a certain amount of staked tokens
 
 - **Parameters**: 
@@ -74,7 +72,7 @@ Return the composed request data to withdraw a certain amount of staked tokens
 
 :::
 
-### pledge_getPledgeQuota
+## pledge_getPledgeQuota
 Return the current TPS quota of the account and the maximum supported number of transactions with this quota
 
 - **Parameters**: 
@@ -114,7 +112,7 @@ Return the current TPS quota of the account and the maximum supported number of 
 ```
 :::
 
-### pledge_getPledgeList
+## pledge_getPledgeList
 Return the staking information of the account
 
 - **Parameters**: 
@@ -129,10 +127,10 @@ Return the staking information of the account
   1. `totalPledgeAmount`: `big.Int`  The total staking amount of the account
   2. `totalCount`: `int`  The total number of staking entries
   3. `pledgeInfoList`: `Array&lt;PledgeInfo&gt;`  The list of staking information
-    * `amount`: `big.int`  The staking amount
-    * `withdrawHeight`: `uint64`  The staking due height, which is the height of snapshot block when staking expires
-    * `beneficialAddr`: `Address`  The account address of beneficiary
-    * `withdrawTime`: `int64`  The estimated staking due time
+      * `amount`: `big.int`  The staking amount
+      * `withdrawHeight`: `uint64`  The staking due height, which is the height of snapshot block when staking expires
+      * `beneficialAddr`: `Address`  The account address of beneficiary
+      * `withdrawTime`: `int64`  The estimated staking due time
 
 - **Example**:
 

@@ -1,9 +1,9 @@
 # Ledger
-## LYD
+:::tip Maintainer
+[lyd00](https://github.com/lyd00)
+:::
 
-## API
-
-### ledger_getBlocksByAccAddr
+## ledger_getBlocksByAccAddr
 Return the transaction list of the account, equivalent to all blocks in the account chain
 
 - **Parameters**:
@@ -80,7 +80,7 @@ Return the transaction list of the account, equivalent to all blocks in the acco
 :::
 
 
-### ledger_getAccountByAccAddr
+## ledger_getAccountByAccAddr
 Return the detailed account information, including the height of account chain and the respective balance of different tokens
 
 - **Parameters**: 
@@ -140,7 +140,7 @@ Return the detailed account information, including the height of account chain a
 ```
 :::
 
-### ledger_getLatestSnapshotChainHash
+## ledger_getLatestSnapshotChainHash
 Return the hash of latest snapshot block
 
 - **Parameters**: null 
@@ -164,7 +164,7 @@ Return the hash of latest snapshot block
 ```
 ::: 
 
-### ledger_getLatestBlock
+## ledger_getLatestBlock
 Return the latest account block
 
 - **Parameters**: `Address` The account address
@@ -230,7 +230,7 @@ Return the latest account block
 ```
 ::: 
 
-### ledger_getTokenMintage
+## ledger_getTokenMintage
 Return the token information
 
 - **Parameters**: `string` : `TokenTypeId` The token ID
@@ -275,7 +275,7 @@ Return the token information
 }
 ```
 :::
-### ledger_getBlocksByHash
+## ledger_getBlocksByHash
 Return the given number of account blocks since the specific block
 
 - **Parameters**: 
@@ -353,7 +353,7 @@ Return the given number of account blocks since the specific block
 ```
 :::
 
-### ledger_getSnapshotChainHeight
+## ledger_getSnapshotChainHeight
 Return the current height of snapshot chain
 
 - **Parameters**: `none`

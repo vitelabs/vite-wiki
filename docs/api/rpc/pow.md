@@ -1,5 +1,8 @@
 # Pow
-## tiantao
+
+:::tip Maintainer
+[TiantaoZhu](https://github.com/TiantaoZhu)
+:::
 
 ## pow_getPowNonce
 Return the resolved PoW nonce

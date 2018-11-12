@@ -1,18 +1,20 @@
 # Onroad
-## tiantao
+
+:::tip Maintainer
+[TiantaoZhu](https://github.com/TiantaoZhu)
+:::
+
 On-road Module
 
-## onroad_getOnroadBlocksByAddress 
+## onroad_getOnroadBlocksByAddress <Badge text="public"/>
 Return all open transactions waiting to be received by the account address
 
-**Public API**
-
--**Parameters**: 
+* **Parameters**: 
   1. `Address`- The account address
   2. `int` - Page index
   3. `int`- Page size
 
--**Return**: 
+* **Return**: 
 * `[]AccountBlock`
 
 ::: demo
@@ -86,15 +88,13 @@ Return all open transactions waiting to be received by the account address
 ```
 :::
 
-## onroad_getAccountOnroadInfo
+## onroad_getAccountOnroadInfo <Badge text="public"/>
 Return the information of tokens in all open transactions waiting to be received by the account address
 
-**Public API**
-
--**Parameters**: 
+* **Parameters**: 
   1. `Address`- The account address
 
--**Return**: 
+* **Return**: 
 * `RpcAccountInfo`
 ::: demo
 
@@ -148,15 +148,13 @@ Return the information of tokens in all open transactions waiting to be received
 ```
 :::
 
-## onroad_listWorkingAutoReceiveWorker
+## onroad_listWorkingAutoReceiveWorker <Badge text="private" type="error"/>
 Return all account addresses who has setup to receive transactions automatically
 
-**Private API**
-
--**Parameters**: 
+* **Parameters**: 
   null
 
--**Return**: 
+* **Return**: 
 * `[]types.Address` - An array of account address
 
 ::: demo
@@ -188,17 +186,15 @@ Return all account addresses who has setup to receive transactions automatically
 ```
 :::
 
-## onroad_startAutoReceive
+## onroad_startAutoReceive <Badge text="private" type="error"/>
 Turn on the flag for the account to start receive transactions automatically. This method should be called again with new filter after the filtering rule is changed.
 
-**Private API**
-
--**Parameters**: 
+* **Parameters**: 
   1. `string`: `Primry address` or `EntropyStore abs filepath`
   2. `Address`: The account address
   3. `map[types.TokenTypeId]string`- The filter map having token ID as key and minimum amount of tokens to receive as value. All open transactions of the account will be received if this parameter is not present.
 
--**Return**: 
+* **Return**: 
 * null
 
 ::: demo
@@ -236,15 +232,13 @@ Turn on the flag for the account to start receive transactions automatically. Th
 ```
 :::
 
-## onroad_stopAutoReceive
+## onroad_stopAutoReceive <Badge text="private" type="error"/>
 Turn off the flag for the account to stop receive transactions automatically
 
-**Private API**
-
--**Parameters**: 
+* **Parameters**: 
   1. `Address` The account address
 
--**Return**: 
+* **Return**: 
 * null
 
 ::: demo

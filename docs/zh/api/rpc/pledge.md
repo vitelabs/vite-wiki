@@ -3,10 +3,11 @@ sidebarDepth: 4
 ---
 
 # Pledge
-## viteLiz
-抵押内置合约，合约账户地址：vite_000000000000000000000000000000000000000309508ba646
+:::tip 维护者
+[viteLiz](https://github.com/viteLiz)
+:::
 
-## 说明
+抵押内置合约，合约账户地址： `vite_000000000000000000000000000000000000000309508ba646`
 
 **支持调用方式：**
 
@@ -14,9 +15,7 @@ sidebarDepth: 4
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
 
-## API
-
-### pledge_getPledgeData
+## pledge_getPledgeData
 获取抵押交易请求数据
 
 - **Parameters**: 
@@ -43,7 +42,7 @@ sidebarDepth: 4
 
 :::
 
-### pledge_getCancelPledgeData
+## pledge_getCancelPledgeData
 获取撤销抵押交易请求数据
 
 - **Parameters**: 
@@ -74,7 +73,7 @@ sidebarDepth: 4
 
 :::
 
-### pledge_getPledgeQuota
+## pledge_getPledgeQuota
 获取账户当前额度和最大能发起的交易数
 
 - **Parameters**: 
@@ -114,7 +113,7 @@ sidebarDepth: 4
 ```
 :::
 
-### pledge_getPledgeList
+## pledge_getPledgeList
 获取本账户的抵押金额列表
 
 - **Parameters**: 
@@ -129,10 +128,11 @@ sidebarDepth: 4
   1. `totalPledgeAmount`: `big.Int`  本账户抵押的总金额
   2. `totalCount`: `int`  抵押信息总数
   3. `pledgeInfoList`: `Array&lt;PledgeInfo&gt;` 抵押信息列表
-    * `amount`: `big.int`  抵押金额
-    * `withdrawHeight`: `uint64`  到期快照块高度
-    * `beneficialAddr`: `Address`  受益地址
-    * `withdrawTime`: `int64`  预计到期时间
+     * `amount`: `big.int`  抵押金额
+     * `withdrawHeight`: `uint64`  到期快照块高度
+     * `beneficialAddr`: `Address`  受益地址
+     * `withdrawTime`: `int64`  预计到期时间
+    
 
 - **Example**:
 

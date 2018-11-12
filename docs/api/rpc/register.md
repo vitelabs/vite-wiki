@@ -3,10 +3,12 @@ sidebarDepth: 4
 ---
 
 # Register
-## viteLiz
-The built-in super node registration contract. Contract address: vite_0000000000000000000000000000000000000001c9e9f25417
 
-## Description
+:::tip Maintainer
+[viteLiz](https://github.com/viteLiz)
+:::
+
+The built-in super node registration contract. Contract address: vite_0000000000000000000000000000000000000001c9e9f25417
 
 **Supported protocol:**
 
@@ -14,9 +16,7 @@ The built-in super node registration contract. Contract address: vite_0000000000
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
-## API
-
-### register_getRegisterData
+## register_getRegisterData
 Return the composed request data to register a new super node
 
 - **Parameters**: 
@@ -49,7 +49,7 @@ Return the composed request data to register a new super node
 
 :::
 
-### register_getCancelRegisterData
+## register_getCancelRegisterData
 Return the composed request data to cancel an existing registration
 
 - **Parameters**: 
@@ -80,7 +80,7 @@ Return the composed request data to cancel an existing registration
 
 :::
 
-### register_getRewardData
+## register_getRewardData
 Return the composed request data to retrieve mining rewards. Rewards mined within 90 days since the last retrieval block are retrieved per request. All rewards except mined in recent 30 minutes will be retrieved if the height between last retrieval block and current block is less than 90 days. Rewards mined within latest 30 minutes are not allowed to retrieve.
 
 - **Parameters**: 
@@ -113,7 +113,7 @@ Return the composed request data to retrieve mining rewards. Rewards mined withi
 
 :::
 
-### register_getUpdateRegistrationData
+## register_getUpdateRegistrationData
 Return the composed request data to update the information of an existing registration
 
 - **Parameters**: 
@@ -146,7 +146,7 @@ Return the composed request data to update the information of an existing regist
 
 :::
 
-### register_getRegistrationList
+## register_getRegistrationList
 Return the registered super node list
 
 - **Parameters**: 
@@ -202,7 +202,7 @@ Return the registered super node list
 ```
 :::
 
-### register_getCandidateList
+## register_getCandidateList
 Return the candidate list
 
 - **Parameters**: 

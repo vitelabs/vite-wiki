@@ -3,10 +3,11 @@ sidebarDepth: 4
 ---
 
 # Mintage
-## viteLiz
-The built-in token forging contract. Contract address: vite_00000000000000000000000000000000000000056ad6d26692
+:::tip Maintainer
+[viteLiz](https://github.com/viteLiz)
+:::
 
-## Description
+The built-in token forging contract. Contract address: vite_00000000000000000000000000000000000000056ad6d26692
 
 **Supported protocols:**
 
@@ -14,9 +15,7 @@ The built-in token forging contract. Contract address: vite_00000000000000000000
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
-## API
-
-### mintage_getMintageData
+## mintage_getMintageData
 Return the composed request data to forge the new token
 
 - **Parameters**: 
@@ -68,7 +67,7 @@ Return the composed request data to forge the new token
 ```
 :::
 
-### mintage_getMintageCancelPledgeData
+## mintage_getMintageCancelPledgeData
 Return the composed request data to withdraw the tokens staked for forging
 
 - **Parameters**: 

@@ -1,9 +1,9 @@
 # Ledger
-## LYD
+:::tip 维护者
+[lyd00](https://github.com/lyd00)
+:::
 
-## API
-
-### ledger_getBlocksByAccAddr
+## ledger_getBlocksByAccAddr
 获得一个账户的交易列表
 
 - **Parameters**:
@@ -80,7 +80,7 @@
 :::
 
 
-### ledger_getAccountByAccAddr
+## ledger_getAccountByAccAddr
 获取一个账户的详情,包含账户链的高度，账户的各个token的余额等
 
 - **Parameters**: 
@@ -140,7 +140,7 @@
 ```
 :::
 
-### ledger_getLatestSnapshotChainHash
+## ledger_getLatestSnapshotChainHash
 获取最近的快照块的hash
 
 - **Parameters**: null 
@@ -164,7 +164,7 @@
 ```
 ::: 
 
-### ledger_getLatestBlock
+## ledger_getLatestBlock
 获取账户的最近一个交易
 
 - **Parameters**: `Address` 
@@ -230,7 +230,7 @@
 ```
 ::: 
 
-### ledger_getTokenMintage
+## ledger_getTokenMintage
 获取代币信息
 
 - **Parameters**: `string` : `TokenTypeId` 代币id
@@ -275,7 +275,7 @@
 }
 ```
 :::
-### ledger_getBlocksByHash
+## ledger_getBlocksByHash
 从某个账户链获取某个交易的hash开始向前得N个块
 
 - **Parameters**: 
@@ -353,7 +353,7 @@
 ```
 :::
 
-### ledger_getSnapshotChainHeight
+## ledger_getSnapshotChainHeight
 获取当前快照链高度
 
 - **Parameters**: `none`

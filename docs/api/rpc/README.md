@@ -4,51 +4,6 @@ title: START
 ---
 
 # Start
-
-## Build
-
-### Build steps
-
-1. [Install Go](https://golang.org/doc/install)
-2. Run `go get github.com/vitelabs/go-vite` in your terminal, then you will find the source code here: `$GOPATH/src/github.com/vitelabs/go-vite/` (as default, $GOPATH is `~/go`)
-3. Go to the source code directory and run `make all`, you will get executable files of darwin, linux, windows here: `$GOPATH/src/github.com/vitelabs/go-vite/build/cmd/rpc`  
-4. Run the appropriate binary file on your OS.
-
-
-### Configuration
-
-Normally Vite has a default configuration, however, you are able to setup your own configuration in either following ways.
-
-#### cmd
-
-| key | type | default | meaning |
-|:--- |:--- |:--- |:--- |
-| name | string | "vite-server" | Server name, used in logs |
-| maxpeers | number | 50 | The maximum number of peers to connect |
-| addr | string | "0.0.0.0:8483" | `listening-address:port` |
-| dir | string | "~/viteisbest" | The directory where all files are stored (like logs, ledger) |
-| netid | number | 2 | Network ID. For example, 2 indicates TestNet |
-| priv | string | "" | The hex code string of ED25519 privateKey |
-
-#### configFile
-
-You can also setup configuration with a config file `vite.config.json`. For example:
-
-```json
-{
-    "P2P": {
-        "Name":                 "vite-server",
-        "PrivateKey":           "",
-        "MaxPeers":             100,
-        "Addr":                 "0.0.0.0:8483",
-        "NetID":                2
-    },
-    "DataDir": ""
-}
-```
-
-`vite.config.json` should live in the same directory of vite.
-
 ## Description
 * **IPC**：Supported in all API
 

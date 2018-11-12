@@ -3,10 +3,11 @@ sidebarDepth: 4
 ---
 
 # Vote
-## viteLiz
-出块节点投票内置合约，合约账户地址：vite_000000000000000000000000000000000000000270a48cc491
+:::tip 维护者
+[viteLiz](https://github.com/viteLiz)
+:::
 
-## 说明
+出块节点投票内置合约，合约账户地址： `vite_000000000000000000000000000000000000000270a48cc491`
 
 **支持调用方式：**
 
@@ -14,9 +15,7 @@ sidebarDepth: 4
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
 
-## API
-
-### vote_getVoteData
+## vote_getVoteData
 获取为出块节点投票交易请求数据
 
 - **Parameters**: 
@@ -47,7 +46,7 @@ sidebarDepth: 4
 
 :::
 
-### vote_getCancelVoteData
+## vote_getCancelVoteData
 获取为出块节点投票交易请求数据
 
 - **Parameters**: 
@@ -74,7 +73,7 @@ sidebarDepth: 4
 
 :::
 
-### vote_getVoteInfo
+## vote_getVoteInfo
 查询用户当前投票信息
 
 - **Parameters**: 

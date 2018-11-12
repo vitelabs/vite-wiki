@@ -1,7 +1,8 @@
 # Net
-## jerry
 
-## 说明
+:::tip 维护者
+[jerry-vite](https://github.com/jerry-vite)
+:::
 
 **支持调用方式：**
 
@@ -9,9 +10,7 @@
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713; | `false` | &#x2713; | waiting |`false`|
 
-## API
-
-### net_syncInfo
+## net_syncInfo
 现在节点网络是否可用
 
 - **Parameters**: `none`
@@ -64,7 +63,7 @@
 ```
 :::
 
-### net_peers
+## net_peers
 当前节点连接的外部节点详情
 
 - **Parameters**: `none`
@@ -179,7 +178,7 @@
 ```
 :::
 
-### net_peersCount
+## net_peersCount
 当前节点连接的外部节点数量
 
 - **Parameters**: `none`

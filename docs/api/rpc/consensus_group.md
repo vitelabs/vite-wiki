@@ -4,7 +4,7 @@ sidebarDepth: 4
 
 # ConsensusGroup
 
-:::tip 维护者
+:::tip Maintainer
 [viteLiz](https://github.com/viteLiz)
 :::
 

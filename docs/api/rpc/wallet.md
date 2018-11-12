@@ -3,9 +3,10 @@ sidebarDepth: 4
 ---
 
 # Wallet
-## tiantao
 
-## 说明
+:::tip Maintainer
+[TiantaoZhu](https://github.com/TiantaoZhu)
+:::
 
 **支持调用方式：**
 
@@ -13,9 +14,7 @@ sidebarDepth: 4
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  `false` |  &#x2713; |waiting|`false`|
 
-## API
-
-### wallet_listEntropyFilesInStandardDir
+## wallet_listEntropyFilesInStandardDir
 返回所有在标准EntropyStore目录下的地址
 
 - **Parameters**: `none`
@@ -53,7 +52,7 @@ sidebarDepth: 4
 ```
 :::
 
-### wallet_listAllEntropyFiles 
+## wallet_listAllEntropyFiles 
 列出已经在钱包管理的所有EntropyStore
 
 - **Parameters**: `none`
@@ -87,7 +86,7 @@ sidebarDepth: 4
 ```
 :::
 
-### wallet_unlock
+## wallet_unlock
 解锁某个EntropyStore
 
 - **Parameters**: 
@@ -120,7 +119,7 @@ sidebarDepth: 4
 ```
 :::
 
-### wallet_lock
+## wallet_lock
 加锁账户
 
 - **Parameters**: 
@@ -153,7 +152,7 @@ sidebarDepth: 4
 
 :::
 
-### wallet_listEntropyStoreAddresses
+## wallet_listEntropyStoreAddresses
 列出该EntropyStroe下指定范围内的地址
 
 - **Parameters**: 
@@ -200,7 +199,7 @@ sidebarDepth: 4
 :::
 
 
-### wallet_newMnemonicAndEntropyStore
+## wallet_newMnemonicAndEntropyStore
 创建助记词和EntropyStore
 
 - **Parameters**: 
@@ -239,7 +238,7 @@ sidebarDepth: 4
 ```
 :::
 
-### wallet_deriveByIndex
+## wallet_deriveByIndex
 派生地址
 
 - **Parameters**: 
@@ -281,7 +280,7 @@ sidebarDepth: 4
 
 :::
 
-### wallet_deriveByFullPath
+## wallet_deriveByFullPath
 派生地址
 
 - **Parameters**: 
@@ -323,7 +322,7 @@ sidebarDepth: 4
 
 :::
 
-### wallet_recoverEntropyStoreFromMnemonic
+## wallet_recoverEntropyStoreFromMnemonic
 助记词恢复EntropyStore
 
 - **Parameters**: 
@@ -367,7 +366,7 @@ sidebarDepth: 4
 ```
 
 :::
-### wallet_globalCheckAddrUnlocked
+## wallet_globalCheckAddrUnlocked
 全局检查地址是否解锁
 
 - **Parameters**: `string` : `address`
@@ -399,7 +398,7 @@ sidebarDepth: 4
 
 
 :::
-### wallet_isAddrUnlocked
+## wallet_isAddrUnlocked
 检查某个EntropyStore下的地址是否解锁， 必须确保EntropyStore已经解锁
 
 - **Parameters**: 
@@ -434,7 +433,7 @@ sidebarDepth: 4
 
 
 :::
-### wallet_isUnlocked
+## wallet_isUnlocked
 检查EntropyStore是否解锁
 
 - **Parameters**:  `string`: `Primry address` 或者 `EntropyStore abs filepath`
@@ -465,7 +464,7 @@ sidebarDepth: 4
 ```
 
 :::
-### wallet_findAddr
+## wallet_findAddr
 在某个EntropyStore解锁的情况下 ，搜索某个地址
 
 - **Parameters**:  
@@ -505,7 +504,7 @@ sidebarDepth: 4
 
 
 :::
-### wallet_globalFindAddr
+## wallet_globalFindAddr
 在已经解锁的EntropyStore中搜索某个地址
 
 - **Parameters**:  
@@ -542,7 +541,7 @@ sidebarDepth: 4
 ```
 
 :::
-### wallet_createTxWithPassphrase
+## wallet_createTxWithPassphrase
 发送交易
 
 - **Parameters**:  
@@ -560,7 +559,7 @@ sidebarDepth: 4
 
 
 :::
-### wallet_addEntropyStore
+## wallet_addEntropyStore
 增加某个EntropyStore文件，可以用于应用非标准目录下托管的entropystore文件
 
 - **Parameters**:  

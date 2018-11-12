@@ -1,5 +1,8 @@
 # Pow
-## tiantao
+
+:::tip 维护者
+[TiantaoZhu](https://github.com/TiantaoZhu)
+:::
 
 ## pow_getPowNonce
 计算一个pow的nonce

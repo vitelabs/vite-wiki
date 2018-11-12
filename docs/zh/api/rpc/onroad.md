@@ -1,18 +1,21 @@
 # Onroad
-## tiantao
+
+:::tip 维护者
+[TiantaoZhu](https://github.com/TiantaoZhu)
+:::
+
 在途模块
 
-## onroad_getOnroadBlocksByAddress 
+## onroad_getOnroadBlocksByAddress <Badge text="public"/>
+
 获取账户的在途交易
 
-**Public Api**
-
--**Parameters**: 
+* **Parameters**: 
   1. `Address`- 要查询的addr
   2. `int` -页码 index
   3. `int`- 每页大小 
 
--**Return**: 
+* **Return**: 
 * `[]AccountBlock`
 
 ::: demo
@@ -86,15 +89,14 @@
 ```
 :::
 
-## onroad_getAccountOnroadInfo
+## onroad_getAccountOnroadInfo <Badge text="public"/>
+
 获取某个账户的在途资金情况
 
-**Public Api**
-
--**Parameters**: 
+* **Parameters**: 
   1. `Address`- 要查询的addr
 
--**Return**: 
+* **Return**: 
 * `RpcAccountInfo`
 ::: demo
 
@@ -148,15 +150,14 @@
 ```
 :::
 
-## onroad_listWorkingAutoReceiveWorker
+## onroad_listWorkingAutoReceiveWorker <Badge text="private" type="error"/>
+
 获取正在工作中的自动接收交易的工人
 
-**Private Api**
-
--**Parameters**: 
+* **Parameters**: 
   null
 
--**Return**: 
+* **Return**: 
 * []types.Address
 
 ::: demo
@@ -188,18 +189,17 @@
 ```
 :::
 
-## onroad_startAutoReceive
+## onroad_startAutoReceive <Badge text="private" type="error"/>
+
 开始自动接收在途资金, 如果用户想临时改变filter规则，无须先关闭再开启，直接掉开启就可以了
 
-**Private Api**
-
--**Parameters**: 
+* **Parameters**: 
   1. `string`: `Primry address` 或者 `EntropyStore abs filepath`
   1. `string`:  `Address`
   2.  `map[types.TokenTypeId]string`- 一个简单的filter，key是要接收的币种，value是接收该币种的最少数量（大于等于 value），如果没设置，就会全部接收
 
 
--**Return**: 
+* **Return**: 
 * null
 
 ::: demo
@@ -237,15 +237,14 @@
 ```
 :::
 
-## onroad_stopAutoReceive
+## onroad_stopAutoReceive <Badge text="private" type="error"/>
+
 关闭某个自动接受交易的工人
 
-**Private Api**
-
--**Parameters**: 
+* **Parameters**: 
   1. `Address`
 
--**Return**: 
+* **Return**: 
 * null
 
 ::: demo

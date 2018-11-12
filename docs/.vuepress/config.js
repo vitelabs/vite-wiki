@@ -41,17 +41,15 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
-        '',
         'start/',
-        'start/introduction',
       ]
     },
     {
       collapsable: false,
       children: [
-        'wallet/',
         'wallet/install',
         'wallet/manage',
+        'wallet/hdwallet',
       ]
     },
     {
@@ -71,26 +69,69 @@ const sidebarConfigs = {
       ]
     }
   ],
-  api: [
+  'api/rpc': [
     {
       collapsable: false,
       children: [
-        'rpc/',
-        'rpc/wallet',
-        'rpc/net',
-        'rpc/onroad',
-        'rpc/contract',
-        'rpc/pledge',
-        'rpc/register',
-        'rpc/vote',
-        'rpc/mintage',
-        'rpc/common_models',
-        'rpc/ledger',
-        'rpc/testapi',
-        'rpc/pow',
-        'rpc/tx',
+        '',
       ]
-    }
+    },
+
+    // wallet
+    {
+      collapsable: false,
+      children: [
+        'wallet',
+        'onroad',
+        'tx',
+      ]
+    },
+
+    // ledger
+    {
+      collapsable: false,
+      children: [
+        'ledger',
+      ]
+    },
+
+    // consensus
+    {
+      collapsable: false,
+      children: [
+        'consensus_group',
+      ]
+    },
+
+    // build-in smart-contract
+    {
+      collapsable: false,
+      children: [
+        'contract',
+        'pledge',
+        'register',
+        'vote',
+        'mintage',
+      ]
+    },
+
+    // net
+    {
+      collapsable: false,
+      children: [
+        'net',
+      ]
+    },
+
+    // common
+    {
+      collapsable: false,
+      children: [
+        'testapi',
+        'common_models',
+        'pow',
+      ]
+    },
   ],
   vep: [
     {
@@ -166,13 +207,13 @@ module.exports = {
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
         nav: [
-          {
-            text: 'Introduction',
-            link: '/introduction/',
-          },
+          // {
+          //   text: 'Introduction',
+          //   link: '/introduction/',
+          // },
           {
             text: 'Tutorial',
-            link: '/tutorial/'
+            link: '/tutorial/start/'
           },
           {
             text: 'API',
@@ -192,7 +233,7 @@ module.exports = {
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
           '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Regulation'),
-          '/api/': genSidebarConfig('api', 'RPC interface'),
+          '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'P2P', 'Common'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -215,7 +256,7 @@ module.exports = {
           // },
           {
             text: '教程',
-            link: '/zh/tutorial/'
+            link: '/zh/tutorial/start/'
           },
           {
             text: 'API',
@@ -238,9 +279,9 @@ module.exports = {
         sidebar: {
           // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
-          '/zh/api/': genSidebarConfig('api', 'RPC 接口'),
           '/zh/vep/': genSidebarConfig('vep', '提案'),
           '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '规则'),
+          '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '内置合约', 'P2P', '公共组件'),
         },
         algolia: {
           apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

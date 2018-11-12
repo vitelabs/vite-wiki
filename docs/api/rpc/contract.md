@@ -3,7 +3,11 @@ sidebarDepth: 4
 ---
 
 # Contract
-## viteLiz
+
+:::tip Maintainer
+[viteLiz](https://github.com/viteLiz)
+:::
+
 Smart Contract
 
 Calling the built-in smart contract is similar to a normal transaction, but the receiving address is a built-in contract account address, not user account address.
@@ -20,7 +24,7 @@ The transfer amount and token ID should be filled if the contract method require
 
 ## API
 
-### contract_getCreateContractToAddress
+## contract_getCreateContractToAddress
 Return a newly generated smart contract address
 
 - **Parameters**: 

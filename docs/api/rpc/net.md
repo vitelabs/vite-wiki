@@ -1,7 +1,8 @@
 # Net
-## jerry
 
-## Description
+:::tip Maintainer
+[jerry-vite](https://github.com/jerry-vite)
+:::
 
 **Supported protocols:**
 
@@ -9,9 +10,7 @@
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713; | `false` | &#x2713; | future version |`false`|
 
-## API
-
-### net_syncInfo
+## net_syncInfo
 Return the sync status of the node
 
 - **Parameters**: `none`
@@ -64,7 +63,7 @@ Return the sync status of the node
 ```
 :::
 
-### net_peers
+## net_peers
 Return the detailed information of connected peers of the node
 
 - **Parameters**: `none`
@@ -179,7 +178,7 @@ Return the detailed information of connected peers of the node
 ```
 :::
 
-### net_peersCount
+## net_peersCount
 Return the number of connected peers of the node
 
 - **Parameters**: `none`

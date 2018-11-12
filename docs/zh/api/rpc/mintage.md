@@ -3,10 +3,11 @@ sidebarDepth: 4
 ---
 
 # Mintage
-## viteLiz
-铸币内置合约，合约账户地址：vite_00000000000000000000000000000000000000056ad6d26692
+:::tip 维护者
+[viteLiz](https://github.com/viteLiz)
+:::
 
-## 说明
+铸币内置合约，合约账户地址： `vite_00000000000000000000000000000000000000056ad6d26692`
 
 **支持调用方式：**
 
@@ -14,9 +15,7 @@ sidebarDepth: 4
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
 
-## API
-
-### mintage_getMintageData
+## mintage_getMintageData
 获取铸币交易请求数据
 
 - **Parameters**: 
@@ -68,7 +67,7 @@ sidebarDepth: 4
 ```
 :::
 
-### mintage_getMintageCancelPledgeData
+## mintage_getMintageCancelPledgeData
 获取取回铸币抵押交易请求数据
 
 - **Parameters**: 

@@ -3,10 +3,11 @@ sidebarDepth: 4
 ---
 
 # Register
-## viteLiz
-注册出块节点内置合约，合约账户地址：vite_0000000000000000000000000000000000000001c9e9f25417
+:::tip 维护者
+[viteLiz](https://github.com/viteLiz)
+:::
 
-## 说明
+注册出块节点内置合约，合约账户地址： `vite_0000000000000000000000000000000000000001c9e9f25417`
 
 **支持调用方式：**
 
@@ -14,9 +15,7 @@ sidebarDepth: 4
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
 
-## API
-
-### register_getRegisterData
+## register_getRegisterData
 获取出块节点注册交易请求数据
 
 - **Parameters**: 
@@ -49,7 +48,7 @@ sidebarDepth: 4
 
 :::
 
-### register_getCancelRegisterData
+## register_getCancelRegisterData
 获取取消出块节点注册交易请求数据
 
 - **Parameters**: 
@@ -80,7 +79,7 @@ sidebarDepth: 4
 
 :::
 
-### register_getRewardData
+## register_getRewardData
 获取提取出块奖励交易请求数据，从上一次提取到的高度开始，提取90天的出块奖励（如果不足90天，提取所有出块奖励），不能提取最近30分钟的出块奖励
 
 - **Parameters**: 
@@ -113,7 +112,7 @@ sidebarDepth: 4
 
 :::
 
-### register_getUpdateRegistrationData
+## register_getUpdateRegistrationData
 获取更新出块节点注册信息交易请求数据
 
 - **Parameters**: 
@@ -146,7 +145,7 @@ sidebarDepth: 4
 
 :::
 
-### register_getRegistrationList
+## register_getRegistrationList
 查询注册信息列表
 
 - **Parameters**: 
@@ -202,7 +201,7 @@ sidebarDepth: 4
 ```
 :::
 
-### register_getCandidateList
+## register_getCandidateList
 查询候选节点列表
 
 - **Parameters**: 

@@ -1,6 +1,12 @@
 # CommonModels
-## tiantao && lyd
-### All byte arrays should be converted to base64 encoding before passed in; uint64 and big.int types should be passed in string
+
+:::tip Maintainer
+[TiantaoZhu](https://github.com/TiantaoZhu) && [lyd00](https://github.com/lyd00)
+:::
+
+:::warning
+All byte arrays should be converted to base64 encoding before passed in; uint64 and big.int types should be passed in string
+:::
 
 ## RpcAccountInfo
 ```json ::Demo
