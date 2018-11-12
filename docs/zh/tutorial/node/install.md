@@ -12,13 +12,15 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 | ------------- | ------------------------------ |------|-------|
 | gvite 1.0.0 testNet  | yes  |yes |yes |
 
-* 源码编译需要额外的go环境安装，需要go环境至少需要1.11.1及以上, 官方地址: [go 安装和下载](https://golang.org/dl/)
+:::tip
+源码编译需要额外的go环境安装，需要go环境至少需要1.11.1及以上, 官方地址: [go 安装和下载](https://golang.org/dl/)
+:::
 
 ## 二进制文件安装gvite
 通过命令行下载和安装gvite, 支持ubuntu、mac、centos、windows
 
-ubuntu安装示例
-```
+### ubuntu安装示例
+```bash
 ## 下载
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-linux-amd64.tar.gz
 ## 解压
@@ -29,28 +31,33 @@ cd gvite-1.0.0-linux-amd64/
 ./bootstrap
 ```
 程序是否正常启动，通过查看启动脚本所在目录的 gvite.log 看日志来确定, 这个文件
-```
+```bash
 cat gvite.log
 ```
 如下说明启动成功
-```
+```bash
 t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
 t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
------
 
-目录文件说明
-* gvite 执行程序
-* bootstrap 启动脚本
-* node_config.json 配置文件 [配置说明]()
+### 目录文件说明
+
+* `gvite`： 执行程序
+* `bootstrap`： 启动脚本
+* `node_config.json`： 配置文件 [配置说明](./install.md#node-config配置文件说明)
+
+### 端口
 
 系统默认端口 8483、8484，需要保证没有被其他程序占用，并且防火墙允许其通信
-```
+
+```bash
  netstat -nlp|grep 8483 
 ```
-确定是否有被占用，例如gvite正常启动后会显示 
+
+确定是否有被占用，例如gvite正常启动后会显示
+ 
 ```
 netstat -nlp|grep 8483
 (Not all processes could be identified, non-owned process info
@@ -59,16 +66,18 @@ tcp6       0      0 :::8483                 :::*                    LISTEN      
 udp6       0      0 :::8483                 :::*                                22821/gvite
 ```
 
-运行目录说明
-```
+### 运行目录说明
+
+```bash
 cd ~/.gvite/testdata
 ```
 这是gvite的数据目录，在下面你会看到ledger  ledger_files  LOCK  p2p  rpclog  runlog  wallet 等目录和文件。
 gvite 数据目录说明:
-* ledger 账本目录
-* rpclog rpc访问日志
-* runlog 运行日志目录, runlog目录
-* wallet 钱包keyStore目录，用于存储私钥生成的keyStore文件，如果是超级节点涉及到挖矿账户安全，请`妥善保管`
+
+* `ledger`： 账本目录
+* `rpclog`： rpc访问日志
+* `runlog`： 运行日志目录, runlog目录
+* `wallet`： 钱包keyStore目录，用于存储私钥生成的keyStore文件，如果是超级节点涉及到挖矿账户安全，请`妥善保管`
 
 
 ## 源码安装gvite
@@ -76,22 +85,25 @@ gvite 数据目录说明:
 ```
 go env
 ```
->需要至少安装1.11.0 以上版本golang
+
+:::warning
+需要至少安装1.11.0 以上版本golang
 golang 安装方法 [go 安装](https://golang.org/doc/install)
+:::
 
 
-* github 下载源码
+### github 下载源码
 
-* 编译可执行文件
+### 编译可执行文件
 
-* 配置文件配置
+### 配置文件配置
 
-* 启动脚本编写
+### 启动脚本编写
 
 
 
 ## node_config配置文件说明
-``` json
+``` javascript
 {
   "NetID": 2, //网络id, 用于识别网络环境，testNet 1.0.0 为2，请勿更改
   "Identity": "vite-node-name",  // 此处
@@ -134,23 +146,20 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 ## 超级节点配置说明
 和全节点基本一样，额外需要开启挖矿，并且配置keystore文件。
 
-* 生成keystore文件：keystore是助记词加密存储文件，也就是保存了私钥，所以非常重要。keyStore的生成参见keyStore生成方法。
+* 创建钱包：钱包的生成参见：[钱包管理](./install.html#钱包管理)。
 
 
 * 修改node_config.json的配置
 在node_config.json 末尾新增4个配置，Miner、CoinBase和EntropyStorePath及EntropyStorePassword
 
-a、增加Miner属性值为 true
+  * 增加Miner属性值为 true
+  * 增加 CoinBase为格式为 `索引:地址`的格式，例如 0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+  * 增加 EntropyStorePath属性值 为自己的地址，例如vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+  * 增加EntropyStorePassword属性值为自己的keystore 对应的密码，keyStore 文件生成方法中的输入的123456，`请修改为自己的密码`
 
-b、增加 CoinBase为格式为 `索引:地址`的格式，例如 0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
+**完整的示例如下：**
 
-c、增加 EntropyStorePath属性值 为自己的地址，例如vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf，请修改为自己的地址
-
-d、增加EntropyStorePassword属性值为自己的keystore 对应的密码，keyStore 文件生成方法中的输入的123456，`请修改为自己的密码`
-
-完整的示例如下：
-
-```
+```json
 {
 	"NetID": 2,
 	"Identity": "vite-38",
@@ -197,70 +206,83 @@ d、增加EntropyStorePassword属性值为自己的keystore 对应的密码，ke
 ubuntu   27268     1 99 16:00 ?        01:54:56 ./gvite -pprof 
 ```
 执行
-```
+```bash
 kill -9 27268
 ```
 杀死进程
 
 重新执行
-```
+```bash
 ./bootstrap
 ```
 利用 ps -ef 来查看进程是否启动成功即可
 
 
-## keyStore 文件生成方法
-* 还没有助记词
+## 钱包管理
 
-通过命令行得到keyStore文件，
+### 新建钱包
 
-1、首先参照全节点的启动方式，启动全节点。
+通过命令行创建一个新的钱包
 
-2、通过命令行连接全节点：找到全节点的目录gvite文件。进入到该目录，然后执行如下命令
+* 首先参照全节点的启动方式，启动全节点。
+* 通过命令行连接全节点：找到全节点的目录gvite文件。进入到该目录，然后执行如下命令
+  ```bash
+  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ```
 
-```
-./gvite attach ~/.gvite/testdata/gvite.ipc
-```
-
-得到类似如下的结果，代表已经连接成功
-```
-INFO[11-12|16:47:07] cannot read the config file, will use the default config module=config error="open vite.config.json: no such file or directory"
-INFO[11-12|16:47:07]                                          monitor-log=/home/ubuntu/go-vite/backend-log/backend.log.30693
-Welcome to the Gvite JavaScript console!
-->
-```
+  得到类似如下的结果，代表已经连接成功
+  ```
+  INFO[11-12|16:47:07] cannot read the config file, will use the default config module=config error="open vite.config.json: no such file or directory"
+  INFO[11-12|16:47:07]                                          monitor-log=/home/ubuntu/go-vite/backend-log/backend.log.30693
+  Welcome to the Gvite JavaScript console!
+  ->
+  ```
 在交互命令行中输入：
-```
+```javascript
 vite.wallet_newMnemonicAndEntropyStore("123456")
 ```
-其中123456 为keystore的密码，需要指定为自己的密码，并且牢记该密码。
+其中 `123456` 为keystore的密码，需要指定为自己的密码，并且牢记该密码。
 
+```json
+{
+    "jsonrpc": "2.0", 
+    "id": 1, 
+    "result": {
+        "mnemonic": "24 g个单词", 
+        "primaryAddr": "vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf", 
+        "filename": "~/.gvite/testdata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
+    }
+}
 ```
-{"jsonrpc":"2.0","id":1,"result":{"mnemonic":"24 g个单词","primaryAddr":"vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf","filename":"~/.gvite/testdata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"}}
-```
-`mnemonic`:  助记词，十分重要，请牢记，并安全记录。
-`primaryAddr`: 助记词对应的第一个vite地址
-`filename`: 保存助记词的keyStore的所在位置，无须修改，挖矿需要指定
+* `mnemonic`:  助记词，十分重要，请牢记，并安全记录。
+* `primaryAddr`: 助记词对应的第一个vite地址
+* `filename`: 保存助记词的keyStore的所在位置，无须修改，挖矿需要指定
 
-执行exit 退出交互式命令行
+执行 `exit` 退出交互式命令行
 
-* 通过助记词恢复
+### 通过助记词恢复钱包
 
-如果你已经有了助记词，想要生成keyStore文件，
+如果你已经有了助记词，想要使用助记词来恢复钱包
 
 通过命令行连接全节点，参照如上生成新的助记词的方法
 
 然后在交互命令行中输入
 
+```javascript
+vite.wallet_recoverEntropyStoreFromMnemonic("Your Mnemonic","123456")
 ```
+其中 `Your Mnemonic` 修改为自己的助记词
+
+其中 `123456` 为keystore的密码，需要指定为自己的密码，并且牢记该密码。
+
+例如：
+
+:::demo
+```javascript tab: 命令行输入
 vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource","123456")
 ```
-其中 utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource 修改为自己的助记词
-
-其中123456 为keystore的密码，需要指定为自己的密码，并且牢记该密码。
-
-返回结果类似如下：
-```
+```json tab: 返回
+{
     "jsonrpc": "2.0",
     "id": 4,
     "result": {
@@ -270,6 +292,8 @@ vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction
     }
 }
 ```
+:::
+
 这样就得到了助记词对应的keyStore文件
 
 
