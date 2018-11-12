@@ -15,7 +15,7 @@ sidebarDepth: 4
 | &#x2713;|  `false` |  &#x2713; |future version|`false`|
 
 
-### wallet_listEntropyFilesInStandardDir
+## wallet_listEntropyFilesInStandardDir
 Return all EntropyStore in the standard directory
 
 - **Parameters**: `none`
@@ -53,7 +53,7 @@ Return all EntropyStore in the standard directory
 ```
 :::
 
-### wallet_listAllEntropyFiles 
+## wallet_listAllEntropyFiles 
 Return all EntropyStore managed by the wallet
 
 - **Parameters**: `none`
@@ -87,7 +87,7 @@ Return all EntropyStore managed by the wallet
 ```
 :::
 
-### wallet_unlock
+## wallet_unlock
 Unlock the specified EntropyStore
 
 - **Parameters**: 
@@ -120,7 +120,7 @@ Unlock the specified EntropyStore
 ```
 :::
 
-### wallet_lock
+## wallet_lock
 Lock the specified EntropyStore
 
 - **Parameters**: 
@@ -153,7 +153,7 @@ Lock the specified EntropyStore
 
 :::
 
-### wallet_listEntropyStoreAddresses
+## wallet_listEntropyStoreAddresses
 Return a specified range of addresses in the EntropyStore
 
 - **Parameters**: 
@@ -199,7 +199,7 @@ Return a specified range of addresses in the EntropyStore
 ```
 :::
 
-### wallet_newMnemonicAndEntropyStore
+## wallet_newMnemonicAndEntropyStore
 Create new mnemonics and EntropyStore
 
 - **Parameters**: 
@@ -238,7 +238,7 @@ Create new mnemonics and EntropyStore
 ```
 :::
 
-### wallet_deriveByIndex
+## wallet_deriveByIndex
 Derive sub account address by index
 
 - **Parameters**: 
@@ -280,7 +280,7 @@ Derive sub account address by index
 
 :::
 
-### wallet_deriveByFullPath
+## wallet_deriveByFullPath
 Derive sub account address by bip44 path. This method supports deriving sub address at more flexible hierarchy.
 
 - **Parameters**: 
@@ -322,7 +322,7 @@ Derive sub account address by bip44 path. This method supports deriving sub addr
 
 :::
 
-### wallet_recoverEntropyStoreFromMnemonic
+## wallet_recoverEntropyStoreFromMnemonic
 Recover EntropyStore from the mnemonics
 
 - **Parameters**: 
@@ -367,7 +367,7 @@ Recover EntropyStore from the mnemonics
 
 :::
 
-### wallet_globalCheckAddrUnlocked
+## wallet_globalCheckAddrUnlocked
 Check if the specified address is unlocked globally.
 
 - **Parameters**: `string` : `address` The account address to check
@@ -400,7 +400,7 @@ Check if the specified address is unlocked globally.
 
 :::
 
-### wallet_isAddrUnlocked
+## wallet_isAddrUnlocked
 Check if the specified address in the EntropyStore is unlocked. The EntropyStore should be unlocked in advance.
 
 - **Parameters**: 
@@ -436,7 +436,7 @@ Check if the specified address in the EntropyStore is unlocked. The EntropyStore
 
 :::
 
-### wallet_isUnlocked
+## wallet_isUnlocked
 Check if the specified EntropyStore is unlocked.
 
 - **Parameters**:  `string`: The primary account address or the absolute file path of the EntropyStore.
@@ -468,7 +468,7 @@ Check if the specified EntropyStore is unlocked.
 
 :::
 
-### wallet_findAddr
+## wallet_findAddr
 Return the index of the specified address in the EntropyStore. The EntropyStore should be unlocked in advance.
 
 - **Parameters**:  
@@ -509,7 +509,7 @@ Return the index of the specified address in the EntropyStore. The EntropyStore 
 
 :::
 
-### wallet_globalFindAddr
+## wallet_globalFindAddr
 Return the index of the specified address in the EntropyStore globally.
 
 - **Parameters**:  
@@ -547,7 +547,7 @@ Return the index of the specified address in the EntropyStore globally.
 
 :::
 
-### wallet_createTxWithPassphrase
+## wallet_createTxWithPassphrase
 Send a transaction
 
 - **Parameters**:  
@@ -566,7 +566,7 @@ Send a transaction
 
 :::
 
-### wallet_addEntropyStore
+## wallet_addEntropyStore
 Add a new EntropyStore. This method is used to manage EntropyStore in non-standard directory.
 
 - **Parameters**:  

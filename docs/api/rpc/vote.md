@@ -16,7 +16,7 @@ The built-in voting contract. Contract address：vite_00000000000000000000000000
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
-### vote_getVoteData
+## vote_getVoteData
 Return the composed request data to vote for the super node
 
 - **Parameters**: 
@@ -47,7 +47,7 @@ Return the composed request data to vote for the super node
 
 :::
 
-### vote_getCancelVoteData
+## vote_getCancelVoteData
 Return the composed request data to cancel voting
 
 - **Parameters**: 
@@ -74,7 +74,7 @@ Return the composed request data to cancel voting
 
 :::
 
-### vote_getVoteInfo
+## vote_getVoteInfo
 Return the voting information of the account
 
 - **Parameters**: 

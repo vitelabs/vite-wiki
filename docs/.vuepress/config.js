@@ -66,8 +66,8 @@ const sidebarConfigs = {
       children: [
         'sbp',
         'quota',
-        'mintage',
-        'vote'
+        // 'mintage',
+        // 'vote'
       ]
     }
   ],
