@@ -64,10 +64,10 @@ const sidebarConfigs = {
     {
       collapsable: false,
       children: [
-        'sbp',
-        'quota',
-        // 'mintage',
-        // 'vote'
+        'rule/sbp',
+        'rule/quota',
+        'rule/mintage',
+        'rule/vote'
       ]
     }
   ],
@@ -282,7 +282,7 @@ module.exports = {
           // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
           '/zh/vep/': genSidebarConfig('vep', '提案'),
-          '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '规则'),
+          '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解'),
           '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '内置合约', 'P2P', '公共组件'),
         },
         algolia: {
