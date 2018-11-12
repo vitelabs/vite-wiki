@@ -17,7 +17,7 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 ## 二进制文件安装gvite
 通过命令行下载和安装gvite, 支持ubuntu、mac、centos、windows
 
-ubuntu安装示例
+### ubuntu安装示例
 ```
 ## 下载
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-linux-amd64.tar.gz
@@ -25,6 +25,29 @@ curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0
 tar -xzvf gvite-1.0.0-linux-amd64.tar.gz
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
 cd gvite-1.0.0-linux-amd64/
+## 启动
+./bootstrap
+```
+程序是否正常启动，通过查看启动脚本所在目录的 gvite.log 看日志来确定, 这个文件
+```
+cat gvite.log
+```
+如下说明启动成功
+```
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+Prepare the Node success!!!
+Start the Node success!!!
+```
+
+### mac 安装示例
+```
+## 下载
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-darwin-amd64.tar.gz
+## 解压
+tar -xzvf gvite-1.0.0-darwin-amd64.tar.gz
+## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
+cd gvite-1.0.0-darwin-amd64
 ## 启动
 ./bootstrap
 ```
