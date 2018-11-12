@@ -1,24 +1,34 @@
 ---
 heroImage: /logo_black_transparent.svg
-actionText: 了解 Vite →
-actionLink: /zh/introduction/
+actionText: 测试网络1.0 →
+actionLink: /zh/tutorial/start/
 website: 官网
 highPerformance: 工业级
 dapp: 去中心化应用平台
 layout: HomePage
 pageClass: home-page
 projects:
-- title: Vite Core
-  details: Vite 协议官方Go语言版本
-  github: [go-vite]
-- title: Vite SDK
-  details: Vite 相关SDK，目前支持的语言：javascript
-  github: [vite.js]
-- title: Vite 钱包
-  details: Vite 官方桌面版钱包，支持win和mac
-  github: [vite-wallet]
-- title: 区块浏览器
-  details: 官方实现的区块浏览器，包含前端和后端两个仓库
-  github: [vite.net, vite-explorer-server]  
+- title: For User
+  items:
+    - title: 测试网络介绍
+      details: 介绍测试网络核心功能、规则，以及测试网络激励活动
+      link: /zh/tutorial/start/
+    - title: 超级节点
+      details: 如何运行超级节点、全节点
+      link: /zh/tutorial/node/install.html
+    - title: 钱包
+      details: Vite 钱包：iOS、web、windows、mac
+      link: /zh/tutorial/wallet/install.html
+- title: For Developers
+  items:
+    - title: API 文档
+      details: go-vite RPC 文档
+      link: /zh/api/rpc/
+    - title: 技术细节
+      details: Vite相关技术实现方案
+      link: /zh/technology/
+    - title: VEP
+      details: VEP 指 Vite 提案，任何对Vite有利的提案都可以提交到这里
+      link: /zh/vep/ 
 ---
 
