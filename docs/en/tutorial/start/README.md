@@ -1,6 +1,7 @@
 # Vite TestNet Introduction
 
 Vite TestNet `1.0.0`(with *SBP* mining enabled) was officially launched on November 8, 2018.
+
 In the TestNet, you can play with all the new features, participate in mining, voting and full-node testing and get rewards.
 Token migration from ERC20 to VITE is also available now. You can migrate your Vite ERC20 tokens to Vite TestNet at a 1:1 ratio, to earn profits in ahead of the release of Vite MainNet! Come and enjoy!
 
