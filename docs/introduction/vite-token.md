@@ -1,21 +1,22 @@
-# Vite Tokens
+---
+- 
+  description: VITE代币主要用于量化Vite平台的计算和存储资源。持有更多的代币，就可以相应的获得更高的交易配额。用户可以通过配额租赁，将自己用不到的配额转让给其他用户，并获取相应的收益。
+- '}'
+---
+# Vite 代币
 
-::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
-:::
+::: tip 此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf) :::
 
-## Transaction quotas
+## 资源分配
 
-The VITE tokens are primarily used to quantify the amount of computing and storage resources on the Vite platform. 
+VITE代币主要用于量化Vite平台的计算和存储资源。持有更多的代币，就可以相应的获得更高的交易配额。用户可以通过配额租赁，将自己用不到的配额转让给其他用户，并获取相应的收益。
 
-The more Vite tokens held by a user, the higher transaction quota he has.  Users may lease unused transaction quotas for a profit. 
+## 投票权
 
-## Voting
+VITE代币持有者拥有对应的投票权，可以选举快照共识组代理节点。快照共识组是系统的顶级共识组，负责Vite的交易验证，由25个节点组成，每生成一个快照块，都会获取一定数量的锻造奖励，用于激励节点运行，提高系统的健壮性。锻造奖励以增发的形式发放，年通胀率不超过3%。
 
-VITE token holders have a number of votes proportional to their holdings in their decision to elect proxy nodes in snapshot consensus groups. The snapshot consensus group is the top-level consensus group of the system, which is responsible for verification of trading. The group consists of 25 nodes. Each time a snapshot block is generated, a number of forging rewards are granted, to incentivize node operations which improves the system’s robustness. Forged rewards come from additional offering of coins, with annual inflation rate no more than 3%. 
+## 代币消耗
 
-## Token removal
+在一些场景下，用户需要消耗VITE代币。例如临时提高配额，发行新的代币，支付跨链传输手续费，支付环路撮合交易手续费，获得VNS命名服务等。代币的消耗会降低VITE的流动性，从而抵消通胀。
 
-In some scenarios, Vite tokens are "burned" and removed from the system. Here are some examples: the temporary increase of quotas, the issuance of new tokens, the payment of cross-chain transfer fees and the payment for matching of looped transactions, the access to VNS naming services, and so on. The consumption of tokens will reduce Vite’s liquidity, thereby offsetting inflation.
-
-The growth of Vite’s ecosystem and the expansion of its user base will consistently drive the value of the Vite framework, and increase the value of Vite tokens accordingly.
+随着Vite生态的发展和用户规模的扩大，Vite系统资源的价值在不断增加，VITE代币的价值也将会随之增长。
