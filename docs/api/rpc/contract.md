@@ -1,66 +1,48 @@
 ---
 sidebarDepth: 4
 ---
-
 # Contract
 
-:::tip Maintainer
-[viteLiz](https://github.com/viteLiz)
-:::
+:::tip 维护者 [viteLiz](https://github.com/viteLiz) :::
 
-Smart Contract
+**智能合约**
 
-Calling the built-in smart contract is similar to a normal transaction, but the receiving address is a built-in contract account address, not user account address.
-The transaction data is composed of `contract method selector` and `method parameter`, which is generated through RPC interface. 
-The transfer amount and token ID should be filled if the contract method requires staking.
+内置合约调用和普通转账交易类似，交易接收地址为内置合约地址，交易数据为 `内置合约方法选择器+方法参数` ，可以通过内置合约相关的RPC接口生成。如果调用内置合约时需要抵押Vite，则在转账金额和转账代币id字段填写相应的抵押金额和代币id即可。
 
-## Description
+**支持调用方式：**
 
-**Supported protocol：**
-
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
-
-## API
+| JSON-RPC 2.0 |   HTTP   |   IPC    | Publish–subscribe | Websocket |
+|:------------:|:--------:|:--------:|:-----------------:|:---------:|
+|   &#x2713;   | &#x2713; | &#x2713; |      waiting      | &#x2713;  |
 
 ## contract_getCreateContractToAddress
-Return a newly generated smart contract address
 
-- **Parameters**: 
+创建合约时生成新的合约地址
 
-  * `Address`: The account address of transaction sender
-  * `uint64`: The height of current block
-  * `Hash`: The hash of previous account block
-  * `Hash`: The hash of snapshot block which current account block refers to
+- **Parameters**:
+    
+    - `Address`: 交易的发起方
+    - `uint64`: 当前块高度
+    - `Hash`: 前一个账户块的哈希
+    - `Hash`: 当前块引用的快照块哈希
 
-- **Returns**: 
-	- `Address` New smart contract address
+- **Returns**:
+    
+    - `Address` 新的合约地址
 
 - **Example**:
 
-
 ::: demo
 
+```json tab:Request {  
+"jsonrpc":"2.0", "id":1, "method":"contract_getCreateContractToAddress", "params":[ "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6", 2, "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7", "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7"] }
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"contract_getCreateContractToAddress",
-   "params":[
-      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6", 
-      2, 
-      "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7", 
-      "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7"]
-}
-```
+    <br />```json tab:Response
+    {  
+       "jsonrpc":"2.0",
+       "id":1,
+       "result": "vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8"
+    }
+    
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8"
-}
-```
 :::
