@@ -1,6 +1,5 @@
 ---
 sidebarDepth: 4
-title: START
 ---
 
 # Start

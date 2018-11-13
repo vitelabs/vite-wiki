@@ -1,11 +1,10 @@
 ---
 sidebarDepth: 4
-title: 开始
 ---
 
 # 开始
 ## 说明
-* **IPC方式**：支持所有API调用
+* **IPC**：支持所有API调用
 
     1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `$HOME/viteisbest/vite.ipc`
 
