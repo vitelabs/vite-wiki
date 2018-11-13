@@ -90,6 +90,7 @@ Return all open transactions waiting to be received by the account address
 :::
 
 ## onroad_getAccountOnroadInfo <Badge text="public"/>
+
 Return the information of tokens in all open transactions waiting to be received by the account address
 
 * **Parameters**: 
@@ -150,6 +151,7 @@ Return the information of tokens in all open transactions waiting to be received
 :::
 
 ## onroad_listWorkingAutoReceiveWorker <Badge text="private" type="error"/>
+
 Return all account addresses who has setup to receive transactions automatically
 
 * **Parameters**: 
@@ -188,6 +190,7 @@ Return all account addresses who has setup to receive transactions automatically
 :::
 
 ## onroad_startAutoReceive <Badge text="private" type="error"/>
+
 Turn on the flag for the account to start receive transactions automatically. This method should be called again with new filter after the filtering rule is changed.
 
 * **Parameters**: 
@@ -234,6 +237,7 @@ Turn on the flag for the account to start receive transactions automatically. Th
 :::
 
 ## onroad_stopAutoReceive <Badge text="private" type="error"/>
+
 Turn off the flag for the account to stop receive transactions automatically
 
 * **Parameters**: 
