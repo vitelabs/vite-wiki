@@ -7,6 +7,7 @@
 On-road Module
 
 ## onroad_getOnroadBlocksByAddress <Badge text="public"/>
+
 Return all open transactions waiting to be received by the account address
 
 * **Parameters**: 
