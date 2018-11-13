@@ -10,6 +10,9 @@
         "en" : "",
         "zh": "zh"
       }
-    }
+    },
+    "ignore" : [
+      "/docs/%two_letters_code%/**/%original_file_name%", #ignore the translated files
+    ]
   }
 ]
