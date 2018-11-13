@@ -1,9 +1,9 @@
-"project_identifier": "vite-wiki"
+"project_identifier": "vite-wiki-zh"
 "api_key_env": "CROWDIN_API_KEY"
 "base_path": "."
 "files" : [
   {
-    "source" : "/docs/*/**/*.md",
+    "source" : "/docs/zh/**/*.md",
     "translation" : "/docs/%two_letters_code%/**/%original_file_name%",
     "languages_mapping" : {
       "two_letters_code" : {
