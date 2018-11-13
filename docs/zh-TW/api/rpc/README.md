@@ -1,40 +1,40 @@
 ---
 sidebarDepth: '4'
-title: 开始
+title: 開始
 ---
 
-# 开始
+# 開始
 
-## 说明
+## 說明
 
-- **IPC方式**：支持所有API调用
+- **IPC方式** ：支持所有API調用
 
-    1. ***nix(linux darwin)**: `Unix domain Socket` 文件名称    `$HOME/viteisbest/vite.ipc`
+    1. ***nix(linux darwin)** : `Unix domain Socket`文件名稱`$HOME/viteisbest/vite.ipc`
 
-    2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是  `\.\pipe\vite.ipc`
+    2. **Windows** : Named Pipe受限於Windows的規範文件名就是`\.\pipe\vite.ipc`
 
-- **Http**：仅支持公共API(非wallet模块) 默认端口**48132**
+- **Http** ：僅支持公共API(非wallet模塊)默認端口**48132**
 
-- **WebSocket**：仅支持公共API(非wallet模块) 默认端口**31420**
+- **WebSocket** ：僅支持公共API(非wallet模塊)默認端口**31420**
 
-- **不足**:
+- **不足** :
 
-    1. 暂时不支持发布订阅模式，后续会支持；
+    1. 暫時不支持發布訂閱模式，後續會支持；
 
-    2. 项目迭代很快，目前的API在之后版本中会很大改变。
+    2. 項目迭代很快，目前的API在之後版本中會很大改變。
 
-- **注意**:
+- **注意** :
 
-    1. 尽量使用标准的 ***Json rpc2*** 的库
-    2. 术语 交易（transaction 或者Tx） = account block
+    1. 盡量使用標準的***Json rpc2***的庫
+    2. 術語交易（transaction 或者Tx） = account block
 
-## 常见业务错误汇总
+## 常見業務錯誤匯總
 
 描述 | code | message | example
 --- | --- | --- | ---
-余额不足 | `-35001` | The balance is not enough. | {"code":-35001,"message":"The balance is not enough."}
-密码错误 | `-34001` | error decrypting key | {"code":-34001,"message":"error decrypting key"}
-账户重复解锁 | `-34002` | the address was previously unlocked | {"code":-34002,"message":"the address was previously unlocked"}
+餘額不足 | `-35001` | The balance is not enough. | {"code":-35001,"message":"The balance is not enough."}
+密碼錯誤 | `-34001` | error decrypting key | {"code":-34001,"message":"error decrypting key"}
+賬戶重複解鎖 | `-34002` | the address was previously unlocked | {"code":-34002,"message":"the address was previously unlocked"}
 
 ## JSON-RPC Support
 
