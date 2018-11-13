@@ -152,7 +152,7 @@ module.exports = {
   dest: 'dist',
   ga: 'UA-116567941-1',
   locales: {
-    '/': {
+    '/en/': {
       lang: 'en-US',
       title: 'VITE Document',
       description: 'A Next Generation High-performance Decentralized Application Platform'
@@ -203,7 +203,7 @@ module.exports = {
     repo: 'vitelabs/go-vite',
     docsBranch: docBranch,
     locales: {
-      '/': {
+      '/en/': {
         label: 'English',
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
