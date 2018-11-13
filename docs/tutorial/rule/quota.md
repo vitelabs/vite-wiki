@@ -1,186 +1,196 @@
-# Quota
+# 配额
 
-::: tip
-Please note this document is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
+::: tip 本文主要描述配额相关逻辑，并非详细的技术文档，详细技术文档会在技术黄皮书里提及。
 
-The Definitions of Terms:
-* **Quota**： In Vite system, transactions consume quota for exchanging computing and storage resources.
-* **${\rm PoW}$**： Proof of Work, used to prove that a certain amount of computation are performed.
-* **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
-* **Stake address**：The account who starts the stake transaction.
-* **Stake beneficiary address**：The account who obtains the quota.
-:::
+相关词汇解释：
 
-## What is quota
+* **配额**： 在Vite系统中，交易时使用配额来支付计算和存储资源。
+* **${\rm PoW}$**： 即工作量证明（Proof of Work），简单来说就是用来证明进行了一定量的计算。
+* **抵押**： 指账户中的一部分${\it vite}$被冻结，无法交易，无法使用。
+* **抵押地址**：指抵押发起方。
+* **配额受益地址**：指抵押成功后获得配额的账户地址。 :::
 
-In Ethereum, each transaction has to specify gas and gas price as transaction fee to compete with others to write the ledger. This is a typical bidding model. In principle, the gap between supply and demand can be effectively balanced by price. However, because it is difficult for users to determine the current supply and demand before bidding, and also not possible to predict the bids of other competitors, market failure could be caused in ease. Moreover, all of the competing bids are simply applying on transactions. There is no protocol to allocate TPS resources by account.
-In Vite, a certain amount of quota is consumed when the user starts a transaction, such as transfer, deploying new smart contract, invoking contract method, forging new token, registering super node, retrieving mining rewards, voting and staking. Vite introduces a quota model to achieve the balance between supply and demand.
+## 什么是配额
 
-Users are able to acquire quota in two ways:
-* Compute a ${\rm PoW}$ when sending a transaction;
-* Stake a certain amount of ${\it vite}$ in the account.
+在以太坊的设计中，每个交易在发起时需要指定gas和gas price,从而与其他交易竞争写入账本的机会。这是一个典型的竞价模型，原则上可以通过价格有效调控供给和需求的平衡。但由于用户在出价之前，很难量化当前的供需情况，也无法预测其他竞争者的出价，很容易发生市场失灵（market failure）。而且，每次出价所竞争的资源都是针对一个交易的，没有一个按账户维度对资源进行合理配置的协议。
 
-If the user only needs to send a transaction, he may calculate a ${\rm PoW}$ to get an one-time quota.
-If the user need send transactions frequently, he should stake a certain amount of ${\it vite}$ to obtain more quota.
+在Vite中，当用户发起一笔交易，即发起转账交易、部署合约、调用合约方法、发行新代币、注册超级节点、提取出块奖励、投票、抵押时，需要消耗一定的配额。Vite通过配额模型来调整供需平衡。
 
-Vite advocates users to obtain quota by staking.
+用户可以通过两种方式来获取更高的资源配额：
 
-## Quota usage rules
+* 在发起交易时计算一个${\rm PoW}$；
+* 在账户中抵押一定数量的${\it vite}$。
 
-Different transaction type consumes different amount of quota. In Vite TestNet, the quota required for various transaction types are as follows:
+如果用户希望一次性地发起一笔交易，可以选择计算一个${\rm PoW}$来一次性的获取配额；如果希望频繁发起交易，可以抵押一定数量的${\it vite}$来获取持久的配额。
 
-|  Transaction type  | Quota consumed |
-|:------------:|:-----------:|
-| Transfer-out without annotation | 21000 |
-| Transfer-in | 21000 |
-| Register super node | 62200 |
-| Update super node registration | 62200 |
-| Cancel super node registration | 83200 |
-| Retrieve mining rewards | 238800 |
-| Vote | 62000 |
-| Cancel voting | 62000 |
-| Stake for quota | 21000 |
-| Cancel staking | 21000 |
-| Forge token | 83200 |
-| Cancel token forging | 83200 |
+Vite提倡用户通过抵押的方式来获取配额。
 
-In addition, each character in annotation consumes additional quota - 4 quota for zero character and 68 quota for each non-zero character.
+## 配额使用规则
 
-For example, if hex encoding is used, to send a transfer transaction with annotation of 0x0001 (having two characters in total while the first is zero and the second is non-zero). The required quota is:
+用户发起的交易类型不同，所需的配额也不同，测试网络中，各种交易类型所需的配额见下表：
+
+|   交易类型    |  所需配额  |
+|:---------:|:------:|
+| 不带备注的转出交易 | 21000  |
+|   转入交易    | 21000  |
+| 注册超级节点交易  | 62200  |
+| 更新注册信息交易  | 62200  |
+| 注销超级节点交易  | 83200  |
+| 提取出块奖励交易  | 238800 |
+|   投票交易    | 62000  |
+|  撤销投票交易   | 62000  |
+| 抵押获取配额交易  | 21000  |
+|  撤销抵押交易   | 21000  |
+|   铸币交易    | 83200  |
+| 撤回铸币抵押交易  | 83200  |
+
+另外，对于转账交易中的备注，每个字符都需要收取额外的配额，每个0字符收取4配额，每个非0字符收取68配额。
+
+例如，如果用十六进制编码来表示备注，发起一笔备注为0x0001（共两个字符，第一个字符为0，第二个字符非0）的转账交易，需要的配额为：
 
 $${\it Q} = 21000 + 4 * 1 + 68 * 1 = 21072$$
 
-## Quota calculation
+## 配额计算逻辑
 
-Quota are calculated by the following formula:
+配额可以通过下面的公式来计算：
 
 $${\it Q}={\it Qm} \times (1- \frac{2}{1+e^{\xi d \times \rho d +\xi s \times T \times \rho s}})$$
 
-* ${\it Q}$: The current available quota of the account;
-* ${\it Qm}$: The quota cap of a single account, relevant to total system throughput and total number of accounts;
-* $\xi d$: The ${\rm PoW}$ difficulty computed by the account when sending a transaction;
-* $\rho d$: The weight of the quota obtained by computing ${\rm PoW}$;
-* $\xi s$: The amount of ${\it vite}$ staked by the account;
-* $T$: The waiting time before sending a transaction;
-* $\rho s$: The weight of the quota obtained by staking.
+其中，
 
-In the TestNet, some parameters are specified as constant, as follows:
+* ${\it Q}$: 一个账户的当前可用配额；
+* ${\it Qm}$: 单个账户配额上限，和系统总吞吐以及账户总数相关；
+* $\xi d$: 用户在发起一笔交易时计算出的${\rm PoW}$难度；
+* $\rho d$: 通过计算${\rm PoW}$获取配额的权重；
+* $\xi s$: 账户受益的抵押${\it vite}$数量；
+* $T$: 发起交易前等待的时间；
+* $\rho s$: 抵押获取配额的权重。
+
+目前测试网络中，各参数取值如下：
+
 * ${\it Qm}$ = 1000000
 * $\rho d$ = 6.259419649e-10
 * $\rho s$ = 4.200627522e-24
 
-For the convenience in real calculation, only the value of $(\xi d \times \rho d +\xi s \times T \times \rho s)$ is calculated. The result is mapped into corresponding quota based on the following table:
+为了计算方便，实际计算配额时，只计算$(\xi d \times \rho d +\xi s \times T \times \rho s)$的值，并将计算结果分段映射成相应的配额。映射表如下：
 
-|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | The number of un-annotated transactions that can be sent by waiting a snapshot block | Approximately equivalent to how much ${\it vite}$ is staked without computing ${\rm PoW}$| Approximately equivalent to how much ${\rm PoW}$ is calculated without staking|
-|:------------:|:-----------:|:-----------:|:-----------:|
-| 0.0 | 0 | 0 | 0 | 0 |
-| $(0.0, 0.042006175634155006]$ | 21000 | 1 | 10000 | 67108864 |
-| $(0.042006175634155006, 0.08404944434245186]$ | 42000 | 2 | 20009 | 134276096 |
-| $(0.08404944434245186, 0.1261670961035256]$ | 63000 | 3 | 30035 | 201564160 |
-| $(0.1261670961035256, 0.16839681732546105]$ | 84000 | 4 | 40088 | 269029376 |
-| $(0.16839681732546105, 0.2107768956769977]$ | 105000 | 5 | 50178 | 336736256 |
-| $(0.2107768956769977, 0.25334643304410037]$ | 126000 | 6 | 60311 | 404742144 |
-| $(0.25334643304410037, 0.2961455696376917]$ | 147000 | 7 | 70500 | 473120768 |
-| $(0.2961455696376917, 0.3392157225669637]$ | 168000 | 8 | 80754 | 541929472 |
-| $(0.3392157225669637, 0.382599842575369]$ | 189000 | 9 | 91082 | 611241984 |
-| $(0.382599842575369, 0.4263426931297194]$ | 210000 | 10 | 101494 | 681119744 |
-| $(0.4263426931297194, 0.4704911566788094]$ | 231000 | 11 | 112005 | 751652864 |
-| $(0.4704911566788094, 0.5150945736855665]$ | 252000 | 12 | 122623 | 822910976 |
-| $(0.5150945736855665, 0.5602051210238872]$ | 273000 | 13 | 133362 | 894976000 |
-| $(0.5602051210238872, 0.605878237567604]$ | 294000 | 14 | 144235 | 967946240 |
-| $(0.605878237567604, 0.6521731063496397]$ | 315000 | 15 | 155256 | 1041903616 |
-| $(0.6521731063496397, 0.6991532046201573]$ | 336000 | 16 | 166440 | 1116962816 |
-| $(0.6991532046201573, 0.7468869355972497]$ | 357000 | 17 | 177803 | 1193222144 |
-| $(0.7468869355972497, 0.7954483588344243]$ | 378000 | 18 | 189364 | 1270800384 |
-| $(0.7954483588344243, 0.8449180401302736]$ | 399000 | 19 | 201141 | 1349836800 |
-| $(0.8449180401302736, 0.8953840470548413]$ | 420000 | 20 | 213155 | 1430462464 |
-| $(0.8953840470548413, 0.9469431228444231]$ | 441000 | 21 | 225428 | 1512824832 |
-| $(0.9469431228444231, 0.9997020801479394]$ | 462000 | 22 | 237988 | 1597120512 |
-| $(0.9997020801479394, 1.053779467629503]$ | 483000 | 23 | 250862 | 1683513344 |
-| $(1.053779467629503, 1.1093075777848576]$ | 504000 | 24 | 264080 | 1772216320 |
-| $(1.1093075777848576, 1.1664348850068706]$ | 525000 | 25 | 277680 | 1863491584 |
-| $(1.1664348850068706, 1.2253290311060194]$ | 546000 | 26 | 291700 | 1957568512 |
-| $(1.2253290311060194, 1.286180514353531]$ | 567000 | 27 | 306188 | 2054791168 |
-| $(1.286180514353531, 1.3492072924575544]$ | 588000 | 28 | 321192 | 2155479040 |
-| $(1.3492072924575544, 1.4146605870070175]$ | 609000 | 29 | 336772 | 2260041728 |
-| $(1.4146605870070175, 1.4828322881625378]$ | 630000 | 30 | 353004 | 2368962560 |
-| $(1.4828322881625378, 1.554064521717701]$ | 651000 | 31 | 369958 | 2482749440 |
-| $(1.554064521717701, 1.6287621852605034]$ | 672000 | 32 | 387740 | 2602090496 |
-| $(1.6287621852605034, 1.707409634545938]$ | 693000 | 33 | 406466 | 2727755776 |
-| $(1.707409634545938, 1.7905932883378723]$ | 714000 | 34 | 426270 | 2860646400 |
-| $(1.7905932883378723, 1.8790328663947373]$ | 735000 | 35 | 447322 | 3001925632 |
-| $(1.8790328663947373, 1.97362554890186]$ | 756000 | 36 | 469840 | 3153051648 |
-| $(1.97362554890186, 2.0755100566945326]$ | 777000 | 37 | 494096 | 3315826688 |
-| $(2.0755100566945326, 2.186162517630361]$ | 798000 | 38 | 520434 | 3492593664 |
-| $(2.186162517630361, 2.3075451472522963]$ | 819000 | 39 | 549332 | 3686514688 |
-| $(2.3075451472522963, 2.4423470353692043]$ | 840000 | 40 | 581424 | 3901882368 |
-| $(2.4423470353692043, 2.594395323511559]$ | 861000 | 41 | 617620 | 4144775168 |
-| $(2.594395323511559, 2.7694056956796604]$ | 882000 | 42 | 659284 | 4424400896 |
-| $(2.7694056956796604, 2.976475888792767]$ | 903000 | 43 | 708576 | 4755193856 |
-| $(2.976475888792767, 3.2314282909393213]$ | 924000 | 44 | 769276 | 5162500096 |
-| $(3.2314282909393213, 3.5656840708200748]$ | 945000 | 45 | 848844 | 5696520192 |
-| $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 965904 | 6482067456 |
-| $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 1197296 | 8034975744 |
+| $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | 每等待一个快照块能发起的不带备注交易数量 | 大约相当于在不算${\rm PoW}$的情况下抵押多少${\it vite}$ | 大约相当于在不抵押的情况下计算多少难度的${\rm PoW}$ |
+|:------------------------------------------------------------:|:----------:|:--------------------:|:-----------------------------------------:|:--------------------------------:|
+|                             0.0                              |     0      |          0           |                     0                     |                0                 |
+|                $(0.0, 0.042006175634155006]$                 |   21000    |          1           |                   10000                   |             67108864             |
+|        $(0.042006175634155006, 0.08404944434245186]$         |   42000    |          2           |                   20009                   |            134276096             |
+|         $(0.08404944434245186, 0.1261670961035256]$          |   63000    |          3           |                   30035                   |            201564160             |
+|         $(0.1261670961035256, 0.16839681732546105]$          |   84000    |          4           |                   40088                   |            269029376             |
+|         $(0.16839681732546105, 0.2107768956769977]$          |   105000   |          5           |                   50178                   |            336736256             |
+|         $(0.2107768956769977, 0.25334643304410037]$          |   126000   |          6           |                   60311                   |            404742144             |
+|         $(0.25334643304410037, 0.2961455696376917]$          |   147000   |          7           |                   70500                   |            473120768             |
+|          $(0.2961455696376917, 0.3392157225669637]$          |   168000   |          8           |                   80754                   |            541929472             |
+|          $(0.3392157225669637, 0.382599842575369]$           |   189000   |          9           |                   91082                   |            611241984             |
+|          $(0.382599842575369, 0.4263426931297194]$           |   210000   |          10          |                  101494                   |            681119744             |
+|          $(0.4263426931297194, 0.4704911566788094]$          |   231000   |          11          |                  112005                   |            751652864             |
+|          $(0.4704911566788094, 0.5150945736855665]$          |   252000   |          12          |                  122623                   |            822910976             |
+|          $(0.5150945736855665, 0.5602051210238872]$          |   273000   |          13          |                  133362                   |            894976000             |
+|          $(0.5602051210238872, 0.605878237567604]$           |   294000   |          14          |                  144235                   |            967946240             |
+|          $(0.605878237567604, 0.6521731063496397]$           |   315000   |          15          |                  155256                   |            1041903616            |
+|          $(0.6521731063496397, 0.6991532046201573]$          |   336000   |          16          |                  166440                   |            1116962816            |
+|          $(0.6991532046201573, 0.7468869355972497]$          |   357000   |          17          |                  177803                   |            1193222144            |
+|          $(0.7468869355972497, 0.7954483588344243]$          |   378000   |          18          |                  189364                   |            1270800384            |
+|          $(0.7954483588344243, 0.8449180401302736]$          |   399000   |          19          |                  201141                   |            1349836800            |
+|          $(0.8449180401302736, 0.8953840470548413]$          |   420000   |          20          |                  213155                   |            1430462464            |
+|          $(0.8953840470548413, 0.9469431228444231]$          |   441000   |          21          |                  225428                   |            1512824832            |
+|          $(0.9469431228444231, 0.9997020801479394]$          |   462000   |          22          |                  237988                   |            1597120512            |
+|          $(0.9997020801479394, 1.053779467629503]$           |   483000   |          23          |                  250862                   |            1683513344            |
+|          $(1.053779467629503, 1.1093075777848576]$           |   504000   |          24          |                  264080                   |            1772216320            |
+|          $(1.1093075777848576, 1.1664348850068706]$          |   525000   |          25          |                  277680                   |            1863491584            |
+|          $(1.1664348850068706, 1.2253290311060194]$          |   546000   |          26          |                  291700                   |            1957568512            |
+|          $(1.2253290311060194, 1.286180514353531]$           |   567000   |          27          |                  306188                   |            2054791168            |
+|          $(1.286180514353531, 1.3492072924575544]$           |   588000   |          28          |                  321192                   |            2155479040            |
+|          $(1.3492072924575544, 1.4146605870070175]$          |   609000   |          29          |                  336772                   |            2260041728            |
+|          $(1.4146605870070175, 1.4828322881625378]$          |   630000   |          30          |                  353004                   |            2368962560            |
+|          $(1.4828322881625378, 1.554064521717701]$           |   651000   |          31          |                  369958                   |            2482749440            |
+|          $(1.554064521717701, 1.6287621852605034]$           |   672000   |          32          |                  387740                   |            2602090496            |
+|          $(1.6287621852605034, 1.707409634545938]$           |   693000   |          33          |                  406466                   |            2727755776            |
+|          $(1.707409634545938, 1.7905932883378723]$           |   714000   |          34          |                  426270                   |            2860646400            |
+|          $(1.7905932883378723, 1.8790328663947373]$          |   735000   |          35          |                  447322                   |            3001925632            |
+|           $(1.8790328663947373, 1.97362554890186]$           |   756000   |          36          |                  469840                   |            3153051648            |
+|           $(1.97362554890186, 2.0755100566945326]$           |   777000   |          37          |                  494096                   |            3315826688            |
+|          $(2.0755100566945326, 2.186162517630361]$           |   798000   |          38          |                  520434                   |            3492593664            |
+|          $(2.186162517630361, 2.3075451472522963]$           |   819000   |          39          |                  549332                   |            3686514688            |
+|          $(2.3075451472522963, 2.4423470353692043]$          |   840000   |          40          |                  581424                   |            3901882368            |
+|          $(2.4423470353692043, 2.594395323511559]$           |   861000   |          41          |                  617620                   |            4144775168            |
+|          $(2.594395323511559, 2.7694056956796604]$           |   882000   |          42          |                  659284                   |            4424400896            |
+|          $(2.7694056956796604, 2.976475888792767]$           |   903000   |          43          |                  708576                   |            4755193856            |
+|          $(2.976475888792767, 3.2314282909393213]$           |   924000   |          44          |                  769276                   |            5162500096            |
+|          $(3.2314282909393213, 3.5656840708200748]$          |   945000   |          45          |                  848844                   |            5696520192            |
+|          $(3.5656840708200748, 4.057395776090949]$           |   966000   |          46          |                  965904                   |            6482067456            |
+|           $(4.057395776090949, 5.029431885090279]$           |   987000   |          47          |                  1197296                  |            8034975744            |
 
-In other words, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should meet the transaction frequency of up to 1${\rm TPS}$ and staking 20009 can allow maximum 2${\rm TPS}$. Staking 10${\it vite}$ and waiting 1000 snapshot blocks (16 minutes and 40 seconds) also support to send a transfer transaction without annotation.
-## Two ways of obtaining quota
+即，在不计算${\rm PoW}$的情况下，抵押10000${\it vite}$可以获得最高1${\rm TPS}$的交易频率，抵押20009可以获得最高2${\rm TPS}$的交易频率。抵押10${\it vite}$等待1000个快照块（16分钟40秒）也可以发起一笔不带备注的转账交易。
 
-### Stake
+## 获取配额的两种方式
 
-Users can obtain quota by sending a stake transaction to the built-in stake contract. When the transaction is received and confirmed, the stake beneficiary account will be granted with the corresponding quota.
+### 抵押
 
-#### Parameters
-* Stake amount: The minimum stake amount is 10${\it vite}$.
-* Stake beneficiary address: The account that obtains quota, could be stake account or any other account. In other words, staking for others is permitted.
+用户可以发起一笔抵押交易来获取配额。抵押时，由抵押地址发起一笔抵押交易（实际上是调用内置合约），当该交易被内置合约接收并被快照链打包确认后，抵押受益账户就能获取到相应的配额。
 
-The stake account can retrieve the staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. When the transaction is received and confirmed, the stake beneficiary account will lose the corresponding quota.
+#### 参数
 
-### Computing PoW
+* 抵押金额：抵押金额最少为10${\it vite}$。
+* 配额受益地址：抵押成功后获取配额的账户，可以填写抵押地址，也可以填写其他账户地址。即Vite允许给别人抵押。
 
-The user can obtain an one-time quota by computing a ${\rm PoW}$ when sending a transaction. According to the formula, the expected ${\rm PoW}$ difficulty is 0x3FFFFFF for sending an un-annotated transfer transaction in the absence of staking,.
-In the TestNet, Vite will provide a pool that calculates ${\rm PoW}$.
+抵押账户可以在抵押成功后等待259200个快照块（大约3天），取回抵押的金额。取回抵押时，同样由抵押地址发起一笔撤销抵押的交易，当该交易被内置合约接收并被快照链打包确认后，抵押受益账户也就不再能获得相应的配额。
 
-#### PoW formula
+### 计算PoW
 
-1. Convert $difficulty$ to $target$ in following formula:
+用户可以在发起一笔交易时计算一个${\rm PoW}$来一次性获取配额。根据配额公式，在没有抵押的情况下，要发起一笔不带备注的转账交易，需要计算的${\rm PoW}$难度为 0x3FFFFFF。
+
+测试网络中，Vite会提供计算${\rm PoW}$的矿池。
+
+#### PoW计算公式
+
+1. 首先将$difficulty$转换为$target$，计算公式为：
 
 $target$ = 2**256 / (1 + 1/$difficulty$)
 
-* $difficulty$: ${\rm PoW}$ difficulty, 256-bit number, padding zeros at front when less than 256 bits;
-* $target$: ${\rm PoW}$ target, 256-bit number, usually the first bit is 1.
+其中，
 
-For example, when $difficulty$ = 0x3FFFFFF, the $target$ = 0xFFFFFFC000000000.
+* $difficulty$: ${\rm PoW}$难度，长度为256位的数字，不足256位时前面补0；
+* $target$: ${\rm PoW}$目标，长度为256位的数字，通常第0位为1。
 
-2. Calculate $nonce$ based on the transaction data. $nonce$ is the proof of work. To calculate ${\rm PoW}$, a random number is continuously assigned to $nonce$ until the following conditions are met:
+例如，当$difficulty$ = 0x3FFFFFF 时，对应的$target$ = 0xFFFFFFC000000000。
+
+2. 然后根据交易数据计算$nonce$，$nonce$即为工作量证明，计算时，不断将随机数赋值给$nonce$，直到满足下面的条件：
 
 $$blake2b(address+prevHash) + nonce < target$$
 
-* $blake2b$: The hash function
-* $address$: The user account address
-* $prevHash$: The hash of previous account block
+其中，
+
+* $blake2b$: Vite使用的哈希函数
+* $address$: 用户账户的地址
+* $prevHash$: 用户账户中最后一个账户块的哈希
 
 ## FAQ
 
-* Can an address stake for multiple beneficiary addresses?
+* 一个抵押地址能否给多个配额受益地址抵押？
 
-Yes. The stake expiration time of each beneficiary address is different.
+可以。每一个配额受益地址的抵押到期时间不同。
 
-* Can an address stake for the same beneficiary address multiple times?
+* 一个抵押地址能否多次给同一个配额受益地址抵押？
 
-Yes. The height of stake expiration is 259200 + the height of the snapshot block referenced when the last stake transaction was received by the built-in contract.
+可以。抵押到期的高度为最后一次抵押被内置合约接收时引用的快照块高度+259200。
 
-* Can ${\it vite}$, which is staked to a beneficiary address, be retrieved in multiple times?
+* 抵押给一个配额受益地址的${\it vite}$是否可以分批取回？
 
-Yes. After a stake expires, the staked ${\it vite}$ can be retrieved in multiple times. This does not affect the expiration time.
+可以。抵押到期后可以分批取回，取回操作不影响到期时间。
 
-* Is the stake retrievable if it has not expired yet?
+* 抵押还没到期是否可以取回？
 
-No. However, the stake can be retrieved at any time after it expires.
+不可以。但抵押到期后随时可以取回。
 
-* Does the receiving transaction consume quota?
+* 入账交易是否需要消耗配额？
 
-Yes, a receiving transaction needs to consume 21,000 quota.
+需要，一笔入账交易需要消耗21000配额。
 
-* How to receive the first transaction on a new account without staking?
+* 一个账户收到的第一笔转账交易，在没有抵押的情况下，怎么接收？
 
-If you don't have ${\it vite}$ to stake, instead, you can calculate ${\rm PoW}$ to get quota once.
+如果没有抵押，可以计算${\rm PoW}$来一次性获取配额。
