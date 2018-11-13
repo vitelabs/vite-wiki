@@ -5,14 +5,14 @@ sidebar: auto
 
 # 簡介
 
-::: tip Vite Labs
-Vite 项目正在开发，有关Vite的相关的技术文档均会放此处，若有什么建议，欢迎提PR。
+::: tip Vite Labs 
+Vite 項目正在開發，有關Vite的相關的技術文檔均會放此處，若有什麼建議，歡迎提PR。
 
 有關文檔內容的修正，請勿直接修改，可以另開分支修改，然後提PR。修改入口在每個頁面左下角。
 
 目前技術設計前期的文檔請放到`docs/zh/technology`文件夾下， `docs/zh/technology/README.md`為該欄目首頁。
 
-本项目使用[vuePress](https://vuepress.vuejs.org/zh/)，有关侧边栏的配置说明，请移步: [vuePress 侧边栏](https://vuepress.vuejs.org/zh/default-theme-config/#%E4%BE%A7%E8%BE%B9%E6%A0%8F)
+本項目使用[vuePress](https://vuepress.vuejs.org/zh/) ，有關側邊欄的配置說明，請移步: [vuePress側邊欄](https://vuepress.vuejs.org/zh/default-theme-config/#%E4%BE%A7%E8%BE%B9%E6%A0%8F) 
 :::
 
 ::: warning 注意
