@@ -23,7 +23,7 @@ Return the sync status of the node
 | to | string | uint64| The target sync height |
 | received | string | uint64 | The number of received snapshot blocks |
 | current | string | uint64 | The current height of snapshot chain |
-| state | uint | uint | Sync state: 0 Sync not started, 1 Sync in process, 2 Sync complete, 3 Sync error, 4 Sync cancelled, 5 Data download complete |
+| state | uint | uint | Sync state: 0 Sync not started, 1 Sync in process, 2 Sync complete, <br/> 3 Sync error, 4 Sync cancelled, 5 Data download complete |
 | status | string | string | The description of sync status |
 
 - **Example**:
