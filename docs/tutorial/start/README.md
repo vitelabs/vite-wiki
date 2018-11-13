@@ -100,7 +100,7 @@ Full name：*Vite Test Token*
 
 VTT is Vite Test Token. It can be obtained freely in [Vite wallet][web-wallet] and mainly used for testing.
 
-[sbp-reward]: <../sbp.html#出块奖励>
+[sbp-reward]: <../rule/sbp.html#出块奖励>
 [sbp-manage]: <../node/sbp.html>
 [web-wallet]: <https://wallet.vite.net>
 

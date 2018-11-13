@@ -100,7 +100,7 @@ VCP定位为 Vite 社区积分代币，和大家使用其他APP或者信用卡�
 
 VTT，有官方发行的测试代币，可以在[钱包][web-wallet]上获取的测试代币就是VTT，主要是用于测试。
 
-[sbp-reward]: <../sbp.html#出块奖励>
+[sbp-reward]: <../rule/sbp.html#出块奖励>
 [sbp-manage]: <../node/sbp.html>
 [web-wallet]: <https://wallet.vite.net>
 
