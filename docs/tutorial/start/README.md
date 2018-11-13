@@ -15,13 +15,13 @@ SBP mining will be enabled on the TestNet. On a temporary basis in the `1.0.x` r
 Related documents:
 
 * [How to run a SBP][sbp-manage]
-* [SBP reward allocation rules] [sbp-reward]
+* [SBP reward allocation rules][sbp-reward]
 
 ::: warning Why the SBP reward is 0?
-We want to test the [SBP reward allocation rules] [sbp-reward] in the TestNet since we are not sure if the current [rules] [sbp-reward] are the best.
+We want to test the [SBP reward allocation rules][sbp-reward] in the TestNet since we are not sure if the current [rules][sbp-reward] are the best.
 
-We may frequently alter the [rule parameters] [sbp-reward] in TestNet `1.0.x`, which may cause frequent hard forks. In order to avoid this, in `1.0.x` versions, all SBP reward is `0`.
-Instead, all rewards will be calculated and sent to the miner by Vite Labs team according to the [rules] [sbp-reward] at the time being.
+We may frequently alter the [rule parameters][sbp-reward] in TestNet `1.0.x`, which may cause frequent hard forks. In order to avoid this, in `1.0.x` versions, all SBP reward is `0`.
+Instead, all rewards will be calculated and sent to the miner by Vite Labs team according to the [rules][sbp-reward] at the time being.
 :::
 
 ### Full-Node Reward
