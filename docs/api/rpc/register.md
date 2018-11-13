@@ -1,247 +1,319 @@
 ---
 sidebarDepth: 4
 ---
-
 # Register
 
-:::tip Maintainer
-[viteLiz](https://github.com/viteLiz)
-:::
+:::tip 维护者 [viteLiz](https://github.com/viteLiz) :::
 
-The built-in super node registration contract. Contract address: vite_0000000000000000000000000000000000000001c9e9f25417
+注册出块节点内置合约，合约账户地址： `vite_0000000000000000000000000000000000000001c9e9f25417`
 
-**Supported protocol:**
+**支持调用方式：**
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
+| JSON-RPC 2.0 |   HTTP   |   IPC    | Publish–subscribe | Websocket |
+|:------------:|:--------:|:--------:|:-----------------:|:---------:|
+|   &#x2713;   | &#x2713; | &#x2713; |      waiting      | &#x2713;  |
 
 ## register_getRegisterData
-Return the composed request data to register a new super node
 
-- **Parameters**: 
+获取出块节点注册交易请求数据
 
-  * `Gid`: Consensus group ID
-  * `string`: The node name of block producer
-  * `Address`: The account address of block producer
+- **Parameters**:
+    
+    - `Gid`: 共识组id
+    - `string`: 出块节点名称
+    - `Address`: 出块账户地址
 
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getRegisterData",
-   "params": [
-      "00000000000000000001",
-      "super", 
-      "vite_080b2d68a06f52c0fbb454f675ee5435fb7872526771840d22", 
-    ]
-}
-```
-
-:::
-
-## register_getCancelRegisterData
-Return the composed request data to cancel an existing registration
-
-- **Parameters**: 
-
-  * `Gid`: Consensus group ID
-  * `string`: The node name of block producer
-
-- **Returns**: 
-	- `[]byte` Data
+- **Returns**:
+    
+    - `[]byte` Data
 
 - **Example**:
 
-
 ::: demo
 
+```json tab:Request {  
+"jsonrpc":"2.0", "id":1, "method":"register_getRegisterData", "params": [ "00000000000000000001", "super", "vite_080b2d68a06f52c0fbb454f675ee5435fb7872526771840d22" ] }
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getCancelRegisterData",
-   "params": [
-      "00000000000000000001",
-      "super"
-    ]
-}
-```
+    <br />:::
+    
+    ## register_getCancelRegisterData
+    获取取消出块节点注册交易请求数据
+    
+    - **Parameters**: 
+    
+      * `Gid`: 共识组id
+      * `string`: 出块节点名称
+    
+    - **Returns**: 
+        - `[]byte` Data
+    
+    - **Example**:
+    
+    
+    ::: demo
+    
+    
+    ```json tab:Request
+    {  
+       "jsonrpc":"2.0",
+       "id":1,
+       "method":"register_getCancelRegisterData",
+       "params": [
+          "00000000000000000001",
+          "super"
+        ]
+    }
+    
 
 :::
 
 ## register_getRewardData
-Return the composed request data to retrieve mining rewards. Rewards mined within 90 days since the last retrieval block are retrieved per request. All rewards except mined in recent 30 minutes will be retrieved if the height between last retrieval block and current block is less than 90 days. Rewards mined within latest 30 minutes are not allowed to retrieve.
 
-- **Parameters**: 
+获取提取出块奖励交易请求数据，从上一次提取到的高度开始，提取90天的出块奖励（如果不足90天，提取所有出块奖励），不能提取最近30分钟的出块奖励
 
-  * `Gid`: Consensus group ID
-  * `string`: The node name of block producer
-  * `Address`: The address of account to receive rewards
+- **Parameters**:
+    
+    - `Gid`: 共识组id
+    - `string`: 出块节点名称
+    - `Address`: 提取奖励账户地址
 
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getRewardData",
-   "params": [
-      "00000000000000000001", 
-      "super",
-      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-    ]
-}
-```
-
-:::
-
-## register_getUpdateRegistrationData
-Return the composed request data to update the information of an existing registration
-
-- **Parameters**: 
-
-  * `Gid`: Consensus group ID, must be the same value as registered
-  * `string`: The node name of block producer, must be the same value as registered
-  * `Address`: The account address of new block producer
-
-- **Returns**: 
-	- `[]byte` Data
+- **Returns**:
+    
+    - `[]byte` Data
 
 - **Example**:
 
-
 ::: demo
 
+```json tab:Request {  
+"jsonrpc":"2.0", "id":1, "method":"register_getRewardData", "params": [ "00000000000000000001", "super", "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6" ] }
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getUpdateRegistrationData",
-   "params": [
-      "00000000000000000001", 
-      "super",
-      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-    ]
-}
-```
+    <br />:::
+    
+    ## register_getUpdateRegistrationData
+    获取更新出块节点注册信息交易请求数据
+    
+    - **Parameters**: 
+    
+      * `Gid`: 共识组id，不可修改
+      * `string`: 出块节点名称，不可修改
+      * `Address`: 新的出块账户地址，可修改
+    
+    - **Returns**: 
+        - `[]byte` Data
+    
+    - **Example**:
+    
+    
+    ::: demo
+    
+    
+    ```json tab:Request
+    {  
+       "jsonrpc":"2.0",
+       "id":1,
+       "method":"register_getUpdateRegistrationData",
+       "params": [
+          "00000000000000000001", 
+          "super",
+          "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
+        ]
+    }
+    
 
 :::
 
 ## register_getRegistrationList
-Return the registered super node list
 
-- **Parameters**: 
+查询注册信息列表
 
-  * `Gid`: Consensus group ID
-  * `Address`: The staking account address
+- **Parameters**:
+    
+    - `Gid`: 共识组id
+    - `Address`: 抵押账户地址
 
-- **Returns**: 
+- **Returns**:
 
-`Array&lt;RegistartionInfo&gt;`
-  1. `name`: `string`  The node name of block producer
-  2. `nodeAddr`: `Address`  The account address of block producer
-  3. `pledgeAddr`: `Address`  The staking account address
-  4. `pledgeAmount`: `big.Int`  The staking amount
-  5. `withdrawHeight`: `uint64`  The due height of staking
-  6. `withdrawTime`: `uint64`  The estimated due time of staking
-  7. `cancelHeight`: `uint64`  The cancellation time of staking. If the value is greater than 0, it implies that the staking has already been cancelled.
+`Array&lt;RegistartionInfo&gt;` 1. `name`: `string` 出块节点名称 2. `nodeAddr`: `Address` 出块账户地址 3. `pledgeAddr`: `Address` 抵押账户地址 4. `pledgeAmount`: `big.Int` 抵押金额 5. `withdrawHeight`: `uint64` 抵押到期高度 6. `withdrawTime`: `uint64` 预计抵押到期时间 7. `cancelHeight`: `uint64` 抵押取消时间，值大于0时表示已注销
 
 - **Example**:
 
-
 ::: demo
 
+```json tab:Request {  
+"jsonrpc":"2.0", "id":1, "method":"register_getRegistrationList", "params": [ "00000000000000000001", "vite_080b2d68a06f52c0fbb454f675ee5435fb7872526771840d22" ] }
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getRegistrationList",
-   "params": [
-      "00000000000000000001",
-      "vite_080b2d68a06f52c0fbb454f675ee5435fb7872526771840d22"
-    ]
-}
-```
-
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": [
-    {
-      "name": "super",
-      "nodeAddr": "",
-      "pledgeAddr": "",
-      "pledgeAmount": 100000000000,
-      "withdrawHeight": 100,
-      "withdrawTime":1541573925,
-      "cancelHeight":0
+    <br />```json tab:Response
+    {  
+       "jsonrpc":"2.0",
+       "id":1,
+       "result": [
+        {
+          "name": "super",
+          "nodeAddr": "",
+          "pledgeAddr": "",
+          "pledgeAmount": 100000000000,
+          "withdrawHeight": 100,
+          "withdrawTime":1541573925,
+          "cancelHeight":0,
+        }
+       ]
     }
-   ]
-}
-```
+    
+
 :::
 
 ## register_getCandidateList
-Return the candidate list
 
-- **Parameters**: 
+查询候选节点列表
 
-  * `Gid`: Consensus group ID
+- **Parameters**:
+    
+    - `Gid`: 共识组id
 
-- **Returns**: 
+- **Returns**:
 
-`Array&lt;CandidateInfo&gt;`
-  1. `name`: `string`  The node name of block producer
-  2. `nodeAddr`: `Address`  The account address of block producer
+`Array&lt;CandidateInfo&gt;` 1. `name`: `string` 出块节点名称 2. `nodeAddr`: `Address` 出块账户地址 3. `voteNum`: `string` 投票数
 
 - **Example**:
 
-
 ::: demo
 
+```json tab:Request {  
+"jsonrpc":"2.0", "id": 1, "method":"register_getCandidateList", "params": [ "00000000000000000001" ] }
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"register_getCandidateList",
-   "params": [
-      "00000000000000000001"
-    ]
-}
-```
-
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": [
+    <br />```json tab:Response
     {
-      "name": "super",
-      "nodeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
+        "jsonrpc": "2.0",
+        "id": 17,
+        "result": [
+            {
+                "name": "s1",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s10",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s11",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s12",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s13",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s14",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s15",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s16",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s17",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s18",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s19",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s2",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s20",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s21",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s22",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s23",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s24",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s25",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s3",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s4",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s5",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s6",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s7",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s8",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            },
+            {
+                "name": "s9",
+                "nodeAddr": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+                "voteNum": "0"
+            }
+        ]
     }
-   ]
-}
-```
+    
+
 :::
