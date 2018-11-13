@@ -14,15 +14,11 @@ Calling the built-in smart contract is similar to a normal transaction, but the 
 The transaction data is composed of `contract method selector` and `method parameter`, which is generated through RPC interface. 
 The transfer amount and token ID should be filled if the contract method requires staking.
 
-## Description
-
 **Supported protocol：**
 
 |  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
-
-## API
 
 ## contract_getCreateContractToAddress
 Return a newly generated smart contract address
