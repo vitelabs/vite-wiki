@@ -21,6 +21,7 @@ title: 开始
 
 * **注意**:
     1. 尽量使用标准的 ***Json rpc2*** 的库
+    
     2. 术语 交易（transaction 或者Tx） = account block
 
 
