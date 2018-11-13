@@ -157,8 +157,7 @@
 * **Parameters**: 
   null
 
-* **Return**: 
-* []types.Address
+* **Return**: `[]types.Address`
 
 ::: demo
 

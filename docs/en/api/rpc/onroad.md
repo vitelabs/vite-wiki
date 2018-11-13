@@ -157,8 +157,7 @@ Return all account addresses who has setup to receive transactions automatically
 * **Parameters**: 
   null
 
-* **Return**: 
-* `[]types.Address` - An array of account address
+* **Return**: `[]types.Address` - An array of account address
 
 ::: demo
 
