@@ -1,6 +1,6 @@
 # Tx
 
-:::tip 维护者
+:::tip Maintainer
 [TiantaoZhu](https://github.com/TiantaoZhu) && [lyd00](https://github.com/lyd00) && [vite-crzn](https://github.com/vite-crzn)
 :::
 
