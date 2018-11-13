@@ -97,7 +97,11 @@ sidebar: auto
                   "test": 1
                 } :::
     
-    ::: demo ``` json tab: Tab1 名称 { "test": 1 }
+    ::: demo ``` json tab: Tab1 名稱 { 
+    
+    <div class="notransla te">
+      2
+    </div> "test": 1 }
     
         ``` json tab: Tab2 名称
           {
