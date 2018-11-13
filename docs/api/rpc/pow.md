@@ -1,15 +1,16 @@
 # Pow
 
-:::tip Maintainer
-[TiantaoZhu](https://github.com/TiantaoZhu)
-:::
+:::tip 维护者 [TiantaoZhu](https://github.com/TiantaoZhu) :::
 
 ## pow_getPowNonce
-Return the resolved PoW nonce
+
+计算一个pow的nonce
 
 - **Parameters**: 
-1. `difficulty`: `string` - PoW difficulty in decimal bigInt string
-2. `data` :`Hash` -  The hash of 20-byte account binary address + the hash of previous transaction(zero if there is no previous transaction)
+
+1. `difficulty`: `string` - 十进制bigint的string表示， 本期忽略这个参数
+2. `data` :`Hash` - Hash(address + prehash) 该账户二进制地址（20字节） + 上一个交易的hash（如果是第一个那么就是全0），然后再对它们取一次hash
 
 - **return**:
-1. `nonce`:`[]byte` - Resolved PoW nonce in base64 byte array
+
+1. `nonce`:`[]byte` - base64的byte数组 pow的nonce
