@@ -8,7 +8,7 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-Smart Contract
+**Smart Contract**
 
 Calling the built-in smart contract is similar to a normal transaction, but the receiving address is a built-in contract account address, not user account address.The transaction data is composed of `contract method selector` and `method parameter`, which is generated through RPC interface. The transfer amount and token ID should be filled if the contract method requires staking.
 
