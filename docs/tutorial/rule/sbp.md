@@ -1,29 +1,27 @@
-# SBP (Snapshot Block Producer)
+# 超级节点
 
-::: tip
-Please note this document is not a technical document, but mainly describes SBP and SBP-related topics. Technical details will be introduced in the yellow paper.
+::: tip 本文主要描述有关超级节点相关规则，并非详细的技术文档，详细技术文档会在技术黄皮书里提及。
 
-The Definitions of Terms:
-* **SBP**: Snapshot Block Producer
-* **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
-* **A round**: Vite system recalculates votes after each round(75 seconds). Ideally, 75 blocks are produced in a round.
-* **A cycle**: Refers to 1152 rounds, approximately one day.
-* **SBP staker address**: Refers to the SBP registration transaction initiator, aka staker.
-* **SBP address**: Refers to the address configured on the SBP server.
-:::
+相关词汇解释：
 
-Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which is consistent with the DPoS algorithm of BTS in essence. However, compared with original DPoS, Vite has made some improvements.
+* **SBP**： Snapshot Block Producer，指超级节点。
+* **抵押**： 指账户中的一部分vite被冻结，无法交易，无法使用。
+* **一个轮次**： 指每过一段时间会重新统计票数，一轮次时间为：75s，每个轮次理论上有75个块产生。
+* **一个周期**： 指1152轮次，约一天。
+* **SBP注册地址**：指注册超级节点时的交易发起方，也就是抵押发起方。
+* **SBP运行地址**：指运行超级节点时，服务器上配置的地址。 :::
 
-**The relevant modifications are as follows (For detailed rules, please read the article below)**:
+Vite 快照链采用和DPOS共识算法，在核心逻辑上和BTS的DPOS算法一致，Vite 在这之上做了些许改进。
 
-* **SBP Registration**：注册SBP需要抵押100万的vite（测试网络需要抵押50万 vite）
+**相关改动简要如下（详细规则请阅读下文）**：
+
+* **SBP注册**：注册SBP需要抵押100万的vite（测试网络需要抵押50万 vite）
 * **出块权**：每一轮：随机选出前25个节点中的23个节点出块，随机选择排名26-100名中的2个节点出块
 * **出块奖励**：出块奖励的50%分配给出块者，50%分配给前100名超级节点（按投票数权重来计算）
 
 ## SBP注册
 
-传统的DPOS算法中，注册委托代理节点需要消耗支付一定量的token，但是在vite里，我们提倡通过**抵押**的方式来获取资源和资格。
-在vite里可以通过抵押获取**配额**（交易配额），也可以通过抵押获得SBP的运行资格。
+传统的DPOS算法中，注册委托代理节点需要消耗支付一定量的token，但是在vite里，我们提倡通过**抵押**的方式来获取资源和资格。 在vite里可以通过抵押获取**配额**（交易配额），也可以通过抵押获得SBP的运行资格。
 
 ### 抵押规则
 
@@ -50,9 +48,7 @@ Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which
 
 #### 参数
 
-* **超级节点地址**：填写超级节点运行时用于出块的地址，也可以填写为发起**SBP注册**的地址。
-推荐在服务器上生成一个新地址，然后将这个新地址作为超级节点地址，这样即使服务器被盗，不会影响超级节点抵押地址的安全。
-超级节点未取消资格时，可以通过发起一个**修改注册信息**的交易来修改超级节点地址。
+* **超级节点地址**：填写超级节点运行时用于出块的地址，也可以填写为发起**SBP注册**的地址。 推荐在服务器上生成一个新地址，然后将这个新地址作为超级节点地址，这样即使服务器被盗，不会影响超级节点抵押地址的安全。 超级节点未取消资格时，可以通过发起一个**修改注册信息**的交易来修改超级节点地址。
 
 * **超级节点名称**：1-40个字符，包含中英文、数字、下划线、点。超级节点名称不能重复。用户投票时使用超级节点名称进行投票。
 
@@ -118,57 +114,32 @@ Vite 网络中的出块奖励不是立即发放到出块者地址，需要SBP的
 * 提取奖励时需要填写奖励提取的地址，每次提取时填写的地址可以不一样。
 * 提取奖励需要消耗`238800`配额
 
-
 ## FAQ
 
 * 一个账户上的vite不够抵押vite数量，那是否支持多地址联合抵押?
-  
-  目前不支持`多地址联合抵押`，SBP注册的逻辑是由**内置智能合约**实现，后续智能合约上线之后，可以通过**合约调用合约**的方式来实现`多地址联合抵押`。
+    
+    目前不支持`多地址联合抵押`，SBP注册的逻辑是由**内置智能合约**实现，后续智能合约上线之后，可以通过**合约调用合约**的方式来实现`多地址联合抵押`。
 
 * 如果一个节点一个周期内（约一天）的在线率是0，那这个节点**按票奖励**为0，那本该属于他的**按票奖励**会平分给其他节点吗？
+    
+    节点的奖励的vite是在SBP提取时增发，如果一个节点在线率为0，按票奖励为0，这个节点将无法提取这段奖励，所以这段奖励就不会增发，故而这份奖励也不会平分给其他节点。
 
-  节点的奖励的vite是在SBP提取时增发，如果一个节点在线率为0，按票奖励为0，这个节点将无法提取这段奖励，所以这段奖励就不会增发，故而这份奖励也不会平分给其他节点。
-  
 * 如果注册成为超级节点之后，却不跑节点，会收到奖励么？
+    
+    不会。如果没有运行超级节点，该节点**在线率**为0，奖励为0。
 
-  不会。如果没有运行超级节点，该节点**在线率**为0，奖励为0。
-  
 * 我已经运行了一个超级节点，但是在线率是否也可能为0？
+    
+    有可能会。如果节点处于一个分叉链，或者网络延迟比较高，都有可能会导致在线率为0。如果这个节点在一个周期内的应该出块数为0，在线率也为0。
 
-  有可能会。如果节点处于一个分叉链，或者网络延迟比较高，都有可能会导致在线率为0。如果这个节点在一个周期内的应该出块数为0，在线率也为0。
-  
 * 我出了一个快照块，提取奖励时能同时拿到这个块的按块奖励和按票奖励吗？
-  
-  是的。
-  
+    
+    是的。
+
 * 注册SBP时抵押的vite，在抵押之后是否还可以用于**抵押获取配额**？
+    
+    在目前的设计里（第一版测试网络），SBP注册抵押的vite在抵押期间无法使用，当然也不能**抵押获取配额**，后续考虑改进，已经在计划之中。
 
-  在目前的设计里（第一版测试网络），SBP注册抵押的vite在抵押期间无法使用，当然也不能**抵押获取配额**，后续考虑改进，已经在计划之中。
-  
 * 一个地址是否可以注册多个超级节点？
-
-  支持。因为SBP注册地址和SBP运行地址可以为两个不同的地址。SBP注册地址（也就是抵押地址）每次抵押时都可以指定另一个地址为SBP运行地址。
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    支持。因为SBP注册地址和SBP运行地址可以为两个不同的地址。SBP注册地址（也就是抵押地址）每次抵押时都可以指定另一个地址为SBP运行地址。
