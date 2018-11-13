@@ -308,7 +308,7 @@ vite.wallet_recoverEntropyStoreFromMnemonic("Your Mnemonic","123456")
 
 其中 `123456` 为keystore的密码，需要指定为自己的密码，并且牢记该密码。
 
-例如：
+範例:
 
 :::demo ```javascript tab: 命令行输入 vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource","123456")
 
