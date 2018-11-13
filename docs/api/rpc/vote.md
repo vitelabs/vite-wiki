@@ -1,118 +1,96 @@
 ---
 sidebarDepth: 4
 ---
-
 # Vote
 
-:::tip Maintainer
-[viteLiz](https://github.com/viteLiz)
-:::
+:::tip 维护者 [viteLiz](https://github.com/viteLiz) :::
 
-The built-in voting contract. Contract address：vite_000000000000000000000000000000000000000270a48cc491
+出块节点投票内置合约，合约账户地址： `vite_000000000000000000000000000000000000000270a48cc491`
 
-**Supported protocols:**
+**支持调用方式：**
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
+| JSON-RPC 2.0 |   HTTP   |   IPC    | Publish–subscribe | Websocket |
+|:------------:|:--------:|:--------:|:-----------------:|:---------:|
+|   &#x2713;   | &#x2713; | &#x2713; |      waiting      | &#x2713;  |
 
 ## vote_getVoteData
-Return the composed request data to vote for the super node
 
-- **Parameters**: 
+获取为出块节点投票交易请求数据
 
-  * `Gid`: Consensus group ID
-  * `string`: The super node name
+- **Parameters**:
+    
+    - `Gid`: 共识组id
+    - `string`: 出块节点名称
 
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"vote_getVoteData",
-   "params": [
-      "00000000000000000001", 
-      "super"
-    ]
-}
-```
-
-:::
-
-## vote_getCancelVoteData
-Return the composed request data to cancel voting
-
-- **Parameters**: 
-
-  * `Gid`: Consensus group ID
-
-- **Returns**: 
-	- `[]byte` Data
+- **Returns**:
+    
+    - `[]byte` Data
 
 - **Example**:
 
-
 ::: demo
 
+```json tab:Request {  
+"jsonrpc":"2.0", "id":1, "method":"vote_getVoteData", "params": [ "00000000000000000001", "super" ] }
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"vote_getCancelVoteData",
-   "params":["00000000000000000001"]
-}
-```
+    <br />:::
+    
+    ## vote_getCancelVoteData
+    获取为出块节点投票交易请求数据
+    
+    - **Parameters**: 
+    
+      * `Gid`: 共识组id
+    
+    - **Returns**: 
+        - `[]byte` Data
+    
+    - **Example**:
+    
+    
+    ::: demo
+    
+    
+    ```json tab:Request
+    {  
+       "jsonrpc":"2.0",
+       "id":1,
+       "method":"vote_getCancelVoteData",
+       "params":["00000000000000000001"]
+    }
+    
 
 :::
 
 ## vote_getVoteInfo
-Return the voting information of the account
 
-- **Parameters**: 
+查询用户当前投票信息
 
-  * `Gid`: Consensus group ID
-  * `Address`: The account address
+- **Parameters**:
+    
+    - `Gid`: 共识组id
+    - `Address`: 用户账户地址
 
-- **Returns**: 
+- **Returns**:
 
-`Object`
-  1. `nodeName`: `string`  The super node name
-  2. `nodeStatus`: `uint8`  The super node status - 1 valid, 2 invalid
-  3. `balance`: `big.Int`  The account balance
-  
+`Object` 1. `nodeName`: `string` 出块节点名称 2. `nodeStatus`: `uint8` 出块节点注册状态：1 有效 2 无效 3. `balance`: `big.Int` 用户账户余额
+
 - **Example**:
 
 ::: demo
 
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"vote_getVoteInfo",
-   "params": [
-      "00000000000000000001", 
-      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
-    ]
-}
-```
+```json tab:Request {  
+"jsonrpc":"2.0", "id":1, "method":"vote_getVoteInfo", "params": [ "00000000000000000001", "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6" ] }
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": {
-      "nodeName": "super",
-      "nodeStatus": 1
-      "balance": 10,
-   }
-```
+    <br />```json tab:Response
+    {  
+       "jsonrpc":"2.0",
+       "id":1,
+       "result": {
+          "nodeName": "super",
+          "nodeStatus": 1
+          "balance": 10,
+       }
+    
+
 :::
