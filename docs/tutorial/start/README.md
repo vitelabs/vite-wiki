@@ -1,1 +1,3 @@
-# 测试网络介绍
+# TestNet Introduction
+
+We are working on this translation, stay tuned :)

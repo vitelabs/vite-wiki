@@ -234,7 +234,7 @@ module.exports = {
         ],
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Regulation'),
+          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules'),
           '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'P2P', 'Common'),
         },
         algolia: {

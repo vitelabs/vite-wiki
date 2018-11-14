@@ -1,3 +1,3 @@
-# 系统
+# System
 
-> 傻瓜式操作介绍流程，例如：如何在ubuntu上运行一个全节点
+> The procedure introduction of fool-style operation, for instance, how to run a full node on ubuntu.
