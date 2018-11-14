@@ -23,10 +23,16 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 ```bash
 ## 下载
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-linux-amd64.tar.gz
+```
+```
 ## 解压
 tar -xzvf gvite-1.0.0-linux-amd64.tar.gz
+```
+```
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
 cd gvite-1.0.0-linux-amd64/
+```
+```
 ## 启动
 ./bootstrap
 ```
