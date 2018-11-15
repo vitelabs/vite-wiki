@@ -16,80 +16,81 @@ Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which
 
 **The relevant modifications are as follows (For detailed rules, please read the article below)**:
 
-* **SBP Registration**：注册SBP需要抵押100万的vite（测试网络需要抵押50万 vite）
-* **出块权**：每一轮：随机选出前25个节点中的23个节点出块，随机选择排名26-100名中的2个节点出块
-* **出块奖励**：出块奖励的50%分配给出块者，50%分配给前100名超级节点（按投票数权重来计算）
+* **SBP Registration**：SBP registration requires 1,000,000 VITE staking (In Vite TestNet this requirement is 500,000 VITE)
+* **SBP Election**: In each round, a random 23 SBPs in the top 25 super nodes are selected to produce snapshot blocks, plus another 2 SBPs are randomly selected in super nodes ranking between 26-100.
+* **Mining Rewards**: 50% of the mining rewards are given to the SBP, and 50% are allocated to the top 100 super nodes (calculated by voting weight)
 
-## SBP注册
+## SBP Registration
 
-传统的DPOS算法中，注册委托代理节点需要消耗支付一定量的token，但是在vite里，我们提倡通过**抵押**的方式来获取资源和资格。
-在vite里可以通过抵押获取**配额**（交易配额），也可以通过抵押获得SBP的运行资格。
+In the traditional DPoS implementation, a certain amount of tokens are paid to register delegated node. But in Vite system, computing resources as well as SBP eligibility are obtained through **staking**.
+In Vite, you can stake to get **Quota** (transaction quota), or you can stake to register a SBP.
 
-### 抵押规则
+### Stake Rules
 
-注册SBP需要抵押vite，可以通过取消SBP资格来取回抵押的vite，也就是说，如果想一直保持SBP资格，则必须一直抵押vite。
+To register a SBP, you need to stake VITE tokens, which can be retrieved back by canceling the SBP eligibility. In other words, if you want to maintain SBP qualification, you should have your VITE staked all along.
 
-**抵押数量：**
+**Stake Amount：**
 
-* 主网：*100万 vite*
-* 测试网络：*50万 vite*
+* MainNet：*1,000,000 VITE*
+* TestNet：*500,000 VITE*
 
-**抵押时长：**
+**Stake Time：**
 
-注册SBP抵押的vite不能立即取回，需要在**7776000**块（约3个月）之后通过发起一个**取消SBP资格**的交易来取回抵押的vite。
+The staked VITE for SBP registration cannot be retrieved immediately.
+Actually, the tokens can be retrieved by sending a transaction to **cancel the SBP eligibility** only after **7776000** snapshot blocks (about 3 months).
 
-这里有设置一个*三个月*的冻结时间，是为了防止有人频繁的抵押、撤回，导致整个网络SBP变动非常剧烈。
+The *3 months* lock-time is to prevent frequent staking/canceling, which would significantly impact the stability of the entire network.
 
-### 注册逻辑
+### Registration Logic
 
-传统DPOS算法里，注册超级节点的地址默认就是出块地址和出块奖励获得地址，而且注册成为超级节点之后就永久成为超级节点。
+In the traditional DPoS algorithm, the address of the registered delegated node is the address to produce blocks and receive rewards. Once a node is registered as delegated node, it obtains the qualification since the time being .
 
-在vite中，注册超级节点的地址、出块地址、出块奖励获得地址可以是三个不同的地址。注册成为超级节点之后，如果**取消质押**就默认失去超级节点资格。
+In Vite, the address of the registered super node, the address of the block producer, and the address to receive rewards can be three different addresses. After a node has registered as a super node, if it sends a transaction to **cancel stake**, it will lose the super node qualification.
 
-注册时，由抵押地址发起一个调用**SBP注册**交易（实际上是调用内置合约），当该交易被内置合约接收，接收交易被快照链打包确认之后正式生效。
+In the registration process, the staker sends a **SBP registration** transaction (actually calls the built-in contract), when the transaction is received by the built-in contract, the registration is complete after the receive transaction is confirmed by the snapshot chain.
 
-#### 参数
+#### Parameters
 
-* **超级节点地址**：填写超级节点运行时用于出块的地址，也可以填写为发起**SBP注册**的地址。
-推荐在服务器上生成一个新地址，然后将这个新地址作为超级节点地址，这样即使服务器被盗，不会影响超级节点抵押地址的安全。
-超级节点未取消资格时，可以通过发起一个**修改注册信息**的交易来修改超级节点地址。
+* **SBP Address**: The address used to produce snapshot blocks. 
+This can be the address of the node who starts **SBP Registration**. However, it is recommended to generate a new address on the SBP server and then use this address as the SBP address, so that even if the server is hacked, the stake address is secure.
+SBP address can be updated by sending a transaction that **modifies registration information** by the staker.
 
-* **超级节点名称**：1-40个字符，包含中英文、数字、下划线、点。超级节点名称不能重复。用户投票时使用超级节点名称进行投票。
+* **SBP Name**: 1-40 characters, including Chinese and English, numbers, underscores and dots. Duplicated names are not allowed. SBP name is used in voting.
 
-## 出块权
+## SBP Qualification
 
-### 出块时间
+### SBP Round
 
-Vite 快照链出块速度为1s，75s为一个轮次（每75s会重新统计票数，然后按票数排名选择出块节点），每轮到一次连续出块3个。
+In Vite system, the rate at which the snapshot chain generates new blocks is 1 block per second. In every 75 seconds (equivalent to a round) the voting result is calculated to select who are the SBPs in the next round. Each SBP generates 3 consecutive blocks in a round.
 
-### 出块节点
+### SBP Node
 
-Vite 每轮会选举出25个具有出块权的节点，25个节点选择规则：
+In Vite system, there are 25 SBP nodes that are selected in each round. The rules are as follows:
 
-* 从前25名节点（按投票比例排序）里随机选出23个（顺序是随机的），每轮出块概率为：23/25
-* 从26名到100名节点里随机选出2个，每轮出块概率为：2/75
+* 23 SBP nodes are randomly selected from the top 25 super nodes (sorted by votes). The ratio of a top-25 super nodes being selected is: 23/25.
+* 2 SBP nodes are randomly selected from super nodes ranking from 26 to 100. The ratio of a super node who ranks between 26 to 100 being selected is: 2/75.
 
-## 出块奖励
+## SBP Reward(aka mining reward)
 
-Vite 主网上线后，每年会增发不超过3%的vite用于超级节点奖励。目前在测试网络上的奖励固定为： `0.951293759512937595`
+After Vite MainNet is launched, an inflation of at most 3% of VITE market cap will be permitted each year as SBP rewards. The current reward for a snapshot block in the TestNet is fixed at: `0.951293759512937595`
 
-### 奖励分配
+### Reward Allocation
 
-每个块的奖励会划分为两个部分：
+The reward for a block is allocated to 2 parties:
 
-#### 奖励出块者
+#### To SBP who produced the block
 
-每个块奖励的50%会给予该块的出块者作为奖励，我们称为：**按块奖励**。
+50% of reward will be given to the block producer, which we call **Block Reward**.
 
-#### 奖励前100名SBP
+#### To top 100 SBPs 
 
-用于奖励该轮次（75s为一轮）排名前100的超级节点，我们称为：**按票奖励**。
+50% of reward will be given to the top 100 SBPs every 75 seconds in a round, which we call **Voting Reward**.
 
-奖励规则如下：
+The voting reward rules are as follows:
 
-* 按照这一轮该超级节点获得的投票数作为权重来瓜分这一轮的奖励
-* 奖励领取只能领取*1152*轮次以前（大约一天以前）的奖励，领取奖励按*1152*为一个周期（约一天）来计算
-* 在一个周期（约一天）内，可以计算出每个节点在这一周期内的在线率： `实际出块数/应该出块数`，在线率越高，奖励越多
+* Voting weight (the amount of votes won by the SBP) is used to allocate rewards. The more weight a SBP has, the more voting rewards will be given to it.
+* Only rewards before *1152* rounds (about 1 day) can be allocated. Voting rewards are calculated every *1152* rounds, or every day.
+* In a cycle (approximately 1 day), SBP online rate can be calculated as `total number of blocks that are actually produced / total number of blocks that should be produced`. The higher the online rate, the more rewards.
 
 ### 奖励计算公式
 
