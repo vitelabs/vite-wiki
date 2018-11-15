@@ -23,15 +23,15 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 ### ubuntu安装示例
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-linux-amd64.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-linux.tar.gz
 ```
 ```
 ## 解压
-tar -xzvf gvite-1.0.0-linux-amd64.tar.gz
+tar -xzvf gvite-1.0.1-linux.tar.gz
 ```
 ```
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-cd gvite-1.0.0-linux-amd64/
+cd gvite-1.0.1-linux
 ```
 ```
 ## 启动
@@ -53,11 +53,11 @@ Start the Node success!!!
 
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.0/gvite-1.0.0-darwin-amd64.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-darwin.tar.gz
 ## 解压
-tar -xzvf gvite-1.0.0-darwin-amd64.tar.gz
+tar -xzvf gvite-1.0.1-darwin.tar.gz
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-cd gvite-1.0.0-darwin-amd64
+cd gvite-1.0.1-darwin
 ## 启动
 ./bootstrap
 ```
@@ -79,7 +79,7 @@ Start the Node success!!!
 
 ### 安装目录文件说明
 
-**安装目录**：指gvite启动脚本和配置文件所在文件夹。例如上文中的安装目录路径为： `~/gvite-1.0.0-darwin-amd64`
+**安装目录**：指gvite启动脚本和配置文件所在文件夹。例如上文中的安装目录路径为： `~/gvite-${version}-${os}`
 
 * `gvite`： 执行程序
 * `bootstrap`： 启动脚本
