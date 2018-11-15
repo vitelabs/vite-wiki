@@ -56,8 +56,10 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         'node/install',
-        'node/fullnode',
+        'node/wallet-manage',
+        // 'node/fullnode',
         'node/sbp',
+        'node/node_config',
         'node/example',
       ]
     },
