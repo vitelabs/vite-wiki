@@ -115,7 +115,8 @@ gvite 数据目录说明:
 
 
 ## 源码安装gvite
-* golang 环境确认
+### golang 环境确认
+
 ```
 go env
 ```
@@ -124,10 +125,6 @@ go env
 需要至少安装1.11.0 以上版本golang
 golang 安装方法 [go 安装](https://golang.org/doc/install)
 :::
-
-
-### github 下载源码
-* 安装go环境
 
 ### 编译可执行文件
    * 在终端执行
@@ -141,7 +138,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   GOPATH 默认位置是 ```~/go```
 
 ### 配置文件配置
-  node_config.json 参见配置文件说明
+  `node_config.json` 参见配置文件说明
 
 ### 启动脚本编写
   配置文件和编译后的gvite在同一目录，例如linux 环境通过执行
@@ -264,7 +261,7 @@ kill -9 27268
 ```bash
 ./bootstrap
 ```
-利用 ps -ef 来查看进程是否启动成功即可
+利用 `ps -ef` 来查看进程是否启动成功即可
 
 
 ## 钱包管理
@@ -345,6 +342,9 @@ vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction
 
 这样就得到了助记词对应的keyStore文件
 
+
+## 监控
+
 ### 命令行确认当前节点高度
 
 * 首先参照全节点的启动方式，启动全节点。
@@ -353,11 +353,11 @@ vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction
   ./gvite attach ~/.gvite/testdata/gvite.ipc
   ```
   在交互命令行中输入：
-```javascript
-vite.ledger_getSnapshotChainHeight();
-```
-得到
-```
-"{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
-```
-499967 即为当前的高度，命令行支持的更多命令参见vite.help命令
+  ```javascript
+  vite.ledger_getSnapshotChainHeight();
+  ```
+  得到
+  ```
+  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
+  ```
+  499967 即为当前的高度，命令行支持的更多命令参见 `vite.help` 命令
