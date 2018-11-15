@@ -227,6 +227,14 @@ module.exports = {
                 link: '/api/rpc/'
               }
             ]
+          },
+          {
+            text: 'Vite.net',
+            link: 'https://vite.net'
+          },
+          {
+            text: 'Explorer',
+            link: 'https://testnet.vite.net'
           }
           /* // {
              text: 'Technology Detail',
@@ -278,6 +286,14 @@ module.exports = {
           {
             text: '关于',
             link: '/zh/about/'
+          },
+          {
+            text: 'Vite.net',
+            link: 'https://vite.net'
+          },
+          {
+            text: '区块浏览器',
+            link: 'https://testnet.vite.net'
           }
         ],
         sidebar: {
