@@ -1,7 +1,7 @@
 # Quota
 
 ::: tip
-Please note this document is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
+Please note this is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
 
 The Definitions of Terms:
 * **Quota**： In Vite system, transactions consume quota for exchanging computing and storage resources.

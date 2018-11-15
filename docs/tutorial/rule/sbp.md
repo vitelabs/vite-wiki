@@ -1,7 +1,7 @@
 # SBP (Snapshot Block Producer)
 
 ::: tip
-Please note this document is not a technical document, but mainly describes SBP and SBP-related topics. Technical details will be introduced in the yellow paper.
+Please note this is not a technical document, but mainly describes SBP and SBP-related topics. Technical details will be introduced in the yellow paper.
 
 The Definitions of Terms:
 * **SBP**: Snapshot Block Producer
@@ -16,31 +16,31 @@ Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which
 
 **The relevant modifications are as follows (For detailed rules, please read the article below)**:
 
-* **SBP Registration**：SBP registration requires 1,000,000 VITE staking (In Vite TestNet this requirement is 500,000 VITE)
-* **SBP Election**: In each round, a random 23 SBPs in the top 25 super nodes are selected to produce snapshot blocks, plus another 2 SBPs are randomly selected in super nodes ranking between 26-100.
-* **SBP Reward**: 50% of the mining rewards are given to the SBP, and 50% are allocated to the top 100 super nodes by voting weight.
+* **SBP registration**：SBP registration requires 1,000,000 VITE staking (In Vite TestNet this requirement is 500,000 VITE)
+* **SBP election**: In each round, a random 23 SBPs in the top 25 super nodes are selected to produce snapshot blocks, plus another 2 SBPs are randomly selected in super nodes ranking between 26-100.
+* **SBP reward**: 50% of the mining rewards are given to the SBP, and 50% are allocated to the top 100 super nodes by voting weight.
 
-## SBP Registration
+## SBP registration
 
 In the traditional DPoS implementation, a certain amount of tokens are paid to register delegated node. But in Vite system, computing resources as well as SBP eligibility are obtained through **staking**.
 In Vite, you can stake to get **Quota** (transaction quota), or you can stake to register a SBP.
 
-### Stake Rules
+### Stake rules
 
 To register a SBP, you need to stake VITE tokens, which will be frozen until you cancel the SBP eligibility. In other words, if you want to stay as a SBP, you should have enough VITE being staked.
 
-**Stake Amount：**
+**Stake amount：**
 
 * MainNet：*1,000,000 VITE*
 * TestNet：*500,000 VITE*
 
-**Stake Period：**
+**Stake period：**
 
 Once staked, the VITE tokens for SBP registration cannot be retrieved immediately. Actually, staked tokens must be retrieved by sending a transaction to **cancel the SBP eligibility** after at least **7776000** snapshot blocks (about 3 months).
 
 The *3 months* lock-time is to prevent frequent staking/canceling, which would significantly impact the stability of the entire network.
 
-### Registration Logic
+### Registration logic
 
 In the traditional DPoS algorithm, the address of the registered delegated node is the address to produce blocks and receive rewards. Once a node is registered as delegated node, it is qualified since the time being .
 
@@ -50,30 +50,30 @@ In the registration process, the staker sends a **SBP registration** transaction
 
 #### Parameters
 
-* **SBP Address**: The address used to produce snapshot blocks. 
+* **SBP address**: The address used to produce snapshot blocks. 
 This can be the same address of the node who starts **SBP Registration**. However, it is recommended to generate a new SBP address on the SBP server, so that even if the server is hacked, the SBP staker address is secure.
 SBP address can be changed by sending a transaction to **update registration information** by the staker.
 
-* **SBP Name**: 1-40 characters, including Chinese and English, numbers, underscores and dots. Duplicated names are not allowed. SBP name is used in voting.
+* **SBP name**: 1-40 characters, including Chinese and English, numbers, underscores and dots. Duplicated names are not allowed. SBP name is used in voting.
 
-## SBP Qualification
+## SBP qualification
 
-### SBP Round
+### SBP round
 
 In Vite system, the rate at which the snapshot chain generates new blocks is 1 block per second. In every 75 seconds (equivalent to a round) the voting result is calculated to select who are the SBPs in the next round. Each SBP generates 3 consecutive blocks in a round.
 
-### SBP Node
+### SBP node
 
 In Vite system, there are 25 SBP nodes that are selected in each round. The rules are as follows:
 
 * 23 SBP nodes are randomly selected from the top 25 super nodes (sorted by votes). The ratio of a top-25 super nodes being selected is: 23/25.
 * 2 SBP nodes are randomly selected from super nodes ranking from 26 to 100. The ratio of a super node who ranks between 26 to 100 being selected is: 2/75.
 
-## SBP Reward(aka mining reward)
+## SBP reward(aka mining reward)
 
 After Vite MainNet is launched, an inflation of at most 3% of VITE market cap will be permitted each year as SBP rewards. The current reward for a snapshot block in the TestNet is fixed at: `0.951293759512937595`
 
-### Reward Allocation
+### Reward allocation
 
 The reward for a block is allocated to 2 parties:
 
@@ -91,7 +91,7 @@ The voting reward rules are as follows:
 * Only rewards before *1152* rounds (about 1 day) can be allocated. Voting rewards are calculated every *1152* rounds, or every day.
 * In a cycle (approximately 1 day), SBP online rate can be calculated as `total number of blocks that are actually produced / total number of blocks that should be produced`. The higher the online rate, the more rewards.
 
-### Reward Calculation
+### Reward calculation
 
 **A cycle**: Refers to 1152 rounds, approximately one day.
 
@@ -106,7 +106,7 @@ The voting reward rules are as follows:
 
 $$Q = \frac{l}{m}*\sum_{1}^{n }\left( \frac{Vn}{Wn}*R*0.5*Xn\right) + l*R*0.5$$
 
-#### Reward Retrieval
+#### Reward retrieval
 
 The rewards in Vite TestNet are not immediately sent to the SBP's address, but the staker who registered the SBP is required to manually send a **reward retrieval** transaction to get the rewards.
 
