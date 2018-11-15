@@ -6,10 +6,10 @@ Please note this document is not a technical document, but mainly describes SBP 
 The Definitions of Terms:
 * **SBP**: Snapshot Block Producer
 * **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
-* **A round**: Vite system recalculates votes after each round(75 seconds). Ideally, 75 blocks are produced in a round.
+* **A round**: Vite system recalculates votes each round(75 seconds). Ideally, 75 blocks are produced in a round.
 * **A cycle**: Refers to 1152 rounds, approximately one day.
-* **SBP staker address**: Refers to the SBP registration transaction initiator, aka staker.
-* **SBP address**: Refers to the address configured on the SBP server.
+* **SBP staker address**: Refers to the address of the SBP registration transaction initiator, aka staker.
+* **SBP address**: Refers to the address configured on the SBP server and used to produce blocks.
 :::
 
 Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which is consistent with the DPoS algorithm of BTS in essence. However, compared with original DPoS, Vite has made some improvements.
@@ -18,7 +18,7 @@ Vite invents Snapshot Chain technology and adopts DPoS consensus algorithm which
 
 * **SBP Registration**：SBP registration requires 1,000,000 VITE staking (In Vite TestNet this requirement is 500,000 VITE)
 * **SBP Election**: In each round, a random 23 SBPs in the top 25 super nodes are selected to produce snapshot blocks, plus another 2 SBPs are randomly selected in super nodes ranking between 26-100.
-* **Mining Rewards**: 50% of the mining rewards are given to the SBP, and 50% are allocated to the top 100 super nodes (calculated by voting weight)
+* **SBP Reward**: 50% of the mining rewards are given to the SBP, and 50% are allocated to the top 100 super nodes by voting weight.
 
 ## SBP Registration
 
@@ -27,33 +27,32 @@ In Vite, you can stake to get **Quota** (transaction quota), or you can stake to
 
 ### Stake Rules
 
-To register a SBP, you need to stake VITE tokens, which can be retrieved back by canceling the SBP eligibility. In other words, if you want to maintain SBP qualification, you should have your VITE staked all along.
+To register a SBP, you need to stake VITE tokens, which will be frozen until you cancel the SBP eligibility. In other words, if you want to stay as a SBP, you should have enough VITE being staked.
 
 **Stake Amount：**
 
 * MainNet：*1,000,000 VITE*
 * TestNet：*500,000 VITE*
 
-**Stake Time：**
+**Stake Period：**
 
-The staked VITE for SBP registration cannot be retrieved immediately.
-Actually, the tokens can be retrieved by sending a transaction to **cancel the SBP eligibility** only after **7776000** snapshot blocks (about 3 months).
+Once staked, the VITE tokens for SBP registration cannot be retrieved immediately. Actually, staked tokens must be retrieved by sending a transaction to **cancel the SBP eligibility** after at least **7776000** snapshot blocks (about 3 months).
 
 The *3 months* lock-time is to prevent frequent staking/canceling, which would significantly impact the stability of the entire network.
 
 ### Registration Logic
 
-In the traditional DPoS algorithm, the address of the registered delegated node is the address to produce blocks and receive rewards. Once a node is registered as delegated node, it obtains the qualification since the time being .
+In the traditional DPoS algorithm, the address of the registered delegated node is the address to produce blocks and receive rewards. Once a node is registered as delegated node, it is qualified since the time being .
 
-In Vite, the address of the registered super node, the address of the block producer, and the address to receive rewards can be three different addresses. After a node has registered as a super node, if it sends a transaction to **cancel stake**, it will lose the super node qualification.
+In Vite system, the address who registers the super node, the address of block producer, and the address to receive rewards can be 3 different addresses. If a registered super node sends a transaction to **cancel stake**, it will be removed from the super node list after confirmed.
 
-In the registration process, the staker sends a **SBP registration** transaction (actually calls the built-in contract), when the transaction is received by the built-in contract, the registration is complete after the receive transaction is confirmed by the snapshot chain.
+In the registration process, the staker sends a **SBP registration** transaction to the built-in contract. After the corresponding response is confirmed by the snapshot chain, the registration is complete.
 
 #### Parameters
 
 * **SBP Address**: The address used to produce snapshot blocks. 
-This can be the address of the node who starts **SBP Registration**. However, it is recommended to generate a new address on the SBP server and then use this address as the SBP address, so that even if the server is hacked, the stake address is secure.
-SBP address can be updated by sending a transaction that **modifies registration information** by the staker.
+This can be the same address of the node who starts **SBP Registration**. However, it is recommended to generate a new SBP address on the SBP server, so that even if the server is hacked, the SBP staker address is secure.
+SBP address can be changed by sending a transaction to **update registration information** by the staker.
 
 * **SBP Name**: 1-40 characters, including Chinese and English, numbers, underscores and dots. Duplicated names are not allowed. SBP name is used in voting.
 
@@ -123,7 +122,7 @@ The rewards in Vite TestNet are not immediately sent to the SBP's address, but t
 ## FAQ
   
 * The VITE in one my account is not sufficient. Is `staking from multiple accounts` supported?
-  
+
    Currently, no. SBP registration is implemented based on **built-in smart contract**. `Staking from multiple accounts` will be supported through **inter-contract calls** in the future, after the full functional smart contract is ready.
 
 * If the online rate of a node in a cycle is 0, the **voting reward** for this node is 0, then the **voting reward** which should have belonged to him will be distributed to other nodes?
@@ -139,7 +138,7 @@ The rewards in Vite TestNet are not immediately sent to the SBP's address, but t
    It is possible. If your node happens to be in a forked chain, or if you have high network latency for the moment, you may have zero online rate. In addition, if the number of blocks that your node should produce in a cycle is 0, the online rate is also 0.
   
 * I have produced a snapshot block, can I get both the block reward and voting reward for this block when I retrieve the reward?
-  
+
    Yes, you can.
   
 * May the VITEs staked when I registered for SBP be re-used for **staking for quota**?
