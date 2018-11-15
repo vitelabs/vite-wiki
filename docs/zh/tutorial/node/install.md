@@ -127,13 +127,28 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
 
 ### github 下载源码
+* 安装go环境
 
 ### 编译可执行文件
+   * 在终端执行
+  ```
+    go get github.com/vitelabs/go-vite
+  ```
+  代码所在位置
+  ```
+  $GOPATH/src/github.com/vitelabs/go-vite/
+  ```
+  GOPATH 默认位置是 ```~/go```
 
 ### 配置文件配置
+  node_config.json 参见配置文件说明
 
 ### 启动脚本编写
-
+  配置文件和编译后的gvite在同一目录，例如linux 环境通过执行
+  ```
+  nohup ./gvite -pprof >> gvite.log 2>&1 &
+  ```
+  启动
 
 
 ## node_config配置文件说明
@@ -330,5 +345,19 @@ vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction
 
 这样就得到了助记词对应的keyStore文件
 
+### 命令行确认当前节点高度
 
-
+* 首先参照全节点的启动方式，启动全节点。
+* 通过命令行连接全节点：找到全节点的目录gvite文件。进入到该目录，然后执行如下命令
+  ```bash
+  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ```
+  在交互命令行中输入：
+```javascript
+vite.ledger_getSnapshotChainHeight();
+```
+得到
+```
+"{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
+```
+499967 即为当前的高度，命令行支持的更多命令参见vite.help命令
