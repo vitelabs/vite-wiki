@@ -46,7 +46,7 @@ In the traditional DPoS algorithm, the address of the registered delegated node 
 
 In Vite system, the address who registers the super node, the address of block producer, and the address to receive rewards can be 3 different addresses. If a registered super node sends a transaction to **cancel stake**, it will be removed from the super node list after confirmed.
 
-In the registration process, the staker sends a **SBP registration** transaction to the built-in contract. After the corresponding response is confirmed by the snapshot chain, the registration is complete.
+In the registration process, the staker sends a **SBP registration** transaction to the built-in contract. After the corresponding response is confirmed by the snapshot chain, the registration is successfully completed.
 
 #### Parameters
 
@@ -149,25 +149,3 @@ The rewards in Vite TestNet are not immediately sent to the SBP's address, but t
 
    Yes you can. In Vite system, SBP registration address(aka staker address) and the address of SBP node who produces blocks may be two different addresses. The staker can assign a different address to run the node each time he registers a super node.
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
