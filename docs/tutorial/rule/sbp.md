@@ -69,7 +69,7 @@ In Vite system, there are 25 SBP nodes that are selected in each round. The rule
 * 23 SBP nodes are randomly selected from the top 25 super nodes (sorted by votes). The ratio of a top-25 super nodes being selected is: 23/25.
 * 2 SBP nodes are randomly selected from super nodes ranking from 26 to 100. The ratio of a super node who ranks between 26 to 100 being selected is: 2/75.
 
-## SBP reward(aka mining reward)
+## SBP rewards
 
 After Vite MainNet is launched, an inflation of at most 3% of VITE market cap will be permitted each year as SBP rewards. The current reward for a snapshot block in the TestNet is fixed at: `0.951293759512937595`
 
