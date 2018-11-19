@@ -2,10 +2,10 @@
 
 ## What is gvite node?
 
-There are 2 gvite node categories: `full node` and `super node`. 
-At present, full nodes maintain the complete ledger, and reach consensus on the data synchronization of entire network.
-Full nodes have the full functionality of gvite, such as visiting all the data on network, sending and receiving transactions, as well as participating in super node election or voting for super nodes.
-Full nodes provide `HTTP`, `WEBSOCKET` and `IPC` API support, plus the `command line` tool. Super nodes are special full nodes. 
+There are 2 gvite node categories: `full node` and `SBP`. 
+At present, full nodes maintain the complete ledger locally on the basis of gvite consensus algorithm, with guaranteed data integrity across the network.
+Full nodes have full gvite functionality, such as accessing all data on the network, sending and receiving transactions, as well as participating in super node election or voting.
+Full nodes provide `HTTP`, `WEBSOCKET`, `IPC` APIs and `command line` tool. SBPs are special full nodes who are eligible for snapshot block producing. 
 
 ## Before the start
 
@@ -13,16 +13,16 @@ Gvite supports installation from `binary package` or `source code`
 
 | OS | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite 1.0.0 testNet  | yes  |yes |yes |
+| gvite 1.0.0   | yes  |yes |yes |
 
 :::tip
-Go 1.11.1 or above version is required to compile the source code. It is recommended to download at Go official site: [Go download and installation](https://golang.org/dl/)
+Go 1.11.1 or above version is required to compile the source code. See [Go download and installation](https://golang.org/dl/)
 :::
 
-## Install from binary package
-Download and install gvite in command line (supporting ubuntu, mac, centos, windows)
+## Install from binary
+Download gvite in command line and install (supporting ubuntu, mac, centos, windows)
 
-### Example of ubuntu installation
+### Installation example on ubuntu
 ```bash
 ## Download
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-linux.tar.gz
@@ -39,7 +39,7 @@ cd gvite-1.0.1-linux
 ## Start-up
 ./bootstrap
 ```
-To determine whether the program starts normally, please check gvite.log in the same folder.
+Check the content of gvite.log in the same folder to determine whether the program boots normally.
 ```bash
 cat gvite.log
 ```
@@ -51,7 +51,7 @@ Prepare the Node success!!!
 Start the Node success!!!
 ```
 
-### Example of mac installation
+### Installation example on mac 
 
 ```bash
 ## Download
@@ -64,7 +64,7 @@ cd gvite-1.0.1-darwin
 ./bootstrap
 ```
 
-To determine whether the program starts normally, please check gvite.log in the same folder.
+Check the content of gvite.log in the same folder to determine whether the program boots normally.
 
 ```bash
 cat gvite.log
@@ -81,21 +81,21 @@ Start the Node success!!!
 
 ### Description of installation directory
 
-**Installation directory**：Refers to the folder where the gvite startup scripts and configuration file are located. For example, the installation directory path is: `~/gvite-${version}-${os}`
+**Installation directory**：Refers to the folder where gvite startup scripts and configuration file are located. For example, `~/gvite-${version}-${os}`
 
 * `gvite`： Gvite executable file
 * `bootstrap`： Startup script
-* `node_config.json`： Configuration file [configuration description](./node_config.md)
+* `node_config.json`： Configuration file. See [configuration description](./node_config.md)
 
 ### Ports
 
-The system default ports are 8483/8484. If you are with default ports, please ensure that they are not occupied by other programs or blocked by the firewall.
+The system default ports are 8483/8484. If you are using default ports, please ensure that they are not occupied by other programs or blocked by firewall.
 
 ```bash
  netstat -nlp|grep 8483 
 ```
 
-To determine if the default ports are occupied. Gvite will display the following messages if the program is started up successfully.
+Check if the default ports are occupied. Gvite will display the following messages if it boots successfully.
  
 ```
 netstat -nlp|grep 8483
@@ -110,13 +110,12 @@ udp6       0      0 :::8483                 :::*                                
 ```bash
 cd ~/.gvite/testdata
 ```
-This is the gvite working directory, containing directories or files such as ledger, ledger_files, LOCK, p2p, rpclog, runlog and wallet.
-Description of gvite working folder:
+Gvite working directory, containing sub-directories/files such as ledger, ledger_files, LOCK, p2p, rpclog, runlog and wallet.
 
 * `ledger`： Ledger directory
 * `rpclog`： Rpc access log
 * `runlog`： Run-time log directory
-* `wallet`： The wallet keyStore directory, saving keyStore file with secured private key. If you run a super node and participate in mining, please `keep your private key safe`.
+* `wallet`： Wallet keyStore directory to store keyStore file with secured private key. If you run a super node, please be sure to `keep your private key safe`.
 
 ## Install from source
 ### Golang environment check
@@ -126,26 +125,25 @@ go env
 ```
 
 :::warning
-Go 1.11.1 or above version is required
-Go installation guild: [go installation](https://golang.org/doc/install)
+Go 1.11.1 or above version is required. See Go installation guild: [go installation](https://golang.org/doc/install)
 :::
 
 ### Compile source code
-   * Run in terminal
+   * Get gvite source code
   ```
     go get github.com/vitelabs/go-vite
   ```
-  Source code location
+  Source code is downloaded at:
   ```
   $GOPATH/src/github.com/vitelabs/go-vite/
   ```
   The system default GOPATH is ```~/go```
 
 ### Configuration file
-  `node_config.json` See: [Config Description](./node_config.md)
+  Config file name: `node_config.json`. It should reside in the same directory with gvite executables. Details can be found at: [Config Description](./node_config.md)
 
 ### Start-up script
-  The configuration file should reside in the same directory with compiled gvite executable file. For example, in linux environment run
+  For example, in linux environment run
   ```
   nohup ./gvite -pprof >> gvite.log 2>&1 &
   ```
@@ -168,7 +166,7 @@ Go installation guild: [go installation](https://golang.org/doc/install)
   ```
   "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
   ```
-  499967 is the current block height. 
+  499967 is current block height. 
   For more command usage please run `vite.help`.
   
 ## Next steps

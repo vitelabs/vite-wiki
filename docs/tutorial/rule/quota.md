@@ -8,7 +8,7 @@ The Definitions of Terms:
 * **${\rm PoW}$**： Proof of Work, used to prove that a certain amount of computation are performed.
 * **Stake**： A part of ${\it vite}$ in the account is frozen and cannot be traded or used.
 * **Stake address**：The account who starts the stake transaction.
-* **Stake beneficiary address**：The account who obtains the quota.
+* **Quota recipient address**：The account who receives the quota.
 :::
 
 ## What is quota
