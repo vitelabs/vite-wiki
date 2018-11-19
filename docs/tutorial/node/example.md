@@ -27,7 +27,7 @@ cd vite
 ./bootstrap
 ```
 
-### 检测服务是否启动
+### Check if gvite service is started
 
 Check the content of gvite.log in the same folder to determine whether the program boots normally.
 
@@ -58,3 +58,4 @@ For example, if you are logged in as the root user, the installation directory i
 /root/vite
 ```
 
+## To be continued

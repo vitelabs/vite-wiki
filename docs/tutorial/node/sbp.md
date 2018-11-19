@@ -20,10 +20,10 @@ See [wallet management](./wallet-manage.md).
 
 Create 4 new attributes in `node_config.json`:
 
-   * Create `Miner` as `true`
-   * Create `CoinBase` in format of `index:address`. For example: `0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
-   * Create `EntropyStorePath` with your address. For example: `vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
-   * Create `EntropyStorePassword` with your password corresponding to above keystore.
+* Create `Miner` as `true`
+* Create `CoinBase` in format of `index:address`. For example: `0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
+* Create `EntropyStorePath` with your address. For example: `vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
+* Create `EntropyStorePassword` with your password corresponding to above keystore.
 
 **A complete example is as follows:**
 
