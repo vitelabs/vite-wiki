@@ -24,10 +24,7 @@ projects:
     - title: API Document
       details: go-vite RPC Document
       link: /api/rpc/
-    - title: Technical Details
-      details: The relevant technical implementations of Vite
-      link: /zh/technology/
     - title: VEP
-      details: VEP means Vite Enhancement Proposals, any proposals that are favorable to Vite can be submitted here.
-      link: /zh/vep/ 
+      details: Vite Enhancement Proposals
+      link: /vep/ 
 ---
