@@ -23,15 +23,15 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 ### ubuntu安装示例
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## 解压
-tar -xzvf gvite-1.0.1-linux.tar.gz
+tar -xzvf gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-cd gvite-1.0.1-linux
+cd gvite-1.0.2-linux
 ```
 ```
 ## 启动
@@ -53,11 +53,11 @@ Start the Node success!!!
 
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-darwin.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-darwin.tar.gz
 ## 解压
-tar -xzvf gvite-1.0.1-darwin.tar.gz
+tar -xzvf gvite-1.0.2-darwin.tar.gz
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-cd gvite-1.0.1-darwin
+cd gvite-1.0.2-darwin
 ## 启动
 ./bootstrap
 ```
