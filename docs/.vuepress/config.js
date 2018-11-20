@@ -210,38 +210,7 @@ module.exports = {
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
-        nav: [
-          // {
-          //   text: 'Introduction',
-          //   link: '/introduction/',
-          // },
-          {
-            text: 'Tutorial',
-            link: '/tutorial/start/'
-          },
-          {
-            text: 'API',
-            items: [
-              {
-                text: 'RPC interface',
-                link: '/api/rpc/'
-              }
-            ]
-          },
-          {
-            text: 'Vite.net',
-            link: 'https://vite.net'
-          },
-          {
-            text: 'Explorer',
-            link: 'https://testnet.vite.net'
-          }
-          /* // {
-             text: 'Technology Detail',
-             link: '/technology/'
-           },
-           */
-        ],
+        nav: require('./nav/en'),
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
           '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules'),
@@ -261,41 +230,7 @@ module.exports = {
         selectText: '选择语言',
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
-        nav: [
-          // {
-          //   text: '介绍',
-          //   link: '/zh/introduction/',
-          // },
-          {
-            text: '教程',
-            link: '/zh/tutorial/start/'
-          },
-          {
-            text: 'API',
-            items: [
-              {
-                text: 'RPC 接口',
-                link: '/zh/api/rpc/'
-              }
-            ]
-          },
-          {
-            text: 'VEP',
-            link: '/zh/vep/'
-          },
-          {
-            text: '关于',
-            link: '/zh/about/'
-          },
-          {
-            text: 'Vite.net',
-            link: 'https://vite.net'
-          },
-          {
-            text: '区块浏览器',
-            link: 'https://testnet.vite.net'
-          }
-        ],
+        nav: require('./nav/zh'),
         sidebar: {
           // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
