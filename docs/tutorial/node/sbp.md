@@ -20,10 +20,10 @@ See [wallet management](./wallet-manage.md).
 
 Create 4 new attributes in `node_config.json`:
 
-   * Create `Miner` as `true`
-   * Create `CoinBase` in format of `index:address`. For example: `0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
-   * Create `EntropyStorePath` with your address. For example: `vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
-   * Create `EntropyStorePassword` with your password corresponding to above keystore.
+* Create `Miner` as `true`
+* Create `CoinBase` in format of `index:address`. For example: `0:vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
+* Create `EntropyStorePath` with your address. For example: `vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`.
+* Create `EntropyStorePassword` with your password corresponding to above keystore.
 
 **A complete example is as follows:**
 
@@ -101,11 +101,11 @@ SBP registration requires staking of 500,000 VITEs. Please ensure you have at le
 
 Log in [Web wallet](https://wallet.vite.net/) and navigate to SBP Registration page.
 
-Fill in **Node Name** and **Producer Address**。
+Fill in **Node Name** and **Block Creation Address**。
 
-Please note that the **Producer Address** here is the address configured on the SBP server. Better not use your stake address as **Producer Address**.
+Please note that the **Block Creation Address** here is the address configured on the SBP server. Better not use your stake address as **Block Creation Address**.
 
-![](~/images/node-register.jpg)
+![](~/images/node-register-en.png)
 
 ### SBP name
 
