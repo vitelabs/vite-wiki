@@ -13,7 +13,7 @@ Gvite supports installation from `binary package` or `source code`
 
 | OS | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite 1.0.0   | yes  |yes |yes |
+| gvite 1.0.2   | yes  |yes |yes |
 
 :::tip
 Go 1.11.1 or above version is required to compile the source code. See [Go download and installation](https://golang.org/dl/)
@@ -25,15 +25,15 @@ Download gvite in command line and install (supporting ubuntu, mac, centos, wind
 ### Installation example on ubuntu
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## Unpack
-tar -xzvf gvite-1.0.1-linux.tar.gz
+tar -xzvf gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-1.0.1-linux
+cd gvite-1.0.2-linux
 ```
 ```
 ## Start-up
@@ -55,11 +55,11 @@ Start the Node success!!!
 
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-darwin.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-darwin.tar.gz
 ## Unpack
-tar -xzvf gvite-1.0.1-darwin.tar.gz
+tar -xzvf gvite-1.0.2-darwin.tar.gz
 ## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-1.0.1-darwin
+cd gvite-1.0.2-darwin
 ## Start-up
 ./bootstrap
 ```
@@ -79,6 +79,43 @@ Prepare the Node success!!!
 Start the Node success!!!
 ```
 
+### Installation example on windows 
+Open up your preferred browser and paste in the following link:
+
+```bash
+https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-windows.tar.gz
+```
+and save file to preferred directory. Upon download completion, open up explorer, navigate to the directory where file is downloaded to, right click file and select extract file option.
+
+Extracted destination should contain three files:
+
+ `gvite-windows-386.exe (32bit executable)`
+ `gvite-windows-amd64.exe (64bit executable)`
+ `node_config.json (node config file).`
+
+The folder contains the command .exe files and can be used without installing.
+
+Configure `node_config.json` prior to launching executable (use the 32bit executable if you have a 32bit CPU or 64bit executable if you have a 64bit CPU).
+
+To launch node, simply open up command prompt (by pressing Win + R, then, type cmd and press Enter or click/tap OK.)
+
+Then in command prompt:
+
+```
+C:\Users\user>d:
+
+D:\>cd gvite-1.0.2-windows
+
+D:\gvite-1.0.2-windows>gvite-windows-amd64.exe (or your preferred executable)
+```
+The following messages indicate that the startup is successful.
+
+```bash
+INFO[11-21|09:28:42] NodeServer.DataDir:C:\Users\user\AppData\Roaming\GVite\testdata module=gvite/node_manager
+INFO[11-21|09:28:42] NodeServer.KeyStoreDir:C:\Users\user\AppData\Roaming\GVite\testdata\wallet module=gvite/node_manager
+Prepare the Node success!!!
+Start the Node success!!!
+```
 ### Description of installation directory
 
 **Installation directory**：Refers to the folder where gvite startup scripts and configuration file are located. For example, `~/gvite-${version}-${os}`
