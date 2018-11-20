@@ -38,7 +38,7 @@ Input：
 ```javascript
 vite.wallet_newMnemonicAndEntropyStore("123456")
 ```
-Where `123456` is the password for the keystore, you should replace it with your own password.
+Here `123456` is the password for the keystore, you should replace it with your own password.
 
 ```json
 {
