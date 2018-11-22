@@ -181,7 +181,7 @@ ls
 ```
 
 ```bash
-## 创建文件，将一下内容copy到文件中
+## 创建文件，将以下内容copy到文件中
 vi install.sh
 ```
 
@@ -288,7 +288,7 @@ Nov 22 21:23:30 ubuntu systemd[1]: Started GVite node service.
 sudo service vite stop
 ```
 
-!!! servie方式启动的配置文件会在/etc/vite目录下，启动控制台日志会在$HOME/.gvite/std.log中
+!!! service方式启动的配置文件会在/etc/vite目录下，启动控制台日志会在$HOME/.gvite/std.log中
 
 ## TIPS
 

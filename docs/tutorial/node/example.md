@@ -11,15 +11,15 @@ This article explains how to run SBP node on ubuntu 16.04. All steps have been t
 
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## Unpack
-tar -xzvf gvite-1.0.1-linux.tar.gz
+tar -xzvf gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## Rename the extracted folder to vite then enter it. You should see 3 files: gvite, bootstrap and node_config.json
-mv gvite-1.0.1-linux vite
+mv gvite-1.0.2-linux vite
 cd vite
 ```
 ```
@@ -204,26 +204,124 @@ WantedBy=multi-user.target
 
 If the gvite installation path is `/root/vite`, **path_to_gvite** is `/root/vite/bootstrap`
 
-### Start gvite as auto-boot service
+## Start gvite as auto-boot service
 
-Kill current gvite process:
-
-
-```bash
-ps -efww|grep -w 'gvite'|grep -v grep|cut -c 9-15|xargs kill -9
+### Create install.sh
+```
+## Navigate to gvite installation directory, and make sure it contains gvite and node_config.json
+cd vite
+ls
 ```
 
-Start gvite service：
-
 ```bash
-service vite start
+## Copy below script content into install.sh
+vi install.sh
 ```
 
-Set auto-start：
+```text
+
+#!/bin/bash
+
+set -e
+
+CUR_DIR=`pwd`
+CONF_DIR="/etc/vite"
+BIN_DIR="/usr/local/vite"
+LOG_DIR=$HOME/.gvite
+
+echo "install config to "$CONF_DIR
+
+
+sudo mkdir -p $CONF_DIR
+sudo cp $CUR_DIR/node_config.json $CONF_DIR
+ls  $CONF_DIR/node_config.json
+
+echo "install executable file to "$BIN_DIR
+sudo mkdir -p $BIN_DIR
+sudo cp $CUR_DIR/gvite $BIN_DIR
+
+echo '#!/bin/bash
+exec '$BIN_DIR/gvite' -pprof -config '$CONF_DIR/node_config.json' >> '$LOG_DIR/std.log' 2>&1' | sudo tee $BIN_DIR/gvited > /dev/null
+
+sudo chmod +x $BIN_DIR/gvited
+
+ls  $BIN_DIR/gvite
+ls  $BIN_DIR/gvited
+
+echo "config vite service boot."
+
+echo '[Unit]
+Description=GVite node service
+After=network.target
+
+[Service]
+ExecStart='$BIN_DIR/gvited'
+Restart=on-failure
+User='`whoami`'
+
+[Install]
+WantedBy=multi-user.target' | sudo tee /etc/systemd/system/vite.service>/dev/null
+
+sudo systemctl daemon-reload
+```
 
 ```bash
-systemctl enable vite
+## Grant execution permission
+sudo chmod +x install.sh
 ```
+
+### Run install.sh and set auto-start
+
+```bash
+## Run install.sh
+./install.sh
+
+## Set auto-start
+sudo systemctl enable vite
+```
+
+### Start gvite as service
+
+```bash
+## Kill original gvite process
+pgrep gvite | xargs kill -s 9
+
+## Check result
+ps -ef | grep gvite
+
+## Start gvite service
+sudo service vite start
+
+## Check result
+ps -ef | grep gvite
+
+## Check service status
+sudo service vite status
+
+## Check boot log
+tail -n200 ~/.gvite/std.log
+```
+Below message will be displayed if the service has been started up successfully:
+```text
+vite.service - GVite node service
+   Loaded: loaded (/etc/systemd/system/vite.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2018-11-22 21:23:30 CST; 1s ago
+ Main PID: 15872 (gvite)
+    Tasks: 7
+   Memory: 12.1M
+      CPU: 116ms
+   CGroup: /system.slice/vite.service
+           └─15872 /usr/local/vite/gvite -pprof -config /etc/vite/node_config.json
+
+Nov 22 21:23:30 ubuntu systemd[1]: Started GVite node service.
+```
+
+```bash
+## Shut down gvite service
+sudo service vite stop
+```
+
+!!! Gvite service config is located in /etc/vite. Gvite console messages are logged in $HOME/.gvite/std.log.
 
 ## TIPS
 
