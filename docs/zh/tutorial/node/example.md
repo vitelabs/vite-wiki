@@ -171,54 +171,6 @@ root      6560  5939  0 12:29 pts/1    00:00:00 grep --color=auto -w gvite
 ```
 499967 即为当前的高度，命令行支持的更多命令参见 `vite.help` 命令
 
-## gvite服务开机自启动
-
-### 创建自启动配置文件
-
-```bash
-sudo touch /etc/systemd/system/vite.service   
-sudo chmod 664 /etc/systemd/system/vite.service   
-sudo vi /etc/systemd/system/vite.service   
-```
-编辑为以下内容：
-
-```text
-[Unit]
-Description=GVite node service
-After=network.target
-
-[Service]
-ExecStart=/path_to_gvite/gvite
-Restart=on-failure
-User=vite
-Group=vite
-
-[Install]
-WantedBy=multi-user.target
-```
-
-**path_to_gvite**： 假设上面记录的安装目录路径为： `/root/vite`，则这里填写：`/root/vite/bootstrap`
-
-### 开启自启动
-
-kill 当前gvite服务：
-
-```bash
-ps -efww|grep -w 'gvite'|grep -v grep|cut -c 9-15|xargs kill -9
-```
-
-启动gvite服务：
-
-```bash
-service vite start
-```
-
-开启自启动：
-
-```bash
-systemctl enable vite
-```
-
 ## gvite服务开机自启动(方法二)
 
 ### 编辑安装脚本
@@ -301,11 +253,20 @@ sudo systemctl enable vite
 ## 停止原有进程
 pgrep gvite | xargs kill -s 9
 
+## 查看gvite进程是否存在
+ps -ef | grep gvite
+
 ## service启动
-sudo service vite
+sudo service vite start
+
+## 查看gvite进程是否存在
+ps -ef | grep gvite
 
 ## 查看启动状态
 sudo service vite status
+
+## 查看启动日志
+tail -n200 ~/.gvite/std.log
 ```
 启动成功状态如下：
 ```text
