@@ -31,7 +31,6 @@ Create 4 new attributes in `node_config.json`:
 {
 	"NetID": 2,
 	"Identity": "vite-38",
-	"PrivateKey": "83af2b5b8fe90ecfadd69251e318a56b6e137873b610cccb90dc8ed4c117b410f0591ba79efd68de030fb2e49607f87ea944c40652d82f29305c2c28b7d5b4e7",
 	"MaxPeers": 200,
 	"MaxPendingPeers": 20,
 	"BootNodes": [
