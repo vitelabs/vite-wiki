@@ -226,6 +226,116 @@ service vite start
 systemctl enable vite
 ```
 
+## gvite服务开机自启动(方法二)
+
+### 编辑安装脚本
+
+    ## 进入vite目录, 确保目录下包含这两个文件: gvite node_config.json
+    cd vite
+    ls
+    
+
+```bash
+## 创建文件，将内容copy到文件中
+vim install.sh
+
+## 赋予运行权限
+sudo chmod +x install.sh
+
+```
+
+```bash
+<br />#!/bin/bash
+
+set -e
+
+CUR_DIR=`pwd`
+CONF_DIR="/etc/vite"
+BIN_DIR="/usr/local/vite"
+LOG_DIR=$HOME/.gvite
+
+echo "install config to "$CONF_DIR
+
+
+sudo mkdir -p $CONF_DIR
+sudo cp $CUR_DIR/node_config.json $CONF_DIR
+ls  $CONF_DIR/node_config.json
+
+echo "install executable file to "$BIN_DIR
+sudo mkdir -p $BIN_DIR
+sudo cp $CUR_DIR/gvite $BIN_DIR
+
+echo '#!/bin/bash
+exec '$BIN_DIR/gvite' -pprof -config '$CONF_DIR/node_config.json' &gt;&gt; '$LOG_DIR/std.log' 2&gt;&1' | sudo tee $BIN_DIR/gvited &gt; /dev/null
+
+sudo chmod +x $BIN_DIR/gvited
+
+ls  $BIN_DIR/gvite
+ls  $BIN_DIR/gvited
+
+echo "config vite service boot."
+
+echo '[Unit]
+Description=GVite node service
+After=network.target
+
+[Service]
+ExecStart='$BIN_DIR/gvited'
+Restart=on-failure
+User='`whoami`'
+
+[Install]
+WantedBy=multi-user.target' | sudo tee /etc/systemd/system/vite.service&gt;/dev/null
+
+sudo systemctl daemon-reload
+```
+
+### 进行安装并设置自启动
+
+```bash
+## 运行安装脚本
+./install.sh
+
+## 设置开机自启动
+sudo systemctl enable vite
+```
+
+### 使用service方式启动脚本
+
+```bash
+## 停止原有进程
+pgrep gvite | xargs kill -s 9
+
+## service启动
+sudo service vite
+
+## 查看启动状态
+sudo service vite status
+```
+
+启动成功状态如下：
+
+```text
+vite.service - GVite node service
+   Loaded: loaded (/etc/systemd/system/vite.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2018-11-22 21:23:30 CST; 1s ago
+ Main PID: 15872 (gvite)
+    Tasks: 7
+   Memory: 12.1M
+      CPU: 116ms
+   CGroup: /system.slice/vite.service
+           └─15872 /usr/local/vite/gvite -pprof -config /etc/vite/node_config.json
+
+Nov 22 21:23:30 ubuntu systemd[1]: Started GVite node service.
+```
+
+```bash
+## 关闭vite service
+sudo service vite stop
+```
+
+!!! servie方式启动的配置文件会在/etc/vite目录下，启动控制台日志会在$HOME/.gvite/std.log中
+
 ## TIPS
 
 ### 快速进入gvite交互式命令行
