@@ -236,15 +236,11 @@ systemctl enable vite
     
 
 ```bash
-## 创建文件，将内容copy到文件中
-vim install.sh
-
-## 赋予运行权限
-sudo chmod +x install.sh
-
+## 创建文件，将一下内容copy到文件中
+vi install.sh
 ```
 
-```bash
+```text
 <br />#!/bin/bash
 
 set -e
@@ -288,6 +284,11 @@ User='`whoami`'
 WantedBy=multi-user.target' | sudo tee /etc/systemd/system/vite.service&gt;/dev/null
 
 sudo systemctl daemon-reload
+```
+
+```bash
+## 赋予运行权限
+sudo chmod +x install.sh
 ```
 
 ### 进行安装并设置自启动
