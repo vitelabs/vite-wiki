@@ -73,8 +73,8 @@ cat gvite.log
 The following messages indicate that the startup is successful.
 
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:~/Library/GVite/testdata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:~/Library/GVite/testdata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
