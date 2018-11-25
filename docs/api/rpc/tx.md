@@ -5,7 +5,3 @@
 ## tx_sendRawTx
 
 发送一个完整的原始accountBlock
-
-## 这是一个test
-
-这是test内容
