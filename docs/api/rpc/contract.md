@@ -10,9 +10,9 @@ sidebarDepth: 4
 
 Smart Contract
 
-Calling the built-in smart contract is similar to a normal transaction, but the receiving address is a built-in contract account address, not user account address.
-The transaction data is composed of `contract method selector` and `method parameter`, which is generated through RPC interface. 
-The transfer amount and token ID should be filled if the contract method requires staking.
+Calling the built-in smart contract is similar to a normal transaction, but difference is the receiving address is a built-in contract address, not a user address.
+The request transaction data includes both `method selector` and `method parameter`, which can be generated through corresponding RPC APIs. 
+The transfer amount and token ID must be specified if the contract method called requires staking.
 
 ## Description
 

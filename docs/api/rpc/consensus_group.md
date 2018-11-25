@@ -8,22 +8,27 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-委托共识组内置合约，合约账户地址：vite_00000000000000000000000000000000000000042d7ef71894
+The built-in delegated consensus group contract. Contract address: vite_00000000000000000000000000000000000000042d7ef71894
 
-**支持调用方式：**
+:::warning Attention
+The term `super node` in this page stands for block producer in the corresponding delegated consensus group. Please do NOT mix up with SBP(snapshot block producer) or super node in snapshot consensus group. 
+:::
+
+**Supported calling methods：**
 
 |  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
+| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
+
 
 ## consensusGroup_getConditionRegisterOfPledge
-创建委托共识组时registerConditionId为1时通过本接口生成registerConditionParam，指定注册成为共识组出块节点的条件，要求抵押一定数量的代币
+Return the composed `registerConditionParam` data in which the condition of registering super node in the delegated consensus group is specified. The returned data is used in `consensusGroup_getCreateConsensusGroupData` when `registerConditionId`=1
 
 - **Parameters**: 
 
-  * `big.int`: 注册时抵押的金额
-  * `TokenId`: 注册时抵押金额的代币id
-  * `uint64`: 注册时抵押代币的时间（即快照块高度）
+  * `uint256`: The amount of tokens required for staking
+  * `TokenId`: The token ID required for staking
+  * `uint64`: The required staking period(in snapshot block height)
 
 - **Returns**: 
 	- `[]byte` Data
@@ -57,11 +62,12 @@ sidebarDepth: 4
 :::
 
 ## consensusGroup_getConditionVoteOfKeepToken
-创建委托共识组时voteConditionId为2时通过本接口生成voteConditionParam，指定为共识组出块节点投票时的条件，要求投票账户持有一定数量的代币
+Return the composed `voteConditionParam` data in which the condition of voting(for super node in the delegated consensus group) is specified. The returned data is used in `consensusGroup_getCreateConsensusGroupData` when `voteConditionId`=2
+
 
 - **Parameters**: 
-  * `big.Int`: 投票时持有的代币数量
-  * `TokenId`: 投票时持有的代币id
+  * `big.Int`: The amount of tokens required to hold in account for voting
+  * `TokenId`: The token ID required for voting
 
 - **Returns**: 
 	- `[]byte` Data
@@ -92,25 +98,25 @@ sidebarDepth: 4
 :::
 
 ## consensusGroup_getCreateConsensusGroupData
-获取创建共识组交易请求数据
+Return the composed request data for creating new delegated consensus group
 
 - **Parameters**: 
 
 `Object`
-  1. `selfAddr`: `Address`  交易的发起方
-  2. `height`: `uint64`  当前块高度
-  3. `prevHash`: `Hash`  前一个账户块的哈希
-  4. `snapshotHash`: `Hash`  当前块引用的快照块哈希
-  5. `nodeCount`:`uint8`  出块节点总数
-  6. `interval`: `int64` 出块间隔
-  7. `perCount`: `int64` 连续出款间隔数
-  8. `randCount`: `uint8` 随机出块节点数
-  9. `randRank`: `uint8` 随机出块节点选取范围
-  10. `countingTokenId`: `TokenId` 计票代币id
-  11. `registerConditionId`: `uint8` 出块节点注册条件id，取1，值为1时表示注册时需要抵押代币
-  12. `registerConditionParam`: `[]byte` 出块节点注册条件参数
-  13. `voteConditionId`: `uint8` 出块节点投票条件id，取1或2，值为1时表示无条件，voteConditionParam为空字符串；值为2时表示投票时需要持有代币
-  14. `voteConditionParam`: `[]byte` 出块节点投票条件参数
+  1. `selfAddr`: `Address`  The address of account who registers the delegated consensus group
+  2. `height`: `uint64`  The height of current block
+  3. `prevHash`: `Hash`  The hash of previous account block
+  4. `snapshotHash`: `Hash`  The hash of snapshot block that current account block refers to
+  5. `nodeCount`:`uint8`  The total number of super nodes in the delegated consensus group
+  6. `interval`: `int64` The time interval between two consecutive blocks
+  7. `perCount`: `int64` The number of blocks that can be produced by the same super node consecutively at a time
+  8. `randCount`: `uint8` The number of super nodes that are selected in random
+  9. `randRank`: `uint8` The range of rankings in which the random super nodes are selected
+  10. `countingTokenId`: `TokenId` Voting token ID 
+  11. `registerConditionId`: `uint8` Registration condition ID, where 1 stands for staking is required.
+  12. `registerConditionParam`: `[]byte` The condition parameter for super node registration
+  13. `voteConditionId`: `uint8` Voting condition ID, where 1 means no condition and 2 stands for holding a amount of tokens is required.
+  14. `voteConditionParam`: `[]byte` The condition parameters for voting
 
 
 - **Returns**: 
@@ -156,11 +162,11 @@ sidebarDepth: 4
 :::
 
 ## consensusGroup_getCancelConsensusGroupData
-获取撤回共识组抵押交易请求数据
+Return the composed request data for cancelling the super node staking in the specified delegated consensus group 
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id
+  * `Gid`: The delegated consensus group ID
 
 - **Returns**: 
 	- `[]byte` Data
@@ -190,11 +196,11 @@ sidebarDepth: 4
 :::
 
 ## consensusGroup_getReCreateConsensusGroupData
-获取重新为共识组抵押交易请求数据
+Return the composed request data for re-staking as super node in the specified delegated consensus group
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id
+  * `Gid`: The delegated consensus group ID
 
 - **Returns**: 
 	- `[]byte` Data

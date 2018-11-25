@@ -17,12 +17,12 @@ The built-in super node registration contract. Contract address: vite_0000000000
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
 ## register_getRegisterData
-Return the composed request data to register a new super node
+Return the composed request data for registering a new super node in the specified consensus group
 
 - **Parameters**: 
 
   * `Gid`: Consensus group ID
-  * `string`: The node name of block producer
+  * `string`: The super node name
   * `Address`: The account address of block producer
 
 - **Returns**: 
@@ -50,12 +50,12 @@ Return the composed request data to register a new super node
 :::
 
 ## register_getCancelRegisterData
-Return the composed request data to cancel an existing registration
+Return the composed request data for cancelling an existing super node registration in the specified consensus group
 
 - **Parameters**: 
 
   * `Gid`: Consensus group ID
-  * `string`: The node name of block producer
+  * `string`: The super node name
 
 - **Returns**: 
 	- `[]byte` Data
@@ -81,12 +81,12 @@ Return the composed request data to cancel an existing registration
 :::
 
 ## register_getRewardData
-Return the composed request data to retrieve mining rewards. Rewards mined within 90 days since the last retrieval block are retrieved per request. All rewards except mined in recent 30 minutes will be retrieved if the height between last retrieval block and current block is less than 90 days. Rewards mined within latest 30 minutes are not allowed to retrieve.
+Return the composed request data for retrieving super node rewards(if applied. For the time being only super nodes(aka SBP) in snapshot consensus group are rewarded). Rewards mined within 90 days since the last retrieval block are retrieved per request. All rewards except mined in recent 30 minutes will be retrieved if the height between last retrieval block and current block is less than 90 days. Rewards mined within latest 24 hours are not allowed to retrieve.
 
 - **Parameters**: 
 
   * `Gid`: Consensus group ID
-  * `string`: The node name of block producer
+  * `string`: The super node name
   * `Address`: The address of account to receive rewards
 
 - **Returns**: 
@@ -114,12 +114,12 @@ Return the composed request data to retrieve mining rewards. Rewards mined withi
 :::
 
 ## register_getUpdateRegistrationData
-Return the composed request data to update the information of an existing registration
+Return the composed request data for changing block producer of an existing registration
 
 - **Parameters**: 
 
-  * `Gid`: Consensus group ID, must be the same value as registered
-  * `string`: The node name of block producer, must be the same value as registered
+  * `Gid`: Consensus group ID, must be the same filled value when the super node was registered
+  * `string`: The super node name, must be the same filled value when the super node was registered
   * `Address`: The account address of new block producer
 
 - **Returns**: 
@@ -147,7 +147,7 @@ Return the composed request data to update the information of an existing regist
 :::
 
 ## register_getRegistrationList
-Return the registered super node list
+Return the list of registered super nodes in the specified consensus group by the account
 
 - **Parameters**: 
 
@@ -157,13 +157,13 @@ Return the registered super node list
 - **Returns**: 
 
 `Array&lt;RegistartionInfo&gt;`
-  1. `name`: `string`  The node name of block producer
+  1. `name`: `string`  The super node name
   2. `nodeAddr`: `Address`  The account address of block producer
   3. `pledgeAddr`: `Address`  The staking account address
   4. `pledgeAmount`: `big.Int`  The staking amount
   5. `withdrawHeight`: `uint64`  The due height of staking
   6. `withdrawTime`: `uint64`  The estimated due time of staking
-  7. `cancelHeight`: `uint64`  The cancellation time of staking. If the value is greater than 0, it implies that the staking has already been cancelled.
+  7. `cancelHeight`: `uint64`  The cancelled time of staking. If the value is greater than 0, it means staking has already been cancelled.
 
 - **Example**:
 
@@ -203,7 +203,7 @@ Return the registered super node list
 :::
 
 ## register_getCandidateList
-Return the candidate list
+Return the list of super node candidates(super nodes who have `Standby` status) in the specified consensus group
 
 - **Parameters**: 
 
@@ -212,7 +212,7 @@ Return the candidate list
 - **Returns**: 
 
 `Array&lt;CandidateInfo&gt;`
-  1. `name`: `string`  The node name of block producer
+  1. `name`: `string`  The super node name
   2. `nodeAddr`: `Address`  The account address of block producer
 
 - **Example**:
