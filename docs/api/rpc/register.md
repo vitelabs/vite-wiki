@@ -203,7 +203,7 @@ Return the list of registered super nodes in the specified consensus group by th
 :::
 
 ## register_getCandidateList
-Return the list of super node candidates(super nodes who have `Standby` status) in the specified consensus group
+Return the list of super node candidates in the specified consensus group
 
 - **Parameters**: 
 
