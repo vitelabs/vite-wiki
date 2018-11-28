@@ -116,6 +116,7 @@ gvite 数据目录说明:
 * `runlog`： 运行日志目录, runlog目录
 * `wallet`： 钱包keyStore目录，用于存储私钥生成的keyStore文件，如果是超级节点涉及到挖矿账户安全，请`妥善保管`
 
+mac 默认目录：~/Library/GVite/testdata
 
 ## 源码安装
 ### golang 环境确认
