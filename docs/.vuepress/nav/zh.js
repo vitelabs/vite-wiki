@@ -13,6 +13,10 @@ module.exports = [
       {
         text: 'RPC 接口',
         link: '/zh/api/rpc/'
+      },
+    {
+        text: 'vitejs',
+        link: '/zh/api/vitejs/'
       }
     ]
   },
