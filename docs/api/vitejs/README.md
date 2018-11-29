@@ -13,7 +13,7 @@ yarn add @vitelabs/vitejs
 
 ### node/without webpack
 ```javascript
-const {client,constant} = require("@vitelabs/vitejs");
+const {client,constant} = require("@vite/vitejs");
 const {initClientWithHttp} =client;
 const {method}=constant;
 const clientInstance=initClientWithHttp({
