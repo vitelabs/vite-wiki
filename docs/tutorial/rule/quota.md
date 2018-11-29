@@ -61,7 +61,7 @@ $${\it Q}={\it Qm} \times (1- \frac{2}{1+e^{\xi d \times \rho d +\xi s \times T 
 * $\xi d$: The ${\rm PoW}$ difficulty computed by the account when sending a transaction;
 * $\rho d$: The weight of the quota obtained by computing ${\rm PoW}$;
 * $\xi s$: The amount of ${\it vite}$ staked by the account;
-* $T$: The waiting time before sending a transaction;
+* $T$: The waiting time before sending a transaction, equivalent to height different between the snapshot block that current transaction refers to and an older snapshot block that previous transaction refers to.
 * $\rho s$: The weight of the quota obtained by staking.
 
 In TestNet some are constants,
@@ -122,7 +122,7 @@ For the convenience in actual calculation, only $(\xi d \times \rho d +\xi s \ti
 | $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 965904 | 6482067456 |
 | $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 1197301 | 8034975744 |
 
-For example, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should meet a transaction rate of up to 1${\rm TPS}$ and 2${\rm TPS}$ rate can be reached by 20009${\it vite}$ stake. Staking 10${\it vite}$ and waiting 1000 snapshot blocks (16 minutes and 40 seconds) is also sufficient to send a transfer transaction without comment.
+For example, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should meet a transaction rate of up to 1${\rm TPS}$ and 2${\rm TPS}$ rate can be reached by 20009${\it vite}$ stake. Staking 10${\it vite}$ and waiting 1000 snapshot blocks (about 16 minutes and 40 seconds) is also sufficient to send a transfer transaction without comment.
 ## Two ways of obtaining quota
 
 ### Stake
@@ -133,13 +133,14 @@ Users can obtain quota by sending a stake transaction to built-in contract. When
 * Staking amount: The minimum staking amount is 10${\it vite}$.
 * Quota recipient address: The account who receives quota, could be the staking account itself or any other account since staking for other accounts is permitted.
 
+The staked ${\it vite}$ will be temporarily deducted from balance, and cannot be traded during staking period.
 The staking account can retrieve staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. After this transaction is received and confirmed, the corresponding quota in the quota recipient account won't exist any more.
 
 ### Computing PoW
 
 The user can obtain an one-time quota by computing a ${\rm PoW}$ upon transaction sending. According to the formula, the expected ${\rm PoW}$ difficulty is 0x3FFFFFF for sending an uncommented transfer transaction without staking.
 
-Vite provides a ${\rm PoW}$ pool in the TestNet.
+In the TestNet, we have built a ${\rm PoW}$ pool, which provides the capability to obtain transaction quotas by calculating PoW in Vite official wallet.
 
 #### PoW formula
 
@@ -164,11 +165,11 @@ $$blake2b(address+prevHash) + nonce < target$$
 
 * Can I stake for multiple quota recipient addresses?
 
-Yes. Each recipient has different stake expiration.
+Yes. You need to send multiple staking transactions to different quota recipient addresses. Each staking can have different expiration.
 
 * Can I stake for the same recipient multiple times?
 
-Yes. The stake expires at 259200 blocks after the latest stake transaction is received by built-in contract.
+Yes, the staking amount for this recipient will be accumulated. Staking expiration time = height of snapshot block referenced by the response block of last staking transaction + 259200.
 
 * Can I have my ${\it vite}$, which was staked to a recipient address, be retrieved in multiple times?
 
@@ -177,6 +178,14 @@ Yes. After stake expires, staked ${\it vite}$ can be retrieved in multiple times
 * Is a stake retrievable if it has not expired yet?
 
 No. However, the stake can be retrieved at any time after it expires.
+
+* Will the quota obtained by staking be used up?
+
+Quota obtained through staking is related to staking amount and snapshot block height difference during the period in which no transaction has taken place, and continues to be effective as long as the staked ${\it vite}$ is not retrieved. If the wallet shows your current quota is 0, it may increase after waiting for a while.
+
+* Can a recipient accept quota staked from multiple staking addresses?
+
+Yes. The received quota is the sum of the staking amount that has applied to this recipient address.
 
 * Does receiving transaction consume quota?
 
