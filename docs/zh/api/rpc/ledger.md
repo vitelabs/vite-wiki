@@ -392,3 +392,73 @@
 
 ```
 :::
+
+## ledger_getVmLogList
+获取VM合约执行日志列表
+
+- **Parameters**:
+   * `string` : `hash`  交易Hash
+
+- **Returns**: `VmLogList<array<VmLog>>` 日志列表
+
+  `Object` : `VmLog`
+    * Topics : `[]types.Hash`
+	* Data : `[]byte`
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+	"jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getVmLogList",
+    "params": null
+}
+
+```
+```json tab:Response
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"result": null
+}
+```
+:::
+
+## ledger_getFittestSnapshotHash
+return the fittest snapshotHash when create tx
+
+- **Parameters**:
+   * `address` : `Address`  用户地址。`选填`，当填写时会选择账户链上最新一笔交易所依赖的快照块高度本身或之后的快照块Hash。
+   * `sendblockHash` : `Hash`  在创建接受交易时，建议填写对应的发送交易的Hash，而创建发送交易时，无需填写。`选填`，当填写时会选择对应发送交易所依赖的快照块高度本身或之后的快照块Hash。
+
+   如果以上两个参数均不填，会选择最新快照块之前10个块高度的快照块Hash。
+
+
+- **Returns**: `Hash` 适宜引用用来发起交易的快照快Hash
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getFittestSnapshotHash",
+    "params": [
+        "vite_bece0bfc8893a6dde206dea9d4058af7dd718c165c3a17332e",
+        "e698b4b6cdf2fe40bc74f27097cd53eb07c85e2268e04062c193da8fc294f393",
+    ]
+}
+
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": "df6c3c2d874b790dd1f1cad0a4bbcd539bbfa99d9dc75b19056ebee310d2e47a"
+}
+```
+:::
