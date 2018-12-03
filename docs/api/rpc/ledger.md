@@ -391,3 +391,73 @@ Return the current height of snapshot chain
 
 ```
 :::
+
+## ledger_getVmLogList
+ return the list of VM contract execution logs
+
+- **Parameters**:
+   * `string` : `hash`  tx Hash
+
+- **Returns**: `VmLogList<array<VmLog>>` vm log list
+
+  `Object` : `VmLog`
+    * Topics : `[]types.Hash`
+	* Data : `[]byte`
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getVmLogList",
+    "params": null
+}
+
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+}
+```
+:::
+
+## ledger_getFittestSnapshotHash
+return the fittest snapshotHash when create tx
+
+- **Parameters**:
+   * `address` : `Address`  account address, `optional` fill it then the fittest snapshotblock will be selected at or greater than the height of the snapshotblock which the latest transaction in the account chain referrring to.
+   * `sendblockHash` : `Hash` sendblock hash corresponding to, sendtx is not required, `optional` fill it then the fittest snapshotblock will be selected at or greater than the height of the snapshotblock which the sendblock transaction referrring to.
+
+   If neither of the above is used, the fittest snapshotblock will be at the height of the previous 10 blocks before the latest snapshot block.
+
+- **Returns**: `Hash` the snapshotHash with the fittest height
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getFittestSnapshotHash",
+    "params": [
+        "vite_bece0bfc8893a6dde206dea9d4058af7dd718c165c3a17332e",
+        "e698b4b6cdf2fe40bc74f27097cd53eb07c85e2268e04062c193da8fc294f393",
+    ]
+}
+
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": "df6c3c2d874b790dd1f1cad0a4bbcd539bbfa99d9dc75b19056ebee310d2e47a"
+}
+```
+:::
