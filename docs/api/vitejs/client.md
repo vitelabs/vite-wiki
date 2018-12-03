@@ -1,11 +1,11 @@
-# 常量
+# 连接客户端
 
 :::作者
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
 :::abstract
-const 包括一些常量：method，type，address。
+包括一些内置的快捷聚合
 :::
 
 ## method
@@ -13,7 +13,7 @@ const 包括一些常量：method，type，address。
 ## type
 
 - blockType  
-- txType
+- txType 
 
 ## address
 - pledgeAddr
