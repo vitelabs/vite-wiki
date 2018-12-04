@@ -157,8 +157,14 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
 * 首先参照全节点的启动方式，启动全节点。
 * 通过命令行连接全节点：找到[全节点的安装目录](./install.md#安装目录文件说明)。进入到该目录，然后执行如下命令
+
+  Unix/Linux平台：
   ```bash
   ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ```
+  Windows平台：
+  ```bash
+  gvite-windows-amd64.exe attach \\.\pipe\gvite.ipc
   ```
   在交互命令行中输入：
   ```javascript

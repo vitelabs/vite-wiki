@@ -192,6 +192,7 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
 
 * Start a full node as instructed
 * Access the full node in command line: Enter [full node installation directory](./install.md#Description-of-installation-directory) and execute the following command
+
   If using Linux/Unix：
   ```bash
   ./gvite attach ~/.gvite/testdata/gvite.ipc
