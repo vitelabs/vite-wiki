@@ -1,14 +1,17 @@
-# 连接客户端
+---
+sidebarDepth: 1
+---
+# 客户端
 
-:::作者
+:::tip 作者
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::abstract
+:::tip abstract
 包括一些内置的快捷聚合
 :::
 
-##contructor
+## contructor
 - **constructor params**: 
 `provider`:provider 实例。
 
@@ -18,8 +21,8 @@ import {Client} from "@vite/vitejs/client";
 const client=new Client(provider);
 const block=client.builtin.cancelPledgeBlock(...)
 ```
-##builtin
-- cancelPledgeBlock(__namedParameters: object): 获取取消抵押交易block
+## builtin
+### cancelPledgeBlock(__namedParameters: object): 获取取消抵押交易block
 - **Parameters**:
  __namedParameters：
 * `accountAddress`: `string`  抵押账户
@@ -28,11 +31,11 @@ const block=client.builtin.cancelPledgeBlock(...)
 * `tokenId`: `string` 代币id
 
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-- cancelRegisterBlock(__namedParameters: object) 构造取消注册超级节点交易块
+### cancelRegisterBlock(__namedParameters: object) 构造取消注册超级节点交易块
 - **Parameters**:
 __namedParameters: object
 * `Gid`: `string`
@@ -42,19 +45,19 @@ __namedParameters: object
 * `Returns` `any`
 
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
-- cancelVoteBlock(__namedParameters: object): 构造取消投票交易块
+### cancelVoteBlock(__namedParameters: object): 构造取消投票交易块
 - **Parameters**:
 __namedParameters: object
 `Gid`: `string`
 `accountAddress`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
-- getAccountBlock(__namedParameters: object): 通用构造块
+### getAccountBlock(__namedParameters: object): 通用构造块
 
 - **Parameters**:
 __namedParameters: object
@@ -68,30 +71,30 @@ __namedParameters: object
 `toAddress`: any
 `tokenId`: any
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-getBalance(addr: `string`): 获取余额块
+### getBalance(addr: `string`): 获取余额块
 Parameters
 `addr`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-getBlocks(__namedParameters: object): any
+### getBlocks(__namedParameters: object): any
 Parameters
 __namedParameters: object
 `addr`: `string`
 `index`: number
 `pageCount`: number
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-pledgeBlock(__namedParameters: object) 构造抵押配额交易块
+### pledgeBlock(__namedParameters: object) 构造抵押配额交易块
 Parameters
 __namedParameters: object
 `accountAddress`: `string`
@@ -99,21 +102,21 @@ __namedParameters: object
 `toAddress`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-receiveBlock(__namedParameters: object): 构造普通接收交易块
+### receiveBlock(__namedParameters: object): 构造普通接收交易块
 Parameters
 __namedParameters: object
 `accountAddress`: `string`
 `blockHash`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-registerBlock(__namedParameters: object) 构造注册超级节点交易块
+### registerBlock(__namedParameters: object) 构造注册超级节点交易块
 Parameters
 __namedParameters: object
 `Gid`: `string`
@@ -123,11 +126,11 @@ __namedParameters: object
 `producerAddr`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-rewardBlock(__namedParameters: object)  ？？
+### rewardBlock(__namedParameters: object)  ？？
 Parameters
 __namedParameters: object
 `Gid`: `string`
@@ -136,11 +139,11 @@ __namedParameters: object
 `rewardAddress`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-sendBlock(__namedParameters: object): 构造普通发送交易块
+### sendBlock(__namedParameters: object): 构造普通发送交易块
 Parameters
 __namedParameters: object
 `accountAddress`: `string`
@@ -149,11 +152,11 @@ __namedParameters: object
 `toAddress`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-updateRegisterBlock(__namedParameters: object) 构造取消超级节点交易块
+### updateRegisterBlock(__namedParameters: object) 构造取消超级节点交易块
 Parameters
 __namedParameters: object
 `Gid`: `string`
@@ -162,11 +165,11 @@ __namedParameters: object
 `producerAddr`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>
 
 
 
-voteBlock(__namedParameters: object) 构造投票交易块
+### voteBlock(__namedParameters: object) 构造投票交易块
 Parameters
 __namedParameters: object
 `Gid`: `string`
@@ -174,4 +177,4 @@ __namedParameters: object
 `nodeName`: `string`
 `tokenId`: `string`
 - **Return**:
-* Promise<accountBlock>
+* Promise<`accountBlock`>

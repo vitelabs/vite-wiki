@@ -1,10 +1,10 @@
-# 常量
+# 底层连接
 
-:::作者
+:::tip 作者
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::abstract
+:::tip abstract
 与gvite连接的实现层，可以通过http，websocket，ipc与gvite连接。不同连接方式可以调用不同级别的接口。
 :::
 

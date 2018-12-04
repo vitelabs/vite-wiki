@@ -1,10 +1,13 @@
+---
+sidebarDepth: 1
+---
 # 工具方法
 
-:::作者
+:::tip 作者
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::abstract
+:::tip abstract
 const 包括一些常量：method，type，address。
 :::
 
@@ -17,14 +20,14 @@ const 包括一些常量：method，type，address。
 
 
 
-- getAddrFromHexAddr  获取真实地址
+### getAddrFromHexAddr  获取真实地址
 - **params**
   - `hexaddr`:`string` hex编码地址
 - **return**
   - `addr`:`string` blake2b地址
 
 
-- isValidHexAddr 校验是否为合法的hex地址
+### isValidHexAddr 校验是否为合法的hex地址
 - **params**
   - `hexaddr`:`string` hex编码地址
 - **return**
@@ -33,27 +36,27 @@ const 包括一些常量：method，type，address。
 
 ## encoder   
 
-- bytesToHex 
-- - **params**
+### bytesToHex 
+-  **params**
   - ``:`buffer` hex编码地址
 - **return**
   - `addr`:`string` blake2b地址   
   
-- hexToBytes
-- - **params**
+### hexToBytes
+-  **params**
   - `hexaddr`:`string` hex编码地址
 - **return**
   - `addr`:`string` blake2b地址
 
-- getBytesSize 获取bytes在不同编码下的长度   
-- - **params**
+### getBytesSize 获取bytes在不同编码下的长度   
+-  **params**
   - `value`:`buffer`
   - `code`:`utf8|utf16` 编码格式
 - **return**
   - `length`:`number` 长度
   
-- utf8ToBytes  转换utf8微bytes
-- - **params**
+### utf8ToBytes  转换utf8微bytes
+-  **params**
   - `value`:`string` uft8编码字符串
 - **return**
   - `target`:`Uint8Array` 
@@ -61,8 +64,8 @@ const 包括一些常量：method，type，address。
 - blake2b 对blake2b的快捷引用 参考[...]
 
 ## tools
-- signTX
-- - **params**
+### signTX
+-  **params**
   - `block`:`accountBlock` hex编码地址
   - `privateKey`:`string` 私钥
   - `type`:`byte|hex` 返回值编码格式，hex/byte

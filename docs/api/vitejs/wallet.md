@@ -1,10 +1,10 @@
-# 常量
+# 内置钱包实现
 
-:::作者
+:::tip 作者
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::abstract
+:::tip abstract
 const 包括一些常量：method，type，address。
 :::
 
