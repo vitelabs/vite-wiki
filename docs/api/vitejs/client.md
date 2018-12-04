@@ -8,6 +8,16 @@
 包括一些内置的快捷聚合
 :::
 
+##contructor
+- **constructor params**: 
+`provider`:provider 实例。
+
+- **example**
+```javascript
+import {Client} from "@vite/vitejs/client";
+const client=new Client(provider);
+const block=client.builtin.cancelPledgeBlock(...)
+```
 ##builtin
 - cancelPledgeBlock(__namedParameters: object): 获取取消抵押交易block
 - **Parameters**:
