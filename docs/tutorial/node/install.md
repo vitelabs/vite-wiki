@@ -13,7 +13,7 @@ Gvite supports installation from `binary package` or `source code`
 
 | OS | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite 1.0.2   | yes  |yes |yes |
+| gvite 1.0.3   | yes  |yes |yes |
 
 :::tip
 Go 1.11.1 or above version is required to compile the source code. See [Go download and installation](https://golang.org/dl/)
@@ -25,15 +25,15 @@ Download gvite in command line and install (supporting ubuntu, mac, centos, wind
 ### Installation example on ubuntu
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.3/gvite-1.0.3-linux.tar.gz
 ```
 ```
 ## Unpack
-tar -xzvf gvite-1.0.2-linux.tar.gz
+tar -xzvf gvite-1.0.3-linux.tar.gz
 ```
 ```
 ## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-1.0.2-linux
+cd gvite-1.0.3-linux
 ```
 ```
 ## Start-up
@@ -55,11 +55,11 @@ Start the Node success!!!
 
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-darwin.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.3/gvite-1.0.3-darwin.tar.gz
 ## Unpack
-tar -xzvf gvite-1.0.2-darwin.tar.gz
+tar -xzvf gvite-1.0.3-darwin.tar.gz
 ## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-1.0.2-darwin
+cd gvite-1.0.3-darwin
 ## Start-up
 ./bootstrap
 ```
@@ -83,7 +83,7 @@ Start the Node success!!!
 Open up your preferred browser and paste in the following link:
 
 ```bash
-https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-windows.tar.gz
+https://github.com/vitelabs/go-vite/releases/download/1.0.3/gvite-1.0.3-windows.tar.gz
 ```
 and save file to preferred directory. Upon download completion, open up explorer, navigate to the directory where file is downloaded to, right click file and select extract file option.
 
@@ -104,9 +104,9 @@ Then in command prompt:
 ```
 C:\Users\user>d:
 
-D:\>cd gvite-1.0.2-windows
+D:\>cd gvite-1.0.3-windows
 
-D:\gvite-1.0.2-windows>gvite-windows-amd64.exe (or your preferred executable)
+D:\gvite-1.0.3-windows>gvite-windows-amd64.exe (or your preferred executable)
 ```
 The following messages indicate that the startup is successful.
 
@@ -192,8 +192,13 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
 
 * Start a full node as instructed
 * Access the full node in command line: Enter [full node installation directory](./install.md#Description-of-installation-directory) and execute the following command
+  If using Linux/Unix：
   ```bash
   ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ```
+  If using Windows：
+  ```bash
+  gvite-windows-amd64.exe attach \\.\pipe\gvite.ipc
   ```
   Input：
   ```javascript
@@ -201,9 +206,9 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
   ```
   Output:
   ```
-  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
+  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"2166918\"}"
   ```
-  499967 is current block height. 
+  2166918 is current block height. 
   For more command usage please run `vite.help`.
   
 ## Next steps
@@ -211,4 +216,3 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
 * [Super node configuration](./sbp.md)
 * [Wallet management](./wallet-manage.md)
 * [Super node rules](../rule/sbp.md)
-
