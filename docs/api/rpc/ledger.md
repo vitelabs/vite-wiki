@@ -393,12 +393,12 @@ Return the current height of snapshot chain
 :::
 
 ## ledger_getVmLogList
- return the list of VM contract execution logs
+Return the list of VM contract execution logs
 
 - **Parameters**:
-   * `string` : `hash`  tx Hash
+   * `string` : `Hash`  Transaction Hash
 
-- **Returns**: `VmLogList<array<VmLog>>` vm log list
+- **Returns**: `VmLogList<array<VmLog>>` VM log list
 
   `Object` : `VmLog`
     * Topics : `[]types.Hash`
@@ -427,15 +427,15 @@ Return the current height of snapshot chain
 :::
 
 ## ledger_getFittestSnapshotHash
-return the fittest snapshotHash when create tx
+Return the hash of snapshot block which is most suitable for being referenced by a new transaction
 
 - **Parameters**:
-   * `address` : `Address`  account address, `optional` fill it then the fittest snapshotblock will be selected at or greater than the height of the snapshotblock which the latest transaction in the account chain referrring to.
-   * `sendblockHash` : `Hash` sendblock hash corresponding to, sendtx is not required, `optional` fill it then the fittest snapshotblock will be selected at or greater than the height of the snapshotblock which the sendblock transaction referrring to.
+   * `address` : `Address` `Optional` account address. Once specified, the hash of snapshot block referenced by last transaction of the account or afterwards will be returned.
+   * `sendblockHash` : `Hash` `Optional` hash of the corresponding request block if a new response transaction is to be created. Once specified, the hash of snapshot block referenced by the request transaction or afterwards will be returned.
 
-   If neither of the above is used, the fittest snapshotblock will be at the height of the previous 10 blocks before the latest snapshot block.
+   If neither is specified, the hash of the snapshot block which is 10 blocks prior to current will be returned.
 
-- **Returns**: `Hash` the snapshotHash with the fittest height
+- **Returns**: `Hash` The hash of snapshot block
 
 - **Example**:
 
