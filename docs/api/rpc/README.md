@@ -9,7 +9,7 @@ title: START
 
     1. **\*nix(linux darwin)**: `Unix Domain Socket` file is    `$HOME/viteisbest/vite.ipc`
 
-    2. **Windows**: Due to` Named Pipe` naming limitation the file is  `\\.\pipe\vite.ipc`
+    2. **Windows**: Due to` Named Pipe` naming limitation the file is  `\\.\pipe\gvite.ipc`
 * **Http**：Public APIs ONLY. Default port is **48132**. Wallet module is excluded.
 
 * **WebSocket**：Public APIs ONLY. Default port is **31420**. Wallet module is excluded.
