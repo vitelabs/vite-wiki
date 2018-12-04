@@ -9,12 +9,24 @@
 :::
 
 ## http
-一些关于rpc方法的常量，example:const.method.tx.sendRawTx。详细参考[https://baidu.com]
+{
+        host = 'http://localhost:8415',
+        headers={},
+        timeout = 0
+    }
 
 ## websocket
-- blockType  
-- txType
+{
+        url = 'ws://localhost:31420',
+        protocol,
+        headers,
+        clientConfig,
+        timeout = 0
+    }
 
 ## ipc
-- pledgeAddr
-- voteAddr
+{
+        path = '',
+        delimiter = '\n',
+        timeout = 0
+    }
