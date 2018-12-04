@@ -146,14 +146,32 @@ mac 默认目录：~/Library/GVite/testdata
 ### 命令行确认当前节点高度
 
 * 首先参照全节点的启动方式，启动全节点。
-* 通过命令行连接全节点：找到\[全节点的安装目录\](./install.md#安装目录文件说明)。进入到该目录，然后执行如下命令 
-        bash
-        ./gvite attach ~/.gvite/testdata/gvite.ipc 在交互命令行中输入： 
+* 通过命令行连接全节点：找到\[全节点的安装目录\](./install.md#安装目录文件说明)。进入到该目录，然后执行如下命令
     
-        javascript
-        vite.ledger_getSnapshotChainHeight(); 得到 ```"{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"``` 499967 即为当前的高度，命令行支持的更多命令参见 
+    Unix/Linux平台：
     
-    `vite.help` 命令
+    ```bash
+    ./gvite attach ~/.gvite/testdata/gvite.ipc
+    ```
+    
+    Windows平台：
+    
+    ```bash
+    gvite-windows-amd64.exe attach \\.\pipe\gvite.ipc
+    ```
+    
+    在交互命令行中输入：
+    
+    ```javascript
+    vite.ledger_getSnapshotChainHeight();
+    ```
+    
+    得到
+    
+        "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
+        
+    
+    499967 即为当前的高度，命令行支持的更多命令参见 `vite.help` 命令
 
 ## 下一步
 
