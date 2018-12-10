@@ -179,7 +179,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 ## 全节点奖励
 
 ### 版本要求
-全节点最低版本要求: [1.0.4](https://github.com/vitelabs/go-vite/releases/tag/1.0.4)
+全节点最低版本要求: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
 
 ### 节点配置
 
