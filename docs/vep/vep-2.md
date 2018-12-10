@@ -47,18 +47,25 @@ represents an invocation to `echo` function on contract `vite_fa1d81d93bcc36f234
 ***
 ## More examples
 * Show an account address
+
 `vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad`
 
 * Transfer
+
 `vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad?tti=tti_2445f6e5cde8c2c70e446c83&amount=1&decimals=1e18`
+
 **tti**(token type id) stands for what token you want to transfer. If not specified, default is VITE. The transfer amount is **amount** * **decimals**, or **amount** * **min_decimals(token)** if **decimals** is not present. 
 
 * Issue new token
+
 `vite:2-vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad?totalsupply=10e10&decimals=1e18&name=xite`
+
 Use **prefix**=2 to identify this is a token issuance transaction
 
 * Create new contract
+
 `vite:3-?code=....&gid=GID&tti=tti_2445f6e5cde8c2c70e446c83&amount=1`
+
 Use **prefix**=3 to identify a transaction of creating contract. **code** is bytecode of the contract; **gid** is consensus group ID of the contract(if not specified, default is global consensus group); **tti** and **amount** are used to transfer a amount of tokens to the contract when it is created. 
 
 
