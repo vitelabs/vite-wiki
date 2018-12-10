@@ -213,6 +213,7 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
+          '/vep/': genSidebarConfig('vep', 'VEP'),
           '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules'),
           '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'P2P', 'Common'),
         },
