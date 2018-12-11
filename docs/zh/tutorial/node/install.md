@@ -203,7 +203,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
     "tx",
     "dashboard"  // 新增加
   ],
-  "DashboardTargetURL":"wss://stats.vite.net/ws/gvite",  // 新增加
+  "DashboardTargetURL":"wss://stats.vite.net",  // 新增加
   "RewardAddr":"vite_xxx"   // 新增加
 ```
 
