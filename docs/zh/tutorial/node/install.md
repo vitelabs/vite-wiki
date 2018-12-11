@@ -184,7 +184,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
 ### 配置要求
 当前，vite对运行全节点会发放一定量的奖励，参与奖励的全节点需要进行一些额外的配置。
-1. 配置全节点状态数据上报地址: "DashboardTargetURL":"wss://stats.vite.net/ws/gvite"
+1. 配置全节点状态数据上报地址: "DashboardTargetURL":"wss://stats.vite.net"
 2. 在PublicModules配置项中新增"dashboard";
 3. 新增接收奖励地址: "RewardAddr":"vite_xxxx", 此地址为奖励发放地址, 请确保保管好私钥;
 
