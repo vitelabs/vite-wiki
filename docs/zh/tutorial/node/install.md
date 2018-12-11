@@ -208,7 +208,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 ```
 
 ### 奖励check
-当配置完成并重启节点后, 可以检查[链接](https://rewardapi.vite.net/api/reward/full/list)内容(链接内容刷新1min内有延迟), 查看是否包含自己节点, 并检查是否配置成功.
+当配置完成并重启节点后, 可以检查[链接](https://rewardapi.vite.net/api/reward/full/list)内容(链接内容刷新5min内有延迟), 查看是否包含自己节点, 并检查是否配置成功.
 
 ## 下一步
 
