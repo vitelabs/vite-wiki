@@ -178,7 +178,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   
 ## 全节点奖励配置
 
-参加全节点奖励活动，需要满足下面的版本需求和配置需求。
+Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满足以下版本和配置要求，即可参加全节点奖励活动。
 ### 版本要求
 全节点最低版本要求: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
 

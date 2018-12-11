@@ -214,9 +214,9 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
   
 ## Full node reward
 
-Currently, we will distribute token rewards to those who run full nodes in the TestNet. To participate in the reward program, you need check the following points.
+Starting from gvite-1.1.1, we will distribute token rewards to those who run full nodes in the TestNet. To participate in the reward program, you need check the following points.
 
-### Version
+### Version requirement
 Minimum required gvite version: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
 
 ### Node configuration
@@ -248,7 +248,7 @@ Save the changes.
 
 ### Node status check
 
-Reboot your full node, then visit [Full Node Stats](https://rewardapi.vite.net/api/reward/full/list) to examine if your node has shown up(result will reflect within 5 minutes).
+Reboot your full node, then visit [Full Node Stats](https://rewardapi.vite.net/api/reward/full/list) to examine if your node has shown up correctly(result will reflect in 5 minutes).
   
 ## Next steps
 
