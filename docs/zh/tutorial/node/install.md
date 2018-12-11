@@ -176,13 +176,13 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   ```
   499967 即为当前的高度，命令行支持的更多命令参见 `vite.help` 命令
   
-## 全节点奖励
+## 全节点奖励配置
 
+参加全节点奖励活动，需要满足下面的版本需求和配置需求。
 ### 版本要求
 全节点最低版本要求: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
 
-### 节点配置
-
+### 配置要求
 当前，vite对运行全节点会发放一定量的奖励，参与奖励的全节点需要进行一些额外的配置。
 1. 配置全节点状态数据上报地址: "DashboardTargetURL":"wss://stats.vite.net/ws/gvite"
 2. 在PublicModules配置项中新增"dashboard";
@@ -207,8 +207,8 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   "RewardAddr":"vite_xxx"   // 新增加
 ```
 
-### 奖励check
-当配置完成并重启节点后, 可以检查[链接](https://rewardapi.vite.net/api/reward/full/list)内容(链接内容刷新5min内有延迟), 查看是否包含自己节点, 并检查是否配置成功.
+### 配置结果check
+当配置完成并重启节点后, 可以检查[链接](https://rewardapi.vite.net/api/reward/full/list)内容(链接内容刷新5min内有延迟), 查看是否包含自己节点, 并检查是否配置成功(例如地址和名称是否正确).
 
 ## 下一步
 
