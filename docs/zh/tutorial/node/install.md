@@ -184,7 +184,7 @@ Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满
 
 ### 配置要求
 当前，vite对运行全节点会发放一定量的奖励，参与奖励的全节点需要进行一些额外的配置。
-1. 配置全节点状态数据上报地址: "DashboardTargetURL":"wss://stats.vite.net/ws/gvite"
+1. 配置全节点状态数据上报地址: "DashboardTargetURL":"wss://stats.vite.net"
 2. 在PublicModules配置项中新增"dashboard";
 3. 新增接收奖励地址: "RewardAddr":"vite_xxxx", 此地址为奖励发放地址, 请确保保管好私钥;
 
@@ -203,7 +203,7 @@ Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满
     "tx",
     "dashboard"  // 新增加
   ],
-  "DashboardTargetURL":"wss://stats.vite.net/ws/gvite",  // 新增加
+  "DashboardTargetURL":"wss://stats.vite.net",  // 新增加
   "RewardAddr":"vite_xxx"   // 新增加
 ```
 
