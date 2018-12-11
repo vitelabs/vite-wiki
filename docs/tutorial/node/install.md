@@ -241,7 +241,7 @@ The modified part of node_config.json is as below(please note this is not the fu
     "tx",
     "dashboard"  // new add
   ],
-  "DashboardTargetURL":"wss://stats.vite.net/ws/gvite",  // new add
+  "DashboardTargetURL":"wss://stats.vite.net",  // new add
   "RewardAddr":"vite_youraddress"   // new add
 ```
 Save the changes.
