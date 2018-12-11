@@ -222,7 +222,7 @@ Minimum required gvite version: [1.1.1](https://github.com/vitelabs/go-vite/rele
 ### Node configuration
 
 Additional settings in `node_config.json` are required:
-* Set full-node status report URL: `"DashboardTargetURL": "wss://stats.vite.net/ws/gvite"`
+* Set full-node status report URL: `"DashboardTargetURL": "wss://stats.vite.net"`
 * Add "dashboard" to `PublicModules`
 * Set `"RewardAddr": "vite_youraddress"`. This is the address to receive your full node reward, please keep the mnemonic phrase secure.
 
