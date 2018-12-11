@@ -248,7 +248,7 @@ Save the changes.
 
 ### Node status check
 
-Reboot your full node, then visit [Full Node Stats](https://github.com/vitelabs/vite-wiki.git) to examine if your node has shown up(result will reflect within 1 minute).
+Reboot your full node, then visit [Full Node Stats](https://rewardapi.vite.net/api/reward/full/list) to examine if your node has shown up(result will reflect within 1 minute).
   
 ## Next steps
 
