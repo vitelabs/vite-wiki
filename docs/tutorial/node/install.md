@@ -212,6 +212,44 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
   2166918 is current block height. 
   For more command usage please run `vite.help`.
   
+## Full node reward
+
+Starting from gvite-1.1.1, we will distribute token rewards to those who run full nodes in the TestNet. To participate in the reward program, you need check the following points.
+
+### Version requirement
+Minimum required gvite version: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
+
+### Node configuration
+
+Additional settings in `node_config.json` are required:
+* Set full-node status report URL: `"DashboardTargetURL": "wss://stats.vite.net"`
+* Add "dashboard" to `PublicModules`
+* Set `"RewardAddr": "vite_youraddress"`. This is the address to receive your full node reward, please keep the mnemonic phrase secure.
+
+The modified part of node_config.json is as below(please note this is not the full config file):
+```
+  "PublicModules": [
+    "ledger",
+    "public_onroad",
+    "net",
+    "contract",
+    "pledge",
+    "register",
+    "vote",
+    "mintage",
+    "consensusGroup",
+    "tx",
+    "dashboard"  // new add
+  ],
+  "DashboardTargetURL":"wss://stats.vite.net",  // new add
+  "RewardAddr":"vite_youraddress"   // new add
+```
+Save the changes.
+
+### Node status check
+
+Reboot your full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers) to examine if your node has shown up correctly(result will reflect in 5 minutes).
+  
 ## Next steps
 
 * [Super node configuration](./sbp.md)
