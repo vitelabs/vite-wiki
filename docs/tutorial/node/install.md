@@ -25,15 +25,15 @@ Download gvite in command line and install (supporting ubuntu, mac, centos, wind
 ### Installation example on ubuntu
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
+curl -L -O  https://github.com/vitelabs/go-vite/releases/download/v1.1.1/gvite-v1.1.1-linux.tar.gz
 ```
 ```
 ## Unpack
-tar -xzvf gvite-1.0.2-linux.tar.gz
+tar -xzvf gvite-v1.1.1-linux.tar.gz
 ```
 ```
 ## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-1.0.2-linux
+cd gvite-v1.1.1-linux
 ```
 ```
 ## Start-up
@@ -55,11 +55,11 @@ Start the Node success!!!
 
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-darwin.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/v1.1.1/gvite-v1.1.1-darwin.tar.gz
 ## Unpack
-tar -xzvf gvite-1.0.2-darwin.tar.gz
+tar -xzvf gvite-v1.1.1-darwin.tar.gz
 ## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-1.0.2-darwin
+cd gvite-v1.1.1-darwin
 ## Start-up
 ./bootstrap
 ```
@@ -83,7 +83,7 @@ Start the Node success!!!
 Open up your preferred browser and paste in the following link:
 
 ```bash
-https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-windows.tar.gz
+https://github.com/vitelabs/go-vite/releases/download/v1.1.1/gvite-v1.1.1-windows.tar.gz
 ```
 and save file to preferred directory. Upon download completion, open up explorer, navigate to the directory where file is downloaded to, right click file and select extract file option.
 
@@ -104,9 +104,9 @@ Then in command prompt:
 ```
 C:\Users\user>d:
 
-D:\>cd gvite-1.0.2-windows
+D:\>cd gvite-v1.1.1-windows
 
-D:\gvite-1.0.2-windows>gvite-windows-amd64.exe (or your preferred executable)
+D:\gvite-v1.1.1-windows>gvite-windows-amd64.exe (or your preferred executable)
 ```
 The following messages indicate that the startup is successful.
 
