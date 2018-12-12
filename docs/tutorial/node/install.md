@@ -248,7 +248,7 @@ Save the changes.
 
 ### Node status check
 
-Reboot your full node, then visit [Full Node Stats](https://rewardapi.vite.net/api/reward/full/list) to examine if your node has shown up correctly(result will reflect in 5 minutes).
+Reboot your full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers) to examine if your node has shown up correctly(result will reflect in 5 minutes).
   
 ## Next steps
 
