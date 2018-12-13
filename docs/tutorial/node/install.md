@@ -177,6 +177,8 @@ mac 默认目录：~/Library/GVite/testdata
 
 Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满足以下版本和配置要求，即可参加全节点奖励活动。
 
+本文档主要阐述如何为全节点添加奖励相关配置，全节点如何运行，参见[安装](https://vite.wiki/zh/tutorial/node/install.html)。
+
 ### 版本要求
 
 全节点最低版本要求: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
