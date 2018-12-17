@@ -1,22 +1,22 @@
 ---
 sidebarDepth: 1
 ---
-# 客户端
+# Client Side
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-包括一些内置的快捷聚合
+:::tip Abstract
+Some built-in quick polymerization are included
 :::
 
-## contructor
-- **constructor params**: 
-`provider`:provider 实例。
+## Contructor
+- **Constructor params**: 
+`provider`:provider Instance
 
-- **example**
+- **Example**
 ```javascript
 
 import provider from '@vite/vitejs/dist/es5/provider/WS';
@@ -29,20 +29,20 @@ const block = myClient.buildinTxBlock.getAccountBlock.sync(...);
 
 ```
 ## buildinTxBlock
-### cancelPledgeBlock(__namedParameters: object): 获取取消抵押交易block
+### cancelPledgeBlock(__namedParameters: object): Get revoke staked transaction block
 - **Parameters**:
  __namedParameters：
-* `accountAddress`: `string`  抵押账户
-* `amount`: `string` 抵押金额
-* `toAddress`: `string` 抵押合约地址
-* `tokenId`: `string` 代币id
+* `accountAddress`: `string`  Staking Account
+* `amount`: `string` Staking Amount
+* `toAddress`: `string` Staking address
+* `tokenId`: `string` Token ID
 
 - **Return**:
 * Promise<`accountBlock`>
 
 
 
-### cancelRegisterBlock(__namedParameters: object) 构造取消注册超级节点交易块
+### cancelRegisterBlock(__namedParameters: object) Construct cancel SBP registration block
 - **Parameters**:
 __namedParameters: object
 * `Gid`: `string`
@@ -54,7 +54,7 @@ __namedParameters: object
 - **Return**:
 * Promise<`accountBlock`>
 
-### cancelVoteBlock(__namedParameters: object): 构造取消投票交易块
+### cancelVoteBlock(__namedParameters: object): Construct cancel voting block
 - **Parameters**:
 __namedParameters: object
 `Gid`: `string`
@@ -64,7 +64,7 @@ __namedParameters: object
 * Promise<`accountBlock`>
 
 
-### getAccountBlock(__namedParameters: object): 通用构造块
+### getAccountBlock(__namedParameters: object): General construct block
 
 - **Parameters**:
 __namedParameters: object
@@ -82,7 +82,7 @@ __namedParameters: object
 
 
 
-### getBalance(addr: `string`): 获取余额块
+### getBalance(addr: `string`): Get balance block
 Parameters
 `addr`: `string`
 - **Return**:
@@ -101,7 +101,7 @@ __namedParameters: object
 
 
 
-### pledgeBlock(__namedParameters: object) 构造抵押配额交易块
+### pledgeBlock(__namedParameters: object) Construct staking TPS quota block
 Parameters
 __namedParameters: object
 `accountAddress`: `string`
@@ -113,7 +113,7 @@ __namedParameters: object
 
 
 
-### receiveBlock(__namedParameters: object): 构造普通接收交易块
+### receiveBlock(__namedParameters: object): Construct common receive block
 Parameters
 __namedParameters: object
 `accountAddress`: `string`
@@ -123,7 +123,7 @@ __namedParameters: object
 
 
 
-### registerBlock(__namedParameters: object) 构造注册超级节点交易块
+### registerBlock(__namedParameters: object) Construct SBP registration block
 Parameters
 __namedParameters: object
 `Gid`: `string`
@@ -150,7 +150,7 @@ __namedParameters: object
 
 
 
-### sendBlock(__namedParameters: object): 构造普通发送交易块
+### sendBlock(__namedParameters: object): Construct common sending block
 Parameters
 __namedParameters: object
 `accountAddress`: `string`
@@ -163,7 +163,7 @@ __namedParameters: object
 
 
 
-### updateRegisterBlock(__namedParameters: object) 构造取消超级节点交易块
+### updateRegisterBlock(__namedParameters: object) Construct cancel SBP registration block
 Parameters
 __namedParameters: object
 `Gid`: `string`
@@ -176,7 +176,7 @@ __namedParameters: object
 
 
 
-### voteBlock(__namedParameters: object) 构造投票交易块
+### voteBlock(__namedParameters: object) Construct voting block
 Parameters
 __namedParameters: object
 `Gid`: `string`

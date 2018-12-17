@@ -205,6 +205,7 @@ ls  $CONF_DIR/node_config.json
 
 echo "install executable file to "$BIN_DIR
 sudo mkdir -p $BIN_DIR
+mkdir -p $LOG_DIR
 sudo cp $CUR_DIR/gvite $BIN_DIR
 
 echo '#!/bin/bash

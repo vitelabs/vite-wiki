@@ -13,7 +13,7 @@ Gvite supports installation from `binary package` or `source code`
 
 | OS | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite 1.0.2   | yes  |yes |yes |
+| gvite 1.0.3   | yes  |yes |yes |
 
 :::tip
 Go 1.11.1 or above version is required to compile the source code. See [Go download and installation](https://golang.org/dl/)
@@ -107,6 +107,7 @@ C:\Users\user>d:
 D:\>cd gvite-v1.1.1-windows
 
 D:\gvite-v1.1.1-windows>gvite-windows-amd64.exe (or your preferred executable)
+
 ```
 The following messages indicate that the startup is successful.
 
@@ -192,8 +193,14 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
 
 * Start a full node as instructed
 * Access the full node in command line: Enter [full node installation directory](./install.md#Description-of-installation-directory) and execute the following command
+
+  If using Linux/Unix：
   ```bash
   ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ```
+  If using Windows：
+  ```bash
+  gvite-windows-amd64.exe attach \\.\pipe\gvite.ipc
   ```
   Input：
   ```javascript
@@ -201,14 +208,51 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
   ```
   Output:
   ```
-  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
+  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"2166918\"}"
   ```
-  499967 is current block height. 
+  2166918 is current block height. 
   For more command usage please run `vite.help`.
+  
+## Full node reward
+
+Starting from gvite-1.1.1, we will distribute token rewards to those who run full nodes in the TestNet. To participate in the reward program, you need check the following points.
+
+### Version requirement
+Minimum required gvite version: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
+
+### Node configuration
+
+Additional settings in `node_config.json` are required:
+* Set full-node status report URL: `"DashboardTargetURL": "wss://stats.vite.net"`
+* Add "dashboard" to `PublicModules`
+* Set `"RewardAddr": "vite_youraddress"`. This is the address to receive your full node reward, please keep the mnemonic phrase secure.
+
+The modified part of node_config.json is as below(please note this is not the full config file):
+```
+  "PublicModules": [
+    "ledger",
+    "public_onroad",
+    "net",
+    "contract",
+    "pledge",
+    "register",
+    "vote",
+    "mintage",
+    "consensusGroup",
+    "tx",
+    "dashboard"  // new add
+  ],
+  "DashboardTargetURL":"wss://stats.vite.net",  // new add
+  "RewardAddr":"vite_youraddress"   // new add
+```
+Save the changes.
+
+### Node status check
+
+Reboot your full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers) to examine if your node has shown up correctly(result will reflect in 5 minutes).
   
 ## Next steps
 
 * [Super node configuration](./sbp.md)
 * [Wallet management](./wallet-manage.md)
 * [Super node rules](../rule/sbp.md)
-

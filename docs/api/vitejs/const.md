@@ -1,18 +1,19 @@
-# 常量
+# Constant
 
-:::tip 作者
+:::tip Created by
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-const 包括一些常量：method，type，address。
+:::tip Abstract
+Const contains some constants: method，type，address, etc.
 :::
 
-## method
-一些关于rpc方法的常量。  
-调用方式:const.method.tx.sendRawTx。  
-[详细参考](/api/rpc/)
-## type
+## Methods
+Some RPC related constants
+ 
+Invocation: const.method.tx.sendRawTx  
+[Detailed Reference Info](/api/rpc/)
+## Type
 
 - blockType  交易类型
     - createContract 创建合约

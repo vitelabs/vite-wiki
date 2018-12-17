@@ -391,3 +391,73 @@ Return the current height of snapshot chain
 
 ```
 :::
+
+## ledger_getVmLogList
+Return the list of VM contract execution logs
+
+- **Parameters**:
+   * `string` : `Hash`  Transaction Hash
+
+- **Returns**: `VmLogList<array<VmLog>>` VM log list
+
+  `Object` : `VmLog`
+    * Topics : `[]types.Hash`
+	* Data : `[]byte`
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getVmLogList",
+    "params": null
+}
+
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+}
+```
+:::
+
+## ledger_getFittestSnapshotHash
+Return the hash of snapshot block which is most suitable for being referenced by a new transaction
+
+- **Parameters**:
+   * `address` : `Address` `Optional` account address. Once specified, the hash of snapshot block referenced by last transaction of the account or afterwards will be returned.
+   * `sendblockHash` : `Hash` `Optional` hash of the corresponding request block if a new response transaction is to be created. Once specified, the hash of snapshot block referenced by the request transaction or afterwards will be returned.
+
+   If neither is specified, the hash of the snapshot block which is 10 blocks prior to current will be returned.
+
+- **Returns**: `Hash` The hash of snapshot block
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getFittestSnapshotHash",
+    "params": [
+        "vite_bece0bfc8893a6dde206dea9d4058af7dd718c165c3a17332e",
+        "e698b4b6cdf2fe40bc74f27097cd53eb07c85e2268e04062c193da8fc294f393",
+    ]
+}
+
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": "df6c3c2d874b790dd1f1cad0a4bbcd539bbfa99d9dc75b19056ebee310d2e47a"
+}
+```
+:::
