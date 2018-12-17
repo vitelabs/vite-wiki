@@ -13,16 +13,21 @@ yarn add @vitelabs/vitejs
 
 ### node/without webpack
 ```javascript
-const {client,constant} = require("@vite/vitejs");
-const {initClientWithHttp} =client;
-const {method}=constant;
-const clientInstance=initClientWithHttp({
-    host:"https://example.com",
-    timeout:1000,
-    headers:{}
-})
 
-client.request(method.tx.sendRawTx,{...})
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client, constant } from '@vite/vitejs';
+
+const { method } = constant;
+let WS_RPC = new provider("https://example.com");
+
+let myClient = new client(WS_RPC, (_myClient) => {
+    _myClient.ledger.getSnapshotChainHeight().then((result) => {
+        console.log(result);
+    }).catch((err) => {
+        console.warn(err);
+    });
+});
+
 ```
 
 ### webpack  
@@ -33,23 +38,20 @@ client.request(method.tx.sendRawTx,{...})
 ...
     resolve: {
         alias: {
-            vitejs:'@vite/vitejs/dist/es5'
-            }
+            WSprovider: '@vite/vitejs/dist/es5/provider/WS'
+        }
     }
 ...
 ```
 #### use
 ```javascript
 
-import {initClientWithHttp} from "vitejs/client";
-import {tx} from "vitejs/const/method";
+import provider from "WSprovider";
+import { client } from '@vite/vitejs';
 
-const clientInstance=initClientWithHttp({
-    host:"https://example.com",
-    timeout:1000,
-    headers:{}
-})
-client.request(tx.sendRawTx,{...})
+let WS_RPC = new provider("https://example.com");
+let myClient = new client(WS_RPC);
+
 ```
 
 ## 概览
