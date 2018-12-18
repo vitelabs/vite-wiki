@@ -1,15 +1,15 @@
-# 内置钱包实现
+# Implementation of Built-in Wallet
 
-:::tip 作者
+:::tip Created by
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-const 包括一些常量：method，type，address。
+:::tip Abstract
+Constants: method，type，address
 :::
 
-## method
-一些关于rpc方法的常量，example:const.method.tx.sendRawTx。详细参考[https://baidu.com]
+## Method
+Some RPC related methods, example:const.method.tx.sendRawTx. Detailed reference[https://baidu.com]
 ## type
 
 - blockType  

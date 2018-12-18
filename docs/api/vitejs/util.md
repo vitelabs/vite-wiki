@@ -1,76 +1,76 @@
 ---
 sidebarDepth: 1
 ---
-# 工具方法
+# Utilization
 
-:::tip 作者
+:::tip Created by
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-const 包括一些常量：method，type，address。
+:::tip Abstract
+Constants: method，type，address
 :::
 
-## address
-### newHexAddr 根据私钥生成hex地址
+## Address
+### newHexAddr Generating hex address according to private key
 - **params**
-  - `privateKey`:`string` 私钥
+  - `privateKey`:`string` Private key
 - **return**
-  - `hexaddr`:`string` hex编码地址
+  - `hexaddr`:`string` hex encoded address
 
 
 
-### getAddrFromHexAddr  获取真实地址
+### getAddrFromHexAddr  Get real address
 - **params**
-  - `hexaddr`:`string` hex编码地址
+  - `hexaddr`:`string` hex encoded address
 - **return**
-  - `addr`:`string` blake2b地址
+  - `addr`:`string` blake2b address
 
 
-### isValidHexAddr 校验是否为合法的hex地址
+### isValidHexAddr Verify if it is a legal hex address
 - **params**
-  - `hexaddr`:`string` hex编码地址
+  - `hexaddr`:`string` hex encoded address
 - **return**
-  - `validate`:`boolean` 是否合法
+  - `validate`:`boolean` Legally or not
   
 
-## encoder   
+## Encoder   
 
 ### bytesToHex 
 -  **params**
-  - ``:`buffer` hex编码地址
+  - ``:`buffer` hex encoded address
 - **return**
-  - `addr`:`string` blake2b地址   
+  - `addr`:`string` blake2b address   
   
 ### hexToBytes
 -  **params**
-  - `hexaddr`:`string` hex编码地址
+  - `hexaddr`:`string` hex encoded address
 - **return**
-  - `addr`:`string` blake2b地址
+  - `addr`:`string` blake2b address
 
-### getBytesSize 获取bytes在不同编码下的长度   
+### getBytesSize Get length of bytes underlying different length   
 -  **params**
   - `value`:`buffer`
-  - `code`:`utf8|utf16` 编码格式
+  - `code`:`utf8|utf16` Encoded format
 - **return**
-  - `length`:`number` 长度
+  - `length`:`number` Length of bytes
   
-### utf8ToBytes  转换utf8微bytes
+### utf8ToBytes  Transfer utf8 to bytes
 -  **params**
-  - `value`:`string` uft8编码字符串
+  - `value`:`string` uft8 encoded string
 - **return**
   - `target`:`Uint8Array` 
   
-- blake2b 对blake2b的快捷引用 参考[...]
+- blake2b Quick reference of blake2b Reference [...]
 
-## tools
+## Tools
 ### signTX
 -  **params**
-  - `block`:`accountBlock` hex编码地址
-  - `privateKey`:`string` 私钥
-  - `type`:`byte|hex` 返回值编码格式，hex/byte
+  - `block`:`accountBlock` hex encoded address
+  - `privateKey`:`string` private key
+  - `type`:`byte|hex` Encoded style of return values: hex/byte
 - **return**
  `object`
-    - `hash`:`string` 签名hash
-    - `pubKey:`buffer|hexstring` 公钥
-    - `signature`:`buffer|hexstring` 签名结果
+    - `hash`:`string` Signature hash
+    - `pubKey:`buffer|hexstring` Public key
+    - `signature`:`buffer|hexstring` Signature result
