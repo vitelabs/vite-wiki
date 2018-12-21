@@ -71,6 +71,14 @@ const sidebarConfigs = {
         'rule/mintage',
         'rule/vote'
       ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'contract/contract',
+        'contract/debug',
+        'contract/instructions'
+      ]
     }
   ],
   'api/rpc': [
@@ -220,7 +228,7 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: {
           '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules'),
+          '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
           '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart contract', 'Build-in contracts', 'P2P', 'Common'),
           '/vep/': genSidebarConfig('vep', 'VEP'),
         },
@@ -243,7 +251,7 @@ module.exports = {
           // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
           '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
           '/zh/vep/': genSidebarConfig('vep', '提案'),
-          '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解'),
+          '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
           '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '智能合约', '内置合约', 'P2P', '公共组件'),
         },
         algolia: {
