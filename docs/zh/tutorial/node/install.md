@@ -157,8 +157,14 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
 * 首先参照全节点的启动方式，启动全节点。
 * 通过命令行连接全节点：找到[全节点的安装目录](./install.md#安装目录文件说明)。进入到该目录，然后执行如下命令
+
+  Unix/Linux平台：
   ```bash
   ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ```
+  Windows平台：
+  ```bash
+  gvite-windows-amd64.exe attach \\.\pipe\gvite.ipc
   ```
   在交互命令行中输入：
   ```javascript
@@ -170,6 +176,43 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   ```
   499967 即为当前的高度，命令行支持的更多命令参见 `vite.help` 命令
   
+## 全节点奖励配置
+
+Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满足以下版本和配置要求，即可参加全节点奖励活动。
+
+本文档主要阐述如何为全节点添加奖励相关配置，全节点如何运行，参见[安装](https://vite.wiki/zh/tutorial/node/install.html)。
+
+### 版本要求
+全节点最低版本要求: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
+
+### 配置要求
+当前，vite对运行全节点会发放一定量的奖励，参与奖励的全节点需要进行一些额外的配置。
+1. 配置全节点状态数据上报地址: "DashboardTargetURL":"wss://stats.vite.net"
+2. 在PublicModules配置项中新增"dashboard";
+3. 新增接收奖励地址: "RewardAddr":"vite_xxxx", 此地址为奖励发放地址, 请确保保管好私钥;
+
+配置文件新增加项如下所示(确保最终的node_config.json文件符合json格式):
+```
+  "PublicModules": [
+    "ledger",
+    "public_onroad",
+    "net",
+    "contract",
+    "pledge",
+    "register",
+    "vote",
+    "mintage",
+    "consensusGroup",
+    "tx",
+    "dashboard"  // 新增加
+  ],
+  "DashboardTargetURL":"wss://stats.vite.net",  // 新增加
+  "RewardAddr":"vite_xxx"   // 新增加
+```
+
+### 配置结果check
+当配置完成并重启节点后, 可以检查[链接](https://stats.vite.net/api/getAlivePeers)内容(链接内容刷新5min内有延迟), 查看是否包含自己节点, 并检查是否配置成功(例如地址和名称是否正确).
+
 ## 下一步
 
 * [配置超级节点](./sbp.md)

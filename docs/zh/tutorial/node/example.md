@@ -11,15 +11,15 @@
 
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.1/gvite-1.0.1-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## 解压
-tar -xzvf gvite-1.0.1-linux.tar.gz
+tar -xzvf gvite-1.0.2-linux.tar.gz
 ```
 ```
 ## 修改文件名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-mv gvite-1.0.1-linux vite
+mv gvite-1.0.2-linux vite
 cd vite
 ```
 ```
@@ -173,51 +173,123 @@ root      6560  5939  0 12:29 pts/1    00:00:00 grep --color=auto -w gvite
 
 ## gvite服务开机自启动
 
-### 创建自启动配置文件
+### 编辑安装脚本
+```
+## 进入vite目录, 确保目录下包含这两个文件: gvite node_config.json
+cd vite
+ls
+```
 
 ```bash
-sudo touch /etc/systemd/system/vite.service   
-sudo chmod 664 /etc/systemd/system/vite.service   
-sudo vi /etc/systemd/system/vite.service   
+## 创建文件，将以下内容copy到文件中
+vi install.sh
 ```
-编辑为以下内容：
 
 ```text
-[Unit]
+
+#!/bin/bash
+
+set -e
+
+CUR_DIR=`pwd`
+CONF_DIR="/etc/vite"
+BIN_DIR="/usr/local/vite"
+LOG_DIR=$HOME/.gvite
+
+echo "install config to "$CONF_DIR
+
+
+sudo mkdir -p $CONF_DIR
+sudo cp $CUR_DIR/node_config.json $CONF_DIR
+ls  $CONF_DIR/node_config.json
+
+echo "install executable file to "$BIN_DIR
+sudo mkdir -p $BIN_DIR
+mkdir -p $LOG_DIR
+sudo cp $CUR_DIR/gvite $BIN_DIR
+
+echo '#!/bin/bash
+exec '$BIN_DIR/gvite' -pprof -config '$CONF_DIR/node_config.json' >> '$LOG_DIR/std.log' 2>&1' | sudo tee $BIN_DIR/gvited > /dev/null
+
+sudo chmod +x $BIN_DIR/gvited
+
+ls  $BIN_DIR/gvite
+ls  $BIN_DIR/gvited
+
+echo "config vite service boot."
+
+echo '[Unit]
 Description=GVite node service
 After=network.target
 
 [Service]
-ExecStart=/path_to_gvite/gvite
+ExecStart='$BIN_DIR/gvited'
 Restart=on-failure
-User=vite
-Group=vite
+User='`whoami`'
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target' | sudo tee /etc/systemd/system/vite.service>/dev/null
+
+sudo systemctl daemon-reload
 ```
-
-**path_to_gvite**： 假设上面记录的安装目录路径为： `/root/vite`，则这里填写：`/root/vite/bootstrap`
-
-### 开启自启动
-
-kill 当前gvite服务：
 
 ```bash
-ps -efww|grep -w 'gvite'|grep -v grep|cut -c 9-15|xargs kill -9
+## 赋予运行权限
+sudo chmod +x install.sh
 ```
 
-启动gvite服务：
+### 进行安装并设置自启动
 
 ```bash
-service vite start
+## 运行安装脚本
+./install.sh
+
+## 设置开机自启动
+sudo systemctl enable vite
 ```
 
-开启自启动：
+### 使用service方式启动脚本
 
 ```bash
-systemctl enable vite
+## 停止原有进程
+pgrep gvite | xargs kill -s 9
+
+## 查看gvite进程是否存在
+ps -ef | grep gvite
+
+## service启动
+sudo service vite start
+
+## 查看gvite进程是否存在
+ps -ef | grep gvite
+
+## 查看启动状态
+sudo service vite status
+
+## 查看启动日志
+tail -n200 ~/.gvite/std.log
 ```
+启动成功状态如下：
+```text
+vite.service - GVite node service
+   Loaded: loaded (/etc/systemd/system/vite.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2018-11-22 21:23:30 CST; 1s ago
+ Main PID: 15872 (gvite)
+    Tasks: 7
+   Memory: 12.1M
+      CPU: 116ms
+   CGroup: /system.slice/vite.service
+           └─15872 /usr/local/vite/gvite -pprof -config /etc/vite/node_config.json
+
+Nov 22 21:23:30 ubuntu systemd[1]: Started GVite node service.
+```
+
+```bash
+## 关闭vite service
+sudo service vite stop
+```
+
+!!! service方式启动的配置文件会在/etc/vite目录下，启动控制台日志会在$HOME/.gvite/std.log中
 
 ## TIPS
 

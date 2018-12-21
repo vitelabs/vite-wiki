@@ -7,7 +7,7 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-The built-in token forging contract. Contract address: vite_00000000000000000000000000000000000000056ad6d26692
+The built-in token issuance contract. Contract address: vite_00000000000000000000000000000000000000056ad6d26692
 
 **Supported protocols:**
 
@@ -16,7 +16,7 @@ The built-in token forging contract. Contract address: vite_00000000000000000000
 | &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
 
 ## mintage_getMintageData
-Return the composed request data to forge the new token
+Return the composed request data for issuing new token
 
 - **Parameters**: 
 
@@ -68,11 +68,11 @@ Return the composed request data to forge the new token
 :::
 
 ## mintage_getMintageCancelPledgeData
-Return the composed request data to withdraw the tokens staked for forging
+Return the composed request data for retrieving the VITE that were staked for token issuance
 
 - **Parameters**: 
 
-  * `TokenId`: The staked token ID
+  * `TokenId`: The issued token ID
 
 - **Returns**: 
 	- `[]byte` Data

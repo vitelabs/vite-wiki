@@ -11,7 +11,7 @@ projects:
 - title: For User
   items:
     - title: TestNet Introduction
-      details: The Introduction of TestNet including core functions, rules and incentive plans of TestNet.
+      details: Core functions, rules and incentive plans of TestNet.
       link: /tutorial/start/
     - title: SBP
       details: How to run an SBP or a full node

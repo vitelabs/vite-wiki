@@ -20,7 +20,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
-    "vuepress": "^1.0.0-alpha.20"
+    "vuepress": "^1.0.0-alpha.24"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
