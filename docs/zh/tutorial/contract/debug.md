@@ -44,6 +44,54 @@ Start the Node success!!!
 ## 使用contract.sol文件创建合约（包含创建测试账户、使用测试账户创建合约）
 ./create_contract.sh contract.sol
 ```
+
+```bash
+## 如果合约的构造方法有入参，可以通过以下方式创建合约并指定入参
+curl -X POST \
+  http://127.0.0.1:48132/ \
+  -H 'content-type: application/json' \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 0,
+    "method": "vmdebug_createContract",
+    "params": [
+        {
+          "fileName":"'`pwd`/c2.sol'",
+          "params":{
+            "A":{
+              "amount":"0",
+              "params":["20"]
+            },
+            "B":{
+              "amount":"0",
+              "params":["0"]
+            }
+          }
+        }
+    ]
+}'
+```
+其中，各参数含义如下：
+```
+{
+  // 使用当前目录下的c2.sol来创建合约
+  "fileName":"'`pwd`/c2.sol'",
+  "params":{
+    // 各合约的创建参数，例如，下面指定了两个合约的创建参数，合约名称分别为A和B
+    "A":{
+      // 创建合约时的转账金额
+      "amount":"0",
+      // 合约构造方法的入参，示例中A合约的构造方法有一个uint64的入参
+      "params":["20"]
+    },
+    "B":{
+      "amount":"0",
+      "params":["0"]
+    }
+  }
+}
+```
+
 观察到如下日志说明创建合约交易发送成功。
 ```bash
 {"jsonrpc":"2.0","id":0,"result":[{"accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7","accountPrivateKey":"b18bcd61db171fb0c97712c24dbfc4fe7d279a6e9f40be2a81f5e279206887237ee77ed82025fbe821a969cc8321c139ed69dde16bed9c5dfabbc6343868bb68","contractAddr":"vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42","sendBlockHash":"265930575e035976f0e89b7b4ad00c5e91fefc9230647b47dadd7c7274797d3b","methodList":[{"contractAddr":"vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42","accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7","amount":"0","methodName":"transfer","params":["address"]}]}]}
