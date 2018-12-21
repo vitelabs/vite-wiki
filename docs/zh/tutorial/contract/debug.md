@@ -41,8 +41,8 @@ Start the Node success!!!
 编辑Solidity++合约代码，保存到启动脚本所在目录下。
 
 ```bash
-## 使用contract.sol文件创建合约（包含创建测试账户、使用测试账户创建合约）
-./create_contract.sh contract.sol
+## 使用c1.sol文件创建合约（包含创建测试账户、使用测试账户创建合约）
+./create_contract.sh c1.sol
 ```
 
 ```bash
@@ -72,12 +72,12 @@ curl -X POST \
 }'
 ```
 其中，各参数含义如下：
-```
+```json
 {
   // 使用当前目录下的c2.sol来创建合约
   "fileName":"'`pwd`/c2.sol'",
   "params":{
-    // 各合约的创建参数，例如，下面指定了两个合约的创建参数，合约名称分别为A和B
+    // 多个合约的创建参数，例如，下面指定了两个合约的创建参数，合约名称分别为A和B
     "A":{
       // 创建合约时的转账金额
       "amount":"0",
@@ -134,8 +134,8 @@ curl -X POST \
 
 ### 调用合约
 
-```
-## 调用合约方法，直接用创建合约时返回的methodList中的任意一个对象来调用合约，例如：
+```bash
+## 调用合约方法，直接用创建合约时返回的methodList中的任意一个对象来调用合约，如果合约方法有入参，需要把对应的参数改成真实调用参数，例如：
 curl -X POST \
   http://127.0.0.1:48132/ \
   -H 'content-type: application/json' \
