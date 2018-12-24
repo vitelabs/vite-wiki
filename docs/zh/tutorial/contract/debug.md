@@ -22,7 +22,7 @@ cd ~/contractdev_20181221
 ```
 ```bash
 ## 启动
-./run.sh
+sh run.sh
 ```
 通过启动脚本所在目录下的启动日志 gvite.log 来查看启动是否成功
 ```bash
@@ -42,7 +42,7 @@ Start the Node success!!!
 
 ```bash
 ## 使用c1.sol文件创建合约（包含创建测试账户、使用测试账户创建合约）
-./create_contract.sh c1.sol
+sh create_contract.sh c1.sol
 ```
 
 ```bash
@@ -183,9 +183,56 @@ curl -X POST \
 
 也可以直接查询合约账户链，观察合约账户接收结果
 ```bash
-./query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
+sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 ```
 
 ## 测试环境
 
-TODO
+测试环境调试合约步骤如下：
+
+### 安装
+
+测试环境安装过程和开发环境相同。
+
+### 初始化
+
+由于测试环境涉及到余额和配额问题，因此测试环境第一次启动时需要手动初始化。
+
+初始化时，完成下面的步骤：
+ * 创世账户接收全量的Vite代币；
+ * 等一个新的快照块；
+ * 创世账户给自己抵押以获取配额，方便后续创建测试账户时转账；
+ * 等待创世账户抵押获得的配额生效。
+```bash
+sh init.sh
+```
+
+### 创建测试账户
+
+每次gvite重启后，都需要创建新的测试账户，并给这个账户抵押vite，用这个测试账户来创建合约或调用合约。
+
+创建测试账户时，完成下面的步骤：
+ * 创建新的测试账户地址；
+ * 创世账户给测试账户转账；
+ * 测试账户接收转账；
+ * 创世账户给测试账户抵押以获取配额；
+ * 等待测试账户获得的配额生效。
+
+```bash
+sh create_account.sh
+```
+
+### 创建合约
+
+创建合约时，需要指定合约文件和创建合约的测试地址。
+```bash
+sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
+```
+合约创建成功后，分别给多个合约抵押以获取配额。
+```bash
+sh  pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
+```
+
+### 调用合约
+
+和开发环境相同。
