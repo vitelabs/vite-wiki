@@ -67,6 +67,7 @@ const sidebarConfigs = {
       collapsable: false,
       children: [
         'rule/sbp',
+        'rule/fullnode',
         'rule/quota',
         'rule/mintage',
         'rule/vote'

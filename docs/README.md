@@ -1,28 +1,28 @@
 ---
 heroImage: /logo_black_transparent.svg
-actionText: Learn Vite →
+actionText: Learn About Vite →
 actionLink: /tutorial/start/
-website: Website
-highPerformance: High Performance
+website: Vite.org
+highPerformance: High-Performance
 dapp: Decentralized Application Platform
 layout: HomePage
 pageClass: home-page
 projects:
-- title: For User
+- title: For Users
   items:
     - title: TestNet Introduction
-      details: Core functions, rules and incentive plans of TestNet.
+      details: Core Functions, Rules and TestNet Incentive Plan
       link: /tutorial/start/
     - title: SBP
-      details: How to run an SBP or a full node
+      details: How to Run an SBP or a Full Node
       link: /tutorial/node/install.html
     - title: Wallet
-      details: Vite Wallet：iOS, Web, Windows and Mac OS
+      details: Vite Wallet for iOS, Web, Windows and Mac OS
       link: /tutorial/wallet/install.html
 - title: For Developers
   items:
     - title: API Document
-      details: go-vite RPC Document
+      details: go-vite RPC Documents
       link: /api/rpc/
     - title: VEP
       details: Vite Enhancement Proposals
