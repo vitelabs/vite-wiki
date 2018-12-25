@@ -1,38 +1,16 @@
 ---
 sidebarDepth: 1
 ---
-# Utilization
+# 工具集合
 
-:::tip Created by
+:::tip 作者
+[cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip Abstract
-Constants: method，type，address
+:::tip abstract
+utils 包含常用的工具方法，例如：address生成，keystore加密等。
 :::
-
-## Address
-### newHexAddr Generating hex address according to private key
-- **params**
-  - `privateKey`:`string` Private key
-- **return**
-  - `hexaddr`:`string` hex encoded address
-
-
-
-### getAddrFromHexAddr  Get real address
-- **params**
-  - `hexaddr`:`string` hex encoded address
-- **return**
-  - `addr`:`string` blake2b address
-
-
-### isValidHexAddr Verify if it is a legal hex address
-- **params**
-  - `hexaddr`:`string` hex encoded address
-- **return**
-  - `validate`:`boolean` Legally or not
-  
 
 ## Encoder   
 

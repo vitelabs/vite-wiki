@@ -2,6 +2,8 @@
 sidebarDepth: 4
 title: 开始
 ---
+
+
 ## 安装
 - npm  
 npm install @vitelabs/vitejs
@@ -53,6 +55,3 @@ let WS_RPC = new provider("https://example.com");
 let myClient = new client(WS_RPC);
 
 ```
-
-## 概览
- 

@@ -2,14 +2,16 @@
 sidebarDepth: 4
 title: Start
 ---
-## Installation
+
+
+## Install
 - npm  
 npm install @vitelabs/vitejs
 
 - yarn   
 yarn add @vitelabs/vitejs
 
-## Quick Start  
+## Quickly start  
 
 ### node/without webpack
 ```javascript
@@ -35,15 +37,15 @@ let myClient = new client(WS_RPC, (_myClient) => {
 #### webpack.config  
 
 ```javascript
-...
+// ...
     resolve: {
         alias: {
             WSprovider: '@vite/vitejs/dist/es5/provider/WS'
         }
     }
-...
+// ...
 ```
-#### Usage
+#### use
 ```javascript
 
 import provider from "WSprovider";
@@ -53,6 +55,3 @@ let WS_RPC = new provider("https://example.com");
 let myClient = new client(WS_RPC);
 
 ```
-
-## Summary
- 
