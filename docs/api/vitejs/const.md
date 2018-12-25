@@ -1,18 +1,42 @@
 # 常量
 
 :::tip 作者
+[cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
 :::tip abstract
-const 包括一些常量：method，type，address。
+const 包括一些常量：method，type，contract, error.
 :::
 
 ## method
-一些关于rpc方法的常量。  
-调用方式:const.method.tx.sendRawTx。  
+
+关于rpc方法的常量。  
+调用方式
+
+```javascript
+
+import { client, constant } from '@vite/vitejs';
+const { method } = constant;
+// ......
+
+let myClient = new client(WS_RPC);
+myClient.request(method.ledger.getLatestSnapshotChainHash)
+.then(()=>{
+    // ......
+})
+
+```
+
 [详细参考](/api/rpc/)
+
 ## type
+
+- RPCrequest
+    - type 请求类型（request | notification | batch）
+    - methodName [方法名称](/api/vitejs/const.html#method)
+    - params 传参
+
 
 - blockType  交易类型
     - createContract 创建合约
@@ -20,6 +44,7 @@ const 包括一些常量：method，type，address。
     - reward 奖励交易
     - receiveTx 接收交易
     - receiveTxFail 接收交易失败
+
 - txType 
    - ？？？
 
