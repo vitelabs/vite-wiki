@@ -1,56 +1,57 @@
-# VEP 3: Vite 钱包私钥派生方法
+# VEP 3: Vite Wallet Key Derivation
 
-## 摘要
+## Summary
 
-VEP 3 定义Vite钱包派生私钥的方法，支持多种curve算法。
+VEP 3 defines the private key derivation rules(with multiple curve algorithms) in Vite wallet.
 
-## 动机
+## Purpose
 
-分层钱包（Hierarchical Deterministic Wallet）可以允许用户从一个简单的seed派生出多个私钥，利于备份、转移到其他相容钱包（例如：硬件钱包）、支持多币种。
+HD wallet(Hierarchical Deterministic Wallet) has the capability of deriving multiple private keys from one single seed, thus making it easy to do wallet backup or upgrade to other compatible wallets such as hardware wallet. 
 
-## 内容
+HD wallet also supports multiple tokens.
 
-把seed用方便记忆和书写的单字表示。一般由12或者24个单词组成，称为助记词（mnemonic code），这个遵循[BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)协议。
+## Content
 
-基于[BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)，让同一个seed可以支持多币种、多账户。这个遵循[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)。
+The seed is represented by a number of words that is easy to remember or write on paper, called mnemonic phrase. In protocol [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) a mnemonic phrase is defined in 12 or 24 words.
 
-由于Vite采用ED25519来签名，而并非BIP32采用的secp256k1，为此我们需要寻找一个和BIP32相兼容的私钥派生方案。实现方案和[ed25519-bip32](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)类似。
+Based on [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki), [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) allows wallet to store multiple tokens and accounts with one seed.
 
+Since Vite adopts ED25519 for signature, other than secp256k1 used in BIP32, we need to find a key derivation method which is compatible with BIP32. The actual signature implementation in Vite is similar to [ed25519-bip32](https://cardanolaunch.com/assets/Ed25519_BIP.pdf).
 
-### BIP44 兼容
+### BIP44 compatibility
 
-[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)定义了支持多币种的BIP32路径
+[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) defines a BIP32-compatible path patten that supports multiple cryptocurrencies:
 ```
 m / purpose' / coin_type' / account' / change / address_index
 ```
-开头我们和BIP44保持一致都是:
+The prefix is always like:
 ```
 m/44'
 ```
-我们在 [SLIP-0044](https://github.com/satoshilabs/slips/blob/master/slip-0044.md))上注册的`coin_type`是 **666666**，所以我们的固定开头都是形如:
+We have registered `coin_type` **666666** at [SLIP-0044](https://github.com/satoshilabs/slips/blob/master/slip-0044.md), so a BIP44 Vite path starts with:
 ```
 m/44'/666666'/
 ```
-对于某个特定的地址路径，我们还需要一个或者两个域，所以在Vite中我们定义如下形式
+Attached an index `x`:
 ```
 m/44'/666666'/x'
 ```
-* x: 序号，特殊地我们把`m/44'/666666'/0'`产生的地址为该助记词在Vite上的 **Primary Address**
+* x: Index. Particularly, we define the address associated with `m/44'/666666'/0'` as **Primary Address** of the mnemonic.
 
-## 测试用例
-### 熵
+## Test case
+### Entropy
 ```
 87ad0e066111ed827dc1f7be4d1bf53b9a7be84021a0950418d3f45ed4d54f1c
 ```
-### 助记词
+### Mnemonic phrase
 ```
 marble half light season burst scorpion warfare discover salad hand wool jaguar police vintage above cross never camp crunch trim unhappy height detect opinion
 ```
-### BIP39 Seed
+### BIP39 seed
 ```
 2ba1d8e696d17ac4d75b9f479c527450d439c9acd2b4d542d27e3a7f3418cd241717d2db41f47d8bbae9fc90fe551c4db87f7491104f030f6eceaf1b24f15f4d
 ```
-### 派生的Ed25519 seed和对应地址
+### Derived Vite ED25519 seeds and addresses
 
 ```
 m/44'/666666'/0' bb369222613ad7b1a646d84d8c749c30cfa5879f5152b7bd7c1f9f6553ce0eb5  vite_da3ca9bac9f05fce8f4eead36610756b6eb48282ff10a81d6d

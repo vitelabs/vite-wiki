@@ -21,6 +21,10 @@ module.exports = [
     ]
   },
   {
+    text: 'VEP',
+    link: '/vep/'
+  },
+  {
     text: 'Vite.net',
     link: 'https://vite.net'
   },

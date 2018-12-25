@@ -1,4 +1,4 @@
-# 常量
+# Constant
 
 :::tip 作者
 [cs](https://github.com/lovelycs)
@@ -28,7 +28,7 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
 
 ```
 
-[详细参考](/api/rpc/)
+[Detailed Reference Info](/api/rpc/)
 
 ## type
 
@@ -37,24 +37,23 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     - methodName [方法名称](/api/vitejs/const.html#method)
     - params 传参
 
-
-- blockType  交易类型
-    - createContract 创建合约
-    - sendTx 发送交易
-    - reward 奖励交易
-    - receiveTx 接收交易
-    - receiveTxFail 接收交易失败
+- blockType  Transaction Type
+    - createContract Create Contract
+    - sendTx Send Transaction
+    - reward Reward
+    - receiveTx Receive Transaction
+    - receiveTxFail Receive Transaction Failed
 
 - txType 
    - ？？？
 
-## address
-一些内置合约的交易地址和地址长度相关的常量
-- pledgeAddr 抵押地址
-- voteAddr 投票地址
-- Register_Addr 超级节点注册地址
+## Address
+Some transaction addresses of built-in contract and address length related constants
+- pledgeAddr Staking Address
+- voteAddr Voting address
+- Register_Addr SBP registration address
     
-- ADDR_PRE 地址前缀
-- ADDR_SIZE 地址真实长度
-- ADDR_CHECK_SUM_SIZE 地址校验和长度
-- ADDR_LEN 完整地址长度
+- ADDR_PRE Address prefix
+- ADDR_SIZE Address actual length
+- ADDR_CHECK_SUM_SIZE Address verification and length
+- ADDR_LEN Full address length

@@ -4,6 +4,7 @@ sidebarDepth: 1
 # 客户端
 
 :::tip 作者
+[cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
@@ -17,11 +18,17 @@ sidebarDepth: 1
 
 - **example**
 ```javascript
-import {Client} from "@vite/vitejs/client";
-const client=new Client(provider);
-const block=client.builtin.cancelPledgeBlock(...)
+
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client } from '@vite/vitejs';
+
+const WS_RPC = new provider("https://example.com");
+const myClient = new Client(WS_RPC);
+
+const block = myClient.buildinTxBlock.getAccountBlock.sync(...);
+
 ```
-## builtin
+## buildinTxBlock
 ### cancelPledgeBlock(__namedParameters: object): 获取取消抵押交易block
 - **Parameters**:
  __namedParameters：

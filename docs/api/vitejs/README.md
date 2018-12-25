@@ -1,15 +1,15 @@
 ---
 sidebarDepth: 4
-title: 开始
+title: Start
 ---
-## 安装
+## Installation
 - npm  
 npm install @vitelabs/vitejs
 
 - yarn   
 yarn add @vitelabs/vitejs
 
-## 快速开始  
+## Quick Start  
 
 ### node/without webpack
 ```javascript
@@ -43,7 +43,7 @@ let myClient = new client(WS_RPC, (_myClient) => {
     }
 ...
 ```
-#### use
+#### Usage
 ```javascript
 
 import provider from "WSprovider";
@@ -54,5 +54,5 @@ let myClient = new client(WS_RPC);
 
 ```
 
-## 概览
+## Summary
  
