@@ -28,7 +28,7 @@ In the TestNet, running full nodes will be rewarded on a daily basis. Full Node 
 Related Documents:
 
 * [Rules for Full Node Rewards][fullnode-reward]
-* [Configuration Sepc](../node/install.md#full-node-reward)
+* [Configuration Spec](../node/install.md#full-node-reward)
 
 ## TestNet Features
 
