@@ -193,7 +193,8 @@ module.exports = {
     '@vuepress/i18n-ui',
     '@vite/vuepress-plugin-mathjax',
     '@vuepress/plugin-notification',
-    [require('./plugins/tab-code-example')]
+    [require('./plugins/tab-code-example')],
+    [require('./plugins/i18n-redirect')]
   ],
   themeConfig: {
     editLinks: true,
