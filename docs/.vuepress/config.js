@@ -261,6 +261,7 @@ module.exports = {
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '内置合约', 'P2P', '公共组件'),
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs','start', 'module', 'wallet'),
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

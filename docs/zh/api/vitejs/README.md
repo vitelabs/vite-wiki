@@ -35,13 +35,13 @@ let myClient = new client(WS_RPC, (_myClient) => {
 #### webpack.config  
 
 ```javascript
-...
+// ...
     resolve: {
         alias: {
             WSprovider: '@vite/vitejs/dist/es5/provider/WS'
         }
     }
-...
+// ...
 ```
 #### use
 ```javascript
