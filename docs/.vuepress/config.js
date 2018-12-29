@@ -147,7 +147,7 @@ const sidebarConfigs = {
         {
             collapsable: false,
             children: [
-                'utils', 'address', 'keystore'
+                'address', 'keystore', 'encoder', 'tools', 'ed25519', 'accountBlock'
             ]
         },
         {

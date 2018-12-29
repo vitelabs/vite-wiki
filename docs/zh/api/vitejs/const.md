@@ -45,16 +45,44 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     - receiveTx 接收交易
     - receiveTxFail 接收交易失败
 
-- txType 
-   - ？？？
+- BuiltinTxType 内置交易类型 (详细交易类型)
+    - SBPreg = 0 注册SBP
+    - UpdateReg 更新注册
+    - RevokeReg 撤销注册
+    - RetrieveReward 提取奖励
+    - Voting 投票
+    - RevokeVoting 撤销投票
+    - GetQuota 获取配额
+    - WithdrawalOfQuota 取回配额抵押
+    - TokenIssuance 铸币
+    - WithdrawalOfToken 取回铸币抵押
+    - CreateContractReq 创建合约
+    - TxReq 发送交易
+    - RewardReq 奖励
+    - TxRes 接收交易
+    - TxResFail 接收交易失败
 
-## address
-一些内置合约的交易地址和地址长度相关的常量
-- pledgeAddr 抵押地址
-- voteAddr 投票地址
-- Register_Addr 超级节点注册地址
-    
-- ADDR_PRE 地址前缀
-- ADDR_SIZE 地址真实长度
-- ADDR_CHECK_SUM_SIZE 地址校验和长度
-- ADDR_LEN 完整地址长度
+- AddrObj
+    - `addr : string` : 真实地址
+    - `pubKey : string`: 公钥
+    - `privKey : string`: 私钥
+    - `hexAddr : string`: hex编码地址
+
+## contract
+内置合约相关常量
+
+- Default_Gid 默认Gid
+- Default_Hash 默认Hash
+- Quota_Addr 抵押地址
+- Vote_Addr 投票地址
+- Register_Addr SBP注册地址
+
+## error
+常用错误类型
+
+- no(100000) 未知错误
+- paramsMissing(100001) 丢失参数
+- paramsFormat(100002) 参数格式错误
+- paramsConflict(100003) 参数冲突
+- addressIllegal(200001) 地址不合法
+- addressMissing(200002) 地址不存在

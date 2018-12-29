@@ -15,7 +15,7 @@ module.exports = [
         link: '/api/rpc/'
       },
       {
-        text: 'vitejs',
+        text: 'Vite JS',
         link: '/api/vitejs/'
       }
     ]
