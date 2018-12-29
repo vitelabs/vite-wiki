@@ -1,12 +1,16 @@
+---
+sidebarDepth: 1
+---
 
 # address
 
-## AddrObj
+:::tip 作者
+[cs](https://github.com/lovelycs)
+:::
 
-- `addr : string` : 真实地址
-- `pubKey : string`: 公钥
-- `privKey : string`: 私钥
-- `hexAddr : string`: hex编码地址
+:::tip abstract
+utils 包含常用的工具方法，例如：address生成，keystore加密等。
+:::
 
 ## privToAddr
 

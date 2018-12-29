@@ -45,7 +45,7 @@ utils contains general functions and tools such as generating address and encryp
 ### signTX
 -  **params**
   - `block`:`accountBlock` hex encoded address
-  - `privateKey`:`string` private key
+  - `privateKey`:`string` docs/api/vitejs/utils/keystore.mdprivate key
   - `type`:`byte|hex` Encoded style of return values: hex/byte
 - **return**
  `object`

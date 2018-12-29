@@ -1,6 +1,15 @@
 # Keystore
 
 ## Keystore Structure
+---
+sidebarDepth: 1
+---
+
+# keystore
+
+:::tip 作者
+[cs](https://github.com/lovelycs)
+:::
 
 ## isValid 
 keystore is valid or not
