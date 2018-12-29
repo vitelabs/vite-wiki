@@ -1,36 +1,9 @@
-# 常量
+# type
 
 :::tip 作者
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
-
-:::tip abstract
-const 包括一些常量：method，type，contract, error.
-:::
-
-## method
-
-关于rpc方法的常量。  
-调用方式
-
-```javascript
-
-import { client, constant } from '@vite/vitejs';
-const { method } = constant;
-// ......
-
-let myClient = new client(WS_RPC);
-myClient.request(method.ledger.getLatestSnapshotChainHash)
-.then(()=>{
-    // ......
-})
-
-```
-
-[详细参考](/api/rpc/)
-
-## type
 
 - RPCrequest
     - type 请求类型（request | notification | batch）
@@ -67,22 +40,3 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     - `pubKey : string`: 公钥
     - `privKey : string`: 私钥
     - `hexAddr : string`: hex编码地址
-
-## contract
-内置合约相关常量
-
-- Default_Gid 默认Gid
-- Default_Hash 默认Hash
-- Quota_Addr 抵押地址
-- Vote_Addr 投票地址
-- Register_Addr SBP注册地址
-
-## error
-常用错误类型
-
-- no(100000) 未知错误
-- paramsMissing(100001) 丢失参数
-- paramsFormat(100002) 参数格式错误
-- paramsConflict(100003) 参数冲突
-- addressIllegal(200001) 地址不合法
-- addressMissing(200002) 地址不存在
