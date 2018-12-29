@@ -4,82 +4,83 @@ const docBranch = process.env.BRANCH || 'master'
 const searchFilter = 'version: ' + docBranch
 
 const sidebarConfigs = {
-    introduction: [
-        {
-            collapsable: false,
-            children: [
-                '',
-                'dag-ledger',
-                'asynchronous-architecture',
-                'other',
-                'vite-token'
-            ]
-        }
-    ],
-    technology: [
-        {
-            collapsable: false,
-            children: [
-                '',
-                'design-features'
-            ]
-        },
-        {
-            collapsable: false,
-            children: [
-                'gen-address'
-            ]
-        },
-        {
-            collapsable: false,
-            children: [
-                'ledger-struct'
-            ]
-        }
-    ],
-    tutorial: [
-        {
-            collapsable: false,
-            children: [
-                'start/',
-            ]
-        },
-        {
-            collapsable: false,
-            children: [
-                'wallet/install',
-                'wallet/manage',
-                'wallet/hdwallet',
-            ]
-        },
-        {
-            collapsable: false,
-            children: [
-                'node/install',
-                'node/wallet-manage',
-                // 'node/fullnode',
-                'node/sbp',
-                'node/node_config',
-                'node/example',
-            ]
-        },
-        {
-            collapsable: false,
-            children: [
-                'rule/sbp',
-                'rule/quota',
-                'rule/mintage',
-                'rule/vote'
-            ]
-        }
-    ],
-    'api/rpc': [
-        {
-            collapsable: false,
-            children: [
-                '',
-            ]
-        },
+  introduction: [
+    {
+      collapsable: false,
+      children: [
+        '',
+        'dag-ledger',
+        'asynchronous-architecture',
+        'other',
+        'vite-token'
+      ]
+    }
+  ],
+  technology: [
+    {
+      collapsable: false,
+      children: [
+        '',
+        'design-features'
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'gen-address'
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'ledger-struct'
+      ]
+    }
+  ],
+  tutorial: [
+    {
+      collapsable: false,
+      children: [
+        'start/',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'wallet/install',
+        'wallet/manage',
+        'wallet/hdwallet',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'node/install',
+        'node/wallet-manage',
+        // 'node/fullnode',
+        'node/sbp',
+        'node/node_config',
+        'node/example',
+      ]
+    },
+    {
+      collapsable: false,
+      children: [
+        'rule/sbp',
+        'rule/fullnode',
+        'rule/quota',
+        'rule/mintage',
+        'rule/vote'
+      ]
+    }
+  ],
+  'api/rpc': [
+    {
+      collapsable: false,
+      children: [
+        '',
+      ]
+    },
 
         // wallet
         {
