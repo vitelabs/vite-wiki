@@ -45,7 +45,7 @@ Verify if it is a legal hex address
 ## hdAddr
 
 ### newAddr
-根据公钥生成hex地址
+Generate Hex address according to public key
 
 - **params**
   - `bits: number` 获取多少位的助记词 default: 256

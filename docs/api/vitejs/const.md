@@ -1,18 +1,19 @@
 # Constant
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
 :::tip abstract
-const 包括一些常量：method，type，contract, error.
+const: method，type，contract, error.
 :::
 
-## method
+## Methods
 
-关于rpc方法的常量。  
-调用方式
+Constants of RPC methods 
+
+How to invoke
 
 ```javascript
 
@@ -30,12 +31,12 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
 
 [Detailed Reference Info](/api/rpc/)
 
-## type
+## Type
 
 - RPCrequest
-    - type 请求类型（request | notification | batch）
-    - methodName [方法名称](/api/vitejs/const.html#method)
-    - params 传参
+    - type Request type（request | notification | batch）
+    - methodName [methodName](/api/vitejs/const.html#method)
+    - params Parameters
 
 - blockType  Transaction Type
     - createContract Create Contract
