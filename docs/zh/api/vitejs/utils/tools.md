@@ -6,7 +6,6 @@ sidebarDepth: 1
 
 :::tip 作者
 [cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
 :::
 
 :::tip abstract
