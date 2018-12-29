@@ -4,14 +4,14 @@ title: Start
 ---
 
 
-## Install
+## Installation
 - npm  
 npm install @vitelabs/vitejs
 
 - yarn   
 yarn add @vitelabs/vitejs
 
-## Quickly start  
+## Quickly Start  
 
 ### node/without webpack
 ```javascript
@@ -45,7 +45,7 @@ let myClient = new client(WS_RPC, (_myClient) => {
     }
 // ...
 ```
-#### use
+#### How to Use
 ```javascript
 
 import provider from "WSprovider";

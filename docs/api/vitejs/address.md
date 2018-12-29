@@ -112,10 +112,5 @@ Get real address [Same as privToAddr]
 ### isValidHexAddr
 Verify if it is a legal hex address [Same as privToAddr]
 
-## Address
-### newHexAddr 
-- **params**
-  - `privateKey`:`string` 
-- **return**
-  - `hexaddr`:`string` 
+
 

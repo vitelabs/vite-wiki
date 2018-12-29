@@ -128,15 +128,15 @@ Initiates a request
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
 | url | string | Network connection path |
-| protocol | string | 协议 |
+| protocol | string | Protocol |
 | headers | object | Request header information |
-| clientConfig | object | [同上](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
+| clientConfig | object | [Same as above](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
 
 ### Instance Methods
 Except for the public methods of provider instance
 
 #### Reconnect
-Network reconnection
+Network Reconnection
 
 ## IPC provider
 
@@ -150,8 +150,7 @@ Network reconnection
 ### Instance Methods
 Except for the public methods of provider instance
 
-#### reconnect
-Reconnection
+#### Reconnect
 
-#### disconnect
-Disconnection
+#### Disconnect
+
