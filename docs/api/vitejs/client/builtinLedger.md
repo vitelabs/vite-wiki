@@ -23,7 +23,7 @@ Get Transaction List
 Send Transaction
 
 - **Parameters** 
-    * `accountBlock: AccountBlock` Regulated accountBlock (Signature not required)
+    * `accountBlock: AccountBlock` Formatted accountBlock (Signature not required)
     * `privateKey` Private Key
 - **Return**:
     * Promise<`AccountBlock`>

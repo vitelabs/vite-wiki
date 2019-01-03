@@ -63,7 +63,7 @@ Get Balance
 Send Original Transactions
 
 - **Parameters** 
-    * `accountBlock` Regulated accountBlock
+    * `accountBlock` Formatted accountBlock
 - **Return**:
     * Promise
 
