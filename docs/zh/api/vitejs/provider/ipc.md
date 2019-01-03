@@ -1,6 +1,6 @@
 # ipc 
 
-## 构造
+## contructor
 
 - **constructor params**: 
 

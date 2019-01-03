@@ -8,10 +8,6 @@ sidebarDepth: 1
 [cs](https://github.com/lovelycs)
 :::
 
-:::tip abstract
-utils 包含常用的工具方法，例如：address生成，keystore加密等。
-:::
-
 ## privToAddr
 
 ### newHexAddr
@@ -53,6 +49,8 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
 
 - **params**
   - `bits: number` 获取多少位的助记词 default: 256
+  - `lang: LangList` 语言 default: english
+  - `pwd: string` 密码 default: ''
 - **return**
     - `mnemonicAddrObj: object`
         - `addrObj : AddrObj`
@@ -65,6 +63,8 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
 - **params**
   - `mnemonic : string` 助记词
   - `index : number` 地址序号 default: 0
+  - `lang: LangList` 语言 default: english
+  - `pwd: string` 密码 default: ''
 - **return**
   - `addrObj: AddrObj`
 
@@ -75,6 +75,8 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
   - `mnemonic: string` 助记词
   - `start : number` 地址序号，从第几个地址开始
   - `num : number` 个数，获取多少个地址
+  - `lang: LangList` 语言 default: english
+  - `pwd: string` 密码 default: ''
 - **return**
   - `addrObj: AddrObj`
 
@@ -83,6 +85,7 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
 
 - **params**
   - `mnemonic: string` 助记词
+  - `lang: LangList` 语言 default: english
 - **return**
   - `id: string` ID
 
@@ -91,6 +94,7 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
 
 - **params**
   - `entropy: string` 熵
+  - `lang: LangList` 语言 default: english
 - **return**
  - `mnemonic: string` 助记词
 
@@ -99,6 +103,7 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
 
 - **params**
   - `mnemonic: string` 助记词
+  - `lang: LangList` 语言 default: english
 - **return**
   - `entropy: string` 熵
 
@@ -107,11 +112,12 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
 
 - **params**
   - `mnemonic: string` 助记词
+  - `lang: LangList` 语言 default: english
 - **return**
   - `validate: boolean` 是否合法
 
 ### getAddrFromHexAddr
-获取真实地址 [同 privToAddr]
+获取真实地址 [同privToAddr](/api/vitejs/utils/address.html#privtoaddr)
 
 ### isValidHexAddr
-校验是否为合法的hex地址 [同 privToAddr]
+校验是否为合法的hex地址 [同privToAddr](/api/vitejs/utils/address.html#privtoaddr)

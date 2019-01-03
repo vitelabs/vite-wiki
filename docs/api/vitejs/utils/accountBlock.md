@@ -8,10 +8,6 @@ sidebarDepth: 1
 [cs](https://github.com/lovelycs)
 :::
 
-:::tip abstract
-utils 包含常用的工具方法，例如：address生成，keystore加密等。
-:::  
-
 ## getAccountBlock
 获取规范的accountBlock
 

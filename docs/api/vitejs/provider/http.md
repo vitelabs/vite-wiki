@@ -1,6 +1,6 @@
 # http
 
-## 构造
+## contructor
 
 - **Constructor params**: 
   * `url : string` Connection url  default: 'http://localhost:8415'

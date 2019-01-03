@@ -1,6 +1,6 @@
 # websocket
 
-## 构造
+## contructor
 
 - **Constructor params**: 
 

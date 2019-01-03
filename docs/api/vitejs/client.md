@@ -1,187 +1,279 @@
 ---
 sidebarDepth: 1
 ---
-# Client Side
+# 客户端
 
-:::tip Created by
+:::tip 作者
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip Abstract
-Some built-in quick polymerization are included
+:::tip abstract
+包括一些内置的快捷调用方式
 :::
 
-## Contructor
-- **Constructor params**: 
-`provider`:provider Instance
+## 注意 
+1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
+2. methods中的方法都可以直接使用client.namespace.funcName的方式调用，见constructor/example
 
-- **Example**
+## contructor
+
+- **constructor params**
+    - `provider : Provider 实例`
+    - `firstConnectCb : function` : 首次连接后的回调函数
+
+- **example**
+
 ```javascript
 
 import provider from '@vite/vitejs/dist/es5/provider/WS';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
-const myClient = new Client(WS_RPC);
-
-const block = myClient.buildinTxBlock.getAccountBlock.sync(...);
+const myClient = new Client(WS_RPC, function(_myclient) {
+    const block = _myclient.buildinTxBlock.getAccountBlock.sync(
+        //...
+    );
+    _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
+        console.log(data);
+    });
+});
 
 ```
+
+## setProvider provider, abort)
+设置provider
+
+- **Parameters**
+    * `provider : Provider实例`
+    * `abort : boolean` 是否打断原有provider的残余请求
+
+## request (Methods, ...args)
+为this.provider.request的快捷引用
+
+## notification (Methods, ...args)
+为this.provider.notification的快捷引用
+
+## batch (RPCrequest[])
+为this.provider.batch的快捷引用
+
 ## buildinTxBlock
-### cancelPledgeBlock(__namedParameters: object): Get revoke staked transaction block
-- **Parameters**:
- __namedParameters：
-* `accountAddress`: `string`  Staking Account
-* `amount`: `string` Staking Amount
-* `toAddress`: `string` Staking address
-* `tokenId`: `string` Token ID
+
+### getAccountBlock.sync
+同 utils.accountBlock.getAccountBlock
+
+### asyncAccountBlock | getAccountBlock.async (__namedParameters: object)
+异步获取accountBlock
+
+- **Parameters** __namedParameters
+    * `blockType: BlockType`
+    * `accountAddress: Address`
+    * `fromBlockHash?: Hex`
+    * `data?: Base64`
+    * `message?: string`
+    * `toAddress?: Address`
+    * `tokenId?: TokenId`
+    * `amount?: BigInt`
+    * `prevHash?: Hex`
+    * `height?: Uint64`
+    * `snapshotHash?: Hex`
+    * `nonce?: Base64`
 
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### SBPreg
+获取注册SBP的accountBlock
 
-
-### cancelRegisterBlock(__namedParameters: object) Construct cancel SBP registration block
-- **Parameters**:
-__namedParameters: object
-* `Gid`: `string`
-* `accountAddress`: `string`
-* `nodeName`: `string`
-* `tokenId`: `string`
-* `Returns` `any`
-
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `nodeName: string`
+        * `toAddress: Address`
+        * `tokenId: TokenId`
+        * `amount: BigInt`
+        * `Gid?: string`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
-### cancelVoteBlock(__namedParameters: object): Construct cancel voting block
-- **Parameters**:
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`tokenId`: `string`
+### updateReg
+获取更新注册SBP的accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `nodeName: string`
+        * `toAddress: Address`
+        * `tokenId: TokenId`
+        * `Gid?: string`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### revokeReg
+获取取消注册SBP的accountBlock
 
-### getAccountBlock(__namedParameters: object): General construct block
-
-- **Parameters**:
-__namedParameters: object
-
-`accountAddress`: any
-`amount`: any
-`blockType`: any
-`data`: any
-`fromBlockHash`: any
-`message`: any
-`toAddress`: any
-`tokenId`: any
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `nodeName: string`
+        * `tokenId: TokenId`
+        * `Gid?: string`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### retrieveReward
+获取奖励的accountBlock
 
-
-### getBalance(addr: `string`): Get balance block
-Parameters
-`addr`: `string`
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `nodeName: string`
+        * `toAddress: Address`
+        * `tokenId: TokenId`
+        * `Gid?: string`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### voting
+获取投票的accountBlock
 
-
-### getBlocks(__namedParameters: object): any
-Parameters
-__namedParameters: object
-`addr`: `string`
-`index`: number
-`pageCount`: number
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `nodeName: string`
+        * `tokenId: TokenId`
+        * `Gid?: string`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### revokeVoting
+获取撤销投票的accountBlock
 
-
-### pledgeBlock(__namedParameters: object) Construct staking TPS quota block
-Parameters
-__namedParameters: object
-`accountAddress`: `string`
-`amount`: `string`
-`toAddress`: `string`
-`tokenId`: `string`
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId`
+        * `Gid?: string`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### getQuota
+获取配额的accountBlock
 
-
-### receiveBlock(__namedParameters: object): Construct common receive block
-Parameters
-__namedParameters: object
-`accountAddress`: `string`
-`blockHash`: `string`
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `toAddress: Address`
+        * `tokenId: TokenId`
+        * `amount: BigInt`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### withdrawalOfQuota
+获取取消配额的accountBlock
 
-
-### registerBlock(__namedParameters: object) Construct SBP registration block
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`amount`: `string`
-`nodeName`: `string`
-`producerAddr`: `string`
-`tokenId`: `string`
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `toAddress: Address`
+        * `tokenId: TokenId`
+        * `amount: BigInt`
+        * `prevHash?: Hex`
+        * `height?: Uint64`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### sendTx.sync
+同 utils.accountBlock.getSendTxBlock
 
+### asyncSendTx | sendTx.async (__namedParameters: object)
+获取发送交易的accountBlock
 
-### rewardBlock(__namedParameters: object)  ？？
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`nodeName`: `string`
-`rewardAddress`: `string`
-`tokenId`: `string`
+- **Parameters** 
+    __namedParameters
+    * `accountAddress: Address`
+    * `toAddress: Address`
+    * `tokenId: TokenId`
+    * `amount: BigInt`
+    * `message?: string`
+    * `prevHash?: Hex`
+    * `height?: Uint64`
+    * `snapshotHash?: Hex`
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+### receiveTx.sync
+同 utils.accountBlock.getReceiveTxBlock
 
+### asyncReceiveTx | receiveTx.async (__namedParameters: object)
+获取接收交易的accountBlock
 
-### sendBlock(__namedParameters: object): Construct common sending block
-Parameters
-__namedParameters: object
-`accountAddress`: `string`
-`amount`: `string`
-`message`: `string`
-`toAddress`: `string`
-`tokenId`: `string`
+- **Parameters** 
+    __namedParameters
+    * `accountAddress: Address`
+    * `fromBlockHash: Hex`
+    * `prevHash?: Hex`
+    * `height?: Uint64`
+    * `snapshotHash?: Hex`
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`AccountBlock`>
 
+## buildinLedger
 
+### getBalance
+获取余额
 
-### updateRegisterBlock(__namedParameters: object) Construct cancel SBP registration block
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`nodeName`: `string`
-`producerAddr`: `string`
-`tokenId`: `string`
+- **Parameters** 
+    * `addr: Address`
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`{ balance, onroad }`>
 
+### getTxList (__namedParameters: object)
+获取交易列表
 
-
-### voteBlock(__namedParameters: object) Construct voting block
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`nodeName`: `string`
-`tokenId`: `string`
+- **Parameters** 
+    __namedParameters
+    * `addr: Address`
+    * `index: number` 
+    * `pageCount?: number` default 50
 - **Return**:
-* Promise<`accountBlock`>
+    * Promise<`{ list, totalNum }`>
+
+### sendRawTx
+发送交易
+
+- **Parameters** 
+    * `accountBlock: AccountBlock` 规范化后的accountBlock (无需签名)
+    * `privateKey` 私钥
+- **Return**:
+    * Promise<`AccountBlock`>

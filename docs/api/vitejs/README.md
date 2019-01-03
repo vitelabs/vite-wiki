@@ -8,6 +8,10 @@ title: Start
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
+:::tip abstract
+阅读文档前, 可先行了解rpc接口, 这里大部分调用rpc接口的数据为直接暴露
+:::
+
 ## Install
 - npm  
 npm install @vitelabs/vitejs
