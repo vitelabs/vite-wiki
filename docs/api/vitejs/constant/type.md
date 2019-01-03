@@ -21,21 +21,21 @@
     - message
 
 - BlockType  Transaction Type
-    - createContract 创建合约
-    - sendTx 发送交易
-    - reward 奖励交易
-    - receiveTx 接收交易
-    - receiveTxFail 接收交易失败
+    - createContract Create Contract
+    - sendTx Send Transaction
+    - reward
+    - receiveTx Receive Transaction
+    - receiveTxFail Receive Transaction Failed
 
 - BuiltinTxType Built-in Transaction Type
     - SBPreg = 0 SBP Registration
-    - UpdateReg 更新注册
-    - RevokeReg 撤销注册
-    - RetrieveReward 提取奖励
-    - Voting 投票
-    - RevokeVoting 撤销投票
-    - GetQuota 获取配额
-    - WithdrawalOfQuota 取回配额抵押
+    - UpdateReg Update Registration
+    - RevokeReg Revoke Registration
+    - RetrieveReward 
+    - Voting
+    - RevokeVoting
+    - GetQuota
+    - WithdrawalOfQuota Withdraw Staked Quota
     - TokenIssuance Token Issuance
     - WithdrawalOfToken Withdraw Staked Tokens
     - CreateContractReq Create Contract

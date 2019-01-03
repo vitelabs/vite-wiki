@@ -5,11 +5,8 @@
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-关于rpc方法的常量
-:::
 
-- 调用方式
+- How to Invoke
 
 ```javascript
 
@@ -25,4 +22,4 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
 
 ```
 
-[详细参考](/api/rpc/)
+[Reference](/api/rpc/)
