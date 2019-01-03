@@ -8,8 +8,8 @@ title: Start
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-阅读文档前, 可先行了解rpc接口, 这里大部分调用rpc接口的数据为直接暴露
+:::tip Abstract
+You can get to know about RPC API first before reading this documentation as most of the RPC API data in this project is directly exposed
 :::
 
 ## Installation
@@ -20,7 +20,7 @@ npm install @vitelabs/vitejs
 - yarn   
 yarn add @vitelabs/vitejs
 
-## Quickly Start  
+## Quick Start  
 
 ### node/without webpack
 ```javascript
@@ -41,7 +41,7 @@ let myClient = new client(WS_RPC, (_myClient) => {
 
 ```
 
-### webpack  
+### Webpack  
 
 #### webpack.config  
 
