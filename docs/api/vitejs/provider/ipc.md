@@ -1,15 +1,15 @@
-# ipc 
+# IPC 
 
-## 构造
+## Construct
 
-- **constructor params**: 
+- **Constructor Params**: 
 
   * `path : string` Connection path  default: ''
   * `timeout : number` Timeout（ms） default: 60000
   * `Object` 
 	- `delimiter : string` : Delimiter default: `\n`
-    - `retryTimes : number`: Reconnection timeout
-    - `retryInterval : number`: Reconnection interval
+    - `retryTimes : number`: Reconnection Timeout
+    - `retryInterval : number`: Reconnection Interval
 
 - **Returns**: 
 	- `ipcProvider` ipc provider instance

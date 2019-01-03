@@ -2,15 +2,15 @@
 sidebarDepth: 1
 ---
 
-# encoder
+# Encoder
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-utils 包含常用的工具方法，例如：address生成，keystore加密等。
+:::tip Abstract
+Utils include common tool sets such as generating address and encrypting keystore, etc.
 :::  
 
 ## bytesToHex 
@@ -26,24 +26,24 @@ utils 包含常用的工具方法，例如：address生成，keystore加密等�
   - `arr : array` bytes
 
 ## getBytesSize 
-获取不同编码字符串的字节长度
+Get different byte length of encoded string
 
 - **params**
-  - `str : string`  字符串
-  - `charset : utf8 | utf16` 编码格式
+  - `str : string` 
+  - `charset : utf8 | utf16` 
 - **return**
-  - `length : number` 字节长度
+  - `length : number`
   
 ## utf8ToBytes
-utf8字符串转换为字节
+Convert utf8 string to bytes
 
 - **params**
-  - `str : string` uft8编码字符串
+  - `str : string` utf8 string
 - **return**
-  - `target : Uint8Array` 字节
+  - `target : Uint8Array` Bytes
   
 ## blake2b 
-对blake2b的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+Quick reference to blake2b. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
 ## _Buffer 
-对buffer的快捷引用
+Quick reference to buffer.

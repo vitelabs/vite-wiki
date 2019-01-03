@@ -1,6 +1,6 @@
-# method
+# Method
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::

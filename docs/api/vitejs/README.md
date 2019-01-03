@@ -3,7 +3,7 @@ sidebarDepth: 4
 title: Start
 ---
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
@@ -49,7 +49,8 @@ let myClient = new client(WS_RPC, (_myClient) => {
     }
 // ...
 ```
-#### How to Use
+
+#### Usage
 ```javascript
 
 import provider from "WSprovider";

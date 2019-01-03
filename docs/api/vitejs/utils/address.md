@@ -4,12 +4,12 @@ sidebarDepth: 1
 
 # Address
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 :::
 
-:::tip abstract
-utils 包含常用的工具方法，例如：address生成，keystore加密等。
+:::tip Abstract
+Utils include common tool sets such as generating address and encrypting keystore, etc.
 :::
 
 ## privToAddr
@@ -44,7 +44,7 @@ Verify if it is a legal hex address
 - **params**
   - `hexaddr : string` Hex encoded address
 - **return**
-  - `validate : boolean` Legally or not
+  - `validate : boolean` Legal or not
 
 ## hdAddr
 
@@ -108,7 +108,7 @@ Verify if it is a legal mnemonic words
 - **params**
   - `mnemonic: string` Mnemonic words
 - **return**
-  - `validate: boolean` Legally or not
+  - `validate: boolean` Legal or not
 
 ### getAddrFromHexAddr
 Get real address [Same as privToAddr]

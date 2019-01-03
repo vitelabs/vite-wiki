@@ -1,4 +1,4 @@
-# start
+# Start
 
 :::tip Created by
 [cs](https://github.com/lovelycs)

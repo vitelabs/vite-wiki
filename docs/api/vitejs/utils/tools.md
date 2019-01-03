@@ -4,17 +4,16 @@ sidebarDepth: 1
 
 # tools
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 :::
 
 ## checkParams 
-检验参数
 
 - **params**
-  - `obj : Object` 参与校验的参数
-  - `requiredP : Array<string>` 必填参数
-  - `validFunc : Array<{ name, func, msg? }>` 校验函数
+  - `obj : Object` Params that need to be verified
+  - `requiredP : Array<string>` Compulsory Parameters
+  - `validFunc : Array<{ name, func, msg? }>` Validation Function
 - **return**
   - `error : null | Object<code, message>`
 - **Example**:
@@ -45,25 +44,25 @@ sidebarDepth: 1
 ```  
 
 ## getRawTokenid
-获取原始 token ID
+Get original token ID
 
 - **params**
   - `tokenId : string` Token ID
 - **return**
-  - `rawTokenId : string` 原始 token ID
+  - `rawTokenId : string` Original token ID
 
 ## validNodeName 
-验证是否为合法的节点名称
+Verify if the node is legal
 
 - **params**
-  - `str : string`  字符串
+  - `str : string` 
 - **return**
-  - `target : boolean` 验证结果: true(是), false(不是)
+  - `target : boolean` Results: true(yes), false(no)
   
 ## validInteger
-判断输入的字符串是否为整数
+Verify if the input string is an integer
 
 - **params**
-  - `num : string`  字符串
+  - `num : string`
 - **return**
-  - `target : boolean` 验证结果: true(是), false(不是)
+  - `target : boolean` Results: true, false

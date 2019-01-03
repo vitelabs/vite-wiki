@@ -1,6 +1,6 @@
-# contract
+# Contract
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 :::
 

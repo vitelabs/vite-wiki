@@ -1,8 +1,8 @@
-# http
+# HTTP
 
-## 构造
+## Construct
 
-- **Constructor params**: 
+- **Constructor Params**: 
   * `url : string` Connection url  default: 'http://localhost:8415'
   * `timout : number` Timeout（ms） Default: 60000
   * `Object` 
@@ -12,7 +12,6 @@
 	- `Provider` provider instance
 
 - **Example**:
-
 ```javascript
 
 import httpProvider from "@vite/vitejs/dist/es5/provider/HTTP";

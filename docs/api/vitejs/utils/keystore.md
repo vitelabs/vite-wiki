@@ -5,7 +5,7 @@
 sidebarDepth: 1
 ---
 
-# keystore
+# Keystore
 
 :::tip Created by
 [cs](https://github.com/lovelycs)
@@ -19,7 +19,7 @@ keystore is valid or not
 - **return**
   - `validate : boolean` valid or not
 
-## Decrypt
+## decrypt
 Decrypt keystore
 
 - **params**
@@ -28,7 +28,7 @@ Decrypt keystore
 - **return**
   - Promise<`key : string`> String before encrypts
 
-## Encrypt
+## encrypt
 Encrypt Keystore
 
 - **params**

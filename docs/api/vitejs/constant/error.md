@@ -1,10 +1,10 @@
-# error
+# Error
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 :::
 
-:::tip abstract
+:::tip Abstract
 常用错误类型
 :::
 
