@@ -1,6 +1,6 @@
 # Websocket
 
-## Construct
+## Constructor
 
 - **Constructor params**: 
 
@@ -12,9 +12,6 @@
     - `clientConfig : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
     - `retryTimes : number`: Reconnection timeout
     - `retryInterval : number`: Reconnection interval
-
-- **Returns**: 
-	- `wsProvider` websocket provider instance
 
 - **Example**:
 

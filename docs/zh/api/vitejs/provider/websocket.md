@@ -1,6 +1,6 @@
 # websocket
 
-## 构造
+## contructor
 
 - **constructor params**: 
 
@@ -12,9 +12,6 @@
     - `clientConfig : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
     - `retryTimes : number`: 重连超时时间
     - `retryInterval : number`: 重连间隔时长
-
-- **Returns**: 
-	- `wsProvider` websocket provider 实例
 
 - **Example**:
 

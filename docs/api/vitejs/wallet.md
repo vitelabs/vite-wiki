@@ -1,22 +1,9 @@
 # Built-in Wallet Implementation
 
 :::tip Created by
-[hurrytospring](https://github.com/hurrytospring)
+[cs](https://github.com/lovelycs)
 :::
 
-:::tip Abstract
-Constants: method，type，address
+:::tip abstract
+wallet模块提供快速生成钱包的具体方法
 :::
-
-## Methods
-Some RPC related methods, example:const.method.tx.sendRawTx. Detailed reference[https://baidu.com]
-
-## Type
-
-- blockType  
-- txType
-
-## Address
-- pledgeAddr
-- voteAddr
-- 

@@ -1,21 +1,9 @@
 # 内置钱包实现
 
 :::tip 作者
-[hurrytospring](https://github.com/hurrytospring)
+[cs](https://github.com/lovelycs)
 :::
 
 :::tip abstract
-const 包括一些常量：method，type，address。
+wallet模块提供快速生成钱包的具体方法
 :::
-
-## method
-一些关于rpc方法的常量，example:const.method.tx.sendRawTx。详细参考[https://baidu.com]
-## type
-
-- blockType  
-- txType
-
-## address
-- pledgeAddr
-- voteAddr
-- 

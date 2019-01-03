@@ -9,10 +9,13 @@ sidebarDepth: 1
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
+<<<<<<< HEAD
 :::tip Abstract
 Utils include common tool sets such as generating address and encrypting keystore, etc.
 :::  
 
+=======
+>>>>>>> 31dffa05ed5b2d4b74b075a63910aebf6a351e64
 ## bytesToHex 
 - **params**
   - `arr : buffer`

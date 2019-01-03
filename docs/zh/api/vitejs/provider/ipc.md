@@ -1,6 +1,6 @@
 # ipc 
 
-## 构造
+## contructor
 
 - **constructor params**: 
 
@@ -10,9 +10,6 @@
 	- `delimiter : string` : 分割符 default: `\n`
     - `retryTimes : number`: 重连超时时间
     - `retryInterval : number`: 重连间隔时长
-
-- **Returns**: 
-	- `ipcProvider` ipc provider 实例
 
 - **Example**:
 

@@ -1,4 +1,4 @@
-# Method
+# Methods
 
 :::tip Created by
 [cs](https://github.com/lovelycs)
@@ -9,7 +9,7 @@
 关于rpc方法的常量
 :::
 
-调用方式
+- 调用方式
 
 ```javascript
 

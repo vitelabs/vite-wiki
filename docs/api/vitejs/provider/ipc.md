@@ -1,6 +1,6 @@
 # IPC 
 
-## Construct
+## Constructor
 
 - **Constructor Params**: 
 
@@ -10,9 +10,6 @@
 	- `delimiter : string` : Delimiter default: `\n`
     - `retryTimes : number`: Reconnection Timeout
     - `retryInterval : number`: Reconnection Interval
-
-- **Returns**: 
-	- `ipcProvider` ipc provider instance
 
 - **Example**:
 

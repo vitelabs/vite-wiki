@@ -10,8 +10,17 @@
     - methodName [Method Name](/api/vitejs/const.html#method)
     - params Parameters
 
+- RPCrequest
+    - jsonrpc 2.0
+    - id
+    - result
+    - error RPCerror
 
-- blockType  Transaction Type
+- RPCerror
+    - code
+    - message
+
+- BlockType  Transaction Type
     - createContract 创建合约
     - sendTx 发送交易
     - reward 奖励交易
@@ -40,3 +49,13 @@
     - `pubKey : string`: Public Key 
     - `privKey : string`: Private Key 
     - `hexAddr : string`: Hex Encode Address
+
+- LangList
+    - `english` : english
+    - `japanese` : japanese
+    - `chineseSimplified` : chinese_simplified
+    - `chineseTraditional` : chinese_traditional
+    - `french` : french
+    - `italian` : italian
+    - `korean` : korean
+    - `spanish` : spanish
