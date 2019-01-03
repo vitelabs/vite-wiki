@@ -2,7 +2,7 @@
 sidebarDepth: 1
 ---
 
-# address
+# Address
 
 :::tip 作者
 [cs](https://github.com/lovelycs)
@@ -45,79 +45,79 @@ Verify if it is a legal hex address
 ## hdAddr
 
 ### newAddr
-根据公钥生成hex地址
+Generate Hex address according to public key
 
 - **params**
-  - `bits: number` 获取多少位的助记词 default: 256
+  - `bits: number` Decimals of mnemonic words default: 256
   - `lang: LangList` 语言 default: english
   - `pwd: string` 密码 default: ''
 - **return**
     - `mnemonicAddrObj: object`
         - `addrObj : AddrObj`
         - `entropy : string` Entropy
-        - `mnemonic : string` Mnemonic
+        - `mnemonic : string` Mnemonic words
 
 ### getAddrFromMnemonic
-根据助记词获取某个地址
+Get an address by mnemonic words
 
 - **params**
-  - `mnemonic : string` Mnemonic
-  - `index : number` 地址序号 default: 0
+  - `mnemonic : string` Mnemonic words
+  - `index : number` Number, default: 0
   - `lang: LangList` 语言 default: english
   - `pwd: string` 密码 default: ''
 - **return** 
   - `addrObj: AddrObj`
 
 ### getAddrsFromMnemonic
-根据助记词获取一串地址
+Get a group of addresses by mnemonic words
 
 - **params**
   - `mnemonic: string` Mnemonic
-  - `start : number` 地址序号，从第几个地址开始
-  - `num : number` 个数，获取多少个地址
+  - `start : number` Start from which address number
+  - `num : number` Amount of addresses
   - `lang: LangList` 语言 default: english
   - `pwd: string` 密码 default: ''
 - **return**
   - `addrObj: AddrObj`
 
 ### getId
-根据助记词生成id
+Generate ID via mnemonic words
 
 - **params**
-  - `mnemonic: string` Mnemonic
+  - `mnemonic: string` Mnemonic words
   - `lang: LangList` 语言 default: english
 - **return**
   - `id: string` ID
 
 ### getMnemonicFromEntropy
-根据熵获取助记词
+Get mnemonic words via entropy
 
 - **params**
   - `entropy: string` Entropy
   - `lang: LangList` 语言 default: english
 - **return**
- - `mnemonic: string` Mnemonic
+ - `mnemonic: string` Mnemonic words
 
 ### getEntropyFromMnemonic
-获取助记词的熵
+Get entropy of mnemonic words
 
 - **params**
-  - `mnemonic: string` Mnemonic
+  - `mnemonic: string` Mnemonic words
   - `lang: LangList` 语言 default: english
 - **return**
   - `entropy: string` Entropy
 
 ### validateMnemonic
-Verify if it is a legal mnemonic
+Verify if it is a legal mnemonic words
 
 - **params**
-  - `mnemonic: string` Mnemonic
+  - `mnemonic: string` Mnemonic words
   - `lang: LangList` 语言 default: english
 - **return**
   - `validate: boolean` Legally or not
 
 ### getAddrFromHexAddr
-Get real address [同privToAddr](/api/vitejs/utils/address.html#privtoaddr)
+Get real address [Same as privToAddr](/api/vitejs/utils/address.html#privtoaddr)
 
 ### isValidHexAddr
-Verify if it is a legal hex address [同privToAddr](/api/vitejs/utils/address.html#privtoaddr)
+Verify if it is a legal hex address [Same as privToAddr](/api/vitejs/utils/address.html#privtoaddr)

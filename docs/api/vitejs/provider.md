@@ -53,3 +53,37 @@ Initiates a request
 
 - **Returns**:
     - Promise<`JsonRPC response`>
+
+## ws provider
+
+### Instance Properties
+
+|  Name  | Type | Description |
+|:------------:|:-----:|:-----:|
+| url | string | Network connection path |
+| protocol | string | Protocol |
+| headers | object | Request header information |
+| clientConfig | object | [Same as above](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
+
+### Instance Methods
+Except for the public methods of provider instance
+
+#### Reconnect
+Network Reconnection
+
+## IPC provider
+
+### Instance Properties
+
+|  Name  | Type | Description |
+|:------------:|:-----:|:-----:|
+| path | string | Connection path |
+| delimiter | string | Delimiter |
+
+### Instance Methods
+Except for the public methods of provider instance
+
+#### Reconnect
+
+#### Disconnect
+

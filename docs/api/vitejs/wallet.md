@@ -1,4 +1,4 @@
-# Implementation of Built-in Wallet
+# Built-in Wallet Implementation
 
 :::tip Created by
 [hurrytospring](https://github.com/hurrytospring)
@@ -8,14 +8,15 @@
 Constants: method，type，address
 :::
 
-## Method
+## Methods
 Some RPC related methods, example:const.method.tx.sendRawTx. Detailed reference[https://baidu.com]
-## type
+
+## Type
 
 - blockType  
 - txType
 
-## address
+## Address
 - pledgeAddr
 - voteAddr
 - 

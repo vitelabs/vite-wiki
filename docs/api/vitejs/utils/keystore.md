@@ -1,10 +1,13 @@
+# Keystore
+
+## Keystore Structure
 ---
 sidebarDepth: 1
 ---
 
 # keystore
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 :::
 
@@ -31,33 +34,33 @@ let keystore = {
 ```
 
 ## isValid 
-keystore是否合法
+keystore is valid or not
 
 - **params**
   - `keystore : string` keystore string
 - **return**
-  - `validate : boolean` 是否合法
+  - `validate : boolean` valid or not
 
-## decrypt
-解密keystore
+## Decrypt
+Decrypt keystore
 
 - **params**
-  - `keystore : string` keystore string
-  - `pwd : string` 密码
+  - `keystore : string` Keystore String
+  - `pwd : string` Password
 - **return**
-  - Promise<`key : string`> 加密前的字符串
+  - Promise<`key : string`> String before encrypts
 
-## encrypt
-加密keystore
+## Encrypt
+Encrypt Keystore
 
 - **params**
-  - `keystore : string` keystore string
-  - `pwd : string` 密码
-  - `scryptParams : Object` 加密参数(非必填)
+  - `keystore : string` Keystore String
+  - `pwd : string` Password
+  - `scryptParams : Object` Encrypt Parameters (Optional)
     - n
     - r
     - p
     - keylen
     - salt
 - **return**
-  - Promise<`keystore: string`> 加密后的keystore字符串
+  - Promise<`keystore: string`> Keystore String

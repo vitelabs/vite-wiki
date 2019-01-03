@@ -12,14 +12,15 @@ title: Start
 阅读文档前, 可先行了解rpc接口, 这里大部分调用rpc接口的数据为直接暴露
 :::
 
-## Install
+## Installation
+
 - npm  
 npm install @vitelabs/vitejs
 
 - yarn   
 yarn add @vitelabs/vitejs
 
-## Quickly start  
+## Quickly Start  
 
 ### node/without webpack
 ```javascript
@@ -53,7 +54,7 @@ let myClient = new client(WS_RPC, (_myClient) => {
     }
 // ...
 ```
-#### use
+#### How to Use
 ```javascript
 
 import provider from "WSprovider";
