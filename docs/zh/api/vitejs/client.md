@@ -16,7 +16,7 @@ sidebarDepth: 1
 1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
 2. methods中的方法都可以直接使用client.namespace.funcName的方式调用，见constructor/example
 
-## contructor
+## Constructor
 
 - **constructor params**
     - `provider : Provider 实例`

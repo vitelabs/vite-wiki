@@ -1,6 +1,6 @@
 # ipc 
 
-## contructor
+## Constructor
 
 - **constructor params**: 
 

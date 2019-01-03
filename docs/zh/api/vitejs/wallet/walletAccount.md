@@ -1,6 +1,6 @@
 # walletAccount
 
-## contructor
+## Constructor
 
 - **constructor params**: 
     - __namedParameters: object
