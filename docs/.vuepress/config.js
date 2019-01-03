@@ -166,13 +166,13 @@ const sidebarConfigs = {
         {
             collapsable: false,
             children: [
-                'client'
+                'client', 'client/builtinTxBlock', 'client/builtinLedger'
             ]
         },
         {
             collapsable: false,
             children: [
-                'wallet'
+                'wallet', 'wallet/account', 'wallet/walletAccount'
             ]
         }
     ],

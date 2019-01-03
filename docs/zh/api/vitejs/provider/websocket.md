@@ -13,9 +13,6 @@
     - `retryTimes : number`: 重连超时时间
     - `retryInterval : number`: 重连间隔时长
 
-- **Returns**: 
-	- `wsProvider` websocket provider 实例
-
 - **Example**:
 
 ```javascript

@@ -8,9 +8,6 @@
   * `Object` 
 	- `headers : object` : 请求头信息
 
-- **Returns**: 
-	- `Provider` provider 实例
-
 - **Example**:
 
 ```javascript
@@ -19,3 +16,5 @@ import httpProvider from "@vite/vitejs/dist/es5/provider/HTTP";
 const http = new httpProvider("http://localhost:8080");
 
 ```
+
+## Provider 实例

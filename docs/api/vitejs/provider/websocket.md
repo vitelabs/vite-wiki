@@ -13,9 +13,6 @@
     - `retryTimes : number`: Reconnection timeout
     - `retryInterval : number`: Reconnection interval
 
-- **Returns**: 
-	- `wsProvider` websocket provider instance
-
 - **Example**:
 
 ```javascript

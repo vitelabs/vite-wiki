@@ -11,9 +11,6 @@
     - `retryTimes : number`: Reconnection timeout
     - `retryInterval : number`: Reconnection interval
 
-- **Returns**: 
-	- `ipcProvider` ipc provider instance
-
 - **Example**:
 
 ```javascript
