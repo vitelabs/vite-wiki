@@ -8,10 +8,6 @@ sidebarDepth: 1
 [cs](https://github.com/lovelycs)
 :::
 
-:::tip Abstract
-Utils include common tool sets such as generating address and encrypting keystore, etc.
-:::
-
 
 ## privToAddr
 
