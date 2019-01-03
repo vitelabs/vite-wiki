@@ -1,7 +1,7 @@
 # buildinLedger
 
 ## getBalance
-获取余额
+Get Balance
 
 - **Parameters** 
     * `addr: Address`
@@ -9,7 +9,7 @@
     * Promise<`{ balance, onroad }`>
 
 ## getTxList
-获取交易列表
+Get Transaction List
 
 - **Parameters** 
     __namedParameters: object
@@ -20,10 +20,10 @@
     * Promise<`{ list, totalNum }`>
 
 ## sendRawTx
-发送交易
+Send Transaction
 
 - **Parameters** 
-    * `accountBlock: AccountBlock` 规范化后的accountBlock (无需签名)
-    * `privateKey` 私钥
+    * `accountBlock: AccountBlock` Regulated accountBlock (Signature not required)
+    * `privateKey` Private Key
 - **Return**:
     * Promise<`AccountBlock`>

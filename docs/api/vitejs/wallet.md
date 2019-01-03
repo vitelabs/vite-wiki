@@ -5,5 +5,5 @@
 :::
 
 :::tip abstract
-wallet模块提供快速生成钱包的具体方法
+Wallet module provides specified methods of how to quickly generate a wallet
 :::

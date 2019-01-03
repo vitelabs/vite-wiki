@@ -1,10 +1,10 @@
 # buildinTxBlock
 
 ## getAccountBlock.sync
-同 utils.accountBlock.getAccountBlock
+Same as `utils.accountBlock.getAccountBlock`
 
 ## asyncAccountBlock | getAccountBlock.async
-异步获取accountBlock
+Get accountBlock asynchronously
 
 - **Parameters** 
     __namedParameters: object
@@ -25,7 +25,7 @@
     * Promise<`AccountBlock`>
 
 ## SBPreg
-获取注册SBP的accountBlock
+Get accountBlock of SBP registration
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -38,12 +38,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## updateReg
-获取更新注册SBP的accountBlock
+Get accountBlock of updating SBP registration
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -55,12 +55,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## revokeReg
-获取取消注册SBP的accountBlock
+Get accountBlock of revoking SBP registration
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -71,12 +71,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## retrieveReward
-获取奖励的accountBlock
+Get accountBlock of rewards
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -88,12 +88,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## voting
-获取投票的accountBlock
+Get accountBlock of voting
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -104,12 +104,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## revokeVoting
-获取撤销投票的accountBlock
+Get accountBlock when revoking vote
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -119,12 +119,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## getQuota
-获取配额的accountBlock
+Get accountBlock of quota
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -135,12 +135,12 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## withdrawalOfQuota
-获取取消配额的accountBlock
+Get accountBlock of withdraw quota
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -151,15 +151,15 @@
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## sendTx.sync
-同 utils.accountBlock.getSendTxBlock
+Same as `utils.accountBlock.getSendTxBlock`
 
 ## asyncSendTx | sendTx.async 
-获取发送交易的accountBlock
+Get accountBlock of sending transaction
 
 - **Parameters** 
     __namedParameters: object
@@ -175,10 +175,10 @@
     * Promise<`AccountBlock`>
 
 ## receiveTx.sync
-同 utils.accountBlock.getReceiveTxBlock
+Same as `utils.accountBlock.getReceiveTxBlock`
 
 ## asyncReceiveTx | receiveTx.async 
-获取接收交易的accountBlock
+Get accountBlock of receiving transaction
 
 - **Parameters** 
     __namedParameters: object
