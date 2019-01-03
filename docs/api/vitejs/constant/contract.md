@@ -4,12 +4,12 @@
 [cs](https://github.com/lovelycs)
 :::
 
-:::tip abstract
-内置合约相关常量
+:::tip Abstract
+Relevant parameters of built-in contract
 :::
 
-- Default_Gid 默认Gid
-- Default_Hash 默认Hash
-- Quota_Addr 抵押地址
-- Vote_Addr 投票地址
-- Register_Addr SBP注册地址
+- Default_Gid
+- Default_Hash
+- Quota_Addr Staking Address
+- Vote_Addr Voting Address
+- Register_Addr SBP Registration Address

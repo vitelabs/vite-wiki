@@ -1,28 +1,28 @@
 ---
 sidebarDepth: 1
 ---
-# 客户端
+# Client Side
 
-:::tip 作者
+:::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip abstract
-包括一些内置的快捷调用方式
+:::tip Abstract
+This part contains built-in shortcuts
 :::
 
-## 注意 
-1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
-2. methods中的方法都可以直接使用client.namespace.funcName的方式调用，见constructor/example
+## Notice 
+1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
+2. Every methods in it can be invoked by `client.namespace.funcName`, learn more in constructor/example
 
-## contructor
+## Constructor
 
 - **constructor params**
-    - `provider : Provider 实例`
-    - `firstConnectCb : function` : 首次连接后的回调函数
+    - `provider : Provider Instance`
+    - `firstConnectCb : function` : Callback function of first connection
 
-- **example**
+- **Example**
 
 ```javascript
 
@@ -41,24 +41,24 @@ const myClient = new Client(WS_RPC, function(_myclient) {
 
 ```
 
-## setProvider provider, abort)
-设置provider
+## setProvider provider, abort
+Set provider
 
 - **Parameters**
-    * `provider : Provider实例`
-    * `abort : boolean` 是否打断原有provider的残余请求
+    * `provider : Provider Instance`
+    * `abort : boolean` Whether or not to interrupt remaining provider request
 
 ## request (Methods, ...args)
-为this.provider.request的快捷引用
+Shortcut of `this.provider.request`
 
 ## notification (Methods, ...args)
-为this.provider.notification的快捷引用
+Shortcut of `this.provider.notification`
 
 ## batch (RPCrequest[])
-为this.provider.batch的快捷引用
+Shortcut of `this.provider.batch`
 
 ## buildinTxBlock
-见 buildinTxBlock
+Refer to buildinTxBlock
 
 ## buildinLedger
-见 buildinLedger
+Refer to buildinLedger

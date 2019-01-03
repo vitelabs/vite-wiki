@@ -1,90 +1,86 @@
-# account
+# Account
 
-## contructor
+## Constructor
 
 - **constructor params**: 
     __namedParameters: object
-    * `privateKey : string` 私钥
-    * `client : Client` client实例
+    * `privateKey : string` Private Key
+    * `client : Client` client Instance
 
-## Account 实例
+## Account Instance
 
 ### Instance Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| address | string | hex地址 |
-| realAddress | string | 真实地址 |
-| privateKey | string | 私钥 |
-| publicKey | string | 公钥 |
-| balance | object | 余额 |
+| address | string | Hex Address |
+| realAddress | string | Actual Address |
+| privateKey | string | Private Key |
+| publicKey | string | Public Key |
+| balance | object | Account Balance |
 
 ### Instance Methods
-Account 实例方法
 
 #### getPublicKey
-获取公钥
 
 - **Return**:
-    * `publicKey : Uint8Array with 32-byte public key` 公钥
+    * `publicKey : Uint8Array with 32-byte public key` 
 
 #### sign
-签名
 
 - **Parameters** 
-    * `hexStr : string` 需要签名的string
+    * `hexStr : string` String needs to be signed
 - **Return**:
-    * `signature : string` 签名后的信息
+    * `signature : string` Results after signing
 
 
 #### activate
-激活账户 (自动接收交易，轮询账户余额)
+Activate Account (Auto Receiving Transaction, polling account balance)
 
 - **Parameters** 
-    * `intervals : number` 轮询间隔
-    * `receiveFailAction : function` 接收失败后的操作
+    * `intervals : number` Polling Intervals
+    * `receiveFailAction : function` Actions after receiving failed
 
 #### freeze
-冻结账户 (停止激活状态 - 停止自动接收交易以及查询余额)
+Freeze account (Stop activating status - Stop auto receiving transaction and checking balance )
 
 #### autoReceiveTx
-自动接收交易
 
 - **Parameters** 
-    * `intervals : number` 轮询间隔
-    * `receiveFailAction : function` 接收失败后的操作
+    * `intervals : number` Polling Intervals
+    * `receiveFailAction : function` Actions after receiving failed
 
 #### stopAutoReceiveTx
-停止自动接收交易
+Stop auto receiving transaction
 
 #### getBalance
-获取余额
+Get Balance
 
 - **Return**:
     * Promise<`balance`>
 
 #### sendRawTx
-发送原始交易
+Send Original Transactions
 
 - **Parameters** 
-    * `accountBlock` 规范后的accountBlock
+    * `accountBlock` Regulated accountBlock
 - **Return**:
     * Promise
 
 #### sendTx
-发送交易
+Send Transaction
 
 - **Parameters** 
     __namedParameters: object
-    * `toAddress : Address` 接收方账户地址
+    * `toAddress : Address` Receiver's address
     * `tokenId : tokenId` tokenId
-    * `amount` 金额
-    * `message : string` 留言
+    * `amount` Amount
+    * `message : string` Comment
 - **Return**:
     * Promise 
 
 #### receiveTx
-接收交易
+Receive Transaction
 
 - **Parameters** 
     __namedParameters: object
@@ -93,61 +89,61 @@ Account 实例方法
     * Promise 
 
 #### SBPreg
-注册SBP
+SBP Registration
 
 - **Parameters** 
     __namedParameters: object
-    * `nodeName : string` 节点名称
-    * `toAddress : Address` 账户地址
+    * `nodeName : string` Node Name
+    * `toAddress : Address` Receiver's address
     * `tokenId : tokenId` tokenId
-    * `amount` 金额
+    * `amount` Amount
 - **Return**:
     * Promise 
 
 #### updateReg
-更新注册SBP
+Update SBP Registration
 
 - **Parameters** 
     __namedParameters: object
-    * `nodeName : string` 节点名称
-    * `toAddress : Address` 账户地址
+    * `nodeName : string` Node Name
+    * `toAddress : Address` Receiver's address
     * `tokenId : tokenId` tokenId
 - **Return**:
     * Promise 
 
 #### revokeReg
-撤销注册SBP
+Revoke SBP Registration
 
 - **Parameters** 
     __namedParameters: object
-    * `nodeName : string` 节点名称
+    * `nodeName : string` Node Name
     * `tokenId : tokenId` tokenId
 - **Return**:
     * Promise 
 
 #### retrieveReward
-接收奖励
+Retrieve Rewards
 
 - **Parameters** 
     __namedParameters: object
-    * `nodeName : string` 节点名称
-    * `toAddress : Address` 账户地址
+    * `nodeName : string` Node Name
+    * `toAddress : Address` 
     * `tokenId : tokenId` tokenId
 - **Return**:
     * Promise 
 
 #### voting
-投票
+
 
 - **Parameters** 
     __namedParameters: object
-    * `nodeName : string` 节点名称
+    * `nodeName : string` Node Name
     * `tokenId : tokenId` tokenId
 - **Return**:
     * Promise 
 
 #### revokeVoting
-撤销投票
+
 
 - **Parameters** 
     __namedParameters: object
@@ -156,24 +152,24 @@ Account 实例方法
     * Promise 
 
 #### getQuota
-获取配额
+Get Quota
 
 - **Parameters** 
     __namedParameters: object
-    * `toAddress : Address` 账户地址
+    * `toAddress : Address` 
     * `tokenId : tokenId` tokenId
-    * `amount` 金额
+    * `amount` Amount
 - **Return**:
     * Promise 
 
 #### withdrawalOfQuota
-撤销配额
+Withdrawal of Quota
 
 - **Parameters** 
     __namedParameters: object
-    * `toAddress : Address` 账户地址
+    * `toAddress : Address` 
     * `tokenId : tokenId` tokenId
-    * `amount` 金额
+    * `amount` Amount
 - **Return**:
     * Promise 
     
