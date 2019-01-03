@@ -26,7 +26,7 @@ Account 实例方法
 获取公钥
 
 - **Return**:
-    * `publicKey : HexString` 公钥
+    * `publicKey : Uint8Array with 32-byte public key` 公钥
 
 #### sign
 签名
