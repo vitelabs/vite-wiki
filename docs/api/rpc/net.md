@@ -73,10 +73,6 @@ Return the detailed information of connected peers of the node
 | Name | JSON type | Actual type | Desc |
 |:------------:|:-----------:|:-----:|:-----:|
 | peers | \[\]*PeerInfo | \[\]*PeerInfo | The information of connected peers |
-| msgSend | string | uint64 | The number of messages sent by the node |
-| msgReceived | string | uint64 | The number of messages received by the node |
-| msgHandled | string | uint64 | The number of messages processed by the node |
-| msgDiscarded | string | uint64 | The number of messages discarded by the node |
 
 `PeerInfo` 
 
@@ -86,15 +82,7 @@ Return the detailed information of connected peers of the node
 | addr | string | string | The node's IP address <ip:port> |
 | head | string | string | The hash of the highest snapshot block of the node|
 | height | string | uint64 | The height of the highest snapshot block of the node|
-| msgSend | string | uint64 | The number of messages sent by the node|
-| msgReceived | string | uint64 | The number of messages received by the node|
-| msgHandled | string | uint64 | The number of messages processed by the node |
-| msgDiscarded | string | uint64 | The number of messages discarded by the node |
-| msgSendDetail | map\[string\]uint64 | map\[string\]uint64 | The map of messages sent by the node, having message type as key and message number as value |
-| msgReceivedDetail | map\[string\]uint64 | map\[string\]uint64 | The map of messages received by the node, having message type as key and message number as value |
-| msgHandledDetail | map\[string\]uint64 | map\[string\]uint64 | The map of messages processed by the node, having message type as key and message number as value |
-| msgDiscardedDetail | map\[string\]uint64 | map\[string\]uint64 | The map of messages discarded by the node, having message type as key and message number as value |
-| uptime | string | time.Duration | The up time of the node since the connection is established |
+| created | string | string | The time peer is created |
 
 - **Example**: 
 
@@ -119,51 +107,16 @@ Return the detailed information of connected peers of the node
                 "addr": "150.109.101.112:8483",
                 "head": "ef3c6213134c9b672b61a2b4e10767dd563fd47c7557ab9996cbe89c8a766190",
                 "height": 473,
-                "msgHandled": 2381,
-                "msgSend": 2959,
-                "msgHandledDetail": {
-                    "ExceptionMsg": 1,
-                    "NewAccountBlockMsg": 1783,
-                    "NewSnapshotBlockMsg": 521,
-                    "StatusMsg": 76
-                },
-                "msgSendDetail": {
-                    "GetAccountBlocksMsg": 1,
-                    "HandShakeMsg": 1,
-                    "NewAccountBlockMsg": 2321,
-                    "NewSnapshotBlockMsg": 558,
-                    "StatusMsg": 78
-                },
-                "uptime": 799854899843
+                "created": "2019-01-06 02:01:42"
             },
             {
                 "id": "17c672f17bfca27dc0de1db8a117f91fbe77d345734cdf7c5ca5371c0c7a73a3",
                 "addr": "134.175.1.34:36632",
                 "head": "ef3c6213134c9b672b61a2b4e10767dd563fd47c7557ab9996cbe89c8a766190",
                 "height": 473,
-                "msgHandled": 2360,
-                "msgSend": 2781,
-                "msgHandledDetail": {
-                    "AccountBlocksMsg": 2,
-                    "NewAccountBlockMsg": 1743,
-                    "NewSnapshotBlockMsg": 538,
-                    "StatusMsg": 77
-                },
-                "msgSendDetail": {
-                    "GetAccountBlocksMsg": 2,
-                    "GetSnapshotBlocksMsg": 1,
-                    "HandShakeMsg": 1,
-                    "NewAccountBlockMsg": 2160,
-                    "NewSnapshotBlockMsg": 540,
-                    "StatusMsg": 77
-                },
-                "uptime": 781248843215
+                "created": "2019-01-06 07:58:22"
             }
-        ],
-        "msgSend": 36178,
-        "msgReceived": 29948,
-        "msgHandled": 29935,
-        "msgDiscarded": 2423
+        ]
     }
 }
 ```
