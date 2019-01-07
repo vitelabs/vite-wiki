@@ -131,7 +131,27 @@ mac 默认目录：~/Library/GVite/testdata
 
 ### 编译可执行文件
 
-* 在终端执行 ```go get github.com/vitelabs/go-vite``` 代码所在位置 ```$GOPATH/src/github.com/vitelabs/go-vite/``` GOPATH 默认位置是 ```~/go```
+* 在终端执行
+    
+        go get github.com/vitelabs/go-vite
+        
+    
+    代码所在位置
+    
+        $GOPATH/src/github.com/vitelabs/go-vite/
+        
+    
+    GOPATH 默认位置是 ```~/go```
+    
+    进入代码所在目录并运行
+    
+        make gvite
+        
+    
+    生成的gvite可执行文件位于：
+    
+        $GOPATH/src/github.com/vitelabs/go-vite/build/cmd/gvite/gvite
+        
 
 ### 配置文件配置
 
