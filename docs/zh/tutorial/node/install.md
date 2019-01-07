@@ -140,6 +140,15 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   $GOPATH/src/github.com/vitelabs/go-vite/
   ```
   GOPATH 默认位置是 ```~/go```
+  
+  进入代码所在目录并运行
+  ```
+  make gvite
+  ```
+  生成的gvite可执行文件位于： 
+  ```
+  $GOPATH/src/github.com/vitelabs/go-vite/build/cmd/gvite/gvite
+  ```
 
 ### 配置文件配置
   `node_config.json` 参见: [配置文件说明](./node_config.md)

@@ -175,6 +175,16 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
   $GOPATH/src/github.com/vitelabs/go-vite/
   ```
   The system default GOPATH is ```~/go```
+  
+  Go to the source code directory and run 
+  ```
+  make gvite
+  ```
+  Executable file is generated here: 
+  
+  ```
+  $GOPATH/src/github.com/vitelabs/go-vite/build/cmd/gvite/gvite
+  ```
 
 ### Configuration file
   Config file name: `node_config.json`. It should reside in the same directory with gvite executables. Details can be found at: [Config Description](./node_config.md)
