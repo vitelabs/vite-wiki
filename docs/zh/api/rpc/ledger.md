@@ -1,45 +1,9 @@
 # Ledger
-## 注意
-1. 如无特殊说明 时间戳是秒为单位 bigInt的字符串是10进制的；
-2. 注意区分空字符串和空指针的区别，比如PrevHash在发送交易的时候如果事实有就填正确的hash，如果没有就不要传这个字段，或者给它设置为json标准的null，千万别传空字符串
-## 说明
+:::tip 维护者
+[lyd00](https://github.com/lyd00)
+:::
 
-**支持调用方式：**
-
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  `false` |  &#x2713; |waiting|`false`|
-
-## 交易结构体字段说明
-该结构体是用户发送完整的交易，或者获取账户交易统一返回，下表对其中的字段和缺省情况进行说明
-### AccountBlock
-|  名称  | 类型 |说明 |
-|:------------:|:-----------:|:-----:|
-| blockType |  Byte | 块类型(1表示"创建合约send", 2表示"转账send", 3表示"奖励send", 4表示"交易receive", 5表示"交易receive失败", 1、2、3为send，4、5为receive, ps: 普通交易的send为2，receive为4)|
-| hash | hex format 256Hash | 该交易的Hash|
-| prevHash | hex format 256Hash | 该交易在其账户链上的上一个交易的hash, 如果该交易是该账户的第一笔交易，则为"0000000000000000000000000000000000000000000000000000000000000000"|
-| accountAddress | Address | 该交易所属账号地址|
-| publicKey | hex string | 交易签名的公钥|
-| fromAddress | Address | 交易的发送地址|
-| toAddress | Address | 交易的接受地址|
-| fromBlockHash |  hex format 256Hash | 表示这个receive交易所对应的send交易的hash，所有send交易的fromBlockHash为"0000000000000000000000000000000000000000000000000000000000000000"|
-| tokenId | TokenTypeId | 该交易的币种ID|
-| snapshotHash | hex string  | 交易引用的快照块hash |
-| data | string |  可用作交易备注|
-| timestamp |  string |  该交易发生的时间|
-| logHash | hex format 256Hash  | 智能合约执行产生的LogList的Hash |
-| nonce | hex  string |  该交易Pow的nonce|
-| signature | hex  string | 交易的签名|
-| height | string of uint64 | 该交易的高度 |
-| quota | string of uint64 | 该交易消耗的配额 |
-| amount | string of big.Int | 该交易发生的金额|
-| fee | string of big.Int | 发送该交易使用的手续费 |
-| confirmedTimes | string of uint64 | 该交易被确认次数 |
-| tokenInfo | Token | 该交易涉及的Token信息 |
-
-## API
-
-### ledger_getBlocksByAccAddr
+## ledger_getBlocksByAccAddr
 获得一个账户的交易列表
 
 - **Parameters**:
@@ -116,7 +80,7 @@
 :::
 
 
-### ledger_getAccountByAccAddr
+## ledger_getAccountByAccAddr
 获取一个账户的详情,包含账户链的高度，账户的各个token的余额等
 
 - **Parameters**: 
@@ -176,7 +140,7 @@
 ```
 :::
 
-### ledger_getLatestSnapshotChainHash
+## ledger_getLatestSnapshotChainHash
 获取最近的快照块的hash
 
 - **Parameters**: null 
@@ -200,7 +164,7 @@
 ```
 ::: 
 
-### ledger_getLatestBlock
+## ledger_getLatestBlock
 获取账户的最近一个交易
 
 - **Parameters**: `Address` 
@@ -266,7 +230,7 @@
 ```
 ::: 
 
-### ledger_getTokenMintage
+## ledger_getTokenMintage
 获取代币信息
 
 - **Parameters**: `string` : `TokenTypeId` 代币id
@@ -311,7 +275,7 @@
 }
 ```
 :::
-### ledger_getBlocksByHash
+## ledger_getBlocksByHash
 从某个账户链获取某个交易的hash开始向前得N个块
 
 - **Parameters**: 
@@ -389,7 +353,7 @@
 ```
 :::
 
-### ledger_getSnapshotChainHeight
+## ledger_getSnapshotChainHeight
 获取当前快照链高度
 
 - **Parameters**: `none`
@@ -426,5 +390,75 @@
 	"params": null
 }
 
+```
+:::
+
+## ledger_getVmLogList
+获取VM合约执行日志列表
+
+- **Parameters**:
+   * `string` : `hash`  交易Hash
+
+- **Returns**: `VmLogList<array<VmLog>>` 日志列表
+
+  `Object` : `VmLog`
+    * Topics : `[]types.Hash`
+	* Data : `[]byte`
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+	"jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getVmLogList",
+    "params": null
+}
+
+```
+```json tab:Response
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"result": null
+}
+```
+:::
+
+## ledger_getFittestSnapshotHash
+return the fittest snapshotHash when create tx
+
+- **Parameters**:
+   * `address` : `Address`  用户地址。`选填`，当填写时会选择账户链上最新一笔交易所依赖的快照块高度本身或之后的快照块Hash。
+   * `sendblockHash` : `Hash`  在创建接受交易时，建议填写对应的发送交易的Hash，而创建发送交易时，无需填写。`选填`，当填写时会选择对应发送交易所依赖的快照块高度本身或之后的快照块Hash。
+
+   如果以上两个参数均不填，会选择最新快照块之前10个块高度的快照块Hash。
+
+
+- **Returns**: `Hash` 适宜引用用来发起交易的快照快Hash
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"ledger_getFittestSnapshotHash",
+    "params": [
+        "vite_bece0bfc8893a6dde206dea9d4058af7dd718c165c3a17332e",
+        "e698b4b6cdf2fe40bc74f27097cd53eb07c85e2268e04062c193da8fc294f393",
+    ]
+}
+
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": "df6c3c2d874b790dd1f1cad0a4bbcd539bbfa99d9dc75b19056ebee310d2e47a"
+}
 ```
 :::

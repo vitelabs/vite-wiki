@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Navbar/>
     <div class="hero">
       <div class="left">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -26,23 +27,27 @@
     </div>
     </div>
     <div class="projects">
-      <div class="inner">
-        <div v-for="item in projects" class="item">
-          <h2>{{item.title}}</h2>
-          <p>
-            {{item.details}}
-          </p>
-          <a v-if="item.github && item.github.length" v-for="githubItem in item.github" class="github-button" :href="'https://github.com/vitelabs/' + githubItem" data-size="large" data-show-count="true" aria-label="Star vitelabs/go-vite on GitHub">
-            {{githubItem}}
-          </a>
-        </div>
+      <div v-for="target in projects" class="inner">
+        <h2 class="title">{{target.title}}</h2>
+        <a v-for="item in target.items" :href="item.link" class="item">
+            <div>
+              <h3>{{item.title}}</h3>
+              <p>
+                {{item.details}}
+              </p>
+            </div>
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Navbar from '@vuepress/theme-default/components/Navbar.vue'
 export default {
+  components: {
+    Navbar
+  },
   data() {
     return {
       githubScriptIsLoad: false
@@ -71,10 +76,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../override.styl'
+@import '../styles/palette.styl'
 
 .home
-  padding $navbarHeight 2rem 0
+  padding ($navbarHeight * 2)  2rem 0
   max-width 1260px
   margin 0px auto
   .hero
@@ -146,22 +151,46 @@ export default {
     text-align: center;
     padding: 70px 0px;
     .inner
+      .title
+        border-bottom none
+        color rgba(0,0,0,0.7)
       .item
         width: 33%;
         display: inline-block;
         vertical-align: top;
         box-sizing: border-box;
-        padding: 2em 2em;
-        h2
-          color: $accentColor;
-          font-size: 1.5em;
-          font-weight: 400;
-          margin: 0;
-          padding: 0.5em 0;
-          border-bottom none
-        p
-          min-height 60px
-          color #7f8c8d
+        padding: 1em 1em;
+        & > div
+          background rgba(0,0,0,0.04)
+          padding 1.5rem 1rem
+          border-radius 5px
+          min-height 150px
+          h3
+            color: $accentColor;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin: 0;
+            padding: 0.5em 0;
+            border-bottom none
+          p
+            min-height 60px
+            color #7f8c8d
+
+          &:hover
+            background $accentColor
+            flex-direction row
+            display flex
+            h3
+              display none
+              color $accentColor
+            p
+              color rgba(255,255,255,0.9)
+              justify-content center
+              align-items center
+              display flex
+              text-align center
+              width 100%
+
 @media (max-width: $MQNarrow)
   .home
     padding-left 1.5rem

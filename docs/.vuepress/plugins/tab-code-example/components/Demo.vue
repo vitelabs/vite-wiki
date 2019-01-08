@@ -56,9 +56,7 @@
   import Vue from 'vue'
   import merge from 'deepmerge'
   import {Tabs, Tab} from 'vue-tabs-component'
-
-  import 'codemirror/lib/codemirror.css'
-  import 'codemirror/theme/solarized.css'
+  import Loading from './Loading'
 
   const defaultDemoConfig = {
     errorMessage: 'Json parse failed. Please check it.'
@@ -85,10 +83,11 @@
     components: {
       Tab,
       Tabs,
+      Loading,
       Vnodes: {
         functional: true,
         render: (h, ctx) => ctx.props.vnodes
-      }
+      },
     },
     computed: {
       demoConfig() {
@@ -276,7 +275,16 @@
 </script>
 
 <style lang="stylus">
-  @import '../override.styl'
+  @import '~codemirror/lib/codemirror.css'
+  @import '~codemirror/theme/solarized.css'
+
+  // codemirror bugfix
+
+  .content pre.CodeMirror-line {
+    padding 0
+    margin auto
+  }
+
 
   .tabs-component {
     margin: 1.5rem 0;
@@ -378,6 +386,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      z-index: 3;
       & > div {
         display: flex;
         flex-direction: column;

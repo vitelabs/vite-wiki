@@ -1,23 +1,30 @@
 ---
 heroImage: /logo_black_transparent.svg
 actionText: Learn Vite →
-actionLink: /introduction/
+actionLink: /tutorial/start/
 website: Website
 highPerformance: High Performance
 dapp: Decentralized Application Platform
 layout: HomePage
 pageClass: home-page
 projects:
-- title: Vite Core In Golang
-  details: Official Go implementation of Vite
-  github: [go-vite]
-- title: Vite SDK
-  details: Official SDK of Vite. Now only support javascript.
-  github: [vite.js]
-- title: Vite Wallet
-  details: Official Desktop Wallet of Vite
-  github: [vite-wallet]
-- title: Block Explorer
-  details: Official Block Explorer of Vite
-  github: [vite.net, vite-explorer-server]  
+- title: For User
+  items:
+    - title: TestNet Introduction
+      details: Core functions, rules and incentive plans of TestNet.
+      link: /tutorial/start/
+    - title: SBP
+      details: How to run an SBP or a full node
+      link: /tutorial/node/install.html
+    - title: Wallet
+      details: Vite Wallet：iOS, Web, Windows and Mac OS
+      link: /tutorial/wallet/install.html
+- title: For Developers
+  items:
+    - title: API Document
+      details: go-vite RPC Document
+      link: /api/rpc/
+    - title: VEP
+      details: Vite Enhancement Proposals
+      link: /vep/ 
 ---

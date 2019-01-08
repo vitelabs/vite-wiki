@@ -1,15 +1,35 @@
+const fs = require('fs');
+const path = require('path');
 const container = require('markdown-it-container')
 
-module.exports = md => {
-  md
-    .use(...createContainer('demo', 'DEMO'))
-    // explicitly escape Vue syntax
-    .use(container, 'v-pre', {
-      render: (tokens, idx) => tokens[idx].nesting === 1
-        ? `<div v-pre>\n`
-        : `</div>\n`
-    })
+
+module.exports = (options, ctx) => {
+  return {
+    async ready() {
+      options = Object.assign(options, {
+        name: options.name || 'demo'
+      })
+    },
+    extendMarkdown: md => {
+      let name = options.name || 'demo'
+      md
+        .use(...createContainer(name, name.toUpperCase()))
+        // explicitly escape Vue syntax
+        .use(container, 'v-pre', {
+          render: (tokens, idx) => tokens[idx].nesting === 1
+            ? `<div v-pre>\n`
+            : `</div>\n`
+        })
+    },
+    enhanceAppFiles: [
+      path.resolve(__dirname, 'client.js')
+    ],
+    plugins: [
+      '@vuepress/plugin-notification'
+    ]
+  }
 }
+
 
 function findCode (index, tokens) {
   let result = [];
