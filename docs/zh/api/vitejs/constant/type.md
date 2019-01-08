@@ -20,6 +20,13 @@
     - code
     - message
 
+- AddrObj
+    - `addr : string` : 真实地址
+    - `pubKey : string`: 公钥
+    - `privKey : string`: 私钥
+    - `hexAddr : string`: hex编码地址
+
+
 - BlockType  交易类型
     - createContract 创建合约
     - sendTx 发送交易
@@ -43,12 +50,6 @@
     - RewardReq 奖励
     - TxRes 接收交易
     - TxResFail 接收交易失败
-
-- AddrObj
-    - `addr : string` : 真实地址
-    - `pubKey : string`: 公钥
-    - `privKey : string`: 私钥
-    - `hexAddr : string`: hex编码地址
 
 - LangList
     - `english` : english

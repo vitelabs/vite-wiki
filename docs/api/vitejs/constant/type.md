@@ -20,6 +20,13 @@
     - code
     - message
 
+- AddrObj
+    - `addr : string` : Actual Address
+    - `pubKey : string`: Public Key 
+    - `privKey : string`: Private Key 
+    - `hexAddr : string`: Hex Encode Address
+    
+
 - BlockType  Transaction Type
     - createContract Create Contract
     - sendTx Send Transaction
@@ -43,12 +50,6 @@
     - RewardReq Rewards
     - TxRes Receive Transaction
     - TxResFail Receive Transaction Failed
-
-- AddrObj
-    - `addr : string` : Actual Address
-    - `pubKey : string`: Public Key 
-    - `privKey : string`: Private Key 
-    - `hexAddr : string`: Hex Encode Address
 
 - LangList
     - `english` : english
