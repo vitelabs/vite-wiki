@@ -13,6 +13,10 @@ module.exports = [
       {
         text: 'RPC interface',
         link: '/api/rpc/'
+      },
+      {
+        text: 'Vite JS',
+        link: '/api/vitejs/'
       }
     ]
   },
