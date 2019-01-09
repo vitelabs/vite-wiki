@@ -10,7 +10,7 @@
 
 ### 安装
 
-下载开发环境调试文件 TODO 链接
+下载开发环境调试文件contractdev_yyyyMMdd.zip TODO 链接
 
 ```bash
 ## 解压
@@ -171,6 +171,7 @@ curl -X POST \
     }
 }
 ```
+调用合约的脚本示例在call.sh中。
 
 ### 观察执行结果
 
@@ -191,6 +192,8 @@ sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 测试环境调试合约步骤如下：
 
 ### 安装
+
+下载开发环境调试文件contracttest_yyyyMMdd.zip TODO 链接
 
 测试环境安装过程和开发环境相同。
 
