@@ -10,15 +10,18 @@
 
 ### 安装
 
-下载开发环境调试文件contractdev_yyyyMMdd.zip TODO 链接
+下载开发环境调试文件
+[Mac](https://github.com/vitelabs/gvite-contracts/releases/download/v1.2.0/contractdev-v1.2.0-darwin.tar.gz)
+[Linux](https://github.com/vitelabs/gvite-contracts/releases/download/v1.2.0/contractdev-v1.2.0-linux.tar.gz)
+[Windows](https://github.com/vitelabs/gvite-contracts/releases/download/v1.2.0/contractdev-v1.2.0-windows.tar.gz)
 
 ```bash
 ## 解压
-unzip -o -d ~/contractdev_20181221 contractdev_20181221.zip
+tar -xzvf contractdev-v1.2.0-darwin.tar.gz
 ```
 ```bash
 ## 进入解压目录
-cd ~/contractdev_20181221
+cd ~/contract_dev
 ```
 ```bash
 ## 启动
@@ -30,8 +33,8 @@ cat gvite.log
 ```
 观察到如下日志说明启动成功
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/contractdev_20181221/ledger/devdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/contractdev_20181221/ledger/devdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/contract_dev/ledger/devdata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/contract_dev/ledger/devdata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
@@ -162,7 +165,7 @@ curl -X POST \
     "result": {
         // 合约账户地址
         "contractAddr": "vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab", 
-        // 调用合约的测试账户地址
+        // 调用合约的测试账户地址，测试账户必须在节点启动后创建（创建合约时自动创建，也可以通过create_account.sh创建）
         "accountAddr": "vite_a4aa32b30a4564d3c5ffac1f7416d09cd4dd36bbf365df5be5", 
         // 调用合约的测试账户私钥
         "accountPrivateKey": "2bef2ba485ed3e4de8b93bd0fb8746db47a91f4bdde0c007127b5bc6548ff49642d4138c403cc26e20299a2f145687bf562f6ba1e7d0d45a75d7c7f58de42b25", 
@@ -193,7 +196,10 @@ sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 
 ### 安装
 
-下载开发环境调试文件contracttest_yyyyMMdd.zip TODO 链接
+下载开发环境调试文件
+[Mac](https://github.com/vitelabs/gvite-contracts/releases/download/v1.2.0/contracttest-v1.2.0-darwin.tar.gz)
+[Linux](https://github.com/vitelabs/gvite-contracts/releases/download/v1.2.0/contracttest-v1.2.0-linux.tar.gz)
+[Windows](https://github.com/vitelabs/gvite-contracts/releases/download/v1.2.0/contracttest-v1.2.0-windows.tar.gz)
 
 测试环境安装过程和开发环境相同。
 
@@ -202,9 +208,9 @@ sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 由于测试环境涉及到余额和配额问题，因此测试环境第一次启动时需要手动初始化。
 
 初始化时，完成下面的步骤：
- * 创世账户接收全量的Vite代币；
+ * 创世账户接收全量的Vite代币，此步骤需要计算PoW，花费时间较长；
  * 等一个新的快照块；
- * 创世账户给自己抵押以获取配额，方便后续创建测试账户时转账；
+ * 创世账户给自己抵押以获取配额，方便后续创建测试账户时转账，此步骤需要计算PoW，花费时间较长；
  * 等待创世账户抵押获得的配额生效。
 ```bash
 sh init.sh
@@ -231,7 +237,7 @@ sh create_account.sh
 ```bash
 sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
 ```
-合约创建成功后，分别给多个合约抵押以获取配额。
+合约创建成功后，分别给每个合约账户抵押以获取合约账户的配额。
 ```bash
 sh  pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
 ```
@@ -239,3 +245,4 @@ sh  pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05
 ### 调用合约
 
 和开发环境相同。
+
