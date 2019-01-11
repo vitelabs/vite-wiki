@@ -12,7 +12,7 @@ block.gaslimit
 gasleft()
 msg.gas
 selfdestruct(_owner)
-address(addr).send(_amount)
+address(_addr).send(_amount)
 ```
 
 以上示例的语法在Solidity++中全部失效
