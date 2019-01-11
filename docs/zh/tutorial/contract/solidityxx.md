@@ -11,8 +11,8 @@ block.difficulty
 block.gaslimit
 gasleft()
 msg.gas
-selfdestruct(owner)
-address(addr).send(amount)
+selfdestruct(_owner)
+address(addr).send(_amount)
 ```
 
 以上示例的语法在Solidity++中全部失效
@@ -33,7 +33,7 @@ address addr01 = address("vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13
 address addr02 = "vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13c";
 ```
 
-获取交易中的转账tokenId的语法如下
+Solidity++中获取交易中的转账tokenId的语法如下
 
 ```
 msg.tokenid
@@ -47,22 +47,22 @@ Solidity中的语法是如下
 address.balance
 ```
 
-直接获取某个账户的余额，因为现在一个账户可以拥有多种代币，因此在获取代币余额的时候需要指定tokenId
+直接获取某个账户的余额，因为现在一个账户可以拥有多种代币，因此在Solidity++中获取代币余额的时候需要指定tokenId
 
 ```
-address.balance(tokenId)
+address.balance(_tokenId)
 ```
 
 在Solidity中发送以太币到一个地址可以使用transfer方法
 
 ```
-address(addr).transfer(amount);
+address(_addr).transfer(_amount);
 ```
 
-因为在vite中新增了tokenId的概念,所以在进行交易的时候需要加上需要交易的tokenId
+因为在vite中新增了tokenId的概念,所以在Solidity++中进行交易的时候需要加上需要交易的tokenId
 
 ```
-address(addr).transfer(token, amount);
+address(_addr).transfer(_tokenId, _amount);
 ```
 
 Solidity中以太币的单位为:wei/szabo/finney/ether
@@ -115,9 +115,9 @@ contract B {
 
 message:关键字,定义一条消息,包括消息的名称,和传递的参数,"message sum(uint sum)"就定义了一条sum消息,其中需要传递一个uint类型的参数
 
-onMessage:关键字,定义一种消息的监听器,包括消息的名字,和传递的参数,"onMessage add(uint a, uint b)"就定义了一个消息的监听器,监听的是名字为add,传递的是两个uint类型的参数
+onMessage:关键字,定义一种消息的监听器,包括消息的名字,和接收的参数,以及对消息的处理逻辑,"onMessage add(uint a, uint b)"就定义了一个消息的监听器,监听的是名字为add,接收的是两个uint类型的参数
 
-send:关键字,是一条message的发送操作,需要有两个参数,一个是消息发送的地址address,另一个是发送的消息类型message
+send:关键字,是一条message的发送操作,需要有两个参数,一个是接收消息的地址(address),另一个是发送的消息(message)
 
 一个合约可以定义message,这个message的send操作只能在合约内执行,如果定义的消息希望被某一个合约处理,则对于message的名称和传递参数,需要根据该合约的消息监听器而定
 
