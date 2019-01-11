@@ -165,7 +165,7 @@ curl -X POST \
     "result": {
         // 合约账户地址
         "contractAddr": "vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab", 
-        // 调用合约的测试账户地址
+        // 调用合约的测试账户地址，测试账户必须在节点启动后创建（创建合约时自动创建，也可以通过create_account.sh创建）
         "accountAddr": "vite_a4aa32b30a4564d3c5ffac1f7416d09cd4dd36bbf365df5be5", 
         // 调用合约的测试账户私钥
         "accountPrivateKey": "2bef2ba485ed3e4de8b93bd0fb8746db47a91f4bdde0c007127b5bc6548ff49642d4138c403cc26e20299a2f145687bf562f6ba1e7d0d45a75d7c7f58de42b25", 
