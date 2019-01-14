@@ -9,179 +9,56 @@ sidebarDepth: 1
 :::
 
 :::tip abstract
-包括一些内置的快捷聚合
+包括一些内置的快捷调用方式
 :::
 
-## contructor
-- **constructor params**: 
-`provider`:provider 实例。
+## 注意 
+1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
+2. methods中的方法都可以直接使用client.namespace.funcName的方式调用，见constructor/example
+
+## Constructor
+
+- **constructor params**
+    - `provider : Provider 实例`
+    - `firstConnectCb : function` : 首次连接后的回调函数
 
 - **example**
+
 ```javascript
 
 import provider from '@vite/vitejs/dist/es5/provider/WS';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
-const myClient = new Client(WS_RPC);
-
-const block = myClient.buildinTxBlock.getAccountBlock.sync(...);
+const myClient = new Client(WS_RPC, function(_myclient) {
+    const block = _myclient.buildinTxBlock.getAccountBlock.sync(
+        //...
+    );
+    _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
+        console.log(data);
+    });
+});
 
 ```
+
+## setProvider provider, abort)
+设置provider
+
+- **Parameters**
+    * `provider : Provider实例`
+    * `abort : boolean` 是否打断原有provider的残余请求
+
+## request (Methods, ...args)
+为this.provider.request的快捷引用
+
+## notification (Methods, ...args)
+为this.provider.notification的快捷引用
+
+## batch (RPCrequest[])
+为this.provider.batch的快捷引用
+
 ## buildinTxBlock
-### cancelPledgeBlock(__namedParameters: object): 获取取消抵押交易block
-- **Parameters**:
- __namedParameters：
-* `accountAddress`: `string`  抵押账户
-* `amount`: `string` 抵押金额
-* `toAddress`: `string` 抵押合约地址
-* `tokenId`: `string` 代币id
+见 buildinTxBlock
 
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### cancelRegisterBlock(__namedParameters: object) 构造取消注册超级节点交易块
-- **Parameters**:
-__namedParameters: object
-* `Gid`: `string`
-* `accountAddress`: `string`
-* `nodeName`: `string`
-* `tokenId`: `string`
-* `Returns` `any`
-
-- **Return**:
-* Promise<`accountBlock`>
-
-### cancelVoteBlock(__namedParameters: object): 构造取消投票交易块
-- **Parameters**:
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-### getAccountBlock(__namedParameters: object): 通用构造块
-
-- **Parameters**:
-__namedParameters: object
-
-`accountAddress`: any
-`amount`: any
-`blockType`: any
-`data`: any
-`fromBlockHash`: any
-`message`: any
-`toAddress`: any
-`tokenId`: any
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### getBalance(addr: `string`): 获取余额块
-Parameters
-`addr`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### getBlocks(__namedParameters: object): any
-Parameters
-__namedParameters: object
-`addr`: `string`
-`index`: number
-`pageCount`: number
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### pledgeBlock(__namedParameters: object) 构造抵押配额交易块
-Parameters
-__namedParameters: object
-`accountAddress`: `string`
-`amount`: `string`
-`toAddress`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### receiveBlock(__namedParameters: object): 构造普通接收交易块
-Parameters
-__namedParameters: object
-`accountAddress`: `string`
-`blockHash`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### registerBlock(__namedParameters: object) 构造注册超级节点交易块
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`amount`: `string`
-`nodeName`: `string`
-`producerAddr`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### rewardBlock(__namedParameters: object)  ？？
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`nodeName`: `string`
-`rewardAddress`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### sendBlock(__namedParameters: object): 构造普通发送交易块
-Parameters
-__namedParameters: object
-`accountAddress`: `string`
-`amount`: `string`
-`message`: `string`
-`toAddress`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### updateRegisterBlock(__namedParameters: object) 构造取消超级节点交易块
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`nodeName`: `string`
-`producerAddr`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
-
-
-
-### voteBlock(__namedParameters: object) 构造投票交易块
-Parameters
-__namedParameters: object
-`Gid`: `string`
-`accountAddress`: `string`
-`nodeName`: `string`
-`tokenId`: `string`
-- **Return**:
-* Promise<`accountBlock`>
+## buildinLedger
+见 buildinLedger
