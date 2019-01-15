@@ -13,11 +13,16 @@ title: 开始
 :::
 
 ## 安装
-- npm  
-npm install @vitelabs/vitejs
 
-- yarn   
+:::demo
+```bash tab:npm
+npm install @vitelabs/vitejs
+```
+
+```bash tab:yarn
 yarn add @vitelabs/vitejs
+```
+:::
 
 ## 快速开始  
 
