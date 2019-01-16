@@ -113,14 +113,14 @@ contract B {
 }
 ```
 
-`message`: keyword, declaring a message, including message name and pass-in parameter. `message sum(uint sum)` declares message "sum", accepting a `uint` parameter.
+`message`: keyword, declaring a message, including message name and passed-in parameter. `message sum(uint sum)` declares message "sum", accepting a `uint` parameter.
 
-`onMessage`: keyword, declaring a message listener, including message name, pass-in parameter and logic that handles the message. `onMessage add(uint a, uint b)` declares message listener "add", accepting two `uint` parameters.
+`onMessage`: keyword, declaring a message listener, including message name, passed-in parameter and logic that handles the message. `onMessage add(uint a, uint b)` declares message listener "add", accepting two `uint` parameters.
 
 `send`: keyword, sending a message, accepting two parameters, the message receiving address and the actual message
 
 
-Messages can be declared in contract. The send operation of the message can only be called in the contract that declares it. If a message is to be processed by another contract, the name and pass-in parameters of the message rely on how message listener defines in the other contract.
+Messages can be declared in contract. The send operation of the message can only be called in the contract that declares it. If a message is to be processed by another contract, the name and passed-in parameters of the message rely on how message listener defines in the other contract.
 
 In other words, if contract A is going to send a message to contract B for processing, contract B must define a listener of a certain type of message for A to follow when declaring the message.
 
@@ -147,7 +147,7 @@ pragma solidityxx ^0.4.0;
 contract A {
      // Defines a message listener. Since cross-contract communication has to be completed via message sending, all external methods must be defined as message listeners
      // The listener needs to define message name and parameters. Visibility is not necessary. Message listener has no return value
-     // In this example, a "transfer" listener is defined with a pass-in parameter of uint array, representing address in odd element and amount in even
+     // In this example, a "transfer" listener is defined with a passed-in parameter of uint array, representing address in odd element and amount in even
      onMessage transfer(uint[] calldata body) payable {
          // Checks if the parameter length is even because each address has to match an amount
          require(body.length%2==0);
