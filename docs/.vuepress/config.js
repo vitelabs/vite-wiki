@@ -206,7 +206,7 @@ const sidebarConfigs = {
 
 module.exports = {
     dest: 'dist',
-    ga: 'UA-116567941-1',
+    ga: 'UA-116567941-2',
     locales: {
         '/': {
             lang: 'en-US',
