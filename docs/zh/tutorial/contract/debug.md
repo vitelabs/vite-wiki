@@ -257,7 +257,7 @@ sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d456
 ```
 合约创建成功后，分别给每个合约账户抵押以获取合约账户的配额。
 ```bash
-sh  pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
+sh pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
 ```
 
 ### 调用合约
