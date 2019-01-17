@@ -8,9 +8,9 @@ For the time being, we provide development environment and test environment for 
 Any transaction will receive a quota of 1,000,000 that never consumes up. In test environment, all checks keep the same as Vite TestNet. It's necessary to maintain sufficient balance or quota when debugging.
 ## Development Environment
 
-### Install
-
 Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/releases) in development environment and install
+
+### Install
 
 ```bash
 ## Unzip
@@ -212,11 +212,11 @@ sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 
 ## Test Environment
 
-### Install
-
 Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/releases) in test environment and install
 
-Installation steps in test environment are the same as in development environment
+### Install
+
+Installation steps in test environment are similar as in development environment. See [Install](#install).
 
 ### Initialize
 
