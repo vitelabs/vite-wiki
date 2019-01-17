@@ -90,7 +90,7 @@ const sidebarConfigs = {
                 '',
             ]
         },
-        
+
         // wallet
         {
             collapsable: false,
@@ -206,7 +206,6 @@ const sidebarConfigs = {
 
 module.exports = {
     dest: 'dist',
-    ga: 'UA-116567941-1',
     locales: {
         '/': {
             lang: 'en-US',
@@ -238,6 +237,9 @@ module.exports = {
         }
     },
     plugins: [
+        ['@vuepress/google-analytics', {
+          ga: 'UA-116567941-2'
+        }],
         ['@vuepress/pwa', {
             serviceWorker: true,
             updatePopup: true
