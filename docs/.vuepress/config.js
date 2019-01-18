@@ -77,7 +77,7 @@ const sidebarConfigs = {
           collapsable: false,
           children: [
               'contract/contract',
-              'contract/solidityxx',
+              'contract/soliditypp',
               'contract/debug',
               'contract/instructions'
           ]

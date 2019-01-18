@@ -42,6 +42,11 @@ Start the Node success!!!
 编辑Solidity++合约代码，保存到启动脚本所在目录下。
 
 ```bash
+## 使用solc编译合约代码，生成二进制码和abi。
+./solc --bin --abi c1.sol
+```
+
+```bash
 ## 使用c1.sol文件创建合约（包含创建测试账户、使用测试账户创建合约）
 sh create_contract.sh c1.sol
 ```
