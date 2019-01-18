@@ -87,7 +87,7 @@ In the meantime, `public` static variable can not be visited from outside
 An example
 
 ```
-pragma solidityxx ^0.4.0;
+pragma soliditypp ^0.4.0;
 contract A {
    message sum(uint sum);
  
@@ -139,8 +139,8 @@ Since contract B sends message to contract A, contract B must declare an "add" m
 A batch transfer contract which accepts a list of addresses and amounts and transfers the specified amount to the specified address
 
 ```
-// Declares the contract is written in solidityxx 0.4.0. Backwards compatibility is guaranteed to ensure different version of compilers will yield the same output.
-pragma solidityxx ^0.4.0;
+// Declares the contract is written in soliditypp 0.4.0. Backwards compatibility is guaranteed to ensure different version of compilers will yield the same output.
+pragma soliditypp ^0.4.0;
  
  
 // Defines contract A
