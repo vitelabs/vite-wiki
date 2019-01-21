@@ -2,7 +2,7 @@
 
 ## Constructor
 
-- **constructor params**: 
+- **Constructor params**: 
 
   * `path : string` 连接path  default: ''
   * `timeout : number` 超时时间（ms） default: 60000
@@ -32,8 +32,5 @@ const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 ### 实例方法
 除provider实例的共有方法外
 
-#### reconnect
-重连
-
-#### disconnect
-取消连接
+* `reconnect()`: 重连
+* `disconnect()`: 取消连接
