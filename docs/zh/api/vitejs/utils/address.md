@@ -1,12 +1,12 @@
+---
+sidebarDepth: 1
+---
 
 # address
 
-## AddrObj
-
-- `addr : string` : 真实地址
-- `pubKey : string`: 公钥
-- `privKey : string`: 私钥
-- `hexAddr : string`: hex编码地址
+:::tip 作者
+[cs](https://github.com/lovelycs)
+:::
 
 ## privToAddr
 
@@ -49,6 +49,8 @@
 
 - **params**
   - `bits: number` 获取多少位的助记词 default: 256
+  - `lang: LangList` 语言 default: english
+  - `pwd: string` 密码 default: ''
 - **return**
     - `mnemonicAddrObj: object`
         - `addrObj : AddrObj`
@@ -61,6 +63,8 @@
 - **params**
   - `mnemonic : string` 助记词
   - `index : number` 地址序号 default: 0
+  - `lang: LangList` 语言 default: english
+  - `pwd: string` 密码 default: ''
 - **return**
   - `addrObj: AddrObj`
 
@@ -71,6 +75,8 @@
   - `mnemonic: string` 助记词
   - `start : number` 地址序号，从第几个地址开始
   - `num : number` 个数，获取多少个地址
+  - `lang: LangList` 语言 default: english
+  - `pwd: string` 密码 default: ''
 - **return**
   - `addrObj: AddrObj`
 
@@ -79,6 +85,7 @@
 
 - **params**
   - `mnemonic: string` 助记词
+  - `lang: LangList` 语言 default: english
 - **return**
   - `id: string` ID
 
@@ -87,6 +94,7 @@
 
 - **params**
   - `entropy: string` 熵
+  - `lang: LangList` 语言 default: english
 - **return**
  - `mnemonic: string` 助记词
 
@@ -95,6 +103,7 @@
 
 - **params**
   - `mnemonic: string` 助记词
+  - `lang: LangList` 语言 default: english
 - **return**
   - `entropy: string` 熵
 
@@ -103,11 +112,12 @@
 
 - **params**
   - `mnemonic: string` 助记词
+  - `lang: LangList` 语言 default: english
 - **return**
   - `validate: boolean` 是否合法
 
 ### getAddrFromHexAddr
-获取真实地址 [同 privToAddr]
+获取真实地址 [同privToAddr](/api/vitejs/utils/address.html#privtoaddr)
 
 ### isValidHexAddr
-校验是否为合法的hex地址 [同 privToAddr]
+校验是否为合法的hex地址 [同privToAddr](/api/vitejs/utils/address.html#privtoaddr)

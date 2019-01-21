@@ -14,7 +14,6 @@ const: method，type，contract, error.
 Constants of RPC methods 
 
 How to invoke
-
 ```javascript
 
 import { client, constant } from '@vite/vitejs';

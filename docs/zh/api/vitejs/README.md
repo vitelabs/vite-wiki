@@ -3,13 +3,26 @@ sidebarDepth: 4
 title: 开始
 ---
 
+:::tip 作者
+[cs](https://github.com/lovelycs)
+[hurrytospring](https://github.com/hurrytospring)
+:::
+
+:::tip abstract
+阅读文档前, 可先行了解rpc接口, 这里大部分调用rpc接口的数据为直接暴露
+:::
 
 ## 安装
-- npm  
-npm install @vitelabs/vitejs
 
-- yarn   
+:::demo
+```bash tab:npm
+npm install @vitelabs/vitejs
+```
+
+```bash tab:yarn
 yarn add @vitelabs/vitejs
+```
+:::
 
 ## 快速开始  
 

@@ -15,7 +15,7 @@ module.exports = [
         link: '/zh/api/rpc/'
       },
     {
-        text: 'vitejs',
+        text: 'Vite JS',
         link: '/zh/api/vitejs/'
       }
     ]

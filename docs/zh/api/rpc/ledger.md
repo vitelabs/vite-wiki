@@ -276,7 +276,7 @@
 ```
 :::
 ## ledger_getBlocksByHash
-从某个账户链获取某个交易的hash开始向前得N个块
+从某个账户链获取某个交易的hash开始向前的N个块
 
 - **Parameters**: 
     - `string` : `address` 要获取的账户
@@ -352,7 +352,120 @@
 }
 ```
 :::
+## ledger_getBlocksByHashInToken
+从某个账户链获取某个交易的hash开始向前的N个相同token的块
 
+- **Parameters**: 
+    - `string` : `address` 要获取的账户
+    - `string` : `hash`  起始的交易Hash
+    - `string` : `tokenId` token的ID
+    - `int` :   需要获取的长度
+
+- **Returns**: `AccountBlock` 相同token的交易列表
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlocksByHashInToken",
+    "params": [
+        "vite_00000000000000000000000000000000000000056ad6d26692",
+        null,
+        "tti_5649544520544f4b454e6e40",
+        10
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "blockType": 4,
+            "hash": "5a03aff84943cf1f5e3d981ae748816049e290e5d2137acdbfeb6bb63aca11bc",
+            "prevHash": "5f1bfd19d52154a266f7046216499dafbd472831b5d1150e5674dd449d9087fe",
+            "accountAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+            "publicKey": "ZlFXeR1h9Y2eHlFrk0BzTVv5cIJvDTMASVWUpoKFqYg=",
+            "toAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+            "fromBlockHash": "ac15375d01664ee9194d582c1772c57889fb4475f2790de966c605bfbb9a4156",
+            "tokenId": "tti_5649544520544f4b454e6e40",
+            "snapshotHash": "5e93be7f632617fa5385816ceb23fc0cfe5a33665ced6c372d6c2f92fe2e7e85",
+            "data": "S+pUvi6hVg9eNNrGmbewiSMLAUXd9dtJTwxS32hO4csA",
+            "logHash": null,
+            "nonce": null,
+            "signature": "nfrz9nF6a5KhOFWdwnfcy1hqvoAeFkokHyk0XkiLEXiY+t11XnzlFsR04Y1t8ZzVCC1x17JezKU6W+BZ1JGKBA==",
+            "fromAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+            "height": "5",
+            "quota": "0",
+            "amount": "0",
+            "fee": "1000000000000000000000",
+            "difficulty": null,
+            "timestamp": 1546935398,
+            "confirmedTimes": "4322",
+            "tokenInfo": {
+                "tokenName": "Vite Token",
+                "tokenSymbol": "VITE",
+                "totalSupply": "1000000000000000000000000000",
+                "decimals": 18,
+                "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                "pledgeAmount": "0",
+                "withdrawHeight": "0",
+                "tokenId": "tti_5649544520544f4b454e6e40"
+            }
+        },
+        {
+            "blockType": 4,
+            "hash": "d9b053f24ae0844d2105ad01d62da90723f8537c62f1953ada10cae6d58d9ac0",
+            "prevHash": "f17aae62fb6c15c752f43f7f4e49ebc83a206aa39874b6805bb012e31b3a5de9",
+            "accountAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+            "publicKey": "xP0t/cCgrTNjOrkS8HYoFD7RDKPtCPzkdrk12MIjMgM=",
+            "toAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+            "fromBlockHash": "2c757064c78cf25bdbd80dfc4af0377c00d155b1d0f71f209bf7a0589670354f",
+            "tokenId": "tti_5649544520544f4b454e6e40",
+            "snapshotHash": "4f9e834598ebad22047308a5b7489ef27de1120ea80d33f5310801cd1eaa5e4f",
+            "data": "0e0HOSvpbeG+SKedm33fgHuNqHlmEFCIQhf2z3O3iQ8A",
+            "logHash": null,
+            "nonce": null,
+            "signature": "n4PqczrUj4YWRB1xExYehKrusbSlKS2kIwTXQuodjuAOK4vEXGx+IklZY71yY2TPKE2tbGk3PW1XmTfKUHz8AA==",
+            "fromAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+            "height": "3",
+            "quota": "0",
+            "amount": "0",
+            "fee": "1000000000000000000000",
+            "difficulty": null,
+            "timestamp": 1546935356,
+            "confirmedTimes": "4342",
+            "tokenInfo": {
+                "tokenName": "Vite Token",
+                "tokenSymbol": "VITE",
+                "totalSupply": "1000000000000000000000000000",
+                "decimals": 18,
+                "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                "pledgeAmount": "0",
+                "withdrawHeight": "0",
+                "tokenId": "tti_5649544520544f4b454e6e40"
+            }
+        }
+    ]
+}
+```
+```json test
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlocksByHash",
+    "params": [
+        "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a",
+        2
+    ]
+}
+```
+:::
 ## ledger_getSnapshotChainHeight
 获取当前快照链高度
 

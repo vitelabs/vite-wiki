@@ -3,15 +3,24 @@ sidebarDepth: 4
 title: Start
 ---
 
+:::tip Created by
+[cs](https://github.com/lovelycs)
+[hurrytospring](https://github.com/hurrytospring)
+:::
+
+:::tip Abstract
+You can get to know about RPC API first before reading this documentation as most of the RPC API data in this project is directly exposed
+:::
 
 ## Installation
+
 - npm  
 npm install @vitelabs/vitejs
 
 - yarn   
 yarn add @vitelabs/vitejs
 
-## Quickly Start  
+## Quick Start  
 
 ### node/without webpack
 ```javascript
@@ -32,7 +41,7 @@ let myClient = new client(WS_RPC, (_myClient) => {
 
 ```
 
-### webpack  
+### Webpack  
 
 #### webpack.config  
 
@@ -45,7 +54,8 @@ let myClient = new client(WS_RPC, (_myClient) => {
     }
 // ...
 ```
-#### How to Use
+
+#### Usage
 ```javascript
 
 import provider from "WSprovider";

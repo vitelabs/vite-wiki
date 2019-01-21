@@ -39,13 +39,13 @@ utils contains general functions and tools such as generating address and encryp
 - **return**
   - `target`:`Uint8Array` 
   
-- blake2b Quick reference of blake2b Reference [...]
+- blake2b Concise reference of blake2b Reference [...]
 
 ## Tools
 ### signTX
 -  **params**
   - `block`:`accountBlock` hex encoded address
-  - `privateKey`:`string` private key
+  - `privateKey`:`string` docs/api/vitejs/utils/keystore.mdprivate key
   - `type`:`byte|hex` Encoded style of return values: hex/byte
 - **return**
  `object`

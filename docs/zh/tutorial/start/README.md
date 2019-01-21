@@ -26,9 +26,12 @@ Vite 测试网络于2018年11月8号正式上线，测试网络上线之后，�
 
 ### 全节点奖励
 
-为了鼓励大家参与测试，并增加测试网络的全节点数目，我们计划开启 `全节点奖励计划`。
+为了鼓励大家参与测试，并增加测试网络的全节点数目，我们计划开启 `全节点奖励计划`。全节点奖励活动已于2018年12月13日正式上线。
 
-该计划规则将在之后公布出来。
+相关文档：
+
+* [全节点奖励规则][fullnode-reward]
+* [如何配置](../node/install.md#全节点奖励配置)
 
 ## 功能
 
@@ -101,6 +104,7 @@ VCP定位为 Vite 社区积分代币，和大家使用其他APP或者信用卡�
 VTT，有官方发行的测试代币，可以在[钱包][web-wallet]上获取的测试代币就是VTT，主要是用于测试。
 
 [sbp-reward]: <../rule/sbp.html#出块奖励>
+[fullnode-reward]: <../rule/fullnode.html>
 [sbp-manage]: <../node/sbp.html>
 [web-wallet]: <https://wallet.vite.net>
 
