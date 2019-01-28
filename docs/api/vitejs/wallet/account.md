@@ -173,3 +173,31 @@ Withdrawal of Quota
 - **Return**:
     * Promise 
     
+#### createContract
+Create contract
+
+- **Parameters** 
+    __namedParameters: object
+    * `toAddress : Address`
+    * `hexCode: Hex` Hex code of smart contract
+    * `abi: string` ABI data of smart contract
+    * `params: stirng` Passed-in parameters, in string for simple or JSON string for complex type
+    * `tokenId : tokenId` tokenId
+    * `amount` Amount
+    * `fee` default '10000000000000000000'
+- **Return**:
+    * Promise 
+
+#### callContract
+Call contract
+
+- **Parameters** 
+    __namedParameters: object
+    * `toAddress : Address`
+    * `tokenId : tokenId` tokenId
+    * `methodName: string` Method name
+    * `params: string` Passed-in parameters, in string for simple or JSON string for complex type
+    * `abi: string` ABI data of smart contract
+    * `amount` Amount
+- **Return**:
+    * Promise 
