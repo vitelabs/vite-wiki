@@ -16,11 +16,11 @@ title: 开始
 
 :::demo
 ```bash tab:npm
-npm install @vitelabs/vitejs
+npm install @vite/vitejs
 ```
 
 ```bash tab:yarn
-yarn add @vitelabs/vitejs
+yarn add @vite/vitejs
 ```
 :::
 
