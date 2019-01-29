@@ -22,7 +22,7 @@ sidebarDepth: 1
     - `provider : Provider 实例`
     - `firstConnectCb : function` : 首次连接后的回调函数
 
-- **example**
+- **Example**
 
 ```javascript
 
@@ -30,13 +30,17 @@ import provider from '@vite/vitejs/dist/es5/provider/WS';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
+
 const myClient = new Client(WS_RPC, function(_myclient) {
-    const block = _myclient.buildinTxBlock.getAccountBlock.sync(
-        //...
-    );
-    _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
-        console.log(data);
-    });
+    console.log("Connected.");
+});
+
+const block = _myclient.buildinTxBlock.getAccountBlock.sync(
+    //...
+);
+
+_myclient.onroad.getOnroadBlocksByAddress.then((data) => {
+    console.log(data);
 });
 
 ```

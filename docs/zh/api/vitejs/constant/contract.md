@@ -8,7 +8,9 @@
 内置合约相关常量
 :::
 
-- Default_Gid 默认Gid
+
+- Snapshot_Gid
+- Delegate_Gid
 - Default_Hash 默认Hash
 - Quota_Addr 抵押地址
 - Vote_Addr 投票地址

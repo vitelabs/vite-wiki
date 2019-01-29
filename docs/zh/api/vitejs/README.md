@@ -36,11 +36,12 @@ const { method } = constant;
 let WS_RPC = new provider("https://example.com");
 
 let myClient = new client(WS_RPC, (_myClient) => {
-    _myClient.ledger.getSnapshotChainHeight().then((result) => {
-        console.log(result);
-    }).catch((err) => {
-        console.warn(err);
-    });
+    console.log("Connected");
+});
+myClient.ledger.getSnapshotChainHeight().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
 });
 
 ```

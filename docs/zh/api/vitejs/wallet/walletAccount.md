@@ -1,5 +1,24 @@
 # walletAccount
 
+```javascript
+
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client, wallet, utils } from '@vite/vitejs';
+
+const { walletAccount } = wallet;
+
+let WS_RPC = new provider("https://example.com");
+let myClient = new client(WS_RPC);
+
+let _WalletAccount = new walletAccount({
+    client: myClient
+}, {
+    addrTotalNum: 10
+});
+_WalletAccount.addAddr();
+
+```
+
 ## Constructor
 
 - **constructor params**: 

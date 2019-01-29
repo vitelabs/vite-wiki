@@ -1,5 +1,27 @@
 # Account
 
+```javascript
+
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client, wallet, utils } from '@vite/vitejs';
+
+const { account } = wallet;
+
+let WS_RPC = new provider("https://example.com");
+let myClient = new client(WS_RPC);
+
+let Account = new account({
+    privateKey: utils.ed25519.keyPair().secretKey,
+    client: myClient
+});
+Account.getBlance().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
+
+```
+
 ## Constructor
 
 - **constructor params**: 
