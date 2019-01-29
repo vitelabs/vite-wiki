@@ -15,10 +15,10 @@ You can get to know about RPC API first before reading this documentation as mos
 ## Installation
 
 - npm  
-npm install @vitelabs/vitejs
+npm install @vite/vitejs
 
 - yarn   
-yarn add @vitelabs/vitejs
+yarn add @vite/vitejs
 
 ## Quick Start  
 
