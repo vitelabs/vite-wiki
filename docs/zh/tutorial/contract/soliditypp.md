@@ -92,25 +92,25 @@ Solidity中以太币的单位为:wei/szabo/finney/ether
 ```
 pragma soliditypp ^0.4.0;
 contract A {
-   message sum(uint sum);
- 
+   message sum(uint result);
+
    onMessage add(uint a, uint b) {
-        uint sum = a + b;
+        uint result = a + b;
         address sender = msg.sender;
-        send(sender, sum(sum));       
+        send(sender, sum(result));
    }
 }
 contract B {
     uint total;
-    message add(address addr, uint a, uint b);
- 
+    message add(uint a, uint b);
+
     function invoker(address addr, uint a, uint b) public {
        send(addr, add(a, b));
     }
- 
-    onMessage sum(uint sum) {
-        if (sum > 10) {
-           total += sum;
+
+    onMessage sum(uint result) {
+        if (result > 10) {
+           total += result;
        }
     }
 }
