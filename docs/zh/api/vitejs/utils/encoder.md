@@ -41,5 +41,22 @@ utf8字符串转换为字节
 ## blake2b 
 对blake2b的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
+## blake2bHex
+对blake2bHex的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+
 ## _Buffer 
 对buffer的快捷引用
+
+## isArray
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`
+
+## isObject
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`

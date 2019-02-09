@@ -41,5 +41,22 @@ Convert utf8 string to bytes
 ## blake2b 
 Quick reference to blake2b. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
+## blake2bHex
+Quick reference to blake2bHex. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+
 ## _Buffer 
 Quick reference to buffer.
+
+## isArray
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`
+
+## isObject
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`
