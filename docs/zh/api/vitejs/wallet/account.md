@@ -1,5 +1,27 @@
 # account
 
+```javascript
+
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client, wallet, utils } from '@vite/vitejs';
+
+const { account } = wallet;
+
+let WS_RPC = new provider("https://example.com");
+let myClient = new client(WS_RPC);
+
+let Account = new account({
+    privateKey: utils.ed25519.keyPair().secretKey,
+    client: myClient
+});
+Account.getBlance().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
+
+```
+
 ## Constructor
 
 - **constructor params**: 
@@ -176,4 +198,32 @@ Account 实例方法
     * `amount` 金额
 - **Return**:
     * Promise 
-    
+
+#### createContract
+创建合约
+
+- **Parameters** 
+    __namedParameters: object
+    * `toAddress : Address` 账户地址
+    * `hexCode: Hex` 十六进制合约代码
+    * `abi: string` abi
+    * `params: stirng` 创建合约参数。简单类型直接转换为string，复合类型为json格式的string
+    * `tokenId : tokenId` tokenId
+    * `amount` 金额
+    * `fee` default '10000000000000000000'
+- **Return**:
+    * Promise 
+
+#### callContract
+调用合约
+
+- **Parameters** 
+    __namedParameters: object
+    * `toAddress : Address` 账户地址
+    * `tokenId : tokenId` tokenId
+    * `methodName: string` 方法名称
+    * `params: string` 方法参数。简单类型直接转换为string，复合类型为json格式的string
+    * `abi: string` abi
+    * `amount` 金额
+- **Return**:
+    * Promise 

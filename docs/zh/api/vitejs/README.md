@@ -16,11 +16,11 @@ title: 开始
 
 :::demo
 ```bash tab:npm
-npm install @vitelabs/vitejs
+npm install @vite/vitejs
 ```
 
 ```bash tab:yarn
-yarn add @vitelabs/vitejs
+yarn add @vite/vitejs
 ```
 :::
 
@@ -36,11 +36,12 @@ const { method } = constant;
 let WS_RPC = new provider("https://example.com");
 
 let myClient = new client(WS_RPC, (_myClient) => {
-    _myClient.ledger.getSnapshotChainHeight().then((result) => {
-        console.log(result);
-    }).catch((err) => {
-        console.warn(err);
-    });
+    console.log("Connected");
+});
+myClient.ledger.getSnapshotChainHeight().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
 });
 
 ```

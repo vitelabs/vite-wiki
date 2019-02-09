@@ -1,5 +1,27 @@
 # Account
 
+```javascript
+
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client, wallet, utils } from '@vite/vitejs';
+
+const { account } = wallet;
+
+let WS_RPC = new provider("https://example.com");
+let myClient = new client(WS_RPC);
+
+let Account = new account({
+    privateKey: utils.ed25519.keyPair().secretKey,
+    client: myClient
+});
+Account.getBlance().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
+
+```
+
 ## Constructor
 
 - **constructor params**: 
@@ -173,3 +195,31 @@ Withdrawal of Quota
 - **Return**:
     * Promise 
     
+#### createContract
+Create contract
+
+- **Parameters** 
+    __namedParameters: object
+    * `toAddress : Address`
+    * `hexCode: Hex` Hex code of smart contract
+    * `abi: string` ABI data of smart contract
+    * `params: stirng` Passed-in parameters, in string for simple or JSON string for complex type
+    * `tokenId : tokenId` tokenId
+    * `amount` Amount
+    * `fee` default '10000000000000000000'
+- **Return**:
+    * Promise 
+
+#### callContract
+Call contract
+
+- **Parameters** 
+    __namedParameters: object
+    * `toAddress : Address`
+    * `tokenId : tokenId` tokenId
+    * `methodName: string` Method name
+    * `params: string` Passed-in parameters, in string for simple or JSON string for complex type
+    * `abi: string` ABI data of smart contract
+    * `amount` Amount
+- **Return**:
+    * Promise 

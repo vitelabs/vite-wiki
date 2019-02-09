@@ -35,6 +35,14 @@ Get real address
 - **return**
   - `addr: string` Real address
 
+### getHexAddrFromAddr
+Generating hex address according to real address
+
+- **params**
+  - `addr: string` Real address
+- **return**
+  - `hexaddr: string` Hex encoded address
+
 ### isValidHexAddr
 Verify if it is a legal hex address
 

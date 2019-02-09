@@ -1,15 +1,14 @@
-# Keystore
-
-## Keystore Structure
 ---
 sidebarDepth: 1
 ---
 
+# Keystore
+
+## Keystore Structure
+
 :::tip Created by
 [cs](https://github.com/lovelycs)
 :::
-
-## Keystore Structure
 
 ```javascript
 // example

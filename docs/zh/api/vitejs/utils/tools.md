@@ -52,6 +52,14 @@ sidebarDepth: 1
 - **return**
   - `rawTokenId : string` 原始 token ID
 
+## getTokenIdFromRaw
+根据原始 token ID，获取展示 token ID
+
+- **params**
+  - `rawTokenId : string` 原始 token ID
+- **return**
+  - `tokenId : string` Token ID
+
 ## validNodeName 
 验证是否为合法的节点名称
 

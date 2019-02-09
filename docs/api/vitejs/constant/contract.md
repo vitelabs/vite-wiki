@@ -8,7 +8,8 @@
 Relevant parameters of built-in contract
 :::
 
-- Default_Gid
+- Snapshot_Gid
+- Delegate_Gid
 - Default_Hash
 - Quota_Addr Staking Address
 - Vote_Addr Voting Address

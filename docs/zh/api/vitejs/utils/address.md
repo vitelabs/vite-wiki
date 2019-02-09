@@ -34,6 +34,14 @@ sidebarDepth: 1
 - **return**
   - `addr: string` 真实地址
 
+### getHexAddrFromAddr
+通过真实地址获取hex地址
+
+- **params**
+  - `addr: string` 真实地址
+- **return**
+  - `hexaddr: string` hex编码地址
+
 ### isValidHexAddr
 校验是否为合法的hex地址
 
