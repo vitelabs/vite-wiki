@@ -228,7 +228,9 @@ sidebarDepth: 4
 
 - **Parameters**: 
 
-  * `Address`: 新的所有者账户
+`Object`
+  1. `TokenId`: 代币id
+  2. `Address`: 新的所有者账户
 
 - **Returns**: 
 
@@ -243,7 +245,10 @@ sidebarDepth: 4
    "jsonrpc":"2.0",
    "id":1,
    "method":"mintage_getTransferOwnerData",
-   "params": ["vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"]
+   "params": [{
+      "tokenId":"tti_251a3e67a41b5ea2373936c8",
+      "newOwner":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
+   }]
 }
 ```
 
@@ -251,7 +256,7 @@ sidebarDepth: 4
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "result": "6bd7a41f000000000000000000000000a5a7f08011c2f0e40ccd41b5b79afbfb818d565f"
+   "result": "a659fe5a00000000000000000000000000000000000000000000251a3e67a41b5ea23739000000000000000000000000a5a7f08011c2f0e40ccd41b5b79afbfb818d565f"
 }
 ```
 :::
