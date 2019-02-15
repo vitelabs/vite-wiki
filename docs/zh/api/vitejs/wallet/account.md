@@ -265,6 +265,7 @@ Account 实例方法
 - **Parameters** 
     __namedParameters: object
     * `ownerAddress: Address`
+    * `tokenId: TokenId`
 
 - **Return**:
     * Promise

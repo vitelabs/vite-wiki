@@ -286,6 +286,7 @@ Get accountBlock of calling contract
     - `__namedParameters: object`
         * `accountAddress: Address`
         * `ownerAddress: Address`
+        * `tokenId: TokenId`
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
@@ -308,4 +309,3 @@ Get accountBlock of calling contract
 
 - **Return**:
     * Promise<`AccountBlock`>
-    

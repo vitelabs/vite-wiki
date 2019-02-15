@@ -261,6 +261,7 @@ Call contract
 - **Parameters** 
     __namedParameters: object
     * `ownerAddress: Address`
+    * `tokenId: TokenId`
 
 - **Return**:
     * Promise

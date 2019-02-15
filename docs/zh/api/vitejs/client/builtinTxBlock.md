@@ -286,6 +286,7 @@
     - `__namedParameters: object`
         * `accountAddress: Address`
         * `ownerAddress: Address`
+        * `tokenId: TokenId`
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
