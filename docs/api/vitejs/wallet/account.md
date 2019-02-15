@@ -223,3 +223,55 @@ Call contract
     * `amount` Amount
 - **Return**:
     * Promise 
+
+#### mintage
+铸币
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenName: string`
+    * `decimals: uint8`
+    * `totalSupply: big.int`
+    * `tokenSymbol: string`
+
+- **Return**:
+    * Promise
+
+#### mintageIssue
+增发代币
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId: TokenId` 代币id
+    * `amount: uint64` 增发数量
+    * `beneficial: Address` 增发代币接收地址
+
+- **Return**:
+    * Promise
+
+#### mintageBurn
+销毁代币
+
+- **Return**:
+    * Promise
+
+#### changeTransferOwner
+修改代币所有者
+
+- **Parameters** 
+    __namedParameters: object
+    * `ownerAddress: Address`
+
+- **Return**:
+    * Promise
+
+#### changeTokenType
+修改代币类型, 将可增发代币修改为不可增发
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId: TokenId`
+
+- **Return**:
+    * Promise
+  

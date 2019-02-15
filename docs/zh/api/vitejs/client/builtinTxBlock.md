@@ -229,4 +229,82 @@
 
 - **Return**:
     * Promise<`AccountBlock`>
-    
+
+## mintage
+获取铸币accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenName: string`
+        * `decimals: uint8`
+        * `totalSupply: big.int`
+        * `tokenSymbol: string`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+## mintageIssue
+获取增发代币的accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId` 代币id
+        * `amount: uint64` 增发数量
+        * `beneficial: Address` 增发代币接收地址
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+## mintageBurn
+获取销毁代币的accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+## changeTransferOwner
+获取修改所有者的accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `ownerAddress: Address`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+## changeTokenType
+获取修改代币类型的accountBlock, 将可增发代币修改为不可增发
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
