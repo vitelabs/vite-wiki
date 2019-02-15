@@ -259,6 +259,11 @@ Account 实例方法
 #### mintageBurn
 销毁代币
 
+- **Parameters**
+    __namedParameters: object
+    * `tokenId: TokenId` 销毁的代币id
+    * `amount: uint64` 销毁的代币数量
+
 - **Return**:
     * Promise
 

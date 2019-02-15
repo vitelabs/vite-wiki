@@ -156,7 +156,6 @@ Retrieve Rewards
 
 #### voting
 
-
 - **Parameters** 
     __namedParameters: object
     * `nodeName : string` Node Name
@@ -165,7 +164,6 @@ Retrieve Rewards
     * Promise 
 
 #### revokeVoting
-
 
 - **Parameters** 
     __namedParameters: object
@@ -254,6 +252,11 @@ Call contract
 
 #### mintageBurn
 销毁代币
+
+- **Parameters**
+    __namedParameters: object
+    * `tokenId: TokenId` 销毁的代币id
+    * `amount: uint64` 销毁的代币数量
 
 - **Return**:
     * Promise

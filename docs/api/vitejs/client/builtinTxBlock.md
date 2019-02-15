@@ -274,6 +274,8 @@ Get accountBlock of calling contract
 - **Parameters** 
     - `__namedParameters: object`
         * `accountAddress: Address`
+        * `tokenId: TokenId` 销毁的代币id
+        * `amount: uint64` 销毁的代币数量
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
