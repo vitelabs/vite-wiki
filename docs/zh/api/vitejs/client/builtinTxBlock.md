@@ -240,6 +240,9 @@
         * `decimals: uint8`
         * `totalSupply: big.int`
         * `tokenSymbol: string`
+        * `isReIssuable: bool`
+        * `maxSupply: Uint256`
+        * `ownerBurnOnly: bool`
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`

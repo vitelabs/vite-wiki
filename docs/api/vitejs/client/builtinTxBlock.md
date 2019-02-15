@@ -238,8 +238,11 @@ Get accountBlock of calling contract
         * `accountAddress: Address`
         * `tokenName: string`
         * `decimals: uint8`
-        * `totalSupply: big.int`
+        * `totalSupply: bigInt`
         * `tokenSymbol: string`
+        * `isReIssuable: bool`
+        * `maxSupply: Uint256`
+        * `ownerBurnOnly: bool`
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
