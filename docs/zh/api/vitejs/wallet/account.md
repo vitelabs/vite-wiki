@@ -14,7 +14,7 @@ let Account = new account({
     privateKey: utils.ed25519.keyPair().secretKey,
     client: myClient
 });
-Account.getBlance().then((result) => {
+Account.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
