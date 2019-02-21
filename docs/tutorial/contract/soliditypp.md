@@ -1,6 +1,6 @@
 # Solidity++
 
-Solidity++ shares most syntax with Solidity. The asynchronous characteristic of Solidity++ makes the major difference with Solidity, which is synchronous in essence. 
+Solidity++ retains most syntax in Solidity. The difference mainly comes from Vite's asynchronous architecture and native multi-token model, as explained below.
 
 ## Syntax Removed in Solidity++
 

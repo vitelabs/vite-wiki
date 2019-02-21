@@ -189,3 +189,44 @@ Get accountBlock of receiving transaction
     * `snapshotHash?: Hex`
 - **Return**:
     * Promise<`AccountBlock`>
+
+## createContract
+Get accountBlock of creating contract
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId`
+        * `amount: BigInt`
+        * `fee: BigInt,`
+        * `hexCode: Hex`
+        * `abi: string`
+        * `params?: stirng`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+## callContract
+Get accountBlock of calling contract
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `toAddress: Address`
+        * `abi: string`
+        * `tokenId: TokenId`
+        * `amount: BigInt`
+        * `methodName: stirng`
+        * `params?: stirng`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+    

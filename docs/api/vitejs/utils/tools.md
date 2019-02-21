@@ -51,6 +51,14 @@ Get original token ID
 - **return**
   - `rawTokenId : string` Original token ID
 
+## getTokenIdFromRaw
+Get token ID according to original token ID
+
+- **params**
+  - `rawTokenId : string` Original token ID
+- **return**
+  - `tokenId : string` Token ID
+
 ## validNodeName 
 Verify if the node is legal
 

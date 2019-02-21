@@ -35,11 +35,11 @@ If multiple accounts happen to send messages to a contract simultaneously, the d
 
 ### Fees for Creating Contract
 
-Creating new contract consumes VITE. In the TestNet, 10 VITE are required for destruction to create a contract.
+Creating new contract consumes VITE. In the TestNet, a destruction of 10 VITE is required for creating a contract.
 
 ### Quota in Contract
 
-When creating a contract, the quota for the request transaction is provided by contract creator while the quota for the response transaction comes from destruction of VITE. In the TestNet, destroying 10 VITE will receive a quota of up to 1000000, specifically for contract creation purpose.
+The quota for contract creation request transaction is supplied by contract creator while the quota for contract creation response transaction comes from the destruction of VITE. In the TestNet, destroying 10 VITE to create a smart contract will receive a quota of up to 1000000, specifically for contract creation purpose.
 
 Similar to contract creation, contract execution consumes quota as well. The contract request transaction and the contract response transaction consume the quota of transaction initiator and contract account respectively.
 
@@ -49,9 +49,9 @@ Sometimes due to over-complicated contract, the quota of contract account is ins
 
 ## Smart Contract Language
 
-Ethereum provides a Turing-complete programming language, Solidity, for developing smart contracts. To support asynchronous semantics, Vite extends Solidity and defines a set of syntax for message communication. The extended Solidity in Vite is called Solidity++.
+Ethereum provides Solidity, a Turing-complete programming language for developing smart contracts. To support asynchronous semantics, Vite extends Solidity and defines a set of syntax for message communication. The extended Solidity in Vite is called Solidity++.
 
-Solidity++ supports most of Solidity's syntax, but will no longer support synchronous function calls between contracts. Developers can define messages through `message` keyword and define message handlers via `onMessage` keyword to enable cross-contract communication. Messages in Solidity++ are compiled into `CALL` instructions. As a result, a request transaction is generated and appended to ledger, which in Vite plays a role as message middleware for asynchronous communication between contracts, ensuring reliable storage of messages and preventing duplication.
+Solidity++ supports most of Solidity's syntax, but will no longer support synchronous function calls between contracts. Developers can define messages through `message` keyword and define message handlers via `onMessage` keyword to enable cross-contract communication. Messages in Solidity++ are compiled into `CALL` instructions. As a result, a request transaction is generated and appended to Vite's ledger, which plays a key role as message middleware for asynchronous communication between contracts, ensuring reliable storage of messages and preventing duplication.
 
 ## Virtual Machine
 

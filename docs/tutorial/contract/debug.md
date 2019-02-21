@@ -38,8 +38,15 @@ Start the Node success!!!
 
 ### Create Contract
 
-Write contract in Solidity++ and save into a ".sol" file under the same directory with start script
+First write contract in Solidity++ and save into a ".sol" file under the same directory with start script
 
+Compile contract
+```bash
+## Compile contract using solc, and genereate binary code and ABI
+./solc --bin --abi c1.sol
+```
+
+Deploy contract in local debugging environment
 ```bash
 ## Create contract from c1.sol with test account(created during startup)
 sh create_contract.sh c1.sol
@@ -223,10 +230,10 @@ Installation steps in test environment are similar as in development environment
 Since account balance and quota will be verified in test environment, additional initialization is required for the first boot-up.
 
 Following steps are finished during initialization
- * A total supply of VITE tokens are sent to genesis account. This step needs calculate a PoW, therefore it may take some time
+ * A total supply of VITE tokens are sent to genesis account. This step needs calculate a PoW, so it may take some time
  * Waiting for a new snapshot block
- * Genesis account stakes to acquire quota in order to facilitate subsequent transactions to test account. This step needs calculate a PoW, therefore it may take some time
- * Waiting to receive quota 
+ * Genesis account stakes for itself(in the purpose of sending subsequent transactions). This step needs calculate a PoW, so it may take some time
+ * Waiting until quota is received
 ```bash
 sh init.sh
 ```
