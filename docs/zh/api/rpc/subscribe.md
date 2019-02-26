@@ -20,6 +20,24 @@ sidebarDepth: 4
 
 - **Returns**:  
 	- `string` filterId
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_newAccountBlocksFilter",
+	"params": []
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "0xf90906914486a9c22d620e50022b38d5"
+}
+```
+:::
 	
 ## subscribe_newConfirmedAccountBlocksFilter
 创建一个交易确认事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
@@ -40,7 +58,7 @@ sidebarDepth: 4
     6. `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
     
 `Range`
-  1. `fromHeigh`: `uint64` 起始高度，为0表示从最新的高度开始查询
+  1. `fromHeight`: `uint64` 起始高度，为0表示从最新的高度开始查询
   2. `toHeight`: `uint64` 结束高度，为0表示不设置结束高度
   
 topics取值示例：
@@ -62,10 +80,35 @@ topics取值示例：
 创建一个指定参数的新日志事件filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
 - **Parameters**:
-  * `FilterParam`: 同subscribe_newConfirmedLogsFilter
+  * `FilterParam`: 同subscribe_newConfirmedLogsFilter，snapshotHash和snapshotRange不填。
 
 - **Returns**:  
 	- `string` filterId
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_newLogsFilter",
+	"params": [{
+		"addrRange":{
+			"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792":{
+				"fromHeight":"0",
+				"toHeight":"0"
+			}
+		}
+	}]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "0x8f34ddeb22b87fdfd2acb6c9f5a2b50d"
+}
+```
+:::
 
 ## subscribe_uninstallFilter
 取消订阅filter。
@@ -75,6 +118,24 @@ topics取值示例：
 
 - **Returns**:  
 	- `bool` 取消结果，true 取消成功，false 取消失败。
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_uninstallFilter",
+	"params": ["0x8f34ddeb22b87fdfd2acb6c9f5a2b50d"]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": true
+}
+```
+:::
 
 ## subscribe_getFilterChanges
 轮询新事件。返回值类型取决于订阅事件类型。如果上一次轮询后未产生新事件，则返回空数组。
@@ -86,11 +147,38 @@ topics取值示例：
 `Array&lt;NewAccountBlocksMsg&gt;`
   1. `hash`: `Hash` 账户块哈希
   2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+  
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_getFilterChanges",
+	"params": ["0xf90906914486a9c22d620e50022b38d5"]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": [
+        {
+            "Hash": "9cc9ba996a4192e35ddbfe3ba448611fc06f6342463e21d3300e58e9772b348f",
+            "Removed": false
+        },
+        {
+            "Hash": "8b9f8067ef09aa09c8f9d652f0d9ac5e99d083722089a6d91323cffd8b2dcf08",
+            "Removed": false
+        }
+    ]
+}
+```
+:::
 
 - **subscribe_newConfirmedAccountBlocksFilter返回值**: 
 `Array&lt;NewConfirmedAccountBlocksMsg&gt;`
-  1. `accountHashList`: `[]Hash`
-  2. `snapshotHash`: `Hash` 快照交易的快照块哈希 
+  1. `hashList`: `[]Hash` 被快照的账户块哈希列表
+  2. `snapshotHash`: `Hash` 快照块哈希 
   3. `removed`: `bool` 是否回滚。true表示回滚；false表示新确认交易。
 
 - **subscribe_newFilter、subscribe_newLogsFilter、subscribe_newConfirmedLogsFilter返回值**: 
@@ -98,9 +186,40 @@ topics取值示例：
   1. `accountBlockHash`: `Hash` 账户块哈希
   2. `snapshotBlockHash`: `Hash` 快照块哈希。新日志事件为空，确认日志事件为非空
   3. `addr`: `Address` 账户地址
-  4. `data`: `[]byte` 日志的data值
-  5. `topics`: `[]Hash` 日志的topics值
-  6. `removed`: `bool` 是否回滚。true表示回滚，此时只有accountBlockHash字段非空，如果是已确认的日志被回滚，则snapshotBlockHash非空；false表示新日志或者新确认日志事件。
+  4. `log`: `VmLog` 日志信息
+  5. `removed`: `bool` 是否回滚。true表示回滚，此时只有accountBlockHash字段非空，如果是已确认的日志被回滚，则snapshotBlockHash非空；false表示新日志或者新确认日志事件。
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_getFilterChanges",
+	"params": ["0x8f34ddeb22b87fdfd2acb6c9f5a2b50d"]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": [
+        {
+            "log": {
+                "topics": [
+                    "aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb",
+                    "000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"
+                ],
+                "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
+            },
+            "accountBlockHash": "de8cd1dc188fd4bf44c0cb90958ffbcccab5766840d56f7b35443a1a1c5c9d3e",
+            "snapshotBlockHash": null,
+            "addr": "vite_78926f48bccef67a3b9cc64fdfe864f2a708ebce1d0bbe9aef",
+            "removed": false
+        }
+    ]
+}
+```
+:::
 
 ## subscribe_newAccountBlocks
 创建一个新交易事件的长连接。
