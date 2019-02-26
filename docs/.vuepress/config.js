@@ -150,6 +150,7 @@ const sidebarConfigs = {
                 'testapi',
                 'common_models',
                 'pow',
+                'subscribe'
             ]
         },
     ],
