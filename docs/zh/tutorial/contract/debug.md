@@ -207,6 +207,9 @@ curl -X POST \
 }
 ```
 
+**注意，开发环境不检查配额，所以不需要给合约账户抵押vite。如果是测试网络，创建合约成功后需要给合约账户抵押vite来获取配额。** 参见 [合约的配额](./contract.html#合约的配额)
+
+
 ### 调用合约
 
 ```bash
@@ -307,7 +310,7 @@ sh create_account.sh
 ```bash
 sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
 ```
-合约创建成功后，分别给每个合约账户抵押以获取合约账户的配额。
+**合约创建成功后，分别给每个合约账户抵押vite以获取合约账户的配额。** 参见 [合约的配额](./contract.html#合约的配额)
 ```bash
 sh pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
 ```

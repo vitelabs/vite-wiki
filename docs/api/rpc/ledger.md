@@ -275,6 +275,81 @@ Return the token information
 }
 ```
 :::
+
+## ledger_getBlockByHeight
+Return the given address of account block in the given height
+
+- **Parameters**: 
+    - `string` : `address` The account address
+    - `string` : `height`  The height of account block
+
+- **Returns**: `AccountBlock` The account block
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlockByHeight",
+    "params": [
+        "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "1"
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "blockType": 4,
+            "hash": "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a",
+            "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+            "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
+            "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+            "tokenId": "tti_5649544520544f4b454e6e40",
+            "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
+            "data": null,
+            "timestamp": "2018-10-11T01:21:45.899730786+08:00",
+            "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
+            "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "nonce": "1GO9X2PtbDM=",
+            "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
+            "height": "1",
+            "quota": "0",
+            "amount": "1000000000000000000000000000",
+            "fee": "0",
+            "confirmedTimes": "0",
+            "tokenInfo": {
+                "tokenName": "Vite Token",
+                "tokenSymbol": "VITE",
+                "totalSupply": "1000000000000000000000000000",
+                "decimals": 18,
+                "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+                "pledgeAmount": "0",
+                "withdrawHeight": "0"
+            }
+        }
+    ]
+}
+```
+```json test
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlockByHeight",
+    "params": [
+        "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "1"
+    ]
+}
+```
+:::
 ## ledger_getBlocksByHash
 Return the given number of account blocks since the specific block
 
