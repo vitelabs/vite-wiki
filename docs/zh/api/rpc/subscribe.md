@@ -27,18 +27,21 @@ sidebarDepth: 4
 - **Returns**:  
 	- `string` filterId
 	
-## subscribe_newLogsFilter
-创建一个指定参数的日志事件filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+## subscribe_newConfirmedLogsFilter
+创建一个指定参数的确认日志事件filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
 - **Parameters**:
 
-`FilterParam`
-  1. `accountHash`: `Hash` 账户块哈希，如果指定了账户块哈希，则只查询这个哈希值对应的账户块的日志
-  2. `snapshotHash`: `Hash` 快照块哈希，如果指定了快照块哈希，则只查询这个哈希值对应的快照块的日志
-  3. `fromBlock`: `string` 开始订阅的快照块高度，为空时表示从最新的快照块开始订阅
-  4. `toBlock`: `string` 结束订阅的快照块高度，为空时表示不设置订阅结束的高度
-  5. `addrList`: `[]Address` 只查询指定的账户地址的日志，可以同时指定多个账户地址
-  6. `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
+  * `FilterParam`
+    1. `accountHash`: `Hash` 账户块哈希，如果指定了账户块哈希，则只查询这个哈希值对应的账户块的日志
+    2. `snapshotHash`: `Hash` 快照块哈希，如果指定了快照块哈希，则只查询这个哈希值对应的快照块的日志
+    3. `snapshotRange`: `Range` 开始订阅的快照块范围
+    5. `addrRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围
+    6. `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
+    
+`Range`
+  1. `fromHeigh`: `uint64` 起始高度，为0表示从最新的高度开始查询
+  2. `toHeight`: `uint64` 结束高度，为0表示不设置结束高度
   
 topics取值示例：
 
@@ -51,10 +54,18 @@ topics取值示例：
  `{{A},{B}}` 匹配topics中第一个元素为A且第二个元素为B的日志
  
  `{{A,B},{C,D}}` 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
+  
+- **Returns**:  
+	- `string` filterId
+	
+## subscribe_newLogsFilter
+创建一个指定参数的新日志事件filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+
+- **Parameters**:
+  * `FilterParam`: 同subscribe_newConfirmedLogsFilter
 
 - **Returns**:  
 	- `string` filterId
-
 
 ## subscribe_uninstallFilter
 取消订阅filter。
@@ -74,20 +85,13 @@ topics取值示例：
 - **subscribe_newAccountBlocksFilter返回值**: 
 `Array&lt;NewAccountBlocksMsg&gt;`
   1. `hash`: `Hash` 账户块哈希
-  2. `blockType`: `byte` 交易类型
-  3. `fromAddr`: `Address` 交易请求地址
-  4. `toAddr`: `Address` 交易响应地址
-  5. `height`: `string` 账户块高度
-  6. `amount`: `string` 转账金额
-  7. `tokenId`: `TokenId` 转账代币id
-  8. `data`: `[]byte` 交易数据
-  9. `removed`: `bool` 是否回滚。true表示回滚，此时只有hash字段非空；false表示新交易，此时其他字段都非空。
+  2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
 
 - **subscribe_newConfirmedAccountBlocksFilter返回值**: 
 `Array&lt;NewConfirmedAccountBlocksMsg&gt;`
-  1. `accountBlockList`: `Array&lt;NewAccountBlocksMsg&gt;`
+  1. `accountHashList`: `[]Hash`
   2. `snapshotHash`: `Hash` 快照交易的快照块哈希 
-  3. `removed`: `bool` 是否回滚。true表示回滚，此时NewAccountBlocksMsg只有hash字段非空；false表示为新的确认交易事件。
+  3. `removed`: `bool` 是否回滚。true表示回滚；false表示新确认交易。
 
 - **subscribe_newFilter、subscribe_newLogsFilter、subscribe_newConfirmedLogsFilter返回值**: 
 `Array&lt;LogsMsg&gt;`
@@ -123,11 +127,27 @@ topics取值示例：
      * `result`: `Array&lt;NewConfirmedAccountBlocksMsg&gt;` 事件信息
 
 ## subscribe_newLogs
-创建一个交易确认事件的长连接。
+创建一个新日志事件的长连接。
 
 - **Parameters**:
 
-  * `FilterParam` 订阅参数，同subscribe_newFilter
+  * `FilterParam` 订阅参数，同subscribe_newConfirmedLogsFilter
+
+- **Returns**:  
+	- `string` 订阅id
+	
+- **Callback**:  
+`Object`
+  1. `params`: `object`
+     * `subscription`: `string`  订阅id
+     * `result`: `Array&lt;LogsMsg&gt;` 事件信息
+
+## subscribe_newConfirmedLogs
+创建一个日志确认事件的长连接。
+
+- **Parameters**:
+
+  * `FilterParam` 订阅参数，同subscribe_newConfirmedLogsFilter
 
 - **Returns**:  
 	- `string` 订阅id
