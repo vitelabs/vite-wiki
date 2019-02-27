@@ -97,6 +97,46 @@ sidebarDepth: 4
 ```
 :::
 
+## mintage_newTokenId
+铸币时根据铸币交易信息生成代币id
+
+- **Parameters**: 
+
+`Object`
+  1. `selfAddr`: `Address`  交易的发起方
+  2. `height`: `uint64`  当前块高度
+  3. `prevHash`: `Hash`  前一个账户块的哈希
+  4. `snapshotHash`: `Hash`  当前块引用的快照块哈希
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+	"jsonrpc": "1.0",
+	"id": 1,
+	"method": "mintage_newTokenId",
+	"params": [{
+   		"selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+   		"height":"2",
+   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
+   		"snapshotHash":"b65a60d090421928ad50c0f52044da46fa0286ef6a372047126939f64f7ebe07"
+   	}]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "tti_59f28063281a83f2d508d18e"
+}
+```
+:::
+
 ## mintage_getMintData
 获取铸币交易请求数据
 
