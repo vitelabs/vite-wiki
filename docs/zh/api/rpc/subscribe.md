@@ -208,9 +208,39 @@ topics取值示例：
 	
 - **Callback**:  
 `Object`
-  1. `params`: `object`
-     * `subscription`: `string`  订阅id
-     * `result`: `Array&lt;NewAccountBlocksMsg&gt;` 事件信息
+  1. `subscription`: `string`  订阅id
+  2. `result`: `Array&lt;LogsMsg&gt;` 事件信息
+
+::: demo
+```json tab:Request
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "subscribe_subscribe",
+  "params": ["newAccountBlocks"]
+}
+```
+```json tab:Response
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0xa809145803ebb2a52229aefcbd52a99d"
+}
+```
+```json tab:Callback
+{
+  "jsonrpc":"2.0",
+  "method":"subscribe_subscription",
+  "params":{
+    "subscription":"0xa809145803ebb2a52229aefcbd52a99d",
+    "result":[{
+      "hash":"20009ee78d5f77122d215c3021f839b4024e4f2701e57bdb574e0cae1ae44e6c",
+      "removed":false
+    }]
+  }
+}
+```
+:::
 
 ## subscribe_newLogs
 创建一个新日志事件的长连接。
@@ -224,6 +254,56 @@ topics取值示例：
 	
 - **Callback**:  
 `Object`
-  1. `params`: `object`
-     * `subscription`: `string`  订阅id
-     * `result`: `Array&lt;LogsMsg&gt;` 事件信息
+  1. `subscription`: `string`  订阅id
+  2. `result`: `Array&lt;LogsMsg&gt;` 事件信息
+
+::: demo
+```json tab:Request
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "subscribe_subscribe",
+  "params": [
+    "newLogs",
+    {
+      "addrRange":{
+        "vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f":{
+          "fromHeight":"0",
+          "toHeight":"0"
+        }
+      }
+    }
+  ]
+}
+```
+```json tab:Response
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0x4b97e0674a5ebef942dbb07709c4a608"
+}
+```
+```json tab:Callback
+{
+  "jsonrpc":"2.0",
+  "method":"subscribe_subscription",
+  "params":{
+    "subscription":"0x4b97e0674a5ebef942dbb07709c4a608",
+    "result":[
+      {
+        "log":{
+          "topics":[
+            "aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb",
+            "000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"
+          ],
+          "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
+        },
+        "accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40",
+        "addr":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f",
+        "removed":false
+      }
+    ]
+  }
+}
+```
+:::
