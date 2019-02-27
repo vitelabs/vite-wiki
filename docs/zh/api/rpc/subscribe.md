@@ -123,9 +123,10 @@ topics取值示例：
   * `string`: filterId
   
 - **subscribe_newAccountBlocksFilter返回值**: 
-`Array&lt;NewAccountBlocksMsg&gt;`
-  1. `hash`: `Hash` 账户块哈希
-  2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+  * `id`: `string` filterId
+  * `blocks`: `Array&lt;NewAccountBlocksMsg&gt;`
+    1. `hash`: `Hash` 账户块哈希
+    2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
   
 ::: demo
 ```json tab:Request
@@ -140,26 +141,30 @@ topics取值示例：
 {
     "jsonrpc": "2.0",
     "id": 1,
-    "result": [
-        {
-            "Hash": "9cc9ba996a4192e35ddbfe3ba448611fc06f6342463e21d3300e58e9772b348f",
-            "Removed": false
-        },
-        {
-            "Hash": "8b9f8067ef09aa09c8f9d652f0d9ac5e99d083722089a6d91323cffd8b2dcf08",
-            "Removed": false
-        }
-    ]
+    "result": {
+      "blocks": [
+          {
+              "Hash": "9cc9ba996a4192e35ddbfe3ba448611fc06f6342463e21d3300e58e9772b348f",
+              "Removed": false
+          },
+          {
+              "Hash": "8b9f8067ef09aa09c8f9d652f0d9ac5e99d083722089a6d91323cffd8b2dcf08",
+              "Removed": false
+          }
+      ],
+      "id": "0xf90906914486a9c22d620e50022b38d5"
+    }
 }
 ```
 :::
 
 - **subscribe_newLogsFilter返回值**: 
-`Array&lt;LogsMsg&gt;`
-  1. `accountBlockHash`: `Hash` 账户块哈希
-  2. `addr`: `Address` 账户地址
-  3. `log`: `VmLog` 日志信息
-  4. `removed`: `bool` 是否回滚。true表示回滚；false表示新日志。
+  * `id`: `string` filterId
+  * `logs`: `Array&lt;LogsMsg&gt;`
+    1. `accountBlockHash`: `Hash` 账户块哈希
+    2. `addr`: `Address` 账户地址
+    3. `log`: `VmLog` 日志信息
+    4. `removed`: `bool` 是否回滚。true表示回滚；false表示新日志。
 
 ::: demo
 ```json tab:Request
@@ -174,20 +179,23 @@ topics取值示例：
 {
     "jsonrpc": "2.0",
     "id": 1,
-    "result": [
-        {
-            "log": {
-                "topics": [
-                    "aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb",
-                    "000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"
-                ],
-                "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
-            },
-            "accountBlockHash": "de8cd1dc188fd4bf44c0cb90958ffbcccab5766840d56f7b35443a1a1c5c9d3e",
-            "addr": "vite_78926f48bccef67a3b9cc64fdfe864f2a708ebce1d0bbe9aef",
-            "removed": false
-        }
-    ]
+    "result": {
+      "logs": [
+          {
+              "log": {
+                  "topics": [
+                      "aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb",
+                      "000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"
+                  ],
+                  "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
+              },
+              "accountBlockHash": "de8cd1dc188fd4bf44c0cb90958ffbcccab5766840d56f7b35443a1a1c5c9d3e",
+              "addr": "vite_78926f48bccef67a3b9cc64fdfe864f2a708ebce1d0bbe9aef",
+              "removed": false
+          }
+      ],
+      "id": "0x8f34ddeb22b87fdfd2acb6c9f5a2b50d"
+    }
 }
 ```
 :::
