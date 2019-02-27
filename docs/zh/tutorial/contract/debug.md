@@ -1,6 +1,6 @@
 # 调试合约
 
-## 如何调试合约
+## 调试合约的两种方式
 
 调试合约时在本地启动一个单机模式的节点，创建合约、调用合约的交易都通过RPC接口调用这个本地节点。
 
@@ -31,11 +31,11 @@ VS Code插件0.2.0版本包含以下功能：
 
 ### 新建HelloWorld.solpp
 
-通过`kb(workbench.action.showCommands)`执行`soliditypp: Generage HelloWorld.solpp`命令，在当前文件夹下生成示例代码`HelloWorld.solpp`。
+通过快捷键`kb(workbench.action.showCommands)`（Mac默认为F1）执行`soliditypp: Generage HelloWorld.solpp`命令，在当前文件夹下生成示例代码`HelloWorld.solpp`。
 
 ### 编写合约代码
 
-`.solpp`后缀的文件会被自动识别为`solidity++`文件。合约代码编写完成后，通过`kb(workbench.action.files.save)`保存文件，保存文件时会自动编译。如果编译出错，则错误行所在代码会被标记红色下划线，在下划线代码处悬停鼠标时会展示出具体的错误信息。
+`.solpp`后缀的文件会被自动识别为`solidity++`文件。合约代码编写完成后，通过快捷键`kb(workbench.action.files.save)`（Mac默认为Command + s）保存文件，保存文件时会自动编译。如果编译出错，则错误行所在代码会被标记红色下划线，在下划线代码处悬停鼠标时会展示出具体的错误信息。
 
 ### 合约部署和调用
 
