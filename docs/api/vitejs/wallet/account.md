@@ -14,7 +14,7 @@ let Account = new account({
     privateKey: utils.ed25519.keyPair().secretKey,
     client: myClient
 });
-Account.getBlance().then((result) => {
+Account.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
@@ -234,6 +234,7 @@ Call contract
     * `isReIssuable: bool`
     * `maxSupply: Uint256`
     * `ownerBurnOnly: bool`
+    * `spendType: string` 花销类型, amount 或者 fee
 
 - **Return**:
     * Promise

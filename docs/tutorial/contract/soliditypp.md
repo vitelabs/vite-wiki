@@ -113,7 +113,7 @@ contract B {
 }
 ```
 
-`message`: keyword, declaring a message, including message name and passed-in parameter. `message sum(uint sum)` declares message "sum", accepting a `uint` parameter.
+`message`: keyword, declaring a message, including message name and passed-in parameter. `message sum(uint result)` declares message "sum", accepting a `uint` parameter.
 
 `onMessage`: keyword, declaring a message listener, including message name, passed-in parameter and logic that handles the message. `onMessage add(uint a, uint b)` declares message listener "add", accepting two `uint` parameters.
 
@@ -130,7 +130,7 @@ Note: message listener cannot be called directly like normal function.
 
 In above example,
 
-Contract A defines message listener `add(uint a, uint b)` while contract B defines message listener `sum(uint sum)`, indicating contract A and contract B will receive the two kinds of messages and process respectively.
+Contract A defines message listener `add(uint a, uint b)` while contract B defines message listener `sum(uint result)`, indicating contract A and contract B will receive the two kinds of messages and process respectively.
 
 Since contract B sends message to contract A, contract B must declare an "add" message which complies to the message listener defined in contract A. Meanwhile, contract A should declare a "sum" message according to the message listener in contract B, since contract A will send "sum" message to contract B in message listener "add".
 
