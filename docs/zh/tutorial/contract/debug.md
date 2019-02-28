@@ -31,7 +31,7 @@ VS Code插件0.2.0版本包含以下功能：
 
 ### 新建HelloWorld.solpp
 
-通过快捷键`kb(workbench.action.showCommands)`（Mac默认为F1）执行`soliditypp: Generage HelloWorld.solpp`命令，在当前文件夹下生成示例代码`HelloWorld.solpp`。
+通过快捷键`kb(workbench.action.showCommands)`（Mac默认为F1）执行`soliditypp: Generate HelloWorld.solpp`命令，在当前文件夹下生成示例代码`HelloWorld.solpp`。
 
 ### 编写合约代码
 
