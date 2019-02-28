@@ -354,7 +354,8 @@ sidebarDepth: 4
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `pledgeAmount`: `big.Int` 抵押金额
   10. `withdrawHeight`: `uint64` 抵押到期高度
-  11. `tokenId`: `TokenId` 代币id
+  11. `pledgeAddr`: `Address` 抵押账户
+  12. `tokenId`: `TokenId` 代币id
 
 - **Example**:
 
@@ -384,6 +385,7 @@ sidebarDepth: 4
       "ownBurnOnly":false,
       "pledgeAmount":"0",
       "withdrawHeight":"0",
+      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       "tokenId":"tti_5649544520544f4b454e6e40"
    }]
 }
@@ -410,7 +412,8 @@ sidebarDepth: 4
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `pledgeAmount`: `big.Int` 抵押金额
   10. `withdrawHeight`: `uint64` 抵押到期高度
-  11. `tokenId`: `TokenId` 代币id
+  11. `pledgeAddr`: `Address` 抵押账户
+  12. `tokenId`: `TokenId` 代币id
 
 - **Example**:
 
@@ -440,6 +443,7 @@ sidebarDepth: 4
       "ownBurnOnly":false,
       "pledgeAmount":"0",
       "withdrawHeight":"0",
+      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       "tokenId":"tti_5649544520544f4b454e6e40"
    }
 }
@@ -466,7 +470,8 @@ sidebarDepth: 4
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `pledgeAmount`: `big.Int` 抵押金额
   10. `withdrawHeight`: `uint64` 抵押到期高度
-  11. `tokenId`: `TokenId` 代币id
+  11. `pledgeAddr`: `Address` 抵押账户
+  12. `tokenId`: `TokenId` 代币id
 
 - **Example**:
 
@@ -496,6 +501,7 @@ sidebarDepth: 4
       "ownBurnOnly":true,
       "pledgeAmount":"0",
       "withdrawHeight":"0",
+      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       "tokenId":"tti_251a3e67a41b5ea2373936c8"
    }]
 }
