@@ -223,7 +223,7 @@ Call contract
     * Promise 
 
 #### mintage
-铸币
+Token Issuance
 
 - **Parameters** 
     __namedParameters: object
@@ -234,36 +234,36 @@ Call contract
     * `isReIssuable: bool`
     * `maxSupply: Uint256`
     * `ownerBurnOnly: bool`
-    * `spendType: string` 花销类型, amount 或者 fee
+    * `spendType: string` spend type: amount or fee
 
 - **Return**:
     * Promise
 
 #### mintageIssue
-增发代币
+Additional token issuance
 
 - **Parameters** 
     __namedParameters: object
-    * `tokenId: TokenId` 代币id
-    * `amount: uint64` 增发数量
-    * `beneficial: Address` 增发代币接收地址
+    * `tokenId: TokenId` token id
+    * `amount: uint64` additional amount
+    * `beneficial: Address` receiver address of additional tokens
 
 - **Return**:
     * Promise
 
 #### mintageBurn
-销毁代币
+Destroy tokens
 
 - **Parameters**
     __namedParameters: object
-    * `tokenId: TokenId` 销毁的代币id
-    * `amount: uint64` 销毁的代币数量
+    * `tokenId: TokenId` Destroyed token id
+    * `amount: uint64` Destroyed token amount
 
 - **Return**:
     * Promise
 
 #### changeTransferOwner
-修改代币所有者
+Change token owner
 
 - **Parameters** 
     __namedParameters: object
@@ -274,7 +274,7 @@ Call contract
     * Promise
 
 #### changeTokenType
-修改代币类型, 将可增发代币修改为不可增发
+Change token type, e.g. changing token type from additional issuance enable to disable
 
 - **Parameters** 
     __namedParameters: object
