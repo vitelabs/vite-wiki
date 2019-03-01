@@ -1,10 +1,57 @@
 # 调试合约
 
-## 如何调试合约
+## 调试合约的两种方式
 
 调试合约时在本地启动一个单机模式的节点，创建合约、调用合约的交易都通过RPC接口调用这个本地节点。
 
 目前支持部署两种调试环境，分别为开发环境和测试环境，开发环境不检查配额和余额，任意一笔交易默认配额为100w，余额充足；测试环境时检查逻辑和测试网络相同，需要保证账户拥有充足的余额和配额。
+
+其中，开发环境支持通过VS Code调试和手动调试两种方式。
+
+## VS Code插件
+
+Soliditypp VS Code插件提供了在本地部署和调试`solidity++`智能合约的功能。
+
+VS Code插件0.2.0版本包含以下功能：
+* `solidity++`语法高亮；
+* `solidity++`代码自动完成；
+* 保存`.solpp`文件时自动编译；
+* 编译错误高亮显示；
+* 鼠标悬停时展示编译错误详情；
+* 在本地开发环境部署和调用智能合约；
+* 多合约部署和调用；
+* 展示合约部署和调用结果；
+* `solidity++`示例代码。
+
+### 安装VS Code插件
+
+在`Visual Studio Code`中查找`Soliditypp`插件并下载，即可在本地编写和调试智能合约。
+
+![](~/images/vscode-extension.png)
+
+### 新建HelloWorld.solpp
+
+通过快捷键`kb(workbench.action.showCommands)`（Mac默认为F1）执行`soliditypp: Generage HelloWorld.solpp`命令，在当前文件夹下生成示例代码`HelloWorld.solpp`。
+
+### 编写合约代码
+
+`.solpp`后缀的文件会被自动识别为`solidity++`文件。合约代码编写完成后，通过快捷键`kb(workbench.action.files.save)`（Mac默认为Command + s）保存文件，保存文件时会自动编译。如果编译出错，则错误行所在代码会被标记红色下划线，在下划线代码处悬停鼠标时会展示出具体的错误信息。
+
+### 合约部署和调用
+
+合约代码编译通过后，启动调试，选择`Soliditypp`环境。启动成功后，会在本地部署一个gvite节点，后续部署和调试智能合约都在本地gvite节点上进行，结束调试时会自动清空本地gvite节点的数据。
+
+在调试面板中部署和调试合约。
+
+![](~/images/vscode-debug.png)
+
+其中，
+* 区域1：源代码文件。
+* 区域2：当前账户地址。使用当前账户地址发起交易来部署或调用合约。点击`+`号新增并初始化新账户地址，在下拉列表中切换当前地址。
+* 区域3：部署合约。当前代码文件中只有一个名为`HelloWorld`的合约，构造方法没有参数。`amount`为创建合约交易的转账金额，单位为`attov`，`1 vite = 1e18 attov`。点击`deploy`部署合约到本地测试网络。
+* 区域4：已部署的合约。如果在本次调试期间部署了多个合约，则展示多个合约和对应的合约账户地址。
+* 区域5：已部署的合约接口列表。如果合约有多个接口，则展示这个合约的多个接口和相应的接口参数。其中接口参数的第一个`amount`为调用这个接口时的转账金额，单位为`attov`。点击`call "SayHello"`调用`HelloWorld`合约的`SayHello`接口。
+* 区域6：`HelloWorld`合约的部署和调用结果。其中`request`表示部署或调用的请求交易，`response`表示部署或调用的响应交易，如果合约执行方法时又发起了新的请求交易，则新的请求交易依次展示在`response`中。注意Vite中的交易是异步的，发起`request`后，`response`可能需要等一段时间才会生成。`request`和`response`的字段说明参考[accountblock](https://vite.wiki/zh/api/rpc/common_models.html#accountblock)。
 
 ## 开发环境
 

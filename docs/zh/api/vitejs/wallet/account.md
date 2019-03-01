@@ -14,7 +14,7 @@ let Account = new account({
     privateKey: utils.ed25519.keyPair().secretKey,
     client: myClient
 });
-Account.getBlance().then((result) => {
+Account.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
@@ -227,3 +227,64 @@ Account 实例方法
     * `amount` 金额
 - **Return**:
     * Promise 
+
+#### mintage
+铸币
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenName: string`
+    * `decimals: uint8`
+    * `totalSupply: big.int`
+    * `tokenSymbol: string`
+    * `isReIssuable: bool`
+    * `maxSupply: Uint256`
+    * `ownerBurnOnly: bool`
+
+- **Return**:
+    * Promise
+
+#### mintageIssue
+增发代币
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId: TokenId` 代币id
+    * `amount: uint64` 增发数量
+    * `beneficial: Address` 增发代币接收地址
+
+- **Return**:
+    * Promise
+
+#### mintageBurn
+销毁代币
+
+- **Parameters**
+    __namedParameters: object
+    * `tokenId: TokenId` 销毁的代币id
+    * `amount: uint64` 销毁的代币数量
+
+- **Return**:
+    * Promise
+
+#### changeTransferOwner
+修改代币所有者
+
+- **Parameters** 
+    __namedParameters: object
+    * `ownerAddress: Address`
+    * `tokenId: TokenId`
+
+- **Return**:
+    * Promise
+
+#### changeTokenType
+修改代币类型, 将可增发代币修改为不可增发
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId: TokenId`
+
+- **Return**:
+    * Promise
+    

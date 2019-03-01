@@ -11,15 +11,15 @@
 
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/v1.2.3-alpha.4/gvite-v1.2.3-alpha.4-linux.tar.gz
 ```
 ```
 ## 解压
-tar -xzvf gvite-1.0.2-linux.tar.gz
+tar -xzvf gvite-v1.2.3-alpha.4-linux.tar.gz
 ```
 ```
 ## 修改文件名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-mv gvite-1.0.2-linux vite
+mv gvite-v1.2.3-alpha.4-linux vite
 cd vite
 ```
 ```
