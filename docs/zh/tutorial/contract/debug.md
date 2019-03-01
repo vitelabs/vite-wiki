@@ -23,6 +23,9 @@ VS Code插件0.2.0版本包含以下功能：
 * 展示合约部署和调用结果；
 * `solidity++`示例代码。
 
+示例
+![](~/images/vscode-capture.gif)
+
 ### 安装VS Code插件
 
 在`Visual Studio Code`中查找`Soliditypp`插件并下载，即可在本地编写和调试智能合约。
