@@ -65,7 +65,7 @@ Mac下执行`⇧⌘P`或者`F1`，Windows下执行`Ctrl+Shift+P`调起命令行�
 
 ```bash
 ## 解压
-tar -xzvf contractdev-v1.2.2-darwin.tar.gz
+tar -xzvf contractdev-v1.3.0-darwin.tar.gz
 ```
 ```bash
 ## 进入解压目录

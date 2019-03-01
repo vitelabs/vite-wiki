@@ -66,7 +66,7 @@ Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/r
 
 ```bash
 ## Unzip
-tar -xzvf contractdev-v1.2.2-darwin.tar.gz
+tar -xzvf contractdev-v1.3.0-darwin.tar.gz
 ```
 ```bash
 ## Enter folder extracted
