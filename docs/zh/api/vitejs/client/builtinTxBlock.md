@@ -34,7 +34,6 @@
         * `toAddress: Address`
         * `tokenId: TokenId`
         * `amount: BigInt`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -51,7 +50,6 @@
         * `nodeName: string`
         * `toAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -67,7 +65,6 @@
         * `accountAddress: Address`
         * `nodeName: string`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -84,7 +81,6 @@
         * `nodeName: string`
         * `toAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -100,7 +96,6 @@
         * `accountAddress: Address`
         * `nodeName: string`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -115,7 +110,6 @@
     - `__namedParameters: object`
         * `accountAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -218,7 +212,7 @@
         * `accountAddress: Address`
         * `toAddress: Address`
         * `abi: string`
-        * `tokenId: TokenId`
+        * `tokenId: TokenId` Default viteTokenID
         * `amount: BigInt`
         * `methodName: stirng`
         * `params?: stirng`
@@ -246,7 +240,7 @@
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -263,7 +257,22 @@
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+## mintageCancelPledge
+取消代币抵押的accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId` 代币id
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -279,7 +288,7 @@
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -295,7 +304,7 @@
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -310,7 +319,7 @@
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+    - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:
     * Promise<`AccountBlock`>

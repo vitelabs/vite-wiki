@@ -25,7 +25,7 @@ yarn add @vite/vitejs
 ### node/without webpack
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
+import provider from '@vite/vitejs/dist/providers/WS';
 import { client, constant } from '@vite/vitejs';
 
 const { method } = constant;
@@ -50,7 +50,7 @@ myClient.ledger.getSnapshotChainHeight().then((result) => {
 // ...
     resolve: {
         alias: {
-            WSprovider: '@vite/vitejs/dist/es5/provider/WS'
+            WSprovider: '@vite/vitejs/dist/providers/WS'
         }
     }
 // ...

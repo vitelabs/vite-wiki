@@ -14,3 +14,4 @@ Common Error Types
 - paramsConflict(100003) Parameter Conflict
 - addressIllegal(200001) Illegal Address
 - addressMissing(200002) Address Not Existed
+- requestTimeout(300001) Request timeout

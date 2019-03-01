@@ -34,7 +34,6 @@ Get accountBlock of SBP registration
         * `toAddress: Address`
         * `tokenId: TokenId`
         * `amount: BigInt`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -51,7 +50,6 @@ Get accountBlock of updating SBP registration
         * `nodeName: string`
         * `toAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -67,7 +65,6 @@ Get accountBlock of revoking SBP registration
         * `accountAddress: Address`
         * `nodeName: string`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -84,7 +81,6 @@ Get accountBlock of rewards
         * `nodeName: string`
         * `toAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -100,7 +96,6 @@ Get accountBlock of voting
         * `accountAddress: Address`
         * `nodeName: string`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -115,7 +110,6 @@ Get accountBlock when revoking vote
     - `__namedParameters: object`
         * `accountAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -218,7 +212,7 @@ Get accountBlock of calling contract
         * `accountAddress: Address`
         * `toAddress: Address`
         * `abi: string`
-        * `tokenId: TokenId`
+        * `tokenId?: TokenId` Default viteTokenID
         * `amount: BigInt`
         * `methodName: stirng`
         * `params?: stirng`
@@ -243,6 +237,22 @@ Get accountBlock of calling contract
         * `isReIssuable: bool`
         * `maxSupply: Uint256`
         * `ownerBurnOnly: bool`
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+
+## mintageCancelPledge
+取消代币抵押的accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId` 代币id
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
