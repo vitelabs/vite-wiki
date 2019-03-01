@@ -75,7 +75,7 @@ Verify if the input string is an integer
 - **return**
   - `target : boolean` Results: true, false
 
-## stringify an transcation info to an vite uri
+## stringify a transcation info to  vite uri
 
 - **params**
   - `opt : object`
@@ -86,10 +86,10 @@ Verify if the input string is an integer
   - `opt.params:object?` other params 
 - **return**
   - `uri : string` 
-- **otherparams**
+- **other params**
   | param name | type          | desc                                     | eg                                                  |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
   | amount     | number        | a number of amount                 |  1vite  amount=1 ,default :0               |
   | data       | base64 string | url safe encoded data	| data=MTIzYWJjZA  ,default: nil                                   |
   | fee        | number        | a number of fee                |  1vite  fee=1 ,default :0                           |
-  | tti        | token_type_id | token id                                 | default : vite tti	tti=tti_5649544520544f4b454e6e40 |
+  | tti        | token_type_id | token id                                 | 	tti=tti_5649544520544f4b454e6e40 ,default : vite tti |
