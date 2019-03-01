@@ -70,7 +70,7 @@ tar -xzvf contractdev-v1.2.2-darwin.tar.gz
 ```
 ```bash
 ## Enter folder extracted
-cd ~/contract_dev
+cd contract_dev
 ```
 ```bash
 ## Start gvite debugging environment
@@ -90,18 +90,18 @@ Start the Node success!!!
 
 #### Create Contract
 
-First write contract in Solidity++ and save into a ".sol" file under the same directory with start script
+First write contract in Solidity++ and save into a ".solpp" file under the same directory with start script
 
 Compile contract
 ```bash
 ## Compile contract using solc, and genereate binary code and ABI
-./solc --bin --abi c1.sol
+./solc --bin --abi HelloWorld.solpp
 ```
 
 Deploy contract in local debugging environment
 ```bash
-## Create contract from c1.sol with test account(created during startup)
-sh create_contract.sh c1.sol
+## Create contract from HelloWorld.solpp with test account(created during startup)
+sh create_contract.sh HelloWorld.solpp
 ```
 
 ```bash
@@ -115,15 +115,15 @@ curl -X POST \
     "method": "vmdebug_createContract",
     "params": [
         {
-          "fileName":"'`pwd`/c2.sol'",
+          "fileName":"'`pwd`/AsyncCall.solpp'",
           "params":{
             "A":{
               "amount":"0",
-              "params":["20"]
+              "params":[]
             },
             "B":{
               "amount":"0",
-              "params":["0"]
+              "params":["1"]
             }
           }
         }
@@ -133,19 +133,19 @@ curl -X POST \
 The parameters are explained below
 ```json
 {
-  // Create contract from c2.sol under current directory
-  "fileName":"'`pwd`/c2.sol'",
+  // Create contract from AsyncCall.solpp under current directory
+  "fileName":"'`pwd`/AsyncCall.solpp'",
   "params":{
     // Passed-in parameters for contracts. This example shows two contracts - A and B
     "A":{
       // Transfer amount when creating contract
       "amount":"0",
-      // Passed-in parameters for contructor. In this example, it passes in a uint64 value for contract A's contructor
-      "params":["20"]
+      "params":[]
     },
     "B":{
       "amount":"0",
-      "params":["0"]
+      // Passed-in parameters for contructor. In this example, it passes in a uint value for contract B's contructor
+      "params":["1"]
     }
   }
 }
@@ -167,7 +167,7 @@ Following return message shows the contract has been created successfully
           "contractAddr": "vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42", 
           "accountAddr": "vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7", 
           "amount": "0", 
-          "methodName": "transfer", 
+          "methodName": "SayHello", 
           "params": [
             "address"
           ]
@@ -183,7 +183,7 @@ Explained below
   "jsonrpc":"2.0",
   "id":0,
   "result":[ 
-    // List of contracts created. If multiple contracts exist in the .sol file, they will all be listed here
+    // List of contracts created. If multiple contracts exist in the .solpp file, they will all be listed here
     {
       // Test account address
       "accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7",  
@@ -203,7 +203,7 @@ Explained below
           // Transfer amount when the method is called
           "amount":"0",
           // Method name
-          "methodName":"transfer",
+          "methodName":"SayHello",
           // Parameter list with pseudo value. Multiple parameters are displayed if the method requires more than one pararmeter.
           "params":["address"]
         }
@@ -229,7 +229,7 @@ curl -X POST \
           "contractAddr":"vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42",
           "accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7",
           "amount":"0",
-          "methodName":"transfer",
+          "methodName":"SayHello",
           "params":["vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7"]
         }
     ]
@@ -309,7 +309,7 @@ sh create_account.sh
 
 Compared with in development environment, additional test account address should be specified when running create_contract.sh
 ```bash
-sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
+sh create_contract.sh HelloWorld.solpp vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
 ```
 Run pledge_for_contract.sh to stake for contract account created
 ```bash
