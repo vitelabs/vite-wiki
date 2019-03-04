@@ -234,7 +234,7 @@ Issue new token asset with initial amount. The issued token will be sent to owne
     * `isReIssuable: bool` Whether the asset can be re-issued. Must be `true` for stablecoin
     * `maxSupply: Uint256` Maximum supply. Mandatory for stablecoin. Cannot exceed 2**256-1
     * `ownerBurnOnly: bool` Whether the asset can be burned by owner only. Mandatory for stablecoin. All asset holders can perform burn action if this is false
-    * `feeType: string` Optional token issuance fee type that must be “stake” or “burn” only. This field describes the cost of issuing the new token and the amount(1,000 VITE for burning or 100,000 VITE for staking for 90 days) will be charged from issuer’s account. The default value is “burn”.
+    * `feeType: string` Optional token issuance fee type that must be `stake` or `burn` only. This field describes the cost of issuing the new token and the amount(1,000 VITE for burning or 100,000 VITE for staking for 90 days) will be charged from issuer’s account. The default value is `burn`.
 
 - **Return**:
     * Promise
