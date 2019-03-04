@@ -76,7 +76,8 @@ sidebarDepth: 1
 - **return**
   - `target : boolean` 验证结果: true(是), false(不是)
 
-## 序列化一个 vite schema 的uri
+## uriStringify
+序列化一个 vite schema 的uri
 
 - **params**
   - `opt : object`
