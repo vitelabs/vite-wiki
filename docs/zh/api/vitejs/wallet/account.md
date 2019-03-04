@@ -240,6 +240,7 @@ Account 实例方法
     * `isReIssuable: bool`
     * `maxSupply: Uint256`
     * `ownerBurnOnly: bool`
+    * `feeType: string` 销毁或抵押(burn or stake)
 
 - **Return**:
     * Promise

@@ -219,6 +219,7 @@
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
+        * `feeType: string` 销毁或抵押(burn or stake)
     - `requestType: string<'async' | 'sync'>` 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:

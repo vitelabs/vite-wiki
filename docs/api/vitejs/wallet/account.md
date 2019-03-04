@@ -234,7 +234,7 @@ Token Issuance
     * `isReIssuable: bool`
     * `maxSupply: Uint256`
     * `ownerBurnOnly: bool`
-    * `spendType: string` spend type: amount or fee
+    * `feeType: string` fee type: burn or stake
 
 - **Return**:
     * Promise

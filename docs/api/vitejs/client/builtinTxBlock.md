@@ -240,6 +240,7 @@ Get accountBlock of calling contract
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
+        * `feeType: string` burn or stake
     - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 
 - **Return**:
