@@ -16,16 +16,16 @@ This part contains built-in shortcuts
 1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
 2. Every methods in it can be invoked by `client.namespace.funcName`, learn more in constructor/example
 
-## event (subscribe返回的事件实例)
+## event (The returned event instance of subscribe)
 
 ### on
-监听
+Open event listener
 
 - **Parameters**
-    * `callback : Function` 有事件发生时，传入结果到callback函数
+    * `callback : Function` Passing results into callback function if there is any event happened
 
 ### off
-取消监听
+Cancel event listener
 
 ## Constructor
 
@@ -79,7 +79,7 @@ Refer to buildinTxBlock
 Refer to buildinLedger
 
 ## subscribe (Methods, ...args)
-订阅事件: 传参方式与request一致
+Event Subscription: Share the same parameters passing mode with request
 
 - **Returns**:
     - Promise<`event`>
@@ -109,10 +109,10 @@ myClient.subscribe('newAccountBlocks').then((event) => {
 ```
 
 ## unSubscribe
-取消订阅
+Cancel Subscription
 
 - **params**: 
-  * `event`: subscribe返回的event
+  * `event`: return event of subscribe
 
 ## clearSubscriptions
-清空全部订阅
+Clear all the Subscriptions
