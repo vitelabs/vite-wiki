@@ -76,21 +76,21 @@ Verify if the input string is an integer
   - `target : boolean` Results: true, false
 
 ## uriStringify
-stringify a transcation info to  vite uri
+Convert a transaction object into formatted uri that complies to a specific schema
 
 - **params**
   - `opt : object`
-  - `opt.schema:string?` default vite
-  - `opt.target_address:vite Address string` An address the tx will be send to
-  - `opt.chain_id?`default  net type 
-  - `opt.function_name?`contract function name 
-  - `opt.params:object?` other params 
+    - `opt.schema:string?` Schema type. Default is vite
+    - `opt.target_address:vite Address string` Target address that the transaction will be sent to
+    - `opt.chain_id?` Network id. Default is Vite mainnet 
+    - `opt.function_name?` Contract function name 
+    - `opt.params:object?` Other parameters 
 - **return**
   - `uri : string` 
 - **other params**
-  | param name | type          | desc                                     | eg                                                  |
+  | Param Name | Type          | Desc                                     | Example                                                  |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
-  | amount     | number        | a number of amount                 |  1vite  amount=1 ,default :0               |
-  | data       | base64 string | url safe encoded data	| data=MTIzYWJjZA  ,default: nil                                   |
-  | fee        | number        | a number of fee                |  1vite  fee=1 ,default :0                           |
-  | tti        | token_type_id | token id                                 | 	tti=tti_5649544520544f4b454e6e40 ,default : vite tti |
+  | Amount     | number        | Amount of token to be sent in below token id. Default is 0               |  amount=1            |
+  | Data       | base64 string | Data encoded in url safe format. Default is nil      	| data=MTIzYWJjZA                                  |
+  | Fee        | number        | Amount of fee in below token id. Default is 0                | fee=1                         |
+  | tti        | token_type_id | token id. Default is the token id of VITE                                 | 	tti=tti_5649544520544f4b454e6e40|
