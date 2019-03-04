@@ -90,7 +90,7 @@ Convert a transaction object into formatted uri that complies to a specific sche
 - **other params**
   | Param Name | Type          | Desc                                     | Example                                                  |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
-  | Amount     | number        | Amount of token to be sent in below token id. Default is 0               |  amount=1            |
-  | Data       | base64 string | Data encoded in url safe format. Default is nil      	| data=MTIzYWJjZA                                  |
-  | Fee        | number        | Amount of fee in below token id. Default is 0                | fee=1                         |
+  | amount     | number        | Amount of token to be sent in below token id. Default is 0               |  amount=1            |
+  | data       | base64 string | Data encoded in url safe format. Default is nil      	| data=MTIzYWJjZA                                  |
+  | fee        | number        | Amount of fee in below token id. Default is 0                | fee=1                         |
   | tti        | token_type_id | token id. Default is the token id of VITE                                 | 	tti=tti_5649544520544f4b454e6e40|
