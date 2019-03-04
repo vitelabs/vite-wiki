@@ -75,3 +75,23 @@ sidebarDepth: 1
   - `num : string`  字符串
 - **return**
   - `target : boolean` 验证结果: true(是), false(不是)
+
+## uriStringify
+序列化一个 vite schema 的uri
+
+- **params**
+  - `opt : object`
+    - `opt.schema:string?` default vite
+    - `opt.target_address:vite Address string` 对方交易地址
+    - `opt.chain_id?`default  网络类型，默认主网
+    - `opt.function_name?`合约方法名
+    - `opt.params:object?` 其他参数
+- **return**
+  - `uri : string` 
+- **otherparams**
+  | 参数名 | 类型          | 描述                                     | 例子                                                  |
+  | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
+  | amount     | number        | 交易数目                 |  1vite  amount=1 ,default :0               |
+  | data       | base64 string | 附加数据	| data=MTIzYWJjZA  ,default: nil                                   |
+  | fee        | number        | 交易费用               |  1vite  fee=1 ,default :0                           |
+  | tti        | token_type_id | 交易币种id                                | default : vite tti	tti=tti_5649544520544f4b454e6e40 |

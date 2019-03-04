@@ -39,18 +39,19 @@
             "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
             "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
             "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
-            "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+            "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
-            "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
             "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
             "nonce": "1GO9X2PtbDM=",
             "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
             "height": "1",
             "quota": "0",
+            "receiveBlockHeights": [],            
             "amount": "1000000000000000000000000000",
             "fee": "0",
             "confirmedTimes": "0",
@@ -193,15 +194,16 @@
         "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
         "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
         "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
-        "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+        "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+        "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
         "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
         "tokenId": "tti_5649544520544f4b454e6e40",
         "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
         "data": null,
         "timestamp": "2018-10-11T01:21:45.899730786+08:00",
-        "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
         "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
         "nonce": "1GO9X2PtbDM=",
+        "receiveBlockHeights": [],
         "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
         "height": "1",
         "quota": "0",
@@ -275,6 +277,142 @@
 }
 ```
 :::
+
+## ledger_getBlockByHeight
+获取某个账号在某个账号链高度下的交易块
+
+- **Parameters**: 
+    - `string` : `address` 账号地址
+    - `string` : `height`  交易高度
+
+- **Returns**: `AccountBlock` 交易块
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlockByHeight",
+    "params": [
+        "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "1"
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "blockType": 4,
+            "hash": "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a",
+            "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+            "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
+            "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+            "tokenId": "tti_5649544520544f4b454e6e40",
+            "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
+            "data": null,
+            "timestamp": "2018-10-11T01:21:45.899730786+08:00",
+            "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
+            "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "nonce": "1GO9X2PtbDM=",
+            "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
+            "height": "1",
+            "receiveBlockHeights": [],
+            "quota": "0",
+            "amount": "1000000000000000000000000000",
+            "fee": "0",
+            "confirmedTimes": "0",
+            "tokenInfo": {
+                "tokenName": "Vite Token",
+                "tokenSymbol": "VITE",
+                "totalSupply": "1000000000000000000000000000",
+                "decimals": 18,
+                "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+                "pledgeAmount": "0",
+                "withdrawHeight": "0"
+            }
+        }
+    ]
+}
+```
+```json test
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlockByHeight",
+    "params": [
+        "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "1"
+    ]
+}
+```
+:::
+## ledger_getBlockByHash
+获取某个hash对应的交易
+
+- **Parameters**: 
+    - `string` : `hash`  交易Hash
+
+- **Returns**: `AccountBlock`
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlockByHash",
+    "params": [
+        "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a"
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": 
+    {
+        "blockType": 4,
+        "hash": "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
+        "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+        "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+        "tokenId": "tti_5649544520544f4b454e6e40",
+        "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
+        "data": null,
+        "timestamp": "2018-10-11T01:21:45.899730786+08:00",
+        "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "nonce": "1GO9X2PtbDM=",
+        "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
+        "height": "1",
+        "quota": "0",
+        "amount": "1000000000000000000000000000",
+        "fee": "0",
+        "confirmedTimes": "0",
+        "tokenInfo": {
+            "tokenName": "Vite Token",
+            "tokenSymbol": "VITE",
+            "totalSupply": "1000000000000000000000000000",
+            "decimals": 18,
+            "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+            "pledgeAmount": "0",
+            "withdrawHeight": "0"
+        }
+    }
+}
+```
+:::
 ## ledger_getBlocksByHash
 从某个账户链获取某个交易的hash开始向前的N个块
 
@@ -311,13 +449,13 @@
             "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
             "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
             "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
-            "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
+            "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+            "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
-            "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
             "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
             "nonce": "1GO9X2PtbDM=",
             "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
@@ -503,6 +641,124 @@
 	"params": null
 }
 
+```
+:::
+
+## ledger_getSnapshotBlockByHash
+获取某个快照块hash对应的快照块
+
+- **Parameters**: 
+    - `Hash`  快照块hash
+
+- **Returns**: 
+               
+    `Object` : 快照块详情
+     -  `hash` : `Hash` 快照块hash
+     -  `prevHash` : `Hash` 快照链上上一个快照块的hash
+     -  `height` : `uint64` 快照块高度
+     -  `publicKey` : `ed25519.PublicKey` 打包快照块的超级节点的公钥
+     -  `signature` : `[]byte` 签名
+     -  `timestamp` : `time` 出块时间
+     -  `stateHash` : `Hash` 状态hash
+     -  `snapshotContent` : `map[types.Address]HashHeight` 快照的账户块高度和hash
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 2,
+	"method": "ledger_getSnapshotBlockByHash",
+	"params": ["1cf965e7b9a8ab4a3758e7c2fa97890ce8724cfd071cd0b0966c1be17cfc48ad"]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+        "hash": "1cf965e7b9a8ab4a3758e7c2fa97890ce8724cfd071cd0b0966c1be17cfc48ad",
+        "prevHash": "ce0e8595aace97b2732126afd104c889d71f87586740f401135f1ff58309363e",
+        "height": 6363411,
+        "publicKey": "uPBd4umnBsp0rGrKQWWsabcawNYEjPh3MKXnGNVTMWs=",
+        "signature": "JcYfU1LWuZTgKgpMrQ1T6uUuw3krUImikmgTqoyEDXubYt00ND/loABQ7KoQkBh8PYQOvVrPZtBjVlTGWJx6DQ==",
+        "timestamp": "2019-01-25T03:18:04Z",
+        "stateHash": "93f40fc8892855ae46134c85f7a5010308da9cb7a07337b2a68da34473c04492",
+        "snapshotContent": {
+            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
+                "height": 31578,
+                "hash": "91fa958eb01f82b93ef4077a938fe9f9b5e1c2555979045e0a3c3b06721e69cc"
+            },
+            "vite_eef384a5fc40e0fbe282411e1d8e70c0f3c0e4a4f783448780": {
+                "height": 894,
+                "hash": "347a08b2e7666db832b1e0f69972f9dd1875fe6c1d3fc03aa55ab07e9a4858ae"
+            }
+        }
+    }
+}
+```
+:::
+
+## ledger_getSnapshotBlockByHeight
+获取某个高度的快照块
+
+- **Parameters**: 
+    - `uint64`  快照块高度
+
+- **Returns**: 
+               
+    `Object` : 快照块详情
+     -  `hash` : `Hash` 快照块hash
+     -  `prevHash` : `Hash` 快照链上上一个快照块的hash
+     -  `height` : `uint64` 快照块高度
+     -  `publicKey` : `ed25519.PublicKey` 打包快照块的超级节点的公钥
+     -  `signature` : `[]byte` 签名
+     -  `timestamp` : `time` 出块时间
+     -  `stateHash` : `Hash` 状态hash
+     -  `snapshotContent` : `map[types.Address]HashHeight` 快照的账户块高度和hash
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 2,
+	"method": "ledger_getSnapshotBlockByHeight",
+	"params": [6363411]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": {
+        "hash": "1cf965e7b9a8ab4a3758e7c2fa97890ce8724cfd071cd0b0966c1be17cfc48ad",
+        "prevHash": "ce0e8595aace97b2732126afd104c889d71f87586740f401135f1ff58309363e",
+        "height": 6363411,
+        "publicKey": "uPBd4umnBsp0rGrKQWWsabcawNYEjPh3MKXnGNVTMWs=",
+        "signature": "JcYfU1LWuZTgKgpMrQ1T6uUuw3krUImikmgTqoyEDXubYt00ND/loABQ7KoQkBh8PYQOvVrPZtBjVlTGWJx6DQ==",
+        "timestamp": "2019-01-25T03:18:04Z",
+        "stateHash": "93f40fc8892855ae46134c85f7a5010308da9cb7a07337b2a68da34473c04492",
+        "snapshotContent": {
+            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
+                "height": 31578,
+                "hash": "91fa958eb01f82b93ef4077a938fe9f9b5e1c2555979045e0a3c3b06721e69cc"
+            },
+            "vite_eef384a5fc40e0fbe282411e1d8e70c0f3c0e4a4f783448780": {
+                "height": 894,
+                "hash": "347a08b2e7666db832b1e0f69972f9dd1875fe6c1d3fc03aa55ab07e9a4858ae"
+            }
+        }
+    }
+}
 ```
 :::
 

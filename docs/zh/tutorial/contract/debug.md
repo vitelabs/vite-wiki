@@ -1,25 +1,75 @@
 # 调试合约
 
-## 如何调试合约
+## 调试合约的两种方式
 
 调试合约时在本地启动一个单机模式的节点，创建合约、调用合约的交易都通过RPC接口调用这个本地节点。
 
 目前支持部署两种调试环境，分别为开发环境和测试环境，开发环境不检查配额和余额，任意一笔交易默认配额为100w，余额充足；测试环境时检查逻辑和测试网络相同，需要保证账户拥有充足的余额和配额。
+
+其中，开发环境支持通过VS Code调试和手动调试两种方式。
+
+## VS Code插件
+
+Soliditypp VS Code插件提供了在本地部署和调试`solidity++`智能合约的功能。
+
+VS Code插件0.2.0版本包含以下功能：
+* `solidity++`语法高亮；
+* `solidity++`代码自动完成；
+* 保存`.solpp`文件时自动编译；
+* 编译错误高亮显示；
+* 鼠标悬停时展示编译错误详情；
+* 在本地开发环境部署和调用智能合约；
+* 多合约部署和调用；
+* 展示合约部署和调用结果；
+* `solidity++`示例代码。
+
+示例
+![](~/images/vscode-capture.gif)
+
+### 安装VS Code插件
+
+在`Visual Studio Code`中查找`Soliditypp`插件并下载，即可在本地编写和调试智能合约。
+
+![](~/images/vscode-extension.png)
+
+### 新建HelloWorld.solpp
+
+Mac下执行`⇧⌘P`或者`F1`，Windows下执行`Ctrl+Shift+P`调起命令行，执行`soliditypp: Generate HelloWorld.solpp`命令，在当前文件夹下生成示例代码`HelloWorld.solpp`。
+
+### 编写合约代码
+
+`.solpp`后缀的文件会被自动识别为`solidity++`文件。保存文件时会自动编译。如果编译出错，则错误行所在代码会被标记红色下划线，在下划线代码处悬停鼠标时会展示出具体的错误信息。
+
+### 合约部署和调用
+
+合约代码编译通过后，启动调试，选择`Soliditypp`环境。启动成功后，会在本地部署一个gvite节点，后续部署和调试智能合约都在本地gvite节点上进行，结束调试时会自动清空本地gvite节点的数据。
+
+在调试面板中部署和调试合约。
+
+![](~/images/vscode-debug.png)
+
+其中，
+* 区域1：源代码文件。
+* 区域2：当前账户地址。使用当前账户地址发起交易来部署或调用合约。点击`+`号新增并初始化新账户地址，在下拉列表中切换当前地址。
+* 区域3：部署合约。当前代码文件中只有一个名为`HelloWorld`的合约，构造方法没有参数。`amount`为创建合约交易的转账金额，单位为`attov`，`1 vite = 1e18 attov`。点击`deploy`部署合约到本地测试网络。
+* 区域4：已部署的合约。如果在本次调试期间部署了多个合约，则展示多个合约和对应的合约账户地址。
+* 区域5：已部署的合约接口列表。如果合约有多个接口，则展示这个合约的多个接口和相应的接口参数。其中接口参数的第一个`amount`为调用这个接口时的转账金额，单位为`attov`。点击`call "SayHello"`调用`HelloWorld`合约的`SayHello`接口。
+* 区域6：`HelloWorld`合约的部署和调用结果。其中`request`表示部署或调用的请求交易，`response`表示部署或调用的响应交易，如果合约执行方法时又发起了新的请求交易，则新的请求交易依次展示在`response`中。注意Vite中的交易是异步的，发起`request`后，`response`可能需要等一段时间才会生成。`request`和`response`的字段说明参考[accountblock](https://vite.wiki/zh/api/rpc/common_models.html#accountblock)。
 
 ## 开发环境
 
 ### 安装
 
 [下载开发环境调试文件](https://github.com/vitelabs/gvite-contracts/releases)
-例如：contractdev-v1.2.2-darwin.tar.gz
+例如：contractdev-v1.3.0-darwin.tar.gz
 
 ```bash
 ## 解压
-tar -xzvf contractdev-v1.2.2-darwin.tar.gz
+tar -xzvf contractdev-v1.3.0-darwin.tar.gz
 ```
 ```bash
 ## 进入解压目录
-cd ~/contract_dev
+cd contract_dev
 ```
 ```bash
 ## 启动
@@ -43,12 +93,12 @@ Start the Node success!!!
 
 ```bash
 ## 使用solc编译合约代码，生成二进制码和abi。
-./solc --bin --abi c1.sol
+./solc --bin --abi HelloWorld.solpp
 ```
 
 ```bash
-## 使用c1.sol文件创建合约（包含创建测试账户、使用测试账户创建合约）
-sh create_contract.sh c1.sol
+## 使用HelloWorld.solpp文件创建合约（包含创建测试账户、使用测试账户创建合约）
+sh create_contract.sh HelloWorld.solpp
 ```
 
 ```bash
@@ -62,15 +112,15 @@ curl -X POST \
     "method": "vmdebug_createContract",
     "params": [
         {
-          "fileName":"'`pwd`/c2.sol'",
+          "fileName":"'`pwd`/AsyncCall.solpp'",
           "params":{
             "A":{
               "amount":"0",
-              "params":["20"]
+              "params":[]
             },
             "B":{
               "amount":"0",
-              "params":["0"]
+              "params":["1"]
             }
           }
         }
@@ -80,19 +130,20 @@ curl -X POST \
 其中，各参数含义如下：
 ```json
 {
-  // 使用当前目录下的c2.sol来创建合约
-  "fileName":"'`pwd`/c2.sol'",
+  // 使用当前目录下的AsyncCall.solpp来创建合约
+  "fileName":"'`pwd`/AsyncCall.solpp'",
   "params":{
     // 多个合约的创建参数，例如，下面指定了两个合约的创建参数，合约名称分别为A和B
     "A":{
       // 创建合约时的转账金额
       "amount":"0",
-      // 合约构造方法的入参，示例中A合约的构造方法有一个uint64的入参
-      "params":["20"]
+      // 合约构造方法的入参，示例中A合约的构造方法没有入参
+      "params":[]
     },
     "B":{
       "amount":"0",
-      "params":["0"]
+      // B合约的构造方法有一个int类型的入参
+      "params":["1"]
     }
   }
 }
@@ -114,7 +165,7 @@ curl -X POST \
           "contractAddr": "vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42", 
           "accountAddr": "vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7", 
           "amount": "0", 
-          "methodName": "transfer", 
+          "methodName": "SayHello", 
           "params": [
             "address"
           ]
@@ -150,7 +201,7 @@ curl -X POST \
           // 调用合约账户时的转账金额
           "amount":"0",
           // 方法名称
-          "methodName":"transfer",
+          "methodName":"SayHello",
           // 方法参数列表，如果有多个参数，则在params数组中会依次展示所有的参数。调用合约时需要把对应的参数改成真实调用参数
           "params":["address"]
         }
@@ -159,6 +210,9 @@ curl -X POST \
   ]
 }
 ```
+
+**注意，开发环境不检查配额，所以不需要给合约账户抵押vite。如果是测试网络，创建合约成功后需要给合约账户抵押vite来获取配额。** 参见 [合约的配额](./contract.html#合约的配额)
+
 
 ### 调用合约
 
@@ -176,7 +230,7 @@ curl -X POST \
           "contractAddr":"vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42",
           "accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7",
           "amount":"0",
-          "methodName":"transfer",
+          "methodName":"SayHello",
           "params":["vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7"]
         }
     ]
@@ -222,7 +276,7 @@ sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 ### 安装
 
 [下载测试环境调试文件](https://github.com/vitelabs/gvite-contracts/releases)
-例如：contracttest-v1.2.2-darwin.tar.gz
+例如：contracttest-v1.3.0-darwin.tar.gz
 
 测试环境安装过程和开发环境相同。
 
@@ -258,9 +312,9 @@ sh create_account.sh
 
 创建合约时，需要指定合约文件和创建合约的测试地址。
 ```bash
-sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
+sh create_contract.sh HelloWorld.solpp vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
 ```
-合约创建成功后，分别给每个合约账户抵押以获取合约账户的配额。
+**合约创建成功后，分别给每个合约账户抵押vite以获取合约账户的配额。** 参见 [合约的配额](./contract.html#合约的配额)
 ```bash
 sh pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
 ```

@@ -3,8 +3,8 @@
 
 ### The introduction of TestNet v1.0.0
 
-* 0.1 TestNet products
-* 0.1 TestNet features
+* 0.1 TestNet products [soliury]
+* 0.1 TestNet features [soliury]
 
 ### Wallet related
 
@@ -45,8 +45,8 @@
 
 ### Contribution & Feedback
 
-* How to contribute code
-* Code specification
-* How to ask questions and how to debug
+* Instruction of code contribution
+* Coding style
+* Feedback & Debug
 
 [soliury]: <https://github.com/soliury>

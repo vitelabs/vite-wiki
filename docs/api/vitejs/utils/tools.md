@@ -5,7 +5,7 @@ sidebarDepth: 1
 # tools
 
 :::tip Created by
-[cs](https://github.com/lovelycs)
+[cs](https://github.com/lovelycs) [hurrytospring](https://github.com/hurrytospring)
 :::
 
 ## checkParams 
@@ -74,3 +74,23 @@ Verify if the input string is an integer
   - `num : string`
 - **return**
   - `target : boolean` Results: true, false
+
+## uriStringify
+Convert a transaction object into formatted uri that complies to a specific schema
+
+- **params**
+  - `opt : object`
+    - `opt.schema:string?` Schema type. Default is vite
+    - `opt.target_address:vite Address string` Target address that the transaction will be sent to
+    - `opt.chain_id?` Network id. Default is Vite mainnet 
+    - `opt.function_name?` Contract function name 
+    - `opt.params:object?` Other parameters 
+- **return**
+  - `uri : string` 
+- **other params**
+  | Param Name | Type          | Desc                                     | Example                                                  |
+  | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
+  | amount     | number        | Amount of token to be sent in below token id. Default is 0               |  amount=1            |
+  | data       | base64 string | Data encoded in url safe format. Default is nil      	| data=MTIzYWJjZA                                  |
+  | fee        | number        | Amount of fee in below token id. Default is 0                | fee=1                         |
+  | tti        | token_type_id | Token id. Default is the token id of VITE                                 | 	tti=tti_5649544520544f4b454e6e40|

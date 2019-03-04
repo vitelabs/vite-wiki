@@ -8,9 +8,9 @@ User is able to write, compile smart contracts and deploy in Vite TestNet now.
 ## What is Asynchronous Smart Contract
 
 Cross-contract calls in Ethereum are represented as function calls, or internal transactions. This set of calls are either completed at the same time or all fail. Obviously, this kind of atomic ACID semantic could become a performance bottleneck in system. 
-To tackle the issue, Vite adopts an asynchronous, message-driven architecture on the basis of known solution of centralized Internet technology.
+To tackle the issue, Vite adopts an asynchronous, message-driven architecture on the basis of known solution of centralized Internet technology.  Smart contracts in Vite communicate with each other via sending messages instead of sharing states.
 
-Similar to common transfer, a contract call is separated into a contract request transaction and a contract response, representing as transaction blocks appended into the account chains of requester and contract respectively.
+Similar to common transfer, a contract call is separated into a contract request transaction and a contract response, representing as transaction blocks appended into the account chains of requester and responder of a contract call respectively.
 
 The manner how these transactions are written to the ledger and how they are confirmed are also asynchronous. A "snapshotted" contract request transaction means the contract call is successfully initiated. A "snapshotted" contract response transaction indicates the contract call is complete.
 
@@ -29,7 +29,7 @@ Since prioritization of contract response transactions is not specified in Vite'
 
 FIFO(First In First Out) rule must be guaranteed when multiple messages are sent to a contract from the same account. In other words, the request transaction having lower block height is always accepted by the contract in ahead of that having higher height. FIFO does not apply to scenario where messages are sent out from different accounts.
 
-If multiple accounts happen to send messages to a contract simultaneously, the delegated consensus group will choose a random processing order by default. However, a prioritization algorithm can also be applied as well.
+If multiple accounts happen to send messages to a contract simultaneously, the delegated consensus group will choose a random processing order by default. However, a prioritization algorithm doesn't belong to part of the Vite's protocol, it can also be customized as well.
 
 ## Cost of Contract
 
@@ -39,7 +39,7 @@ Creating new contract consumes VITE. In the TestNet, a destruction of 10 VITE is
 
 ### Quota in Contract
 
-The quota for contract creation request transaction is supplied by contract creator while the quota for contract creation response transaction comes from the destruction of VITE. In the TestNet, destroying 10 VITE to create a smart contract will receive a quota of up to 1000000, specifically for contract creation purpose.
+The quota for contract creation request transaction is supplied by contract creator while the quota for contract creation response transaction comes from the destruction of VITE. In the TestNet, destroying 10 VITE to create a smart contract will receive a quota of up to 1,000,000, specifically for contract creation purpose.
 
 Similar to contract creation, contract execution consumes quota as well. The contract request transaction and the contract response transaction consume the quota of transaction initiator and contract account respectively.
 

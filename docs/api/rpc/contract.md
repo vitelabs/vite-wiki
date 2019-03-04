@@ -50,7 +50,7 @@ Return a newly generated smart contract address
    "method":"contract_getCreateContractToAddress",
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6", 
-      2, 
+      "2", 
       "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7", 
       "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7"]
 }

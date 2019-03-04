@@ -14,7 +14,7 @@ let Account = new account({
     privateKey: utils.ed25519.keyPair().secretKey,
     client: myClient
 });
-Account.getBlance().then((result) => {
+Account.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
@@ -156,7 +156,6 @@ Retrieve Rewards
 
 #### voting
 
-
 - **Parameters** 
     __namedParameters: object
     * `nodeName : string` Node Name
@@ -165,7 +164,6 @@ Retrieve Rewards
     * Promise 
 
 #### revokeVoting
-
 
 - **Parameters** 
     __namedParameters: object
@@ -223,3 +221,65 @@ Call contract
     * `amount` Amount
 - **Return**:
     * Promise 
+
+#### mintage
+Token Issuance
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenName: string`
+    * `decimals: uint8`
+    * `totalSupply: big.int`
+    * `tokenSymbol: string`
+    * `isReIssuable: bool`
+    * `maxSupply: Uint256`
+    * `ownerBurnOnly: bool`
+    * `spendType: string` spend type: amount or fee
+
+- **Return**:
+    * Promise
+
+#### mintageIssue
+Additional token issuance
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId: TokenId` token id
+    * `amount: uint64` additional amount
+    * `beneficial: Address` receiver address of additional tokens
+
+- **Return**:
+    * Promise
+
+#### mintageBurn
+Destroy tokens
+
+- **Parameters**
+    __namedParameters: object
+    * `tokenId: TokenId` Destroyed token id
+    * `amount: uint64` Destroyed token amount
+
+- **Return**:
+    * Promise
+
+#### changeTransferOwner
+Change token owner
+
+- **Parameters** 
+    __namedParameters: object
+    * `ownerAddress: Address`
+    * `tokenId: TokenId`
+
+- **Return**:
+    * Promise
+
+#### changeTokenType
+Change token type, e.g. changing token type from additional issuance enable to disable
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId: TokenId`
+
+- **Return**:
+    * Promise
+  
