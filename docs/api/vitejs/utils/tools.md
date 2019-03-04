@@ -75,7 +75,8 @@ Verify if the input string is an integer
 - **return**
   - `target : boolean` Results: true, false
 
-## stringify a transcation info to  vite uri
+## uriStringify
+stringify a transcation info to  vite uri
 
 - **params**
   - `opt : object`
