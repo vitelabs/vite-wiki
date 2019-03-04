@@ -8,7 +8,7 @@ User is able to write, compile smart contracts and deploy in Vite TestNet now.
 ## What is Asynchronous Smart Contract
 
 Cross-contract calls in Ethereum are represented as function calls, or internal transactions. This set of calls are either completed at the same time or all fail. Obviously, this kind of atomic ACID semantic could become a performance bottleneck in system. 
-To tackle the issue, Vite adopts an asynchronous, message-driven architecture on the basis of known solution of centralized Internet technology.  Smart contracts in Vite communicate with each other via sending messages instead fo sharing states.
+To tackle the issue, Vite adopts an asynchronous, message-driven architecture on the basis of known solution of centralized Internet technology.  Smart contracts in Vite communicate with each other via sending messages instead of sharing states.
 
 Similar to common transfer, a contract call is separated into a contract request transaction and a contract response, representing as transaction blocks appended into the account chains of requester and responder of a contract call respectively.
 
