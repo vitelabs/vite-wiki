@@ -38,3 +38,13 @@ const myWs = new wsProvider("ws://localhost:8080");
 
 #### reconnect
 网络重连
+
+#### subscribe
+订阅服务端推送事件
+
+- **params**: 
+
+  * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
+
+#### unSubscribe
+取消订阅

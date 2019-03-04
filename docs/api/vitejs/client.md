@@ -16,6 +16,17 @@ This part contains built-in shortcuts
 1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
 2. Every methods in it can be invoked by `client.namespace.funcName`, learn more in constructor/example
 
+## event (subscribe返回的事件实例)
+
+### on
+监听
+
+- **Parameters**
+    * `callback : Function` 有事件发生时，传入结果到callback函数
+
+### off
+取消监听
+
 ## Constructor
 
 - **constructor params**
@@ -66,3 +77,42 @@ Refer to buildinTxBlock
 
 ## buildinLedger
 Refer to buildinLedger
+
+## subscribe (Methods, ...args)
+订阅事件: 传参方式与request一致
+
+- **Returns**:
+    - Promise<`event`>
+
+- **Example**
+
+```javascript
+
+import provider from '@vite/vitejs/dist/es5/provider/WS';
+import { client } from '@vite/vitejs';
+
+const WS_RPC = new provider("https://example.com");
+
+const myClient = new Client(WS_RPC, function(_myclient) {
+    console.log("Connected.");
+});
+
+myClient.subscribe('newAccountBlocks').then((event) => {
+    event.on((result) => {
+        console.log(result);
+    });
+    // event.off();
+}).catch(err => {
+    console.warn(err);
+});
+
+```
+
+## unSubscribe
+取消订阅
+
+- **params**: 
+  * `event`: subscribe返回的event
+
+## clearSubscriptions
+清空全部订阅
