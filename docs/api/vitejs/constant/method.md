@@ -20,7 +20,7 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     // ......
 })
 
-// 或者
+// or
 myClient.ledger.getLatestSnapshotChainHash()
 .then(()=>{
     // ......
@@ -32,7 +32,7 @@ myClient.subscribeFunc.newAccountBlocks()
     // ......
 });
 
-// 或者
+// or
 myClient.request(method.subscribe.newAccountBlocks)
 .then(()=>{
     // ......
