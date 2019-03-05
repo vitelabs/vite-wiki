@@ -26,7 +26,7 @@ myClient.ledger.getLatestSnapshotChainHash()
     // ......
 });
 
-// 如果是subscribe方法
+// If it is a subscribe method
 myClient.subscribeFunc.newAccountBlocks()
 .then(()=>{
     // ......
