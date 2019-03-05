@@ -9,9 +9,9 @@ sidebarDepth: 4
 
 事件订阅相关接口。Vite提供两种事件订阅模式：轮询模式和长连接模式。
 
-轮询模式先创建`filter`，然后通过`filterId`轮询`subscribe_getFilterChanges`接口，获取新事件。轮询模式如果超过5分钟没有请求则自动关闭这个filterId。
+轮询模式先创建`filter`，然后通过`filterId`轮询`subscribe_getFilterChanges`接口，获取新事件。轮询模式如果超过5分钟没有请求则自动关闭这个`filterId`，也可以通过`subscribe_uninstallFilter`接口主动取消定业。
 
-长连接模式先先注册一个`subscription`，然后当产生新事件时`subscription`会通过回调的方式返回新事件。
+长连接模式先先注册一个`subscription`，然后当产生新事件时`subscription`会通过回调的方式返回新事件。长连接断开时自动取消订阅。
 
 当前支持2种类型的事件：新交易（即新账户块）事件、新日志（即新账户块中的日志）事件。每一种类型的事件都包含相应的回滚事件，回滚时，事件消息中的removed字段为true。
 
@@ -90,7 +90,7 @@ topics取值示例：
 :::
 
 ## subscribe_uninstallFilter
-取消订阅filter。
+轮询模式取消订阅。
 
 - **Parameters**:
   * `string`: filterId
@@ -123,8 +123,8 @@ topics取值示例：
   * `string`: filterId
   
 - **subscribe_newAccountBlocksFilter返回值**: 
-  * `id`: `string` filterId
-  * `blocks`: `Array&lt;NewAccountBlocksMsg&gt;`
+  * `subscription`: `string` filterId
+  * `result`: `Array&lt;NewAccountBlocksMsg&gt;`
     1. `hash`: `Hash` 账户块哈希
     2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
   
@@ -142,7 +142,7 @@ topics取值示例：
     "jsonrpc": "2.0",
     "id": 1,
     "result": {
-      "blocks": [
+      "subscription": [
           {
               "Hash": "9cc9ba996a4192e35ddbfe3ba448611fc06f6342463e21d3300e58e9772b348f",
               "Removed": false
@@ -152,15 +152,15 @@ topics取值示例：
               "Removed": false
           }
       ],
-      "id": "0xf90906914486a9c22d620e50022b38d5"
+      "result": "0xf90906914486a9c22d620e50022b38d5"
     }
 }
 ```
 :::
 
 - **subscribe_newLogsFilter返回值**: 
-  * `id`: `string` filterId
-  * `logs`: `Array&lt;LogsMsg&gt;`
+  * `subscription`: `string` filterId
+  * `result`: `Array&lt;LogsMsg&gt;`
     1. `accountBlockHash`: `Hash` 账户块哈希
     2. `addr`: `Address` 账户地址
     3. `log`: `VmLog` 日志信息
@@ -180,7 +180,7 @@ topics取值示例：
     "jsonrpc": "2.0",
     "id": 1,
     "result": {
-      "logs": [
+      "result": [
           {
               "log": {
                   "topics": [
@@ -194,7 +194,7 @@ topics取值示例：
               "removed": false
           }
       ],
-      "id": "0x8f34ddeb22b87fdfd2acb6c9f5a2b50d"
+      "subscription": "0x8f34ddeb22b87fdfd2acb6c9f5a2b50d"
     }
 }
 ```
@@ -304,6 +304,60 @@ topics取值示例：
       }
     ]
   }
+}
+```
+:::
+
+## subscribe_getLogs
+查询历史日志。
+
+- **Parameters**:
+
+  * `FilterParam` 日志查询参数，同subscribe_newLogsFilter
+
+- **Returns**:  
+	- `Array&lt;LogsMsg&gt;` 日志信息
+	
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 17,
+	"method": "subscribe_getLogs",
+	"params": [{
+		"addrRange":{
+			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
+				"fromHeight":"0",
+				"toHeight":"0"
+			}
+		}
+	}]
+}
+```
+```json tab:Response
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0x4b97e0674a5ebef942dbb07709c4a608"
+}
+```
+```json tab:Callback
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": [
+        {
+            "log": {
+                "topics": [
+                    "28e6ea56797f4a1b22a1d1986cb6c22e80099ba8e4fd14d42accfaedfe5f6640"
+                ],
+                "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQQurTFV9WklB2DRvsX8wLCgyoVomYHSCebb9Br/hQ+RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwYLIcJLnbQjGl+qeU7YWlTWwfsoF6mescP5xz2fDTEg="
+            },
+            "accountBlockHash": "e4917f357a4588ec1752797ee5516939f46078f5356b14422d4a9dfe45f88bf5",
+            "addr": "vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa",
+            "removed": false
+        }
+    ]
 }
 ```
 :::
