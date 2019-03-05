@@ -1,24 +1,76 @@
 # Contract Debugging
 
-## How to Debug Smart Contract
+## Debugging Environment
 
-To debug smart contract, you need setup a local node. Creating or calling contract will be accomplished through the node's RPC interface.
+In order to debug smart contract, you need setup a local full node and perform contract debugging through your node's RPC interface.
 
-For the time being, we provide development environment and test environment for debugging. Balance and quota are exempt from checking in development environment. 
-Any transaction will receive a quota of 1,000,000 that never consumes up. In test environment, all checks keep the same as Vite TestNet. It's necessary to maintain sufficient balance or quota when debugging.
-## Development Environment
+We provide 2 debugging environments: development and testing. The difference is that account balance will not be examined before sending transaction in development environment, and each transaction has 1,000,000 quota automatically. 
+In testing environment, checks for quota and balance will be the same as Vite TestNet. It's necessary to maintain sufficient balance or quota when debugging.
+
+In development environment, it is also possible to debug your smart contract in Microsoft Visual Studio Code(aka VS Code).
+
+## Debugging in VS Code
+
+Soliditypp extension for VS Code supports debugging `solidity++` smart contract in local development environment.
+
+Following features are supported:
+
+* `solidity++` syntax highlighting
+* `solidity++` code auto completion
+* Auto compilation when saving `.solpp` file
+* Compilation error highlighting
+* Detailed error message displaying when mouse over 
+* One-click smart contract deployment and debugging
+* Support for multiple smart contract interaction
+* Deployment/debugging result displaying
+* Example `solidity++` code
+
+### Install the Extension
+
+Search for "Soliditypp" in VS Code and install.
+
+![](~/images/vscode-extension.png)
+
+### Create HelloWorld.solpp
+
+Open VS Code workbench, press `⇧⌘P`(or `F1`) in Mac(or `Ctrl+Shift+P` in Windows) to bring Command Palette, and then execute command `soliditypp: Generage HelloWorld.solpp`. This will generate `HelloWorld.solpp` under current folder as an example.
+
+### Write Smart Contract
+
+Write your contract in a new `.solpp` file and then save it by pressing `⌘S` in Mac(or `Ctrl+S` in Windows). Your source file will be automatically compiled each time it is saved. 
+Lines with compilation error in the code will be marked with red underscore. Detailed error message will be displayed when you mouse over.
+
+VS Code will recognize `.solpp` file as `solidity++` source by default. 
+
+### Deploy/Debug Smart Contract
+
+In Debug panel, start debugging and choose `Soliditypp` environment. This will launch a local `gvite` node and all following deployment and debugging steps will take place on this node.
+Please note that all data will be cleared from the node after debugging is complete.
+
+![](~/images/vscode-debug.png)
+
+* Section 1: soliditypp source code panel
+* Section 2: shows current account address that will be used for contract deployment and debugging. Additional address can be created by clicking `+`. Use droplist in right side to switch to a different address if necessary
+* Section 3: deployment panel. Field `amount` can be used to send a certain amount of VITE tokens in `attov`(1 VITE = 1e18 attov) when deploying the contract. Click `deploy` button to deploy the contract in local development environment.
+* Section 4: list of contracts deployed. Multiple contracts will be displayed if more than one are deployed
+* Section 5: list of contract methods deployed. Multiple methods will be displayed if more than one are present. Parameter `amount` is used to send VITE tokens(in `attov`) to contract when calling the method. In our example, click `call "SayHello"` button will call `SayHello` of contract `HelloWorld`
+* Section 6: deployment/debugging result. `Request` and `Response` sections will show the information of request or response transaction respectively. New request transaction will be displayed in `Response` if the method still calls other function. Please note that transactions in Vite are executed asynchronously. User may need wait for a while before response transaction is generated, after a request is sent out. More information about `Request` and `Response` please see [AccountBlock](../../api/rpc/common_models.html#accountblock)。
+
+## Debugging in Command Line
+ 
+### Development Environment
 
 Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/releases) in development environment and install
 
-### Install
+#### Install
 
 ```bash
 ## Unzip
-tar -xzvf contractdev-v1.2.2-darwin.tar.gz
+tar -xzvf contractdev-v1.3.0-darwin.tar.gz
 ```
 ```bash
 ## Enter folder extracted
-cd ~/contract_dev
+cd contract_dev
 ```
 ```bash
 ## Start gvite debugging environment
@@ -36,20 +88,20 @@ Prepare the Node success!!!
 Start the Node success!!!
 ```
 
-### Create Contract
+#### Create Contract
 
-First write contract in Solidity++ and save into a ".sol" file under the same directory with start script
+First write contract in Solidity++ and save into a ".solpp" file under the same directory with start script
 
 Compile contract
 ```bash
 ## Compile contract using solc, and genereate binary code and ABI
-./solc --bin --abi c1.sol
+./solc --bin --abi HelloWorld.solpp
 ```
 
 Deploy contract in local debugging environment
 ```bash
-## Create contract from c1.sol with test account(created during startup)
-sh create_contract.sh c1.sol
+## Create contract from HelloWorld.solpp with test account(created during startup)
+sh create_contract.sh HelloWorld.solpp
 ```
 
 ```bash
@@ -63,15 +115,15 @@ curl -X POST \
     "method": "vmdebug_createContract",
     "params": [
         {
-          "fileName":"'`pwd`/c2.sol'",
+          "fileName":"'`pwd`/AsyncCall.solpp'",
           "params":{
             "A":{
               "amount":"0",
-              "params":["20"]
+              "params":[]
             },
             "B":{
               "amount":"0",
-              "params":["0"]
+              "params":["1"]
             }
           }
         }
@@ -81,19 +133,19 @@ curl -X POST \
 The parameters are explained below
 ```json
 {
-  // Create contract from c2.sol under current directory
-  "fileName":"'`pwd`/c2.sol'",
+  // Create contract from AsyncCall.solpp under current directory
+  "fileName":"'`pwd`/AsyncCall.solpp'",
   "params":{
     // Passed-in parameters for contracts. This example shows two contracts - A and B
     "A":{
       // Transfer amount when creating contract
       "amount":"0",
-      // Passed-in parameters for contructor. In this example, it passes in a uint64 value for contract A's contructor
-      "params":["20"]
+      "params":[]
     },
     "B":{
       "amount":"0",
-      "params":["0"]
+      // Passed-in parameters for contructor. In this example, it passes in a uint value for contract B's contructor
+      "params":["1"]
     }
   }
 }
@@ -115,7 +167,7 @@ Following return message shows the contract has been created successfully
           "contractAddr": "vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42", 
           "accountAddr": "vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7", 
           "amount": "0", 
-          "methodName": "transfer", 
+          "methodName": "SayHello", 
           "params": [
             "address"
           ]
@@ -131,7 +183,7 @@ Explained below
   "jsonrpc":"2.0",
   "id":0,
   "result":[ 
-    // List of contracts created. If multiple contracts exist in the .sol file, they will all be listed here
+    // List of contracts created. If multiple contracts exist in the .solpp file, they will all be listed here
     {
       // Test account address
       "accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7",  
@@ -151,7 +203,7 @@ Explained below
           // Transfer amount when the method is called
           "amount":"0",
           // Method name
-          "methodName":"transfer",
+          "methodName":"SayHello",
           // Parameter list with pseudo value. Multiple parameters are displayed if the method requires more than one pararmeter.
           "params":["address"]
         }
@@ -161,10 +213,10 @@ Explained below
 }
 ```
 
-### Call Contract
+#### Call Contract
 
 ```bash
-## Call a contract method. Remember to specify the right parameters that match your test environment
+## Call a contract method. Remember to specify the right parameters that match your testing environment
 curl -X POST \
   http://127.0.0.1:48132/ \
   -H 'content-type: application/json' \
@@ -177,7 +229,7 @@ curl -X POST \
           "contractAddr":"vite_d624b0bead067237700a86314287849163e4a0fb6139fdff42",
           "accountAddr":"vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7",
           "amount":"0",
-          "methodName":"transfer",
+          "methodName":"SayHello",
           "params":["vite_21483c46a64799c7db0cba88cf7b007a2d1a37e863f7be94b7"]
         }
     ]
@@ -202,7 +254,7 @@ Return message is explained below
 ```
 Script call.sh shows an example how to call a contract
 
-### Verify Execution Result
+#### Verify Execution Result
 
 Since the response transactions of creating or calling contract are processed asynchronously, we have to wait for a while(1~6s in local environment) after sending out the request.
 Executing steps and results are recorded in two separate logs.
@@ -217,17 +269,17 @@ It's also feasible to query contract account chain to check contract execution r
 sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 ```
 
-## Test Environment
+### Testing Environment
 
-Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/releases) in test environment and install
+Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/releases) in testing environment and install
 
-### Install
+#### Install
 
-Installation steps in test environment are similar as in development environment. See [Install](#install).
+Installation steps in testing environment are similar as in development environment. See [Install](#install).
 
-### Initialize
+#### Initialize
 
-Since account balance and quota will be verified in test environment, additional initialization is required for the first boot-up.
+Since account balance and quota will be verified in testing environment, additional initialization is required for the first boot-up.
 
 Following steps are finished during initialization
  * A total supply of VITE tokens are sent to genesis account. This step needs calculate a PoW, so it may take some time
@@ -238,7 +290,7 @@ Following steps are finished during initialization
 sh init.sh
 ```
 
-### Create Test Account
+#### Create Test Account
 
 Remember to create new test account and stake for the account each time gvite has been rebooted. The test account will be used to create or call contract.
 
@@ -253,18 +305,18 @@ Following steps are finished during account creation
 sh create_account.sh
 ```
 
-### Create Contract
+#### Create Contract
 
 Compared with in development environment, additional test account address should be specified when running create_contract.sh
 ```bash
-sh create_contract.sh c1.sol vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
+sh create_contract.sh HelloWorld.solpp vite_d5fe580d0ba8fa4002e2a33af2cd10645a58ad1552d4562c0a
 ```
 Run pledge_for_contract.sh to stake for contract account created
 ```bash
 sh pledge_for_contract.sh vite_8739653f7fee7e39c3fbeee14e8c17fe4f7ff20e8607fb05ab
 ```
 
-### Call Contract
+#### Call Contract
 
 See [Call Contract](#call-contract) in development environment
 
