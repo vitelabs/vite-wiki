@@ -20,6 +20,23 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     // ......
 })
 
+// or
+myClient.ledger.getLatestSnapshotChainHash()
+.then(()=>{
+    // ......
+});
+
+// 如果是subscribe方法
+myClient.subscribeFunc.newAccountBlocks()
+.then(()=>{
+    // ......
+});
+
+// or
+myClient.request(method.subscribe.newAccountBlocks)
+.then(()=>{
+    // ......
+})
 ```
 
 [Reference](/api/rpc/)

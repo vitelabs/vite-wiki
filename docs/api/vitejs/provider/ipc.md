@@ -37,3 +37,13 @@ Reconnection
 
 #### disconnect
 Disconnection
+
+#### subscribe
+Subscribe push events from server side
+
+- **params**: 
+
+  * `callback : Function` The result will return to this event when server side has any push event
+
+#### unSubscribe
+Unsubscribe

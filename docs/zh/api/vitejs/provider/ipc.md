@@ -32,5 +32,18 @@ const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 ### 实例方法
 除provider实例的共有方法外
 
-* `reconnect()`: 重连
-* `disconnect()`: 取消连接
+#### reconnect
+重连
+
+#### disconnect
+取消连接
+
+#### subscribe
+订阅服务端推送事件
+
+- **params**: 
+
+  * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
+
+#### unSubscribe
+取消订阅
