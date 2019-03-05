@@ -39,11 +39,11 @@ Reconnection
 Disconnection
 
 #### subscribe
-订阅服务端推送事件
+Subscribe push events from server side
 
 - **params**: 
 
-  * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
+  * `callback : Function` The result will return to this event when server side has any push event
 
 #### unSubscribe
-取消订阅
+Unsubscribe
