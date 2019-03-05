@@ -11,7 +11,6 @@ let WS_RPC = new provider("https://example.com");
 let myClient = new client(WS_RPC);
 
 let Account = new account({
-    privateKey: utils.ed25519.keyPair().secretKey,
     client: myClient
 });
 Account.getBalance().then((result) => {
@@ -26,7 +25,7 @@ Account.getBalance().then((result) => {
 
 - **constructor params**: 
     __namedParameters: object
-    * `privateKey : string` Private Key
+    * `privateKey? : string` Private Key
     * `client : Client` client Instance
 
 ## Account Instance
