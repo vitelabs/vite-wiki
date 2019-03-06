@@ -169,6 +169,12 @@ const sidebarConfigs = {
         {
             collapsable: false,
             children: [
+                'netProcessor'
+            ]
+        },
+        {
+            collapsable: false,
+            children: [
                 'utils/address', 'utils/keystore', 'utils/encoder', 'utils/tools', 'utils/ed25519', 'utils/accountBlock', 'utils/abi'
             ]
         },
@@ -271,7 +277,7 @@ module.exports = {
                     '/introduction/': genSidebarConfig('introduction', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
                     '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'provider', 'utils', 'constant', 'client', 'wallet'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'provider', 'netProcessor', 'utils', 'constant', 'client', 'wallet'),
 
                 },
                 algolia: {
@@ -295,7 +301,7 @@ module.exports = {
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '智能合约', '内置合约', 'P2P', '公共组件'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接层', '工具集合', '常量', '接口', '钱包')
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接层', '网络处理器', '工具集合', '常量', '接口', '钱包')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
