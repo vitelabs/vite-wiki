@@ -81,11 +81,11 @@ sidebarDepth: 1
 
 - **params**
   - `opt : object`
-  - `opt.schema:string?` default vite
-  - `opt.target_address:vite Address string` 对方交易地址
-  - `opt.chain_id?`default  网络类型，默认主网
-  - `opt.function_name?`合约方法名
-  - `opt.params:object?` 其他参数
+    - `opt.schema:string?` default vite
+    - `opt.target_address:vite Address string` 对方交易地址
+    - `opt.chain_id?`default  网络类型，默认主网
+    - `opt.function_name?`合约方法名
+    - `opt.params:object?` 其他参数
 - **return**
   - `uri : string` 
 - **otherparams**

@@ -43,8 +43,16 @@
     - RevokeVoting
     - GetQuota
     - WithdrawalOfQuota Withdraw Staked Quota
-    - TokenIssuance Token Issuance
-    - WithdrawalOfToken Withdraw Staked Tokens
+    - Mintage 铸币
+    - MintageIssue,
+    - MintageBurn,
+    - MintageTransferOwner 
+    - MintageChangeTokenType
+    - MintageCancelPledge
+    - DexFundUserDeposit
+    - DexFundUserWithdraw
+    - DexFundNewOrder
+    - DexTradeCancelOrder
     - CreateContractReq Create Contract
     - TxReq Send Transaction
     - RewardReq Rewards

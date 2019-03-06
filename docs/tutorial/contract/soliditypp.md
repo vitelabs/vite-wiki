@@ -101,7 +101,7 @@ contract B {
     uint total;
     message add(uint a, uint b);
 
-    function invoker(address addr, uint a, uint b) public {
+    onMessage invoker(address addr, uint a, uint b) {
        send(addr, add(a, b));
     }
 
