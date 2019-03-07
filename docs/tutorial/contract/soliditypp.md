@@ -162,7 +162,7 @@ contract A {
                 address(addr).transfer(msg.tokenid ,amount);
              }
          }
-         require(totalAmount == msg.value);
+         require(totalAmount == msg.amount);
      }
 }
 ```
