@@ -66,7 +66,7 @@ Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/r
 
 ```bash
 ## Unzip
-tar -xzvf contractdev-v1.3.0-darwin.tar.gz
+tar -xzvf contractdev-v1.3.1-darwin.tar.gz
 ```
 ```bash
 ## Enter folder extracted
@@ -94,8 +94,8 @@ First write contract in Solidity++ and save into a ".solpp" file under the same 
 
 Compile contract
 ```bash
-## Compile contract using solc, and genereate binary code and ABI
-./solc --bin --abi HelloWorld.solpp
+## Compile contract using solppc, and genereate binary code and ABI
+./solppc --bin --abi HelloWorld.solpp
 ```
 
 Deploy contract in local debugging environment
