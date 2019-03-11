@@ -85,7 +85,7 @@ address(_addr).transfer(_amount);
 因为在vite中新增了tokenId的概念，所以在Solidity++中进行交易的时候需要加上需要交易的tokenId
 
 ```
-address(_addr).transfer(_tokenId， _amount);
+address(_addr).transfer(_tokenId, _amount);
 ```
 
 Solidity中以太币的单位为:wei/szabo/finney/ether
@@ -110,22 +110,22 @@ Solidity中以太币的单位为:wei/szabo/finney/ether
 示例
 
 ```
-pragma soliditypp ^0.4.0;
+pragma soliditypp ^0.4.1;
 contract A {
    message sum(uint result);
 
-   onMessage add(uint a， uint b) {
+   onMessage add(uint a, uint b) {
         uint result = a + b;
         address sender = msg.sender;
-        send(sender， sum(result));
+        send(sender, sum(result));
    }
 }
 contract B {
     uint total;
-    message add(uint a， uint b);
+    message add(uint a, uint b);
 
-    onMessage invoker(address addr， uint a， uint b) {
-       send(addr， add(a， b));
+    onMessage invoker(address addr, uint a, uint b) {
+       send(addr, add(a, b));
     }
 
     onMessage sum(uint result) {
@@ -138,7 +138,7 @@ contract B {
 
 message:关键字，定义一条消息，包括消息的名称，和传递的参数，"message sum(uint result)"就定义了一条sum消息，其中需要传递一个uint类型的参数
 
-onMessage:关键字，定义一种消息的监听器，包括消息的名字，和接收的参数，以及对消息的处理逻辑，"onMessage add(uint a， uint b)"就定义了一个消息的监听器，监听的是名字为add，接收的是两个uint类型的参数
+onMessage:关键字，定义一种消息的监听器，包括消息的名字，和接收的参数，以及对消息的处理逻辑，"onMessage add(uint a, uint b)"就定义了一个消息的监听器，监听的是名字为add，接收的是两个uint类型的参数
 
 send:关键字，是一条message的发送操作，需要有两个参数，一个是接收消息的地址(address)，另一个是发送的消息(message)
 
@@ -152,7 +152,7 @@ send:关键字，是一条message的发送操作，需要有两个参数，一�
 
 如上所示：
 
-合约A定义了一个"add(uint a， uint b)"的消息监听器，合约B定义了一个"sum(uint result)"的消息监听器，分别表示A和B会接收这两种类型的消息并进行处理
+合约A定义了一个"add(uint a, uint b)"的消息监听器，合约B定义了一个"sum(uint result)"的消息监听器，分别表示A和B会接收这两种类型的消息并进行处理
 
 合约B因为要给A发送消息，因此合约B要按照A定义的add的消息监听器的规范定义消息，合约A在add消息的监听器中，要给合约B发送消息，因此合约A要按照B定义的sum的消息监听器的规范定义sum消息
 
@@ -161,7 +161,7 @@ send:关键字，是一条message的发送操作，需要有两个参数，一�
 在Solidity++中，合约间的交互是通过消息传递的机制进行的，是异步的，因此合约内public类型的静态变量无法被合约外部访问，然而对于合约内部的状态，Solidity++提供了一种特殊的访问方式
 
 ```
-pragma soliditypp ^0.4.0;
+pragma soliditypp ^0.4.1;
 contract A {
 
     uint magic = 0;
@@ -197,8 +197,8 @@ contract A {
 定义一个合约，合约的主要功能是给一个地址和金额的列表，合约给指定的地址转账指定金额数
 
 ```
-// 告诉该合约用的是0.4.0版本的soliditypp编写，并且这些代码具有向上兼容性。保证不会在不同soliditypp编译版本下编译会出现不同的行为。
-pragma soliditypp ^0.4.0;
+// 告诉该合约用的是0.4.1版本的soliditypp编写，并且这些代码具有向上兼容性。保证不会在不同soliditypp编译版本下编译会出现不同的行为。
+pragma soliditypp ^0.4.1;
  
  
 // 定义一个合约A
@@ -217,7 +217,7 @@ contract A {
              require(totalAmount >= amount);
              if(amount > 0) {
                 // 向addr地址转账，金额是amount，转账的tokenId是msg.tokenid
-                address(addr).transfer(msg.tokenid ，amount);
+                address(addr).transfer(msg.tokenid, amount);
              }
          }
          require(totalAmount == msg.amount);
