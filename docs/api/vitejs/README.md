@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: Start
+title: ViteJS 1.2.1
 ---
 
 :::tip Created by
