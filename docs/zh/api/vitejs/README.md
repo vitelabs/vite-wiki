@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: 开始
+title: ViteJS 1.2.1
 ---
 
 :::tip 作者
