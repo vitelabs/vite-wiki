@@ -8,5 +8,5 @@ title: "VEP"
 
 ## Proposal list
 
-* [VEP 2: QR code specification](./vep-2.html)
 * [VEP 3: Vite Wallet Key Derivation](./vep-3.html)
+* [VEP 4: QR code specification](./vep-4.html)

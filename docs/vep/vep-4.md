@@ -6,7 +6,7 @@ type: Meta
 created: 2018-9-1
 ---
 
-# VEP 2: QR code specification
+# VEP 4: QR code specification
 
 This spec mainly refers to [EIP-681](https://eips.ethereum.org/EIPS/eip-681) and stays maximum consistency with that of Ethereum.
 ***
