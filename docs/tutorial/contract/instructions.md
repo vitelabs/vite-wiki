@@ -49,19 +49,19 @@ The instruction set in Vite VM is as follows:
 | 0x30 | ADDRESS | 0 | 1 |  Get address of currently executing account | Same semantics | 
 | 0x31 | BALANCE | 2 | 1 | Get specific token's balance of the given account | Add tokenid as request parameter | 
 | 0x32 | ORIGIN | - | - | Get execution origination address | Not provided, Vite doesn't maintain casual relationship between inner Tx and user Tx |
-| 0x33 | CALLER | 0 | 1 | 获取直接调用者地址。 | Same semantics | 
-| 0x34 | CALLVALUE | 0 | 1 | 获取调用交易中的转账金额。 | Same semantics | 
-| 0x35 | CALLDATALOAD | 1 | 1 | 获取本次调用的参数数据。 | Same semantics | 
-| 0x36 | CALLDATASIZE | 0 | 1 | 获取本次调用的参数数据大小。 | Same semantics | 
-| 0x37 | CALLDATACOPY | 3 | 0 | 将调用参数数据拷贝到内存。 | Same semantics | 
-| 0x38 | CODESIZE | 0 | 1 | 获取在当前环境中运行的代码的大小。 | Same semantics | 
-| 0x39 | CODECOPY | 3 | 0 | 将当前环境中运行的代码拷贝到内存。 | Same semantics | 
-| 0x3A | GASPRICE | - | - | - | 不提供，Vite交易不需要手续费。 |
-| 0x3B | EXTCODESIZE | 1 | 1 | 获取一个账户的代码大小。 | Same semantics | 
-| 0x3C | EXTCODECOPY | 4 | 0 | 将指定账户的代码拷贝到内存。 | Same semantics | 
-| 0x3D | RETURNDATASIZE | 0 | 1 | 获取前一次调用返回的数据大小。 | Same semantics | 
-| 0x3E | RETURNDATACOPY | 3 | 0 | 将前一次调用返回的数据拷贝到内存。 | Same semantics | 
-| 0x3F | EXTCODEHASH | 1 | 1 | 获取指定账户的代码哈希。 | 不提供 |
+| 0x33 | CALLER | 0 | 1 |  Get caller address which is directly responsible for this execution | Same semantics | 
+| 0x34 | CALLVALUE | 0 | 1 | Get transfer amount of called transaction | Same semantics | 
+| 0x35 | CALLDATALOAD | 1 | 1 | Get input data of current call | Same semantics | 
+| 0x36 | CALLDATASIZE | 0 | 1 | Get size of input data in current call | Same semantics | 
+| 0x37 | CALLDATACOPY | 3 | 0 |  Copy input data in current call to memory | Same semantics | 
+| 0x38 | CODESIZE | 0 | 1 |  Get size of code running in current environment | Same semantics | 
+| 0x39 | CODECOPY | 3 | 0 |  Copy code running in current environment to memory | Same semantics | 
+| 0x3A | GASPRICE | - | - | - | Not provided, Vite doesn't charge transaction fee |
+| 0x3B | EXTCODESIZE | 1 | 1 | Get size of an account’s code | Same semantics | 
+| 0x3C | EXTCODECOPY | 4 | 0 |  Copy a specific account’s code to memory | Same semantics | 
+| 0x3D | RETURNDATASIZE | 0 | 1 | Get size of output data from the previous call | Same semantics | 
+| 0x3E | RETURNDATACOPY | 3 | 0 | Copy output data from the previous call to memory | Same semantics | 
+| 0x3F | EXTCODEHASH | 1 | 1 | 获取指定账户的代码哈希。 | Not provided |
 
 ## 40s：区块信息指令集
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
