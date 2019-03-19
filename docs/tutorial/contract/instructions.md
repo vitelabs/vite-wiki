@@ -63,7 +63,7 @@ The instruction set in Vite VM is as follows:
 | 0x3E | RETURNDATACOPY | 3 | 0 | Copy output data from the previous call to memory | Same semantics | 
 | 0x3F | EXTCODEHASH | 1 | 1 | Get the hash of an account’s code | Not provided |
 
-## 40s：Block Information
+## 40s: Block Information
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0x40 | BLOCKHASH | 1 | 1 | Get the hash of one block | Different semantics. Return the hash of corresponding snapshot block |  
@@ -74,7 +74,7 @@ The instruction set in Vite VM is as follows:
 | 0x45 | GASLIMIT | - | - | Get the block’s gas limit | Not provided |
 | 0x46 | TOKENID | 0 | 1 | Get Tx's transfer token id | Additional |
 
-## 50s：Stack, Memory, Storage and Flow Operations
+## 50s: Stack, Memory, Storage and Flow Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0x50 | POP | 1 | 0 | Remove item from stack | Same semantics | 
@@ -90,7 +90,7 @@ The instruction set in Vite VM is as follows:
 | 0x5A | GAS | - | - | Get the amount of available gas | Not provided |
 | 0x5B | JUMPDEST | 0 | 0 | Mark a valid destination for jump instructions | Same semantics | 
 
-## 60s和70s：Push Operations
+## 60s & 70s: Push Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0x60 | PUSH1 | 0 | 1 | Place 1 byte item on stack | Same semantics | 
@@ -98,38 +98,38 @@ The instruction set in Vite VM is as follows:
 | ... | ... | ... | ... | ... | ... | 
 | 0x7F | PUSH32 | 0 | 1 |  Place 32-byte (full word) item on stack | Same semantics | 
 
-## 80s：: Duplication Operations
+## 80s: Duplication Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0x80 | DUP1 | 1 | 2 | Duplicate 1st stack item | Same semantics | 
-| 0x81 | DUP2 | 2 | 3 | 复制栈中第2个对象，并压入栈顶。 | Same semantics | 
+| 0x81 | DUP2 | 2 | 3 | Duplicate 2nd stack item | Same semantics | 
 | ... | ... | ... | ... | ... | ... | 
-| 0x8F | DUP16 | 16 | 17 | 复制栈中第16个对象，并压入栈顶。 | Same semantics | 
+| 0x8F | DUP16 | 16 | 17 | Duplicate 2nd stack item | Same semantics | 
 
-## 90s：交换操作指令集
+## 90s: Exchange Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0x90 | SWAP1 | 2 | 2 | 交换栈中第1个和第2个对象。 | Same semantics | 
-| 0x91 | SWAP2 | 3 | 3 | 交换栈中第1个和第3个对象。 | Same semantics | 
+| 0x90 | SWAP1 | 2 | 2 |  Exchange 1st and 2nd stack items | Same semantics | 
+| 0x91 | SWAP2 | 3 | 3 | Exchange 1st and 3rd stack items | Same semantics | 
 | ... | ... | ... | ... | ... | ... | 
-| 0x9F | SWAP16 | 17 | 17 | 交换栈中第1个和第17个对象。 | Same semantics | 
+| 0x9F | SWAP16 | 17 | 17 | Exchange 1st and 17th stack items | Same semantics | 
 
-## a0s：日志操作指令集
+## a0s: Logging Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0xA0 | LOG0 | 2 | 0 | 扩展日志记录，不设主题。 | Same semantics | 
-| 0xA1 | LOG1 | 3 | 0 | 扩展日志记录，1个主题。 | Same semantics | 
+| 0xA0 | LOG0 | 2 | 0 |  Append log record with no topics | Same semantics | 
+| 0xA1 | LOG1 | 3 | 0 |  Append log record with one topic | Same semantics | 
 | ... | ... | ... | ... | ... | ... |
-| 0xA4 | LOG4 | 6 | 0 | 扩展日志记录，4个主题。 | Same semantics | 
+| 0xA4 | LOG4 | 6 | 0 |  Append log record with four topics | Same semantics | 
 
-## f0s：系统操作指令集
+## f0s:  System Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0xF0 | CREATE | - | - | 创建一个新合约。 | 不提供 |
-| 0xF1 | CALL | 5 | 0 | 调用另一个合约。 | 异步调用另一个合约，无返回值。 | 
-| 0xF2 | CALLCODE | - | - | 调用另一个合约的代码，改变本账户状态。 | 不提供 |
-| 0xF3 | RETURN | 2 | 0 | 停止执行并返回数据。 | Same semantics | 
-| 0xF4 | DELEGATECALL | 6 | 1 | 同步调用另一个合约的代码，改变本账户状态，保留原始交易信息。 | 暂不提供 | 
-| 0xFA | STATICCALL | - | - | 调用另一个合约，不允许改变状态。 | 不提供 |
-| 0xFD | REVERT | 2 | 0 | 停止执行，恢复状态并返回数据。 | Same semantics | 
-| 0xFF | SELFDESTRUCT | 1 | 0 | 停止执行，将合约设置为待删除，返回所有余额。 | 暂不提供 | 
+| 0xF0 | CREATE | - | - | Create a new contract | Not provided |
+| 0xF1 | CALL | 5 | 0 | Call another contract  | Call another contract asynchronously with no return value | 
+| 0xF2 | CALLCODE | - | - | Change current account's status with calling an alternative contract’s code | Not provided |
+| 0xF3 | RETURN | 2 | 0 | Halt execution and return output data | Same semantics | 
+| 0xF4 | DELEGATECALL | 6 | 1 | Call another contract's code, change contract and current account's status but persisting the original transaction info | Not provided | 
+| 0xFA | STATICCALL | - | - | Call another contract, not allowed to change the status | Not provided |
+| 0xFD | REVERT | 2 | 0 | Halt execution, recover status and return output data | Same semantics | 
+| 0xFF | SELFDESTRUCT | 1 | 0 | Halt execution, set contract status as later deletion and return all of the balances | Not provided | 
