@@ -61,47 +61,47 @@ The instruction set in Vite VM is as follows:
 | 0x3C | EXTCODECOPY | 4 | 0 |  Copy a specific account’s code to memory | Same semantics | 
 | 0x3D | RETURNDATASIZE | 0 | 1 | Get size of output data from the previous call | Same semantics | 
 | 0x3E | RETURNDATACOPY | 3 | 0 | Copy output data from the previous call to memory | Same semantics | 
-| 0x3F | EXTCODEHASH | 1 | 1 | 获取指定账户的代码哈希。 | Not provided |
+| 0x3F | EXTCODEHASH | 1 | 1 | Get the hash of an account’s code | Not provided |
 
-## 40s：区块信息指令集
+## 40s：Block Information
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0x40 | BLOCKHASH | 1 | 1 | 获取一个区块的哈希。 | 语义不同。返回相应的快照块的哈希。 |  
-| 0x41 | COINBASE | - | - | 获取所在区块挖矿受益人地址。 | 不提供 |
-| 0x42 | TIMESTAMP | 0 | 1 | 获取所在区块的时间戳。 | 语义不同。返回交易引用的快照块的时间戳。 |
-| 0x43 | HEIGHT | 0 | 1 | 返回所在区块编号。 | 语义不同，返回交易引用的快照块在快照链上的编号。 |  
-| 0x44 | DIFFICULTY | - | - | 返回所在区块的难度。 | 不提供 |
-| 0x45 | GASLIMIT | - | - | 返回所在区块的燃料限额。 | 不提供 |
-| 0x46 | TOKENID | 0 | 1 | 获取交易的转账代币id | 新增 |
+| 0x40 | BLOCKHASH | 1 | 1 | Get the hash of one block | Different semantics. Return the hash of corresponding snapshot block |  
+| 0x41 | COINBASE | - | - | Get the block's beneficiary address| Not provided |
+| 0x42 | TIMESTAMP | 0 | 1 |  Get the block’s timestamp | Different semantics. Return the Tx referenced snapshot block's timestamp |
+| 0x43 | HEIGHT | 0 | 1 | Get the block’s number | Different semantics. Return the Tx referenced snapshot block's number on snapshot chain |  
+| 0x44 | DIFFICULTY | - | - | Get the block’s difficulty | Not provided |
+| 0x45 | GASLIMIT | - | - | Get the block’s gas limit | Not provided |
+| 0x46 | TOKENID | 0 | 1 | Get Tx's transfer token id | Additional |
 
-## 50s：栈、内存、存储、控制流操作指令集
+## 50s：Stack, Memory, Storage and Flow Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0x50 | POP | 1 | 0 | 从栈顶弹出一条数据。 | Same semantics | 
-| 0x51 | MLOAD | 1 | 1 | 从内存加载一个字。 | Same semantics | 
-| 0x52 | MSTORE | 2 | 0 | 保存一个字到内存。 | Same semantics | 
-| 0x53 | MSTORE8 | 2 | 0 | 保存一个字节到内存。 | Same semantics | 
-| 0x54 | SLOAD | 1 | 1 | 从存储中加载一个字。 | Same semantics | 
-| 0x55 | SSTORE | 2 | 0 | 保存一个字到存储。 | Same semantics | 
-| 0x56 | JUMP | 1 | 0 | 跳转指令。 | Same semantics | 
-| 0x57 | JUMPI | 2 | 0 | 条件跳转指令。 | Same semantics | 
-| 0x58 | PC | 0 | 1 | 获取程序计数器的值。 | Same semantics | 
-| 0x59 | MSIZE | 0 | 1 | 获取内存大小。 | Same semantics | 
-| 0x5A | GAS | - | - | 获取可用燃料数 | 不提供 |
-| 0x5B | JUMPDEST | 0 | 0 | 标注一个跳转目的地。 | Same semantics | 
+| 0x50 | POP | 1 | 0 | Remove item from stack | Same semantics | 
+| 0x51 | MLOAD | 1 | 1 | Load word from memory | Same semantics | 
+| 0x52 | MSTORE | 2 | 0 | Save word to memory | Same semantics | 
+| 0x53 | MSTORE8 | 2 | 0 | Save byte to memory | Same semantics | 
+| 0x54 | SLOAD | 1 | 1 | Load word from storage | Same semantics | 
+| 0x55 | SSTORE | 2 | 0 | Save word to storage | Same semantics | 
+| 0x56 | JUMP | 1 | 0 | Alter the program counter | Same semantics | 
+| 0x57 | JUMPI | 2 | 0 | Conditionally alter the program counter | Same semantics | 
+| 0x58 | PC | 0 | 1 |  Get the value of the program counter | Same semantics | 
+| 0x59 | MSIZE | 0 | 1 |  Get the size of active memory in bytes | Same semantics | 
+| 0x5A | GAS | - | - | Get the amount of available gas | Not provided |
+| 0x5B | JUMPDEST | 0 | 0 | Mark a valid destination for jump instructions | Same semantics | 
 
-## 60s和70s：压栈操作指令集
+## 60s和70s：Push Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0x60 | PUSH1 | 0 | 1 | 将1字节对象压入栈顶。 | Same semantics | 
-| 0x61 | PUSH2 | 0 | 1 | 将2字节对象压入栈顶。 | Same semantics | 
+| 0x60 | PUSH1 | 0 | 1 | Place 1 byte item on stack | Same semantics | 
+| 0x61 | PUSH2 | 0 | 1 | Place 2-byte item on stack | Same semantics | 
 | ... | ... | ... | ... | ... | ... | 
-| 0x7F | PUSH32 | 0 | 1 | 将32字节对象（整个字）压入栈顶。 | Same semantics | 
+| 0x7F | PUSH32 | 0 | 1 |  Place 32-byte (full word) item on stack | Same semantics | 
 
-## 80s：复制操作指令集
+## 80s：: Duplication Operations
 |  No.  | Mnemonic | POP | PUSH | Description | Differential with EVM |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| 0x80 | DUP1 | 1 | 2 | 复制栈中第1个对象，并压入栈顶。 | Same semantics | 
+| 0x80 | DUP1 | 1 | 2 | Duplicate 1st stack item | Same semantics | 
 | 0x81 | DUP2 | 2 | 3 | 复制栈中第2个对象，并压入栈顶。 | Same semantics | 
 | ... | ... | ... | ... | ... | ... | 
 | 0x8F | DUP16 | 16 | 17 | 复制栈中第16个对象，并压入栈顶。 | Same semantics | 
