@@ -197,7 +197,8 @@ const sidebarConfigs = {
             children: [
                 '',
                 'vep-3',
-                'vep-4'
+                'vep-4',
+                'vep-5'
             ]
         }
     ]

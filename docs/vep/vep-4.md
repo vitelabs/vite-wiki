@@ -6,7 +6,7 @@ type: Meta
 created: 2018-9-1
 ---
 
-# VEP 4: QR code specification
+# VEP 4: QR Code Specification
 
 This spec mainly refers to [EIP-681](https://eips.ethereum.org/EIPS/eip-681) and stays maximum consistency with that of Ethereum.
 ***
@@ -45,7 +45,7 @@ Below fields are required if **prefix** corresponds to contract invocation:
 For example, `vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad/echo?string="helloworld"&string="goodbye"`
 represents an invocation to `echo` function on contract `vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad` with 2 string parameters passed in. 
 ***
-## More examples
+## More Examples
 * Show an account address
 
 `vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad`
