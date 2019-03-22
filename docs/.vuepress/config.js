@@ -202,8 +202,9 @@ const sidebarConfigs = {
             collapsable: false,
             children: [
                 '',
-                'vep-2',
-                'vep-3'
+                'vep-3',
+                'vep-4',
+                'vep-5'
             ]
         }
     ]
@@ -278,7 +279,7 @@ module.exports = {
                     '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
                     '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'provider', 'netProcessor', 'utils', 'constant', 'client', 'wallet'),
-
+                    '/vep/': genSidebarConfig('vep', 'VEP'),
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
