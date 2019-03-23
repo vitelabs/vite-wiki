@@ -1,18 +1,4 @@
----
-sidebarDepth: 1
----
-# Start
-
-## event (The returned event instance of subscribe)
-
-### on
-Open event listener
-
-- **Parameters**
-    * `callback : Function` Passing results into callback function if there is any event happened
-
-### off
-Cancel event listener
+# netProcessor
 
 ## Constructor
 
@@ -39,27 +25,33 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 });
 ```
 
-## setProvider (provider, abort)
+## Instance Methods
+
+### setProvider (provider, abort)
 Set provider
 
 - **Parameters**
     * `provider : Provider Instance`
     * `abort : boolean` Whether or not to interrupt remaining provider request
 
-## request (Methods, ...args)
+### request (Methods, ...args)
 Shortcut of `this.provider.request`
 
-## notification (Methods, ...args)
+### notification (Methods, ...args)
 Shortcut of `this.provider.notification`
 
-## batch (RPCrequest[])
+### batch (RPCrequest[])
 Shortcut of `this.provider.batch`
 
-## subscribe (Methods, ...args)
+### subscribe (Methods, ...args)
 Event Subscription: Share the same parameters passing mode with request
 
 - **Returns**:
     - Promise<`event`>
+
+- **event**: The returned event instance of subscribe
+    - on(`callback : Function`): Open event listener. Passing results into callback function if there is any event happened
+    - off: Cancel event listener
 
 - **Example**
 
@@ -85,11 +77,11 @@ myClient.subscribe('newAccountBlocks').then((event) => {
 
 ```
 
-## unSubscribe
+### unSubscribe
 Cancel Subscription
 
 - **params**: 
   * `event`: return event of subscribe
 
-## clearSubscriptions
+### clearSubscriptions
 Clear all the Subscriptions

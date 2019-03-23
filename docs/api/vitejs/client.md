@@ -9,7 +9,8 @@ sidebarDepth: 1
 :::
 
 :::tip Abstract
-This part contains built-in shortcuts
+This part contains built-in shortcuts.
+The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
 :::
 
 ## Notice 
