@@ -223,62 +223,62 @@ Call contract
     * Promise 
 
 #### mintage
-Token Issuance
+Issue new token asset with initial amount. The issued token will be sent to owner’s account
 
 - **Parameters** 
     __namedParameters: object
-    * `tokenName: string`
-    * `decimals: uint8`
-    * `totalSupply: big.int`
-    * `tokenSymbol: string`
-    * `isReIssuable: bool`
-    * `maxSupply: Uint256`
-    * `ownerBurnOnly: bool`
-    * `spendType: string` spend type: amount or fee
+    * `tokenName: string` Asset name in 1-40 characters, including uppercase and lowercase letters, spaces, and underscores
+    * `decimals: uint8` Decimal number. 10**decimals cannot exceed `totalSupply`
+    * `totalSupply: big.int` Initial total supply. Cannot exceed 2**256-1 and `maxSupply`
+    * `tokenSymbol: string` Asset symbol in 1-40 characters, including uppercase and lowercase letters, spaces, and underscores
+    * `isReIssuable: bool` Whether the asset can be re-issued. Must be `true` for stablecoin
+    * `maxSupply: Uint256` Maximum supply. Mandatory for stablecoin. Cannot exceed 2**256-1
+    * `ownerBurnOnly: bool` Whether the asset can be burned by owner only. Mandatory for stablecoin. All asset holders can perform burn action if this is false
+    * `feeType: string` Optional token issuance fee type that must be `stake` or `burn` only. This field describes the cost of issuing the new token and the amount(1,000 VITE for burning or 100,000 VITE for staking for 90 days) will be charged from issuer’s account. The default value is `burn`.
 
 - **Return**:
     * Promise
 
 #### mintageIssue
-Additional token issuance
+Mint certain amount of token at an account address. This method must be called by owner. The newly issued token will be sent to the specified account
 
 - **Parameters** 
     __namedParameters: object
-    * `tokenId: TokenId` token id
-    * `amount: uint64` additional amount
-    * `beneficial: Address` receiver address of additional tokens
+    * `tokenId: TokenId` Token id
+    * `amount: uint64` Mint amount
+    * `beneficial: Address`  Account address to receive newly minted tokens
 
 - **Return**:
     * Promise
 
 #### mintageBurn
-Destroy tokens
+Burn token with certain amount. If `ownerBurnOnly` has been turned on this token, the asset can only be burned by owner, otherwise every asset holder can perform burn action
 
 - **Parameters**
     __namedParameters: object
-    * `tokenId: TokenId` Destroyed token id
-    * `amount: uint64` Destroyed token amount
+    * `tokenId: TokenId` Token id
+    * `amount: uint64` Amount to destroy
 
 - **Return**:
     * Promise
 
 #### changeTransferOwner
-Change token owner
+Transfer ownership. This method can only be called by owner
 
 - **Parameters** 
     __namedParameters: object
-    * `ownerAddress: Address`
-    * `tokenId: TokenId`
+    * `ownerAddress: Address` New owner’s account address
+    * `tokenId: TokenId` Token id
 
 - **Return**:
     * Promise
 
 #### changeTokenType
-Change token type, e.g. changing token type from additional issuance enable to disable
+Change `isReIssuable` from `true` to `false`. This method is one-way action and irreversible, must be called by owner.
 
 - **Parameters** 
     __namedParameters: object
-    * `tokenId: TokenId`
+    * `tokenId: TokenId` Token id
 
 - **Return**:
     * Promise
