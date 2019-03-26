@@ -232,52 +232,6 @@
 ```
 ::: 
 
-## ledger_getTokenMintage
-获取代币信息
-
-- **Parameters**: `string` : `TokenTypeId` 代币id
-
-- **Returns**: `Token` 代币信息
-- **Example**:
-
-::: demo
-```json tab:Request
-{
-    "jsonrpc": "2.0",
-    "id": 3,
-    "method": "ledger_getTokenMintage",
-    "params": [
-        "tti_5649544520544f4b454e6e40"
-    ]
-}
-```
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 3,
-    "result": {
-        "TokenName": "Vite Token",
-        "TokenSymbol": "VITE",
-        "TotalSupply": "1000000000000000000000000000",
-        "Decimals": 18,
-        "Owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
-        "PledgeAmount": "0",
-        "WithdrawHeight": "0"
-    }
-}
-```
-```json test
-{
-    "jsonrpc": "2.0",
-    "id": 3,
-    "method": "ledger_getTokenMintage",
-    "params": [
-        "tti_5649544520544f4b454e6e40"
-    ]
-}
-```
-:::
-
 ## ledger_getBlockByHeight
 获取某个账号在某个账号链高度下的交易块
 

@@ -26,7 +26,6 @@ sidebarDepth: 4
   * `Address`: 交易的发起方
   * `uint64`: 当前块高度
   * `Hash`: 交易发起方账户链上上一个块的哈希
-  * `Hash`: 交易引用的快照块哈希
 
 - **Returns**: 
 	- `Address` 新的合约地址
@@ -65,6 +64,7 @@ sidebarDepth: 4
 - **Parameters**: 
 
   * `Gid`: 合约所属的委托共识组id，公共共识组id为"00000000000000000002"
+  * `uint8`: request块被确认多少次之后出response块，取值范围0-75，取0表示不需要等待request被确认。如果合约代码中使用了随机数、时间戳等指令，要求这个字段值大于0
   * `string`: 十六进制合约代码
   * `string`: abi
   * `[]string`: 创建合约参数。简单类型直接转换为string，复合类型为json格式的string
