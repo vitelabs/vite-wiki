@@ -84,7 +84,7 @@ sidebarDepth: 4
 
 `Object`
   1. `current`: `uint64`  当前额度
-  2. `txNum`: `uint64`  当前能发起的交易（不包含备注的请求交易）数
+  2. `utps`: `uint64`  当前每秒能发起的交易（不包含备注的请求交易）数
   3. `total`: `uint64` 总额度，总额度 = 当前额度 + 最近75个快照块内已使用的额度
 
 - **Example**:
@@ -109,7 +109,7 @@ sidebarDepth: 4
    "result": {
       "current": "21000",
       "total": "42000",
-      "txNum": "1"
+      "utps": "1"
    }
 }
 ```

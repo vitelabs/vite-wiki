@@ -15,6 +15,24 @@ sidebarDepth: 4
 
 当前支持2种类型的事件：新交易（即新账户块）事件、新日志（即新账户块中的日志）事件。每一种类型的事件都包含相应的回滚事件，回滚时，事件消息中的removed字段为true。
 
+## 使用说明
+
+以长连接模式订阅日志为例：
+
+先注册一个subscription，订阅`vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f`地址的日志事件。
+```bash
+// method填subscribe_subscribe，params的第一个参数为方法名，第二个参数开始为方法参数。
+{"jsonrpc": "2.0","id": 1,"method": "subscribe_subscribe","params": ["newLogs", {"addrRange":{"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f":{"fromHeight":"0","toHeight":"0"}}}]}
+// 注册成功后返回订阅id 0x4b97e0674a5ebef942dbb07709c4a608。
+{"jsonrpc": "2.0","id": 1,"result": "0x4b97e0674a5ebef942dbb07709c4a608"}
+```
+订阅成功后，产生新事件时自动回调。
+```bash
+// 参数中的subscription为订阅id，result为事件内容
+{"jsonrpc":"2.0","method":"subscribe_subscription","params":{"subscription":"0x4b97e0674a5ebef942dbb07709c4a608","result":[{"log":{"topics":["aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb","000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"],"data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="},"accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40","addr":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f","removed":false}]}}
+```
+如果由于断开连接导致订阅不连续，可以通过subscribe_getLogs一次性获取一段时间内的所有事件。
+
 ## subscribe_newAccountBlocksFilter
 创建一个新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
