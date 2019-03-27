@@ -1,9 +1,5 @@
 # provider
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-:::
-
 :::tip Abstract
 Our network connection layer uses RPC protocol.
 This part is mainly about how to connect to gvite, you can use http, websocket or IPC to get into connect with gvite.

@@ -15,7 +15,7 @@
 
 ```javascript
 
-import ipcProvider from "@vite/vitejs/dist/es5/provider/IPC";
+import ipcProvider from "@vite/vitejs-ipc";
 const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 
 ```

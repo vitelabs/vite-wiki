@@ -1,10 +1,5 @@
 # type
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
 - RPCrequest
     - type 请求类型（request | notification | batch）
     - methodName [方法名称](/api/vitejs/const.html#method)

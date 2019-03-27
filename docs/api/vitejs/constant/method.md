@@ -1,11 +1,5 @@
 # Methods
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
-
 - How to Invoke
 
 ```javascript

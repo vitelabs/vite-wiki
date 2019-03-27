@@ -11,7 +11,7 @@
 - **Example**:
 ```javascript
 
-import httpProvider from "@vite/vitejs/dist/es5/provider/HTTP";
+import httpProvider from "@vite/vitejs-http";
 const http = new httpProvider("http://localhost:8080");
 
 ```

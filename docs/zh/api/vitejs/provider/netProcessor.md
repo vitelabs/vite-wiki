@@ -10,10 +10,10 @@
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
-import { netProcessor, constant } from '@vite/vitejs';
+import provider from '@vite/vitejs-ws';
+import netProcessor from '@vite/vitejs-netprocessor';
+import { method } from '@vite/vitejs-constant';
 
-const { method } = constant;
 const WS_RPC = new provider("https://example.com");
 
 const myNetProcessor = new netProcessor(WS_RPC, function(_myclient) {
@@ -57,7 +57,7 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
+import provider from '@vite/vitejs-ws';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
