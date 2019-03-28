@@ -10,6 +10,8 @@ sidebarDepth: 1
 
 :::tip abstract
 包括一些内置的快捷调用方式
+
+不同连接方式可以调用不同级别的接口（gvite wallet下的全部接口仅针对ipc连接开放)。
 :::
 
 ## 注意 

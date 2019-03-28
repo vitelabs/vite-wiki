@@ -1,10 +1,5 @@
 # Type
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
 - RPCrequest
     - type Request Type（request | notification | batch）
     - methodName [Method Name](/api/vitejs/const.html#method)
@@ -43,7 +38,7 @@
     - RevokeVoting
     - GetQuota
     - WithdrawalOfQuota Withdraw Staked Quota
-    - Mintage 铸币
+    - Mintage Token Issuance
     - MintageIssue,
     - MintageBurn,
     - MintageTransferOwner 

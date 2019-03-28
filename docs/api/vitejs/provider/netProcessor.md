@@ -1,18 +1,4 @@
----
-sidebarDepth: 1
----
-# Start
-
-## event (The returned event instance of subscribe)
-
-### on
-Open event listener
-
-- **Parameters**
-    * `callback : Function` Passing results into callback function if there is any event happened
-
-### off
-Cancel event listener
+# netProcessor
 
 ## Constructor
 
@@ -24,10 +10,10 @@ Cancel event listener
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
-import { netProcessor, constant } from '@vite/vitejs';
+import provider from '@vite/vitejs-ws';
+import netProcessor from '@vite/vitejs-netprocessor';
+import { method } from '@vite/vitejs-constant';
 
-const { method } = constant;
 const WS_RPC = new provider("https://example.com");
 
 const myNetProcessor = new netProcessor(WS_RPC, function(_myclient) {
@@ -39,33 +25,39 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 });
 ```
 
-## setProvider (provider, abort)
+## Instance Methods
+
+### setProvider (provider, abort)
 Set provider
 
 - **Parameters**
     * `provider : Provider Instance`
     * `abort : boolean` Whether or not to interrupt remaining provider request
 
-## request (Methods, ...args)
+### request (Methods, ...args)
 Shortcut of `this.provider.request`
 
-## notification (Methods, ...args)
+### notification (Methods, ...args)
 Shortcut of `this.provider.notification`
 
-## batch (RPCrequest[])
+### batch (RPCrequest[])
 Shortcut of `this.provider.batch`
 
-## subscribe (Methods, ...args)
+### subscribe (Methods, ...args)
 Event Subscription: Share the same parameters passing mode with request
 
 - **Returns**:
     - Promise<`event`>
 
+- **event**: The returned event instance of subscribe
+    - on(`callback : Function`): Open event listener. Passing results into callback function if there is any event happened
+    - off: Cancel event listener
+
 - **Example**
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
+import provider from '@vite/vitejs-ws';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
@@ -85,11 +77,11 @@ myClient.subscribe('newAccountBlocks').then((event) => {
 
 ```
 
-## unSubscribe
+### unSubscribe
 Cancel Subscription
 
 - **params**: 
   * `event`: return event of subscribe
 
-## clearSubscriptions
+### clearSubscriptions
 Clear all the Subscriptions

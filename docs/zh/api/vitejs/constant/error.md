@@ -1,9 +1,5 @@
 # error
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-:::
-
 :::tip abstract
 常用错误类型
 :::

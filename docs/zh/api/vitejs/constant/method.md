@@ -1,10 +1,5 @@
 # method
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
 :::tip abstract
 关于rpc方法的常量
 :::

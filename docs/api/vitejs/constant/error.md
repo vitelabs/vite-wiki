@@ -1,9 +1,5 @@
 # Error
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-:::
-
 :::tip Abstract
 Common Error Types
 :::

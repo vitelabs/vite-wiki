@@ -1,9 +1,5 @@
 # Contract
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-:::
-
 :::tip Abstract
 Relevant parameters of built-in contract
 :::

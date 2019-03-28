@@ -18,7 +18,7 @@ Based on [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)
 
 Since Vite adopts ED25519 for signature, other than secp256k1 used in BIP32, we need to find a key derivation method which is compatible with BIP32. The actual signature implementation in Vite is similar to [ed25519-bip32](https://cardanolaunch.com/assets/Ed25519_BIP.pdf).
 
-### BIP44 compatibility
+### BIP44 Compatibility
 
 [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) defines a BIP32-compatible path patten that supports multiple cryptocurrencies:
 ```
@@ -38,20 +38,20 @@ m/44'/666666'/x'
 ```
 * x: Index. Particularly, we define the address associated with `m/44'/666666'/0'` as **Primary Address** of the mnemonic.
 
-## Test case
+## Test Case
 ### Entropy
 ```
 87ad0e066111ed827dc1f7be4d1bf53b9a7be84021a0950418d3f45ed4d54f1c
 ```
-### Mnemonic phrase
+### Mnemonic Phrase
 ```
 marble half light season burst scorpion warfare discover salad hand wool jaguar police vintage above cross never camp crunch trim unhappy height detect opinion
 ```
-### BIP39 seed
+### BIP39 Seed
 ```
 2ba1d8e696d17ac4d75b9f479c527450d439c9acd2b4d542d27e3a7f3418cd241717d2db41f47d8bbae9fc90fe551c4db87f7491104f030f6eceaf1b24f15f4d
 ```
-### Derived Vite ED25519 seeds and addresses
+### Derived Vite ED25519 Seeds and Addresses
 
 ```
 m/44'/666666'/0' bb369222613ad7b1a646d84d8c749c30cfa5879f5152b7bd7c1f9f6553ce0eb5  vite_da3ca9bac9f05fce8f4eead36610756b6eb48282ff10a81d6d

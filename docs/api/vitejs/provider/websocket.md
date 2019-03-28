@@ -17,7 +17,7 @@
 
 ```javascript
 
-import wsProvider from "@vite/vitejs/dist/es5/provider/WS";
+import wsProvider from "@vite/vitejs-ws";
 const myWs = new wsProvider("ws://localhost:8080");
 
 ```
