@@ -38,7 +38,7 @@
     - RevokeVoting
     - GetQuota
     - WithdrawalOfQuota Withdraw Staked Quota
-    - Mintage 铸币
+    - Mintage Token Issuance
     - MintageIssue,
     - MintageBurn,
     - MintageTransferOwner 

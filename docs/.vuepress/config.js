@@ -278,7 +278,7 @@ module.exports = {
                     '/introduction/': genSidebarConfig('introduction', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
                     '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接相关', 'utils', '常量相关', 'client', 'wallet'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'Network Connection', 'Utils', 'Constants', 'Client API', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'VEP'),
                 },
                 algolia: {
@@ -297,7 +297,7 @@ module.exports = {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
+                    // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),9
                     '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),

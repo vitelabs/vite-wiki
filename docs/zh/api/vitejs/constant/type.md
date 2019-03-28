@@ -1,9 +1,9 @@
-# type
+# Type
 
 - RPCrequest
-    - type 请求类型（request | notification | batch）
-    - methodName [方法名称](/api/vitejs/const.html#method)
-    - params 传参
+    - type Request Type（request | notification | batch）
+    - methodName [Method Name](/api/vitejs/const.html#method)
+    - params Passing Parameters
 
 - RPCrequest
     - jsonrpc 2.0
@@ -16,29 +16,29 @@
     - message
 
 - AddrObj
-    - `addr : string` : 真实地址
-    - `pubKey : string`: 公钥
-    - `privKey : string`: 私钥
-    - `hexAddr : string`: hex编码地址
+    - `addr : string` : Actual Address
+    - `pubKey : string`: Public Key
+    - `privKey : string`: Private Key
+    - `hexAddr : string`: Hex Encoding Address
 
 
-- BlockType  交易类型
-    - createContract 创建合约
-    - sendTx 发送交易
-    - reward 奖励交易
-    - receiveTx 接收交易
-    - receiveTxFail 接收交易失败
+- BlockType  Transaction Type
+    - createContract Create Contract
+    - sendTx Send Transaction
+    - reward Reward Transaction
+    - receiveTx Receive Transaction
+    - receiveTxFail Receive Transaction Failed
 
-- BuiltinTxType 内置交易类型 (详细交易类型)
-    - SBPreg = 0 注册SBP
-    - UpdateReg 更新注册
-    - RevokeReg 撤销注册
-    - RetrieveReward 提取奖励
-    - Voting 投票
-    - RevokeVoting 撤销投票
-    - GetQuota 获取配额
-    - WithdrawalOfQuota 取回配额抵押
-    - Mintage 铸币
+- BuiltinTxType Built-in Transaction Type (Detailed Transaction Type)
+    - SBPreg = 0 SBP Registration
+    - UpdateReg Update Registration
+    - RevokeReg Revoke Registration
+    - RetrieveReward Retrieve Rewards
+    - Voting Voting
+    - RevokeVoting Revoke Voting
+    - GetQuota Get Quota
+    - WithdrawalOfQuota Withdrawal of Staked Quota
+    - Mintage Token Issuance
     - MintageIssue
     - MintageBurn
     - MintageTransferOwner 
@@ -48,11 +48,11 @@
     - DexFundUserWithdraw
     - DexFundNewOrder
     - DexTradeCancelOrder
-    - CreateContractReq 创建合约
-    - TxReq 发送交易
-    - RewardReq 奖励
-    - TxRes 接收交易
-    - TxResFail 接收交易失败
+    - CreateContractReq Create Contract
+    - TxReq Send Transaction
+    - RewardReq Rewards
+    - TxRes Receive Transaction
+    - TxResFail Receive Transaction Failed
 
 - LangList
     - `english` : english

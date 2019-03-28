@@ -1,10 +1,10 @@
-# method
+# Methods
 
 :::tip abstract
-关于rpc方法的常量
+Constants about rpc methods
 :::
 
-- 调用方式
+- How to Invoke
 
 ```javascript
 
@@ -18,23 +18,23 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     // ......
 })
 
-// 或者
+// Or
 myClient.ledger.getLatestSnapshotChainHash()
 .then(()=>{
     // ......
 });
 
-// 如果是subscribe方法
+// If it's subscribe method
 myClient.subscribeFunc.newAccountBlocks()
 .then(()=>{
     // ......
 });
 
-// 或者
+// Or
 myClient.request(method.subscribe.newAccountBlocks)
 .then(()=>{
     // ......
 })
 ```
 
-[详细参考](/api/rpc/)
+[More Details](/api/rpc/)
