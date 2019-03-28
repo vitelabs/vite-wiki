@@ -1,15 +1,15 @@
-# Contract
+# contract
 
 :::tip abstract
-Built-in contract related constants
+内置合约相关常量
 :::
 
 - Snapshot_Gid
 - Delegate_Gid
-- Default_Hash Default Hash
-- Quota_Addr Staking Address
-- Vote_Addr Voting Address
-- Register_Addr SBP Registration Address
+- Default_Hash 默认Hash
+- Quota_Addr 抵押地址
+- Vote_Addr 投票地址
+- Register_Addr SBP注册地址
 - Burn_Abi
 - CancelPledge_Abi
 - CancelRegister_Abi
