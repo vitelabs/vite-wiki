@@ -7,8 +7,8 @@
 ## Constructor
 
 - **constructor params**
-    - `provider : Provider 实例`
-    - `firstConnectCb : function` : 首次连接后的回调函数
+    - `provider : Provider Instance`
+    - `firstConnectCb : function` : Callback function after the first connection
 
 - **Example**
 
@@ -29,13 +29,13 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 });
 ```
 
-## 实例方法
+## Instance Methods
 
 ### setProvider (provider, abort)
-设置provider
+Set provider
 
 - **Parameters**
-    * `provider : Provider实例`
+    * `provider : Provider Instance`
     * `abort : boolean` 是否打断原有provider的残余请求
 
 ### request (Methods, ...args)

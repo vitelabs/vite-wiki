@@ -4,7 +4,7 @@
 Our network connection layer uses RPC protocol.
 This part is mainly about how to connect to gvite, you can use http, websocket or IPC to get into connect with gvite.
 
-HTTP / Websocket / IPC 皆集成以下方法及属性。
+HTTP / Websocket / IPC All of these have already integrated the following methods and attributes.
 :::
 
 ## Instance Properties

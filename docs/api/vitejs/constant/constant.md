@@ -96,6 +96,7 @@
     - DexFundUserWithdraw
     - DexFundNewOrder
     - DexTradeCancelOrder
+    - DexFundNewMarket
     - CreateContractReq : `Create Contract`
     - TxReq : `Send Transaction`
     - RewardReq : `Rewards`
