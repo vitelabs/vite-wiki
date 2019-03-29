@@ -1,5 +1,9 @@
 # netProcessor
 
+:::tip abstract
+@vitejs/vitejs-netprocessor
+:::
+
 ## Constructor
 
 - **constructor params**
@@ -16,7 +20,7 @@ import { method } from '@vite/vitejs-constant';
 
 const WS_RPC = new provider("https://example.com");
 
-const myNetProcessor = new netProcessor(WS_RPC, function(_myclient) {
+const myNetProcessor = new netProcessor(WS_RPC, function(_myNetProcessor) {
     console.log("Connected.");
 });
 
@@ -58,15 +62,16 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 ```javascript
 
 import provider from '@vite/vitejs-ws';
+import netProcessor from '@vite/vitejs-netprocessor';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
 
-const myClient = new Client(WS_RPC, function(_myclient) {
+const myNetProcessor = new netProcessor(WS_RPC, function(_myNetProcessor) {
     console.log("Connected.");
 });
 
-myClient.subscribe('newAccountBlocks').then((event) => {
+myNetProcessor.subscribe('newAccountBlocks').then((event) => {
     event.on((result) => {
         console.log(result);
     });

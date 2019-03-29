@@ -1,6 +1,8 @@
 # Error
 
 :::tip Abstract
+@vitejs/vitejs-error
+
 Common Error Types
 :::
 

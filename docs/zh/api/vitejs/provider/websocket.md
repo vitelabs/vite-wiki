@@ -1,5 +1,9 @@
 # websocket
 
+:::tip abstract
+@vitejs/vitejs-ws
+:::
+
 ## Constructor
 
 - **constructor params**: 

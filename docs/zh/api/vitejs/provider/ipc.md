@@ -1,5 +1,9 @@
 # ipc 
 
+:::tip abstract
+@vitejs/vitejs-ipc
+:::
+
 ## Constructor
 
 - **Constructor params**: 

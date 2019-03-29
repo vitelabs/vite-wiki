@@ -175,7 +175,7 @@ const sidebarConfigs = {
         {
             collapsable: false,
             children: [
-                'constant/contract', 'constant/error', 'constant/method', 'constant/type'
+                'constant/error', 'constant/constant'
             ]
         },
         {

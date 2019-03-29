@@ -31,8 +31,8 @@ title: Version 2.0.0
 :::demo
 
 ```bash tab:npm
-npm install @vite/vitejs
-npm install @vite/vitejs-ws
+npm install @vite/vitejs --save
+npm install @vite/vitejs-ws --save
 ```
 
 ```bash tab:yarn

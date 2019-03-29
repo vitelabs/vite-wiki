@@ -1,6 +1,8 @@
 # error
 
 :::tip abstract
+@vitejs/vitejs-error
+
 常用错误类型
 :::
 

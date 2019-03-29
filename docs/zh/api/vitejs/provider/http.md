@@ -1,5 +1,9 @@
 # http
 
+:::tip abstract
+@vitejs/vitejs-http
+:::
+
 ## Constructor
 
 - **constructor params**: 
