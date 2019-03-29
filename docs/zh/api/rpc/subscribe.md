@@ -51,19 +51,15 @@ sidebarDepth: 4
 `Range`
   1. `fromHeight`: `uint64` 起始高度，为0表示从最新的高度开始查询
   2. `toHeight`: `uint64` 结束高度，为0表示不设置结束高度
-  
+
+```
 topics取值示例：
-
- `{}` 匹配所有日志
- 
- `{{A}}` 匹配topics中第一个元素为A的日志
- 
- `{{},{B}}` 匹配topics中第二个元素为B的日志
- 
- `{{A},{B}}` 匹配topics中第一个元素为A且第二个元素为B的日志
- 
- `{{A,B},{C,D}}` 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
-
+ {} 匹配所有日志
+ {{A}} 匹配topics中第一个元素为A的日志
+ {{},{B}} 匹配topics中第二个元素为B的日志
+ {{A},{B}} 匹配topics中第一个元素为A且第二个元素为B的日志
+ {{A,B},{C,D}} 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
+```
 ::: demo
 ```json tab:Request
 {
