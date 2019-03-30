@@ -25,19 +25,19 @@ yarn add @vite/vitejs
 ### node/without webpack
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
-import { client, constant } from '@vite/vitejs';
+const { wsProvider } = require('@vite/vitejs/dist/es5/provider');
+const { client, constant } = require('@vite/vitejs');
 
 const { method } = constant;
-let WS_RPC = new provider("https://example.com");
+let WS_RPC = new wsProvider("http://localhost:41420");
 
 let myClient = new client(WS_RPC, (_myClient) => {
-    console.log("Connected");
+ console.log("Connected");
 });
 myClient.ledger.getSnapshotChainHeight().then((result) => {
-    console.log(result);
+ console.log(result);
 }).catch((err) => {
-    console.warn(err);
+ console.warn(err);
 });
 
 ```
