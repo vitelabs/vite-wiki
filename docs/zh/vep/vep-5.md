@@ -1,4 +1,4 @@
-# VEP-5: Remove Explicit Snapshot Block Hash as Timestamp
+# VEP 5: 移除作为时间戳的快照块哈希显式引用
 
 ## 背景
 
