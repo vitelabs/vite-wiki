@@ -35,7 +35,7 @@
 // ....
 ```  
 
-## getRawTokenid
+## getRawTokenId
 Get original token ID
 
 - **params**

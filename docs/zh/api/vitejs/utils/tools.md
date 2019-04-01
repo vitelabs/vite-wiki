@@ -36,7 +36,7 @@
 // ....
 ```  
 
-## getRawTokenid
+## getRawTokenId
 获取原始 token ID
 
 - **params**
