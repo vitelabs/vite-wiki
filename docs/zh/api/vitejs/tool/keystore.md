@@ -4,26 +4,34 @@
 @vitejs/vitejs-keystore
 :::
 
+```javascript 引入
+import { keystore } from '@vite/vitejs';
+
+// Or
+import * as keystore from '@vite/vitejs-keystore';
+```
+
 ## keystore 结构
 
-```javascript
-// example
-let keystore = {
-    "uuid":"fe4a9460-0b3a-11e9-8975-e744cf968fe6",
+```json
+{
+    "uuid": "fe4a9460-0b3a-11e9-8975-e744cf968fe6",
     "crypto":{
-        "ciphername":"aes-256-gcm","ciphertext":"0f2eabd62c2b479e18a8445f2a6449cc77895c5ce24e8e93bf24356b0080de67373956a69499145a262a6bed36873e35","nonce":"c1e22b37a56fc4280d1947a0",
-        "kdf":"scrypt",
-        "scryptparams":{
-            "n":4096,
-            "r":8,
-            "p":6,
-            "keylen":32,
-            "salt":"11a75fdee6bc20084628e55ec3c26ea4120dd8053e39757e164f7642b3d0af73"
+        "ciphername": "aes-256-gcm",
+        "ciphertext": "0f2eabd62c2b479e18a8445f2a6449cc77895c5ce24e8e93bf24356b0080de67373956a69499145a262a6bed36873e35",
+        "nonce": "c1e22b37a56fc4280d1947a0",
+        "kdf": "scrypt",
+        "scryptparams": {
+            "n": 4096,
+            "r": 8,
+            "p": 6,
+            "keylen": 32,
+            "salt": "11a75fdee6bc20084628e55ec3c26ea4120dd8053e39757e164f7642b3d0af73"
         }
     },
-    "version":3,
-    "timestamp":1546068361382
-};
+    "version": 3,
+    "timestamp": 1546068361382
+}
 ```
 
 ## isValid 
@@ -33,6 +41,12 @@ keystore是否合法
   - `keystore : string` keystore string
 - **return**
   - `validate : boolean` 是否合法
+
+```javascript ::Demo
+import { isValid } from '@vite/vitejs-keystore';
+
+const result = isValid('{}'); // false
+```
 
 ## decrypt
 解密keystore

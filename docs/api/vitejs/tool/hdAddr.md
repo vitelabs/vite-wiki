@@ -4,27 +4,40 @@
 @vitejs/vitejs-hdaddr
 :::
 
+```javascript 引入
+import { hdAddr } from '@vite/vitejs';
+
+// Or
+import * as hdAddr from '@vite/vitejs-hdaddr';
+```
+
 ## newAddr
 Generate Hex address according to public key
 
 - **params**
-  - `bits: number` Decimals of mnemonic words default: 256
-  - `lang: LangList` Language default: english
-  - `pwd: string` Password default: ''
+  - `bits? : number` Decimals of mnemonic words default: 256
+  - `lang? : LangList` Language default: english
+  - `pwd? : string` Password default: ''
 - **return**
     - `mnemonicAddrObj: object`
         - `addrObj : AddrObj`
         - `entropy : string` Entropy
         - `mnemonic : string` Mnemonic words
 
+```javascript ::Demo
+import { newAddr } from '@vite/vitejs-hdaddr';
+
+let { addr, entropy, mnemonic } = newAddr();
+```
+
 ## getAddrFromMnemonic
 Get an address by mnemonic words
 
 - **params**
   - `mnemonic : string` Mnemonic words
-  - `index : number` Number, default: 0
-  - `lang: LangList` Language, default: english
-  - `pwd: string` Password, default: ''
+  - `index? : number` Number, default: 0
+  - `lang? : LangList` Language, default: english
+  - `pwd? : string` Password, default: ''
 - **return** 
   - `addrObj: AddrObj`
 
@@ -35,8 +48,8 @@ Get a group of addresses by mnemonic words
   - `mnemonic: string` Mnemonic
   - `start : number` Start from which address number
   - `num : number` Amount of addresses
-  - `lang: LangList` Language, default: english
-  - `pwd: string` Password, default: ''
+  - `lang? : LangList` Language, default: english
+  - `pwd? : string` Password, default: ''
 - **return**
   - `addrObj: AddrObj`
 
@@ -44,8 +57,8 @@ Get a group of addresses by mnemonic words
 Generate ID via mnemonic words
 
 - **params**
-  - `mnemonic: string` Mnemonic words
-  - `lang: LangList` Language, default: english
+  - `mnemonic : string` Mnemonic words
+  - `lang? : LangList` Language, default: english
 - **return**
   - `id: string` ID
 
@@ -53,8 +66,8 @@ Generate ID via mnemonic words
 Get mnemonic words via entropy
 
 - **params**
-  - `entropy: string` Entropy
-  - `lang: LangList` Language, default: english
+  - `entropy : string` Entropy
+  - `lang? : LangList` Language, default: english
 - **return**
  - `mnemonic: string` Mnemonic words
 
@@ -63,7 +76,7 @@ Get entropy of mnemonic words
 
 - **params**
   - `mnemonic: string` Mnemonic words
-  - `lang: LangList` Language, default: english
+  - `lang? : LangList` Language, default: english
 - **return**
   - `entropy: string` Entropy
 
@@ -72,7 +85,7 @@ Verify if it is a legal mnemonic words
 
 - **params**
   - `mnemonic: string` Mnemonic words
-  - `lang: LangList` Language default: english
+  - `lang? : LangList` Language default: english
 - **return**
   - `validate: boolean` Legal or not
 

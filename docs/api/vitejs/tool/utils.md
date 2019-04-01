@@ -4,6 +4,13 @@
 @vitejs/vitejs-utils
 :::
 
+```javascript 引入
+import { utils } from '@vite/vitejs';
+
+// Or
+import * as utils from '@vite/vitejs-utils';
+```
+
 ## checkParams 
 
 - **params**

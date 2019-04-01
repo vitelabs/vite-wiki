@@ -4,6 +4,13 @@
 @vitejs/vitejs-abi
 :::
 
+```javascript 引入
+import { abi } from '@vite/vitejs';
+
+// Or
+import * as abi from '@vite/vitejs-abi';
+```
+
 :::tip
 合约方法参数类型说明
 合约方法（包括构造方法、异步调用、离线读取）可以包含多个参数，其中离线读取接口还可以包含多个返回值，目前支持以下参数类型：

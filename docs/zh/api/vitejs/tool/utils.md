@@ -4,6 +4,13 @@
 @vitejs/vitejs-utils
 :::
 
+```javascript 引入
+import { utils } from '@vite/vitejs';
+
+// Or
+import * as utils from '@vite/vitejs-utils';
+```
+
 ## checkParams 
 检验参数
 
@@ -20,13 +27,13 @@
    function test(a, b, c, d) {
         let err = checkParams({ a, b, c, d }, ['b', 'c'], [{
             name: 'a',
-            func: (_a)=>{
+            func: (_a) => {
                 return validA(_a);
             },
             msg: 'Is not A'
         },{
             name: 'd',
-            func: (_d)=>{
+            func: (_d) => {
                 return validD(_d);
             }
         }]);

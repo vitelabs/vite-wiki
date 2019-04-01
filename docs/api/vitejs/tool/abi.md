@@ -4,6 +4,13 @@
 @vitejs/vitejs-abi
 :::
 
+```javascript 引入
+import { abi } from '@vite/vitejs';
+
+// Or
+import * as abi from '@vite/vitejs-abi';
+```
+
 :::tip
 Introduction of contract methods and parameter type.
 Contract methods (including constructors, asynchronous invoke, offline reading) are able to contain multiple parameters, in addition，offline reading api can contain more than one return values. Currently the parameter types beneath could be supported:

@@ -1,4 +1,4 @@
-# ipc 
+# IPC 
 
 :::tip abstract
 @vitejs/vitejs-ipc
@@ -24,30 +24,30 @@ const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 
 ```
 
-## ipc Provider
+## IPC provider 实例
 
 ### Instance Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| path | string | Connection path |
-| delimiter | string | Delimiter |
+| path | string | 连接路径 |
+| delimiter | string | 分隔符 |
 
 ### Instance Methods
-In addition to common methods of provider instance
+除却与 provider 实例一致的方法外
 
 #### reconnect
-Reconnect
+重连
 
 #### disconnect
-Disconnect
+断开连接
 
 #### subscribe
-Subscribing server side push notifications
+订阅服务端推送事件
 
 - **params**: 
 
-  * `callback : Function` Output data will be returned to this event when there are notifications on server side
+  * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
 
 #### unSubscribe
-Unsubscribe
+取消订阅

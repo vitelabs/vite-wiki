@@ -2,6 +2,8 @@
 
 :::tip abstract
 @vitejs/vitejs-http
+
+方法及属性皆与 provider 实例一致
 :::
 
 ## Constructor
@@ -13,6 +15,7 @@
 	- `headers : object` : Request Header Information
 
 - **Example**:
+
 ```javascript
 
 import httpProvider from "@vite/vitejs-http";

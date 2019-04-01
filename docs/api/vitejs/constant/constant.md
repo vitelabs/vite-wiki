@@ -178,29 +178,3 @@ myClient.request(methods.subscribe.newAccountBlocks)
 ```
 
 [Reference](/api/rpc/)
-
-
-
-## type
-
-- RPCrequest
-    - type Request Type（request | notification | batch）
-    - methodName [Method Name](/api/vitejs/const.html#method)
-    - params Parameters
-
-- RPCrequest
-    - jsonrpc 2.0
-    - id
-    - result
-    - error RPCerror
-
-- RPCerror
-    - code
-    - message
-
-- AddrObj
-    - `addr : string` : Actual Address
-    - `pubKey : string`: Public Key 
-    - `privKey : string`: Private Key 
-    - `hexAddr : string`: Hex Encode Address
-    

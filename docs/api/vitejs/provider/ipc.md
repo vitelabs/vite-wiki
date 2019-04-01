@@ -24,7 +24,7 @@ const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 
 ```
 
-## IPC provider
+## IPC provider instance
 
 ### Instance Properties
 

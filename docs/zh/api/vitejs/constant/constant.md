@@ -179,33 +179,3 @@ myClient.request(methods.subscribe.newAccountBlocks)
 ```
 
 [详细参考](/api/rpc/)
-
-
-
-
-
-
-
-
-## type
-
-- RPCrequest
-    - type 请求类型（request | notification | batch）
-    - methodName [方法名称](/api/vitejs/const.html#method)
-    - params 传参
-
-- RPCrequest
-    - jsonrpc 2.0
-    - id
-    - result
-    - error RPCerror
-
-- RPCerror
-    - code
-    - message
-
-- AddrObj
-    - `addr : string` : 真实地址
-    - `pubKey : string`: 公钥
-    - `privKey : string`: 私钥
-    - `hexAddr : string`: hex编码地址

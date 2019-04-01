@@ -26,7 +26,7 @@ const myWs = new wsProvider("ws://localhost:8080");
 
 ```
 
-## WS Provider
+## WS Provider instance
 
 ### Instance Properties
 
@@ -42,6 +42,9 @@ Except for the public methods of provider instance
 
 #### Reconnect
 Network reconnection
+
+#### disconnect
+Disconnection
 
 #### subscribe
 Subscribe push events from server side
