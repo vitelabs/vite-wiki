@@ -1,4 +1,4 @@
-# VEP 5: Remove Explicit Snapshot Block Hash as Timestamps
+# VEP 5: Remove Explicit Snapshot Hash Reference as Timestamps
 
 ## Background
 
