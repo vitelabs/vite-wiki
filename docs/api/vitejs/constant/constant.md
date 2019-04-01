@@ -4,6 +4,13 @@
 @vitejs/vitejs-constant
 :::
 
+```javascript 引入
+import { constant } from '@vite/vitejs';
+
+// Or
+import * as constant from '@vite/vitejs-client';
+```
+
 ## 常用变量
 
 - Vite_TokenId

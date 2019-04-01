@@ -8,9 +8,16 @@
 不同连接方式可以调用不同级别的接口（gvite wallet下的全部接口仅针对ipc连接开放)。
 :::
 
+```javascript 引入
+import { client } from '@vite/vitejs';
+
+// Or
+import client from '@vite/vitejs-client';
+```
+
 ## 注意 
 1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
-2. methods中的方法都可以直接使用client.namespace.funcName的方式调用，见constructor/example
+2. methods中的方法都可以直接使用`client.namespace.funcName`的方式调用，[详见constant模块](/api/vitejs/constant/constant.html)
 
 ## Constructor extends netProcessor
 继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
@@ -23,20 +30,20 @@
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
+import provider from '@vite/vitejs-ws';
 import { client } from '@vite/vitejs';
 
-const WS_RPC = new provider("https://example.com");
+const WS_RPC = new provider("wss://example.com");
 
 const myClient = new Client(WS_RPC, function(_myclient) {
     console.log("Connected.");
 });
 
-const block = _myclient.buildinTxBlock.getAccountBlock.sync(
+const block = myclient.buildinTxBlock.getAccountBlock.sync(
     //...
 );
 
-_myclient.onroad.getOnroadBlocksByAddress.then((data) => {
+myclient.onroad.getOnroadBlocksByAddress.then((data) => {
     console.log(data);
 });
 
@@ -49,6 +56,16 @@ _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
     * `addr: Address`
 - **Return**:
     * Promise<`{ balance, onroad }`>
+
+```javascript ::Demo
+
+myclient.getBalance.then(({balance, onroad}) => {
+    console.log(balance, onroad);
+}).catch(err => {
+    console.warn(err);
+});
+
+```
 
 ## getTxList
 获取交易列表

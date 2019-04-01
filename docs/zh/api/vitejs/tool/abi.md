@@ -32,13 +32,6 @@ import * as abi from '@vite/vitejs-abi';
 | `<type>[M]` | type类型的定长数组，其中 M >= 0，type取值范围：`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint8[2] | ['1','2'] | '00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
 | `<type>[]` | type类型的不定长数组，type取值范围：`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint256[] | ['1','2'] | '000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
 
-- **Example**
-
-```js ::Demo
-import { utils } from '@vite/vitejs';
-const abi = utils.abi;
-```
-
 - **Example jsonInterface**
 
 ```json ::Demo

@@ -21,29 +21,31 @@ import * as utils from '@vite/vitejs-utils';
   - `error : null | Object<code, message>`
 - **Example**:
 
-```javascript
-// ....
-   function test(a, b, c, d) {
-        let err = checkParams({ a, b, c, d }, ['b', 'c'], [{
-            name: 'a',
-            func: (_a)=>{
-                return validA(_a);
-            },
-            msg: 'Is not A'
-        },{
-            name: 'd',
-            func: (_d)=>{
-                return validD(_d);
-            }
-        }]);
+```javascript ::Demo
+import { checkParams } from '@vite/vitejs-utils';
 
-        if (err) {
-            return err;
+function test(a, b, c, d) {
+    let err = checkParams({ a, b, c, d }, ['b', 'c'], [{
+        name: 'a',
+        func: (_a)=>{
+            return validA(_a);
+        },
+        msg: 'Is not A'
+    },{
+        name: 'd',
+        func: (_d)=>{
+            return validD(_d);
         }
+    }]);
 
-        // Continue ...
-   }
-// ....
+    if (err) {
+        return err;
+    }
+
+    // Continue ...
+}
+
+test(a); // Got an error
 ```  
 
 ## getRawTokenId

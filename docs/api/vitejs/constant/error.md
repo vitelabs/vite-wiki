@@ -6,6 +6,13 @@
 Common Error Types
 :::
 
+```javascript 引入
+import { error } from '@vite/vitejs';
+
+// Or
+import * as error from '@vite/vitejs-error';
+```
+
 - no(100000) Unknown Error
 - paramsMissing(100001) Missing Parameters
 - paramsFormat(100002) Wrong Format

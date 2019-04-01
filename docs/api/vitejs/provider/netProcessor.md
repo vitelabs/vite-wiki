@@ -4,6 +4,13 @@
 @vitejs/vitejs-netprocessor
 :::
 
+```javascript 引入
+import { netProcessor } from '@vite/vitejs';
+
+// Or
+import netProcessor from '@vite/vitejs-netprocessor';
+```
+
 ## Constructor
 
 - **constructor params**

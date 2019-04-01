@@ -8,9 +8,16 @@ This part contains built-in shortcuts.
 The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
 :::
 
+```javascript 引入
+import { client } from '@vite/vitejs';
+
+// Or
+import client from '@vite/vitejs-client';
+```
+
 ## Notice 
 1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
-2. Every methods in it can be invoked by `client.namespace.funcName`, learn more in constructor/example
+2. Every methods in it can be invoked by `client.namespace.funcName`, [详见constant模块](/api/vitejs/constant/constant.html)
 
 ## Constructor extends netProcessor
 继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
@@ -26,17 +33,17 @@ The invocation of different levels of API varies from diverse connection ways. (
 import provider from '@vite/vitejs-WS';
 import { client } from '@vite/vitejs';
 
-const WS_RPC = new provider("https://example.com");
+const WS_RPC = new provider("wss://example.com");
 
 const myClient = new Client(WS_RPC, function(_myclient) {
     console.log("Connected.");
 });
 
-const block = _myclient.buildinTxBlock.getAccountBlock.sync(
+const block = myclient.buildinTxBlock.getAccountBlock.sync(
     //...
 );
 
-_myclient.onroad.getOnroadBlocksByAddress.then((data) => {
+myclient.onroad.getOnroadBlocksByAddress.then((data) => {
     console.log(data);
 });
 
@@ -49,6 +56,16 @@ Get Balance
     * `addr: Address`
 - **Return**:
     * Promise<`{ balance, onroad }`>
+
+```javascript ::Demo
+
+myclient.getBalance.then(({balance, onroad}) => {
+    console.log(balance, onroad);
+}).catch(err => {
+    console.warn(err);
+});
+
+```
 
 ## getTxList
 Get Transaction List

@@ -6,6 +6,13 @@
 常用错误类型
 :::
 
+```javascript 引入
+import { error } from '@vite/vitejs';
+
+// Or
+import * as error from '@vite/vitejs-error';
+```
+
 - no(100000) 未知错误
 - paramsMissing(100001) 丢失参数
 - paramsFormat(100002) 参数格式错误
