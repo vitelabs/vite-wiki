@@ -1,33 +1,29 @@
----
-sidebarDepth: 1
----
-
 # abi
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
+:::tip abstract
+@vitejs/vitejs-abi
 :::
 
 :::tip
-合约方法参数类型说明
-合约方法（包括构造方法、异步调用、离线读取）可以包含多个参数，其中离线读取接口还可以包含多个返回值，目前支持以下参数类型：
+Introduction of contract methods and parameter type.
+Contract methods (including constructors, asynchronous invoke, offline reading) are able to contain multiple parameters, in addition，offline reading api can contain more than one return values. Currently the parameter types beneath could be supported:
 :::
 
-| 参数类型 | 名称 | 示例 | 编码前示例 | 编码后示例 |
+| Param Type | Name | Instance | Before Encode | After Encode |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| `uint<M>` | 无符号整数，其中 0 < M <= 256，M % 8 == 0 | uint256 | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
-| `int<M>` | 有符号整数，其中 0 < M <= 256，M % 8 == 0 | int8 | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
-| `uint` | 相当于uint256 | uint | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
-| `int` | 相当于int256 | int | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
-| `tokenId` | 代币id | tokenId | 'tti_5649544520544f4b454e6e40' | '000000000000000000000000000000000000000000005649544520544f4b454e' |
-| `address` | 账户地址 | address | 'vite_010000000000000000000000000000000000000063bef3da00' | '0000000000000000000000000100000000000000000000000000000000000000' |
-| `gid` | 委托共识组id | gid | '01000000000000000000' | '0000000000000000000000000000000000000000000001000000000000000000' |
-| `bool` | 布尔 | bool | true | '0000000000000000000000000000000000000000000000000000000000000001' |
-| `bytes<M>` | 定长字节数组，其中 0 < M <= 32 | bytes32 | '0x0100000000000000000000000000000000000000000000000000000000000000' | '0100000000000000000000000000000000000000000000000000000000000000' |
-| `bytes` | 不定长字节数组 | bytes | '0xdf3234' | '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003df32340000000000000000000000000000000000000000000000000000000000' | 
-| `string` | 不定长字符串 | string | 'foobar' | '0000000000000000000000000000000000000000000000000000000000000006666f6f6261720000000000000000000000000000000000000000000000000000' |
-| `<type>[M]` | type类型的定长数组，其中 M >= 0，type取值范围：`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint8[2] | ['1','2'] | '00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
-| `<type>[]` | type类型的不定长数组，type取值范围：`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint256[] | ['1','2'] | '000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
+| `uint<M>` | Unsigned integer, 0 < M <= 256，M % 8 == 0 | uint256 | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
+| `int<M>` | Signed integer, 0 < M <= 256，M % 8 == 0 | int8 | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
+| `uint` | Equivalent to uint256 | uint | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
+| `int` | Equivalent to int256 | int | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
+| `tokenId` | Token id | tokenId | 'tti_5649544520544f4b454e6e40' | '000000000000000000000000000000000000000000005649544520544f4b454e' |
+| `address` | Account address | address | 'vite_010000000000000000000000000000000000000063bef3da00' | '0000000000000000000000000100000000000000000000000000000000000000' |
+| `gid` | Delegated consensus group id | gid | '01000000000000000000' | '0000000000000000000000000000000000000000000001000000000000000000' |
+| `bool` | Bool | bool | true | '0000000000000000000000000000000000000000000000000000000000000001' |
+| `bytes<M>` | Immutable array of bytes, 0 < M <= 32 | bytes32 | '0x0100000000000000000000000000000000000000000000000000000000000000' | '0100000000000000000000000000000000000000000000000000000000000000' |
+| `bytes` | Non-immutable array of bytes | bytes | '0xdf3234' | '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003df32340000000000000000000000000000000000000000000000000000000000' | 
+| `string` | Non-immutable string | string | 'foobar' | '0000000000000000000000000000000000000000000000000000000000000006666f6f6261720000000000000000000000000000000000000000000000000000' |
+| `<type>[M]` | Non-immutable array with 'type' mode, M >= 0，the value rage of type:`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint8[2] | ['1','2'] | '00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
+| `<type>[]` | Non-immutable array with 'type' mode, the value rage of type:`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint256[] | ['1','2'] | '000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
 
 - **Example**
 
@@ -52,7 +48,7 @@ const abi = utils.abi;
 
 - **params**
   - `jsonInterface | Array<jsonInterface>`
-  - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi)
+  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
 - **return**
   - `hexString`
 
@@ -76,7 +72,7 @@ let encodeLogSignatureResult22 = abi.encodeLogSignature([
 
 - **params**
   - `jsonInterface | Array<jsonInterface>`
-  - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi)
+  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
 - **return**
   - `hexString`
 
@@ -94,7 +90,7 @@ let encodeMethodResult1 = abi.encodeFunctionSignature({
 - **params**
   - `jsonInterface | Array<jsonInterface>`
   - `params`
-  - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi)
+  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
 - **return**
   - `hexString`
 
@@ -140,7 +136,7 @@ let result1 = abi.encodeFunctionCall([{
 
 - **params**
   - `type`
-  - `params` 当第一个参数为数组类型时, 第二个参数应传数组(二者类型应一致)
+  - `params` The second parameter should pass an array type when the first parameter is an array (Both parameters should be consistent)
 - **return**
   - `hexString`
 
@@ -173,7 +169,7 @@ let encodeParameterResult2 = abi.decodeParameter('uint8[]', '0000000000000000000
 - **params**
   - `jsonInterface | Array<type-string> | Array<jsonInterface>`
   - `params`
-  - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi, 取出对应types)
+  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
 - **return**
   - `hexString`
 
@@ -201,7 +197,7 @@ let encodeParametersResult12 = abi.encodeParameters([
 - **params**
   - `jsonInterface | Array<type-string> | Array<jsonInterface>`
   - `hexString`
-  - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi, 取出对应types)
+  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
 - **return**
   - `decodeResult`
 
@@ -229,7 +225,7 @@ let decodeParametersResult22 = abi.decodeParameters([
 - **params**
   - `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
   - `hexString`
-  - `methodName?` 当第一个参数为jsonInterface数组时, 此参数必填(用于识别abi, 取出对应inputs)
+  - `methodName?` This parameter is required when type of the first parameter is JsonInterface (Used to identify abi and get corresponding inputs)
 - **return**
   - `decodeResult`
 

@@ -1,61 +1,61 @@
----
-sidebarDepth: 1
----
-
 # accountBlock
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-:::
+:::tip Abstract
+@vitejs/vitejs-accountblock
+::: 
 
 ## getAccountBlock
-获取规范的accountBlock
+Get normative accountBlock
 
 - **params**
   - `block : Object<blockType, accountAddress, snapshotHash, prevHash?, height?, fromBlockHash?, data?, message?, toAddress?, tokenId?, amount?, nonce?>` block
 - **return**
-  - `accountBlock : AccountBlock` 规范的 accountBlock
+  - `accountBlock : AccountBlock` 
   
 
 ## getSendTxBlock 
-获取规范的 send accountBlock
+Get normative send accountBlock
 
 - **params**
   - `block : Object<accountAddress, toAddress, tokenId, amount, message?, prevHash?, height?, snapshotHash?>` block
 - **return**
-  - `accountBlock : AccountBlock` 规范的 send accountBlock
+  - `accountBlock : AccountBlock` 
   
 ## getReceiveTxBlock
-获取规范的 receive accountBlock
+Get normative receive accountBlock
 
 - **params**
   - `block : Object<accountAddress, fromBlockHash, prevHash?, height?, snapshotHash?>` block
 - **return**
-  - `accountBlock : AccountBlock` 规范的 receive accountBlock
+  - `accountBlock : AccountBlock` 
 
 ## getBuiltinTxType 
-获取详细的交易类型
+Get specified transaction type
 
 - **params**
   - `toAddress : string` ToAddress
   - `data : string` data 
-  - `blockType : number` 块类型
+  - `blockType : number`
 - **return**
-  - `builtinTxType : BuiltinTxType` 交易类型
+  - `builtinTxType : BuiltinTxType` Transaction Type
   
 ## getBlockHash
-获取块hash
 
 - **params**
   - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
 - **return**
-  - `blockHash : string` 块hash
+  - `blockHash : string`
   
 ## signAccountBlock
-签名accountBlock
 
 - **params**
   - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
-  - `privKey : string` 私钥
+  - `privKey : string` Private Key 
 - **return**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?, hash, signature, publicKey>` 签名后的AccountBlock
+  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?, hash, signature, publicKey>` AccountBlock after signing
+
+## formatAccountBlock
+
+## validReqAccountBlock
+
+## getCreateContractData

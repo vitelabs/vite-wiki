@@ -1,4 +1,8 @@
-# tools
+# utils
+
+:::tip abstract
+@vitejs/vitejs-utils
+:::
 
 ## checkParams 
 检验参数
@@ -101,3 +105,89 @@
   - `params : any`
 - **return**
   - `result : boolean`
+
+## bytesToHex 
+- **params**
+  - `arr : buffer`
+- **return**
+  - `addr : string` hex string  
+  
+## hexToBytes
+- **params**
+  - `hex : string` hex
+- **return**
+  - `arr : array` bytes
+
+## getBytesSize 
+获取不同编码字符串的字节长度
+
+- **params**
+  - `str : string`  字符串
+  - `charset : utf8 | utf16` 编码格式
+- **return**
+  - `length : number` 字节长度
+  
+## utf8ToBytes
+utf8字符串转换为字节
+
+- **params**
+  - `str : string` uft8编码字符串
+- **return**
+  - `target : Uint8Array` 字节
+  
+## blake2b 
+对blake2b的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+
+## blake2bHex
+对blake2bHex的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+
+## _Buffer 
+对buffer的快捷引用
+
+## ed25519
+
+### KeyPairObj
+
+- `publicKey : Uint8Array with 32-byte public key` 公钥
+- `secretKey : Uint8Array with 64-byte secret key` 私钥
+
+### keyPair 
+获取私钥对
+
+- **return**
+  - `keyPair : KeyPairObj` 私钥对
+  
+### getPublicKey
+通过私钥获取公钥 (此私钥必须是由keyPair派生出来的)
+
+- **params**
+  - `privKey : Buffer` 私钥
+- **return**
+  - `publicKey : Uint8Array with 32-byte public key` 公钥
+
+### sign 
+签名
+
+- **params**
+  - `message : string` 字符串
+  - `privKey : buffer` 私钥
+- **return**
+  - `signature : Hex String` 签名结果
+  
+### verify
+验证
+
+- **params**
+  - `message : string` 字符串
+  - `signature : Hex String` 签名结果
+  - `publicKey : Buffer` 公钥
+- **return**
+  - `target : Boolean` 验证结果
+  
+### random
+生成随机数
+
+- **params**
+  - `bytesLen : number` 字节长度, default: 32
+- **return**
+  - `num : Uint8Array` 随机数

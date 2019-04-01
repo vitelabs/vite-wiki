@@ -1,59 +1,10 @@
----
-sidebarDepth: 1
----
+# hdAddr
 
-# Address
-
-:::tip Created by
-[cs](https://github.com/lovelycs)
+:::tip abstract
+@vitejs/vitejs-hdaddr
 :::
 
-
-## privToAddr
-
-### newHexAddr
-Generating hex address according to private key
-
-- **params**
-  - `privateKey?: string | buffer` Private key
-- **return**
-  - `addrObj: AddrObj`
-
-### newHexAddrFromPub
-Generating hex address according to public key
-
-- **params**
-  - `publickey: string | buffer` Public key
-- **return**
-  - `hexaddr: string` Hex encoded address
-
-### getAddrFromHexAddr
-Get real address
-
-- **params**
-  - `hexaddr: string` Hex encoded address
-- **return**
-  - `addr: string` Real address
-
-### getHexAddrFromAddr
-Generating hex address according to real address
-
-- **params**
-  - `addr: string` Real address
-- **return**
-  - `hexaddr: string` Hex encoded address
-
-### isValidHexAddr
-Verify if it is a legal hex address
-
-- **params**
-  - `hexaddr : string` Hex encoded address
-- **return**
-  - `validate : boolean` Legal or not
-
-## hdAddr
-
-### newAddr
+## newAddr
 Generate Hex address according to public key
 
 - **params**
@@ -66,7 +17,7 @@ Generate Hex address according to public key
         - `entropy : string` Entropy
         - `mnemonic : string` Mnemonic words
 
-### getAddrFromMnemonic
+## getAddrFromMnemonic
 Get an address by mnemonic words
 
 - **params**
@@ -77,7 +28,7 @@ Get an address by mnemonic words
 - **return** 
   - `addrObj: AddrObj`
 
-### getAddrsFromMnemonic
+## getAddrsFromMnemonic
 Get a group of addresses by mnemonic words
 
 - **params**
@@ -89,7 +40,7 @@ Get a group of addresses by mnemonic words
 - **return**
   - `addrObj: AddrObj`
 
-### getId
+## getId
 Generate ID via mnemonic words
 
 - **params**
@@ -98,7 +49,7 @@ Generate ID via mnemonic words
 - **return**
   - `id: string` ID
 
-### getMnemonicFromEntropy
+## getMnemonicFromEntropy
 Get mnemonic words via entropy
 
 - **params**
@@ -107,7 +58,7 @@ Get mnemonic words via entropy
 - **return**
  - `mnemonic: string` Mnemonic words
 
-### getEntropyFromMnemonic
+## getEntropyFromMnemonic
 Get entropy of mnemonic words
 
 - **params**
@@ -116,7 +67,7 @@ Get entropy of mnemonic words
 - **return**
   - `entropy: string` Entropy
 
-### validateMnemonic
+## validateMnemonic
 Verify if it is a legal mnemonic words
 
 - **params**
@@ -125,8 +76,8 @@ Verify if it is a legal mnemonic words
 - **return**
   - `validate: boolean` Legal or not
 
-### getAddrFromHexAddr
-Get actual address [Same as privToAddr](/api/vitejs/utils/address.html#privtoaddr)
+## getAddrFromHexAddr
+Get actual address [Same as privToAddr](/api/vitejs/tool/privToAddr.html)
 
-### isValidHexAddr
-Verify if it is a legal hex address [Same as privToAddr](/api/vitejs/utils/address.html#privtoaddr)
+## isValidHexAddr
+Verify if it is a legal hex address [Same as privToAddr](/api/vitejs/tool/privToAddr.html)

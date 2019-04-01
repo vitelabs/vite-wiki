@@ -1,14 +1,8 @@
----
-sidebarDepth: 1
----
 # 客户端
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
 :::tip abstract
+@vitejs/vitejs-client
+
 包括一些内置的快捷调用方式
 
 不同连接方式可以调用不同级别的接口（gvite wallet下的全部接口仅针对ipc连接开放)。
@@ -48,8 +42,33 @@ _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
 
 ```
 
+## getBalance
+获取余额
+
+- **Parameters** 
+    * `addr: Address`
+- **Return**:
+    * Promise<`{ balance, onroad }`>
+
+## getTxList
+获取交易列表
+
+- **Parameters** 
+    __namedParameters: object
+    * `addr: Address`
+    * `index: number` 
+    * `pageCount?: number` default 50
+- **Return**:
+    * Promise<`{ list, totalNum }`>
+
+## sendRawTx
+发送交易
+
+- **Parameters** 
+    * `accountBlock: AccountBlock` 规范化后的accountBlock (无需签名)
+    * `privateKey` 私钥
+- **Return**:
+    * Promise<`AccountBlock`>
+
 ## buildinTxBlock
 见 buildinTxBlock
-
-## buildinLedger
-见 buildinLedger

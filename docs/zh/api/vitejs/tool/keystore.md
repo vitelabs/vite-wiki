@@ -1,14 +1,10 @@
----
-sidebarDepth: 1
----
+# keystore
 
-# Keystore
-
-## Keystore Structure
-
-:::tip Created by
-[cs](https://github.com/lovelycs)
+:::tip abstract
+@vitejs/vitejs-keystore
 :::
+
+## keystore 结构
 
 ```javascript
 // example
@@ -31,33 +27,33 @@ let keystore = {
 ```
 
 ## isValid 
-keystore is valid or not
+keystore是否合法
 
 - **params**
   - `keystore : string` keystore string
 - **return**
-  - `validate : boolean` valid or not
+  - `validate : boolean` 是否合法
 
 ## decrypt
-Decrypt keystore
+解密keystore
 
 - **params**
-  - `keystore : string` Keystore String
-  - `pwd : string` Password
+  - `keystore : string` keystore string
+  - `pwd : string` 密码
 - **return**
-  - Promise<`key : string`> String before encrypts
+  - Promise<`key : string`> 加密前的字符串
 
 ## encrypt
-Encrypt Keystore
+加密keystore
 
 - **params**
-  - `keystore : string` Keystore String
-  - `pwd : string` Password
-  - `scryptParams : Object` Encrypt Parameters (Optional)
+  - `keystore : string` keystore string
+  - `pwd : string` 密码
+  - `scryptParams : Object` 加密参数(非必填)
     - n
     - r
     - p
     - keylen
     - salt
 - **return**
-  - Promise<`keystore: string`> Keystore String
+  - Promise<`keystore: string`> 加密后的keystore字符串

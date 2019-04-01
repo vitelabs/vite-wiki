@@ -1,15 +1,10 @@
----
-sidebarDepth: 1
----
 # Client Side
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
 :::tip Abstract
+@vitejs/vitejs-client
+
 This part contains built-in shortcuts.
+
 The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
 :::
 
@@ -28,7 +23,7 @@ The invocation of different levels of API varies from diverse connection ways. (
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
+import provider from '@vite/vitejs-WS';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
@@ -47,8 +42,33 @@ _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
 
 ```
 
+## getBalance
+Get Balance
+
+- **Parameters** 
+    * `addr: Address`
+- **Return**:
+    * Promise<`{ balance, onroad }`>
+
+## getTxList
+Get Transaction List
+
+- **Parameters** 
+    __namedParameters: object
+    * `addr: Address`
+    * `index: number` 
+    * `pageCount?: number` default 50
+- **Return**:
+    * Promise<`{ list, totalNum }`>
+
+## sendRawTx
+Send Transaction
+
+- **Parameters** 
+    * `accountBlock: AccountBlock` Formatted accountBlock (Signature not required)
+    * `privateKey` Private Key
+- **Return**:
+    * Promise<`AccountBlock`>
+
 ## buildinTxBlock
 Refer to buildinTxBlock
-
-## buildinLedger
-Refer to buildinLedger
