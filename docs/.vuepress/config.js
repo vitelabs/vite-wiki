@@ -200,7 +200,9 @@ const sidebarConfigs = {
                 '',
                 'vep-3',
                 'vep-4',
-                'vep-5'
+                'vep-5',
+                'vep-6',
+                'vep-7'
             ]
         }
     ]
