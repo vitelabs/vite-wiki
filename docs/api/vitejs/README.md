@@ -65,16 +65,16 @@ import provider from '@vite/vitejs-ws';
 import { client, constant } from '@vite/vitejs';
 
 const { method } = constant;
-let WS_RPC = new provider("https://example.com");
+let WS_RPC = new wsProvider("http://localhost:41420");
 
 let myClient = new client(WS_RPC, (_myClient) => {
-    console.log("Connected");
+ console.log("Connected");
 });
 
 myClient.ledger.getSnapshotChainHeight().then((result) => {
-    console.log(result);
+ console.log(result);
 }).catch((err) => {
-    console.warn(err);
+ console.warn(err);
 });
 
 ```

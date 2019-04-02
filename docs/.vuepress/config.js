@@ -79,7 +79,8 @@ const sidebarConfigs = {
               'contract/contract',
               'contract/soliditypp',
               'contract/debug',
-              'contract/instructions'
+              'contract/instructions',
+              'contract/subscribe'
           ]
         }
     ],
@@ -150,6 +151,7 @@ const sidebarConfigs = {
                 'testapi',
                 'common_models',
                 'pow',
+                'subscribe'
             ]
         },
     ],
@@ -204,7 +206,9 @@ const sidebarConfigs = {
                 '',
                 'vep-3',
                 'vep-4',
-                'vep-5'
+                'vep-5',
+                'vep-6',
+                'vep-7'
             ]
         }
     ]
