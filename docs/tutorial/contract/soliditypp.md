@@ -5,15 +5,16 @@ Solidity++ retains most syntax in Solidity. The difference mainly comes from Vit
 ## Syntax Removed in Solidity++
 
 ```
-tx.gasprice
-block.coinbase
-block.difficulty
-block.gaslimit
-gasleft()
-msg.gas
-selfdestruct(_owner)
-suicide(_addr)
-address(_addr).send(_amount)
+tx.gasprice;
+block.coinbase;
+block.difficulty;
+block.gaslimit;
+blockhash(param);
+gasleft();
+msg.gas;
+selfdestruct(_owner);
+suicide(_addr);
+address(_addr).send(_amount);
 ```
 
 Above syntax has been disabled in Solidity++
@@ -87,7 +88,7 @@ In the meantime, `public` static variable can not be visited from outside
 An example
 
 ```
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.2;
 contract A {
    message sum(uint result);
 
@@ -140,7 +141,7 @@ In Solidity++, the interaction between contracts is carried out through message 
 To address this situation, Solidity++ provides a special way to access the fields.
 
 ```
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.2;
 contract A {
 
     uint magic = 0;
@@ -173,7 +174,7 @@ A batch transfer contract which accepts a list of addresses and amounts and tran
 
 ```
 // Declares the contract is written in soliditypp 0.4.0. Backwards compatibility is guaranteed to ensure different version of compilers will yield the same output.
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.2;
  
  
 // Defines contract A
