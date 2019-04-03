@@ -62,7 +62,7 @@
 ## AccountBlock
 |  名称  | json类型 |实际类型 |说明 |
 |:------------:|:-----------:|:-----------:|:-----:|
-| blockType | Byte |Byte | 块类型(1表示"创建合约send", 2表示"转账send", 3表示"奖励send", 4表示"交易receive", 5表示"交易receive失败", 1、2、3为send，4、5为receive, ps: 普通交易的send为2，receive为4)|
+| blockType | Byte |Byte | 块类型(1表示"创建合约send", 2表示"转账send", 3表示"奖励send", 4表示"交易receive", 5表示"交易receive失败", 6表示"退款send",7表示"创世receive", 1、2、3、6为send，4、5、7为receive, ps: 普通交易的send为2，receive为4)|
 | hash | hex string | Hash | 该交易的Hash|
 | prevHash |hex string| Hash | 该交易在其账户链上的上一个交易的hash, 如果该交易是该账户的第一笔交易，则为"0000000000000000000000000000000000000000000000000000000000000000"|
 | accountAddress| string | Address | 该交易所属账号地址|
