@@ -87,6 +87,39 @@ Return all `EntropyStore` managed by the wallet
 ```
 :::
 
+## wallet_extractMnemonic
+Return mnemonics of an `EntropyStore`
+
+- **Parameters**: 
+	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. The standard `EntropyStore` name is Address 0.
+	- `string` : Wallet password
+
+- **Returns**: 
+	- `string`: Mnemonic
+
+- **Example**: 
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 4,
+	"method": "wallet_extractMnemonic",
+	"params": [
+		"vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
+		"123456"]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": "goddess crush pattern cluster level combine survey give seminar uniform invite beach"
+}
+```
+:::
+
 ## wallet_unlock
 Unlock the specified `EntropyStore`
 
