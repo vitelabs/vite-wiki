@@ -9,7 +9,7 @@ sidebarDepth: 4
 
 事件订阅相关接口。Vite提供两种事件订阅模式：轮询模式和长连接模式。
 
-轮询模式先创建`filter`，然后通过`filterId`轮询`subscribe_getFilterChanges`接口，获取新事件。轮询模式如果超过5分钟没有请求则自动关闭这个`filterId`，也可以通过`subscribe_uninstallFilter`接口主动取消定业。
+轮询模式先创建`filter`，然后通过`filterId`轮询`subscribe_getFilterChanges`接口，获取新事件。轮询模式如果超过5分钟没有请求则自动关闭这个`filterId`，也可以通过`subscribe_uninstallFilter`接口主动取消订阅。
 
 长连接模式先先注册一个`subscription`，然后当产生新事件时`subscription`会通过回调的方式返回新事件。长连接断开时自动取消订阅。
 
@@ -120,7 +120,7 @@ topics取值示例：
   
 - **subscribe_newAccountBlocksFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array&lt;NewAccountBlocksMsg&gt;`
+  * `result`: `Array<NewAccountBlocksMsg>`
     1. `hash`: `Hash` 账户块哈希
     2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
   
@@ -138,7 +138,7 @@ topics取值示例：
     "jsonrpc": "2.0",
     "id": 1,
     "result": {
-      "subscription": [
+      "result": [
           {
               "Hash": "9cc9ba996a4192e35ddbfe3ba448611fc06f6342463e21d3300e58e9772b348f",
               "Removed": false
@@ -148,7 +148,7 @@ topics取值示例：
               "Removed": false
           }
       ],
-      "result": "0xf90906914486a9c22d620e50022b38d5"
+      "subscription": "0xf90906914486a9c22d620e50022b38d5"
     }
 }
 ```
@@ -156,7 +156,7 @@ topics取值示例：
 
 - **subscribe_newLogsFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array&lt;LogsMsg&gt;`
+  * `result`: `Array<LogsMsg>`
     1. `accountBlockHash`: `Hash` 账户块哈希
     2. `addr`: `Address` 账户地址
     3. `log`: `VmLog` 日志信息
@@ -205,7 +205,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array&lt;LogsMsg&gt;` 事件信息
+  2. `result`: `Array<NewAccountBlocksMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
@@ -251,7 +251,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array&lt;LogsMsg&gt;` 事件信息
+  2. `result`: `Array<LogsMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
@@ -312,7 +312,7 @@ topics取值示例：
   * `FilterParam` 日志查询参数，同subscribe_newLogsFilter
 
 - **Returns**:  
-	- `Array&lt;LogsMsg&gt;` 日志信息
+	- `Array<LogsMsg>` 日志信息
 	
 ::: demo
 ```json tab:Request
@@ -334,26 +334,19 @@ topics取值示例：
 {
   "jsonrpc":"2.0",
   "id":1,
-  "result":"0x4b97e0674a5ebef942dbb07709c4a608"
-}
-```
-```json tab:Callback
-{
-    "jsonrpc": "2.0",
-    "id": 17,
-    "result": [
-        {
-            "log": {
-                "topics": [
-                    "28e6ea56797f4a1b22a1d1986cb6c22e80099ba8e4fd14d42accfaedfe5f6640"
-                ],
-                "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQQurTFV9WklB2DRvsX8wLCgyoVomYHSCebb9Br/hQ+RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwYLIcJLnbQjGl+qeU7YWlTWwfsoF6mescP5xz2fDTEg="
-            },
-            "accountBlockHash": "e4917f357a4588ec1752797ee5516939f46078f5356b14422d4a9dfe45f88bf5",
-            "addr": "vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa",
-            "removed": false
-        }
-    ]
+  "result": [
+    {
+      "log": {
+      "topics": [
+        "28e6ea56797f4a1b22a1d1986cb6c22e80099ba8e4fd14d42accfaedfe5f6640"
+      ],
+      "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQQurTFV9WklB2DRvsX8wLCgyoVomYHSCebb9Br/hQ+RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwYLIcJLnbQjGl+qeU7YWlTWwfsoF6mescP5xz2fDTEg="
+    },
+    "accountBlockHash": "e4917f357a4588ec1752797ee5516939f46078f5356b14422d4a9dfe45f88bf5",
+    "addr": "vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa",
+    "removed": false
+    }
+  ]
 }
 ```
 :::
