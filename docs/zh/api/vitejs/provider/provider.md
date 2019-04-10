@@ -1,29 +1,24 @@
-# 开始
+# provider
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-:::
-
-:::tip abstract
+:::tip 说明
 网络连接层使用RPC协议，可通过http，websocket或者ipc与gvite连接。
-不同连接方式可以调用不同级别的接口（gvite wallet下的全部接口仅针对ipc连接开放)。
+
+HTTP / Websocket / IPC 皆集成以下方法及属性。
 :::
 
-## provider
-
-### 实例属性
+## 实例属性
 
 |  名称  | 类型 | 说明 |
 |:------------:|:-----:|:-----:|
 | type |  string | 网络传输协议类型 |
 | timeout | number(ms) | 请求超时时间 |
 
-### 实例方法
+## 实例方法
 
-#### abort
+### abort
 打断当前连接的剩余请求，并将请求列表清空
 
-#### request
+### request
 发起request请求
 
 - **params**: 
@@ -34,14 +29,14 @@
 - **Returns**:
     - Promise<`JsonRPC response`>
 
-#### notification
+### notification
 
 - **params**: 
 
   * `methodName : string` 方法名
   * `params : any` 请求参数
 
-#### batch
+### batch
 
 - **params**: 
 

@@ -17,7 +17,7 @@
 
 ```javascript
 
-import wsProvider from "@vite/vitejs/dist/es5/provider/WS";
+import wsProvider from "@vite/vitejs-ws";
 const myWs = new wsProvider("ws://localhost:8080");
 
 ```
@@ -38,3 +38,13 @@ Except for the public methods of provider instance
 
 #### Reconnect
 Network reconnection
+
+#### subscribe
+Subscribe push events from server side
+
+- **params**: 
+
+  * `callback : Function` The result will return to this event when server side has any push event
+
+#### unSubscribe
+Unsubscribe

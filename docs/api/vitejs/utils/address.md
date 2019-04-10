@@ -15,7 +15,7 @@ sidebarDepth: 1
 Generating hex address according to private key
 
 - **params**
-  - `privateKey: string | buffer` Private key
+  - `privateKey?: string | buffer` Private key
 - **return**
   - `addrObj: AddrObj`
 

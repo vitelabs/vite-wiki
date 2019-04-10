@@ -34,7 +34,6 @@ Get accountBlock of SBP registration
         * `toAddress: Address`
         * `tokenId: TokenId`
         * `amount: BigInt`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -51,7 +50,6 @@ Get accountBlock of updating SBP registration
         * `nodeName: string`
         * `toAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -67,7 +65,6 @@ Get accountBlock of revoking SBP registration
         * `accountAddress: Address`
         * `nodeName: string`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -84,7 +81,6 @@ Get accountBlock of rewards
         * `nodeName: string`
         * `toAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -100,7 +96,6 @@ Get accountBlock of voting
         * `accountAddress: Address`
         * `nodeName: string`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -115,7 +110,6 @@ Get accountBlock when revoking vote
     - `__namedParameters: object`
         * `accountAddress: Address`
         * `tokenId: TokenId`
-        * `Gid?: string`
         * `prevHash?: Hex`
         * `height?: Uint64`
         * `snapshotHash?: Hex`
@@ -218,7 +212,7 @@ Get accountBlock of calling contract
         * `accountAddress: Address`
         * `toAddress: Address`
         * `abi: string`
-        * `tokenId: TokenId`
+        * `tokenId?: TokenId` Default viteTokenID
         * `amount: BigInt`
         * `methodName: stirng`
         * `params?: stirng`
@@ -231,7 +225,7 @@ Get accountBlock of calling contract
     * Promise<`AccountBlock`>
 
 ## mintage
-获取铸币accountBlock
+Get accountBlock of token issuance
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -246,20 +240,37 @@ Get accountBlock of calling contract
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
+        * `feeType: string` burn or stake
+    - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+
+## mintageCancelPledge
+Cancel token staked accountBlock
+
+- **Parameters** 
+    - `__namedParameters: object`
+        * `accountAddress: Address`
+        * `tokenId: TokenId` token id
+        * `height?: Uint64`
+        * `prevHash?: Hex`
+        * `snapshotHash?: Hex`
     - `requestType: string<'async' | 'sync'>` Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## mintageIssue
-获取增发代币的accountBlock
+Get accountBlock of additional token issuance
 
 - **Parameters** 
     - `__namedParameters: object`
         * `accountAddress: Address`
-        * `tokenId: TokenId` 代币id
-        * `amount: uint64` 增发数量
-        * `beneficial: Address` 增发代币接收地址
+        * `tokenId: TokenId` Token id
+        * `amount: uint64` Additional amount
+        * `beneficial: Address` Additional token receiving address
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
@@ -269,13 +280,13 @@ Get accountBlock of calling contract
     * Promise<`AccountBlock`>
 
 ## mintageBurn
-获取销毁代币的accountBlock
+Get accountBlock of token destruction
 
 - **Parameters** 
     - `__namedParameters: object`
         * `accountAddress: Address`
-        * `tokenId: TokenId` 销毁的代币id
-        * `amount: uint64` 销毁的代币数量
+        * `tokenId: TokenId` Destroyed token id
+        * `amount: uint64` Destroyed token amount
         * `height?: Uint64`
         * `prevHash?: Hex`
         * `snapshotHash?: Hex`
@@ -285,7 +296,7 @@ Get accountBlock of calling contract
     * Promise<`AccountBlock`>
 
 ## changeTransferOwner
-获取修改所有者的accountBlock
+Get account block of changed transfer owner
 
 - **Parameters** 
     - `__namedParameters: object`
@@ -301,7 +312,7 @@ Get accountBlock of calling contract
     * Promise<`AccountBlock`>
 
 ## changeTokenType
-获取修改代币类型的accountBlock, 将可增发代币修改为不可增发
+Get accountBlock of changing token type, e.g change token type from enable additional token issuance to disable
 
 - **Parameters** 
     - `__namedParameters: object`

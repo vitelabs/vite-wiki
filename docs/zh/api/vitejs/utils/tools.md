@@ -1,12 +1,4 @@
----
-sidebarDepth: 1
----
-
 # tools
-
-:::tip 作者
-[cs](https://github.com/lovelycs)
-:::
 
 ## checkParams 
 检验参数
@@ -95,3 +87,17 @@ sidebarDepth: 1
   | data       | base64 string | 附加数据	| data=MTIzYWJjZA  ,default: nil                                   |
   | fee        | number        | 交易费用               |  1vite  fee=1 ,default :0                           |
   | tti        | token_type_id | 交易币种id                                | default : vite tti	tti=tti_5649544520544f4b454e6e40 |
+
+## isArray
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`
+
+## isObject
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`

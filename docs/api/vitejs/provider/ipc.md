@@ -15,7 +15,7 @@
 
 ```javascript
 
-import ipcProvider from "@vite/vitejs/dist/es5/provider/IPC";
+import ipcProvider from "@vite/vitejs-ipc";
 const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 
 ```
@@ -37,3 +37,13 @@ Reconnection
 
 #### disconnect
 Disconnection
+
+#### subscribe
+Subscribe push events from server side
+
+- **params**: 
+
+  * `callback : Function` The result will return to this event when server side has any push event
+
+#### unSubscribe
+Unsubscribe

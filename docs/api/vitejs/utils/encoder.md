@@ -1,13 +1,4 @@
----
-sidebarDepth: 1
----
-
 # Encoder
-
-:::tip Created by
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
 
 ## bytesToHex 
 - **params**
@@ -47,16 +38,3 @@ Quick reference to blake2bHex. See more about [blakejs/blake2b](https://www.npmj
 ## _Buffer 
 Quick reference to buffer.
 
-## isArray
-
-- **params**
-  - `params : any`
-- **return**
-  - `result : boolean`
-
-## isObject
-
-- **params**
-  - `params : any`
-- **return**
-  - `result : boolean`

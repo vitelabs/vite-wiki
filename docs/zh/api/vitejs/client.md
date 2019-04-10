@@ -10,13 +10,16 @@ sidebarDepth: 1
 
 :::tip abstract
 包括一些内置的快捷调用方式
+
+不同连接方式可以调用不同级别的接口（gvite wallet下的全部接口仅针对ipc连接开放)。
 :::
 
 ## 注意 
 1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
 2. methods中的方法都可以直接使用client.namespace.funcName的方式调用，见constructor/example
 
-## Constructor
+## Constructor extends netProcessor
+继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
 
 - **constructor params**
     - `provider : Provider 实例`
@@ -44,22 +47,6 @@ _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
 });
 
 ```
-
-## setProvider provider, abort)
-设置provider
-
-- **Parameters**
-    * `provider : Provider实例`
-    * `abort : boolean` 是否打断原有provider的残余请求
-
-## request (Methods, ...args)
-为this.provider.request的快捷引用
-
-## notification (Methods, ...args)
-为this.provider.notification的快捷引用
-
-## batch (RPCrequest[])
-为this.provider.batch的快捷引用
 
 ## buildinTxBlock
 见 buildinTxBlock

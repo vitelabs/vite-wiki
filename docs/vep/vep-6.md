@@ -1,9 +1,9 @@
-# VEP 6: Vite URI 格式
+# VEP 6: Vite URI Format
 
-## 简介
-为各种用例创建 Vite URI 的标准方法。
+## Introduction
+Standard Method for use cases' Vite URI creation
 
-## 语法
+## Syntax
 ```c++
 request                 = "vite" ":"[target_address] [ "@" chain_id ] [ "/" function_name ] [ "?" parameters ]
 target_address          = vite_address
@@ -18,34 +18,34 @@ token_type_id           = "tti_" 24 *HEXDIG
 number                  = [ "-" / "+" ] *DIGIT [ "." 1*DIGIT ] [ ( "e" / "E" ) [ 1*DIGIT ]
 ```
 
-***STRING*** 是一个URLEncode的 unicode 字符串，并对 uri 出现的所有的分割符进行 % 转义，具体需要转义的分割符为 ***@/?&=%:***
+***STRING***  Unicode String of URLEncode, and use '%' to transfer all of delimiters. Delimiters need to be transfer: ***@/?&=%:***
 
-***number*** 采用科学记数法
+***number*** Use Scientific Notation
 
-***VNS_NAME*** 标准正在制定中
+***VNS_NAME*** Standard is being worked out
 
-### 语义
+### Syntax
 
-| 字段 | 说明 |
+| Field | Description |
 | --- | --- |
-| target_address | 转账时，表示转入地址，调用智能合约时，表示合约地址 |
-| chain_id | 标识主网、测试网络或者私有网络类型，可以省略，如果省略使用客户端当前网路类型 |
-| function_name | 调用的智能合约方法名，如果是合约调用必须有"/"，没有"/"表示为普通转账。function_name 可以为空字符串，空字符串表示调用当前地址的默认合约方法。注意：目前调用智能合约时，通过设置 data 字段来表示合约方法签名和参数信息，因此目前 function_name 并不作任何解析，之后会支持通过指定 function_name 以及合约参数的方式来调用智能合约 |
-| parameters | 参数，key 包括 "tti" / "amount" / "fee" / "data" |
+| target_address | It indicates transfer address when transferring and refers to contract address when calling smart contract |
+| chain_id | Identify MainNet, TestNet and private net. This part can be omitted, and then use current network type of client side |
+| function_name | Function name of calling smart contract, if it's contract calling, there must be '/' mark, if there isn't, the calling is a common transfer. function_name can be an empty string, which indicates default contract method of current address. Attention: currently when we call smart contract, contract method signature and parameter information can be represented by setting data field, thus function_name do not do any analyse work, and you can call smart contract by specifying function_name and contract parameters by then. |
+| parameters | params, key including "tti" / "amount" / "fee" / "data" |
 
-### 参数
+### Parameters
 
-| key | value | 说明 | 例子 |
+| key | value | Description | Example |
 | --- | --- | --- | --- |
-| tti | token_type_id | 指定转账的 Token Id ，可省略，如果省略表示转账的是 Vite Token | tti=tti_5649544520544f4b454e6e40 |
-| amount | number | 指定转账金额，单位为代币的基本单位，例如转账 1VITE 就是 amount=1，可省略，如果省略表示 amount=0 | amount=1e-3，amount=1000，amount=0.04 |
-| fee | number | 指定要销毁的 Vite 数，单位为 Vite 的基本单位，可省略，如果省略表示 fee=0 | 同 amount |
-| data | [base64 url safe 编码](https://tools.ietf.org/html/rfc4648#section-5) | 转账时表示携带的备注信息，备注信息需要遵守[VEP-7](./vep-7.html)中约定的格式，调用智能合约调用时表示的是方法签名和参数信息 | data=MTIzYWJjZA |
+| tti | token_type_id | Specify transfer Token Id, optional. If it's omitted that means Vite Token is making the transfer. | tti=tti_5649544520544f4b454e6e40 |
+| amount | number | Specify transfer amount, unit follows token's basic unit. For instance, transfer 1 VITE equals amount = 1, optional. If it's omitted means amount = 0 | amount=1e-3，amount=1000，amount=0.04 |
+| fee | number | Specify Vite volume that need to be destroyed, unit is Vite's common unit, optional. If it's omitted means fee = 0 | Same as amount |
+| data | [base64 url safe encode](https://tools.ietf.org/html/rfc4648#section-5) | It means remarks when transferring, remarks need to comply with the conventional format in [VEP-7](./vep-7.html), also it represents method signature and parameter information when calling smart contract | data=MTIzYWJjZA |
 
-## 具体例子
+## Examples
 
-| 例子 | 说明 |
+| Example | Description |
 | --- | --- |
-| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad | 表示一个账户地址 |
-| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad?tti=tti_5649544520544f4b454e6e40&amount=1&data=MTIzYWJjZA | 向地址为 vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad 的账户转账 1 Vite ，备注为“123abcd” |
-| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad/echo?amount=1&data=MTIzYWJjZA | 调用合约 echo 方法 |
+| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad | Account Address |
+| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad?tti=tti_5649544520544f4b454e6e40&amount=1&data=MTIzYWJjZA | Transfer 1 VITE to vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad, remark as “123abcd” |
+| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad/echo?amount=1&data=MTIzYWJjZA | Call contract 'echo' method |

@@ -1,12 +1,4 @@
----
-sidebarDepth: 1
----
-
 # tools
-
-:::tip Created by
-[cs](https://github.com/lovelycs) [hurrytospring](https://github.com/hurrytospring)
-:::
 
 ## checkParams 
 
@@ -94,3 +86,17 @@ Convert a transaction object into formatted uri that complies to a specific sche
   | data       | base64 string | Data encoded in url safe format. Default is nil      	| data=MTIzYWJjZA                                  |
   | fee        | number        | Amount of fee in below token id. Default is 0                | fee=1                         |
   | tti        | token_type_id | Token id. Default is the token id of VITE                                 | 	tti=tti_5649544520544f4b454e6e40|
+
+## isArray
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`
+
+## isObject
+
+- **params**
+  - `params : any`
+- **return**
+  - `result : boolean`
