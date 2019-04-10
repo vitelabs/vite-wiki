@@ -40,7 +40,7 @@ number                  = [ "-" / "+" ] *DIGIT [ "." 1*DIGIT ] [ ( "e" / "E" ) [
 | tti | token_type_id | 指定转账的 Token Id ，可省略，如果省略表示转账的是 Vite Token | tti=tti_5649544520544f4b454e6e40 |
 | amount | number | 指定转账金额，单位为代币的基本单位，例如转账 1VITE 就是 amount=1，可省略，如果省略表示 amount=0 | amount=1e-3，amount=1000，amount=0.04 |
 | fee | number | 指定要销毁的 Vite 数，单位为 Vite 的基本单位，可省略，如果省略表示 fee=0 | 同 amount |
-| data | [base64 url safe 编码](https://tools.ietf.org/html/rfc4648#section-5) | 转账时表示携带的备注信息，备注信息需要遵守[VEP-7](./vep-7.html)中约定的格式，调用智能合约调用时表示的是方法签名和参数信息 | data=MTIzYWJjZA |
+| data | [base64 url safe 编码](https://tools.ietf.org/html/rfc4648#section-5) | 转账时表示携带的备注信息，备注信息需要遵守[VEP-8](./vep-8.md)中约定的格式，调用智能合约调用时表示的是方法签名和参数信息 | data=MTIzYWJjZA |
 
 ## 具体例子
 

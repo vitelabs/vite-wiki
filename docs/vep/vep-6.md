@@ -40,7 +40,7 @@ number                  = [ "-" / "+" ] *DIGIT [ "." 1*DIGIT ] [ ( "e" / "E" ) [
 | tti | token_type_id | Specify transfer Token Id, optional. If it's omitted that means Vite Token is making the transfer. | tti=tti_5649544520544f4b454e6e40 |
 | amount | number | Specify transfer amount, unit follows token's basic unit. For instance, transfer 1 VITE equals amount = 1, optional. If it's omitted means amount = 0 | amount=1e-3，amount=1000，amount=0.04 |
 | fee | number | Specify Vite volume that need to be destroyed, unit is Vite's common unit, optional. If it's omitted means fee = 0 | Same as amount |
-| data | [base64 url safe encode](https://tools.ietf.org/html/rfc4648#section-5) | It means remarks when transferring, remarks need to comply with the conventional format in [VEP-7](./vep-7.html), also it represents method signature and parameter information when calling smart contract | data=MTIzYWJjZA |
+| data | [base64 url safe encode](https://tools.ietf.org/html/rfc4648#section-5) | It means remarks when transferring, remarks need to comply with the conventional format in [VEP-8](./vep-8.md), also it represents method signature and parameter information when calling smart contract | data=MTIzYWJjZA |
 
 ## Examples
 
