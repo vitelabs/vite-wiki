@@ -11,3 +11,5 @@ title: "VEP"
 * [VEP 3: Vite Wallet Key Derivation](./vep-3.html)
 * [VEP 4: QR Code Specification](./vep-4.html)
 * [VEP 5: Remove Explicit Snapshot Hash Reference as Timestamps](./vep-5.html)
+* [VEP 6: Vite URI Formatting](./vep-6.html)
+* [VEP 7: AccountBlock Data Content Type Definition](./vep-7.html)

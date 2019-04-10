@@ -1,14 +1,20 @@
-# VEP 7: AccountBlock Data Content Type Norm
+# VEP 7: AccountBlock Data Content Type Definition
 
 ## Background
- AccountBlock's data field can carry any data when using tx_sendRawTx API send transactions. In order to display the data carried by data field in correct format, it is necessary to describe the data type in the data field in some way.
+
+In general, the data field in account block can be used to carry any info when sending transactions through `tx_sendRawTx` API. 
+In order to utilize or display the carried data correctly, it is necessary to describe the data content type in uniform way.
 
 ## Implementation
-The specific method is to append 2 Byte data to data at the header as Content Type to indicate what type of data is followed. It should be noted that the format of the data field described in this proposal is not mandatory, but It is recommended for better display.
 
-However, even if data is processed or displayed in the format described in this article, there is a probability that the content type of data will not be correctly recognized, because when the smart contract is called with tx_sendRawTx API, the first few bytes of the data field are the hash of the calling contract method name. May conflict with Content Type.
+The proposal suggests to append 2 bytes content type at beginning to indicate what type of data is followed. 
 
-Content Type use UInt16 mark, store in big endian format, restricted type to less than or equal to 2048 (0x0800) is official general type, and type that is greater than 2048 (0x0800) can be specified.
+Content type is a `uint16` number stored in big endian format.
+Please note that types **1(0x0001)** - **2048(0x0800)** are officially reserved and should not be used by third party.
+
+::: warning Restriction
+It is known that content type might not be correctly recognized under the situation calling a smart contract, due to occasional conflict with method hash, which occupies the first few bytes of data field.
+:::
 
 ## Defined Type
 
@@ -16,9 +22,9 @@ Content Type use UInt16 mark, store in big endian format, restricted type to les
 | Type | Type(Hex) | Description |
 | --- | --- | --- |
 | Binary | 0x0001 | Reserved, not used yet |
-| UTF-8 String | 0x0002 | Used in transfer remarks |
+| UTF-8 String | 0x0002 | Transaction comment |
 
 ### Custom Type
 | Type | Type(Hex) | Description |
 | --- | --- | --- |
-| Grin Wallet Data | 0x8001 | Save to Grin file directory |
+| Grin Wallet Data | 0x8001 | Carrying Grin transaction index |

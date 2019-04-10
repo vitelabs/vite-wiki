@@ -1,7 +1,7 @@
-# VEP 6: Vite URI Format
+# VEP 6: Vite URI Formatting
 
 ## Introduction
-Standard Method for use cases' Vite URI creation
+This specification defines standard URI format used in Vite
 
 ## Syntax
 ```c++
@@ -18,11 +18,11 @@ token_type_id           = "tti_" 24 *HEXDIG
 number                  = [ "-" / "+" ] *DIGIT [ "." 1*DIGIT ] [ ( "e" / "E" ) [ 1*DIGIT ]
 ```
 
-***STRING***  Unicode String of URLEncode, and use '%' to transfer all of delimiters. Delimiters need to be transfer: ***@/?&=%:***
+***STRING*** - A `URLEncode` string, using ***%*** to escape all of delimiters. Delimiters that need to be escaped include ***@/?&=%:***
 
-***number*** Use Scientific Notation
+***number*** - A number represented in scientific notation
 
-***VNS_NAME*** Standard is being worked out
+***VNS_NAME*** - Vite name service. Specific standard is being worked out
 
 ### Syntax
 
@@ -46,6 +46,6 @@ number                  = [ "-" / "+" ] *DIGIT [ "." 1*DIGIT ] [ ( "e" / "E" ) [
 
 | Example | Description |
 | --- | --- |
-| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad | Account Address |
-| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad?tti=tti_5649544520544f4b454e6e40&amount=1&data=MTIzYWJjZA | Transfer 1 VITE to vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad, remark as “123abcd” |
-| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad/echo?amount=1&data=MTIzYWJjZA | Call contract 'echo' method |
+| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad | Represent account address vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad |
+| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad?tti=tti_5649544520544f4b454e6e40&amount=1&data=MTIzYWJjZA | Transfer 1 VITE to vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad with a comment of “123abcd” |
+| vite:vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad/echo?amount=1&data=MTIzYWJjZA | Call 'echo' method of contract vite_fa1d81d93bcc36f234f7bccf1403924a0834609f4b2e9856ad |
