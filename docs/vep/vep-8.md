@@ -1,4 +1,4 @@
-# VEP 7: AccountBlock Data Content Type Definition
+# VEP 8: AccountBlock Data Content Type Definition
 
 ## Background
 

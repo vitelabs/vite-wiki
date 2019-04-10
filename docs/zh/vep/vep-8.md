@@ -1,4 +1,4 @@
-# VEP 7: AccountBlock Data Content Type 规范
+# VEP 8: AccountBlock Data Content Type 规范
 
 ## 背景
 在使用 tx_sendRawTx 接口发送交易时，AccountBlock 中的 data 字段可以携带任何数据。为了方便尽可能以正确的格式展示出 data 携带的数据，需要通过某种方式来描述 data 字段中的数据类型。
