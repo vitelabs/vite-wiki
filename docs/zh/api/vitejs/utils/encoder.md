@@ -1,13 +1,4 @@
----
-sidebarDepth: 1
----
-
 # encoder
-
-:::tip 作者
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
 
 ## bytesToHex 
 - **params**
@@ -46,17 +37,3 @@ utf8字符串转换为字节
 
 ## _Buffer 
 对buffer的快捷引用
-
-## isArray
-
-- **params**
-  - `params : any`
-- **return**
-  - `result : boolean`
-
-## isObject
-
-- **params**
-  - `params : any`
-- **return**
-  - `result : boolean`

@@ -1,11 +1,5 @@
 # Methods
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
-
 - How to Invoke
 
 ```javascript
@@ -20,6 +14,23 @@ myClient.request(method.ledger.getLatestSnapshotChainHash)
     // ......
 })
 
+// or
+myClient.ledger.getLatestSnapshotChainHash()
+.then(()=>{
+    // ......
+});
+
+// If it is a subscribe method
+myClient.subscribeFunc.newAccountBlocks()
+.then(()=>{
+    // ......
+});
+
+// or
+myClient.request(method.subscribe.newAccountBlocks)
+.then(()=>{
+    // ......
+})
 ```
 
 [Reference](/api/rpc/)

@@ -11,9 +11,9 @@ let WS_RPC = new provider("https://example.com");
 let myClient = new client(WS_RPC);
 
 let Account = new account({
-    privateKey: utils.ed25519.keyPair().secretKey,
     client: myClient
 });
+
 Account.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
@@ -26,7 +26,7 @@ Account.getBalance().then((result) => {
 
 - **constructor params**: 
     __namedParameters: object
-    * `privateKey : string` 私钥
+    * `privateKey? : string` 私钥
     * `client : Client` client实例
 
 ## Account 实例
@@ -240,6 +240,7 @@ Account 实例方法
     * `isReIssuable: bool`
     * `maxSupply: Uint256`
     * `ownerBurnOnly: bool`
+    * `feeType: string` 销毁或抵押(burn or stake)
 
 - **Return**:
     * Promise

@@ -1,9 +1,5 @@
 # error
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-:::
-
 :::tip abstract
 常用错误类型
 :::
@@ -14,3 +10,4 @@
 - paramsConflict(100003) 参数冲突
 - addressIllegal(200001) 地址不合法
 - addressMissing(200002) 地址不存在
+- requestTimeout(300001) 请求超时

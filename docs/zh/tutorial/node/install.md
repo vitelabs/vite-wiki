@@ -192,7 +192,7 @@ Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满
 本文档主要阐述如何为全节点添加奖励相关配置，全节点如何运行，参见[安装](https://vite.wiki/zh/tutorial/node/install.html)。
 
 ### 版本要求
-全节点最低版本要求: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
+全节点最低版本要求: [1.3.0](https://github.com/vitelabs/go-vite/releases/tag/v1.3.0)
 
 ### 配置要求
 当前，vite对运行全节点会发放一定量的奖励，参与奖励的全节点需要进行一些额外的配置。

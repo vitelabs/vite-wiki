@@ -228,7 +228,7 @@ Go 1.11.1 or above version is required. See Go installation guild: [go installat
 Starting from gvite-1.1.1, we will distribute token rewards to those who run full nodes in the TestNet. To participate in the reward program, you need check the following points.
 
 ### Version requirement
-Minimum required gvite version: [1.1.1](https://github.com/vitelabs/go-vite/releases/tag/v1.1.1)
+Minimum required gvite version: [1.3.0](https://github.com/vitelabs/go-vite/releases/tag/v1.3.0)
 
 ### Node configuration
 

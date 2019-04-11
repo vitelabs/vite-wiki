@@ -4,33 +4,46 @@
 
 - **Constructor params**: 
 
-  * `path : string` 连接path  default: ''
-  * `timeout : number` 超时时间（ms） default: 60000
+  * `path : string` Connecting path  default: ''
+  * `timeout : number` Timeout（ms） default: 60000
   * `Object` 
-	- `delimiter : string` : 分割符 default: `\n`
-    - `retryTimes : number`: 重连超时时间
-    - `retryInterval : number`: 重连间隔时长
+	- `delimiter : string` : Delimiter default: `\n`
+    - `retryTimes : number`: Reconnecting Timeout
+    - `retryInterval : number`: Reconnecting Interval
 
 - **Example**:
 
 ```javascript
 
-import ipcProvider from "@vite/vitejs/dist/es5/provider/IPC";
+import ipcProvider from "@vite/vitejs-ipc";
 const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 
 ```
 
-## ipc provider
+## ipc Provider
 
-### 实例属性
+### Instance Properties
 
-|  名称  | 类型 | 说明 |
+|  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| path | string | 连接路径 |
-| delimiter | string | 分割符 |
+| path | string | Connection path |
+| delimiter | string | Delimiter |
 
-### 实例方法
-除provider实例的共有方法外
+### Instance Methods
+In addition to common methods of provider instance
 
-* `reconnect()`: 重连
-* `disconnect()`: 取消连接
+#### reconnect
+Reconnect
+
+#### disconnect
+Disconnect
+
+#### subscribe
+Subscribing server side push notifications
+
+- **params**: 
+
+  * `callback : Function` Output data will be returned to this event when there are notifications on server side
+
+#### unSubscribe
+Unsubscribe

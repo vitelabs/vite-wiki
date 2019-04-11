@@ -9,14 +9,16 @@ sidebarDepth: 1
 :::
 
 :::tip Abstract
-This part contains built-in shortcuts
+This part contains built-in shortcuts.
+The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
 :::
 
 ## Notice 
 1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
 2. Every methods in it can be invoked by `client.namespace.funcName`, learn more in constructor/example
 
-## Constructor
+## Constructor extends netProcessor
+继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
 
 - **constructor params**
     - `provider : Provider Instance`
@@ -44,22 +46,6 @@ _myclient.onroad.getOnroadBlocksByAddress.then((data) => {
 });
 
 ```
-
-## setProvider provider, abort
-Set provider
-
-- **Parameters**
-    * `provider : Provider Instance`
-    * `abort : boolean` Whether or not to interrupt remaining provider request
-
-## request (Methods, ...args)
-Shortcut of `this.provider.request`
-
-## notification (Methods, ...args)
-Shortcut of `this.provider.notification`
-
-## batch (RPCrequest[])
-Shortcut of `this.provider.batch`
 
 ## buildinTxBlock
 Refer to buildinTxBlock

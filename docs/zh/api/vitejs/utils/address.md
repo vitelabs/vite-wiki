@@ -14,7 +14,7 @@ sidebarDepth: 1
 根据私钥生成hex地址
 
 - **params**
-  - `privateKey: string | buffer` 私钥
+  - `privateKey?: string | buffer` 私钥
 - **return**
   - `addrObj: AddrObj`
 

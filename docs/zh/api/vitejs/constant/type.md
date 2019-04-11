@@ -1,10 +1,5 @@
 # type
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-[hurrytospring](https://github.com/hurrytospring)
-:::
-
 - RPCrequest
     - type 请求类型（request | notification | batch）
     - methodName [方法名称](/api/vitejs/const.html#method)
@@ -43,8 +38,16 @@
     - RevokeVoting 撤销投票
     - GetQuota 获取配额
     - WithdrawalOfQuota 取回配额抵押
-    - TokenIssuance 铸币
-    - WithdrawalOfToken 取回铸币抵押
+    - Mintage 铸币
+    - MintageIssue
+    - MintageBurn
+    - MintageTransferOwner 
+    - MintageChangeTokenType
+    - MintageCancelPledge
+    - DexFundUserDeposit
+    - DexFundUserWithdraw
+    - DexFundNewOrder
+    - DexTradeCancelOrder
     - CreateContractReq 创建合约
     - TxReq 发送交易
     - RewardReq 奖励
