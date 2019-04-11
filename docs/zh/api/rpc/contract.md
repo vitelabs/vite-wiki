@@ -64,7 +64,7 @@ sidebarDepth: 4
 - **Parameters**: 
 
   * `Gid`: 合约所属的委托共识组id，公共共识组id为"00000000000000000002"
-  * `uint8`: request块被确认多少次之后出response块，取值范围0-75，取0表示不需要等待request被确认。如果合约代码中使用了随机数、时间戳等指令，要求这个字段值大于0
+  * `uint8`: 发给合约账户的request块被确认多少次之后出response块，取值范围0-75，取0表示不需要等待request被确认。如果合约代码中使用了随机数、时间戳等指令，要求这个字段值大于0
   * `string`: 十六进制合约代码
   * `string`: abi
   * `[]string`: 创建合约参数。简单类型直接转换为string，复合类型为json格式的string
@@ -126,3 +126,32 @@ sidebarDepth: 4
 ```
 
 :::
+
+
+## contract_getContractInfo
+获取合约代码
+
+- **Parameters**: 
+
+  * `string`: 合约账户地址
+  
+- **Returns**: 
+	`ContractInfo`
+    1. `code`: `[]byte`  合约代码
+    2. `gid`: `Gid`  合约所属委托共识组id
+    3. `confirmTime`: `uint8` 发给合约账户的request块被确认多少次之后出response块
+
+- **Example**:
+
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "method": "contract_getContractInfo",
+    "params": ["vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8"]
+}
+```
+:::
+
