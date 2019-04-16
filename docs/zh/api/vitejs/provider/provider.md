@@ -1,4 +1,4 @@
-# provider
+# provider 实例
 
 :::tip 说明
 网络连接层使用RPC协议，可通过http，websocket或者ipc与gvite连接。

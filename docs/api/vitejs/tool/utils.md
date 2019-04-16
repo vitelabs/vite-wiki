@@ -1,4 +1,15 @@
-# tools
+# utils
+
+:::tip abstract
+@vitejs/vitejs-utils
+:::
+
+```javascript 引入
+import { utils } from '@vite/vitejs';
+
+// Or
+import * as utils from '@vite/vitejs-utils';
+```
 
 ## checkParams 
 
@@ -10,32 +21,34 @@
   - `error : null | Object<code, message>`
 - **Example**:
 
-```javascript
-// ....
-   function test(a, b, c, d) {
-        let err = checkParams({ a, b, c, d }, ['b', 'c'], [{
-            name: 'a',
-            func: (_a)=>{
-                return validA(_a);
-            },
-            msg: 'Is not A'
-        },{
-            name: 'd',
-            func: (_d)=>{
-                return validD(_d);
-            }
-        }]);
+```javascript ::Demo
+import { checkParams } from '@vite/vitejs-utils';
 
-        if (err) {
-            return err;
+function test(a, b, c, d) {
+    let err = checkParams({ a, b, c, d }, ['b', 'c'], [{
+        name: 'a',
+        func: (_a)=>{
+            return validA(_a);
+        },
+        msg: 'Is not A'
+    },{
+        name: 'd',
+        func: (_d)=>{
+            return validD(_d);
         }
+    }]);
 
-        // Continue ...
-   }
-// ....
+    if (err) {
+        return err;
+    }
+
+    // Continue ...
+}
+
+test(a); // Got an error
 ```  
 
-## getRawTokenid
+## getRawTokenId
 Get original token ID
 
 - **params**
@@ -100,3 +113,87 @@ Convert a transaction object into formatted uri that complies to a specific sche
   - `params : any`
 - **return**
   - `result : boolean`
+
+## bytesToHex 
+- **params**
+  - `arr : buffer`
+- **return**
+  - `addr : string` hex string  
+  
+## hexToBytes
+- **params**
+  - `hex : string` hex
+- **return**
+  - `arr : array` bytes
+
+## getBytesSize 
+Get different byte length of encoded string
+
+- **params**
+  - `str : string` 
+  - `charset : utf8 | utf16` 
+- **return**
+  - `length : number`
+  
+## utf8ToBytes
+Convert utf8 string to bytes
+
+- **params**
+  - `str : string` utf8 string
+- **return**
+  - `target : Uint8Array` Bytes
+  
+## blake2b 
+Quick reference to blake2b. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+
+## blake2bHex
+Quick reference to blake2bHex. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+
+## _Buffer 
+Quick reference to buffer.
+
+## ed25519
+
+### KeyPairObj
+
+- `publicKey : Uint8Array with 32-byte public key` Public Key
+- `secretKey : Uint8Array with 64-byte secret key` Private Key
+
+### keyPair 
+Get private key pair
+
+- **return**
+  - `keyPair : KeyPairObj` Private Key Pair
+  
+### getPublicKey
+Get public key via private key (This private key has to be derived from keyPair)
+
+- **params**
+  - `privKey : Buffer` Public Key
+- **return**
+  - `publicKey : Uint8Array with 32-byte public key` Private Key
+
+### sign 
+
+- **params**
+  - `message : string` 
+  - `privKey : buffer` Private Key
+- **return**
+  - `signature : Hex String` 
+  
+### verify
+
+- **params**
+  - `message : string` 
+  - `signature : Hex String` 
+  - `publicKey : Buffer` 
+- **return**
+  - `target : Boolean` Result
+  
+### random
+Generating random number
+
+- **params**
+  - `bytesLen : number`, default: 32
+- **return**
+  - `num : Uint8Array` Random Number

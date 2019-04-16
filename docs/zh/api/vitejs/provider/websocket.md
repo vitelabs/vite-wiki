@@ -1,4 +1,8 @@
-# websocket
+# Websocket
+
+:::tip abstract
+@vitejs/vitejs-ws
+:::
 
 ## Constructor
 
@@ -22,7 +26,7 @@ const myWs = new wsProvider("ws://localhost:8080");
 
 ```
 
-## ws provider
+## ws provider 实例
 
 ### 实例属性
 
@@ -34,10 +38,13 @@ const myWs = new wsProvider("ws://localhost:8080");
 | clientConfig | object | [同上](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
 
 ### 实例方法
-除provider实例的共有方法外
+除却与 provider 实例一致的方法外
 
 #### reconnect
 网络重连
+
+#### disconnect
+断开连接
 
 #### subscribe
 订阅服务端推送事件
