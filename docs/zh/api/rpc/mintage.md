@@ -40,8 +40,7 @@ sidebarDepth: 4
 	"params": [{
    		"selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
    		"height":"2",
-   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"snapshotHash":"b65a60d090421928ad50c0f52044da46fa0286ef6a372047126939f64f7ebe07"
+   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7"
    	}]
 }
 ```
@@ -87,7 +86,6 @@ sidebarDepth: 4
    	  "selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
    		"height":2,
    		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"snapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
    		"tokenName":"Test Token",
    		"tokenSymbol":"test",
    		"totalSupply":"100000000000",
