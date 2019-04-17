@@ -1,8 +1,12 @@
-# walletAccount
+# hdAccount
+
+:::tip abstract
+@vite/vitejs-hdaccount
+:::
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
+import provider from '@vite/vitejs-ws';
 import { client, wallet, utils } from '@vite/vitejs';
 
 const { walletAccount } = wallet;

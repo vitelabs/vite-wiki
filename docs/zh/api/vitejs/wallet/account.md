@@ -1,5 +1,9 @@
 # account
 
+:::tip abstract
+@vite/vitejs-account
+:::
+
 ```javascript
 
 import provider from '@vite/vitejs/dist/es5/provider/WS';

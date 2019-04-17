@@ -1,4 +1,4 @@
-# provider
+# Provider Instance
 
 :::tip Abstract
 Our network connection layer uses RPC protocol.
