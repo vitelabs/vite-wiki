@@ -160,7 +160,7 @@ import { methods } from '@vite/vitejs-constant';
 // ......
 
 let myClient = new client(WS_RPC);
-myClient.request(memethodsthod.ledger.getLatestSnapshotChainHash)
+myClient.request(methods.ledger.getLatestSnapshotChainHash)
 .then(()=>{
     // ......
 })

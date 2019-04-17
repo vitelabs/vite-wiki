@@ -7,19 +7,17 @@
 ```javascript
 
 import provider from '@vite/vitejs-ws';
-import { client, wallet, utils } from '@vite/vitejs';
+import { client, hdAccount, utils } from '@vite/vitejs';
 
-const { walletAccount } = wallet;
-
-let WS_RPC = new provider("https://example.com");
+let WS_RPC = new provider("ws://example.com");
 let myClient = new client(WS_RPC);
 
-let _WalletAccount = new walletAccount({
+let _hdAccount = new hdAccount({
     client: myClient
 }, {
     addrTotalNum: 10
 });
-_WalletAccount.addAddr();
+_hdAccount.addAddr();
 
 ```
 
@@ -28,16 +26,16 @@ _WalletAccount.addAddr();
 - **constructor params**: 
     - __namedParameters: object
         * `client : Client` client Instance
-        * `mnemonic : string` Mnemonic Words
-        * `bits : number` Bits of Mnemonic Words default: 256
-        * `addrNum : number` Current addresses
-        * `lang : LangList` Language default: english
-        * `pwd : string` Password of Mnemonic Words
-    - config: object
+        * `mnemonic? : string` Mnemonic Words
+        * `bits? : number` Bits of Mnemonic Words default: 256
+        * `addrNum? : number` Current addresses
+        * `lang? : LangList` Language default: english
+        * `pwd? : string` Password of Mnemonic Words
+    - config?: object
         * `addrTotalNum : number` Total number of addresses default: 10
         * `addrStartInx : number` Index of the generated addresses index default: 0
 
-## WalletAccount Instance
+## HdAccount Instance
 
 ### Instance Properties
 
@@ -55,13 +53,18 @@ _WalletAccount.addAddr();
 | pwd | string | Password of mnemonic words |
 
 ### Instance Methods
-WalletAccount Instance Methods
+HdAccount Instance Methods
 
 #### activateAccount
 
-- **Parameters** Fill out with one of any parameters
+- **Parameters** 
+    __namedParameters: object Fill out with one of any parameters
     * `address : string` Activate Address
     * `index : number` Activate Account Index
+    __namedParameters: object
+    * `intervals : number` 轮询间隔，default 2000
+    * `receiveFailAction : function`: 接收交易失败处理函数，default null,
+    * `duration : number`: 账户激活状态保持时长, default 5 * 60 * 1000
 - **Return**:
     * `activeAccount : <Account>` Activated account
 

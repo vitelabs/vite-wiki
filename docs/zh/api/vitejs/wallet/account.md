@@ -6,12 +6,10 @@
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
-import { client, wallet, utils } from '@vite/vitejs';
+import provider from '@vite/vitejs-ws';
+import { client, account, utils } from '@vite/vitejs';
 
-const { account } = wallet;
-
-let WS_RPC = new provider("https://example.com");
+let WS_RPC = new provider("ws://example.com");
 let myClient = new client(WS_RPC);
 
 let Account = new account({
@@ -26,7 +24,7 @@ Account.getBalance().then((result) => {
 
 ```
 
-## Constructor
+## Constructor extends addrAccount
 
 - **constructor params**: 
     __namedParameters: object
@@ -39,8 +37,6 @@ Account.getBalance().then((result) => {
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| address | string | hex地址 |
-| realAddress | string | 真实地址 |
 | privateKey | string | 私钥 |
 | publicKey | string | 公钥 |
 | balance | object | 余额 |
@@ -62,9 +58,8 @@ Account 实例方法
 - **Return**:
     * `signature : string` 签名后的信息
 
-
 #### activate
-激活账户 (自动接收交易，轮询账户余额)
+激活账户 (自动接收交易，轮询账户余额 => 会自动更新balance属性)
 
 - **Parameters** 
     * `intervals : number` 轮询间隔
@@ -82,12 +77,6 @@ Account 实例方法
 
 #### stopAutoReceiveTx
 停止自动接收交易
-
-#### getBalance
-获取余额
-
-- **Return**:
-    * Promise<`balance`>
 
 #### sendRawTx
 发送原始交易
@@ -245,6 +234,15 @@ Account 实例方法
     * `maxSupply: Uint256`
     * `ownerBurnOnly: bool`
     * `feeType: string` 销毁或抵押(burn or stake)
+
+- **Return**:
+    * Promise
+
+#### mintageCancelPledge
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId : tokenId` tokenId
 
 - **Return**:
     * Promise
