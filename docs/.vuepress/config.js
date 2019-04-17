@@ -164,31 +164,25 @@ const sidebarConfigs = {
         {
             collapsable: false,
             children: [
-                'utils/encoder', 'utils/tools', 'utils/ed25519'
+                'constant/error', 'constant/constant'
             ]
         },
         {
             collapsable: false,
             children: [
-                'constant/contract', 'constant/error', 'constant/method', 'constant/type'
+                'tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock'
             ]
         },
         {
             collapsable: false,
             children: [
-                'utils/address', 'utils/keystore', 'utils/accountBlock', 'utils/abi'
+                'client/client', 'client/builtinTxBlock'
             ]
         },
         {
             collapsable: false,
             children: [
-                'client', 'client/builtinTxBlock', 'client/builtinLedger'
-            ]
-        },
-        {
-            collapsable: false,
-            children: [
-                'wallet', 'wallet/account', 'wallet/walletAccount'
+                'wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount'
             ]
         }
     ],
@@ -275,8 +269,8 @@ module.exports = {
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'Network Connection', 'Utils', 'Constants', 'Client API', 'Wallet'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'VEP'),
                 },
                 algolia: {
@@ -299,8 +293,8 @@ module.exports = {
                     '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '智能合约', '内置合约', 'P2P', '公共组件'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接相关', 'utils', '常量相关', '接口', '钱包')
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '智能合约', '内置合约', 'P2P', '公共组件'),
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接相关', '常量相关', '工具', 'Client', '钱包')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

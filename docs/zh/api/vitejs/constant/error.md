@@ -1,8 +1,17 @@
 # error
 
 :::tip abstract
+@vitejs/vitejs-error
+
 常用错误类型
 :::
+
+```javascript 引入
+import { error } from '@vite/vitejs';
+
+// Or
+import * as error from '@vite/vitejs-error';
+```
 
 - no(100000) 未知错误
 - paramsMissing(100001) 丢失参数

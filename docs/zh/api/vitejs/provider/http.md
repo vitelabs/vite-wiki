@@ -1,4 +1,10 @@
-# Http
+# HTTP
+
+:::tip abstract
+@vitejs/vitejs-http
+
+方法及属性皆与 provider 实例一致
+:::
 
 ## Constructor
 

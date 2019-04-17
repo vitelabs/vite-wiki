@@ -1,5 +1,16 @@
 # netProcessor
 
+:::tip abstract
+@vitejs/vitejs-netprocessor
+:::
+
+```javascript 引入
+import { netProcessor } from '@vite/vitejs';
+
+// Or
+import netProcessor from '@vite/vitejs-netprocessor';
+```
+
 ## Constructor
 
 - **constructor params**
@@ -58,15 +69,16 @@ Event Subscription: Share the same parameters passing mode with request
 ```javascript
 
 import provider from '@vite/vitejs-ws';
+import netProcessor from '@vite/vitejs-netprocessor';
 import { client } from '@vite/vitejs';
 
 const WS_RPC = new provider("https://example.com");
 
-const myClient = new Client(WS_RPC, function(_myclient) {
+const myNetProcessor = new netProcessor(WS_RPC, function(_myNetProcessor) {
     console.log("Connected.");
 });
 
-myClient.subscribe('newAccountBlocks').then((event) => {
+myNetProcessor.subscribe('newAccountBlocks').then((event) => {
     event.on((result) => {
         console.log(result);
     });

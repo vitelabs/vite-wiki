@@ -31,8 +31,8 @@ title: Version 2.0.0
 :::demo
 
 ```bash tab:npm
-npm install @vite/vitejs
-npm install @vite/vitejs-ws
+npm install @vite/vitejs --save
+npm install @vite/vitejs-ws --save
 ```
 
 ```bash tab:yarn
@@ -77,4 +77,74 @@ myClient.ledger.getSnapshotChainHeight().then((result) => {
  console.warn(err);
 });
 
+```
+
+## 常用类型及说明
+[可同时参考 constant 模块](/api/vitejs/constant/constant.html)
+
+- RPCrequest
+    - type Request Type（request | notification | batch）
+    - methodName [Method Name](/api/vitejs/const.html#method)
+    - params Parameters
+
+- RPCrequest
+    - jsonrpc 2.0
+    - id
+    - result
+    - error RPCerror
+
+- RPCerror
+    - code
+    - message
+
+```typescript example
+export declare type Hex = string;
+export declare type HexAddr = string;
+export declare type Addr = string;
+export declare type Base64 = string;
+export declare type TokenId = string;
+export declare type Int64 = number;
+export declare type Uint64 = string;
+export declare type BigInt = string;
+
+export declare type AddrObj = {
+    addr: Addr;         // Actual Address
+    pubKey: Hex;        // Public Key
+    privKey: Hex;       // Private Key 
+    hexAddr: HexAddr;   // Hex Encode Address
+}
+
+export declare type AccountBlock = {
+    accountAddress: HexAddr;
+    blockType: BlockType;
+    prevHash: Hex;
+    snapshotHash: Hex;
+    timestamp: Int64;
+    height: Uint64;
+    hash: Hex;
+    signature: Base64;
+    publicKey: Base64;
+    fee?: BigInt;
+    fromBlockHash?: Hex;
+    toAddress?: HexAddr;
+    tokenId?: TokenId;
+    amount?: BigInt;
+    data?: Base64;
+    nonce?: Base64;
+    logHash?: Hex;
+}
+
+// For example
+
+// Type HexAddr
+const hexAddr = "vite_c5f6afcbf1e1827929d83cae9ccb054f5b06fef197191d1944";
+
+// Type Addr
+const addr = "69f3bdb5cdcfa145ae6cc42593a89088ff3dac58";
+
+// Type TokenId
+const tokenId = "tti_5649544520544f4b454e6e40";
+
+// Type RawTokenId
+const rawTokenId = "5649544520544f4b454e";
 ```
