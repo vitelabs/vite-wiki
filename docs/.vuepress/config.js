@@ -133,6 +133,7 @@ const sidebarConfigs = {
                 'register',
                 'vote',
                 'mintage',
+                'dex',
             ]
         },
 
