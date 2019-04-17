@@ -125,7 +125,7 @@ const sidebarConfigs = {
                 'register',
                 'vote',
                 'mintage',
-                'consensus_group',
+                'dex',
             ]
         },
 
