@@ -7,19 +7,17 @@
 ```javascript
 
 import provider from '@vite/vitejs-ws';
-import { client, wallet, utils } from '@vite/vitejs';
+import { client, hdAccount, utils } from '@vite/vitejs';
 
-const { walletAccount } = wallet;
-
-let WS_RPC = new provider("https://example.com");
+let WS_RPC = new provider("ws://example.com");
 let myClient = new client(WS_RPC);
 
-let _WalletAccount = new walletAccount({
+let _hdAccount = new hdAccount({
     client: myClient
 }, {
     addrTotalNum: 10
 });
-_WalletAccount.addAddr();
+_hdAccount.addAddr();
 
 ```
 
@@ -28,16 +26,16 @@ _WalletAccount.addAddr();
 - **constructor params**: 
     - __namedParameters: object
         * `client : Client` client实例
-        * `mnemonic : string` 助记词
-        * `bits : number` 生成多少位的助记词 default: 256
-        * `addrNum : number` 现有多少个地址
-        * `lang : LangList` 语言 default: english
-        * `pwd : string` 助记词密码
-    - config: object
+        * `mnemonic? : string` 助记词
+        * `bits? : number` 生成多少位的助记词 default: 256
+        * `addrNum? : number` 现有多少个地址
+        * `lang? : LangList` 语言 default: english
+        * `pwd? : string` 助记词密码
+    - config?: object
         * `addrTotalNum : number` 共可以生成多少个地址 default: 10
         * `addrStartInx : number` 生成地址的开始index default: 0
 
-## WalletAccount 实例
+## HdAccount 实例
 
 ### Instance Properties
 
@@ -55,13 +53,18 @@ _WalletAccount.addAddr();
 | pwd | string | 助记词密码 |
 
 ### Instance Methods
-WalletAccount 实例方法
+HdAccount 实例方法
 
 #### activateAccount
 
-- **Parameters** 参数任填1个
+- **Parameters**
+    __namedParameters: object 参数任填1个
     * `address : string` 激活哪个账户地址
     * `index : number` 激活哪个账户index
+    __namedParameters: object
+    * `intervals : number` 轮询间隔，default 2000
+    * `receiveFailAction : function`: 接收交易失败处理函数，default null,
+    * `duration : number`: 账户激活状态保持时长, default 5 * 60 * 1000
 - **Return**:
     * `activeAccount : <Account>` 激活的账户
 

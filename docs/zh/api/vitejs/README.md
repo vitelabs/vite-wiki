@@ -18,7 +18,8 @@ title: Version 2.0.0
 @vite/vitejs-client、@vite/vitejs-communication、@vite/vitejs-constant、@vite/vitejs-error、
 @vite/vitejs-hdaccount、@vite/vitejs-hdaddr、@vite/vitejs-keystore、@vite/vitejs-netprocessor、
 @vite/vitejs-privtoaddr、@vite/vitejs-utils、@vite/vitejs-ws、@vite/vitejs-http、@vite/vitejs-ipc
-3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装@vite/vitejs，引用其中的es5模块，自行打包
+3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装@vite/vitejs，引用其中的es5模块，使用你喜欢的任意打包工具自行打包
+4. vitejs的任何包都支持es5语法，无需做特殊兼容
 
 【注意】
 1. 引用npm包时最好版本一致，以避免不必要的错误与冲突。
@@ -42,9 +43,11 @@ yarn add @vite/vitejs-ws
 
 :::
 
-## vitejs 结构
+## 引入
 
-```javascript 引入
+:::demo
+
+```javascript tab:import
 import {
     constant, error, utils, accountBlock, keystore, 
     privToAddr, hdAddr, netProcessor, client, 
@@ -57,17 +60,32 @@ import http from '@vite/vitejs-http';
 import ipc from '@vite/vitejs-ipc';
 ```
 
+```javascript tab:require
+const {
+    constant, error, utils, accountBlock, keystore, 
+    privToAddr, hdAddr, netProcessor, client, 
+    addrAccount, account, hdAccount, abi
+} = require('@vite/vitejs');
+
+// 需要使用网络服务时，需单独安装http/ipc/ws包
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { HTTP_RPC } = require('@vite/vitejs-http');
+const { IPC_RPC } = require('@vite/vitejs-ipc');
+```
+
+:::
+
 ## 快速开始  
 
 ```javascript
 
-import provider from '@vite/vitejs-ws';
+import WS_RPC from '@vite/vitejs-ws';
 import { client, constant } from '@vite/vitejs';
 
-const { method } = constant;
-let WS_RPC = new provider("https://example.com");
+const { methods } = constant;
+let provider = new WS_RPC("wss://example.com");
 
-let myClient = new client(WS_RPC, (_myClient) => {
+let myClient = new client(provider, (_myClient) => {
     console.log("Connected");
 });
 
@@ -84,7 +102,7 @@ myClient.ledger.getSnapshotChainHeight().then((result) => {
 
 - RPCrequest
     - type 请求类型（request | notification | batch）
-    - methodName [方法名称](/api/vitejs/const.html#method)
+    - methodName [方法名称](/api/vitejs/constant/constant.html)
     - params 传参
 
 - RPCrequest

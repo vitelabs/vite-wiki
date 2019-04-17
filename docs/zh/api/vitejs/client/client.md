@@ -17,7 +17,10 @@ import client from '@vite/vitejs-client';
 
 ## 注意 
 1. 以下buildinTxBlock中的方法，当requestType为async时，非必填参数皆可不填
-2. methods中的方法都可以直接使用`client.namespace.funcName`的方式调用，[详见constant模块](/api/vitejs/constant/constant.html)
+2. 关于 RPC 接口的调用，[详见constant模块](/api/vitejs/constant/constant.html)
+    - 如果methods常量中定义了此方法，可以直接使用`client.namespace.funcName`的方式调用
+    - 如果methods常量中未定义此方法，可以直接通过`client.request(methodName, ...args)`的方式调用
+    - RPC接口只是对于调用方式进行封装，返回数据会直接暴露RPC接口的原始数据
 
 ## Constructor extends netProcessor
 继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
@@ -30,9 +33,10 @@ import client from '@vite/vitejs-client';
 
 ```javascript
 
-import provider from '@vite/vitejs-ws';
-import { client } from '@vite/vitejs';
+import provider from '@vite/vitejs-WS';
+import { client, constant } from '@vite/vitejs';
 
+const { methods } = constant;
 const WS_RPC = new provider("wss://example.com");
 
 const myClient = new Client(WS_RPC, function(_myclient) {
@@ -46,6 +50,18 @@ const block = myclient.buildinTxBlock.getAccountBlock.sync(
 myclient.onroad.getOnroadBlocksByAddress.then((data) => {
     console.log(data);
 });
+
+myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
+    // ......
+})
+
+myClient.subscribeFunc.newAccountBlocks().then(()=>{
+    // ......
+});
+
+myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+    // ......
+})
 
 ```
 
