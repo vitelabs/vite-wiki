@@ -64,7 +64,7 @@ HdAccount 实例方法
     __namedParameters: object
     * `intervals : number` 轮询间隔，default 2000
     * `receiveFailAction : function`: 接收交易失败处理函数，default null,
-    * `duration : number`: 账户激活状态保持时长, default 5 * 60 * 1000
+    * `duration : number`: 账户激活状态保持时长, default 5 * 60 * 1000。duration < 0 则永久有效，直到手动释放account
 - **Return**:
     * `activeAccount : <Account>` 激活的账户
 
