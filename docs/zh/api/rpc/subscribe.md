@@ -15,6 +15,9 @@ sidebarDepth: 4
 
 当前支持2种类型的事件：新交易（即新账户块）事件、新日志（即新账户块中的日志）事件。每一种类型的事件都包含相应的回滚事件，回滚时，事件消息中的removed字段为true。
 
+注意：
+ * 需要在node_config.json的PublicModules中配置"subscribe"，并且配置"SubscribeEnabled":true，才能使用事件订阅接口。
+
 ## subscribe_newAccountBlocksFilter
 创建一个新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
