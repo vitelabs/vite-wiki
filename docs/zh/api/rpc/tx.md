@@ -20,7 +20,7 @@
   * `usePledgeQuota`: `bool`  是否优先使用配额
 
 - **Returns**: `Object`
-  * `difficulty`: `big.Int`  需要计算的PoW难度
+  * `difficulty`: `big.Int`  需要计算的PoW难度，如果为空字符串，说明不需要计算PoW
   * `quota`: `uint64`  交易需要的配额
 
 - **Example**:
