@@ -61,11 +61,11 @@ Mac下执行`⇧⌘P`或者`F1`，Windows下执行`Ctrl+Shift+P`调起命令行�
 ### 安装
 
 [下载开发环境调试文件](https://github.com/vitelabs/gvite-contracts/releases)
-例如：contractdev-v1.3.0-darwin.tar.gz
+例如：contractdev-v1.3.1-darwin.tar.gz
 
 ```bash
 ## 解压
-tar -xzvf contractdev-v1.3.0-darwin.tar.gz
+tar -xzvf contractdev-v1.3.1-darwin.tar.gz
 ```
 ```bash
 ## 进入解压目录
@@ -92,8 +92,8 @@ Start the Node success!!!
 编辑Solidity++合约代码，保存到启动脚本所在目录下。
 
 ```bash
-## 使用solc编译合约代码，生成二进制码和abi。
-./solc --bin --abi HelloWorld.solpp
+## 使用solppc编译合约代码，生成二进制码和abi。
+./solppc --bin --abi HelloWorld.solpp
 ```
 
 ```bash
@@ -276,7 +276,7 @@ sh query_block.sh vite_0a49d38e769162f05d0df645b890ac450f80cb49d52e8765ab
 ### 安装
 
 [下载测试环境调试文件](https://github.com/vitelabs/gvite-contracts/releases)
-例如：contracttest-v1.3.0-darwin.tar.gz
+例如：contracttest-v1.3.1-darwin.tar.gz
 
 测试环境安装过程和开发环境相同。
 

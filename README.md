@@ -13,16 +13,17 @@ brew install yarn
 
 About yarn Installation, please move to [yarn document](https://yarnpkg.com/en/docs/install#mac-stable)
 
-### Install vuepress
+### Install
 
 ```
-yarn global add vuepress # 或者：npm install -g vuepress
+cd vite-wiki
+yarn
 ```
 
 ### Start Writing
 
 ```
-vuepress dev docs
+npm run dev
 ```
 
 ### How To Include Static Assets?

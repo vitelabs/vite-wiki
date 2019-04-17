@@ -191,7 +191,7 @@ Turn on the flag for the account to start receive transactions automatically. Th
 
 * **Parameters**: 
   1. `string`: `Primry address` or `EntropyStore abs filepath`
-  2. `Address`: The account address
+  2. `Address`: The account address where auto-receive is turned on
   3. `map[types.TokenTypeId]string`- The filter map having token ID as key and minimum amount of tokens to receive as value. All open transactions of the account will be received if this parameter is not present.
 
 * **Return**: 
@@ -205,6 +205,7 @@ Turn on the flag for the account to start receive transactions automatically. Th
     "id": 2,
     "method": "onroad_startAutoReceive",
     "params": [
+        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
         "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
         {"tti_5649544520544f4b454e6e40":"0"}
     ]
