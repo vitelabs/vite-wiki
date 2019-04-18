@@ -245,6 +245,8 @@ genesis_config.json完整示例，包含以下内容：
 }
 ```
 
+节点第一次启动时，会为genesis.json配置中涉及到的账户生成一个类型为7的创世块，并将相应的状态信息（余额、合约状态等）写入创世块中。如果在节点运行一段时间后需要修改创世块内容，那么只需要修改genesis.json文件，删除数据目录下的ledger文件夹，然后重启gvite节点即可。
+
 ## 启动测试节点
 将node_config.json和genesis.json文件和gvite二进制文件放到同一个目录下。
 
