@@ -12,7 +12,7 @@ Supernodes differ from their full node counterparts in their ability to access t
 
 ## Instructions for Running a Full Node
 
-Upgrade to Gvite version: 1.1.1 or above is required
+Upgrade to Gvite version: 1.3.0 or above is required
 
 See: [Installation](../node/install.md#full-node-reward) for configuration details.
 
