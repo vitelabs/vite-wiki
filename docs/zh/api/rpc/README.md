@@ -32,9 +32,13 @@ title: 开始
 
 |  描述 | code | message | example |
 |:------------:|:-----------:|:-----:|:-----:|
-| 余额不足|  `-35001` |  The balance is not enough. |{"code":-35001,"message":"The balance is not enough."}|
 | 密码错误	|  `-34001` | error decrypting key |{"code":-34001,"message":"error decrypting key"}|
-| 账户重复解锁	|  `-34002` |  the address was previously unlocked |{"code":-34002,"message":"the address was previously unlocked"}|
+| 余额不足|  `-35001` | insufficient balance for transfer |{"code":-35001,"message":"insufficient balance for transfer"}|
+| 配额不足 |  `-35002` | out of quota |{"code":-35002,"message":"out of quota"}|
+| 参数错误 |  `-35004` | invalid method param |{"code":-35004,"message":"invalid method param"}|
+| 通过计算PoW获取配额操作过于频繁 |  `-35005` | calc PoW twice referring to one snapshot block |{"code":-35005,"message":"calc PoW twice referring to one snapshot block"}|
+| 合约方法不存在 |  `-35006` | abi: method not found |{"code":-35006,"message":"abi: method not found"}|
+| 创建合约时确认次数非法 |  `-35007` | invalid confirm time |{"code":-35007,"message":"invalid confirm time"}|
 
 ## JSON-RPC Support
 

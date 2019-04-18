@@ -80,7 +80,8 @@ const sidebarConfigs = {
               'contract/soliditypp',
               'contract/debug',
               'contract/instructions',
-              'contract/subscribe'
+              'contract/subscribe',
+              'contract/dapp'
           ]
         }
     ],
