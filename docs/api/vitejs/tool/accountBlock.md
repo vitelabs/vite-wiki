@@ -4,7 +4,7 @@
 @vitejs/vitejs-accountblock
 ::: 
 
-```javascript 引入
+```javascript import
 import { accountBlock } from '@vite/vitejs';
 
 // Or

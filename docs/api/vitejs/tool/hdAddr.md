@@ -4,7 +4,7 @@
 @vitejs/vitejs-hdaddr
 :::
 
-```javascript 引入
+```javascript import
 import { hdAddr } from '@vite/vitejs';
 
 // Or

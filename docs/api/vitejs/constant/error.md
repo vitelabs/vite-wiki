@@ -6,14 +6,14 @@
 Common Error Types
 :::
 
-```javascript 引入
+```javascript import
 import { error } from '@vite/vitejs';
 
 // Or
 import * as error from '@vite/vitejs-error';
 ```
 
-| 属性 | code | 说明 |
+| property | code | description |
 |:-----:|:-------:|:--------:|
 | no | 100000 | Unknown Error |
 | paramsMissing | 100001 | Missing Parameters |

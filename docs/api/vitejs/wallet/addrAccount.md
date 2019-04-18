@@ -29,61 +29,61 @@ Account.getBalance().then((result) => {
 
 - **constructor params**: 
     __namedParameters: object
-    * `address : HexAddr` vite账户地址
-    * `client : Client` client实例
-
-## AddrAccount 实例
+    * `address : HexAddr` vite account address
+    * `client : Client` client instance
+    
+## AddrAccount Instance
 
 ### Instance Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| address | string | hex地址 |
-| realAddress | string | 真实地址 |
+| address | string | hex address |
+| realAddress | string | real address |
 
 ### Instance Methods
-AddrAccount 实例方法
+AddrAccount instance method
 
 #### getBalance
-获取余额（包含在途）
+Get balance (including unreceived tokens)
 
 - **Return**:
     * Promise<`balance`>
 
 #### getOnroad
-获取在途
+Get unreceived tokens
 
 - **Return**:
     * Promise
 
 #### getOnroadBlocks
-获取在途账户块列表
+Get unreceived account block list
 
 - **Parameters** 
     __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
+    * `index : number` page index
+    * `pageCount : number` count
 - **Return**:
     * Promise
 
 #### getBlocks
-获取账户块列表
+Get account block list
 
 - **Parameters** 
     __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
+    * `index : number` page index
+    * `pageCount : number` count
 - **Return**:
     * Promise
 
 #### getAccountBalance
-获取账户余额
+Get account balance
 
 - **Return**:
     * Promise
 
 #### getLatestBlock
-获取最新账户块
+Get last block
 
 - **Return**:
     * Promise
@@ -128,8 +128,8 @@ AddrAccount 实例方法
 
 - **Parameters** 
     __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
+    * `index : number` page index
+    * `pageCount : number` count
 - **Return**:
     * Promise
 
@@ -147,9 +147,9 @@ AddrAccount 实例方法
 
 - **Parameters** 
     __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
-    * `totalNum? : number`  总数
+    * `index : number` page index
+    * `pageCount : number` count
+    * `totalNum? : number`  total
 - **Return**:
     * Promise
     
