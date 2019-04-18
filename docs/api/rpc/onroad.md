@@ -1,23 +1,34 @@
 # Onroad
-
 :::tip Maintainer
-[TiantaoZhu](https://github.com/TiantaoZhu)
+[vite-crzn](https://github.com/vite-crzn)
 :::
 
-On-road Module
+- On-road Module
+
+    The definition of "OnRoad", is actually used to describe the state of a trade, it specifically refers to the trade which the send transaction has not been received by a account designated to receive it. The BlockType it refers to is usually represented as 1,2,3, and 4, which in turn correspond to 'send a transaction to create a contract', 'make a transfer or call contract invocation', 'send a transaction to get reward' and 'send a transaction to refund.'
+
+    It is often confused with unconfirmed transactions, which are those that are not snapshoted. Ledger module records all transactions sended and received, while onroad and unconfirmed transactions are just used to describe the different states of transactions. All onroad are the sending transaction, while the unconfirmed can be either the sending  or received.
+
 
 ## onroad_getOnroadBlocksByAddress <Badge text="public"/>
+
 Return all open transactions waiting to be received by the account address
 
-* **Parameters**: 
-  1. `Address`- The account address
-  2. `int` - Page index
-  3. `int`- Page size
+- **Parameters**:
 
-* **Return**: 
-* `[]AccountBlock`
+  * `Address`: The account address
+  * `uint64`: Page index
+  * `uint64`: Page size, <Badge text="public"/>The upper limit is 256, <Badge text="private"/>No special size restrictions except by the type
+
+- **Return**:
+
+  * `[]AccountBlock` Refer to Ledger module design for details
+
+- **Example**:
+
 
 ::: demo
+
 
 ```json tab:Request
 {
@@ -25,9 +36,9 @@ Return all open transactions waiting to be received by the account address
     "id": 2,
     "method": "onroad_getOnroadBlocksByAddress",
     "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
+        "vite_00000000000000000000000000000000000000042d7ef71894",
         0, 
-        10
+        1
     ]
 }
 ```
@@ -39,64 +50,86 @@ Return all open transactions waiting to be received by the account address
     "result": [
         {
             "blockType": 2,
-            "hash": "0782bd1983460c94c6c01b0df51bde79dfc9e85145c78fcbf01a26260b261bd5",
-            "prevHash": "eed585c9731bcdad65726b06e42e42763dbc27129f16e8a291dbf42194f4c503",
-            "accountAddress": "vite_5ac4c892e485a79ae1d94107902cc8488a07256f54d13f644e",
-            "publicKey": "HYBXL10Goeg0NvhV9AhdSKG0+9GD/XZL8KbQmuX3KfU=",
-            "toAddress": "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
-            "fromBlockHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "hash": "6301891cee55aa123be4ac4762d2d19cf3e960b84d343b848f41dc7a2c775030",
+            "prevHash": "a7c0ded4733b0b8e9d6a15c98d53020db18cc3be1005aeb288cbdae4de7aee23",
+            "accountAddress": "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a",
+            "publicKey": "P8UiTllDO/9PSMg8DrTt6g5MQuppfgTN7HF9A+UNUgA=",
+            "toAddress": "vite_00000000000000000000000000000000000000042d7ef71894",
             "tokenId": "tti_5649544520544f4b454e6e40",
-            "snapshotHash": "2003b1dd0956b3c88cf4c7c76dc3378b7f0d043b8c894fe297061e16747ad16c",
-            "data": null,
+            "fromBlockHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "data": "/cF/JQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnMxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "logHash": null,
-            "nonce": "x9MXVO4n1nU=",
-            "signature": "HVpSGtI/GMULpPntqjBJubJxWojWxRqpGTwqSdcqTNPKH3uCwBiB3GxlLgeanRjG7TryGMvrp2eEGX5EmplyAQ==",
-            "fromAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
-            "height": "14",
-            "quota": "21000",
-            "amount": "180",
+            "nonce": null,
+            "sendBlockList": [],
+            "signature": "1jS6qK9qArQGu0M850tJ05bQHoWLj/gNDVf7qzhA5AEXRoIvLloxPVAKtbzwkrb0nRXRYP3Y/X2OggIEeHPYCA==",
+            "fromAddress": "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a",
+            "height": "5318",
+            "quota": "62000",
+            "amount": "0",
             "fee": "0",
-            "timestamp": 1539593415,
-            "confirmedTimes": "0",
+            "difficulty": null,
+            "timestamp": 1555592008,
+            "confirmedTimes": "3",
+            "confirmedHash": "edf77dd2eb904c56002c87b3cb965c0d33c129cf9ef6f02adc1f08faf63d2acc",
             "tokenInfo": {
                 "tokenName": "Vite Token",
                 "tokenSymbol": "VITE",
                 "totalSupply": "1000000000000000000000000000",
                 "decimals": 18,
-                "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+                "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                 "pledgeAmount": "0",
                 "withdrawHeight": "0",
-                "tokenId": "tti_5649544520544f4b454e6e40"
-            }
+                "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                "tokenId": "tti_5649544520544f4b454e6e40",
+                "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+                "ownerBurnOnly": false,
+                "isReIssuable": true,
+                "index": 0
+            },
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null
         }
     ]
 }
-
 ```
 
-```json test
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "onroad_getOnroadBlocksByAddress",
-    "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
-        0, 
-        10
-    ]
-}
-```
 :::
 
-## onroad_getAccountOnroadInfo <Badge text="public"/>
+## onroad_getOnroadInfoByAddress <Badge text="public"/>
+
 Return the information of tokens in all open transactions waiting to be received by the account address
 
-* **Parameters**: 
-  1. `Address`- The account address
+- **Parameters**:
 
-* **Return**: 
-* `RpcAccountInfo`
+  *  `Address`- The account address
+
+- **Return**:
+
+  * ``[]Object``:  `Object` detail:
+    * `accountAddress`: `Address` The account address
+    * `totalNumber`: `string` Total number
+    * `tokenBalanceInfoMap`: `Map[tokenId]Object`
+        * `tokenInfo`: `Object` The information of a token
+            * `tokenName`: `string` Token name
+            * `tokenSymbol`: `string` Token symbol
+            * `tokenId`: `TokenId` Token Id
+            * `totalSupply`: `*string` Total supply
+            * `decimals`: `uint8` Decimal digits
+            * `owner`: `Address` Owner address
+            * `pledgeAmount`: `*string` Amount pledged
+            * `withdrawHeight`: `string` Height expiring when can withdraw the amount pledged
+            * `maxSupply`: `*string` Max supply
+            * `ownerBurnOnly`: `bool` Whether only the owner can destruct
+            * `isReIssuable`: `bool` Whether can issue additional shares
+            * `index`: `uint16` index
+        * `totalAmount`: `*string` Total amount of a token
+        * `number`: `string` Total number of a token
+
+- **Example**:
+
+
 ::: demo
+
 
 ```json tab:Request
 {
@@ -104,7 +137,7 @@ Return the information of tokens in all open transactions waiting to be received
     "id": 2,
     "method": "onroad_getAccountOnroadInfo",
     "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f"
+        "vite_00000000000000000000000000000000000000042d7ef71894"
     ]
 }
 ```
@@ -114,8 +147,8 @@ Return the information of tokens in all open transactions waiting to be received
     "jsonrpc": "2.0",
     "id": 2,
     "result": {
-        "accountAddress": "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
-        "totalNumber": "1",
+        "accountAddress": "vite_00000000000000000000000000000000000000042d7ef71894",
+        "totalNumber": "5",
         "tokenBalanceInfoMap": {
             "tti_5649544520544f4b454e6e40": {
                 "tokenInfo": {
@@ -123,153 +156,200 @@ Return the information of tokens in all open transactions waiting to be received
                     "tokenSymbol": "VITE",
                     "totalSupply": "1000000000000000000000000000",
                     "decimals": 18,
-                    "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+                    "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                     "pledgeAmount": "0",
                     "withdrawHeight": "0",
-                    "tokenId": "tti_5649544520544f4b454e6e40"
+                    "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                    "tokenId": "tti_5649544520544f4b454e6e40",
+                    "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+                    "ownerBurnOnly": false,
+                    "isReIssuable": true,
+                    "index": 0
                 },
-                "totalAmount": "180",
-                "number": "1"
+                "totalAmount": "0",
+                "number": "5"
             }
         }
     }
 }
 ```
-
-```json test
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "onroad_getAccountOnroadInfo",
-    "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f"
-    ]
-}
-```
 :::
 
-## onroad_listWorkingAutoReceiveWorker <Badge text="private" type="error"/>
-Return all account addresses who has setup to receive transactions automatically
+## onroad_getOnroadBlocksInBatch <Badge text="private" type="error"/>
 
-* **Parameters**: 
-  null
+Batch return all open transactions waiting to be received by account list
 
-* **Return**: 
-* `[]types.Address` - An array of account address
+- **Parameters**:
+
+`[]Object`: The upper limit in a batch is 10
+ `Object` 
+  * `Address`: The account address
+  * `uint64`: Page index
+  * `uint64`: Page size, the upper limit is 256
+
+- **Return**:
+
+  * `map[Address][]AccountBlock`
+
+- **Example**:
+
 
 ::: demo
 
+
 ```json tab:Request
 {
-	"jsonrpc": "2.0",
-	"id": 9,
-	"method": "onroad_listWorkingAutoReceiveWorker"
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "onroad_getOnroadBlocksInBatch",
+    "params": [
+        [
+    	    {
+    		"addr": "vite_00000000000000000000000000000000000000042d7ef71894", 
+    		"pageNum": 0 ,
+    		"pageCount": 1
+    	},
+    	    	{
+    		"addr": "vite_00000000000000000000000000000000000000042d7ef71894", 
+    		"pageNum": 0 ,
+    		"pageCount": 1
+    	}
+    	]]    
 }
 ```
 
 ```json tab:Response
 {
     "jsonrpc": "2.0",
-    "id": 9,
+    "id": 2,
+    "result": {
+        "vite_00000000000000000000000000000000000000042d7ef71894": [
+            {
+                "blockType": 2,
+                "hash": "3c21c7f27517c23b9749545a24c94077c8c1a01c0b4a51215bdc4ffde96de2a3",
+                "prevHash": "6d0df63200792e1734ba52fdd4d1100e087d6d8c643e6a2bd050158ff558faaa",
+                "accountAddress": "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a",
+                "publicKey": "P8UiTllDO/9PSMg8DrTt6g5MQuppfgTN7HF9A+UNUgA=",
+                "toAddress": "vite_00000000000000000000000000000000000000042d7ef71894",
+                "tokenId": "tti_5649544520544f4b454e6e40",
+                "fromBlockHash": "0000000000000000000000000000000000000000000000000000000000000000",
+                "data": "/cF/JQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnMxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "logHash": null,
+                "nonce": null,
+                "sendBlockList": [],
+                "signature": "9rdpoB/e/VmXmwI779y3Uuz5lkXG9cO7hkOjO/gxi1Nq1Mp1JQUcaliRP9LDcFU/2CV8GMVX6VmSw3Ph7H/fDA==",
+                "fromAddress": "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a",
+                "height": "83",
+                "quota": "62000",
+                "amount": "0",
+                "fee": "0",
+                "difficulty": null,
+                "timestamp": 1555578070,
+                "confirmedTimes": "3",
+                "confirmedHash": "ce4694f7769dc839b7dde62b179cb0d96566cc7c64cb0bd61e62f2e167a31376",
+                "tokenInfo": {
+                    "tokenName": "Vite Token",
+                    "tokenSymbol": "VITE",
+                    "totalSupply": "1000000000000000000000000000",
+                    "decimals": 18,
+                    "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                    "pledgeAmount": "0",
+                    "withdrawHeight": "0",
+                    "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                    "tokenId": "tti_5649544520544f4b454e6e40",
+                    "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+                    "ownerBurnOnly": false,
+                    "isReIssuable": true,
+                    "index": 0
+                },
+                "receiveBlockHeight": "",
+                "receiveBlockHash": null
+            }
+        ]
+    }
+}
+```
+:::
+
+## onroad_getOnroadInfoInBatch <Badge text="private" type="error"/>
+
+Batch return the information of tokens in all open transactions waiting to be received by account list
+
+- **Parameters**:
+  * `[]Address`- Account addressed, the upper limit in a batch is 10
+
+- **Return**:
+
+  * ``[]Object``:  `Object` detail:
+    * `accountAddress`: `Address` The account address
+    * `totalNumber`: `string` Total number
+    * `tokenBalanceInfoMap`: `Map[tokenId]Object`
+        * `tokenInfo`: `Object` The information of a token
+            * `tokenName`: `string` Token name
+            * `tokenSymbol`: `string` Token symbol
+            * `tokenId`: `TokenId` Token Id
+            * `totalSupply`: `*string` Total supply
+            * `decimals`: `uint8` Decimal digits
+            * `owner`: `Address` Owner address
+            * `pledgeAmount`: `*string` Amount pledged
+            * `withdrawHeight`: `string` Height expiring when can withdraw the amount pledged
+            * `maxSupply`: `*string` Max supply
+            * `ownerBurnOnly`: `bool` Whether only the owner can destruct
+            * `isReIssuable`: `bool` Whether can issue additional shares
+            * `index`: `uint16` index
+        * `totalAmount`: `*string` Total amount of a token
+        * `number`: `string` Total number of a token
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "onroad_getOnroadInfoInBatch",
+    "params": [
+        [
+            "vite_00000000000000000000000000000000000000042d7ef71894",
+            "vite_00000000000000000000000000000000000000042d7ef71894"
+        ]
+    ]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
     "result": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f"
-    ]
-}
-```
-
-```json test
-{
-	"jsonrpc": "2.0",
-	"id": 9,
-	"method": "onroad_listWorkingAutoReceiveWorker"
-}
-```
-:::
-
-## onroad_startAutoReceive <Badge text="private" type="error"/>
-Turn on the flag for the account to start receive transactions automatically. This method should be called again with new filter after the filtering rule is changed.
-
-* **Parameters**: 
-  1. `string`: `Primry address` or `EntropyStore abs filepath`
-  2. `Address`: The account address where auto-receive is turned on
-  3. `map[types.TokenTypeId]string`- The filter map having token ID as key and minimum amount of tokens to receive as value. All open transactions of the account will be received if this parameter is not present.
-
-* **Return**: 
-* null
-
-::: demo
-
-```json tab:Request
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "onroad_startAutoReceive",
-    "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
-        {"tti_5649544520544f4b454e6e40":"0"}
-    ]
-}
-```
-
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "result": null
-}
-```
-
-```json test
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "onroad_startAutoReceive",
-    "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
-        {"tti_5649544520544f4b454e6e40":"0"}
-    ]
-}
-```
-:::
-
-## onroad_stopAutoReceive <Badge text="private" type="error"/>
-Turn off the flag for the account to stop receive transactions automatically
-
-* **Parameters**: 
-  1. `Address` The account address
-
-* **Return**: 
-* null
-
-::: demo
-
-```json tab:Request
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "onroad_stopAutoReceive",
-    "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f"
-    ]
-}
-```
-
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "result": null
-}
-```
-
-```json test
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "onroad_stopAutoReceive",
-    "params": [
-        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f"
+        {
+            "accountAddress": "vite_00000000000000000000000000000000000000042d7ef71894",
+            "totalNumber": "11",
+            "tokenBalanceInfoMap": {
+                "tti_5649544520544f4b454e6e40": {
+                    "tokenInfo": {
+                        "tokenName": "Vite Token",
+                        "tokenSymbol": "VITE",
+                        "totalSupply": "1000000000000000000000000000",
+                        "decimals": 18,
+                        "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                        "pledgeAmount": "0",
+                        "withdrawHeight": "0",
+                        "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                        "tokenId": "tti_5649544520544f4b454e6e40",
+                        "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+                        "ownerBurnOnly": false,
+                        "isReIssuable": true,
+                        "index": 0
+                    },
+                    "totalAmount": "0",
+                    "number": "11"
+                }
+            }
+        }
     ]
 }
 ```
