@@ -5,7 +5,6 @@ title: 开始
 
 # 开始
 
-
 ## 说明
 * **IPC方式**：支持所有API调用
 
@@ -25,6 +24,9 @@ title: 开始
     1. 尽量使用标准的 ***Json rpc2*** 的库
     2. 术语 交易（transaction 或者Tx） = account block
 
+:::warning
+所有byte数组的类型，请转为base64传递，uint64和big.int都用string传递
+:::
 
 ## 常见业务错误汇总
 

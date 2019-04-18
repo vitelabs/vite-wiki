@@ -3,10 +3,6 @@
 [TiantaoZhu](https://github.com/TiantaoZhu) && [lyd00](https://github.com/lyd00)
 :::
 
-:::warning
-所有byte数组的类型，请转为base64传递，uint64和big.int都用string传递
-:::
-
 ## RpcAccountInfo
 ```json ::Demo
 {
