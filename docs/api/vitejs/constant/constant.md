@@ -76,11 +76,11 @@ import * as constant from '@vite/vitejs-client';
 ## BlockType
 
 - BlockType : `Transaction Type`
-    - createContract = 1 : `Create Contract`
-    - sendTx : `Send Transaction`
-    - reward
-    - receiveTx : `Receive Transaction`
-    - receiveTxFail : `Receive Transaction Failed`
+    - CreateContractReq = 1 : `Create Contract`
+    - TxReq : `Send Transaction`
+    - RewardReq
+    - TxRes : `Receive Transaction`
+    - TxResFail : `Receive Transaction Failed`
 
 ## viteJS built-in transaction type
 

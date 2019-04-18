@@ -85,6 +85,39 @@ sidebarDepth: 4
 ```
 :::
 
+## wallet_extractMnemonic
+ 获得某个EntropyStore的助记词
+
+- **Parameters**: 
+	- `string` : EntropyStore的绝对路径，如果EntropyStore文件在标准钱包目录下，只要传文件名就可以，标准的文件名是用0号地址命名
+	- `string` : 密码 
+
+- **Returns**: 
+	- `string`: Mnemonic
+
+- **Example**: 
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 4,
+	"method": "wallet_extractMnemonic",
+	"params": [
+		"vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
+		"123456"]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": "goddess crush pattern cluster level combine survey give seminar uniform invite beach"
+}
+```
+:::
+
 ## wallet_unlock
 解锁某个EntropyStore
 

@@ -41,8 +41,11 @@ Different transactions consume different amount of quota. In Vite TestNet, the q
 | Cancel voting | 62000 |
 | Stake for quota | 21000 |
 | Cancel staking | 21000 |
-| Issue new token | 83200 |
-| Retrieve issuance stake | 83200 |
+| Issue new token | 104525 |
+| Mint additional token | 69325 |
+| Burn token | 48837 |
+| Transfer token ownership | 58981 |
+| Change token type | 63125 |
 
 In addition, comment consumes additional quota - 4 quota for zero character and 68 quota for each non-zero character.
 
@@ -130,7 +133,7 @@ For example, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should m
 Users can obtain quota by sending a stake transaction to built-in contract. When the transaction is received and confirmed, the specified quota recipient account will be granted with the corresponding quota.
 
 #### Parameters
-* Staking amount: The minimum staking amount is 10${\it vite}$.
+* Staking amount: The minimum staking amount is 1000${\it vite}$.
 * Quota recipient address: The account who receives quota, could be the staking account itself or any other account since staking for other accounts is permitted.
 
 The staked ${\it vite}$ will be temporarily deducted from balance, and cannot be traded during staking period.

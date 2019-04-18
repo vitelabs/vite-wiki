@@ -133,6 +133,7 @@ const sidebarConfigs = {
                 'register',
                 'vote',
                 'mintage',
+                'dex',
             ]
         },
 
@@ -202,7 +203,7 @@ const sidebarConfigs = {
                 'vep-4',
                 'vep-5',
                 'vep-6',
-                'vep-7'
+                'vep-8'
             ]
         }
     ]

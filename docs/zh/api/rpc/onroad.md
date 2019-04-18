@@ -211,6 +211,7 @@
     "method": "onroad_startAutoReceive",
     "params": [
         "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
+        "vite_ae327378f27fd431ef116109eda90e5264b9758543c3772f7f",
         {"tti_5649544520544f4b454e6e40":"0"}
     ]
 }

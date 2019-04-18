@@ -76,11 +76,11 @@ import * as constant from '@vite/vitejs-client';
 ## BlockType
 
 - BlockType : `交易类型`
-    - createContract = 1 : `创建合约`
-    - sendTx : `发送交易`
-    - reward : `奖励交易`
-    - receiveTx : `接收交易`
-    - receiveTxFail : `接收交易失败`
+    - CreateContractReq = 1 : `创建合约`
+    - TxReq : `发送交易`
+    - RewardReq : `奖励交易`
+    - TxRes : `接收交易`
+    - TxResFail : `接收交易失败`
 
 ## viteJS 内置交易类型
 
