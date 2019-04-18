@@ -1,11 +1,11 @@
-# VEP 5: 移除作为时间戳的快照块哈希显式引用
+# VEP-5: Remove Explicit Snapshot Block Hash as Timestamp
 
 ## 背景
 
 在Vite白皮书1.0版中，章节6.2.2（资源量化）提到：
 由于快照链相当于一个全局时钟，我们可以利用它准确的量化一个账户的资源使用情况。在每个交易中，必须引用一个快照块的哈希，将快照块的高度作为该交易的时间戳。因此可以根据两个交易时间戳的差，来判断这两个交易之间是否间隔足够长的时间。
 
-![figure](../../../assets/images/explicit_timestamp.png)<div align="center">图 1</div>
+![figure](~/images/explicit_timestamp.png)<div align="center">图 1</div>
 
 如上图所示，每个交易都包含一个快照块哈希的显式引用，作为交易创建时间的证明。这个时间戳的主要用途是计算一个账户的资源消耗是否超出配额。
 
@@ -13,7 +13,7 @@
 
 由于这两种时间戳的存在，DAG账本中的交易和快照链之间存在双向依赖关系，如下图所示：
 
-![figure](../../../assets/images/timestamps.png)<div align="center">图 2</div>
+![figure](~/images/timestamps.png)<div align="center">图 2</div>
 
 红色的箭头表示交易对快照链的引用，也就是显式时间戳（交易的创建时间）；蓝色的箭头表示快照块对账本中交易的引用，也就是隐式时间戳（交易的确认时间）。
 
@@ -22,7 +22,7 @@
 由于快照链存在分叉的可能，实际上是一个树状结构，快照块的高度越大，被回滚的概率越高。当快照块被回滚时，这两种时间戳都会受到影响。
 其中，显式时间戳受到的影响更大，如下图所示：
 
-![figure](../../../assets/images/explicit_forked.png)<div align="center">图 3</div>
+![figure](~/images/explicit_forked.png)<div align="center">图 3</div>
 
 快照链末尾右侧的快照块被回滚，为另一个分叉的快照块所取代。所有引用该快照块的交易都将作废，包括图中A和B账户的最后一个交易。
 这是由于这些交易在签名时使用了被回滚的快照块哈希，在更新这个字段后，必须由持有私钥的用户重新签名并发布新的交易。
@@ -32,7 +32,7 @@
 
 与此相对，隐式时间戳在快照块回滚时就没有同样的问题，如下图所示：
 
-![figure](../../../assets/images/implicit_forked.png)<div align="center">图 4</div>
+![figure](~/images/implicit_forked.png)<div align="center">图 4</div>
 
 一个快照块被回滚，其中的隐式时间戳与这个快照块一起被废弃，A账户的第二个交易变成未确认状态。另一个分叉中新的快照块仍然会包含一组隐式时间戳，只是与原分叉中的记录未必相同。
 由于隐式时间戳是反向引用，DAG账本中的交易没有发生改变，因此，时间戳的更新只与SBP有关，用户无需重新签名交易，分叉处理逻辑相对简单。

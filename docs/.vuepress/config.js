@@ -80,7 +80,8 @@ const sidebarConfigs = {
               'contract/soliditypp',
               'contract/debug',
               'contract/instructions',
-              'contract/subscribe'
+              'contract/subscribe',
+              'contract/dapp'
           ]
         }
     ],
@@ -106,14 +107,6 @@ const sidebarConfigs = {
             collapsable: false,
             children: [
                 'ledger',
-            ]
-        },
-
-        // consensus
-        {
-            collapsable: false,
-            children: [
-                'consensus_group',
             ]
         },
 
@@ -203,6 +196,7 @@ const sidebarConfigs = {
                 'vep-4',
                 'vep-5',
                 'vep-6',
+                'vep-7',
                 'vep-8'
             ]
         }
@@ -276,7 +270,7 @@ module.exports = {
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Consensus', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'VEP'),
                 },
@@ -296,11 +290,11 @@ module.exports = {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),9
+                    // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
                     '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '共识', '智能合约', '内置合约', 'P2P', '公共组件'),
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '智能合约', '内置合约', 'P2P', '公共组件'),
                     '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接相关', '常量相关', '工具', 'Client', '钱包')
                 },
                 algolia: {

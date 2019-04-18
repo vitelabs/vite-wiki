@@ -87,7 +87,7 @@ In the meantime, `public` static variable can not be visited from outside
 An example
 
 ```
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.0;
 contract A {
    message sum(uint result);
 
@@ -134,46 +134,13 @@ Contract A defines message listener `add(uint a, uint b)` while contract B defin
 
 Since contract B sends message to contract A, contract B must declare an "add" message which complies to the message listener defined in contract A. Meanwhile, contract A should declare a "sum" message according to the message listener in contract B, since contract A will send "sum" message to contract B in message listener "add".
 
-## `getter` in Solidity++
-
-In Solidity++, the interaction between contracts is carried out through message passing in an asynchronous manner, so the contract's public fields cannot be accessed externally. 
-To address this situation, Solidity++ provides a special way to access the fields.
-
-```
-pragma soliditypp ^0.4.1;
-contract A {
-
-    uint magic = 0;
-   
-    getter getMagic() returns(uint256) {
-        return magic;
-    }
-
-    getter getMagicAdd(uint256 m) returns(uint256) {
-        return calculate(m);
-    }
-    
-    function calculate(uint256 m) public view returns(uint256) {
-        return m + magic;
-    }
-}
-```
-
-As shown in the example above, a `getter` keyword is defined, which has the following characteristics:
-
-* Keyword `getter` is used to define a method.
-* Method name, input parameters and return value are required when defining a "getter". As a query interface, this method is only used to obtain the state of contract but cannot modify it.
-* The compiled code of "getter" method is not stored on chain, so it is not allowed to get transaction information, such as calling `msg.amount` or `msg.tokenid`, within the method.
-* "getter" cannot interact with other accounts, such as sending transactions, sending messages, etc. It cannot call `require` or `revert` either.
-* "getter" can call other functions. The function it calls should be defined as `view` type.
-
-## Example of Solidity++ Contract
+## Example of a Solidity++ Contract
 
 A batch transfer contract which accepts a list of addresses and amounts and transfers the specified amount to the specified address
 
 ```
 // Declares the contract is written in soliditypp 0.4.0. Backwards compatibility is guaranteed to ensure different version of compilers will yield the same output.
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.0;
  
  
 // Defines contract A

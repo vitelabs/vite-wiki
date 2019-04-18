@@ -7,7 +7,7 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-注册出块节点内置合约，合约账户地址： `vite_0000000000000000000000000000000000000001c9e9f25417`
+注册出块节点内置合约，合约账户地址： `vite_00000000000000000000000000000000000000042d7ef71894`
 
 **支持调用方式：**
 
@@ -146,7 +146,7 @@ sidebarDepth: 4
 :::
 
 ## register_getRegistrationList
-查询注册信息列表
+查询注册信息列表，按抵押到期高度倒序排列
 
 - **Parameters**: 
 
@@ -161,8 +161,9 @@ sidebarDepth: 4
   3. `pledgeAddr`: `Address`  抵押账户地址
   4. `pledgeAmount`: `big.Int`  抵押金额
   5. `withdrawHeight`: `uint64`  抵押到期高度
-  6. `withdrawTime`: `uint64`  预计抵押到期时间
-  7. `cancelHeight`: `uint64`  抵押取消时间，值大于0时表示已注销
+  6. `withdrawTime`: `int64`  预计抵押到期时间
+  7. `cancelTime`: `int64`  抵押取消时间，值大于0时表示已注销
+  8. `reward`: `big.Int` 待提取奖励金额
 
 - **Example**:
 
@@ -194,7 +195,8 @@ sidebarDepth: 4
       "pledgeAmount": 100000000000,
       "withdrawHeight": 100,
       "withdrawTime":1541573925,
-      "cancelHeight":0,
+      "cancelTime":0,
+      "reward":"0"
     }
    ]
 }

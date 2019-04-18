@@ -14,15 +14,14 @@
 
   * `selfAddr`: `Address`  出块账户地址，必填
   * `prevHash`: `Hash`  出块账户链上上一个块的哈希，必填。如果是账户链上第一个交易，填0
-  * `snapshotHash`: `Hash`  当前账户块引用的快照块哈希，必填
   * `blockType`: `byte`  交易类型，必填
   * `toAddr`: `Address`  交易接受地址，如果交易类型为请求交易，则此字段必填，否则填空
   * `data`: `[]byte`  交易数据
   * `usePledgeQuota`: `bool`  是否优先使用配额
 
-- **Returns**: 
-
-  * `difficulty`: `big.Int`  需要计算的PoW难度
+- **Returns**: `Object`
+  * `difficulty`: `big.Int`  需要计算的PoW难度，如果为空字符串，说明不需要计算PoW
+  * `quota`: `uint64`  交易需要的配额
 
 - **Example**:
 
@@ -38,7 +37,6 @@
 	"params": [{
 		"selfAddr":"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
 		"prevHash":"51ee7ce9c6218eee0e98551ebfa46255dfbd9c40bf73c4b69622ff90e5b8d153",
-		"snapshotHash":"7904a6e7fff5ef4699b6c4d7fccbc951e6badd2ce0babea91747ee94fe40883d",
 		"blockType":4,
 		"toAddr":"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
 		"data":"8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAACA1EbeCzJnsDy6fZtJr6XnE0HHzQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFc3VwZXIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
