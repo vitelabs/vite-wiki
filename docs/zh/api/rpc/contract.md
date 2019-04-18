@@ -81,7 +81,7 @@ sidebarDepth: 4
 ```json tab:Request
 {
     "jsonrpc": "2.0",
-    "id": 17,
+    "id": 1,
     "method": "contract_getCreateContractData",
     "params": [
         "00000000000000000002", 
@@ -115,7 +115,7 @@ sidebarDepth: 4
 ```json tab:Request
 {
     "jsonrpc": "2.0",
-    "id": 17,
+    "id": 1,
     "method": "contract_getCallContractData",
     "params": [
         "[{\"constant\":false,\"inputs\":[{\"name\":\"voter\",\"type\":\"address\"}],\"name\":\"authorization\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"proposal\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"proposalNames\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}]",
@@ -143,14 +143,72 @@ sidebarDepth: 4
 
 - **Example**:
 
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "contract_getContractInfo",
+    "params": ["vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8"]
+}
+```
+:::
+
+## contract_getCallOffChainData
+按ABI定义对getter方法的入参进行编码。返回值可作为`contract_callOffChainMethod`方法入参中的data参数。
+
+- **Parameters**: 
+
+  * `string` 合约ABI
+  * `string` getter方法名称
+  * `[]string` getter方法参数列表
+  
+- **Returns**: 
+	`[]byte` 按ABI定义编码后的getter方法入参。
+
+- **Example**:
 
 ::: demo
 ```json tab:Request
 {
     "jsonrpc": "2.0",
-    "id": 17,
-    "method": "contract_getContractInfo",
-    "params": ["vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8"]
+    "id": 1,
+    "method": "contract_getCallOffChainData",
+    "params": [
+      "[{\"constant\":true,\"inputs\":[],\"name\":\"getTokenList\",\"outputs\":[{\"name\":\"\",\"type\":\"tokenId[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"offchain\"}]",
+      "getTokenList",
+      []
+    ]
+}
+```
+:::
+
+## contract_callOffChainMethod
+离线查询合约状态。合约代码中的getter方法可以通过离线查询的方式来调用。
+
+- **Parameters**: 
+
+  * `Object`:
+    * `selfAddr`:`Address` 合约账户地址
+    * `offChainCode`:`string` 用于离线查询的合约代码。编译代码时指定`--bin`参数后得到的`OffChain Binary`代码。
+    * `Data`:`[]byte` 按ABI定义编码后的调用参数。
+    
+- **Returns**: 
+	`[]byte` 按ABI定义编码后的getter方法返回值。
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "contract_callOffChainMethod",
+    "params": [{
+      "selfAddr":"vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8",
+      "offChainCode":"608060405260043610610050576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063be46813a14610054578063f1271e08146100b157610050565b5b5b005b61008d6004803603602081101561006b5760006000fd5b81019080803569ffffffffffffffffffff169060200190929190505050610111565b60405180848152602001838152602001828152602001935050505060405180910390f35b6100b96101d1565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b838110156100fd5780820151818401525b6020810190506100e1565b505050509050019250505060405180910390f35b600060006000600260005060008569ffffffffffffffffffff1669ffffffffffffffffffff16815260200190815260200160002160005060000160005054600260005060008669ffffffffffffffffffff1669ffffffffffffffffffff16815260200190815260200160002160005060010160005054600260005060008769ffffffffffffffffffff1669ffffffffffffffffffff168152602001908152602001600021600050600201600050549250925092506101ca565b9193909250565b6060600160005080548060200260200160405190810160405280929190818152602001828054801561025a57602002820191906000526020600021906000905b82829054906101000a900469ffffffffffffffffffff1669ffffffffffffffffffff16815260200190600a01906020826009010492830192600103820291508084116102115790505b50505050509050610266565b9056fea165627a7a72305820f495f61f697f25e46caa868c09b35b575ab331e3c608179880e1932b5848abaa0029",
+      "Data":"f1271e08"
+    }]
 }
 ```
 :::
