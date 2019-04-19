@@ -7,7 +7,7 @@ sidebarDepth: 4
 [vite-crzn](https://github.com/vite-crzn)
 :::
 
-The built-in dex contract. Contract address is `vite_000000000000000000000000000000000000000617d47459a8`
+The built-in exchange contract. Contract address is `vite_000000000000000000000000000000000000000617d47459a8`
 
 **Supported protocol:**
 
@@ -16,7 +16,7 @@ The built-in dex contract. Contract address is `vite_000000000000000000000000000
 | &#x2713;|  &#x2713; |  &#x2713; | future version| &#x2713; |
 
 ## dexfund_getAccountFundInfo
-Return token account for specified address
+Return exchange's account info for specified address and token id
 
 - **Parameters**: 
 
@@ -37,7 +37,7 @@ Return token account for specified address
    "method":"dexfund_getAccountFundInfo",
    "params": [
    	  "vite_7318d099aa0cd15b2c372f05209e5a61c61732dbcb22f1e119",
-   		"tti_322862b3f8edae3b02b110b1"
+   	  "tti_322862b3f8edae3b02b110b1"
    	]
 }
 ```
@@ -71,13 +71,13 @@ Return token account for specified address
 :::
 
 ## dexfund_getAccountFundInfoByStatus
-Return amount of specified address and token, the return value is related to `type`
+Return exchange's account info for specified address, token id, and balance type
 
 - **Parameters**: 
 
   * `Address`: The address to query
   * `TokenId`: The token to query for this address
-  * `byte`: Type for return amount(0 total, 1 available, 2 locked)
+  * `byte`: Balance type. Value accepted: `0` - all, `1` - available, or `2` - locked
 
 - **Returns**: 
 	- `Map[TokenTypeId]string` 
@@ -93,7 +93,7 @@ Return amount of specified address and token, the return value is related to `ty
    "method":"dexfund_getAccountFundInfoByStatus",
    "params":[
    	  "vite_7318d099aa0cd15b2c372f05209e5a61c61732dbcb22f1e119",
-   		"tti_322862b3f8edae3b02b110b1",
+   	  "tti_322862b3f8edae3b02b110b1",
       0
    ]
 }
