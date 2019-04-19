@@ -247,8 +247,19 @@ module.exports = {
         '@vuepress/medium-zoom',
         '@vuepress/back-to-top',
         '@vuepress/i18n-ui',
-        '@vite/vuepress-plugin-mathjax',
+        ['mathjax', {
+          target: 'svg',
+          macros: {
+            '*': '\\times',
+          },
+        }],
         '@vuepress/plugin-notification',
+        ['redirect', {
+          locales: true,
+        }],
+        'seo',
+        'baidu-autopush',
+        'pangu',
         [require('./plugins/tab-code-example')]
     ],
     themeConfig: {
