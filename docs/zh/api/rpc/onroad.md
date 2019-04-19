@@ -18,7 +18,7 @@
 
   * `Address`: 账户地址
   * `uint64`: 页码
-  * `uint64`: 每页大小，<Badge text="public"/>个数上限为256个, <Badge text="private"/>不受256个数限制
+  * `uint64`: 每页大小，<Badge text="public"/>个数上限为256个, <Badge text="private" type="error"/>不受256个数限制
 
 - **Return**:
 
