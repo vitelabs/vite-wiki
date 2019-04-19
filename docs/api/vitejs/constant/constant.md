@@ -1,17 +1,17 @@
-# 常量
+# Constant
 
 :::tip abstract
 @vitejs/vitejs-constant
 :::
 
-```javascript 引入
+```javascript import
 import { constant } from '@vite/vitejs';
 
 // Or
 import * as constant from '@vite/vitejs-client';
 ```
 
-## 常用变量
+## Common constants
 
 - Vite_TokenId
 - Default_Hash
@@ -21,12 +21,12 @@ import * as constant from '@vite/vitejs-client';
 - Snapshot_Gid
 - Delegate_Gid
 
-## 合约地址
+## Contract Address
 
-- Quota_Addr : `抵押`
-- Vote_Addr : `投票`
-- Register_Addr : `注册`
-- Mintage_Addr : `铸币`
+- Quota_Addr : `Staking`
+- Vote_Addr : `Voting`
+- Register_Addr : `Registration`
+- Mintage_Addr : `Token Issuance`
 - DexFund_Addr
 - DexTrade_Addr
 - contractAddrs
@@ -76,13 +76,13 @@ import * as constant from '@vite/vitejs-client';
 ## BlockType
 
 - BlockType : `Transaction Type`
-    - createContract = 1 : `Create Contract`
-    - sendTx : `Send Transaction`
-    - reward
-    - receiveTx : `Receive Transaction`
-    - receiveTxFail : `Receive Transaction Failed`
+    - CreateContractReq = 1 : `Create Contract`
+    - TxReq : `Send Transaction`
+    - RewardReq
+    - TxRes : `Receive Transaction`
+    - TxResFail : `Receive Transaction Failed`
 
-## viteJS 内置交易类型
+## viteJS built-in transaction type
 
 - BuiltinTxType
     - SBPreg = 0 : `SBP Registration`
@@ -93,7 +93,7 @@ import * as constant from '@vite/vitejs-client';
     - RevokeVoting
     - GetQuota
     - WithdrawalOfQuota : `Withdraw Staked Quota`
-    - Mintage : `铸币`
+    - Mintage : `Token Issuance`
     - MintageIssue
     - MintageBurn
     - MintageTransferOwner 
@@ -110,7 +110,7 @@ import * as constant from '@vite/vitejs-client';
     - TxRes : `Receive Transaction`
     - TxResFail : `Receive Transaction Failed`
 
-## 语言列表（用于创建助记词）
+## Languages (For creating mnemonic words)
 
 - LangList
     - english : `english`
@@ -122,7 +122,7 @@ import * as constant from '@vite/vitejs-client';
     - korean : `korean`
     - spanish : `spanish`
 
-## Abi 函数签名
+## Abi Function Signature
 
 ```javascript
     let Register = abi.encodeFunctionSignature(Register_Abi);
@@ -149,7 +149,7 @@ import * as constant from '@vite/vitejs-client';
     - DexTradeCancelOrder
     - DexFundNewMarket
 
-## 关于rpc方法的常量
+## Introduction to RPC methods' constants
 
 - How to Invoke
 
@@ -160,7 +160,7 @@ import { methods } from '@vite/vitejs-constant';
 // ......
 
 let myClient = new client(WS_RPC);
-myClient.request(memethodsthod.ledger.getLatestSnapshotChainHash)
+myClient.request(methods.ledger.getLatestSnapshotChainHash)
 .then(()=>{
     // ......
 })

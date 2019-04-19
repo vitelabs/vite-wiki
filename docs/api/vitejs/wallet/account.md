@@ -6,17 +6,16 @@
 
 ```javascript
 
-import provider from '@vite/vitejs/dist/es5/provider/WS';
-import { client, wallet, utils } from '@vite/vitejs';
+import provider from '@vite/vitejs-ws';
+import { client, account, utils } from '@vite/vitejs';
 
-const { account } = wallet;
-
-let WS_RPC = new provider("https://example.com");
+let WS_RPC = new provider("ws://example.com");
 let myClient = new client(WS_RPC);
 
 let Account = new account({
     client: myClient
 });
+
 Account.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
@@ -25,7 +24,7 @@ Account.getBalance().then((result) => {
 
 ```
 
-## Constructor
+## Constructor extends addrAccount
 
 - **constructor params**: 
     __namedParameters: object
@@ -38,8 +37,6 @@ Account.getBalance().then((result) => {
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| address | string | Hex Address |
-| realAddress | string | Actual Address |
 | privateKey | string | Private Key |
 | publicKey | string | Public Key |
 | balance | object | Account Balance |
@@ -60,7 +57,7 @@ Account.getBalance().then((result) => {
 
 
 #### activate
-Activate Account (Auto Receiving Transaction, polling account balance)
+Activate Account (Auto Receiving Transaction, polling account balance => 会自动更新balance属性)
 
 - **Parameters** 
     * `intervals : number` Polling Intervals
@@ -77,12 +74,6 @@ Freeze account (Stop activating status - Stop auto receiving transaction and che
 
 #### stopAutoReceiveTx
 Stop auto receiving transaction
-
-#### getBalance
-Get Balance
-
-- **Return**:
-    * Promise<`balance`>
 
 #### sendRawTx
 Send Original Transactions
@@ -238,6 +229,15 @@ Issue new token asset with initial amount. The issued token will be sent to owne
     * `maxSupply: Uint256` Maximum supply. Mandatory for stablecoin. Cannot exceed 2**256-1
     * `ownerBurnOnly: bool` Whether the asset can be burned by owner only. Mandatory for stablecoin. All asset holders can perform burn action if this is false
     * `feeType: string` Optional token issuance fee type that must be `stake` or `burn` only. This field describes the cost of issuing the new token and the amount(1,000 VITE for burning or 100,000 VITE for staking for 90 days) will be charged from issuer’s account. The default value is `burn`.
+
+- **Return**:
+    * Promise
+    
+#### mintageCancelPledge
+
+- **Parameters** 
+    __namedParameters: object
+    * `tokenId : tokenId` tokenId
 
 - **Return**:
     * Promise

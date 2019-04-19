@@ -8,7 +8,7 @@ This part contains built-in shortcuts.
 The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
 :::
 
-```javascript 引入
+```javascript import
 import { client } from '@vite/vitejs';
 
 // Or
@@ -17,10 +17,13 @@ import client from '@vite/vitejs-client';
 
 ## Notice 
 1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
-2. Every methods in it can be invoked by `client.namespace.funcName`, [详见constant模块](/api/vitejs/constant/constant.html)
+2. Get to know more about how to call RPC api: [View more in constant module](/api/vitejs/constant/constant.html)
+    - If this method is defined in methods constant, you can directly call `client.namespace.funcName`
+    - If this method is not defined in methods constant, you can directly call `client.request(methodName, ...args)`
+    - RPC api is only encapsulated for call method, the returned data will directly expose RPC api original data
 
 ## Constructor extends netProcessor
-继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
+Inherit all of netProcessor's methods (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
 
 - **constructor params**
     - `provider : Provider Instance`
@@ -31,8 +34,9 @@ import client from '@vite/vitejs-client';
 ```javascript
 
 import provider from '@vite/vitejs-WS';
-import { client } from '@vite/vitejs';
+import { client, constant } from '@vite/vitejs';
 
+const { methods } = constant;
 const WS_RPC = new provider("wss://example.com");
 
 const myClient = new Client(WS_RPC, function(_myclient) {
@@ -46,6 +50,18 @@ const block = myclient.buildinTxBlock.getAccountBlock.sync(
 myclient.onroad.getOnroadBlocksByAddress.then((data) => {
     console.log(data);
 });
+
+myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
+    // ......
+})
+
+myClient.subscribeFunc.newAccountBlocks().then(()=>{
+    // ......
+});
+
+myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+    // ......
+})
 
 ```
 

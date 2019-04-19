@@ -4,7 +4,7 @@
 @vitejs/vitejs-keystore
 :::
 
-```javascript 引入
+```javascript import
 import { keystore } from '@vite/vitejs';
 
 // Or
