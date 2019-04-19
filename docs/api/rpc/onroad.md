@@ -5,7 +5,7 @@
 
 - On-road Module
 
-    The definition of "OnRoad", is actually used to describe the state of a trade, it specifically refers to the trade which the send transaction has not been received by a account designated to receive it. The BlockType it refers to is usually represented as 1,2,3, and 4, which in turn correspond to 'send a transaction to create a contract', 'make a transfer or call contract invocation', 'send a transaction to get reward' and 'send a transaction to refund.'
+    The definition of "OnRoad", is actually used to describe the state of a trade, it specifically refers to the trade which the send transaction has not been received by a account designated to receive it, we also call them open trades. The BlockType it refers to is usually represented as 1,2,3, and 4, which in turn correspond to 'send a transaction to create a contract', 'make a transfer or call contract invocation', 'send a transaction to get reward' and 'send a transaction to refund.'
 
     It is often confused with unconfirmed transactions, which are those that are not snapshoted. Ledger module records all transactions sended and received, while onroad and unconfirmed transactions are just used to describe the different states of transactions. All onroad are the sending transaction, while the unconfirmed can be either the sending  or received.
 
