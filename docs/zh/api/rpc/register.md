@@ -163,7 +163,6 @@ sidebarDepth: 4
   5. `withdrawHeight`: `uint64`  抵押到期高度
   6. `withdrawTime`: `int64`  预计抵押到期时间
   7. `cancelTime`: `int64`  抵押取消时间，值大于0时表示已注销
-  8. `reward`: `big.Int` 待提取奖励金额
 
 - **Example**:
 
@@ -196,9 +195,97 @@ sidebarDepth: 4
       "withdrawHeight": 100,
       "withdrawTime":1541573925,
       "cancelTime":0,
-      "reward":"0"
     }
    ]
+}
+```
+:::
+
+## register_getAvailableReward
+查询单个节点的待提取奖励
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `string`: 出块节点名称
+
+- **Returns**: 
+
+`RewardInfo`
+  1. `totalReward`: `string`  待提取奖励
+  2. `blockReward`: `Address`  待提取按块奖励
+  3. `voteReward`: `Address`  待提取按票奖励
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getAvailableReward",
+   "params": [
+      "00000000000000000001",
+      "super"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": 
+    {
+      "totalReward": "10",
+      "blockReward": "6",
+      "voteReward": "4"
+    }
+}
+```
+:::
+
+## register_getRewardByDay
+按天查询所有超级节点的奖励
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `timestamp`: 时间戳
+
+- **Returns**: 
+
+`map<string>RewardInfo` 出块节点名称和当天的奖励明细
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getAvailableReward",
+   "params": [
+      "00000000000000000001",
+      1555567989
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": 
+    {
+      "super":{
+        "totalReward": "10",
+        "blockReward": "6",
+        "voteReward": "4"
+      }
+    }
 }
 ```
 :::
