@@ -8,22 +8,23 @@ title: Version 2.0.0
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip 简介
+:::tip Introduction
 
-2.0.0版本及以上，对于vitejs包进行了细化拆分。
+Version 2.0.0 and above
+We optimise the architecture of vitejs project and refine vitejs packages as well as split them into detailed functionality.
 
-1. 如果你需要vitejs中的全部功能，可直接引用@vite/vitejs。
-2. 若使用某个功能，可以单独引用某个包
+1. If you need to use all the functions of vitejs, you can import @vite/vitejs directly.
+2. Or you can import some function individually.
 @vite/vitejs-abi、@vite/vitejs-addraccount、@vite/vitejs-account、@vite/vitejs-accountblock、
 @vite/vitejs-client、@vite/vitejs-communication、@vite/vitejs-constant、@vite/vitejs-error、
 @vite/vitejs-hdaccount、@vite/vitejs-hdaddr、@vite/vitejs-keystore、@vite/vitejs-netprocessor、
 @vite/vitejs-privtoaddr、@vite/vitejs-utils、@vite/vitejs-ws、@vite/vitejs-http、@vite/vitejs-ipc
-3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装@vite/vitejs，引用其中的es5模块，使用你喜欢的任意打包工具自行打包
-4. vitejs的任何包都支持es5语法，无需做特殊兼容
+3. If you need to process project dependency and any other redundant codes when using partial of functions, you can install @vite/vitejs and import es5 module, using whatever you like to package your project.
+4.  Any of vitejs packages support es5 syntax, you do not have to do extra compatible coding.
 
-【注意】
-1. 引用npm包时最好版本一致，以避免不必要的错误与冲突。
-2. 阅读文档前, 可先行了解RPC接口, 直接调用RPC接口，数据返回不做处理。
+「Notice」
+1. You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
+2. Before you start reading this document, we suggest that you can know about RPC api at first. The returned data are not processed when calling RPC api directly.
 
 :::
 
@@ -43,7 +44,7 @@ yarn add @vite/vitejs-ws
 
 :::
 
-## 引入
+## Import
 
 :::demo
 
@@ -54,7 +55,7 @@ import {
     addrAccount, account, hdAccount, abi
 } from '@vite/vitejs';
 
-// 需要使用网络服务时，需单独安装http/ipc/ws包
+// If you need to use network services, you are required to install http/ipc/ws packages separately.
 import ws from '@vite/vitejs-ws';
 import http from '@vite/vitejs-http';
 import ipc from '@vite/vitejs-ipc';
@@ -67,7 +68,7 @@ const {
     addrAccount, account, hdAccount, abi
 } = require('@vite/vitejs');
 
-// 需要使用网络服务时，需单独安装http/ipc/ws包
+// If you need to use network services, you are required to install http/ipc/ws packages separately.
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { HTTP_RPC } = require('@vite/vitejs-http');
 const { IPC_RPC } = require('@vite/vitejs-ipc');
@@ -97,8 +98,8 @@ myClient.ledger.getSnapshotChainHeight().then((result) => {
 
 ```
 
-## 常用类型及说明
-[可同时参考 constant 模块](/api/vitejs/constant/constant.html)
+## Common type and specification
+[Refer to constant module](/api/vitejs/constant/constant.html)
 
 - RPCrequest
     - type Request Type（request | notification | batch）

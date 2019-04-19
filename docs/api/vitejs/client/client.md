@@ -8,7 +8,7 @@ This part contains built-in shortcuts.
 The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
 :::
 
-```javascript 引入
+```javascript import
 import { client } from '@vite/vitejs';
 
 // Or
@@ -17,13 +17,13 @@ import client from '@vite/vitejs-client';
 
 ## Notice 
 1. You can leave out those optional parameters in Methods of buildinTxBlock as below when requestType equals to async
-2. 关于 RPC 接口的调用，[详见constant模块](/api/vitejs/constant/constant.html)
-    - 如果methods常量中定义了此方法，可以直接使用`client.namespace.funcName`的方式调用
-    - 如果methods常量中未定义此方法，可以直接通过`client.request(methodName, ...args)`的方式调用
-    - RPC接口只是对于调用方式进行封装，返回数据会直接暴露RPC接口的原始数据
+2. Get to know more about how to call RPC api: [View more in constant module](/api/vitejs/constant/constant.html)
+    - If this method is defined in methods constant, you can directly call `client.namespace.funcName`
+    - If this method is not defined in methods constant, you can directly call `client.request(methodName, ...args)`
+    - RPC api is only encapsulated for call method, the returned data will directly expose RPC api original data
 
 ## Constructor extends netProcessor
-继承netProcessor的所有方法 (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
+Inherit all of netProcessor's methods (setProvider / request / notification / batch / subscribe / unSubscribe / clearSubscriptions)
 
 - **constructor params**
     - `provider : Provider Instance`

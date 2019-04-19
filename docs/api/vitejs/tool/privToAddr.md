@@ -5,7 +5,7 @@
 @vitejs/vitejs-privtoaddr
 :::
 
-```javascript 引入
+```javascript import
 import { privToAddr } from '@vite/vitejs';
 
 // Or

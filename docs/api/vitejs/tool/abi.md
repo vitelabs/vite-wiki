@@ -4,7 +4,7 @@
 @vitejs/vitejs-abi
 :::
 
-```javascript 引入
+```javascript import
 import { abi } from '@vite/vitejs';
 
 // Or
