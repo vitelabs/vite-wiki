@@ -25,8 +25,71 @@ The subscription will close automatically When persistent connection is broken.
 Two types of events are currently supported: new transactions(new account blocks) and new logs(logs in new account blocks). 
 Each type contains corresponding rollback event. When rollback occurs, the `removed` field in the event message is set to true.
 
+:::tip To use event subscription, you should
+* Install a minimal 1.3.2 version of 'gvite' software
+* Include `"subscribe"` in `"PublicModules"` and set `"SubscribeEnabled":true` in node_config.json
+:::
+
+## Usage Example
+
+Let's see an example of subscription to new logs via persistent connection API
+
+First, register a new subscription listening on address `vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f`
+by calling `subscribe_subscribe` interface with name `newLogs`.
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "subscribe_subscribe",
+  "params": [
+    "newLogs",
+    {
+      "addrRange":{
+        "vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f":{
+          "fromHeight":"0",
+          "toHeight":"0"
+        }
+      }
+    }
+  ]
+}
+```
+This will return new subscription id `0x4b97e0674a5ebef942dbb07709c4a608`
+```json
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0x4b97e0674a5ebef942dbb07709c4a608"
+}
+```
+New log will be sent to subscriber in callback's `result` field when generated
+```json
+{
+  "jsonrpc":"2.0",
+  "method":"subscribe_subscription",
+  "params":{
+    "subscription":"0x4b97e0674a5ebef942dbb07709c4a608",
+    "result":[
+      {
+        "log":{
+          "topics":[
+            "aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb",
+            "000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"
+          ],
+          "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
+        },
+        "accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40",
+        "addr":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f",
+        "removed":false
+      }
+    ]
+  }
+}
+```
+Note: A broken connection may cause intermittent subscription. Under this situation, historical logs can be retrieved by `subscribe_getLogs` method.
+
 ## subscribe_newAccountBlocksFilter
-Create a filter listening to new transaction. The filter will be used to poll new transactions by feeding into `subscribe_getFilterChanges` method
+Create a filter to poll for new transactions by feeding into `subscribe_getFilterChanges` method
 
 - **Returns**:  
 	- `string` filterId
@@ -50,7 +113,7 @@ Create a filter listening to new transaction. The filter will be used to poll ne
 :::
 
 ## subscribe_newLogsFilter
-Create a filter listening to new log with specific parameters. The filter will be used to poll new logs by feeding into `subscribe_getFilterChanges` method
+Create a filter to poll for new logs by feeding into `subscribe_getFilterChanges` method
 
 - **Parameters**:
 
@@ -96,13 +159,13 @@ Topic examples：
 :::
 
 ## subscribe_uninstallFilter
-Unsubscribe(polling mode)
+Cancel an existing polling 
 
 - **Parameters**:
   * `string`: filterId
 
 - **Returns**:  
-	- `bool` un-subscription result
+	- `bool` result
 
 ::: demo
 ```json tab:Request
@@ -123,7 +186,7 @@ Unsubscribe(polling mode)
 :::
 
 ## subscribe_getFilterChanges
-Poll for new events. The type of return value depends on the type of subscription. If no event is generated since last poll, an empty array is returned.
+Poll for new events. The type of return value depends on the type of subscription. If no event is generated since last polling, an empty array will be returned.
 
 - **Parameters**:
   * `string`: filterId
@@ -207,7 +270,7 @@ Poll for new events. The type of return value depends on the type of subscriptio
 :::
 
 ## subscribe_newAccountBlocks
-Create a persistent connection listening for new transaction
+Start listening for new transactions via persistent connection
 
 - **Returns**:  
 	- `string` Subscription id
@@ -251,7 +314,7 @@ Create a persistent connection listening for new transaction
 :::
 
 ## subscribe_newLogs
-Create a persistent connection listening for new log
+Start listening for new logs via persistent connection
 
 - **Parameters**:
 
@@ -380,7 +443,6 @@ Return historical logs
     }
   ]
 }
-```
 ```
 :::
 
