@@ -6,9 +6,9 @@
   },
   "homepage": "https://vitelabs.github.io/doc.vite.org/",
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "^1.0.0-alpha.0",
-    "@vuepress/plugin-i18n-ui": "^1.0.0-alpha.0",
-    "@vuepress/plugin-pwa": "^1.0.0-alpha.0",
+    "@vuepress/plugin-back-to-top": "^1.0.0-alpha.47",
+    "@vuepress/plugin-i18n-ui": "^1.0.0-alpha.44",
+    "@vuepress/plugin-pwa": "^1.0.0-alpha.47",
     "babel-eslint": "^8.2.2",
     "eslint": "^4.18.2",
     "eslint-config-standard": "^11.0.0",
@@ -20,21 +20,26 @@
     "eslint-plugin-standard": "^3.0.1",
     "node-sass": "^4.11.0",
     "sass-loader": "^6.0.7",
-    "vuepress": "^1.0.0-alpha.24"
+    "vuepress": "^1.0.0-alpha.47"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@vite/vuepress-plugin-mathjax": "^1.0.0",
-    "@vuepress/plugin-google-analytics": "^1.0.0-alpha.0",
-    "@vuepress/plugin-medium-zoom": "^1.0.0-alpha.0",
-    "@vuepress/plugin-notification": "^1.0.0-alpha.5",
+    "@vuepress/plugin-google-analytics": "^1.0.0-alpha.47",
+    "@vuepress/plugin-medium-zoom": "^1.0.0-alpha.47",
+    "@vuepress/plugin-notification": "^1.0.0-alpha.42",
     "deepmerge": "^2.1.1",
     "markdown-it-mathjax-chtml": "^0.1.0",
     "vue-codemirror": "^4.0.5",
     "vue-tabs-component": "^1.4.0",
     "vue-toasted": "^1.1.24",
+    "vuepress-plugin-baidu-autopush": "^1.0.1",
+    "vuepress-plugin-mathjax": "^1.2.4",
+    "vuepress-plugin-pangu": "^1.0.1",
+    "vuepress-plugin-redirect": "^1.1.2",
+    "vuepress-plugin-seo": "^0.1.2",
     "whatwg-fetch": "^2.0.4"
   }
 }
