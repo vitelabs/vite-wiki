@@ -18,7 +18,7 @@ Return all open transactions waiting to be received by the account address
 
   * `Address`: The account address
   * `uint64`: Page index
-  * `uint64`: Page size, <Badge text="public"/>The upper limit is 256, <Badge text="private"/>No special size restrictions except by the type
+  * `uint64`: Page size, <Badge text="public"/>The upper limit is 256, <Badge text="private" type="error"/>No special size restrictions except by the type
 
 - **Return**:
 
