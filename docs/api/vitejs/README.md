@@ -8,21 +8,23 @@ title: Version 2.0.0
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip Introduction
+## Introduction
 
-Version 2.0.0 and above
-We optimise the architecture of vitejs project and refine vitejs packages as well as split them into detailed functionality.
+Vite JS 实现了js版本生成地址、签名、abi等功能函数；提供IPC、HTTP、WS的rpc协议调用；同时对gVite rpc接口进行了上层封装；并且支持各类account实例，快捷生成钱包功能。
 
-1. If you need to use all the functions of vitejs, you can import @vite/vitejs directly.
+**Version 2.0.0 and above. We optimise the architecture of vitejs project and refine vitejs packages as well as split them into detailed functionality.**
+
+1. If you need to use all the functions of vitejs, you can import `@vite/vitejs` directly.
 2. Or you can import some function individually.
-@vite/vitejs-abi、@vite/vitejs-addraccount、@vite/vitejs-account、@vite/vitejs-accountblock、
-@vite/vitejs-client、@vite/vitejs-communication、@vite/vitejs-constant、@vite/vitejs-error、
-@vite/vitejs-hdaccount、@vite/vitejs-hdaddr、@vite/vitejs-keystore、@vite/vitejs-netprocessor、
-@vite/vitejs-privtoaddr、@vite/vitejs-utils、@vite/vitejs-ws、@vite/vitejs-http、@vite/vitejs-ipc
-3. If you need to process project dependency and any other redundant codes when using partial of functions, you can install @vite/vitejs and import es5 module, using whatever you like to package your project.
+`@vite/vitejs-abi`、`@vite/vitejs-addraccount`、`@vite/vitejs-account`、`@vite/vitejs-accountblock`、
+`@vite/vitejs-client`、`@vite/vitejs-communication`、`@vite/vitejs-constant`、`@vite/vitejs-error`、
+`@vite/vitejs-hdaccount`、`@vite/vitejs-hdaddr`、`@vite/vitejs-keystore`、`@vite/vitejs-netprocessor`、
+`@vite/vitejs-privtoaddr`、`@vite/vitejs-utils`、`@vite/vitejs-ws`、`@vite/vitejs-http`、`@vite/vitejs-ipc`
+3. If you need to process project dependency and any other redundant codes when using partial of functions, you can install `@vite/vitejs` and import es5 module, using whatever you like to package your project.
 4.  Any of vitejs packages support es5 syntax, you do not have to do extra compatible coding.
 
-「Notice」
+:::warning warning
+
 1. You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
 2. Before you start reading this document, we suggest that you can know about RPC api at first. The returned data are not processed when calling RPC api directly.
 

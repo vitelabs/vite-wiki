@@ -8,20 +8,23 @@ title: Version 2.0.0
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-:::tip 简介
+## 介绍
 
-2.0.0版本及以上，对于vitejs包进行了细化拆分。
+Vite JS 实现了js版本生成地址、签名、abi等功能函数；提供IPC、HTTP、WS的rpc协议调用；同时对gVite rpc接口进行了上层封装；并且支持各类account实例，快捷生成钱包功能。
 
-1. 如果你需要vitejs中的全部功能，可直接引用@vite/vitejs。
+**2.0.0版本及以上，vitejs包进行了细化拆分。**
+
+1. 如果你需要vitejs中的全部功能，可直接引用`@vite/vitejs`。
 2. 若使用某个功能，可以单独引用某个包
-@vite/vitejs-abi、@vite/vitejs-addraccount、@vite/vitejs-account、@vite/vitejs-accountblock、
-@vite/vitejs-client、@vite/vitejs-communication、@vite/vitejs-constant、@vite/vitejs-error、
-@vite/vitejs-hdaccount、@vite/vitejs-hdaddr、@vite/vitejs-keystore、@vite/vitejs-netprocessor、
-@vite/vitejs-privtoaddr、@vite/vitejs-utils、@vite/vitejs-ws、@vite/vitejs-http、@vite/vitejs-ipc
-3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装@vite/vitejs，引用其中的es5模块，使用你喜欢的任意打包工具自行打包
+`@vite/vitejs-abi`、`@vite/vitejs-addraccount`、`@vite/vitejs-account`、`@vite/vitejs-accountblock`、
+`@vite/vitejs-client`、`@vite/vitejs-communication`、`@vite/vitejs-constant`、`@vite/vitejs-error`、
+`@vite/vitejs-hdaccount`、`@vite/vitejs-hdaddr`、`@vite/vitejs-keystore`、`@vite/vitejs-netprocessor`、
+`@vite/vitejs-privtoaddr`、`@vite/vitejs-utils`、`@vite/vitejs-ws`、`@vite/vitejs-http`、`@vite/vitejs-ipc`
+3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装`@vite/vitejs`，引用其中的es5模块，使用你喜欢的任意打包工具自行打包
 4. vitejs的任何包都支持es5语法，无需做特殊兼容
 
-【注意】
+:::warning 注意
+
 1. 引用npm包时最好版本一致，以避免不必要的错误与冲突。
 2. 阅读文档前, 可先行了解RPC接口, 直接调用RPC接口，数据返回不做处理。
 
