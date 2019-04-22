@@ -14,6 +14,8 @@ Similar to common transfer, a contract call is separated into a contract request
 
 The manner how these transactions are written to the ledger and how they are confirmed are also asynchronous. A "snapshotted" contract request transaction means the contract call is successfully initiated. A "snapshotted" contract response transaction indicates the contract call is complete.
 
+There is no return value in asynchronous contract. Execution result should be returned to the caller by callback, which actually yields a new transaction after current execution process has completed.
+
 ## Who is Responsible for Executing Smart Contract
 
 When smart contract is created, the owner should designate a delegated consensus group. The delegated nodes in the group will execute the smart contract and generate transaction block using DPoS algorithm.
@@ -22,7 +24,7 @@ A smart contract can only designate one delegated consensus group, which can't b
 
 A built-in delegated consensus group, aka Global Consensus Group, is provided to serve smart contracts that haven't designated delegated consensus group. The block producers of Global Consensus Group are same with those of Snapshot Consensus Group but having different block producing order.
 
-### Priority of Contract Response Transaction
+## Priority of Contract Response Transaction
 
 If multiple contracts have designated the same delegated consensus group, they could be prioritized according to how much quota they have. The higher quota the contract possesses, with the higher priority the transaction of the contract could be handled by consensus group. 
 Since prioritization of contract response transactions is not specified in Vite's protocol, each delegated consensus group can define prioritization rules on its own.
@@ -43,7 +45,7 @@ The quota for contract creation request transaction is supplied by contract crea
 
 Similar to contract creation, contract execution consumes quota as well. The contract request transaction and the contract response transaction consume the quota of transaction initiator and contract account respectively.
 
-In the TestNet, contract account can only obtain quota by staking. If a contract account does not have sufficient quota, the delegated consensus group will not package any transaction for this contract, so the contract provider should always stake adequate Vite tokens for the contract.
+In the TestNet, contract account can only obtain quota by staking. If a contract does not have sufficient quota, no transaction of this contract will be performed. Therefore, **contract provider should always ensure 'enough' VITE tokens have been staked for the contract**.
 
 Sometimes due to over-complicated contract, the quota of contract account is insufficient for generating response transaction. In this case, the response transaction will consume up all the quota and fail in the end by generating a "failed" response block on the contract chain. In Vite TestNet, a "failed" contract response due to insufficient quota will be retried twice. After the 3rd failure, the requested transaction will be marked as "response failed" and all transferring amount(if has any) will be returned to requester's account. Due to the FIFO principle of contract response, when a response transaction fails, subsequent response transactions for this account will be blocked until the "failed" transaction is complete successfully or fails for 3 times. Response transactions for other accounts won't be affected.
 

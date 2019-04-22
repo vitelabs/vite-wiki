@@ -97,7 +97,7 @@
 - **Example**:
 
 ::: demo
-```json tab::Request
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"id": 5,
