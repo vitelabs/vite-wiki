@@ -8,15 +8,40 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-**智能合约**
+## 创建合约步骤
 
-内置合约调用和普通转账交易类似，交易接收地址为内置合约地址，交易数据为 `内置合约方法选择器+方法参数` ，可以通过内置合约相关的RPC接口生成。如果调用内置合约时需要抵押Vite，则在转账金额和转账代币id字段填写相应的抵押金额和代币id即可。
+创建合约本质上是发起一笔类型为创建合约的交易，并指定创建合约的代码和参数。具体步骤如下：
 
-**支持调用方式：**
+1. 调用`contract_getCreateContractToAddress`接口生成新合约地址。
+2. 根据ABI定义对创建合约的参数进行编码。这一步可以使用`vitejs`的`abi.encodeParameters`方法（推荐），也可以调用`contract_getCreateContractParams`接口。
+3. 调用`contract_getCreateContractData`接口生成交易数据。
+4. 调用`tx_sendRawTx`接口发起创建合约交易，其中`toAddress`为第1步生成的合约地址；`data`为第3步生成的交易数据；`blockType`为1，表示该交易为创建合约交易；`amount`和`tokenId`为调用合约构造函数时的转账金额和代币id；`fee`字段值为创建合约费用，测试网络固定为10 vite。
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
+注意：`vitejs`的`buildinTxBlock.createContract`接口实现了以上逻辑。
+
+## 调用合约步骤
+
+调用合约本质上是向合约账户发起一笔转账交易，并指定调用的接口和参数。具体步骤如下：
+
+1. 根据ABI定义对调用合约的方法名和参数进行编码，生成交易数据。这一步可以使用`vitejs`的`abi.encodeFunctionCall`方法（推荐），也可以调用`contract_getCallContractData`接口。
+2. 调用`tx_sendRawTx`接口发起调用合约交易，其中`toAddress`为被调用的合约地址；`data`为第1步生成的交易数据；`blockType`为2，表示该交易为转账交易或者调用合约交易；`amount`和`tokenId`为调用合约时的转账金额和代币id；`fee`字段值填0。
+
+注意：`vitejs`的`buildinTxBlock.callContract`接口实现了以上逻辑。
+
+## 离线读取合约状态
+
+Vite链上部署的智能合约可以通过`getter`方法来离线读取合约状态。在编译合约时会生成`getter`方法的ABI定义和离线读取的代码。
+
+1. 根据ABI定义对合约离线读取接口的方法名和参数进行编码。这一步可以使用`vitejs`的`abi.encodeFunctionCall`方法（推荐），也可以调用`contract_getCallOffChainData`接口。
+2. 调用`contract_callOffChainMethod`方法，指定世界状态，获取合约状态。
+
+## 调用内置合约
+
+调用内置合约和调用普通合约类似，也是向内置合约发起一笔转账交易，并指定调用的接口和参数。Vite提供了[抵押获取配额](./pledge.html)、[铸币](./mintage.html)、[共识信息](./consensus_group.html)3个内置合约。
+
+调用内置合约时，先调用相应的`getData`接口，例如铸币时，调用`mintage_getMintData`接口，然后通过`tx_sendRawTx`发送交易。
+
+`vitejs`的`buildinTxBlock`模块封装了大部分内置合约的调用接口。
 
 ## contract_getCreateContractToAddress
 创建合约时生成新的合约地址
@@ -32,9 +57,7 @@ sidebarDepth: 4
 
 - **Example**:
 
-
 ::: demo
-
 
 ```json tab:Request
 {  
@@ -44,7 +67,6 @@ sidebarDepth: 4
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6", 
       "2", 
-      "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7", 
       "3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7"]
 }
 ```
@@ -58,14 +80,11 @@ sidebarDepth: 4
 ```
 :::
 
-## contract_getCreateContractData
-获取创建合约交易请求数据
+## contract_getCreateContractParams
+对创建合约的ABI和参数进行编码
 
 - **Parameters**: 
 
-  * `Gid`: 合约所属的委托共识组id，公共共识组id为"00000000000000000002"
-  * `uint8`: 发给合约账户的request块被确认多少次之后出response块，取值范围0-75，取0表示不需要等待request被确认。如果合约代码中使用了随机数、时间戳等指令，要求这个字段值大于0
-  * `string`: 十六进制合约代码
   * `string`: abi
   * `[]string`: 创建合约参数。简单类型直接转换为string，复合类型为json格式的string
 
@@ -74,9 +93,7 @@ sidebarDepth: 4
 
 - **Example**:
 
-
 ::: demo
-
 
 ```json tab:Request
 {
@@ -84,10 +101,40 @@ sidebarDepth: 4
     "id": 1,
     "method": "contract_getCreateContractData",
     "params": [
-        "00000000000000000002", 
-        "608060405234801561001057600080fd5b506101ca806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806380ae0ea114610046575b600080fd5b6100bd6004803603602081101561005c57600080fd5b810190808035906020019064010000000081111561007957600080fd5b82018360208201111561008b57600080fd5b803590602001918460208302840111640100000000831117156100ad57600080fd5b90919293919293905050506100bf565b005b60006002838390508115156100d057fe5b061415156100dd57600080fd5b600080905060008090505b8383905081101561018a576000848483818110151561010357fe5b9050602002013590506000858560018501818110151561011f57fe5b905060200201359050808401935080841015151561013c57600080fd5b600081111561017d578173ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff168260405160405180820390838587f1505050505b50506002810190506100e8565b50348114151561019957600080fd5b50505056fea165627a7a723058203cef4a3f93b33e64e99e0f88f586121282084394f6d4b70f1030ca8c360b74620029", 
         "[{\"constant\":false,\"inputs\":[{\"name\":\"voter\",\"type\":\"address\"}],\"name\":\"authorization\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"proposal\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"proposalNames\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}]",
         ["[\"0x1111111111111111111111111111111111111111111111111111111111111111\",\"0x2222222222222222222222222222222222222222222222222222222222222222\"]"]
+    ]
+}
+```
+:::
+
+## contract_getCreateContractData
+获取创建合约交易请求数据
+
+- **Parameters**: 
+
+  * `Gid`: 合约所属的委托共识组id，公共共识组id为"00000000000000000002"
+  * `uint8`: 发给合约账户的request块被确认多少次之后出response块，取值范围0-75，取0表示不需要等待request被确认。如果合约代码中使用了随机数、时间戳等指令，要求这个字段值大于0
+  * `string`: 十六进制合约代码
+  * `[]byte`: 编码后的参数
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "contract_getCreateContractData",
+    "params": [
+        "00000000000000000002",
+         1,
+        "608060405234801561001057600080fd5b506101ca806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806380ae0ea114610046575b600080fd5b6100bd6004803603602081101561005c57600080fd5b810190808035906020019064010000000081111561007957600080fd5b82018360208201111561008b57600080fd5b803590602001918460208302840111640100000000831117156100ad57600080fd5b90919293919293905050506100bf565b005b60006002838390508115156100d057fe5b061415156100dd57600080fd5b600080905060008090505b8383905081101561018a576000848483818110151561010357fe5b9050602002013590506000858560018501818110151561011f57fe5b905060200201359050808401935080841015151561013c57600080fd5b600081111561017d578173ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff168260405160405180820390838587f1505050505b50506002810190506100e8565b50348114151561019957600080fd5b50505056fea165627a7a723058203cef4a3f93b33e64e99e0f88f586121282084394f6d4b70f1030ca8c360b74620029", 
+        ""
     ]
 }
 ```
@@ -212,4 +259,3 @@ sidebarDepth: 4
 }
 ```
 :::
-

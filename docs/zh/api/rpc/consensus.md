@@ -2,21 +2,35 @@
 sidebarDepth: 4
 ---
 
-# Register
+# ConsensusGroup
 :::tip 维护者
 [viteLiz](https://github.com/viteLiz)
 :::
 
-注册出块节点内置合约，合约账户地址： `vite_00000000000000000000000000000000000000042d7ef71894`
+## 合约信息说明
+共识信息合约，合约账户地址： `vite_00000000000000000000000000000000000000042d7ef71894`
 
-**支持调用方式：**
+ABI：
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
+```json
+[
+  // 注册出块节点
+  {"type":"function","name":"Register", "inputs":[{"name":"gid","type":"gid"},{"name":"name","type":"string"},{"name":"nodeAddr","type":"address"}]},
+  // 更新注册信息
+  {"type":"function","name":"UpdateRegistration", "inputs":[{"name":"gid","type":"gid"},{"Name":"name","type":"string"},{"name":"nodeAddr","type":"address"}]},
+  // 取消注册
+  {"type":"function","name":"CancelRegister","inputs":[{"name":"gid","type":"gid"}, {"name":"name","type":"string"}]},
+  // 提取出块奖励
+  {"type":"function","name":"Reward","inputs":[{"name":"gid","type":"gid"},{"name":"name","type":"string"},{"name":"beneficialAddr","type":"address"}]},
+  // 给出块节点投票
+  {"type":"function","name":"Vote", "inputs":[{"name":"gid","type":"gid"},{"name":"nodeName","type":"string"}]},
+  // 取消投票
+  {"type":"function","name":"CancelVote","inputs":[{"name":"gid","type":"gid"}]},
+]
+```
 
 ## register_getRegisterData
-获取出块节点注册交易请求数据
+获取出块节点注册交易请求数据，也可以通过对ABI中的`Register`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -49,7 +63,7 @@ sidebarDepth: 4
 :::
 
 ## register_getCancelRegisterData
-获取取消出块节点注册交易请求数据
+获取取消出块节点注册交易请求数据，也可以通过对ABI中的`CancelRegister`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -80,7 +94,7 @@ sidebarDepth: 4
 :::
 
 ## register_getRewardData
-获取提取出块奖励交易请求数据，从上一次提取到的高度开始，提取90天的出块奖励（如果不足90天，提取所有出块奖励），不能提取最近30分钟的出块奖励
+获取提取出块奖励交易请求数据，从上一次提取到的高度开始，提取90天的出块奖励（如果不足90天，提取所有出块奖励），不能提取最近30分钟的出块奖励，也可以通过对ABI中的`Reward`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -113,7 +127,7 @@ sidebarDepth: 4
 :::
 
 ## register_getUpdateRegistrationData
-获取更新出块节点注册信息交易请求数据
+获取更新出块节点注册信息交易请求数据，也可以通过对ABI中的`UpdateRegistration`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -449,5 +463,106 @@ sidebarDepth: 4
         }
     ]
 }
+```
+:::
+
+## vote_getVoteData
+获取为出块节点投票交易请求数据，也可以通过对ABI中的`Vote`方法编码获取交易请求数据。
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `string`: 出块节点名称
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"vote_getVoteData",
+   "params": [
+      "00000000000000000001", 
+      "super"
+    ]
+}
+```
+
+:::
+
+## vote_getCancelVoteData
+获取为出块节点投票交易请求数据，也可以通过对ABI中的`CancelVote`方法编码获取交易请求数据。
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"vote_getCancelVoteData",
+   "params":["00000000000000000001"]
+}
+```
+
+:::
+
+## vote_getVoteInfo
+查询用户当前投票信息
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `Address`: 用户账户地址
+
+- **Returns**: 
+
+`Object`
+  1. `nodeName`: `string`  出块节点名称
+  2. `nodeStatus`: `uint8`  出块节点注册状态：1 有效 2 无效
+  3. `balance`: `big.Int`  用户账户余额
+  
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"vote_getVoteInfo",
+   "params": [
+      "00000000000000000001", 
+      "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": {
+      "nodeName": "super",
+      "nodeStatus": 1
+      "balance": 10,
+   }
 ```
 :::

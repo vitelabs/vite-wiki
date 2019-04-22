@@ -123,8 +123,7 @@ const sidebarConfigs = {
             collapsable: false,
             children: [
                 'pledge',
-                'register',
-                'vote',
+                'consensus',
                 'mintage',
                 'dex',
             ]

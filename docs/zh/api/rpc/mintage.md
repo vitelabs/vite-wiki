@@ -7,16 +7,40 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-铸币内置合约，合约账户地址： `vite_00000000000000000000000000000000000000056ad6d26692`
+## 合约信息说明
+铸币合约，合约账户地址： `vite_00000000000000000000000000000000000000056ad6d26692`
 
-**支持调用方式：**
+ABI：
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
+```json
+[
+  // 取回铸币抵押
+  {"type":"function","name":"CancelMintPledge","inputs":[{"name":"tokenId","type":"tokenId"}]},
+  // 铸币
+  {"type":"function","name":"Mint","inputs":[{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"ownerBurnOnly","type":"bool"}]},
+  // 增发代币
+  {"type":"function","name":"Issue","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"amount","type":"uint256"},{"name":"beneficial","type":"address"}]},
+  // 销毁代币
+  {"type":"function","name":"Burn","inputs":[]},
+  // 转移可增发代币的所有权
+  {"type":"function","name":"TransferOwner","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"newOwner","type":"address"}]},
+  // 将可增发代币修改为不可增发
+  {"type":"function","name":"ChangeTokenType","inputs":[{"name":"tokenId","type":"tokenId"}]},
+  // 铸币成功事件
+  {"type":"event","name":"mint","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
+  // 增发成功事件
+  {"type":"event","name":"issue","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
+  // 销毁成功事件
+  {"type":"event","name":"burn","inputs":[{"name":"tokenId","type":"tokenId","indexed":true},{"name":"address","type":"address"},{"name":"amount","type":"uint256"}]},
+  // 转移所有权成功事件
+  {"type":"event","name":"transferOwner","inputs":[{"name":"tokenId","type":"tokenId","indexed":true},{"name":"owner","type":"address"}]},
+  // 修改代币类型成功事件
+  {"type":"event","name":"changeTokenType","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]}
+]
+```
 
 ## mintage_getMintData
-获取铸币交易请求数据
+获取铸币交易请求数据，也可以通过对ABI中的`Mint`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -63,7 +87,7 @@ sidebarDepth: 4
 :::
 
 ## mintage_getMintageCancelPledgeData
-获取取回铸币抵押交易请求数据
+获取取回铸币抵押交易请求数据，也可以通过对ABI中的`CancelMintPledge`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -95,7 +119,7 @@ sidebarDepth: 4
 :::
 
 ## mintage_getIssueData
-获取增发交易请求数据
+获取增发交易请求数据，也可以通过对ABI中的`Issue`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -135,7 +159,7 @@ sidebarDepth: 4
 :::
 
 ## mintage_getBurnData
-获取销毁交易请求数据
+获取销毁交易请求数据，也可以通过对ABI中的`Burn`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -166,7 +190,7 @@ sidebarDepth: 4
 :::
 
 ## mintage_getTransferOwnerData
-获取修改所有者交易请求数据
+获取修改所有者交易请求数据，也可以通过对ABI中的`TransferOwner`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -204,7 +228,7 @@ sidebarDepth: 4
 :::
 
 ## mintage_getChangeTokenTypeData
-获取修改代币类型交易请求数据，将可增发代币修改为不可增发
+获取修改代币类型交易请求数据，将可增发代币修改为不可增发，也可以通过对ABI中的`ChangeTokenType`方法编码获取交易请求数据。
 
 - **Parameters**: 
 

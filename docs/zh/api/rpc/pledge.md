@@ -7,16 +7,22 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-抵押内置合约，合约账户地址： `vite_000000000000000000000000000000000000000309508ba646`
+## 合约信息说明
+抵押合约，合约账户地址： `vite_000000000000000000000000000000000000000309508ba646`
 
-**支持调用方式：**
+ABI：
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
+```json
+[
+  // 抵押获取配额
+  {"type":"function","name":"Pledge", "inputs":[{"name":"beneficial","type":"address"}]},
+  // 取消抵押
+  {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
+]
+```
 
 ## pledge_getPledgeData
-获取抵押交易请求数据
+获取抵押交易请求数据，也可以通过对ABI中的`Pledge`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -43,7 +49,7 @@ sidebarDepth: 4
 :::
 
 ## pledge_getCancelPledgeData
-获取撤销抵押交易请求数据
+获取撤销抵押交易请求数据，也可以通过对ABI中的`CancelPledge`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
