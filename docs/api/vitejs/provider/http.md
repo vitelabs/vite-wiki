@@ -1,5 +1,11 @@
 # HTTP
 
+:::tip abstract
+@vitejs/vitejs-http
+
+Methods and properties are consistent with `provider` instance方法及属性皆与 provider 实例一致
+:::
+
 ## Constructor
 
 - **Constructor Params**: 
@@ -9,6 +15,7 @@
 	- `headers : object` : Request Header Information
 
 - **Example**:
+
 ```javascript
 
 import httpProvider from "@vite/vitejs-http";

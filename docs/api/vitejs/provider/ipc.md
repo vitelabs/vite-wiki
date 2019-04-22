@@ -1,5 +1,9 @@
 # IPC 
 
+:::tip abstract
+@vitejs/vitejs-ipc
+:::
+
 ## Constructor
 
 - **Constructor Params**: 
@@ -20,7 +24,7 @@ const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
 
 ```
 
-## IPC provider
+## IPC provider instance
 
 ### Instance Properties
 

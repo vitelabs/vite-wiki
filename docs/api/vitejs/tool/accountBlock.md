@@ -1,16 +1,15 @@
----
-sidebarDepth: 1
----
-
 # accountBlock
 
-:::tip Created by
-[cs](https://github.com/lovelycs)
-:::
-
 :::tip Abstract
-Utils include common tool sets such as generating address and encrypting keystore, etc.
-:::  
+@vitejs/vitejs-accountblock
+::: 
+
+```javascript import
+import { accountBlock } from '@vite/vitejs';
+
+// Or
+import * as accountBlock from '@vite/vitejs-accountblock';
+```
 
 ## getAccountBlock
 Get normative accountBlock
@@ -19,7 +18,22 @@ Get normative accountBlock
   - `block : Object<blockType, accountAddress, snapshotHash, prevHash?, height?, fromBlockHash?, data?, message?, toAddress?, tokenId?, amount?, nonce?>` block
 - **return**
   - `accountBlock : AccountBlock` 
-  
+
+```javascript ::Demo
+import { getAccountBlock } from '@vite/vitejs-accountblock';
+
+const block = {
+    accountAddress: 'vite_155e4e83fb0499dcc3047e0458bbfae77f2ac1270e38c176f8',
+    blockType: 2,
+    snapshotHash: 'ff91866c4393566c44a667e8344c1567a12fdefa27093a69fed6ecbf4cb02046'
+};
+
+const formatBlock = getAccountBlock({
+    accountAddress: 'vite_155e4e83fb0499dcc3047e0458bbfae77f2ac1270e38c176f8',
+    blockType: 2,
+    snapshotHash: 'ff91866c4393566c44a667e8344c1567a12fdefa27093a69fed6ecbf4cb02046'
+});
+```
 
 ## getSendTxBlock 
 Get normative send accountBlock
@@ -46,7 +60,20 @@ Get specified transaction type
   - `blockType : number`
 - **return**
   - `builtinTxType : BuiltinTxType` Transaction Type
-  
+
+```javascript ::Demo
+import { getAccountBlock } from '@vite/vitejs-accountblock';
+
+const RevokeVoting = {
+    blockType: 2,
+    data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB',
+    toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
+};
+
+const builtinTxType = getBuiltinTxType(RevokeVoting.toAddress, RevokeVoting.data, RevokeVoting.blockType);
+// builtinTxType === 'RevokeVoting'
+```
+
 ## getBlockHash
 
 - **params**

@@ -1,12 +1,15 @@
----
-sidebarDepth: 1
----
-
 # accountBlock
 
-:::tip 作者
-[cs](https://github.com/lovelycs)
-:::
+:::tip Abstract
+@vitejs/vitejs-accountblock
+::: 
+
+```javascript 引入
+import { accountBlock } from '@vite/vitejs';
+
+// Or
+import * as accountBlock from '@vite/vitejs-accountblock';
+```
 
 ## getAccountBlock
 获取规范的accountBlock
@@ -16,6 +19,21 @@ sidebarDepth: 1
 - **return**
   - `accountBlock : AccountBlock` 规范的 accountBlock
   
+```javascript ::Demo
+import { getAccountBlock } from '@vite/vitejs-accountblock';
+
+const block = {
+    accountAddress: 'vite_155e4e83fb0499dcc3047e0458bbfae77f2ac1270e38c176f8',
+    blockType: 2,
+    snapshotHash: 'ff91866c4393566c44a667e8344c1567a12fdefa27093a69fed6ecbf4cb02046'
+};
+
+const formatBlock = getAccountBlock({
+    accountAddress: 'vite_155e4e83fb0499dcc3047e0458bbfae77f2ac1270e38c176f8',
+    blockType: 2,
+    snapshotHash: 'ff91866c4393566c44a667e8344c1567a12fdefa27093a69fed6ecbf4cb02046'
+});
+```
 
 ## getSendTxBlock 
 获取规范的 send accountBlock
@@ -43,6 +61,16 @@ sidebarDepth: 1
 - **return**
   - `builtinTxType : BuiltinTxType` 交易类型
   
+```javascript ::Demo
+import { getAccountBlock } from '@vite/vitejs-accountblock';
+
+const RevokeVoting = {
+    blockType: 2,
+    data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB',
+    toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
+};
+```
+
 ## getBlockHash
 获取块hash
 
