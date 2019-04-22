@@ -295,8 +295,6 @@ sidebarDepth: 4
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id
-
 - **Returns**: 
 
 `Array&lt;CandidateInfo&gt;`
@@ -315,9 +313,7 @@ sidebarDepth: 4
    "jsonrpc":"2.0",
    "id": 1,
    "method":"register_getCandidateList",
-   "params": [
-      "00000000000000000001"
-    ]
+   "params": []
 }
 ```
 
