@@ -266,7 +266,7 @@ sidebarDepth: 4
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "method":"register_getAvailableReward",
+   "method":"register_getRewardByDay",
    "params": [
       "00000000000000000001",
       1555567989
