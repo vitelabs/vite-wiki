@@ -96,7 +96,7 @@ Return the detailed account information, including the height of account chain a
 - **Example**:
 
 ::: demo
-```json tab::Request
+```json tab:Request
 {
 	"jsonrpc": "2.0",
 	"id": 5,

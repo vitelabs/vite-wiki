@@ -97,7 +97,7 @@
     },
     data: function () {
       let codeList = this.$slots.default
-      console.log(this.$slots.default)
+      // console.log(this.$slots.default)
       if (!Array.isArray(codeList)) {
         codeList = []
       }

@@ -2,7 +2,8 @@
   "name": "doc.vite.org",
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "build": "vuepress build docs",
+    "debug": "vuepress dev docs --debug --no-cache"
   },
   "homepage": "https://vitelabs.github.io/doc.vite.org/",
   "devDependencies": {
