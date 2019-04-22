@@ -113,7 +113,7 @@ RPC接口，创建一个指定参数的新日志事件filter，创建成功后�
 - **Parameters**:
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围
+    1. `addrRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围，必须至少指定一个账户地址
     2. `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
     
 `Range`
