@@ -49,7 +49,10 @@
 {
     "jsonrpc": "2.0",
     "id": 17,
-    "result": "67108864"
+    "result": {
+        "quota": 21000,
+        "difficulty": "65534"
+    }
 }
 ```
 :::
