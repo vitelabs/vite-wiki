@@ -28,7 +28,7 @@
  * 按需配置 `PublicModules` ，在 `PublicModules` 中配置的模块可以通过RPC或者WS调用，见[模块列表](../../api/rpc/)。
  
 node_config.json完整示例：
-```
+```json
 {
   "NetID": 5,
   "Identity": "test",
@@ -41,8 +41,6 @@ node_config.json完整示例：
   "IPCEnabled": true,
   "TopoDisabled": true,
   "LogLevel": "info",
-  "EntropyStorePath":"vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
-  "EntropyStorePassword":"123",
   "Single":true,
   "RPCEnabled": true,
   "HttpHost": "0.0.0.0",
@@ -79,8 +77,25 @@ node_config.json完整示例：
 }
 ```
 其中挖矿节点keystore文件 `vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906` 内容为：
-```
-{"primaryAddress":"vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906","crypto":{"ciphername":"aes-256-gcm","ciphertext":"807e09cc3e9f48c1742b22096404d98ba61e5c892994242515d48eb84cbee5f2ed93c7805ec32adb259e166fcd62428b","nonce":"41d76fee25bfa544b8212cf6","kdf":"scrypt","scryptparams":{"n":262144,"r":8,"p":1,"keylen":32,"salt":"64c5f11657f91680c53bf8b618416a2a4d0c8e46c2cc6dc753fd11c9fc77441c"}},"seedstoreversion":1,"timestamp":1544422238}
+```json
+{
+	"primaryAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
+	"crypto": {
+		"ciphername": "aes-256-gcm",
+		"ciphertext": "807e09cc3e9f48c1742b22096404d98ba61e5c892994242515d48eb84cbee5f2ed93c7805ec32adb259e166fcd62428b",
+		"nonce": "41d76fee25bfa544b8212cf6",
+		"kdf": "scrypt",
+		"scryptparams": {
+			"n": 262144,
+			"r": 8,
+			"p": 1,
+			"keylen": 32,
+			"salt": "64c5f11657f91680c53bf8b618416a2a4d0c8e46c2cc6dc753fd11c9fc77441c"
+		}
+	},
+	"seedstoreversion": 1,
+	"timestamp": 1544422238
+}
 ```
 
 ## 修改创世块配置genesis.json
@@ -92,7 +107,7 @@ genesis_config.json完整示例，包含以下内容：
  * vite代币信息
  * 用于获得配额的2个抵押信息
  * 4个账户的余额（其中包括两个内置合约）
-```
+```json
 {
   "GenesisAccountAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
   "ForkPoints": null,
