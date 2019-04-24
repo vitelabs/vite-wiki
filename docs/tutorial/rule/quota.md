@@ -6,28 +6,28 @@ Please note this is not a technical document, but mainly describes quota and quo
 The Definitions of Terms:
 * **Quota**： In Vite system, transactions consume quota for exchanging computing and storage resources.
 * **${\rm PoW}$**： Proof of Work, used to prove a certain amount of computation has been performed.
-* **Stake**： A quantity of ${\it vite}$ in the account is frozen and cannot be spent, usually for quota in return.
+* **Stake**： A quantity of VITE in the account is frozen and cannot be spent, usually for quota in return.
 * **Staking address**：The account who starts the staking transaction.
 * **Quota recipient address**：The account who receives quota.
 :::
 
-## What is quota
+## What is Quota
 
 In Ethereum, transactions have to compete with each other by specifying attractive gas price as transaction fee. The higher gas price the bigger chance the transaction has to be processed by the miner. This is a typical bidding model. In principle, the gap between supply and demand can be effectively balanced by price. However, because it is difficult for users to determine the current supply and demand before bidding, in addition to the impossibility of predicting other competitors, market failure could be caused often. Moreover, since all the competing bids are simply applied to transactions, no effective solution is implemented to allocate TPS resources among accounts.
 In Vite, a certain amount of quota is consumed when the user initiates a transaction, such as transfer, deploying smart contract, invoking smart contract method, issuing new token, registering SBP, retrieving mining rewards, voting or staking. Vite has designed a quota model to balance between resource supply and demand.
 
 Users are able to acquire quota in two ways:
 * Compute a ${\rm PoW}$ when doing a transaction, or
-* Stake a amount of ${\it vite}$ in the account.
+* Stake a amount of VITE in the account.
 
 If the user only needs to send a transaction, he may calculate a ${\rm PoW}$ to get a small amount of free quota on demand.
-If the user need send frequent transactions constantly, he should stake ${\it vite}$ to get enough quota.
+If the user need send frequent transactions constantly, he should stake VITE to get enough quota.
 
 We recommend users to obtain quota by staking.
 
-## Quota usage rules
+## Quota Consumption Rules
 
-Different transactions consume different amount of quota. In Vite TestNet, the quota required for various transaction types are as follows:
+Different types of transactions consume different amount of quota, as defined in following table:
 
 |  Transaction type  | Quota consumed |
 |:------------:|:-----------:|
@@ -36,107 +36,116 @@ Different transactions consume different amount of quota. In Vite TestNet, the q
 | Register SBP | 62200 |
 | Update SBP registration | 62200 |
 | Revoke SBP registration | 83200 |
-| Retrieve mining rewards | 238800 |
+| Retrieve mining rewards | 68200 |
 | Vote | 62000 |
 | Cancel voting | 62000 |
-| Stake for quota | 21000 |
-| Cancel staking | 21000 |
+| Stake for quota | 82000 |
+| Cancel staking | 73000 |
+| Stake for quota via delegation | 82000 |
+| Cancel staking via delegation | 73000 |
 | Issue new token | 104525 |
+| Retrieve token issuance staking | 83200 |
 | Mint additional token | 69325 |
 | Burn token | 48837 |
 | Transfer token ownership | 58981 |
 | Change token type | 63125 |
 
-In addition, comment consumes additional quota - 4 quota for zero character and 68 quota for each non-zero character.
+In addition, each character in transaction comment consumes an additional 68 quota.
 
-For example, given hex encoding is used, to send a transfer transaction with the comment of 0x0001 (having two characters in total while the first is zero and the second is non-zero). The consumed quota is:
+For example, given hex encoding is used, sending a normal transfer with a comment of '0x0001' (counting two characters) will consume a quota of:
 
-$${\it Q} = 21000 + 4 * 1 + 68 * 1 = 21072$$
+$${\it Q} = 21000 + 68 * 2 = 21136$$
 
-## Quota calculation
+## Quota Calculation
 
-Quotas are calculated by the following formula:
+Quotas are calculated in the following formula:
 
-$${\it Q}={\it Qm} \times (1- \frac{2}{1+e^{\xi d \times \rho d +\xi s \times T \times \rho s}})$$
+$${\it Q}={\it Qm} \times (1- \frac{2}{1+e^{\xi d \times \rho d +\xi s \times \rho s}})$$
 
-* ${\it Q}$: The current available quota of the account;
-* ${\it Qm}$: The quota cap of a single account, related to total system throughput and total number of accounts;
-* $\xi d$: The ${\rm PoW}$ difficulty computed by the account when sending a transaction;
-* $\rho d$: The weight of the quota obtained by computing ${\rm PoW}$;
-* $\xi s$: The amount of ${\it vite}$ staked by the account;
-* $T$: The waiting time before sending a transaction, equivalent to height different between the snapshot block that current transaction refers to and an older snapshot block that previous transaction refers to.
-* $\rho s$: The weight of the quota obtained by staking.
+* ${\it Q}$: The quota available to an account during the last 75 snapshot blocks
+* ${\it Qm}$: The quota cap of a single account, related to total system throughput and total number of accounts
+* $\xi d$: The ${\rm PoW}$ difficulty computed by the account when sending a transaction
+* $\rho d$: The weight of the quota obtained by computing ${\rm PoW}$
+* $\xi s$: The amount of VITE staked by the account
+* $T$: The waiting time before sending a transaction, equivalent to height different between the snapshot block that current transaction refers to and an older snapshot block that previous transaction refers to
+* $\rho s$: The weight of the quota obtained by staking
+
+UTPS is used to measure the trading frequency of an account, which translates to how many un-commented transfer transactions can be initiated in one account within 1s. UTPS calculation formula is as follows:
+
+$${\it UTPS}=\frac{\it Q}{75 * 21000}$$
 
 In TestNet some are constants,
 * ${\it Qm}$ = 1000000
-* $\rho d$ = 6.259419649e-10
-* $\rho s$ = 4.200627522e-24
+* $\rho d$ = 6.259408129e-10
+* $\rho s$ = 4.201037667e-06
 
 For the convenience in actual calculation, only $(\xi d \times \rho d +\xi s \times T \times \rho s)$ is calculated. The result is mapped into corresponding quota based on the following table:
 
-|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | The maximum number of uncommented transactions can be sent in a snapshot | Approximately equivalent to how much ${\it vite}$ is staked without computing ${\rm PoW}$ | Approximately equivalent to how much ${\rm PoW}$ is calculated without staking |
+|  $(\xi d \times \rho d +\xi s \times T \times \rho s)$ | ${\it Q}$ | UTPS | Approximately equivalent to how much VITE is staked without computing ${\rm PoW}$ | Approximately equivalent to how much ${\rm PoW}$ is calculated without staking |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0.0 | 0 | 0 | 0 | 0 |
-| $(0.0, 0.042006175634155006]$ | 21000 | 1 | 10000 | 67108864 |
-| $(0.042006175634155006, 0.08404944434245186]$ | 42000 | 2 | 20009 | 134276096 |
-| $(0.08404944434245186, 0.1261670961035256]$ | 63000 | 3 | 30036 | 201564160 |
-| $(0.1261670961035256, 0.16839681732546105]$ | 84000 | 4 | 40089 | 269029376 |
-| $(0.16839681732546105, 0.2107768956769977]$ | 105000 | 5 | 50178 | 336736256 |
-| $(0.2107768956769977, 0.25334643304410037]$ | 126000 | 6 | 60312 | 404742144 |
-| $(0.25334643304410037, 0.2961455696376917]$ | 147000 | 7 | 70501 | 473120768 |
-| $(0.2961455696376917, 0.3392157225669637]$ | 168000 | 8 | 80754 | 541929472 |
-| $(0.3392157225669637, 0.382599842575369]$ | 189000 | 9 | 91082 | 611241984 |
-| $(0.382599842575369, 0.4263426931297194]$ | 210000 | 10 | 101495 | 681119744 |
-| $(0.4263426931297194, 0.4704911566788094]$ | 231000 | 11 | 112005 | 751652864 |
-| $(0.4704911566788094, 0.5150945736855665]$ | 252000 | 12 | 122623 | 822910976 |
-| $(0.5150945736855665, 0.5602051210238872]$ | 273000 | 13 | 133362 | 894976000 |
-| $(0.5602051210238872, 0.605878237567604]$ | 294000 | 14 | 144235 | 967946240 |
-| $(0.605878237567604, 0.6521731063496397]$ | 315000 | 15 | 155256 | 1041903616 |
-| $(0.6521731063496397, 0.6991532046201573]$ | 336000 | 16 | 166440 | 1116962816 |
-| $(0.6991532046201573, 0.7468869355972497]$ | 357000 | 17 | 177804 | 1193222144 |
-| $(0.7468869355972497, 0.7954483588344243]$ | 378000 | 18 | 189364 | 1270800384 |
-| $(0.7954483588344243, 0.8449180401302736]$ | 399000 | 19 | 201141 | 1349836800 |
-| $(0.8449180401302736, 0.8953840470548413]$ | 420000 | 20 | 213156 | 1430462464 |
-| $(0.8953840470548413, 0.9469431228444231]$ | 441000 | 21 | 225428 | 1512824832 |
-| $(0.9469431228444231, 0.9997020801479394]$ | 462000 | 22 | 237989 | 1597120512 |
-| $(0.9997020801479394, 1.053779467629503]$ | 483000 | 23 | 250862 | 1683513344 |
-| $(1.053779467629503, 1.1093075777848576]$ | 504000 | 24 | 264082 | 1772216320 |
-| $(1.1093075777848576, 1.1664348850068706]$ | 525000 | 25 | 277682 | 1863491584 |
-| $(1.1664348850068706, 1.2253290311060194]$ | 546000 | 26 | 291702 | 1957568512 |
-| $(1.2253290311060194, 1.286180514353531]$ | 567000 | 27 | 306188 | 2054791168 |
-| $(1.286180514353531, 1.3492072924575544]$ | 588000 | 28 | 321192 | 2155479040 |
-| $(1.3492072924575544, 1.4146605870070175]$ | 609000 | 29 | 336772 | 2260041728 |
-| $(1.4146605870070175, 1.4828322881625378]$ | 630000 | 30 | 353004 | 2368962560 |
-| $(1.4828322881625378, 1.554064521717701]$ | 651000 | 31 | 369958 | 2482757632 |
-| $(1.554064521717701, 1.6287621852605034]$ | 672000 | 32 | 387743 | 2602090496 |
-| $(1.6287621852605034, 1.707409634545938]$ | 693000 | 33 | 406468 | 2727755776 |
-| $(1.707409634545938, 1.7905932883378723]$ | 714000 | 34 | 426270 | 2860646400 |
-| $(1.7905932883378723, 1.8790328663947373]$ | 735000 | 35 | 447322 | 3001933824 |
-| $(1.8790328663947373, 1.97362554890186]$ | 756000 | 36 | 469840 | 3153051648 |
-| $(1.97362554890186, 2.0755100566945326]$ | 777000 | 37 | 494096 | 3315826688 |
-| $(2.0755100566945326, 2.186162517630361]$ | 798000 | 38 | 520436 | 3492593664 |
-| $(2.186162517630361, 2.3075451472522963]$ | 819000 | 39 | 549332 | 3686514688 |
-| $(2.3075451472522963, 2.4423470353692043]$ | 840000 | 40 | 581427 | 3901882368 |
-| $(2.4423470353692043, 2.594395323511559]$ | 861000 | 41 | 617620 | 4144775168 |
-| $(2.594395323511559, 2.7694056956796604]$ | 882000 | 42 | 659288 | 4424400896 |
-| $(2.7694056956796604, 2.976475888792767]$ | 903000 | 43 | 708576 | 4755193856 |
-| $(2.976475888792767, 3.2314282909393213]$ | 924000 | 44 | 769276 | 5162500096 |
-| $(3.2314282909393213, 3.5656840708200748]$ | 945000 | 45 | 848844 | 5696520192 |
-| $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 965904 | 6482067456 |
-| $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 1197301 | 8034975744 |
+| $(0, 0.042006175634155006]$ | 1575000 | 1 | 10000 | 67108863 |
+| $(0.042006175634155006, 0.08404944434245186]$ | 3150000 | 2 | 20007 | 134217735 |
+| $(0.08404944434245186, 0.1261670961035256]$ | 4725000 | 3 | 30033 | 201326629 |
+| $(0.1261670961035256, 0.16839681732546105]$ | 6300000 | 4 | 40085 | 268435554 |
+| $(0.16839681732546105, 0.2107768956769977]$ | 7875000 | 5 | 50173 | 335544521 |
+| $(0.2107768956769977, 0.25334643304410037]$ | 9450000 | 6 | 60306 | 402653541 |
+| $(0.25334643304410037, 0.2961455696376917]$ | 11025000 | 7 | 70494 | 469762624 |
+| $(0.2961455696376917, 0.3392157225669637]$ | 12600000 | 8 | 80746 | 536871780 |
+| $(0.3392157225669637, 0.382599842575369]$ | 14175000 | 9 | 91073 | 603981021 |
+| $(0.382599842575369, 0.4263426931297194]$ | 15750000 | 10 | 101486 | 671090357 |
+| $(0.4263426931297194, 0.4704911566788094]$ | 17325000 | 11 | 111995 | 738199798 |
+| $(0.4704911566788094, 0.5150945736855665]$ | 18900000 | 12 | 122612 | 805309354 |
+| $(0.5150945736855665, 0.5602051210238872]$ | 20475000 | 13 | 133350 | 872419037 |
+| $(0.5602051210238872, 0.605878237567604]$ | 22050000 | 14 | 144222 | 939528856 |
+| $(0.605878237567604, 0.6521731063496397]$ | 23625000 | 15 | 155241 | 1006638823 |
+| $(0.6521731063496397, 0.6991532046201573]$ | 25200000 | 16 | 166424 | 1073748948 |
+| $(0.6991532046201573, 0.7468869355972497]$ | 26775000 | 17 | 177787 | 1140859241 |
+| $(0.7468869355972497, 0.7954483588344243]$ | 28350000 | 18 | 189346 | 1207969713 |
+| $(0.7954483588344243, 0.8449180401302736]$ | 29925000 | 19 | 201122 | 1275080375 |
+| $(0.8449180401302736, 0.8953840470548413]$ | 31500000 | 20 | 213135 | 1342191236 |
+| $(0.8953840470548413, 0.9469431228444231]$ | 33075000 | 21 | 225407 | 1409302308 |
+| $(0.9469431228444231, 0.9997020801479394]$ | 34650000 | 22 | 237966 | 1476413601 |
+| $(0.9997020801479394, 1.053779467629503]$ | 36225000 | 23 | 250838 | 1543525125 |
+| $(1.053779467629503, 1.1093075777848576]$ | 37800000 | 24 | 264056 | 1610636891 |
+| $(1.1093075777848576, 1.1664348850068706]$ | 39375000 | 25 | 277654 | 1677748910 |
+| $(1.1664348850068706, 1.2253290311060194]$ | 40950000 | 26 | 291673 | 1744861192 |
+| $(1.2253290311060194, 1.286180514353531]$ | 42525000 | 27 | 306158 | 1811973748 |
+| $(1.286180514353531, 1.3492072924575544]$ | 44100000 | 28 | 321161 | 1879086588 |
+| $(1.3492072924575544, 1.4146605870070175]$ | 45675000 | 29 | 336741 | 1946199722 |
+| $(1.4146605870070175, 1.4828322881625378]$ | 47250000 | 30 | 352969 | 2013313162 |
+| $(1.4828322881625378, 1.554064521717701]$ | 48825000 | 31 | 369924 | 2080426917 |
+| $(1.554064521717701, 1.6287621852605034]$ | 50400000 | 32 | 387705 | 2147540999 |
+| $(1.6287621852605034, 1.707409634545938]$ | 51975000 | 33 | 406426 | 2214655417 |
+| $(1.707409634545938, 1.7905932883378723]$ | 53550000 | 34 | 426227 | 2281770183 |
+| $(1.7905932883378723, 1.8790328663947373]$ | 55125000 | 35 | 447279 | 2348885307 |
+| $(1.8790328663947373, 1.97362554890186]$ | 56700000 | 36 | 469795 | 2416000799 |
+| $(1.97362554890186, 2.0755100566945326]$ | 58275000 | 37 | 494048 | 2483116670 |
+| $(2.0755100566945326, 2.186162517630361]$ | 59850000 | 38 | 520387 | 2550232930 |
+| $(2.186162517630361, 2.3075451472522963]$ | 61425000 | 39 | 549280 | 2617349590 |
+| $(2.3075451472522963, 2.4423470353692043]$ | 63000000 | 40 | 581368 | 2684466661 |
+| $(2.4423470353692043, 2.594395323511559]$ | 64575000 | 41 | 617561 | 2751584152 |
+| $(2.594395323511559, 2.7694056956796604]$ | 66150000 | 42 | 659220 | 2818702076 |
+| $(2.7694056956796604, 2.976475888792767]$ | 67725000 | 43 | 708510 | 2885820441 |
+| $(2.976475888792767, 3.2314282909393213]$ | 69300000 | 44 | 769198 | 2952939259 |
+| $(3.2314282909393213, 3.5656840708200748]$ | 70875000 | 45 | 848763 | 3020058540 |
+| $(3.5656840708200748, 4.057395776090949]$ | 72450000 | 46 | 965808 | 3087178295 |
+| $(4.057395776090949, 5.029431885090279]$ | 74025000 | 47 | 1197189 | 3154298534 |
 
-For example, without calculating ${\rm PoW}$, staking 10000${\it vite}$ should meet a transaction rate of up to 1${\rm TPS}$ and 2${\rm TPS}$ rate can be reached by 20009${\it vite}$ stake. Staking 10${\it vite}$ and waiting 1000 snapshot blocks (about 16 minutes and 40 seconds) is also sufficient to send a transfer transaction without comment.
-## Two ways of obtaining quota
+For example, given no ${\rm PoW}$ is worked out, staking 10000 VITE can satisfy a demand of tx rate up to 1${\rm UTPS}$, or 20007 VITE to 2${\rm UTPS}$. 
+Staking 134 VITE and waiting 75 snapshot blocks(about 1 minutes and 25 seconds) also qualifies for sending a transfer transaction without comment.
 
-### Stake
+## Two Methods to Obtain Quota
 
-Users can obtain quota by sending a stake transaction to built-in contract. When the transaction is received and confirmed, the specified quota recipient account will be granted with the corresponding quota.
+### Staking
+
+Quota can be obtained through staking. The specified recipient account will receive the corresponding quota after the staking transaction is processed successfully.
 
 #### Parameters
-* Staking amount: The minimum staking amount is 1000${\it vite}$.
+* Staking amount: The minimum staking amount is 134 VITE
 * Quota recipient address: The account who receives quota, could be the staking account itself or any other account since staking for other accounts is permitted.
 
-The staked ${\it vite}$ will be temporarily deducted from balance, and cannot be traded during staking period.
+The Vite tokens staked will be temporarily deducted from user's balance and cannot be transferred during staking period.
 The staking account can retrieve staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. After this transaction is received and confirmed, the corresponding quota in the quota recipient account won't exist any more.
 
 ### Computing PoW
@@ -145,7 +154,7 @@ The user can obtain an one-time quota by computing a ${\rm PoW}$ upon transactio
 
 In the TestNet, we have built a ${\rm PoW}$ pool, which provides the capability to obtain transaction quotas by calculating PoW in Vite official wallet.
 
-#### PoW formula
+#### PoW Formula
 
 1. Convert $difficulty$ to $target$ in following formula:
 
@@ -164,6 +173,12 @@ $$blake2b(address+prevHash) + nonce < target$$
 * $address$: User account address
 * $prevHash$: Hash of previous account block
 
+## Staking via Delegation
+
+A general process of delegated staking is that Account A delegates Account B to stake a certain amount of VITE to Account C. 
+In this scenario, the staker is A, the quota recipient is C, and B is the delegate. 
+Similarly, when delegated staking is retrieved, Account B is authorized by Account A to retrieve the Vite tokens that was previously staked to Account C.
+
 ## FAQ
 
 * Can I stake for multiple quota recipient addresses?
@@ -174,9 +189,9 @@ Yes. You need to send multiple staking transactions to different quota recipient
 
 Yes, the staking amount for this recipient will be accumulated. Staking expiration time = height of snapshot block referenced by the response block of last staking transaction + 259200.
 
-* Can I have my ${\it vite}$, which was staked to a recipient address, be retrieved in multiple times?
+* Can I retrieve my VITE, which was staked to a recipient address, in multiple times?
 
-Yes. After stake expires, staked ${\it vite}$ can be retrieved in multiple times. Stake retrieval won't change the expiration time.
+Yes. After stake expires, staked VITE can be retrieved in multiple times. Stake retrieval won't change the expiration time.
 
 * Is a stake retrievable if it has not expired yet?
 
@@ -184,7 +199,7 @@ No. However, the stake can be retrieved at any time after it expires.
 
 * Will the quota obtained by staking be used up?
 
-Quota obtained through staking is related to staking amount and snapshot block height difference during the period in which no transaction has taken place, and continues to be effective as long as the staked ${\it vite}$ is not retrieved. If the wallet shows your current quota is 0, it may increase after waiting for a while.
+Quota obtained through staking is related to staking amount and snapshot block height difference during the period in which no transaction has taken place, and continues to be effective as long as the staked VITE is not retrieved. If the wallet shows your current quota is 0, it may increase after waiting for a while.
 
 * Can a recipient accept quota staked from multiple staking addresses?
 
@@ -196,4 +211,4 @@ Yes, an individual receiving transaction consumes 21,000 quota.
 
 * How to receive the first transaction in a new account if I don't stake?
 
-If you don't have ${\it vite}$ to stake, you can calculate ${\rm PoW}$ to get one-time quota instead.
+If you don't have VITE to stake, you can calculate ${\rm PoW}$ to get one-time quota instead.
