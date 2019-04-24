@@ -25,7 +25,7 @@ ABI：
   // 给出块节点投票
   {"type":"function","name":"Vote", "inputs":[{"name":"gid","type":"gid"},{"name":"nodeName","type":"string"}]},
   // 取消投票
-  {"type":"function","name":"CancelVote","inputs":[{"name":"gid","type":"gid"}]},
+  {"type":"function","name":"CancelVote","inputs":[{"name":"gid","type":"gid"}]}
 ]
 ```
 

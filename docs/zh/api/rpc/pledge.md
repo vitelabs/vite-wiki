@@ -18,6 +18,10 @@ ABI：
   {"type":"function","name":"Pledge", "inputs":[{"name":"beneficial","type":"address"}]},
   // 取消抵押
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
+  // 代理抵押
+  {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
+  // 代理取消抵押
+  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
 ]
 ```
 
@@ -73,6 +77,79 @@ ABI：
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       10
+    ]
+}
+```
+
+:::
+
+## pledge_getAgentPledgeData
+获取代理抵押交易请求数据，也可以通过对ABI中的`AgentPledge`方法编码获取交易请求数据。
+
+- **Parameters**: 
+
+`Object`
+  1. `pledgeAddr`:`Address`  实际抵押地址
+  2. `beneficialAddr`:`Address`  抵押受益地址
+  3. `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期时间也会顺延
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"pledge_getAgentPledgeData",
+   "params":[
+      {
+      	"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23",
+      	"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+      	"bid":1
+      }
+   ]
+}
+```
+
+:::
+
+## pledge_getAgentCancelPledgeData
+获取代理撤销抵押交易请求数据，也可以通过对ABI中的`AgentCancelPledge`方法编码获取交易请求数据。
+
+- **Parameters**: 
+
+`Object`
+  1. `pledgeAddr`:`Address`  实际抵押地址
+  2. `beneficialAddr`:`Address`  抵押受益地址
+  3. `bid`:`uint8`  业务id
+  4. `amount`:`big.Int`  撤销金额
+
+- **Returns**: 
+	- `[]byte` Data
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"pledge_getAgentCancelPledgeData",
+   "params":[
+      {
+      	"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23",
+      	"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+      	"amount":"200000000000000000000",
+      	"bid":1
+      }
     ]
 }
 ```
@@ -140,6 +217,9 @@ ABI：
      * `withdrawHeight`: `uint64`  到期快照块高度
      * `beneficialAddr`: `Address`  受益地址
      * `withdrawTime`: `int64`  预计到期时间
+     * `agent`: `bool`  是否代理抵押，true-代理抵押 false-普通抵押
+     * `agentAddress`: `Address`  代理地址，普通抵押时，代理地址为0
+     * `bid`: `uint8`  业务id，普通抵押时，业务id为0
     
 
 - **Example**:
@@ -169,7 +249,10 @@ ABI：
           "amount":10000000000000000000,
           "withdrawHeight":259200,
           "beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-          "withdrawTime":1540213336
+          "withdrawTime":1540213336,
+          "agent":false,
+          "agentAddress":"vite_0000000000000000000000000000000000000000a4f3a0cb58",
+          "bid":0
         }
       ]
    }
