@@ -1,47 +1,62 @@
+# PrivToAddr
 
-# privToAddr
+## Installation
 
-:::tip abstract
-@vitejs/vitejs-privtoaddr
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-privtoaddr --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-privtoaddr
+```
 :::
+
+## Import
 
 ```javascript import
 import { privToAddr } from '@vite/vitejs';
-
 // Or
 import * as privToAddr from '@vite/vitejs-privtoaddr';
 ```
 
-## newHexAddr
+## Methods
+
+### newHexAddr
 Generating hex address according to private key
 
-- **params**
+- **Parameters**
   - `privateKey? : string | buffer` Private key
-- **return**
+
+- **Return**
   - `addrObj : AddrObj`
 
+- **Example**
 ```javascript ::Demo
 import { newHexAddr } from '@vite/vitejs-privtoaddr';
 
 const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 ```
 
-## newHexAddrFromPub
+### newHexAddrFromPub
 Generating hex address according to public key
 
-- **params**
+- **Parameters**
   - `publickey : string | buffer` Public key
-- **return**
+
+- **Return**
   - `hexaddr : HexAddr` Hex encoded address
 
-## getAddrFromHexAddr
+### getAddrFromHexAddr
 Get real address
 
-- **params**
+- **Parameters**
   - `hexaddr : HexAddr` Hex encoded address
-- **return**
+
+- **Return**
   - `addr : Addr` Real address
 
+- **Example**
 ```javascript ::Demo
 import { getAddrFromHexAddr } from '@vite/vitejs-privtoaddr';
 
@@ -49,18 +64,20 @@ const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587e
 // addr = '69f3bdb5cdcfa145ae6cc42593a89088ff3dac58'
 ```
 
-## getHexAddrFromAddr
+### getHexAddrFromAddr
 Generating hex address according to real address
 
-- **params**
+- **Parameters**
   - `addr : Addr` Real address
-- **return**
+
+- **Return**
   - `hexaddr : HexAddr` Hex encoded address
 
-## isValidHexAddr
+### isValidHexAddr
 Verify if it is a legal hex address
 
-- **params**
+- **Parameters**
   - `hexaddr : HexAddr` Hex encoded address
-- **return**
+  
+- **Return**
   - `validate : boolean` Legal or not

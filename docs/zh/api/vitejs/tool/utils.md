@@ -1,12 +1,21 @@
-# utils
+# Utils
 
-:::tip abstract
-@vitejs/vitejs-utils
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-utils --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-utils
+```
 :::
 
-```javascript 引入
-import { utils } from '@vite/vitejs';
+## 引入
 
+```javascript import
+import { utils } from '@vite/vitejs';
 // Or
 import * as utils from '@vite/vitejs-utils';
 ```
@@ -14,14 +23,15 @@ import * as utils from '@vite/vitejs-utils';
 ## checkParams 
 检验参数
 
-- **params**
+- **Parameters**
   - `obj : Object` 参与校验的参数
   - `requiredP : Array<string>` 定义必填参数
   - `validFunc : Array<{ name, func, msg? }>` 校验函数
-- **return**
-  - `error : null | Object<code, message>`
-- **Example**:
 
+- **Return**
+  - `error : null | Object<code, message>`
+
+- **Example**:
 ```javascript ::Demo
 import { checkParams } from '@vite/vitejs-utils';
 
@@ -52,48 +62,54 @@ test(a); // Got an error
 ## getRawTokenId
 获取原始 token ID
 
-- **params**
+- **Parameters**
   - `tokenId : string` Token ID
-- **return**
+
+- **Return**
   - `rawTokenId : string` 原始 token ID
 
 ## getTokenIdFromRaw
 根据原始 token ID，获取展示 token ID
 
-- **params**
+- **Parameters**
   - `rawTokenId : string` 原始 token ID
-- **return**
+
+- **Return**
   - `tokenId : string` Token ID
 
 ## validNodeName 
 验证是否为合法的节点名称
 
-- **params**
+- **Parameters**
   - `str : string`  字符串
-- **return**
+
+- **Return**
   - `target : boolean` 验证结果: true(是), false(不是)
   
 ## validInteger
 判断输入的字符串是否为整数
 
-- **params**
+- **Parameters**
   - `num : string`  字符串
-- **return**
+
+- **Return**
   - `target : boolean` 验证结果: true(是), false(不是)
 
 ## uriStringify
 序列化一个 vite schema 的uri
 
-- **params**
+- **Parameters**
   - `opt : object`
     - `opt.schema:string?` default vite
     - `opt.target_address:vite Address string` 对方交易地址
-    - `opt.chain_id?`default  网络类型，默认主网
-    - `opt.function_name?`合约方法名
+    - `opt.chain_id?` 网络类型，默认主网
+    - `opt.function_name?` 合约方法名
     - `opt.params:object?` 其他参数
-- **return**
+
+- **Return**
   - `uri : string` 
-- **otherparams**
+
+- **Other Parameters**
   | 参数名 | 类型          | 描述                                     | 例子                                                  |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
   | amount     | number        | 交易数目                 |  1vite  amount=1 ,default :0               |
@@ -103,45 +119,53 @@ test(a); // Got an error
 
 ## isArray
 
-- **params**
+- **Parameters**
   - `params : any`
-- **return**
+
+- **Return**
   - `result : boolean`
 
 ## isObject
 
-- **params**
+- **Parameters**
   - `params : any`
-- **return**
+
+- **Return**
   - `result : boolean`
 
 ## bytesToHex 
-- **params**
+
+- **Parameters**
   - `arr : buffer`
-- **return**
+
+- **Return**
   - `addr : string` hex string  
   
 ## hexToBytes
-- **params**
+
+- **Parameters**
   - `hex : string` hex
-- **return**
+
+- **Return**
   - `arr : array` bytes
 
 ## getBytesSize 
 获取不同编码字符串的字节长度
 
-- **params**
+- **Parameters**
   - `str : string`  字符串
   - `charset : utf8 | utf16` 编码格式
-- **return**
+
+- **Return**
   - `length : number` 字节长度
   
 ## utf8ToBytes
 utf8字符串转换为字节
 
-- **params**
+- **Parameters**
   - `str : string` uft8编码字符串
-- **return**
+
+- **Return**
   - `target : Uint8Array` 字节
   
 ## blake2b 
@@ -155,48 +179,51 @@ utf8字符串转换为字节
 
 ## ed25519
 
-### KeyPairObj
-
-- `publicKey : Uint8Array with 32-byte public key` 公钥
-- `secretKey : Uint8Array with 64-byte secret key` 私钥
-
 ### keyPair 
 获取私钥对
 
-- **return**
+- **Return**
   - `keyPair : KeyPairObj` 私钥对
+
+- **KeyPairObj**
+    - `publicKey : Uint8Array with 32-byte public key` 公钥
+    - `privateKey : Uint8Array with 64-byte secret key` 私钥
   
 ### getPublicKey
 通过私钥获取公钥 (此私钥必须是由keyPair派生出来的)
 
-- **params**
+- **Parameters**
   - `privKey : Buffer` 私钥
-- **return**
+
+- **Return**
   - `publicKey : Uint8Array with 32-byte public key` 公钥
 
 ### sign 
 签名
 
-- **params**
+- **Parameters**
   - `message : string` 字符串
   - `privKey : buffer` 私钥
-- **return**
+
+- **Return**
   - `signature : Hex String` 签名结果
   
 ### verify
 验证
 
-- **params**
+- **Parameters**
   - `message : string` 字符串
   - `signature : Hex String` 签名结果
   - `publicKey : Buffer` 公钥
-- **return**
+
+- **Return**
   - `target : Boolean` 验证结果
   
 ### random
 生成随机数
 
-- **params**
+- **Parameters**
   - `bytesLen : number` 字节长度, default: 32
-- **return**
+  
+- **Return**
   - `num : Uint8Array` 随机数

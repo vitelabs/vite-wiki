@@ -1,33 +1,46 @@
-# netProcessor
+# NetProcessor
 
-:::tip abstract
-@vitejs/vitejs-netprocessor
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-netprocessor --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-netprocessor
+```
 :::
 
-```javascript import
-import { netProcessor } from '@vite/vitejs';
+## Import
 
+:::demo
+```javascript tab:ES6
+import { netProcessor } from '@vite/vitejs';
 // Or
 import netProcessor from '@vite/vitejs-netprocessor';
 ```
 
+```javascript tab:require
+const { netProcessor } = require('@vite/vitejs-netprocessor');
+```
+:::
+
 ## Constructor
 
-- **constructor params**
+- **Constructor Parameters**
     - `provider : Provider Instance`
     - `firstConnectCb : function` : Callback function of first connection
 
 - **Example**
-
 ```javascript
-
-import provider from '@vite/vitejs-ws';
+import WS_RPC from '@vite/vitejs-ws';
 import netProcessor from '@vite/vitejs-netprocessor';
 import { method } from '@vite/vitejs-constant';
 
-const WS_RPC = new provider("https://example.com");
+const wsProvider = new WS_RPC("https://example.com");
 
-const myNetProcessor = new netProcessor(WS_RPC, function(_myclient) {
+const myNetProcessor = new netProcessor(wsProvider, function(_myclient) {
     console.log("Connected.");
 });
 
@@ -36,9 +49,9 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 });
 ```
 
-## Instance Methods
+## Methods
 
-### setProvider (provider, abort)
+### setProvider
 Set provider
 
 - **Parameters**
@@ -54,8 +67,12 @@ Shortcut of `this.provider.notification`
 ### batch (RPCrequest[])
 Shortcut of `this.provider.batch`
 
-### subscribe (Methods, ...args)
+### subscribe
 Event Subscription: Share the same parameters passing mode with request
+
+- **Parameters**
+    * `methods : string` Method name
+    * `...args : boolean` Parameters
 
 - **Returns**:
     - Promise<`event`>
@@ -65,16 +82,14 @@ Event Subscription: Share the same parameters passing mode with request
     - off: Cancel event listener
 
 - **Example**
-
 ```javascript
-
-import provider from '@vite/vitejs-ws';
+import WS_RPC from '@vite/vitejs-ws';
 import netProcessor from '@vite/vitejs-netprocessor';
 import { client } from '@vite/vitejs';
 
-const WS_RPC = new provider("https://example.com");
+const wsProvider = new WS_RPC("https://example.com");
 
-const myNetProcessor = new netProcessor(WS_RPC, function(_myNetProcessor) {
+const myNetProcessor = new netProcessor(wsProvider, function(_myNetProcessor) {
     console.log("Connected.");
 });
 
@@ -86,13 +101,12 @@ myNetProcessor.subscribe('newAccountBlocks').then((event) => {
 }).catch(err => {
     console.warn(err);
 });
-
 ```
 
 ### unSubscribe
 Cancel Subscription
 
-- **params**: 
+- **Parameters**: 
   * `event`: return event of subscribe
 
 ### clearSubscriptions

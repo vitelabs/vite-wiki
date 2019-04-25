@@ -1,24 +1,37 @@
-# accountBlock
+# AccountBlock
 
-:::tip Abstract
-@vitejs/vitejs-accountblock
-::: 
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-accountblock --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-accountblock
+```
+:::
+
+## Import
 
 ```javascript import
 import { accountBlock } from '@vite/vitejs';
-
 // Or
 import * as accountBlock from '@vite/vitejs-accountblock';
 ```
 
-## getAccountBlock
+## Methods
+
+### getAccountBlock
 Get normative accountBlock
 
-- **params**
+- **Parameters**
   - `block : Object<blockType, accountAddress, snapshotHash, prevHash?, height?, fromBlockHash?, data?, message?, toAddress?, tokenId?, amount?, nonce?>` block
-- **return**
+
+- **Return**
   - `accountBlock : AccountBlock` 
 
+- **Example**
 ```javascript ::Demo
 import { getAccountBlock } from '@vite/vitejs-accountblock';
 
@@ -35,32 +48,36 @@ const formatBlock = getAccountBlock({
 });
 ```
 
-## getSendTxBlock 
+### getSendTxBlock 
 Get normative send accountBlock
 
-- **params**
+- **Parameters**
   - `block : Object<accountAddress, toAddress, tokenId, amount, message?, prevHash?, height?, snapshotHash?>` block
-- **return**
+
+- **Return**
   - `accountBlock : AccountBlock` 
   
-## getReceiveTxBlock
+### getReceiveTxBlock
 Get normative receive accountBlock
 
-- **params**
+- **Parameters**
   - `block : Object<accountAddress, fromBlockHash, prevHash?, height?, snapshotHash?>` block
-- **return**
+
+- **Return**
   - `accountBlock : AccountBlock` 
 
-## getBuiltinTxType 
+### getBuiltinTxType 
 Get specified transaction type
 
-- **params**
+- **Parameters**
   - `toAddress : string` ToAddress
   - `data : string` data 
   - `blockType : number`
-- **return**
+
+- **Return**
   - `builtinTxType : BuiltinTxType` Transaction Type
 
+- **Example**
 ```javascript ::Demo
 import { getAccountBlock } from '@vite/vitejs-accountblock';
 
@@ -74,17 +91,19 @@ const builtinTxType = getBuiltinTxType(RevokeVoting.toAddress, RevokeVoting.data
 // builtinTxType === 'RevokeVoting'
 ```
 
-## getBlockHash
+### getBlockHash
 
-- **params**
+- **Parameters**
   - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
-- **return**
+
+- **Return**
   - `blockHash : string`
   
-## signAccountBlock
+### signAccountBlock
 
-- **params**
+- **Parameters**
   - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
   - `privKey : string` Private Key 
-- **return**
+
+- **Return**
   - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?, hash, signature, publicKey>` AccountBlock after signing

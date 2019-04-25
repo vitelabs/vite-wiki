@@ -1,20 +1,28 @@
-# abi
+# Abi
 
-:::tip abstract
-@vitejs/vitejs-abi
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-abi --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-abi
+```
 :::
 
-```javascript 引入
-import { abi } from '@vite/vitejs';
+## 引入
 
+```javascript import
+import { abi } from '@vite/vitejs';
 // Or
 import * as abi from '@vite/vitejs-abi';
 ```
 
-:::tip
-合约方法参数类型说明
+## 参数类型说明
 合约方法（包括构造方法、异步调用、离线读取）可以包含多个参数，其中离线读取接口还可以包含多个返回值，目前支持以下参数类型：
-:::
+
 
 | 参数类型 | 名称 | 示例 | 编码前示例 | 编码后示例 |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
@@ -44,14 +52,18 @@ import * as abi from '@vite/vitejs-abi';
 }
 ```
 
-## encodeLogSignature
+## Methods
 
-- **params**
+### encodeLogSignature
+
+- **Parameters**
   - `jsonInterface | Array<jsonInterface>`
   - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi)
-- **return**
+
+- **Return**
   - `hexString`
 
+- **Example**
 ```js ::Demo
 let encodeLogSignatureResult1 = abi.encodeLogSignature({
     'type': 'event',
@@ -68,14 +80,16 @@ let encodeLogSignatureResult22 = abi.encodeLogSignature([
 // 17c53855485cba60b5dea781a996394bb9d3b44bc8932b3adf79ac70e908b220
 ```    
 
-## encodeFunctionSignature
+### encodeFunctionSignature
 
-- **params**
+- **Parameters**
   - `jsonInterface | Array<jsonInterface>`
   - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi)
-- **return**
+
+- **Return**
   - `hexString`
 
+- **Example**
 ```js ::Demo
 let encodeMethodResult1 = abi.encodeFunctionSignature({
     'type': 'function',
@@ -85,15 +99,17 @@ let encodeMethodResult1 = abi.encodeFunctionSignature({
 // 053f71a4
 ```  
 
-## encodeFunctionCall
+### encodeFunctionCall
 
-- **params**
+- **Parameters**
   - `jsonInterface | Array<jsonInterface>`
   - `params`
   - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi)
-- **return**
+
+- **Return**
   - `hexString`
 
+- **Example**
 ```js ::Demo
 let result = abi.encodeFunctionCall({
     name: 'myMethod',
@@ -132,14 +148,16 @@ let result1 = abi.encodeFunctionCall([{
 // 96173f6c000000000000000000000000000000000000000000000000000000008bd02b7b0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000748656c6c6f212500000000000000000000000000000000000000000000000000
 ```  
 
-## encodeParameter
+### encodeParameter
 
-- **params**
+- **Parameters**
   - `type`
   - `params` 当第一个参数为数组类型时, 第二个参数应传数组(二者类型应一致)
-- **return**
+
+- **Return**
   - `hexString`
 
+- **Example**
 ```js ::Demo
 let _r = abi.encodeParameter('uint256', '2345675643');
 // 000000000000000000000000000000000000000000000000000000008bd02b7b
@@ -148,14 +166,16 @@ let encodeParameterResult4 = abi.encodeParameter('uint16[]', [1,2]);
 // 000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002
 ```  
 
-## decodeParameter
+### decodeParameter
 
-- **params**
+- **Parameters**
   - `type`
   - `hexString`
-- **return**
+
+- **Return**
   - `decodeResult`
 
+- **Example**
 ```js ::Demo
 let _r = abi.decodeParameter('uint256', '000000000000000000000000000000000000000000000000000000008bd02b7b');
 // 2345675643
@@ -164,15 +184,17 @@ let encodeParameterResult2 = abi.decodeParameter('uint8[]', '0000000000000000000
 // ['1','2']
 ```  
 
-## encodeParameters
+### encodeParameters
 
-- **params**
+- **Parameters**
   - `jsonInterface | Array<type-string> | Array<jsonInterface>`
   - `params`
   - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi, 取出对应types)
-- **return**
+
+- **Return**
   - `hexString`
 
+- **Example**
 ```js ::Demo
 let encodeParametersResult1 = abi.encodeParameters({'type':'constructor','inputs':[
     {'type':'uint8[]'}, {'type': 'bytes'}
@@ -192,15 +214,17 @@ let encodeParametersResult12 = abi.encodeParameters([
 
 ```  
 
-## decodeParameters
+### decodeParameters
 
-- **params**
+- **Parameters**
   - `jsonInterface | Array<type-string> | Array<jsonInterface>`
   - `hexString`
   - `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi, 取出对应types)
-- **return**
+
+- **Return**
   - `decodeResult`
 
+- **Example**
 ```js ::Demo
 let decodeParametersResult1 = abi.decodeParameters({'type':'constructor','inputs':[
     {'type':'uint8[]'}, {'type': 'bytes'}
@@ -220,15 +244,17 @@ let decodeParametersResult22 = abi.decodeParameters([
 // ['vite_010000000000000000000000000000000000000063bef3da00', [1,2]]
 ```  
 
-## decodeLog
+### decodeLog
 
-- **params**
+- **Parameters**
   - `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
   - `hexString`
   - `methodName?` 当第一个参数为jsonInterface数组时, 此参数必填(用于识别abi, 取出对应inputs)
-- **return**
+
+- **Return**
   - `decodeResult`
 
+- **Example**
 ```js ::Demo
 let decodeResult2 = abi.decodeLog(
     [

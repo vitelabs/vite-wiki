@@ -1,17 +1,26 @@
-# keystore
+# Keystore
 
-:::tip abstract
-@vitejs/vitejs-keystore
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-keystore --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-keystore
+```
 :::
 
-```javascript 引入
-import { keystore } from '@vite/vitejs';
+## 引入
 
+```javascript import
+import { keystore } from '@vite/vitejs';
 // Or
 import * as keystore from '@vite/vitejs-keystore';
 ```
 
-## keystore 结构
+## Keystore 结构
 
 ```json
 {
@@ -34,33 +43,38 @@ import * as keystore from '@vite/vitejs-keystore';
 }
 ```
 
-## isValid 
+## Methods
+
+### isValid 
 keystore是否合法
 
-- **params**
+- **Parameters**
   - `keystore : string` keystore string
-- **return**
+
+- **Return**
   - `validate : boolean` 是否合法
 
+- **Example**
 ```javascript ::Demo
 import { isValid } from '@vite/vitejs-keystore';
 
 const result = isValid('{}'); // false
 ```
 
-## decrypt
+### decrypt
 解密keystore
 
-- **params**
+- **Parameters**
   - `keystore : string` keystore string
   - `pwd : string` 密码
-- **return**
+
+- **Return**
   - Promise<`key : string`> 加密前的字符串
 
-## encrypt
+### encrypt
 加密keystore
 
-- **params**
+- **Parameters**
   - `keystore : string` keystore string
   - `pwd : string` 密码
   - `scryptParams : Object` 加密参数(非必填)
@@ -69,5 +83,6 @@ const result = isValid('{}'); // false
     - p
     - keylen
     - salt
-- **return**
+    
+- **Return**
   - Promise<`keystore: string`> 加密后的keystore字符串

@@ -1,155 +1,233 @@
-# addrAccount
+# AddrAccount
 
-:::tip abstract
-@vite/vitejs-addraccount
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-addraccount --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-addraccount
+```
 :::
 
-```javascript
+## 引入
 
+:::demo
+```javascript tab:ES6
+import { addrAccount } from '@vite/vitejs';
+// Or
+import addrAccount from '@vite/vitejs-addraccount';
+```
+
+```javascript tab:require
+const { addrAccount } = require('@vite/vitejs-addraccount');
+```
+:::
+
+## Constructor
+
+- **Constructor Parameters**: 
+    * `__namedParameters: object`
+        - `address : HexAddr` vite账户地址
+        - `client : Client` client实例
+
+- **Example**: 
+```javascript
 import WS_RPC from '@vite/vitejs-ws';
 import { client, addrAccount, privToAddr } from '@vite/vitejs';
 
 let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider);
 
-let Account = new addrAccount({
+let myAddrAccount = new addrAccount({
     client: myClient,
     adrress: privToAddr.newHexAddr().hexAddr
 });
 
-Account.getBalance().then((result) => {
+myAddrAccount.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
 });
-
 ```
 
-## Constructor
-
-- **constructor params**: 
-    __namedParameters: object
-    * `address : HexAddr` vite账户地址
-    * `client : Client` client实例
-
-## AddrAccount 实例
-
-### Instance Properties
+## Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
 | address | string | hex地址 |
 | realAddress | string | 真实地址 |
 
-### Instance Methods
-AddrAccount 实例方法
+## Methods
 
-#### getBalance
+### getBalance
 获取余额（包含在途）
 
-- **Return**:
-    * Promise<`balance`>
+- **Return**
+    * Promise<`{ balance, onroad }`>
 
-#### getOnroad
+### getTxList
+
+- **Parameters** 
+    * `__namedParameters: object`
+        - `index: number` 
+        - `pageCount?: number` Default 50
+        - `totalNum?: number` 总交易量. 如果 `totalNum === 0`, 返回 Object`{ totalNum: 0, list: []  }`; 如果 `!totalNum`, 自动请求 Gvite-RPC 接口 `ledger_getAccountByAccAddr` 获取totalNum.
+        
+- **Return**:
+    * Promise<`{ list, totalNum }`>
+
+### callOffChainContract
+查询合约状态
+
+- **Parameters** 
+    * `__namedParameters: object`
+        - `abi`
+        - `offChainCode : Hex` 合约代码
+
+- **Return**:
+    * Promise<`result`>
+
+### getOnroad
 获取在途
 
 - **Return**:
     * Promise
 
-#### getOnroadBlocks
+### getOnroadBlocks
 获取在途账户块列表
 
 - **Parameters** 
-    __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
+    * `__namedParameters: object`
+        - `index : number` 页码
+        - `pageCount : number` 个数
+
 - **Return**:
     * Promise
 
-#### getBlocks
+### getBlocks
 获取账户块列表
 
 - **Parameters** 
-    __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
+    * `__namedParameters: object`
+        - `index : number` 页码
+        - `pageCount : number` 个数
+
 - **Return**:
     * Promise
 
-#### getAccountBalance
+### getAccountBalance
 获取账户余额
 
 - **Return**:
     * Promise
 
-#### getLatestBlock
+### getLatestBlock
 获取最新账户块
 
 - **Return**:
     * Promise
 
-#### getBlockByHeight
+### getBlockByHeight
 
 - **Return**:
     * Promise
 
-#### getBlocksByHash
+### getBlocksByHash
 
 - **Parameters** 
-    __namedParameters: object
-    * `hash`
-    * `num`
+    * `__namedParameters: object`
+        - `hash`
+        - `num`
+
 - **Return**:
     * Promise
 
-#### getBlocksByHashInToken
+### getBlocksByHashInToken
 
 - **Parameters** 
-    __namedParameters: object
-    * `hash`
-    * `tokenId`
-    * `num`
+    * `__namedParameters: object`
+        - `hash`
+        - `tokenId`
+        - `num`
+
 - **Return**:
     * Promise
 
-#### getFittestSnapshotHash
+
+### getPledgeQuota
+
+- **Return**:
+    * Promise
+
+### getPledgeList
 
 - **Parameters** 
-    * `sendblockHash`
-- **Return**:
-    * Promise
-
-#### getPledgeQuota
+    * `__namedParameters: object`
+        - `index : number` 页码
+        - `pageCount : number` 个数
 
 - **Return**:
     * Promise
 
-#### getPledgeList
+### getRegistrationList
+
+- **Return**:
+    * Promise
+
+### getVoteInfo
+
+- **Return**:
+    * Promise
+
+### getTokenInfoListByOwner
+
+- **Return**:
+    * Promise
+
+## getBlock
+
+getBlock封装了`client.builtinTxBlock`模块下的方法（用于快速调用`client.builtinTxBlock`模块的方法）
+
+### 实现方式
+
+1. `accountBlock.accountAddress = this.address`
+2. 通过 `client.builtinTxBlock[methodName]` 获取到合法块
+
+**Code**
+```javascript
+for (const key in this._client.builtinTxBlock) {
+    if (key === '_client') {
+        continue;
+    }
+
+    this.getBlock[key] = (block, requestType?) => {
+        block.accountAddress = this.address;
+        return this._client.builtinTxBlock[key](block, requestType);
+    };
+}
+```
+
+### 调用方式
 
 - **Parameters** 
-    __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
-- **Return**:
-    * Promise
+    * `accountBlock` accountBlock（可以不包含accountAddress）    
+    * `requestType?: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
 
-#### getRegistrationList
+- **Return**
+    * Promise<`AccountBlock`>
 
-- **Return**:
-    * Promise
+- **Example**
+```javascript
+// ....
 
-#### getVoteInfo
-
-- **Return**:
-    * Promise
-
-#### getTxList
-
-- **Parameters** 
-    __namedParameters: object
-    * `index : number` 页码
-    * `pageCount : number` 个数
-    * `totalNum? : number`  总数
-- **Return**:
-    * Promise
-    
+myAddrAccount.getBlock.SBP({ 
+    accountBlock, requestType 
+}).then((result) => {
+    console.log(result);
+}).catch(err => {
+    console.warn(err);
+});
+```

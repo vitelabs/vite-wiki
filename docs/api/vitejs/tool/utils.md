@@ -1,26 +1,36 @@
-# utils
+# Utils
 
-:::tip abstract
-@vitejs/vitejs-utils
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-utils --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-utils
+```
 :::
 
-```javascript 引入
-import { utils } from '@vite/vitejs';
+## 引入
 
+```javascript import
+import { utils } from '@vite/vitejs';
 // Or
 import * as utils from '@vite/vitejs-utils';
 ```
 
 ## checkParams 
 
-- **params**
+- **Parameters**
   - `obj : Object` Params that need to be verified
   - `requiredP : Array<string>` Compulsory Parameters
   - `validFunc : Array<{ name, func, msg? }>` Validation Function
-- **return**
-  - `error : null | Object<code, message>`
-- **Example**:
 
+- **Return**
+  - `error : null | Object<code, message>`
+
+- **Example**
 ```javascript ::Demo
 import { checkParams } from '@vite/vitejs-utils';
 
@@ -51,48 +61,54 @@ test(a); // Got an error
 ## getRawTokenId
 Get original token ID
 
-- **params**
+- **Parameters**
   - `tokenId : string` Token ID
-- **return**
+
+- **Return**
   - `rawTokenId : string` Original token ID
 
 ## getTokenIdFromRaw
 Get token ID according to original token ID
 
-- **params**
+- **Parameters**
   - `rawTokenId : string` Original token ID
-- **return**
+
+- **Return**
   - `tokenId : string` Token ID
 
 ## validNodeName 
 Verify if the node is legal
 
-- **params**
+- **Parameters**
   - `str : string` 
-- **return**
+
+- **Return**
   - `target : boolean` Results: true(yes), false(no)
   
 ## validInteger
 Verify if the input string is an integer
 
-- **params**
+- **Parameters**
   - `num : string`
-- **return**
+
+- **Return**
   - `target : boolean` Results: true, false
 
 ## uriStringify
 Convert a transaction object into formatted uri that complies to a specific schema
 
-- **params**
+- **Parameters**
   - `opt : object`
     - `opt.schema:string?` Schema type. Default is vite
     - `opt.target_address:vite Address string` Target address that the transaction will be sent to
     - `opt.chain_id?` Network id. Default is Vite mainnet 
     - `opt.function_name?` Contract function name 
     - `opt.params:object?` Other parameters 
-- **return**
+
+- **Return**
   - `uri : string` 
-- **other params**
+
+- **Other Parameters**
   | Param Name | Type          | Desc                                     | Example                                                  |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
   | amount     | number        | Amount of token to be sent in below token id. Default is 0               |  amount=1            |
@@ -102,45 +118,53 @@ Convert a transaction object into formatted uri that complies to a specific sche
 
 ## isArray
 
-- **params**
+- **Parameters**
   - `params : any`
-- **return**
+
+- **Return**
   - `result : boolean`
 
 ## isObject
 
-- **params**
+- **Parameters**
   - `params : any`
-- **return**
+
+- **Return**
   - `result : boolean`
 
 ## bytesToHex 
-- **params**
+
+- **Parameters**
   - `arr : buffer`
-- **return**
+
+- **Return**
   - `addr : string` hex string  
   
 ## hexToBytes
-- **params**
+
+- **Parameters**
   - `hex : string` hex
-- **return**
+
+- **Return**
   - `arr : array` bytes
 
 ## getBytesSize 
 Get different byte length of encoded string
 
-- **params**
+- **Parameters**
   - `str : string` 
   - `charset : utf8 | utf16` 
-- **return**
+
+- **Return**
   - `length : number`
   
 ## utf8ToBytes
 Convert utf8 string to bytes
 
-- **params**
+- **Parameters**
   - `str : string` utf8 string
-- **return**
+
+- **Return**
   - `target : Uint8Array` Bytes
   
 ## blake2b 
@@ -154,46 +178,49 @@ Quick reference to buffer.
 
 ## ed25519
 
-### KeyPairObj
-
-- `publicKey : Uint8Array with 32-byte public key` Public Key
-- `secretKey : Uint8Array with 64-byte secret key` Private Key
-
 ### keyPair 
 Get private key pair
 
-- **return**
+- **Return**
   - `keyPair : KeyPairObj` Private Key Pair
+
+- **KeyPairObj**
+    - `publicKey : Uint8Array with 32-byte public key` 公钥
+    - `privateKey : Uint8Array with 64-byte secret key` 私钥
   
 ### getPublicKey
 Get public key via private key (This private key has to be derived from keyPair)
 
-- **params**
+- **Parameters**
   - `privKey : Buffer` Public Key
-- **return**
+
+- **Return**
   - `publicKey : Uint8Array with 32-byte public key` Private Key
 
 ### sign 
 
-- **params**
+- **Parameters**
   - `message : string` 
   - `privKey : buffer` Private Key
-- **return**
+
+- **Return**
   - `signature : Hex String` 
   
 ### verify
 
-- **params**
+- **Parameters**
   - `message : string` 
   - `signature : Hex String` 
   - `publicKey : Buffer` 
-- **return**
+
+- **Return**
   - `target : Boolean` Result
   
 ### random
 Generating random number
 
-- **params**
+- **Parameters**
   - `bytesLen : number`, default: 32
-- **return**
+
+- **Return**
   - `num : Uint8Array` Random Number

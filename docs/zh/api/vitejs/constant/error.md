@@ -1,17 +1,27 @@
-# error
-
-:::tip abstract
-@vitejs/vitejs-error
-
+# Error
 常用错误类型
+
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-error --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-error
+```
 :::
 
-```javascript 引入
-import { error } from '@vite/vitejs';
+## 引入
 
+```javascript import
+import { error } from '@vite/vitejs';
 // Or
 import * as error from '@vite/vitejs-error';
 ```
+
+## 类型说明
 
 | 属性 | code | 说明 |
 |:-----:|:-------:|:--------:|
