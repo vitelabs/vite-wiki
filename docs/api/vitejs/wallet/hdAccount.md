@@ -1,43 +1,57 @@
-# hdAccount
+# HdAccount
 
-:::tip abstract
-@vite/vitejs-hdaccount
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-hdaccount --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-hdaccount
+```
 :::
 
-```javascript
+## Import
 
-import provider from '@vite/vitejs-ws';
-import { client, hdAccount, utils } from '@vite/vitejs';
-
-let WS_RPC = new provider("ws://example.com");
-let myClient = new client(WS_RPC);
-
-let _hdAccount = new hdAccount({
-    client: myClient
-}, {
-    addrTotalNum: 10
-});
-_hdAccount.addAddr();
-
+:::demo
+```javascript tab:ES6
+import { hdAccount } from '@vite/vitejs';
+// Or
+import hdAccount from '@vite/vitejs-hdaccount';
 ```
+
+```javascript tab:require
+const { hdAccount } = require('@vite/vitejs-hdaccount');
+```
+:::
 
 ## Constructor
 
 - **constructor params**: 
-    - __namedParameters: object
-        * `client : Client` client Instance
-        * `mnemonic? : string` Mnemonic Words
-        * `bits? : number` Bits of Mnemonic Words default: 256
-        * `addrNum? : number` Current addresses
-        * `lang? : LangList` Language default: english
-        * `pwd? : string` Password of Mnemonic Words
-    - config?: object
-        * `addrTotalNum : number` Total number of addresses default: 10
-        * `addrStartInx : number` Index of the generated addresses index default: 0
+    * `__namedParameters: object`
+        - `client : Client` Client Instance
+        - `mnemonic? : string` Mnemonic Words
+        - `bits? : number` Bits of Mnemonic Words. Default 256
+        - `addrNum? : number` Current addresses. Default 1
+        - `lang? : LangList` Language. Default english
+        - `pwd? : string` Password of Mnemonic Words
+    * `config?: object` Default `{ maxAddrNum: 10, addrStartInx: 0 }`
+        - `maxAddrNum : number` Max number of addresses. Default 10
+        - `addrStartInx : number` Index of the generated addresses. Default 0
 
-## HdAccount Instance
+- **Example**
+```javascript
+import WS_RPC from '@vite/vitejs-ws';
+import { client, hdAccount, utils } from '@vite/vitejs';
 
-### Instance Properties
+let myClient = new client( new WS_RPC("ws://example.com") );
+
+let myHdAccount = new hdAccount({ client: myClient });
+myHdAccount.addAddr();
+```
+
+## Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
@@ -47,33 +61,49 @@ _hdAccount.addAddr();
 | addrNum | number | Current addresses |
 | addrStartInx | number | Index of the generating address |
 | entropy | string | Entropy |
-| addrTotalNum | number | Total number of generated addresses |
+| maxAddrNum | number | Max number of generated addresses |
 | id | string | Account ID |
 | activeAccountList | Array: Account | Activated account list |
 | pwd | string | Password of mnemonic words |
 
-### Instance Methods
-HdAccount Instance Methods
+## Methods
 
-#### activateAccount
+### activateAccount
+Activate an account in the hdAccount instance. Call `Account.activate`.
 
-- **Parameters** 
-    __namedParameters: object Fill out with one of any parameters
-    * `address : string` Activate Address
-    * `index : number` Activate Account Index
-    __namedParameters: object
-    * `intervals : number` polling interval, default is 2000
-    * `receiveFailAction : function`: receive transaction failed function, default is null
-    * `duration : number`: Account activate duration, default is 5 * 60 * 1000. If duration < 0, account is available permanently until clear account manually
+- **Parameters**
+    * `__namedParameters: object` object Fill out with one of `{ address, index }`
+        - `address? : string` Activate Address
+        - `index? : number` Activate Account Index. Default 0
+    * `__namedParameters: object`
+        - `intervals : number` polling interval. Default 2000ms
+        - `duration : number`: Account activate duration, Default 5 * 60 * 1000(ms)。If duration < 0, account is available permanently until clear account manually
+        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
+        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+
 - **Return**:
-    * `activeAccount : <Account>` Activated account
+    * `activeAccount : Account` Activated account
 
-#### freezeAccount
+### freezeAccount
+Freeze an account. Call `Account.freeze` and release `activeAccount`.
 
 - **Parameters** 
-    * `activeAccount : <Account>` Account needs to be frozen
+    * `activeAccount : Account` Account needs to be frozen
 
-#### addAddr
+### getAccount
+Get an account instance
+
+- **Parameters**
+    * `__namedParameters: object` object Fill out with one of `{ address, index }`
+        - `address? : string`
+        - `index? : number` Account Index. Default 0
+        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
+        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+
+- **Return**:
+    * `account : Account` The account instance
+
+### addAddr
 
 - **Return**:
     * `addrObj : AddrObj` Newly-added address

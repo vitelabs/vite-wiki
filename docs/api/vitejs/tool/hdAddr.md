@@ -1,96 +1,115 @@
-# hdAddr
+# HdAddr
 
-:::tip abstract
-@vitejs/vitejs-hdaddr
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-hdaddr --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-hdaddr
+```
 :::
+
+## Import
 
 ```javascript import
 import { hdAddr } from '@vite/vitejs';
-
 // Or
 import * as hdAddr from '@vite/vitejs-hdaddr';
 ```
 
-## newAddr
-Generate Hex address according to public key
+## Methods
 
-- **params**
+### newAddr
+自动生成助记词及其0号地址
+
+- **Parameters**
   - `bits? : number` Decimals of mnemonic words default: 256
   - `lang? : LangList` Language default: english
   - `pwd? : string` Password default: ''
-- **return**
+
+- **Return**
     - `mnemonicAddrObj: object`
         - `addrObj : AddrObj`
         - `entropy : string` Entropy
         - `mnemonic : string` Mnemonic words
 
+- **Example**
 ```javascript ::Demo
 import { newAddr } from '@vite/vitejs-hdaddr';
 
 let { addr, entropy, mnemonic } = newAddr();
 ```
 
-## getAddrFromMnemonic
+### getAddrFromMnemonic
 Get an address by mnemonic words
 
-- **params**
+- **Parameters**
   - `mnemonic : string` Mnemonic words
   - `index? : number` Number, default: 0
   - `lang? : LangList` Language, default: english
   - `pwd? : string` Password, default: ''
-- **return** 
+
+- **Return** 
   - `addrObj: AddrObj`
 
-## getAddrsFromMnemonic
+### getAddrsFromMnemonic
 Get a group of addresses by mnemonic words
 
-- **params**
+- **Parameters**
   - `mnemonic: string` Mnemonic
   - `start : number` Start from which address number
   - `num : number` Amount of addresses
   - `lang? : LangList` Language, default: english
   - `pwd? : string` Password, default: ''
-- **return**
+
+- **Return**
   - `addrObj: AddrObj`
 
-## getId
+### getId
 Generate ID via mnemonic words
 
-- **params**
+- **Parameters**
   - `mnemonic : string` Mnemonic words
   - `lang? : LangList` Language, default: english
-- **return**
+
+- **Return**
   - `id: string` ID
 
-## getMnemonicFromEntropy
+### getMnemonicFromEntropy
 Get mnemonic words via entropy
 
-- **params**
+- **Parameters**
   - `entropy : string` Entropy
   - `lang? : LangList` Language, default: english
-- **return**
+
+- **Return**
  - `mnemonic: string` Mnemonic words
 
-## getEntropyFromMnemonic
+### getEntropyFromMnemonic
 Get entropy of mnemonic words
 
-- **params**
+- **Parameters**
   - `mnemonic: string` Mnemonic words
   - `lang? : LangList` Language, default: english
-- **return**
+
+- **Return**
   - `entropy: string` Entropy
 
-## validateMnemonic
+### validateMnemonic
 Verify if it is a legal mnemonic words
 
-- **params**
+- **Parameters**
   - `mnemonic: string` Mnemonic words
   - `lang? : LangList` Language default: english
-- **return**
+
+- **Return**
   - `validate: boolean` Legal or not
 
-## getAddrFromHexAddr
+### getAddrFromHexAddr
 Get actual address [Same as privToAddr](/api/vitejs/tool/privToAddr.html)
 
-## isValidHexAddr
+### isValidHexAddr
 Verify if it is a legal hex address [Same as privToAddr](/api/vitejs/tool/privToAddr.html)

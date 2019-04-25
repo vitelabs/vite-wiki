@@ -1,12 +1,21 @@
 # Keystore
 
-:::tip abstract
-@vitejs/vitejs-keystore
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-keystore --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-keystore
+```
 :::
+
+## Import
 
 ```javascript import
 import { keystore } from '@vite/vitejs';
-
 // Or
 import * as keystore from '@vite/vitejs-keystore';
 ```
@@ -34,33 +43,38 @@ import * as keystore from '@vite/vitejs-keystore';
 }
 ```
 
-## isValid 
+## Methods
+
+### isValid 
 keystore is valid or not
 
-- **params**
+- **Parameters**
   - `keystore : string` keystore string
-- **return**
+  
+- **Return**
   - `validate : boolean` valid or not
 
+- **Example**
 ```javascript ::Demo
 import { isValid } from '@vite/vitejs-keystore';
 
 const result = isValid('{}'); // false
 ```
 
-## decrypt
+### decrypt
 Decrypt keystore
 
-- **params**
+- **Parameters**
   - `keystore : string` Keystore String
   - `pwd : string` Password
-- **return**
+
+- **Return**
   - Promise<`key : string`> String before encrypts
 
-## encrypt
+### encrypt
 Encrypt Keystore
 
-- **params**
+- **Parameters**
   - `keystore : string` Keystore String
   - `pwd : string` Password
   - `scryptParams : Object` Encrypt Parameters (Optional)
@@ -69,5 +83,6 @@ Encrypt Keystore
     - p
     - keylen
     - salt
-- **return**
+
+- **Return**
   - Promise<`keystore: string`> Keystore String

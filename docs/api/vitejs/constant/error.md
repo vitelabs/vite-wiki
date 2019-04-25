@@ -1,17 +1,27 @@
 # Error
-
-:::tip Abstract
-@vitejs/vitejs-error
-
 Common Error Types
+
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-error --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-error
+```
 :::
+
+## Import
 
 ```javascript import
 import { error } from '@vite/vitejs';
-
 // Or
 import * as error from '@vite/vitejs-error';
 ```
+
+## Type description
 
 | property | code | description |
 |:-----:|:-------:|:--------:|

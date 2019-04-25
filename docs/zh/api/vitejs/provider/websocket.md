@@ -1,34 +1,49 @@
 # Websocket
 
-:::tip abstract
-@vitejs/vitejs-ws
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-ws --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-ws
+```
+:::
+
+## 引入
+
+:::demo
+```javascript tab:ES6
+import WS_RPC from "@vite/vitejs-ws";
+```
+
+```javascript tab:require
+const { WS_RPC } = require('@vite/vitejs-ws');
+```
 :::
 
 ## Constructor
 
-- **constructor params**: 
-
+- **Constructor Parameters**: 
   * `url : string` 连接url  default: 'ws://localhost:31420'
   * `timeout : number` 超时时间（ms） default: 60000
   * `Object` 
 	- `headers : object` : 请求头信息
     - `protocol` : 协议
     - `clientConfig : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
-    - `retryTimes : number`: 重连超时时间
-    - `retryInterval : number`: 重连间隔时长
+    - `retryTimes : number`: 重连次数 default: 10
+    - `retryInterval : number`: 重连间隔时长 default: 10000
 
 - **Example**:
-
 ```javascript
-
-import wsProvider from "@vite/vitejs-ws";
-const myWs = new wsProvider("ws://localhost:8080");
-
+import WS_RPC from "@vite/vitejs-ws";
+const wsProvider = new WS_RPC("ws://localhost:8080");
 ```
 
-## ws provider 实例
-
-### 实例属性
+## Properties
+除却通用实例方法与属性外
 
 |  名称  | 类型 | 说明 |
 |:------------:|:-----:|:-----:|
@@ -37,21 +52,20 @@ const myWs = new wsProvider("ws://localhost:8080");
 | headers | object | 请求头信息 |
 | clientConfig | object | [同上](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
 
-### 实例方法
-除却与 provider 实例一致的方法外
+## Methods
+除却通用实例方法与属性外
 
-#### reconnect
+### reconnect
 网络重连
 
-#### disconnect
+### disconnect
 断开连接
 
-#### subscribe
+### subscribe
 订阅服务端推送事件
 
-- **params**: 
-
+- **Parameters**: 
   * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
 
-#### unSubscribe
+### unSubscribe
 取消订阅

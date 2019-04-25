@@ -177,7 +177,7 @@ const sidebarConfigs = {
         {
             collapsable: false,
             children: [
-                'client/client', 'client/builtinTxBlock'
+                'client/client', 'client/instance', 'client/builtinTxBlock'
             ]
         },
         {
@@ -306,7 +306,7 @@ module.exports = {
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '智能合约', '内置合约', 'P2P', '公共组件'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接相关', '常量相关', '工具', 'Client', '钱包')
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

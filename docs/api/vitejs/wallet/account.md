@@ -1,288 +1,271 @@
 # Account
 
-:::tip abstract
-@vite/vitejs-account
+## Installation
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-account --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-account
+```
 :::
 
-```javascript
+## Import
 
-import provider from '@vite/vitejs-ws';
+:::demo
+```javascript tab:ES6
+import { account } from '@vite/vitejs';
+// Or
+import account from '@vite/vitejs-account';
+```
+
+```javascript tab:require
+const { account } = require('@vite/vitejs-account');
+```
+:::
+
+## Constructor
+`Account extends AddrAccount`
+
+- **constructor params**: 
+    * `__namedParameters: object`
+        - `privateKey? : string` Private Key
+        - `client : Client` Client Instance
+    * `__namedParameters? : object` Default { autoPow: false, usePledgeQuota: true }
+        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
+        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+
+- **Example**: 
+```javascript
+import WS_RPC from '@vite/vitejs-ws';
 import { client, account, utils } from '@vite/vitejs';
 
-let WS_RPC = new provider("ws://example.com");
-let myClient = new client(WS_RPC);
+let provider = new WS_RPC("ws://example.com");
+let myClient = new client(provider);
 
-let Account = new account({
+let myAccount = new account({
     client: myClient
 });
 
-Account.getBalance().then((result) => {
+myAccount.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
 });
-
 ```
 
-## Constructor extends addrAccount
-
-- **constructor params**: 
-    __namedParameters: object
-    * `privateKey? : string` Private Key
-    * `client : Client` client Instance
-
-## Account Instance
-
-### Instance Properties
+## Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
 | privateKey | string | Private Key |
 | publicKey | string | Public Key |
 | balance | object | Account Balance |
+| autoPow | boolean | 是否自动运行PoW |
+| usePledgeQuota | boolean | 检查PoW时，是否默认使用配额 |
 
-### Instance Methods
+## Methods
 
-#### getPublicKey
+### getPublicKey
 
 - **Return**:
     * `publicKey : Uint8Array with 32-byte public key` 
 
-#### sign
+### sign
 
 - **Parameters** 
-    * `hexStr : string` String needs to be signed
+    * `hexStr : string` Hex-String needs to be signed
+
 - **Return**:
     * `signature : string` Results after signing
 
 
-#### activate
-Activate Account (Auto Receiving Transaction, polling account balance => 会自动更新balance属性)
+### activate
+Activate Account
+
+1. Polling account balance, and auto update `this.balance`.
+2. It will initiate an automatic receiving transaction task when this account has onroad info; when the receiving is completed, the task stops.
 
 - **Parameters** 
-    * `intervals : number` Polling Intervals
-    * `receiveFailAction : function` Actions after receiving failed
+    * `intervals : number` Polling Intervals. Default 2000ms
+    * `autoPow?: boolean` 发送交易是否默认运行PoW，Default this.autoPow
+    * `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default this.usePledgeQuota
 
-#### freeze
-Freeze account (Stop activating status - Stop auto receiving transaction and checking balance )
+### freeze
+Freeze account. Stop activating status.
 
-#### autoReceiveTx
+1. Stop Checking balance.
+2. Stop the automatic receiving transaction task.
+
+### autoReceiveTx
 
 - **Parameters** 
-    * `intervals : number` Polling Intervals
-    * `receiveFailAction : function` Actions after receiving failed
+    * `intervals : number` Polling Intervals. Default 2000ms
+    * `autoPow?: boolean` 发送交易是否默认运行PoW，Default this.autoPow
+    * `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default this.usePledgeQuota
 
-#### stopAutoReceiveTx
+### stopAutoReceiveTx
 Stop auto receiving transaction
 
-#### sendRawTx
+### sendRawTx
 Send Original Transactions
 
 - **Parameters** 
-    * `accountBlock` Formatted accountBlock
-- **Return**:
-    * Promise
+    * `accountBlock` Formatted accountBlock (可以不包含accountAddress字段)
 
-#### sendTx
-Send Transaction
+- **Return**
+    * Promise<`AccountBlock`>
 
-- **Parameters** 
-    __namedParameters: object
-    * `toAddress : Address` Receiver's address
-    * `tokenId : tokenId` tokenId
-    * `amount` Amount
-    * `message : string` Comment
-- **Return**:
-    * Promise 
-
-#### receiveTx
-Receive Transaction
+### sendAutoPowRawTx
+当没有配额时，自动运行PoW发送原始交易
 
 - **Parameters** 
-    __namedParameters: object
-    * `fromBlockHash : string`
-- **Return**:
-    * Promise 
-
-#### SBPreg
-SBP Registration
-
-- **Parameters** 
-    __namedParameters: object
-    * `nodeName : string` Node Name
-    * `toAddress : Address` Receiver's address
-    * `tokenId : tokenId` tokenId
-    * `amount` Amount
-- **Return**:
-    * Promise 
-
-#### updateReg
-Update SBP Registration
-
-- **Parameters** 
-    __namedParameters: object
-    * `nodeName : string` Node Name
-    * `toAddress : Address` Receiver's address
-    * `tokenId : tokenId` tokenId
-- **Return**:
-    * Promise 
-
-#### revokeReg
-Revoke SBP Registration
-
-- **Parameters** 
-    __namedParameters: object
-    * `nodeName : string` Node Name
-    * `tokenId : tokenId` tokenId
-- **Return**:
-    * Promise 
-
-#### retrieveReward
-Retrieve Rewards
-
-- **Parameters** 
-    __namedParameters: object
-    * `nodeName : string` Node Name
-    * `toAddress : Address` 
-    * `tokenId : tokenId` tokenId
-- **Return**:
-    * Promise 
-
-#### voting
-
-- **Parameters** 
-    __namedParameters: object
-    * `nodeName : string` Node Name
-    * `tokenId : tokenId` tokenId
-- **Return**:
-    * Promise 
-
-#### revokeVoting
-
-- **Parameters** 
-    __namedParameters: object
-    * `tokenId : tokenId` tokenId
-- **Return**:
-    * Promise 
-
-#### getQuota
-Get Quota
-
-- **Parameters** 
-    __namedParameters: object
-    * `toAddress : Address` 
-    * `tokenId : tokenId` tokenId
-    * `amount` Amount
-- **Return**:
-    * Promise 
-
-#### withdrawalOfQuota
-Withdrawal of Quota
-
-- **Parameters** 
-    __namedParameters: object
-    * `toAddress : Address` 
-    * `tokenId : tokenId` tokenId
-    * `amount` Amount
-- **Return**:
-    * Promise 
+    * `accountBlock` 规范后的accountBlock（可以不包含accountAddress字段）
+    * `usePledgeQuota : boolean` 是否优先使用配额，Default `this.usePledgeQuota`
     
-#### createContract
-Create contract
+- **Return**
+    * Promise<`AccountBlock`>
+
+### sendPowTx
+发送一笔交易，传入不同阶段的函数回调，可用于执行自定义的用户行为，或者打断交易流程。
+
+:::tip LifeCycle
+* **start**
+    1. Get block. `this.getBlock[methodName](...params)`
+* **beforeCheckPow** 
+    1. *beforeCheckPow ? beforeCheckPow() : go to 2*
+    2. Check PoW. `tx_calcPoWDifficulty` 
+* **checkPowDone**
+    1. If need PoW go to 2; else go to **powDone**.
+    2. *beforePow ? beforePow() : go to **checkPowDone 3***
+    3. Run PoW. 
+* **powDone** 
+    1. *beforeSendTx ? beforeSendTx() : go to **powDone 2***
+    2. If need send Tx go to 3; else break.
+    3. Send TX. 
+* **finish**
+:::
 
 - **Parameters** 
-    __namedParameters: object
-    * `toAddress : Address`
-    * `hexCode: Hex` Hex code of smart contract
-    * `abi: string` ABI data of smart contract
-    * `params: stirng` Passed-in parameters, in string for simple or JSON string for complex type
-    * `tokenId : tokenId` tokenId
-    * `amount` Amount
-    * `fee` default '10000000000000000000'
-- **Return**:
-    * Promise 
-
-#### callContract
-Call contract
-
-- **Parameters** 
-    __namedParameters: object
-    * `toAddress : Address`
-    * `tokenId : tokenId` tokenId
-    * `methodName: string` Method name
-    * `params: string` Passed-in parameters, in string for simple or JSON string for complex type
-    * `abi: string` ABI data of smart contract
-    * `amount` Amount
-- **Return**:
-    * Promise 
-
-#### mintage
-Issue new token asset with initial amount. The issued token will be sent to owner’s account
-
-- **Parameters** 
-    __namedParameters: object
-    * `tokenName: string` Asset name in 1-40 characters, including uppercase and lowercase letters, spaces, and underscores
-    * `decimals: uint8` Decimal number. 10**decimals cannot exceed `totalSupply`
-    * `totalSupply: big.int` Initial total supply. Cannot exceed 2**256-1 and `maxSupply`
-    * `tokenSymbol: string` Asset symbol in 1-40 characters, including uppercase and lowercase letters, spaces, and underscores
-    * `isReIssuable: bool` Whether the asset can be re-issued. Must be `true` for stablecoin
-    * `maxSupply: Uint256` Maximum supply. Mandatory for stablecoin. Cannot exceed 2**256-1
-    * `ownerBurnOnly: bool` Whether the asset can be burned by owner only. Mandatory for stablecoin. All asset holders can perform burn action if this is false
-    * `feeType: string` Optional token issuance fee type that must be `stake` or `burn` only. This field describes the cost of issuing the new token and the amount(1,000 VITE for burning or 100,000 VITE for staking for 90 days) will be charged from issuer’s account. The default value is `burn`.
-
-- **Return**:
-    * Promise
+    * `__namedParameters : object`
+        - `methodName : string` `this.getBlock`中的方法名称
+        - `params : Array` 传入`this.getBlock[methodName]`中的参数
+        - `beforeCheckPow : Function`
+        - `beforePow : Function`
+        - `beforeSendTx : Function`
     
-#### mintageCancelPledge
+- **Return**
+    * Promise<`{ lifeCycle, accountBlock, checkPowResult }`>
+
+- **BeforeCheckPow**
+    * **Parameters**
+        - `accountBlock: AccountBlock`
+        - `next : Function`
+
+    * **Return**
+        - `next(<usePledgeQuota: boolean>)` 是否优先使用配额 Default true
+
+- **BeforePow**
+    * **Parameters**
+        - `accountBlock: AccountBlock`
+        - `checkPowResult: <difficulty, quota>`
+        - `next : Function`
+
+    * **Return**
+        - `next(<isReject: boolean>)` 是否打断交易流程. Default false
+
+- **BeforeSendTx**
+    * **Parameters**
+        - `accountBlock: AccountBlock`
+        - `checkPowResult: <difficulty, quota>`
+        - `next : Function`
+
+    * **Return**
+        - `next(<isReject: boolean>)` 是否打断交易流程. Default false
+
+- **Example**
+```javascript
+// ...
+
+const result = await myAccount.sendPowTx({
+    methodName: 'asyncSendTx',
+    params: [{
+        toAddress: myAccount.address,
+        tokenId: Vite_TokenId,
+        amount: '100'
+    }],
+    beforeCheckPow: (accountBlock, next) => {
+        console.log('[beforeCheckPow]', accountBlock);
+        return next();
+    },
+    beforePow: (accountBlock, checkPowResult, next) => {
+        console.log('[beforePow]', accountBlock, checkPowResult);
+        return next();
+    },
+    beforeSendTx: (accountBlock, checkPowResult, next) => {
+        console.log('[beforeSendTx]', accountBlock, checkPowResult);
+        return next();
+    }
+});
+
+console.log('[LOG] SendTx', result, '\n');
+return result;
+```
+
+## How to send tx quickly
+
+Account 会自动从`client.builtinTxBlock`中获取生成块方法并进行封装。
+
+### How to achieve in account instance
+
+1. `accountBlock.accountAddress = this.address`
+2. 通过block方法获取到合法块
+3. 签名并发送AccountBlock
+
+- **Code**
+```javascript
+for (const key in this._client.builtinTxBlock) {
+    if (key === '_client' || key.endsWith('Block')) {
+        continue;
+    }
+
+    let _key = key;
+    if (_key.startsWith('async')) {
+        _key = _key.replace('async', '');
+        _key = _key[0].toLocaleLowerCase() + _key.slice(1);
+    }
+
+    this[_key] = async (params, autoPow?, usePledgeQuota?) => {
+        params.accountAddress = this.address;
+        const block = await this.getBlock[key](params);
+        return this._sendRawTx(block, autoPow, usePledgeQuota);
+    };
+}
+```
+
+### How to invoke
 
 - **Parameters** 
-    __namedParameters: object
-    * `tokenId : tokenId` tokenId
+    * `params : Array<accountBlock, requestType>` accountBlock（可以不包含accountAddress）
+    * `autoPow？ : boolean` 是否自动运行PoW。Default `this.autoPow`
+    * `usePledgeQuota? : boolean` 是否有效使用配额。Default `this.usePledgeQuota`
 
-- **Return**:
-    * Promise
+- **Return**
+    * Promise<`AccountBlock`>
 
-#### mintageIssue
-Mint certain amount of token at an account address. This method must be called by owner. The newly issued token will be sent to the specified account
+- **Example**
+```javascript
+// ....
 
-- **Parameters** 
-    __namedParameters: object
-    * `tokenId: TokenId` Token id
-    * `amount: uint64` Mint amount
-    * `beneficial: Address`  Account address to receive newly minted tokens
+const result = await myAccount.SBPreg({
+    nodeName: 'TEST_NODE',
+    toAddress: myAccount.address,
+    amount: '100000000000000000000000',
+    tokenId: Vite_TokenId
+});
 
-- **Return**:
-    * Promise
-
-#### mintageBurn
-Burn token with certain amount. If `ownerBurnOnly` has been turned on this token, the asset can only be burned by owner, otherwise every asset holder can perform burn action
-
-- **Parameters**
-    __namedParameters: object
-    * `tokenId: TokenId` Token id
-    * `amount: uint64` Amount to destroy
-
-- **Return**:
-    * Promise
-
-#### changeTransferOwner
-Transfer ownership. This method can only be called by owner
-
-- **Parameters** 
-    __namedParameters: object
-    * `ownerAddress: Address` New owner’s account address
-    * `tokenId: TokenId` Token id
-
-- **Return**:
-    * Promise
-
-#### changeTokenType
-Change `isReIssuable` from `true` to `false`. This method is one-way action and irreversible, must be called by owner.
-
-- **Parameters** 
-    __namedParameters: object
-    * `tokenId: TokenId` Token id
-
-- **Return**:
-    * Promise
-  
+console.log('[LOG] SBPreg', result, '\n');
+return result;
+```

@@ -1,26 +1,40 @@
 # HTTP
 
-:::tip abstract
-@vitejs/vitejs-http
+## Installation
 
-Methods and properties are consistent with `provider` instance方法及属性皆与 provider 实例一致
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-http --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-http
+```
+:::
+
+## Import
+
+:::demo
+```javascript tab:ES6
+import HTTP_RPC from "@vite/vitejs-http";
+```
+
+```javascript tab:require
+const { HTTP_RPC } = require('@vite/vitejs-http');
+```
 :::
 
 ## Constructor
 
-- **Constructor Params**: 
+- **Constructor Parameters**: 
   * `url : string` Connection url  default: 'http://localhost:8415'
   * `timout : number` Timeout（ms） Default: 60000
   * `Object` 
 	- `headers : object` : Request Header Information
 
 - **Example**:
-
 ```javascript
+import HTTP_RPC from "@vite/vitejs-http";
 
-import httpProvider from "@vite/vitejs-http";
-const http = new httpProvider("http://localhost:8080");
-
+const httpProvider = new HTTP_RPC("http://localhost:8080");
 ```
-
-## Provider Instance

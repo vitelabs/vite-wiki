@@ -1,53 +1,67 @@
 # IPC 
 
-:::tip abstract
-@vitejs/vitejs-ipc
+## 安装
+
+:::demo
+```bash tab:npm
+npm install @vite/vitejs-ipc --save
+```
+
+```bash tab:yarn
+yarn add @vite/vitejs-ipc
+```
+:::
+
+## 引入
+
+:::demo
+```javascript tab:ES6
+import IPC_RPC from "@vite/vitejs-ipc";
+```
+
+```javascript tab:require
+const { IPC_RPC } = require('@vite/vitejs-ipc');
+```
 :::
 
 ## Constructor
 
-- **Constructor params**: 
-
-  * `path : string` Connecting path  default: ''
-  * `timeout : number` Timeout（ms） default: 60000
+- **Constructor Parameters**: 
+  * `path : string` 连接路径  default: ''
+  * `timeout : number` 超时时间（ms） default: 60000
   * `Object` 
-	- `delimiter : string` : Delimiter default: `\n`
-    - `retryTimes : number`: Reconnecting Timeout
-    - `retryInterval : number`: Reconnecting Interval
+	- `delimiter : string` : 分隔符 default: `\n`
+    - `retryTimes : number`: 连接断开后，重试连接次数
+    - `retryInterval : number`: 连接断开后，重试连接间隔
 
 - **Example**:
-
 ```javascript
+import IPC_RPC from "@vite/vitejs-ipc";
 
-import ipcProvider from "@vite/vitejs-ipc";
-const myIpc = new ipcProvider("~/.gvite/testdata/gvite.ipc");
-
+const ipcProvider = new IPC_RPC("~/.gvite/testdata/gvite.ipc");
 ```
 
-## IPC provider 实例
-
-### Instance Properties
+## Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
 | path | string | 连接路径 |
 | delimiter | string | 分隔符 |
 
-### Instance Methods
-除却与 provider 实例一致的方法外
+## Methods
+除却通用实例方法与属性外
 
-#### reconnect
+### reconnect
 重连
 
-#### disconnect
+### disconnect
 断开连接
 
-#### subscribe
+### subscribe
 订阅服务端推送事件
 
-- **params**: 
-
+- **Parameters**: 
   * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
 
-#### unSubscribe
+### unSubscribe
 取消订阅
