@@ -1,6 +1,6 @@
 # Utils
 
-## 安装
+## Installation
 
 :::demo
 ```bash tab:npm
@@ -12,7 +12,7 @@ yarn add @vite/vitejs-utils
 ```
 :::
 
-## 引入
+## Import
 
 ```javascript import
 import { utils } from '@vite/vitejs';
@@ -23,15 +23,15 @@ import * as utils from '@vite/vitejs-utils';
 ## checkParams 
 
 - **Parameters**
-  - `obj : Object` Params that need to be verified
-  - `requiredP : Array<string>` Compulsory Parameters
-  - `validFunc : Array<{ name, func, msg? }>` Validation Function
+    * `obj : Object` Params that need to be verified
+    * `requiredP : Array<string>` Compulsory Parameters
+    * `validFunc : Array<{ name, func, msg? }>` Validation Function
 
 - **Return**
-  - `error : null | Object<code, message>`
+    * `error : null | Object<code, message>`
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { checkParams } from '@vite/vitejs-utils';
 
 function test(a, b, c, d) {
@@ -62,51 +62,51 @@ test(a); // Got an error
 Get original token ID
 
 - **Parameters**
-  - `tokenId : string` Token ID
+    * `tokenId : TokenId`
 
 - **Return**
-  - `rawTokenId : string` Original token ID
+    * `rawTokenId : RawTokenId` Original token ID
 
 ## getTokenIdFromRaw
 Get token ID according to original token ID
 
 - **Parameters**
-  - `rawTokenId : string` Original token ID
+    * `rawTokenId : RawTokenId` Original token ID
 
 - **Return**
-  - `tokenId : string` Token ID
+    * `tokenId : TokenId`
 
 ## validNodeName 
 Verify if the node is legal
 
 - **Parameters**
-  - `str : string` 
+    * `str : string` 
 
 - **Return**
-  - `target : boolean` Results: true(yes), false(no)
+    * `target : boolean` Results: true(yes), false(no)
   
 ## validInteger
 Verify if the input string is an integer
 
 - **Parameters**
-  - `num : string`
+    * `num : string`
 
 - **Return**
-  - `target : boolean` Results: true, false
+    * `target : boolean` Results: true, false
 
 ## uriStringify
 Convert a transaction object into formatted uri that complies to a specific schema
 
 - **Parameters**
-  - `opt : object`
-    - `opt.schema:string?` Schema type. Default is vite
-    - `opt.target_address:vite Address string` Target address that the transaction will be sent to
-    - `opt.chain_id?` Network id. Default is Vite mainnet 
-    - `opt.function_name?` Contract function name 
-    - `opt.params:object?` Other parameters 
+    * `opt : object`
+        - `opt.schema:string?` Schema type. Default is vite
+        - `opt.target_address:vite Address string` Target address that the transaction will be sent to
+        - `opt.chain_id?` Network id. Default is Vite mainnet 
+        - `opt.function_name?` Contract function name 
+        - `opt.params:object?` Other parameters 
 
 - **Return**
-  - `uri : string` 
+    * `uri : string` 
 
 - **Other Parameters**
   | Param Name | Type          | Desc                                     | Example                                                  |
@@ -119,53 +119,53 @@ Convert a transaction object into formatted uri that complies to a specific sche
 ## isArray
 
 - **Parameters**
-  - `params : any`
+    * `params : any`
 
 - **Return**
-  - `result : boolean`
+    * `result : boolean`
 
 ## isObject
 
 - **Parameters**
-  - `params : any`
+    * `params : any`
 
 - **Return**
-  - `result : boolean`
+    * `result : boolean`
 
 ## bytesToHex 
 
 - **Parameters**
-  - `arr : buffer`
+    * `arr : buffer`
 
 - **Return**
-  - `addr : string` hex string  
+    * `addr : Hex`
   
 ## hexToBytes
 
 - **Parameters**
-  - `hex : string` hex
+    * `hex : Hex`
 
 - **Return**
-  - `arr : array` bytes
+    * `arr : Uint8Array` Bytes
 
 ## getBytesSize 
 Get different byte length of encoded string
 
 - **Parameters**
-  - `str : string` 
-  - `charset : utf8 | utf16` 
+    * `str : string` 
+    * `charset : string<'utf8' | 'utf16'>` 
 
 - **Return**
-  - `length : number`
+    * `length : number`
   
 ## utf8ToBytes
 Convert utf8 string to bytes
 
 - **Parameters**
-  - `str : string` utf8 string
+    * `str : string` Utf8 string
 
 - **Return**
-  - `target : Uint8Array` Bytes
+    * `target : Uint8Array` Bytes
   
 ## blake2b 
 Quick reference to blake2b. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
@@ -182,45 +182,45 @@ Quick reference to buffer.
 Get private key pair
 
 - **Return**
-  - `keyPair : KeyPairObj` Private Key Pair
+    * `keyPair : KeyPairObj` Private Key Pair
 
 - **KeyPairObj**
-    - `publicKey : Uint8Array with 32-byte public key` 公钥
-    - `privateKey : Uint8Array with 64-byte secret key` 私钥
+    * `publicKey : Uint8Array with 32-byte public key`
+    * `privateKey : Uint8Array with 64-byte private key`
   
 ### getPublicKey
 Get public key via private key (This private key has to be derived from keyPair)
 
 - **Parameters**
-  - `privKey : Buffer` Public Key
+    * `privateKey : Buffer`
 
 - **Return**
-  - `publicKey : Uint8Array with 32-byte public key` Private Key
+    * `publicKey : Uint8Array with 32-byte public key`
 
 ### sign 
 
 - **Parameters**
-  - `message : string` 
-  - `privKey : buffer` Private Key
+    * `message : string` 
+    * `privateKey : buffer`
 
 - **Return**
-  - `signature : Hex String` 
+    * `signature : Hex` 
   
 ### verify
 
 - **Parameters**
-  - `message : string` 
-  - `signature : Hex String` 
-  - `publicKey : Buffer` 
+    * `message : string` 
+    * `signature : Hex` 
+    * `publicKey : Buffer` 
 
 - **Return**
-  - `target : Boolean` Result
+    * `target : Boolean` Result
   
 ### random
 Generating random number
 
 - **Parameters**
-  - `bytesLen : number`, default: 32
+    * `bytesLen : number` Default 32
 
 - **Return**
-  - `num : Uint8Array` Random Number
+    * `num : Uint8Array` Random Number

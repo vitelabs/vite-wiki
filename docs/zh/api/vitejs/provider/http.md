@@ -27,10 +27,10 @@ const { HTTP_RPC } = require('@vite/vitejs-http');
 ## Constructor
 
 - **Constructor Parameters**: 
-  * `url : string` 连接 url  default: 'http://localhost:8415'
-  * `timout : number` 超时时间（ms） default: 60000
-  * `Object` 
-	- `headers : object` : 请求头信息
+    * `url : string` 连接 url Default: 'http://localhost:8415'
+    * `timout : number` 超时时间(ms) Default: 60000
+    * `Object` 
+        - `headers : object` : 请求头信息
 
 - **Example**:
 ```javascript

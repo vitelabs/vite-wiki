@@ -34,8 +34,8 @@ const { account } = require('@vite/vitejs-account');
         - `privateKey? : Hex` 私钥
         - `client : Client` client实例
     * `__namedParameters? : object` Default { autoPow: false, usePledgeQuota: true }
-        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
-        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+        - `autoPow?: boolean` 配额不足时，发送交易是否默认运行PoW Default false
+        - `usePledgeQuota? : boolean` 检查是否需要运行PoW时，是否优先使用配额 Default true
 
 - **Example**: 
 ```javascript
@@ -64,7 +64,7 @@ myAccount.getBalance().then((result) => {
 | publicKey | string | 公钥 |
 | balance | object | 余额 |
 | autoPow | boolean | 是否自动运行PoW |
-| usePledgeQuota | boolean | 检查PoW时，是否默认使用配额 |
+| usePledgeQuota | boolean | 检查PoW时，是否优先使用配额 |
 
 ## Methods
 
@@ -89,8 +89,8 @@ myAccount.getBalance().then((result) => {
 
 - **Parameters** 
     * `intervals : number` 轮询间隔 Default 2000ms
-    * `autoPow?: boolean` 发送交易是否默认运行PoW，Default this.autoPow
-    * `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default this.usePledgeQuota
+    * `autoPow?: boolean` 发送交易配额不足时，是否默认运行PoW Default this.autoPow
+    * `usePledgeQuota? : boolean` 检查是否需要运行PoW时，是否优先使用配额 Default this.usePledgeQuota
 
 ### freeze
 冻结账户，停止激活状态
@@ -103,8 +103,8 @@ myAccount.getBalance().then((result) => {
 
 - **Parameters** 
     * `intervals : number` 轮询间隔 Default 2000ms
-    * `autoPow?: boolean` 发送交易是否默认运行PoW，Default this.autoPow
-    * `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default this.usePledgeQuota
+    * `autoPow?: boolean` 配额不足时，是否默认运行PoW Default this.autoPow
+    * `usePledgeQuota? : boolean` 检查是否需要运行PoW时，是否优先使用配额 Default this.usePledgeQuota
 
 ### stopAutoReceiveTx
 停止自动接收交易任务
@@ -250,7 +250,7 @@ for (const key in this._client.builtinTxBlock) {
 - **Parameters** 
     * `params : Array<accountBlock, requestType>` accountBlock（可以不包含accountAddress）
     * `autoPow？ : boolean` 是否自动运行PoW。Default `this.autoPow`
-    * `usePledgeQuota? : boolean` 是否有效使用配额。Default `this.usePledgeQuota`
+    * `usePledgeQuota? : boolean` 是否优先使用配额。Default `this.usePledgeQuota`
 
 - **Return**
     * Promise<`AccountBlock`>

@@ -74,12 +74,12 @@ myHdAccount.addAddr();
 - **Parameters**
     * `__namedParameters: object` `address`和`index`参数任填1个
         - `address? : string` 激活哪个账户地址
-        - `index? : number` 激活哪个账户index，Default 0
+        - `index? : number` 激活哪个账户index Default 0
     * `__namedParameters: object`
         - `intervals : number` 轮询间隔，Default 2000ms
-        - `duration : number`: 账户激活状态保持时长, Default 5 * 60 * 1000(ms)。duration < 0 则永久有效，直到手动释放account
-        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
-        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+        - `duration : number`: 账户激活状态保持时长 Default 5 * 60 * 1000(ms)。duration < 0 则永久有效，直到手动释放account
+        - `autoPow?: boolean` 发送交易是否默认运行PoW Default false
+        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额 Default true
 
 - **Return**:
     * `activeAccount : Account` 已激活的账户实例
@@ -96,9 +96,9 @@ myHdAccount.addAddr();
 - **Parameters**
     * `__namedParameters: object` `address`和`index`参数任填1个
         - `address? : string` 获取的账户地址
-        - `index? : number` 获取的账户index，Default 0
-        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
-        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+        - `index? : number` 获取的账户index Default 0
+        - `autoPow?: boolean` 发送交易没有配额时，是否默认运行PoW Default false
+        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额 Default true
 
 - **Return**:
     * `account : Account` 账户实例

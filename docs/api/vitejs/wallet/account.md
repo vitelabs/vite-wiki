@@ -34,8 +34,8 @@ const { account } = require('@vite/vitejs-account');
         - `privateKey? : string` Private Key
         - `client : Client` Client Instance
     * `__namedParameters? : object` Default { autoPow: false, usePledgeQuota: true }
-        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
-        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+        - `autoPow?: boolean` Whether to run PoW by default when sending a transaction without quota. Default false
+        - `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default true
 
 - **Example**: 
 ```javascript
@@ -63,8 +63,8 @@ myAccount.getBalance().then((result) => {
 | privateKey | string | Private Key |
 | publicKey | string | Public Key |
 | balance | object | Account Balance |
-| autoPow | boolean | 是否自动运行PoW |
-| usePledgeQuota | boolean | 检查PoW时，是否默认使用配额 |
+| autoPow | boolean | Whether to automatically run PoW when the quota is insufficient |
+| usePledgeQuota | boolean | Whether the quota is used preferentially, when checking if you need to run pow |
 
 ## Methods
 
@@ -90,8 +90,8 @@ Activate Account
 
 - **Parameters** 
     * `intervals : number` Polling Intervals. Default 2000ms
-    * `autoPow?: boolean` 发送交易是否默认运行PoW，Default this.autoPow
-    * `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default this.usePledgeQuota
+    * `autoPow?: boolean` Whether to run PoW by default when sending a transaction without quota. Default this.autoPow
+    * `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default this.usePledgeQuota
 
 ### freeze
 Freeze account. Stop activating status.
@@ -103,8 +103,8 @@ Freeze account. Stop activating status.
 
 - **Parameters** 
     * `intervals : number` Polling Intervals. Default 2000ms
-    * `autoPow?: boolean` 发送交易是否默认运行PoW，Default this.autoPow
-    * `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default this.usePledgeQuota
+    * `autoPow?: boolean` Whether to automatically run PoW when the quota is insufficient. Default this.autoPow
+    * `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default this.usePledgeQuota
 
 ### stopAutoReceiveTx
 Stop auto receiving transaction
@@ -113,23 +113,23 @@ Stop auto receiving transaction
 Send Original Transactions
 
 - **Parameters** 
-    * `accountBlock` Formatted accountBlock (可以不包含accountAddress字段)
+    * `accountBlock` Formatted accountBlock (Can have no accountAddress field)
 
 - **Return**
     * Promise<`AccountBlock`>
 
 ### sendAutoPowRawTx
-当没有配额时，自动运行PoW发送原始交易
+When the quota is insufficient, automatically run PoW to send original transaction.
 
 - **Parameters** 
-    * `accountBlock` 规范后的accountBlock（可以不包含accountAddress字段）
-    * `usePledgeQuota : boolean` 是否优先使用配额，Default `this.usePledgeQuota`
+    * `accountBlock: AccountBlock` Formatted accountBlock (Can have no accountAddress field)
+    * `usePledgeQuota : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default `this.usePledgeQuota`
     
 - **Return**
     * Promise<`AccountBlock`>
 
 ### sendPowTx
-发送一笔交易，传入不同阶段的函数回调，可用于执行自定义的用户行为，或者打断交易流程。
+Send a transaction. Use different function callbacks to perform custom user actions or interrupt the transaction process.
 
 :::tip LifeCycle
 * **start**
@@ -150,11 +150,11 @@ Send Original Transactions
 
 - **Parameters** 
     * `__namedParameters : object`
-        - `methodName : string` `this.getBlock`中的方法名称
-        - `params : Array` 传入`this.getBlock[methodName]`中的参数
-        - `beforeCheckPow : Function`
-        - `beforePow : Function`
-        - `beforeSendTx : Function`
+        - `methodName : string` Method name in `this.getBlock`
+        - `params : Array` Parameters in `this.getBlock[methodName]`
+        - `beforeCheckPow? : Function`
+        - `beforePow? : Function`
+        - `beforeSendTx? : Function`
     
 - **Return**
     * Promise<`{ lifeCycle, accountBlock, checkPowResult }`>
@@ -165,7 +165,7 @@ Send Original Transactions
         - `next : Function`
 
     * **Return**
-        - `next(<usePledgeQuota: boolean>)` 是否优先使用配额 Default true
+        - `next(<usePledgeQuota: boolean>)` Whether the quota is used preferentially, when checking if you need to run pow.  Default true
 
 - **BeforePow**
     * **Parameters**
@@ -174,7 +174,7 @@ Send Original Transactions
         - `next : Function`
 
     * **Return**
-        - `next(<isReject: boolean>)` 是否打断交易流程. Default false
+        - `next(<isReject: boolean>)` Whether to interrupt the transaction process. Default false
 
 - **BeforeSendTx**
     * **Parameters**
@@ -183,7 +183,7 @@ Send Original Transactions
         - `next : Function`
 
     * **Return**
-        - `next(<isReject: boolean>)` 是否打断交易流程. Default false
+        - `next(<isReject: boolean>)` Whether to interrupt the transaction process. Default false
 
 - **Example**
 ```javascript
@@ -216,13 +216,13 @@ return result;
 
 ## How to send tx quickly
 
-Account 会自动从`client.builtinTxBlock`中获取生成块方法并进行封装。
+Account will automatically wrap the method in `client.builtinTxBlock`.
 
 ### How to achieve in account instance
 
 1. `accountBlock.accountAddress = this.address`
-2. 通过block方法获取到合法块
-3. 签名并发送AccountBlock
+2. Get the legal block by `this.getBlock[methodName]`
+3. Sign and send the AccountBlock
 
 - **Code**
 ```javascript
@@ -248,9 +248,9 @@ for (const key in this._client.builtinTxBlock) {
 ### How to invoke
 
 - **Parameters** 
-    * `params : Array<accountBlock, requestType>` accountBlock（可以不包含accountAddress）
-    * `autoPow？ : boolean` 是否自动运行PoW。Default `this.autoPow`
-    * `usePledgeQuota? : boolean` 是否有效使用配额。Default `this.usePledgeQuota`
+    * `params : Array<accountBlock, requestType>` accountBlock (Can have no accountAddress field)
+    * `autoPow？ : boolean` Whether to automatically run pow when there is no quota. Default `this.autoPow`
+    * `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default `this.usePledgeQuota`
 
 - **Return**
     * Promise<`AccountBlock`>

@@ -30,7 +30,7 @@ const { netProcessor } = require('@vite/vitejs-netprocessor');
 
 - **Constructor Parameters**
     - `provider : Provider Instance`
-    - `firstConnectCb : function` : Callback function of first connection
+    - `firstConnectCb : Function` : Callback function of first connection
 
 - **Example**
 ```javascript
@@ -107,7 +107,7 @@ myNetProcessor.subscribe('newAccountBlocks').then((event) => {
 Cancel Subscription
 
 - **Parameters**: 
-  * `event`: return event of subscribe
+  * `event`: Return event of subscribe
 
 ### clearSubscriptions
 Clear all the Subscriptions

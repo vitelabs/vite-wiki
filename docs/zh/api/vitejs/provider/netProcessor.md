@@ -30,7 +30,7 @@ const { netProcessor } = require('@vite/vitejs-netprocessor');
 
 - **Constructor Parameters**
     - `provider : Provider Instance`
-    - `firstConnectCb : function` : Callback function after the first connection
+    - `firstConnectCb : Function` : Callback function after the first connection
 
 - **Example**
 ```javascript

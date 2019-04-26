@@ -12,32 +12,10 @@
 const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ```
 
-## 类型说明
-
-```typescript
-export declare type AccountBlock = {
-    accountAddress: Address;
-    blockType: BlockType;
-    prevHash: Hex;
-    height: Uint64;
-    hash: Hex;
-    signature: Base64;
-    publicKey: Base64;
-    fee?: BigInt;
-    fromBlockHash?: Hex;
-    toAddress?: Address;
-    tokenId?: TokenId;
-    amount?: BigInt;
-    data?: Base64;
-    nonce?: Base64;
-    logHash?: Hex;
-}
-```
-
 ## 通用
 
 ### getAccountBlock
-同 accountBlock.getAccountBlock
+[同 accountBlock.getAccountBlock](../tool/accountBlock.md)
 
 ### asyncAccountBlock
 异步获取accountBlock
@@ -103,7 +81,7 @@ export declare type AccountBlock = {
     * Promise<`{ accountBlock, difficulty, quota }`>
 
 ### getSendTxBlock
-同 accountBlock.getSendTxBlock
+[同 accountBlock.getSendTxBlock](../tool/accountBlock.md)
 
 ### asyncSendTx
 获取发送交易的accountBlock
@@ -117,6 +95,7 @@ export declare type AccountBlock = {
         - `message?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
+
 - **Return**:
     * Promise<`AccountBlock`>
 
@@ -132,6 +111,7 @@ export declare type AccountBlock = {
         - `fromBlockHash: Hex`
         - `prevHash?: Hex`
         - `height?: Uint64`
+        
 - **Return**:
     * Promise<`AccountBlock`>
 

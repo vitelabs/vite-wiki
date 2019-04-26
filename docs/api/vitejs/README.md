@@ -10,7 +10,7 @@ title: Version 2.1.0
 
 ## Introduction
 
-Vite JS 实现了js版本生成地址、签名、abi等功能函数；提供IPC、HTTP、WS的rpc协议调用；同时对 Gvite-RPC 接口进行了上层封装；并且支持各类account实例，快捷生成钱包功能。
+Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the Gvite-RPC interface; and supports various account instances, which can quickly generate a wallet.
 
 **Version 2.0.0 and above. We optimise the architecture of vitejs project and refine vitejs packages as well as split them into detailed functionality.**
 
@@ -100,7 +100,7 @@ myClient.ledger.getSnapshotChainHeight().then((result) => {
 ```
 
 ## Common type and specification
-[Refer to constant module](/api/vitejs/constant/constant.html)
+[Refer to constant module](./constant/constant.md)
 
 ```typescript
 // RPC
@@ -125,6 +125,7 @@ export declare type HexAddr = string;
 export declare type Addr = string;
 export declare type Base64 = string;
 export declare type TokenId = string;
+export declare type RawTokenId = string;
 export declare type Int64 = number;
 export declare type Uint64 = string;
 export declare type BigInt = string;
@@ -140,8 +141,6 @@ export declare type AccountBlock = {
     accountAddress: HexAddr;
     blockType: BlockType;
     prevHash: Hex;
-    snapshotHash: Hex;
-    timestamp: Int64;
     height: Uint64;
     hash: Hex;
     signature: Base64;
@@ -154,6 +153,7 @@ export declare type AccountBlock = {
     data?: Base64;
     nonce?: Base64;
     logHash?: Hex;
+    sendBlockList?: Array;
 }
 
 // For example

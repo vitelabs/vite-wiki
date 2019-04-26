@@ -25,14 +25,26 @@ import * as accountBlock from '@vite/vitejs-accountblock';
 ### getAccountBlock
 获取规范的accountBlock
 
-- **Parameters**
-  - `block : Object<blockType, accountAddress, snapshotHash, prevHash?, height?, fromBlockHash?, data?, message?, toAddress?, tokenId?, amount?, nonce?>` block
+- **Parameters** 
+    * `__namedParameters: Object`
+        - `blockType: BlockType`
+        - `accountAddress: Address`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `message?: string`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fee?: BigInt`
+        - `prevHash?: Hex`
+        - `height?: Uint64`
+        - `nonce?: Base64`
 
 - **Return**
-  - `accountBlock : AccountBlock` 规范的 accountBlock
+    * `accountBlock : AccountBlock` 规范的 accountBlock
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { getAccountBlock } from '@vite/vitejs-accountblock';
 
 const block = {
@@ -52,33 +64,43 @@ const formatBlock = getAccountBlock({
 获取规范的 send accountBlock
 
 - **Parameters**
-  - `block : Object<accountAddress, toAddress, tokenId, amount, message?, prevHash?, height?, snapshotHash?>` block
-
+    * `__namedParameters: object`
+        - `accountAddress: Address`
+        - `toAddress: Address`
+        - `tokenId: TokenId`
+        - `amount: BigInt`
+        - `message?: string`
+        - `prevHash?: Hex`
+        - `height?: Uint64`
 - **Return**
-  - `accountBlock : AccountBlock` 规范的 send accountBlock
+    * `accountBlock : AccountBlock` 规范的 send accountBlock
   
 ### getReceiveTxBlock
 获取规范的 receive accountBlock
 
-- **Parameters**
-  - `block : Object<accountAddress, fromBlockHash, prevHash?, height?, snapshotHash?>` block
+- **Parameters** 
+    * `__namedParameters: object`
+        - `accountAddress: Address`
+        - `fromBlockHash: Hex`
+        - `prevHash?: Hex`
+        - `height?: Uint64`
 
 - **Return**
-  - `accountBlock : AccountBlock` 规范的 receive accountBlock
+    * `accountBlock : AccountBlock` 
 
 ### getBuiltinTxType 
 获取详细的交易类型
 
 - **Parameters**
-  - `toAddress : string` ToAddress
-  - `data : string` data 
-  - `blockType : number` 块类型
+    * `toAddress : HexAddr` ToAddress
+    * `data : string` `accountBlock.data` 
+    * `blockType : BlockType`
 
 - **Return**
-  - `builtinTxType : BuiltinTxType` 交易类型
+    * `builtinTxType : BuiltinTxType`
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { getAccountBlock } from '@vite/vitejs-accountblock';
 
 const RevokeVoting = {
@@ -92,17 +114,59 @@ const RevokeVoting = {
 获取块hash
 
 - **Parameters**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
+    * `__namedParameters: object`
+        - `accountAddress: HexAddr`
+        - `blockType: BlockType`
+        - `height: Uint64`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `prevHash?: Hex`
+        - `fee?: BigInt`
+        - `nonce?: Base64`
+        - `logHash?: Hex`
+        - `sendBlockList?: Array`
 
 - **Return**
-  - `blockHash : string` 块hash
+    * `blockHash : Hex`
   
 ### signAccountBlock
 签名accountBlock
 
 - **Parameters**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
-  - `privKey : string` 私钥
+    * `__namedParameters: object`
+        - `accountAddress: HexAddr`
+        - `blockType: BlockType`
+        - `height: Uint64`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `prevHash?: Hex`
+        - `fee?: BigInt`
+        - `nonce?: Base64`
+        - `logHash?: Hex`
+        - `sendBlockList?: Array`
+    * `privateKey: Hex` 私钥
   
 - **Return**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?, hash, signature, publicKey>` 签名后的AccountBlock
+    * `accountBlock: AccountBlock` 签名后的AccountBlock
+        - `accountAddress: HexAddr`
+        - `blockType: BlockType`
+        - `height: Uint64`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `prevHash?: Hex`
+        - `fee?: BigInt`
+        - `nonce?: Base64`
+        - `logHash?: Hex`
+        - `sendBlockList?: Array`
+        - `hash: Hex`
+        - `signature: Hex`
+        - `publicKey: Hex`

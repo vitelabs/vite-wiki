@@ -27,14 +27,14 @@ const { WS_RPC } = require('@vite/vitejs-ws');
 ## Constructor
 
 - **Constructor Parameters**: 
-  * `url : string` 连接url  default: 'ws://localhost:31420'
-  * `timeout : number` 超时时间（ms） default: 60000
-  * `Object` 
-	- `headers : object` : 请求头信息
-    - `protocol` : 协议
-    - `clientConfig : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
-    - `retryTimes : number`: 重连次数 default: 10
-    - `retryInterval : number`: 重连间隔时长 default: 10000
+    * `url : string` 连接url Default 'ws://localhost:31420'
+    * `timeout? : number` 超时时间(ms) Default: 60000
+    * `__namedParameters? : object` 
+        - `headers? : object` : 请求头信息
+        - `protocol?` : 协议
+        - `clientConfig? : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
+        - `retryTimes? : number`: 重连次数 Default: 10
+        - `retryInterval? : number`: 重连间隔时长(ms) Default: 10000
 
 - **Example**:
 ```javascript

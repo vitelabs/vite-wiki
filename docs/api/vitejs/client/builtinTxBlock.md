@@ -12,32 +12,10 @@ You can leave out those optional parameters in Methods of `client.builtinTxBlock
 const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ```
 
-## Type Description
-
-```typescript
-export declare type AccountBlock = {
-    accountAddress: Address;
-    blockType: BlockType;
-    prevHash: Hex;
-    height: Uint64;
-    hash: Hex;
-    signature: Base64;
-    publicKey: Base64;
-    fee?: BigInt;
-    fromBlockHash?: Hex;
-    toAddress?: Address;
-    tokenId?: TokenId;
-    amount?: BigInt;
-    data?: Base64;
-    nonce?: Base64;
-    logHash?: Hex;
-}
-```
-
 ## Common
 
 ### getAccountBlock
-Same as `accountBlock.getAccountBlock`
+[Same as accountBlock.getAccountBlock](../tool/accountBlock.md)
 
 ### asyncAccountBlock
 Get accountBlock asynchronously
@@ -61,7 +39,7 @@ Get accountBlock asynchronously
     * Promise<`AccountBlock`>
 
 ### pow
-获取运行PoW成功后的AccountBlock
+Get the AccountBlock after running PoW successfully.
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -82,7 +60,7 @@ Get accountBlock asynchronously
     * Promise<`AccountBlock`>
 
 ### autoPow
-当没有配额时，自动运行PoW获取accountBlock。
+Automatically run PoW to get the accountBlock, when there is no quota.
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -97,13 +75,13 @@ Get accountBlock asynchronously
         - `fee?: BigInt`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `usePledgeQuota : Boolean` 是否优先使用配额
+    * `usePledgeQuota : Boolean` Whether to use quotas preferentially
 
 - **Return**:
     * Promise<`{ accountBlock, difficulty, quota }`>
 
 ### getSendTxBlock
-Same as `accountBlock.getSendTxBlock`
+[Same as accountBlock.getSendTxBlock](../tool/accountBlock.md)
 
 ### asyncSendTx
 Get accountBlock of sending transaction
@@ -117,11 +95,12 @@ Get accountBlock of sending transaction
         - `message?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
+        
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### getReceiveTxBlock
-Same as `accountBlock.getReceiveTxBlock`
+[Same as accountBlock.getReceiveTxBlock](../tool/accountBlock.md)
 
 ### asyncReceiveTx
 Get accountBlock of receiving transaction
@@ -132,6 +111,7 @@ Get accountBlock of receiving transaction
         - `fromBlockHash: Hex`
         - `prevHash?: Hex`
         - `height?: Uint64`
+
 - **Return**:
     * Promise<`AccountBlock`>
 
@@ -313,7 +293,6 @@ Get accountBlock of withdraw quota
 
 - **Return**:
     * Promise<`AccountBlock`>
-
 
 ## Mintage
 

@@ -14,7 +14,7 @@ yarn add @vite/vitejs-privtoaddr
 
 ## Import
 
-```javascript import
+```javascript
 import { privToAddr } from '@vite/vitejs';
 // Or
 import * as privToAddr from '@vite/vitejs-privtoaddr';
@@ -26,13 +26,13 @@ import * as privToAddr from '@vite/vitejs-privtoaddr';
 Generating hex address according to private key
 
 - **Parameters**
-  - `privateKey? : string | buffer` Private key
+    * `privateKey? : string | buffer` Private key
 
 - **Return**
-  - `addrObj : AddrObj`
+    * `addrObj : AddrObj`
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { newHexAddr } from '@vite/vitejs-privtoaddr';
 
 const { addr, pubKey, privKey, hexAddr } = newHexAddr();
@@ -42,22 +42,22 @@ const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 Generating hex address according to public key
 
 - **Parameters**
-  - `publickey : string | buffer` Public key
+    * `publickey : string | buffer` Public key
 
 - **Return**
-  - `hexaddr : HexAddr` Hex encoded address
+    * `hexaddr : HexAddr` Hex encoded address
 
 ### getAddrFromHexAddr
 Get real address
 
 - **Parameters**
-  - `hexaddr : HexAddr` Hex encoded address
+    * `hexaddr : HexAddr` Hex encoded address
 
 - **Return**
-  - `addr : Addr` Real address
+    * `addr : Addr` Real address
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { getAddrFromHexAddr } from '@vite/vitejs-privtoaddr';
 
 const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689');
@@ -68,16 +68,16 @@ const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587e
 Generating hex address according to real address
 
 - **Parameters**
-  - `addr : Addr` Real address
+    * `addr : Addr` Real address
 
 - **Return**
-  - `hexaddr : HexAddr` Hex encoded address
+    * `hexaddr : HexAddr` Hex encoded address
 
 ### isValidHexAddr
 Verify if it is a legal hex address
 
 - **Parameters**
-  - `hexaddr : HexAddr` Hex encoded address
+    * `hexaddr : HexAddr` Hex encoded address
   
 - **Return**
-  - `validate : boolean` Legal or not
+    * `validate : boolean` Legal or not

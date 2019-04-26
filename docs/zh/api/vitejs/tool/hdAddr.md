@@ -26,18 +26,18 @@ import * as hdAddr from '@vite/vitejs-hdaddr';
 自动生成助记词及其0号地址
 
 - **Parameters**
-  - `bits? : number` 获取多少位的助记词 default: 256
-  - `lang? : LangList` 语言 default: english
-  - `pwd? : string` 密码 default: ''
+    * `bits? : number` 获取多少位的助记词 Default 256
+    * `lang? : LangList` 语言 Default english
+    * `pwd? : string` 密码
 
 - **Return**
-    - `mnemonicAddrObj: object`
+    * `mnemonicAddrObj: object`
         - `addrObj : AddrObj`
         - `entropy : string` 熵
         - `mnemonic : string` 助记词
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { newAddr } from '@vite/vitejs-hdaddr';
 
 let { addr, entropy, mnemonic } = newAddr();
@@ -47,69 +47,69 @@ let { addr, entropy, mnemonic } = newAddr();
 根据助记词获取某个地址
 
 - **Parameters**
-  - `mnemonic : string` 助记词
-  - `index? : number` 地址序号 default: 0
-  - `lang? : LangList` 语言 default: english
-  - `pwd? : string` 密码 default: ''
+    * `mnemonic : string` 助记词
+    * `index? : number` 地址序号 Default 0
+    * `lang? : LangList` 语言 Default english
+    * `pwd? : string` 密码
 
 - **Return**
-  - `addrObj: AddrObj`
+    * `addrObj: AddrObj`
 
 ### getAddrsFromMnemonic
 根据助记词获取一串地址
 
 - **Parameters**
-  - `mnemonic: string` 助记词
-  - `start : number` 地址序号，从第几个地址开始
-  - `num : number` 个数，获取多少个地址
-  - `lang? : LangList` 语言 default: english
-  - `pwd? : string` 密码 default: ''
+    * `mnemonic: string` 助记词
+    * `start : number` 地址序号，从第几个地址开始
+    * `num : number` 个数，获取多少个地址
+    * `lang? : LangList` 语言 Default english
+    * `pwd? : string` 密码
 
 - **Return**
-  - `addrObj: AddrObj`
+    * `addrObj: AddrObj`
 
 ### getId
 根据助记词生成id
 
 - **Parameters**
-  - `mnemonic : string` 助记词
-  - `lang? : LangList` 语言 default: english
+    * `mnemonic : string` 助记词
+    * `lang? : LangList` 语言 Default english
 
 - **Return**
-  - `id: string` ID
+    * `id: string`
 
 ### getMnemonicFromEntropy
 根据熵获取助记词
 
 - **Parameters**
-  - `entropy: string` 熵
-  - `lang? : LangList` 语言 default: english
+    * `entropy: string` 熵
+    * `lang? : LangList` 语言 Default english
 
 - **Return**
- - `mnemonic: string` 助记词
+    * `mnemonic: string` 助记词
 
 ### getEntropyFromMnemonic
 获取助记词的熵
 
 - **Parameters**
-  - `mnemonic: string` 助记词
-  - `lang? : LangList` 语言 default: english
+    * `mnemonic: string` 助记词
+    * `lang? : LangList` 语言 Default english
 
 - **Return**
-  - `entropy: string` 熵
+    * `entropy: string` 熵
 
 ### validateMnemonic
 校验是否为合法的助记词
 
 - **Parameters**
-  - `mnemonic: string` 助记词
-  - `lang? : LangList` 语言 default: english
+    * `mnemonic: string` 助记词
+    * `lang? : LangList` 语言 Default english
   
 - **Return**
-  - `validate: boolean` 是否合法
+    * `validate: boolean` 是否合法
 
 ### getAddrFromHexAddr
-获取真实地址 [同privToAddr](/api/vitejs/tool/privToAddr.html)
+获取真实地址 [同privToAddr.getAddrFromHexAddr](./privToAddr.md)
 
 ### isValidHexAddr
-校验是否为合法的hex地址 [同privToAddr](/api/vitejs/tool/privToAddr.html)
+校验是否为合法的hex地址 [同privToAddr.isValidHexAddr](./privToAddr.md)

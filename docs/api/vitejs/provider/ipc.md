@@ -27,12 +27,12 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 ## Constructor
 
 - **Constructor Parameters**: 
-  * `path : string` Connection path  default: ''
-  * `timeout : number` Timeout（ms） default: 60000
-  * `Object` 
-	- `delimiter : string` : Delimiter default: `\n`
-    - `retryTimes : number`: Reconnection Times
-    - `retryInterval : number`: Reconnection Interval
+    * `path : string` Connection path. Default: ''
+    * `timeout : number` Timeout(ms) Default: 60000
+    * `__namedParameters? : object` 
+        - `delimiter? : string` : Delimiter. Default: `\n`
+        - `retryTimes? : number`: Reconnection Times. Default 10
+        - `retryInterval? : number`: Reconnection Interval(ms). Default 10000
 
 - **Example**:
 ```javascript

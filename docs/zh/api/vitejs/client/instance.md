@@ -6,8 +6,8 @@
 ## Constructor
 
 - **Constructor Parameters**
-    - `provider : Provider 实例`
-    - `firstConnectCb : function` : 首次连接后的回调函数
+    * `provider : Provider 实例`
+    * `firstConnectCb : function` : 首次连接后的回调函数
 
 - **Example**
 ```javascript
@@ -43,7 +43,7 @@ myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
 ```
 
 ## BuiltinTxBlock
-见 BuiltinTxBlock
+[见 BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
@@ -107,8 +107,8 @@ myclient.getBalance.then(({balance, onroad}) => {
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `accountBlock : AccountBlock` Formatted accountBlock (Signature not required)
-        - `privateKey` Private Key
+        - `accountBlock : AccountBlock` 规范化后的accountBlock (无需签名)
+        - `privateKey` 私钥
         - `usePledgeQuota : Boolean` 是否优先使用配额
 
 - **Return**:

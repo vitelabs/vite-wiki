@@ -6,8 +6,8 @@ Inherit all of netProcessor's methods (`setProvider` / `request` / `notification
 ## Constructor 
 
 - **Constructor params**
-    - `provider : Provider Instance`
-    - `firstConnectCb : function` : Callback function of first connection
+    * `provider : Provider Instance`
+    * `firstConnectCb : function` : Callback function of first connection
 
 - **Example**
 ```javascript
@@ -43,7 +43,7 @@ myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
 ```
 
 ## BuiltinTxBlock
-Refer to BuiltinTxBlock
+[Refer to BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
@@ -81,13 +81,13 @@ Get Transaction List
     * Promise<`{ list, totalNum }`>
 
 ### callOffChainContract
-查询合约状态
+Query contract status
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `addr : HexAddr` 合约账户地址
+        - `addr : HexAddr` Contract account address
         - `abi`
-        - `offChainCode : Hex` 合约代码
+        - `offChainCode : Hex`
 
 - **Return**:
     * Promise<`result`>
@@ -103,13 +103,13 @@ Send Transaction
     * Promise<`AccountBlock`>
 
 ### sendAutoPowRawTx
-当没有配额时，自动运行PoW发送交易
+Automatically run PoW to send transactions when there is no quota
 
 - **Parameters** 
     * `__namedParameters: object`
         - `accountBlock : AccountBlock` Formatted accountBlock (Signature not required)
         - `privateKey` Private Key
-        - `usePledgeQuota : Boolean` 是否优先使用配额
+        - `usePledgeQuota : Boolean` Whether to use quotas preferentially
 
 - **Return**:
     * Promise<`AccountBlock`>

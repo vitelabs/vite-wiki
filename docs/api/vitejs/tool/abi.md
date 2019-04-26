@@ -57,11 +57,11 @@ Contract methods (including constructors, asynchronous invoke, offline reading) 
 ### encodeLogSignature
 
 - **Parameters**
-  - `jsonInterface | Array<jsonInterface>`
-  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
+    * `jsonInterface | Array<jsonInterface>`
+    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
 
 - **Return**
-  - `hexString`
+    * `hexString`
 
 - **Example**
 ```js ::Demo
@@ -83,11 +83,11 @@ let encodeLogSignatureResult22 = abi.encodeLogSignature([
 ### encodeFunctionSignature
 
 - **Parameters**
-  - `jsonInterface | Array<jsonInterface>`
-  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
+    * `jsonInterface | Array<jsonInterface>`
+    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
 
 - **Return**
-  - `hexString`
+    * `hexString`
 
 - **Example**
 ```js ::Demo
@@ -102,12 +102,12 @@ let encodeMethodResult1 = abi.encodeFunctionSignature({
 ### encodeFunctionCall
 
 - **Parameters**
-  - `jsonInterface | Array<jsonInterface>`
-  - `params`
-  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
+    * `jsonInterface | Array<jsonInterface>`
+    * `params`
+    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
 
 - **Return**
-  - `hexString`
+    * `hexString`
 
 - **Example**
 ```js ::Demo
@@ -151,11 +151,11 @@ let result1 = abi.encodeFunctionCall([{
 ### encodeParameter
 
 - **Parameters**
-  - `type`
-  - `params` The second parameter should pass an array type when the first parameter is an array (Both parameters should be consistent)
+    * `type`
+    * `params` The second parameter should pass an array type when the first parameter is an array (Both parameters should be consistent)
 
 - **Return**
-  - `hexString`
+    * `hexString`
 
 - **Example**
 ```js ::Demo
@@ -169,11 +169,11 @@ let encodeParameterResult4 = abi.encodeParameter('uint16[]', [1,2]);
 ### decodeParameter
 
 - **Parameters**
-  - `type`
-  - `hexString`
+    * `type`
+    * `hexString`
 
 - **Return**
-  - `decodeResult`
+    * `decodeResult`
 
 - **Example**
 ```js ::Demo
@@ -187,12 +187,12 @@ let encodeParameterResult2 = abi.decodeParameter('uint8[]', '0000000000000000000
 ### encodeParameters
 
 - **Parameters**
-  - `jsonInterface | Array<type-string> | Array<jsonInterface>`
-  - `params`
-  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
+    * `jsonInterface | Array<type-string> | Array<jsonInterface>`
+    * `params`
+    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
 
 - **Return**
-  - `hexString`
+    * `hexString`
 
 - **Example**
 ```js ::Demo
@@ -217,12 +217,12 @@ let encodeParametersResult12 = abi.encodeParameters([
 ### decodeParameters
 
 - **Parameters**
-  - `jsonInterface | Array<type-string> | Array<jsonInterface>`
-  - `hexString`
-  - `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
+    * `jsonInterface | Array<type-string> | Array<jsonInterface>`
+    * `hexString`
+    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
 
 - **Return**
-  - `decodeResult`
+    * `decodeResult`
 
 - **Example**
 ```js ::Demo
@@ -247,12 +247,12 @@ let decodeParametersResult22 = abi.decodeParameters([
 ### decodeLog
 
 - **Parameters**
-  - `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
-  - `hexString`
-  - `methodName?` This parameter is required when type of the first parameter is JsonInterface (Used to identify abi and get corresponding inputs)
+    * `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
+    * `hexString`
+    * `methodName?` This parameter is required when type of the first parameter is JsonInterface (Used to identify abi and get corresponding inputs)
 
 - **Return**
-  - `decodeResult`
+    * `decodeResult`
 
 - **Example**
 ```js ::Demo

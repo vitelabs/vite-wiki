@@ -49,13 +49,13 @@ import * as keystore from '@vite/vitejs-keystore';
 keystore是否合法
 
 - **Parameters**
-  - `keystore : string` keystore string
+    * `keystore : string` Keystore string
 
 - **Return**
-  - `validate : boolean` 是否合法
+    * `validate : boolean` 是否合法
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { isValid } from '@vite/vitejs-keystore';
 
 const result = isValid('{}'); // false
@@ -65,24 +65,24 @@ const result = isValid('{}'); // false
 解密keystore
 
 - **Parameters**
-  - `keystore : string` keystore string
-  - `pwd : string` 密码
+    * `keystore : string` Keystore string
+    * `pwd : string` 密码
 
 - **Return**
-  - Promise<`key : string`> 加密前的字符串
+    * Promise<`key : string`> 加密前的字符串
 
 ### encrypt
 加密keystore
 
 - **Parameters**
-  - `keystore : string` keystore string
-  - `pwd : string` 密码
-  - `scryptParams : Object` 加密参数(非必填)
-    - n
-    - r
-    - p
-    - keylen
-    - salt
+    * `keystore : string` Keystore string
+    * `pwd : string` 密码
+    * `scryptParams : Object` 加密参数(非必填)
+        - n
+        - r
+        - p
+        - keylen
+        - salt
     
 - **Return**
-  - Promise<`keystore: string`> 加密后的keystore字符串
+    * Promise<`keystore: string`> 加密后的keystore字符串

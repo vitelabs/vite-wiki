@@ -46,16 +46,16 @@ import * as keystore from '@vite/vitejs-keystore';
 ## Methods
 
 ### isValid 
-keystore is valid or not
+Keystore is valid or not
 
 - **Parameters**
-  - `keystore : string` keystore string
+    * `keystore : string` Keystore string
   
 - **Return**
-  - `validate : boolean` valid or not
+    * `validate : boolean` Valid or not
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { isValid } from '@vite/vitejs-keystore';
 
 const result = isValid('{}'); // false
@@ -65,24 +65,24 @@ const result = isValid('{}'); // false
 Decrypt keystore
 
 - **Parameters**
-  - `keystore : string` Keystore String
-  - `pwd : string` Password
+    * `keystore : string` Keystore String
+    * `pwd : string` Password
 
 - **Return**
-  - Promise<`key : string`> String before encrypts
+    * Promise<`key : string`> String before encrypts
 
 ### encrypt
 Encrypt Keystore
 
 - **Parameters**
-  - `keystore : string` Keystore String
-  - `pwd : string` Password
-  - `scryptParams : Object` Encrypt Parameters (Optional)
-    - n
-    - r
-    - p
-    - keylen
-    - salt
+    * `keystore : string` Keystore String
+    * `pwd : string` Password
+    * `scryptParams : Object` Encrypt Parameters (Optional)
+        - n
+        - r
+        - p
+        - keylen
+        - salt
 
 - **Return**
-  - Promise<`keystore: string`> Keystore String
+    * Promise<`keystore: string`> Keystore String

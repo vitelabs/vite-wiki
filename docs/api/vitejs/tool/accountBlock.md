@@ -25,14 +25,26 @@ import * as accountBlock from '@vite/vitejs-accountblock';
 ### getAccountBlock
 Get normative accountBlock
 
-- **Parameters**
-  - `block : Object<blockType, accountAddress, snapshotHash, prevHash?, height?, fromBlockHash?, data?, message?, toAddress?, tokenId?, amount?, nonce?>` block
+- **Parameters** 
+    * `__namedParameters: Object`
+        - `blockType: BlockType`
+        - `accountAddress: Address`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `message?: string`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fee?: BigInt`
+        - `prevHash?: Hex`
+        - `height?: Uint64`
+        - `nonce?: Base64`
 
 - **Return**
-  - `accountBlock : AccountBlock` 
+    * `accountBlock : AccountBlock` 
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { getAccountBlock } from '@vite/vitejs-accountblock';
 
 const block = {
@@ -52,33 +64,43 @@ const formatBlock = getAccountBlock({
 Get normative send accountBlock
 
 - **Parameters**
-  - `block : Object<accountAddress, toAddress, tokenId, amount, message?, prevHash?, height?, snapshotHash?>` block
-
+    * `__namedParameters: object`
+        - `accountAddress: Address`
+        - `toAddress: Address`
+        - `tokenId: TokenId`
+        - `amount: BigInt`
+        - `message?: string`
+        - `prevHash?: Hex`
+        - `height?: Uint64`
 - **Return**
-  - `accountBlock : AccountBlock` 
+    * `accountBlock : AccountBlock` 
   
 ### getReceiveTxBlock
 Get normative receive accountBlock
 
-- **Parameters**
-  - `block : Object<accountAddress, fromBlockHash, prevHash?, height?, snapshotHash?>` block
+- **Parameters** 
+    * `__namedParameters: object`
+        - `accountAddress: Address`
+        - `fromBlockHash: Hex`
+        - `prevHash?: Hex`
+        - `height?: Uint64`
 
 - **Return**
-  - `accountBlock : AccountBlock` 
+    * `accountBlock : AccountBlock` 
 
 ### getBuiltinTxType 
 Get specified transaction type
 
 - **Parameters**
-  - `toAddress : string` ToAddress
-  - `data : string` data 
-  - `blockType : number`
+    * `toAddress : HexAddr` ToAddress
+    * `data : string` `accountBlock.data` 
+    * `blockType : BlockType`
 
 - **Return**
-  - `builtinTxType : BuiltinTxType` Transaction Type
+    * `builtinTxType : BuiltinTxType` Transaction Type
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { getAccountBlock } from '@vite/vitejs-accountblock';
 
 const RevokeVoting = {
@@ -94,16 +116,58 @@ const builtinTxType = getBuiltinTxType(RevokeVoting.toAddress, RevokeVoting.data
 ### getBlockHash
 
 - **Parameters**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
+    * `__namedParameters: object`
+        - `accountAddress: HexAddr`
+        - `blockType: BlockType`
+        - `height: Uint64`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `prevHash?: Hex`
+        - `fee?: BigInt`
+        - `nonce?: Base64`
+        - `logHash?: Hex`
+        - `sendBlockList?: Array`
 
 - **Return**
-  - `blockHash : string`
+    * `blockHash : Hex`
   
 ### signAccountBlock
 
 - **Parameters**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?>` AccountBlock
-  - `privKey : string` Private Key 
+    * `__namedParameters: object`
+        - `accountAddress: HexAddr`
+        - `blockType: BlockType`
+        - `height: Uint64`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `prevHash?: Hex`
+        - `fee?: BigInt`
+        - `nonce?: Base64`
+        - `logHash?: Hex`
+        - `sendBlockList?: Array`
+    * `privateKey: Hex` Private Key 
 
 - **Return**
-  - `accountBlock : Object<accountAddress, blockType, prevHash, snapshotHash, timestamp, height, fee, fromBlockHash?, toAddress?, tokenId?, amount?, data?, nonce?, logHash?, hash, signature, publicKey>` AccountBlock after signing
+    * `accountBlock: AccountBlock` AccountBlock after signing
+        - `accountAddress: HexAddr`
+        - `blockType: BlockType`
+        - `height: Uint64`
+        - `toAddress?: Address`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fromBlockHash?: Hex`
+        - `data?: Base64`
+        - `prevHash?: Hex`
+        - `fee?: BigInt`
+        - `nonce?: Base64`
+        - `logHash?: Hex`
+        - `sendBlockList?: Array`
+        - `hash: Hex`
+        - `signature: Hex`
+        - `publicKey: Hex`

@@ -78,8 +78,8 @@ Activate an account in the hdAccount instance. Call `Account.activate`.
     * `__namedParameters: object`
         - `intervals : number` polling interval. Default 2000ms
         - `duration : number`: Account activate duration, Default 5 * 60 * 1000(ms)。If duration < 0, account is available permanently until clear account manually
-        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
-        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+        - `autoPow?: boolean` Whether to run PoW by default when sending a transaction without quota. Default false
+        - `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default true
 
 - **Return**:
     * `activeAccount : Account` Activated account
@@ -97,8 +97,8 @@ Get an account instance
     * `__namedParameters: object` object Fill out with one of `{ address, index }`
         - `address? : string`
         - `index? : number` Account Index. Default 0
-        - `autoPow?: boolean` 发送交易是否默认运行PoW，Default false
-        - `usePledgeQuota? : boolean` check是否运行PoW时，是否默认使用配额，Default true
+        - `autoPow?: boolean` Whether to run PoW by default when sending a transaction without quota. Default false
+        - `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default true
 
 - **Return**:
     * `account : Account` The account instance

@@ -14,7 +14,7 @@ yarn add @vite/vitejs-privtoaddr
 
 ## 引入
 
-```javascript import
+```javascript
 import { privToAddr } from '@vite/vitejs';
 // Or
 import * as privToAddr from '@vite/vitejs-privtoaddr';
@@ -26,13 +26,13 @@ import * as privToAddr from '@vite/vitejs-privtoaddr';
 根据私钥生成hex地址
 
 - **Parameters**
-  - `privateKey? : string | buffer` 私钥
+    * `privateKey? : string | buffer` 私钥
 
 - **Return**
-  - `addrObj : AddrObj`
+    * `addrObj : AddrObj`
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { newHexAddr } from '@vite/vitejs-privtoaddr';
 
 const { addr, pubKey, privKey, hexAddr } = newHexAddr();
@@ -42,22 +42,22 @@ const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 根据公钥生成hex地址
 
 - **Parameters**
-  - `publickey : string | buffer` 公钥
+    * `publickey : string | buffer` 公钥
 
 - **Return**
-  - `hexaddr : HexAddr` hex编码地址
+    * `hexaddr : HexAddr` hex编码地址
 
 ### getAddrFromHexAddr
 获取真实地址
 
 - **Parameters**
-  - `hexaddr : HexAddr` hex编码地址
+    * `hexaddr : HexAddr` hex编码地址
 
 - **Return**
-  - `addr : Addr` 真实地址
+    * `addr : Addr` 真实地址
 
 - **Example**
-```javascript ::Demo
+```javascript
 import { getAddrFromHexAddr } from '@vite/vitejs-privtoaddr';
 
 const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689');
@@ -68,16 +68,16 @@ const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587e
 通过真实地址获取hex地址
 
 - **Parameters**
-  - `addr : Addr` 真实地址
+    * `addr : Addr` 真实地址
 
 - **Return**
-  - `hexaddr : HexAddr` hex编码地址
+    * `hexaddr : HexAddr` hex编码地址
 
 ### isValidHexAddr
 校验是否为合法的hex地址
 
 - **Parameters**
-  - `hexaddr : HexAddr` hex编码地址
+    * `hexaddr : HexAddr` hex编码地址
   
 - **Return**
-  - `validate : boolean` 是否合法
+    * `validate : boolean` 是否合法

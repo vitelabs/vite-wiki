@@ -14,10 +14,10 @@ HTTP / Websocket / IPC All of these have already integrated the following method
 
 ## Methods
 
-### Abort
+### abort
 Breaks the remaining requests for the current connection and clears the list of requests
 
-### Request
+### request
 Initiates a request
 
 - **Parameters**: 
@@ -27,13 +27,13 @@ Initiates a request
 - **Returns**:
     - Promise<`JsonRPC response`>
 
-### Notification
+### notification
 
 - **Parameters**: 
   * `methodName : string` Method name
   * `params : any` Request params
 
-### Batch
+### batch
 
 - **Parameters**: 
   * `requests : array<object>` 
