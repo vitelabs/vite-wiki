@@ -219,6 +219,7 @@ return result;
 Account will automatically wrap the method in `client.builtinTxBlock`.
 
 ### How to achieve in account instance
+If you want to implement this method yourself, you can refer to this call logic for encapsulation.
 
 1. `accountBlock.accountAddress = this.address`
 2. Get the legal block by `this.getBlock[methodName]`
@@ -240,7 +241,12 @@ for (const key in this._client.builtinTxBlock) {
     this[_key] = async (params, autoPow?, usePledgeQuota?) => {
         params.accountAddress = this.address;
         const block = await this.getBlock[key](params);
-        return this._sendRawTx(block, autoPow, usePledgeQuota);
+        const _autoPow = autoPow === true || autoPow === false ? autoPow : !!this.autoPow;
+
+        if (!_autoPow) {
+            return this.sendRawTx(accountBlock);
+        }
+        return this.sendAutoPowRawTx(accountBlock, usePledgeQuota);
     };
 }
 ```

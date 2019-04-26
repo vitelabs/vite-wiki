@@ -219,6 +219,7 @@ return result;
 Account 会自动从`client.builtinTxBlock`中获取生成块方法并进行封装。
 
 ### 实现方式
+如果想自行实现此方法，可参照此调用逻辑进行封装。
 
 1. `accountBlock.accountAddress = this.address`
 2. 通过block方法获取到合法块
@@ -240,7 +241,12 @@ for (const key in this._client.builtinTxBlock) {
     this[_key] = async (params, autoPow?, usePledgeQuota?) => {
         params.accountAddress = this.address;
         const block = await this.getBlock[key](params);
-        return this._sendRawTx(block, autoPow, usePledgeQuota);
+        const _autoPow = autoPow === true || autoPow === false ? autoPow : !!this.autoPow;
+
+        if (!_autoPow) {
+            return this.sendRawTx(accountBlock);
+        }
+        return this.sendAutoPowRawTx(accountBlock, usePledgeQuota);
     };
 }
 ```
