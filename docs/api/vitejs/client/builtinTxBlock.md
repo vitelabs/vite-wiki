@@ -129,6 +129,7 @@ Get accountBlock of creating contract
         - `hexCode: Hex`
         - `abi: string`
         - `confirmTimes: number`
+        - `times: number`
         - `params?: stirng`
         - `height?: Uint64`
         - `prevHash?: Hex`

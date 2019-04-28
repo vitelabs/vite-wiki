@@ -129,6 +129,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `hexCode: Hex`
         - `abi: string`
         - `confirmTimes: number`
+        - `times: number`
         - `params?: stirng`
         - `height?: Uint64`
         - `prevHash?: Hex`
