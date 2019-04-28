@@ -22,7 +22,7 @@
 
 ### 准备vitejs运行环境
 
-TODO
+js可执行环境即可
 
 ### 官方测试钱包
 
@@ -50,11 +50,43 @@ contract HelloWorld {
 }
 ```
 vitejs部署合约和抵押代码示例如下：
-```
-let abi=[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}]
-let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008a565b005b8073ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508073ffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a723058209e71140ee2fdf78fceeb608c3caa88fd69b06431f165312c4726b9fcbf46dbfb0029'
-……
-TODO 包括导入一个账户，用这个账户部署合约，给新部署的合约抵押vite
+```javascript
+import WS_RPC from '@vite/vitejs-ws';
+import { client, account, hdAccount, constant } from '@vite/vitejs';
+
+let { Vite_TokenId } = constant;
+let provider = new WS_RPC("ws://example.com");
+let myClient = new client(provider);
+
+let myAccount = new account({
+    client: myClient,
+    privateKey: 'your privateKey'
+});
+// Or
+// let myHdAccount = new hdAccount({ 
+//     client: myClient,
+//     mnemonic: 'your mnemonic'
+// });
+// let myAccount = myHdAccount.getAccount();
+
+let abi=[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}];
+let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008a565b005b8073ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508073ffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a723058209e71140ee2fdf78fceeb608c3caa88fd69b06431f165312c4726b9fcbf46dbfb0029';
+
+// TODO 包括导入一个账户，用这个账户部署合约，给新部署的合约抵押vite
+
+myAccount.createContract({
+    abi,
+    hexCode: binaryCode,
+    confirmTimes: 2                     //  0 ~ 75,
+    params: [/** your parameters  */]
+    tokenId: Vite_TokenId,              // Default Vite_TokenId
+    amount: '0',                        // Default '0'
+    fee: '10000000000000000000',        // Default '10000000000000000000'
+}).then((result) => {
+    console.log(result)
+}).catch(err => {
+    console.warn(err);
+})
 ```
 
 ## 调用合约
@@ -74,7 +106,7 @@ TODO 用URI的方式调用上面示例中SayHello的接口
 
 全部接口信息和接口调用注意事项见 [接口列表](../../api/rpc/)
 
-TODO vitejs接口调用说明和示例
+[vitejs接口调用说明和示例](../../api/vitejs/client/instance.md)
 
 |  接口名称  | 接口说明 |
 |:------------:|:-----------:|
@@ -89,6 +121,30 @@ TODO vitejs接口调用说明和示例
 | contract_getContractInfo | 查询合约信息，包括合约代码，所属委托共识组信息等 |
 | contract_callOffChainMethod | 离线查询合约状态 |
 | testapi_getTestToken | 获取测试代币 |
+
+```javascript
+import WS_RPC from '@vite/vitejs-WS';
+import { client, constant } from '@vite/vitejs';
+
+const { methods } = constant;
+const wsProvider = new WS_RPC("wss://example.com");
+
+const myClient = new Client(wsProvider, function(_myclient) {
+    console.log("Connected.");
+});
+
+const address = 'vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68';
+
+myclient.ledger.getLatestBlock(address).then((data) => {
+    console.log(data);
+});
+
+// Or
+myClient.request(methods.ledger.getAccountByAccAddr, address).then(()=>{});
+
+// Or
+myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
+```
 
 ### 事件订阅
 
