@@ -354,3 +354,137 @@ Batch return the information of tokens in all open transactions waiting to be re
 }
 ```
 :::
+
+## onroad_getContractOnRoadTotalNum <Badge text="private" type="error"/>
+
+- **Parameters**:
+  * `Address` Only the address of the contract can be inquired
+  * `Gid` Consensus group the address belong to,`Optional` default value is "00000000000000000002"
+
+- **Return**:
+ * `uint64` Return the contract's total number of onroad tx
+
+- **Example**:
+
+::: demo
+
+```json tab:Request 1
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "onroad_getContractOnRoadFrontBlocks",
+    "params": [
+        "vite_0000000000000000000000000000000000000004d28108e76b"
+    ]
+}
+```
+
+```json tab:Request 2
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "onroad_getContractOnRoadFrontBlocks",
+    "params": [
+        "vite_0000000000000000000000000000000000000004d28108e76b",
+        "00000000000000000002"
+    ]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": 3
+}
+```
+
+:::
+
+## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="errror/">
+
+- **Parameters**:
+  * `Address` Only the address of the contract can be inquired
+  * `Gid` Consensus group the address belong to, `Optional` default value is "00000000000000000002"
+
+- **Return**:
+  * `[]AccountBlock` Return the callers's lowest-hight send tx
+
+- **Example**:
+
+::: demo
+
+```json tab:Request 1
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "onroad_getContractOnRoadFrontBlocks",
+    "params": [
+        "vite_0000000000000000000000000000000000000004d28108e76b"
+    ]
+}
+```
+
+```json tab:Request 2
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "onroad_getContractOnRoadFrontBlocks",
+    "params": [
+        "vite_0000000000000000000000000000000000000004d28108e76b",
+        "00000000000000000002"
+    ]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "blockType": 2,
+            "hash": "318d96b93f384dbdb0541b6b727accea00c7e5054d9d19bdc5bfc2b536d61741",
+            "prevHash": "36e33ccadde3e19a9db8a4bc190a232d35b48ecdb64256710be508337f218f47",
+            "accountAddress": "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a",
+            "publicKey": "P8UiTllDO/9PSMg8DrTt6g5MQuppfgTN7HF9A+UNUgA=",
+            "toAddress": "vite_0000000000000000000000000000000000000004d28108e76b",
+            "tokenId": "tti_5649544520544f4b454e6e40",
+            "fromBlockHash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "data": "/cF/JQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnMxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "logHash": null,
+            "nonce": null,
+            "sendBlockList": [],
+            "signature": "EKimxy6MrBuLA5inO7EfrUpUYL+TxN3XS8VvJYbI+QOK54rsP6h/Oo8VOVDKYH5/3omKtlqsvsbfct7f9GlWAQ==",
+            "fromAddress": "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a",
+            "height": "162",
+            "quota": "62000",
+            "amount": "0",
+            "fee": "0",
+            "difficulty": null,
+            "timestamp": 1556437168,
+            "confirmedTimes": "1",
+            "confirmedHash": "10b46915030a4801aef731ad538eb2ca10d0d482fbd723d61e4e2f2328eab941",
+            "tokenInfo": {
+                "tokenName": "Vite Token",
+                "tokenSymbol": "VITE",
+                "totalSupply": "1000000000000000000000000000",
+                "decimals": 18,
+                "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                "pledgeAmount": "0",
+                "withdrawHeight": "0",
+                "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+                "tokenId": "tti_5649544520544f4b454e6e40",
+                "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+                "ownerBurnOnly": false,
+                "isReIssuable": true,
+                "index": 0
+            },
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null
+        }
+    ]
+}
+```
+
+:::
