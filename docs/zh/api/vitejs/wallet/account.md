@@ -185,6 +185,12 @@ myAccount.getBalance().then((result) => {
     * **Return**
         - `next(<isReject: boolean>)` 是否打断交易流程. Default false
 
+:::tip next
+使用`next(true)`打断流程，会默认返回`Promise.resolve({ lifeCycle, accountBlock, checkPowResult });`
+
+若希望自定义行为，可以`return Promise.reject() || new Promise((res, rej) => {})`
+:::
+
 - **Example**
 ```javascript
 // ...
@@ -208,6 +214,52 @@ const result = await myAccount.sendPowTx({
         console.log('[beforeSendTx]', accountBlock, checkPowResult);
         return next();
     }
+});
+
+console.log('[LOG] SendTx', result, '\n');
+return result;
+```
+
+```javascript
+// ...
+
+const result = await myAccount.sendPowTx({
+    methodName: 'asyncSendTx',
+    params: [{
+        toAddress: myAccount.address,
+        tokenId: Vite_TokenId,
+        amount: '100'
+    }],
+    beforeCheckPow: (accountBlock, next) => {
+        console.log('[beforeCheckPow]', accountBlock);
+        // Break
+        return next(true);
+    }
+});
+
+console.log('[LOG] SendTx', result, '\n');
+return result;
+```
+
+
+```javascript
+// ...
+
+const result = await myAccount.sendPowTx({
+    methodName: 'asyncSendTx',
+    params: [{
+        toAddress: myAccount.address,
+        tokenId: Vite_TokenId,
+        amount: '100'
+    }],
+    beforePow: (accountBlock, checkPowResult, next) => {
+        console.log('[beforePow]', accountBlock, checkPowResult);
+        if (checkPowResult.diffculty) {
+            // Break
+            return Promise.reject();
+        }
+        return next();
+    },
 });
 
 console.log('[LOG] SendTx', result, '\n');

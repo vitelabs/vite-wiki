@@ -185,6 +185,12 @@ Send a transaction. Use different function callbacks to perform custom user acti
     * **Return**
         - `next(<isReject: boolean>)` Whether to interrupt the transaction process. Default false
 
+:::tip next
+Use `next(true)` to interrupt the process, will return `Promise.resolve({ lifeCycle, accountBlock, checkPowResult });`
+
+If you want to customize the behavior, you can `return Promise.reject() || new Promise((res, rej) => {})`
+:::
+
 - **Example**
 ```javascript
 // ...
@@ -208,6 +214,51 @@ const result = await myAccount.sendPowTx({
         console.log('[beforeSendTx]', accountBlock, checkPowResult);
         return next();
     }
+});
+
+console.log('[LOG] SendTx', result, '\n');
+return result;
+```
+
+```javascript
+// ...
+
+const result = await myAccount.sendPowTx({
+    methodName: 'asyncSendTx',
+    params: [{
+        toAddress: myAccount.address,
+        tokenId: Vite_TokenId,
+        amount: '100'
+    }],
+    beforeCheckPow: (accountBlock, next) => {
+        console.log('[beforeCheckPow]', accountBlock);
+        // Break
+        return next(true);
+    }
+});
+
+console.log('[LOG] SendTx', result, '\n');
+return result;
+```
+
+```javascript
+// ...
+
+const result = await myAccount.sendPowTx({
+    methodName: 'asyncSendTx',
+    params: [{
+        toAddress: myAccount.address,
+        tokenId: Vite_TokenId,
+        amount: '100'
+    }],
+    beforePow: (accountBlock, checkPowResult, next) => {
+        console.log('[beforePow]', accountBlock, checkPowResult);
+        if (checkPowResult.diffculty) {
+            // Break
+            return Promise.reject();
+        }
+        return next();
+    },
 });
 
 console.log('[LOG] SendTx', result, '\n');
