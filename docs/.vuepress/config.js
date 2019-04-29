@@ -98,7 +98,6 @@ const sidebarConfigs = {
             collapsable: false,
             children: [
                 'wallet',
-                'onroad',
                 'tx',
             ]
         },
@@ -109,7 +108,13 @@ const sidebarConfigs = {
                 'ledger',
             ]
         },
-
+        // onroad
+        {
+            collapsable: false,
+            children: [
+                'onroad',
+            ]
+        },
         // smart-contract
         {
           collapsable: false,
@@ -280,7 +285,7 @@ module.exports = {
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'VEP'),
                 },
@@ -304,7 +309,7 @@ module.exports = {
                     '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '智能合约', '内置合约', 'P2P', '公共组件'),
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'P2P', '公共组件'),
                     '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包')
                 },
                 algolia: {

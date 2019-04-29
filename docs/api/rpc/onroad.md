@@ -1,3 +1,7 @@
+---
+sidebarDepth: 4
+---
+
 # Onroad
 :::tip Maintainer
 [vite-crzn](https://github.com/vite-crzn)
@@ -401,7 +405,7 @@ Batch return the information of tokens in all open transactions waiting to be re
 
 :::
 
-## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="errror/">
+## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="error"/>
 
 - **Parameters**:
   * `Address` Only the address of the contract can be inquired

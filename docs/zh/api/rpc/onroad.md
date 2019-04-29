@@ -1,3 +1,7 @@
+---
+sidebarDepth: 4
+---
+
 # Onroad
 :::tip 维护者
 [vite-crzn](https://github.com/vite-crzn)
@@ -401,7 +405,7 @@
 
 :::
 
-## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="errror/">
+## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="error"/>
 
 - **Parameters**:
   * `Address` 仅可查询合约的地址
