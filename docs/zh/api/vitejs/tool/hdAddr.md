@@ -55,18 +55,32 @@ let { addr, entropy, mnemonic } = newAddr();
 - **Return**
     * `addrObj: AddrObj`
 
+- **Example**
+```javascript
+import { getAddrFromMnemonic } from '@vite/vitejs-hdaddr';
+
+let { addr, hexAddr, pubKey, privKey } = getAddrFromMnemonic('your mnemonic');
+```
+
 ### getAddrsFromMnemonic
 根据助记词获取一串地址
 
 - **Parameters**
     * `mnemonic: string` 助记词
-    * `start : number` 地址序号，从第几个地址开始
-    * `num : number` 个数，获取多少个地址
+    * `start? : number` 地址序号，从第几个地址开始 Default 0
+    * `num? : number` 个数，获取多少个地址 Default 10
     * `lang? : LangList` 语言 Default english
     * `pwd? : string` 密码
 
 - **Return**
-    * `addrObj: AddrObj`
+    * `addrObjArr: Array<AddrObj>`
+
+- **Example**
+```javascript
+import { getAddrsFromMnemonic } from '@vite/vitejs-hdaddr';
+
+let addrObjArr = getAddrsFromMnemonic('your mnemonic');
+```
 
 ### getId
 根据助记词生成id

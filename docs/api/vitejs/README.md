@@ -159,10 +159,10 @@ export declare type AccountBlock = {
 // For example
 
 // Type HexAddr
-const hexAddr = "vite_c5f6afcbf1e1827929d83cae9ccb054f5b06fef197191d1944";
+const hexAddr = "vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689";
 
 // Type Addr
-const addr = "69f3bdb5cdcfa145ae6cc42593a89088ff3dac58";
+const addr = "69f3bdb5cdcfa145ae6cc42593a89088ff3dac5800";
 
 // Type TokenId
 const tokenId = "tti_5649544520544f4b454e6e40";

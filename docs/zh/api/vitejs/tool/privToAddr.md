@@ -61,7 +61,7 @@ const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 import { getAddrFromHexAddr } from '@vite/vitejs-privtoaddr';
 
 const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689');
-// addr = '69f3bdb5cdcfa145ae6cc42593a89088ff3dac58'
+// addr = '69f3bdb5cdcfa145ae6cc42593a89088ff3dac5800'
 ```
 
 ### getHexAddrFromAddr

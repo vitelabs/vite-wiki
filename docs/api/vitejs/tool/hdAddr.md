@@ -55,18 +55,32 @@ Get an address by mnemonic words
 - **Return** 
     * `addrObj: AddrObj`
 
+- **Example**
+```javascript
+import { getAddrFromMnemonic } from '@vite/vitejs-hdaddr';
+
+let { addr, hexAddr, pubKey, privKey } = getAddrFromMnemonic('your mnemonic');
+```
+
 ### getAddrsFromMnemonic
 Get a group of addresses by mnemonic words
 
 - **Parameters**
     * `mnemonic: string` Mnemonic
-    * `start : number` Start from which address number
-    * `num : number` Amount of addresses
+    * `start : number` Start from which address number. Default 0
+    * `num : number` Amount of addresses. Default 10
     * `lang? : LangList` Language. Default english
     * `pwd? : string` Password
 
 - **Return**
-    * `addrObj: AddrObj`
+    * `addrObjArr: Array<AddrObj>`
+
+- **Example**
+```javascript
+import { getAddrsFromMnemonic } from '@vite/vitejs-hdaddr';
+
+let addrObjArr = getAddrsFromMnemonic('your mnemonic');
+```
 
 ### getId
 Generate ID via mnemonic words
