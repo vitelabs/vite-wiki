@@ -78,7 +78,7 @@ A certain token can have only one owner. This process won't change the token's c
 * Token id: The unique id of a re-issuable token
 * Account address: The new owner's account address
 
-## Modify Token Type
+## Change Token Type
 
 Re-issuable tokens can be changed to non-reissuable, or fixed-supply, tokens. However, this process is one-way only, meaning once the type is changed, it cannot be changed back. 
 In this case, the token owner should send a transaction to mintage contract, specifying necessary parameters, once the transaction is processed successfully, the token type is modified to be non-reissuable tokens.
