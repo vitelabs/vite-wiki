@@ -58,6 +58,7 @@ let { Vite_TokenId } = constant;
 let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider);
 
+// 导入一个账户
 let myAccount = new account({
     client: myClient,
     privateKey: 'your privateKey'
@@ -72,8 +73,7 @@ let myAccount = new account({
 let abi=[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}];
 let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008a565b005b8073ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508073ffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a723058209e71140ee2fdf78fceeb608c3caa88fd69b06431f165312c4726b9fcbf46dbfb0029';
 
-// TODO 包括导入一个账户，用这个账户部署合约，给新部署的合约抵押vite
-
+// 用这个账户部署合约
 myAccount.createContract({
     abi,
     hexCode: binaryCode,
@@ -86,7 +86,9 @@ myAccount.createContract({
     console.log(result)
 }).catch(err => {
     console.warn(err);
-})
+});
+
+// 给新部署的合约抵押vite
 ```
 
 ## 调用合约
