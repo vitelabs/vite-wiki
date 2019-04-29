@@ -27,6 +27,7 @@ Generating hex address according to private key
 
 - **Parameters**
     * `privateKey? : string | buffer` Private key
+    * `isContract? : boolean` Is it a contract address? Default false
 
 - **Return**
     * `addrObj : AddrObj`
@@ -43,6 +44,7 @@ Generating hex address according to public key
 
 - **Parameters**
     * `publickey : string | buffer` Public key
+    * `isContract? : boolean` Is it a contract address? Default false
 
 - **Return**
     * `hexaddr : HexAddr` Hex encoded address
