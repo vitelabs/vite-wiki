@@ -28,6 +28,18 @@ title: 开始
 所有byte数组的类型，请转为base64传递，uint64和big.int都用string传递
 :::
 
+## 常见RPC错误汇总
+
+|  描述 | code | message | example |
+|:------------:|:-----------:|:-----:|:-----:|
+| 服务端尝试解析json出错	|  `-32700` | 语法解析错误 |{"code":-32700,"message":"missing request id"}|
+| json不是一个有效的请求对象，缺少必要字段或者字段取值错误	|  `-32600` | 无效请求 |{"code":-32600,"message":"Unable to parse subscription request"}|
+| 方法不存在，请确认已经在`PublicModules`中配置相应的模块，并且方法存在	|  `-32601` | 方法不存在 |{"code":-32601,"message":"The method tx_sendRawTx does not exist/is not available"}|
+| 方法参数错误，例如方法要求传uint8，实际传了string	|  `-32602` | 无效参数 |{"code":-32602,"message":"missing value for required argument"}|
+| 服务器已经停止服务 |  `-32000` | server is shutting down |{"code":-32000,"message":"server is shutting down"}|
+| 服务器执行异常，稍后重试即可 | `-32001` | server execute panic |{"code":-32001,"message":"server execute panic"}|
+| 回调方法返回错误 | `-32002` | call back error |{"code":-32002,"message":"notifications not supported"}|
+
 ## 常见业务错误汇总
 
 |  描述 | code | message | example |
@@ -39,6 +51,8 @@ title: 开始
 | 通过计算PoW获取配额操作过于频繁 |  `-35005` | calc PoW twice referring to one snapshot block |{"code":-35005,"message":"calc PoW twice referring to one snapshot block"}|
 | 合约方法不存在 |  `-35006` | abi: method not found |{"code":-35006,"message":"abi: method not found"}|
 | 创建合约时确认次数非法 |  `-35007` | invalid confirm time |{"code":-35007,"message":"invalid confirm time"}|
+| 合约地址不存在 |  `-35008` | contract not exists |{"code":-35008,"message":"contract not exists"}|
+| 创建合约时配额翻倍数非法 |  `-35010` | invalid quota ratio |{"code":-35010,"message":"invalid quota ratio"}|
 
 ## JSON-RPC Support
 
