@@ -1,5 +1,14 @@
 # BuiltinTxBlock
 
+Gvite-RPC [`ledger_getLatestBlock`](../../rpc/ledger.md)
+
+```javascript
+// For example
+// ...
+accountBlock.prevHash = latestBlock ? latestBlock.hash : Default_Hash;
+accountBlock.height = latestBlock ? latestBlock.height + 1 : 1;
+```
+
 ## How to invoke
 
 :::warning Notice
@@ -39,7 +48,7 @@ Get accountBlock asynchronously
     * Promise<`AccountBlock`>
 
 ### pow
-Get the AccountBlock after running PoW successfully.
+Get the AccountBlock after running PoW successfully (Gvite-RPC [`pow_getPowNonce`](../../rpc/pow.md))
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -60,7 +69,7 @@ Get the AccountBlock after running PoW successfully.
     * Promise<`AccountBlock`>
 
 ### autoPow
-Automatically run PoW to get the accountBlock, when there is no quota.
+Automatically run PoW to get the accountBlock, when there is no quota (Gvite-RPC [`tx_calcPoWDifficulty`](../../rpc/tx.md) + [`pow_getPowNonce`](../../rpc/pow.md))
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -118,7 +127,7 @@ Get accountBlock of receiving transaction
 ## Contract
 
 ### createContract
-Get accountBlock of creating contract
+Get accountBlock of creating contract (Gvite-RPC [`contract_getCreateContractToAddress`](../../rpc/contract.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -161,7 +170,7 @@ Get accountBlock of calling contract
 ## SBP
 
 ### SBPreg
-Get accountBlock of SBP registration
+Get accountBlock of SBP registration (callContract [constant.Register_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -179,7 +188,7 @@ Get accountBlock of SBP registration
     * Promise<`AccountBlock`>
 
 ### updateReg
-Get accountBlock of updating SBP registration
+Get accountBlock of updating SBP registration (callContract [constant.UpdateRegistration_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -196,7 +205,7 @@ Get accountBlock of updating SBP registration
     * Promise<`AccountBlock`>
 
 ### revokeReg
-Get accountBlock of revoking SBP registration
+Get accountBlock of revoking SBP registration (callContract [constant.CancelRegister_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -212,7 +221,7 @@ Get accountBlock of revoking SBP registration
     * Promise<`AccountBlock`>
 
 ### retrieveReward
-Get accountBlock of rewards
+Get accountBlock of rewards (callContract [constant.Reward_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -231,7 +240,7 @@ Get accountBlock of rewards
 ## Vote
 
 ### voting
-Get accountBlock of voting
+Get accountBlock of voting (callContract [constant.Vote_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -247,7 +256,7 @@ Get accountBlock of voting
     * Promise<`AccountBlock`>
 
 ### revokeVoting
-Get accountBlock when revoking vote
+Get accountBlock when revoking vote (callContract [constant.CancelVote_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -264,7 +273,7 @@ Get accountBlock when revoking vote
 ## Pledge
 
 ### getQuota
-Get accountBlock of quota
+Get accountBlock of quota (callContract [constant.Pledge_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -280,7 +289,7 @@ Get accountBlock of quota
     * Promise<`AccountBlock`>
 
 ### withdrawalOfQuota
-Get accountBlock of withdraw quota
+Get accountBlock of withdraw quota (callContract [constant.CancelPledge_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -298,7 +307,7 @@ Get accountBlock of withdraw quota
 ## Mintage
 
 ### mintage
-Get accountBlock of token issuance
+Get accountBlock of token issuance (callContract [constant.Mint_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -319,7 +328,7 @@ Get accountBlock of token issuance
     * Promise<`AccountBlock`>
 
 ### mintageCancelPledge
-Cancel token staked accountBlock
+Cancel token staked accountBlock (callContract [constant.CancelMintPledge_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -333,7 +342,7 @@ Cancel token staked accountBlock
     * Promise<`AccountBlock`>
 
 ### mintageIssue
-Get accountBlock of additional token issuance
+Get accountBlock of additional token issuance (callContract [constant.Issue_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -349,7 +358,7 @@ Get accountBlock of additional token issuance
     * Promise<`AccountBlock`>
 
 ### mintageBurn
-Get accountBlock of token destruction
+Get accountBlock of token destruction (callContract [constant.Burn_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -364,7 +373,7 @@ Get accountBlock of token destruction
     * Promise<`AccountBlock`>
 
 ### changeTransferOwner
-Get account block of changed transfer owner
+Get account block of changed transfer owner (callContract [constant.TransferOwner_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -379,7 +388,7 @@ Get account block of changed transfer owner
     * Promise<`AccountBlock`>
 
 ### changeTokenType
-Get accountBlock of changing token type, change token type from enable additional token issuance to disable
+Get accountBlock of changing token type, change token type from enable additional token issuance to disable (callContract [constant.ChangeTokenType_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -395,7 +404,7 @@ Get accountBlock of changing token type, change token type from enable additiona
 ## DEX
 
 ### dexFundUserDeposit
-ViteX Deposit
+ViteX Deposit (callContract [constant.DexFundUserDeposit_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -408,7 +417,7 @@ ViteX Deposit
     * Promise<`AccountBlock`>
 
 ### dexFundUserWithdraw
-ViteX Withdrawal
+ViteX Withdrawal (callContract [constant.DexFundUserWithdraw_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -421,7 +430,7 @@ ViteX Withdrawal
     * Promise<`AccountBlock`>
 
 ### dexTradeCancelOrder
-ViteX Revoking Orders
+ViteX Revoking Orders (callContract [constant.DexTradeCancelOrder_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -436,7 +445,7 @@ ViteX Revoking Orders
     * Promise<`AccountBlock`>
 
 ### dexFundNewOrder
-ViteX Creating Orders
+ViteX Creating Orders (callContract [constant.DexFundNewOrder_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -452,7 +461,7 @@ ViteX Creating Orders
     * Promise<`AccountBlock`>
 
 ### dexFundNewMarket
-ViteX Token Listing
+ViteX Token Listing (callContract [constant.DexFundNewMarket_Abi](../constant/constant.md))
 
 - **Parameters** 
     * `__namedParameters: object`

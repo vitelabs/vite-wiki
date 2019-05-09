@@ -48,8 +48,7 @@ myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
 ## Methods
 
 ### getBalance
-获取余额
-
+获取余额 (Gvite-RPC [`ledger_getAccountByAccAddr`](../../rpc/ledger.md) + [`onroad_getOnroadInfoByAddress`](../../rpc/ledger.md))
 - **Parameters** 
     * `addr: Address`
 
@@ -68,7 +67,7 @@ myclient.getBalance.then(({balance, onroad}) => {
 ```
 
 ### getTxList
-获取交易列表
+获取交易列表 (Gvite-RPC [`ledger_getBlocksByAccAddr`](../../rpc/ledger.md) + [`ledger_getAccountByAccAddr`](../../rpc/ledger.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -81,7 +80,7 @@ myclient.getBalance.then(({balance, onroad}) => {
     * Promise<`{ list, totalNum }`>
 
 ### callOffChainContract
-查询合约状态
+查询合约状态（Gvite-RPC [`contract_callOffChainMethod`](../../rpc/contract.md)）
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -115,6 +114,7 @@ myclient.getBalance.then(({balance, onroad}) => {
     * Promise<`AccountBlock`>
 
 ### sendRawTx
+增加返回值accountBlock (Gvite-RPC [`tx_sendRawTx`](../../rpc/tx.md))
 
 - **Parameters** 
     * `__namedParameters: object`
