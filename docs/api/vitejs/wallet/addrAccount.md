@@ -68,6 +68,15 @@ Get balance (including unreceived tokens)
 - **Return**
     * Promise<`{ balance, onroad }`>
 
+### sendAccountBlock
+
+- **Parameters** 
+    * `__namedParameters: object`
+        - `accountBlock : AccountBlock` Signed accountblock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
 ### getTxList
 
 - **Parameters** 

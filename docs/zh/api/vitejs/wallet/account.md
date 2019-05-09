@@ -135,15 +135,20 @@ myAccount.getBalance().then((result) => {
 * **start**
     1. Get block. `this.getBlock[methodName](...params)`
 * **beforeCheckPow** 
-    1. *beforeCheckPow ? beforeCheckPow() : go to 2*
+    1. *beforeCheckPow ? beforeCheckPow() : go to **2***
     2. Check PoW. `tx_calcPoWDifficulty` 
 * **checkPowDone**
-    1. If need PoW go to 2; else go to **powDone**.
-    2. *beforePow ? beforePow() : go to **checkPowDone 3***
-    3. Run PoW. 
+    1. The check results, if need PoW go to **2**; else go to **powDone 1**.
+    2. *beforePow ? beforePow() : go to **3***
+    3. `next(isReject = false)` If need PoW go to **4**; else break.
+    4. Run PoW. 
 * **powDone** 
-    1. *beforeSendTx ? beforeSendTx() : go to **powDone 2***
-    2. If need send Tx go to 3; else break.
+    1. *beforeSignTx ? beforeSignTx() : go to **2***
+    2. `next(isReject = false)` If need sign Tx go to **3**; else break.
+    3. Sign TX. 
+* **signDone**
+    1. *beforeSendTx ? beforeSendTx() : go to **2***
+    2. `next(isReject = false)` If need send Tx go to 3; else break.
     3. Send TX. 
 * **finish**
 :::
@@ -154,6 +159,7 @@ myAccount.getBalance().then((result) => {
         - `params : Array` 传入`this.getBlock[methodName]`中的参数
         - `beforeCheckPow : Function`
         - `beforePow : Function`
+        - `beforeSignTx? : Function`
         - `beforeSendTx : Function`
     
 - **Return**
@@ -161,7 +167,7 @@ myAccount.getBalance().then((result) => {
 
 - **BeforeCheckPow**
     * **Parameters**
-        - `accountBlock: AccountBlock`
+        - `accountBlock: AccountBlock` 不同类型的accountBlock（无PoW，无签名）
         - `next : Function`
 
     * **Return**
@@ -169,7 +175,16 @@ myAccount.getBalance().then((result) => {
 
 - **BeforePow**
     * **Parameters**
-        - `accountBlock: AccountBlock`
+        - `accountBlock: AccountBlock` 不同类型的accountBlock（无PoW，无签名）
+        - `checkPowResult: <difficulty, quota>`
+        - `next : Function`
+
+    * **Return**
+        - `next(<isReject: boolean>)` 是否打断交易流程. Default false
+
+- **beforeSignTx**
+    * **Parameters**
+        - `accountBlock: AccountBlock` 在检查PoW（并可能运行PoW）后的accountBlock（无签名）
         - `checkPowResult: <difficulty, quota>`
         - `next : Function`
 
@@ -178,7 +193,7 @@ myAccount.getBalance().then((result) => {
 
 - **BeforeSendTx**
     * **Parameters**
-        - `accountBlock: AccountBlock`
+        - `accountBlock: AccountBlock` 签名后的accountBlock
         - `checkPowResult: <difficulty, quota>`
         - `next : Function`
 

@@ -92,7 +92,7 @@ Query contract status
 - **Return**:
     * Promise<`result`>
 
-### sendRawTx
+### sendTx
 Send Transaction
 
 - **Parameters** 
@@ -102,7 +102,7 @@ Send Transaction
 - **Return**:
     * Promise<`AccountBlock`>
 
-### sendAutoPowRawTx
+### sendAutoPowTx
 Automatically run PoW to send transactions when there is no quota
 
 - **Parameters** 
@@ -110,6 +110,15 @@ Automatically run PoW to send transactions when there is no quota
         - `accountBlock : AccountBlock` Formatted accountBlock (Signature not required)
         - `privateKey` Private Key
         - `usePledgeQuota : Boolean` Whether to use quotas preferentially
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+### sendRawTx
+
+- **Parameters** 
+    * `__namedParameters: object`
+        - `accountBlock : AccountBlock` Signed accountblock
 
 - **Return**:
     * Promise<`AccountBlock`>

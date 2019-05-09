@@ -135,15 +135,20 @@ Send a transaction. Use different function callbacks to perform custom user acti
 * **start**
     1. Get block. `this.getBlock[methodName](...params)`
 * **beforeCheckPow** 
-    1. *beforeCheckPow ? beforeCheckPow() : go to 2*
+    1. *beforeCheckPow ? beforeCheckPow() : go to **2***
     2. Check PoW. `tx_calcPoWDifficulty` 
 * **checkPowDone**
-    1. If need PoW go to 2; else go to **powDone**.
-    2. *beforePow ? beforePow() : go to **checkPowDone 3***
-    3. Run PoW. 
+    1. The check results, if need PoW go to **2**; else go to **powDone 1**.
+    2. *beforePow ? beforePow() : go to **3***
+    3. `next(isReject = false)` If need PoW go to **4**; else break.
+    4. Run PoW. 
 * **powDone** 
-    1. *beforeSendTx ? beforeSendTx() : go to **powDone 2***
-    2. If need send Tx go to 3; else break.
+    1. *beforeSignTx ? beforeSignTx() : go to **2***
+    2. `next(isReject = false)` If need sign Tx go to **3**; else break.
+    3. Sign TX. 
+* **signDone**
+    1. *beforeSendTx ? beforeSendTx() : go to **2***
+    2. `next(isReject = false)` If need send Tx go to 3; else break.
     3. Send TX. 
 * **finish**
 :::
@@ -154,6 +159,7 @@ Send a transaction. Use different function callbacks to perform custom user acti
         - `params : Array` Parameters in `this.getBlock[methodName]`
         - `beforeCheckPow? : Function`
         - `beforePow? : Function`
+        - `beforeSignTx? : Function`
         - `beforeSendTx? : Function`
     
 - **Return**
@@ -161,7 +167,7 @@ Send a transaction. Use different function callbacks to perform custom user acti
 
 - **BeforeCheckPow**
     * **Parameters**
-        - `accountBlock: AccountBlock`
+        - `accountBlock: AccountBlock` Different types of accountBlock (no PoW, no signature)
         - `next : Function`
 
     * **Return**
@@ -169,7 +175,16 @@ Send a transaction. Use different function callbacks to perform custom user acti
 
 - **BeforePow**
     * **Parameters**
-        - `accountBlock: AccountBlock`
+        - `accountBlock: AccountBlock` Different types of accountBlock (no PoW, no signature)
+        - `checkPowResult: <difficulty, quota>`
+        - `next : Function`
+
+    * **Return**
+        - `next(<isReject: boolean>)` Whether to interrupt the transaction process. Default false
+
+- **beforeSignTx**
+    * **Parameters**
+        - `accountBlock: AccountBlock` AccountBlock (no signature) after checking PoW (and possibly PoW)
         - `checkPowResult: <difficulty, quota>`
         - `next : Function`
 
@@ -178,7 +193,7 @@ Send a transaction. Use different function callbacks to perform custom user acti
 
 - **BeforeSendTx**
     * **Parameters**
-        - `accountBlock: AccountBlock`
+        - `accountBlock: AccountBlock` Signed accountblock
         - `checkPowResult: <difficulty, quota>`
         - `next : Function`
 
@@ -209,6 +224,10 @@ const result = await myAccount.sendPowTx({
     beforePow: (accountBlock, checkPowResult, next) => {
         console.log('[beforePow]', accountBlock, checkPowResult);
         return next();
+    },
+    beforeSignTx: (accountBlock, checkPowResult, next) => {
+        console.log('[beforeSignTx]', accountBlock, checkPowResult);
+        return next(false);
     },
     beforeSendTx: (accountBlock, checkPowResult, next) => {
         console.log('[beforeSendTx]', accountBlock, checkPowResult);

@@ -79,6 +79,15 @@ myAddrAccount.getBalance().then((result) => {
 - **Return**:
     * Promise<`{ list, totalNum }`>
 
+### sendAccountBlock
+
+- **Parameters** 
+    * `__namedParameters: object`
+        - `accountBlock : AccountBlock` 签名后的accountBlock
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
 ### callOffChainContract
 查询合约状态
 

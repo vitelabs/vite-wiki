@@ -1,7 +1,7 @@
 # Introduction
 This part contains Gvite-RPC shortcuts.
 
-The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying gvite wallet will be accessible only by IPC.)
+The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying Gvite wallet will be accessible only by IPC.)
 
 ## Installation
 

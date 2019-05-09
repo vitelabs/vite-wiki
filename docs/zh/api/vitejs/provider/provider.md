@@ -1,6 +1,6 @@
 # 介绍
 
-网络连接使用RPC协议，可通过http，websocket或者ipc与gvite连接。
+网络连接使用 JSON-RPC 2.0 协议，可通过 http，websocket 或者 ipc 与 Gvite 连接。
 
 HTTP / Websocket / IPC 皆集成以下方法及属性。
 

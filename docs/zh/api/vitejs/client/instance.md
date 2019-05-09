@@ -92,7 +92,7 @@ myclient.getBalance.then(({balance, onroad}) => {
 - **Return**:
     * Promise<`result`>
 
-### sendRawTx
+### sendTx
 发送交易
 
 - **Parameters** 
@@ -102,7 +102,7 @@ myclient.getBalance.then(({balance, onroad}) => {
 - **Return**:
     * Promise<`AccountBlock`>
 
-### sendAutoPowRawTx
+### sendAutoPowTx
 当没有配额时，自动运行PoW发送交易
 
 - **Parameters** 
@@ -110,6 +110,15 @@ myclient.getBalance.then(({balance, onroad}) => {
         - `accountBlock : AccountBlock` 规范化后的accountBlock (无需签名)
         - `privateKey` 私钥
         - `usePledgeQuota : Boolean` 是否优先使用配额
+
+- **Return**:
+    * Promise<`AccountBlock`>
+
+### sendRawTx
+
+- **Parameters** 
+    * `__namedParameters: object`
+        - `accountBlock : AccountBlock` 签名后的accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>

@@ -1,7 +1,7 @@
 # Introduction
 
-Our network connection layer uses RPC protocol.
-This part is mainly about how to connect to gvite, you can use http, websocket or IPC to get into connect with gvite.
+Our network connection layer uses JSON-RPC 2.0 protocol.
+You can use http, websocket or IPC to get into connect with Gvite.
 
 HTTP / Websocket / IPC All of these have already integrated the following methods and attributes.
 
