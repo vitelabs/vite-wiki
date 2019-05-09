@@ -46,12 +46,10 @@
 	* `data`: `[]byte`
     * `difficulty`: `*string`
 	* `nonce`: `[]byte`
-
 	* `quota`: `*string`
 	* `quotaUsed`: `*string` 该交易消耗的配额
 	* `logHash`: `*types.Hash` 智能合约执行产生的LogList的Hash
 	* `sendBlockList`: `[]*RawTxBlock`
-
 	* `tokenInfo`: `*RpcTokenInfo` 该交易涉及的Token信息
 	* `confirmedTimes`: `*string` 该交易被确认次数
 	* `confirmedHash`: `*Hash` 该交易第一次被确认的SnapshotHash
@@ -64,7 +62,7 @@
 ::: demo
 
 
-```json tab:Request
+```json tab:Request Send
 {
     "jsonrpc": "2.0",
     "id": 17,
@@ -89,7 +87,7 @@
 }
 ```
 
-```json tab:Request
+```json tab:Request Receive
 {
     "jsonrpc": "2.0",
     "id": 17,
