@@ -63,12 +63,13 @@ myAddrAccount.getBalance().then((result) => {
 ## Methods
 
 ### getBalance
-Get balance (including unreceived tokens)
+Get balance, including unreceived tokens ([client.getBalance](../client/client.md))
 
 - **Return**
     * Promise<`{ balance, onroad }`>
 
 ### sendAccountBlock
+[client.sendRawTx](../client/client.md)
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -78,6 +79,7 @@ Get balance (including unreceived tokens)
     * Promise<`AccountBlock`>
 
 ### getTxList
+[client.getTxList](../client/client.md)
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -89,7 +91,7 @@ Get balance (including unreceived tokens)
     * Promise<`{ list, totalNum }`>
 
 ### callOffChainContract
-查询合约状态
+Query contract status ([client.callOffChainContract](../client/client.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -100,13 +102,13 @@ Get balance (including unreceived tokens)
     * Promise<`result`>
 
 ### getOnroad
-Get unreceived tokens
+Get unreceived tokens (Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpc/onroad.md))
 
 - **Return**:
     * Promise
 
 ### getOnroadBlocks
-Get unreceived account block list
+Get unreceived account block list (Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpc/onroad.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -117,7 +119,7 @@ Get unreceived account block list
     * Promise
 
 ### getBlocks
-Get account block list
+Get account block list (Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md))
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -128,23 +130,28 @@ Get account block list
     * Promise
 
 ### getAccountBalance
-Get account balance
+Get account balance (Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md))
 
 - **Return**:
     * Promise
 
 ### getLatestBlock
-Get last block
+Get last block (Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md))
 
 - **Return**:
     * Promise
 
 ### getBlockByHeight
+Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)
+
+- **Parameters** 
+    * `height`
 
 - **Return**:
     * Promise
 
 ### getBlocksByHash
+Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -155,6 +162,7 @@ Get last block
     * Promise
 
 ### getBlocksByHashInToken
+Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -166,11 +174,13 @@ Get last block
     * Promise
 
 ### getPledgeQuota
+Gvite-RPC [pledge_getPledgeQuota](../../rpc/pledge.md)
 
 - **Return**:
     * Promise
 
 ### getPledgeList
+Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -181,28 +191,31 @@ Get last block
     * Promise
 
 ### getRegistrationList
+Gvite-RPC [register_getPledgeList](../../rpc/consensus.md)
 
 - **Return**:
     * Promise
 
 ### getVoteInfo
+Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)
 
 - **Return**:
     * Promise
 
 ### getTokenInfoListByOwner
+Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)
 
 - **Return**:
     * Promise
 
 ## getBlock
 
-getBlock封装了`client.builtinTxBlock`模块下的方法（用于快速调用`client.builtinTxBlock`模块的方法）
+This part will automatically wrap the method in `client.builtinTxBlock` (For quickly calling the methods of `client.builtinTxBlock`)
 
 ### How to achieve
 
 1. `accountBlock.accountAddress = this.address`
-2. 通过 `client.builtinTxBlock[methodName]` 获取到合法块
+2. Get the legal accountBlock by `client.builtinTxBlock[methodName]`
 
 **Code**
 ```javascript
@@ -221,8 +234,8 @@ for (const key in this._client.builtinTxBlock) {
 ### How to invoke
 
 - **Parameters** 
-    * `accountBlock` accountBlock（可以不包含accountAddress）    
-    * `requestType?: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `accountBlock` accountBlock（Can have no accountAddress field）    
+    * `requestType?: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**
     * Promise<`AccountBlock`>
