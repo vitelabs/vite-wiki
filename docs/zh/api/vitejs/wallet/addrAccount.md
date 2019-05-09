@@ -63,7 +63,7 @@ myAddrAccount.getBalance().then((result) => {
 ## Methods
 
 ### getBalance
-获取余额, 包含在途 ([client.getBalance](../client/client.md))
+获取余额, 包含在途。 *[client.getBalance](../client/client.md)*
 
 - **Return**
     * Promise<`{ balance, onroad }`>
@@ -79,7 +79,7 @@ myAddrAccount.getBalance().then((result) => {
     * Promise<`AccountBlock`>
 
 ### getTxList
-[client.getTxList](../client/client.md)
+*[client.getTxList](../client/client.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -91,7 +91,7 @@ myAddrAccount.getBalance().then((result) => {
     * Promise<`{ list, totalNum }`>
 
 ### callOffChainContract
-查询合约状态 ([client.callOffChainContract](../client/client.md))
+查询合约状态。 *[client.callOffChainContract](../client/client.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -102,13 +102,13 @@ myAddrAccount.getBalance().then((result) => {
     * Promise<`result`>
 
 ### getOnroad
-获取在途 (Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpc/onroad.md))
+获取在途。 *Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpc/onroad.md)*
 
 - **Return**:
     * Promise
 
 ### getOnroadBlocks
-获取在途账户块列表 (Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpc/onroad.md))
+获取在途账户块列表。 *Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpc/onroad.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -119,7 +119,7 @@ myAddrAccount.getBalance().then((result) => {
     * Promise
 
 ### getBlocks
-获取账户块列表 (Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md))
+获取账户块列表。 *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -130,13 +130,13 @@ myAddrAccount.getBalance().then((result) => {
     * Promise
 
 ### getAccountBalance
-获取账户余额 (Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md))
+获取账户余额。 *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md)*
 
 - **Return**:
     * Promise
 
 ### getLatestBlock
-获取最新账户块 (Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md))
+获取最新账户块。 *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `height`
@@ -145,13 +145,13 @@ myAddrAccount.getBalance().then((result) => {
     * Promise
 
 ### getBlockByHeight
-Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)
+*Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)*
 
 - **Return**:
     * Promise
 
 ### getBlocksByHash
-Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)
+*Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -162,7 +162,7 @@ Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)
     * Promise
 
 ### getBlocksByHashInToken
-Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)
+*Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -174,13 +174,13 @@ Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)
     * Promise
 
 ### getPledgeQuota
-Gvite-RPC [pledge_getPledgeQuota](../../rpc/pledge.md)
+*Gvite-RPC [pledge_getPledgeQuota](../../rpc/pledge.md)*
 
 - **Return**:
     * Promise
 
 ### getPledgeList
-Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)
+*Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -191,26 +191,26 @@ Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)
     * Promise
 
 ### getRegistrationList
-Gvite-RPC [register_getPledgeList](../../rpc/consensus.md)
+*Gvite-RPC [register_getPledgeList](../../rpc/consensus.md)*
 
 - **Return**:
     * Promise
 
 ### getVoteInfo
-Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)
+*Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)*
 
 - **Return**:
     * Promise
 
 ### getTokenInfoListByOwner
-Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)
+*Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)*
 
 - **Return**:
     * Promise
 
 ## getBlock
 
-getBlock封装了`client.builtinTxBlock`模块下的方法（用于快速调用`client.builtinTxBlock`模块的方法）
+getBlock封装了[client.builtinTxBlock](../client/builtinTxBlock.md)模块下的方法（用于快速调用[client.builtinTxBlock](../client/builtinTxBlock.md)模块的方法）
 
 ### 实现方式
 

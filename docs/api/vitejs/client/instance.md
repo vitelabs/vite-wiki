@@ -48,7 +48,7 @@ myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
 ## Methods
 
 ### getBalance
-Get Balance (Gvite-RPC [`ledger_getAccountByAccAddr`](../../rpc/ledger.md) + [`onroad_getOnroadInfoByAddress`](../../rpc/ledger.md))
+Get Balance. *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md) + [onroad_getOnroadInfoByAddress](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `addr: Address`
@@ -68,7 +68,7 @@ myclient.getBalance.then(({balance, onroad}) => {
 ```
 
 ### getTxList
-Get Transaction List (Gvite-RPC [`ledger_getBlocksByAccAddr`](../../rpc/ledger.md) + [`ledger_getAccountByAccAddr`](../../rpc/ledger.md))
+Get Transaction List. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md) + [ledger_getAccountByAccAddr](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -81,7 +81,7 @@ Get Transaction List (Gvite-RPC [`ledger_getBlocksByAccAddr`](../../rpc/ledger.m
     * Promise<`{ list, totalNum }`>
 
 ### callOffChainContract
-Query contract status（Gvite-RPC [`contract_callOffChainMethod`](../../rpc/contract.md)）
+Query contract status. *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -115,7 +115,7 @@ Automatically run PoW to send transactions when there is no quota
     * Promise<`AccountBlock`>
 
 ### sendRawTx
-Increase return value accountBlock (Gvite-RPC [`tx_sendRawTx`](../../rpc/tx.md))
+Increase return value accountBlock. *Gvite-RPC [tx_sendRawTx](../../rpc/tx.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
