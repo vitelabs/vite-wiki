@@ -110,7 +110,7 @@ Freeze account. Stop activating status.
 Stop auto receiving transaction
 
 ### sendRawTx
-Send Original Transactions
+Send Original Transactions ([client.sendTx](../client/client.md))
 
 - **Parameters** 
     * `accountBlock` Formatted accountBlock (Can have no accountAddress field)
@@ -119,7 +119,7 @@ Send Original Transactions
     * Promise<`AccountBlock`>
 
 ### sendAutoPowRawTx
-When the quota is insufficient, automatically run PoW to send original transaction.
+When the quota is insufficient, automatically run PoW to send original transaction ([client.sendAutoPowTx](../client/client.md))
 
 - **Parameters** 
     * `accountBlock: AccountBlock` Formatted accountBlock (Can have no accountAddress field)
@@ -136,7 +136,7 @@ Send a transaction. Use different function callbacks to perform custom user acti
     1. Get block. `this.getBlock[methodName](...params)`
 * **beforeCheckPow** 
     1. *beforeCheckPow ? beforeCheckPow() : go to **2***
-    2. Check PoW. `tx_calcPoWDifficulty` 
+    2. Check PoW. [`tx_calcPoWDifficulty`](../../rpc/tx.md)
 * **checkPowDone**
     1. The check results, if need PoW go to **2**; else go to **powDone 1**.
     2. *beforePow ? beforePow() : go to **3***
@@ -286,7 +286,7 @@ return result;
 
 ## How to send tx quickly
 
-Account will automatically wrap the method in `client.builtinTxBlock`.
+Account will automatically wrap the method in [`client.builtinTxBlock`](../client/builtinTxBlock.md).
 
 ### How to achieve in account instance
 If you want to implement this method yourself, you can refer to this call logic for encapsulation.

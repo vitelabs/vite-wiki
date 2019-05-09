@@ -110,7 +110,7 @@ myAccount.getBalance().then((result) => {
 停止自动接收交易任务
 
 ### sendRawTx
-发送原始交易
+发送原始交易 ([client.sendTx](../client/client.md))
 
 - **Parameters** 
     * `accountBlock` 规范后的accountBlock（可以不包含accountAddress字段）
@@ -119,7 +119,7 @@ myAccount.getBalance().then((result) => {
     * Promise<`AccountBlock`>
 
 ### sendAutoPowRawTx
-当没有配额时，自动运行PoW发送原始交易
+当没有配额时，自动运行PoW发送原始交易 ([client.sendAutoPowTx](../client/client.md))
 
 - **Parameters** 
     * `accountBlock` 规范后的accountBlock（可以不包含accountAddress字段）
@@ -136,7 +136,7 @@ myAccount.getBalance().then((result) => {
     1. Get block. `this.getBlock[methodName](...params)`
 * **beforeCheckPow** 
     1. *beforeCheckPow ? beforeCheckPow() : go to **2***
-    2. Check PoW. `tx_calcPoWDifficulty` 
+    2. Check PoW. [`tx_calcPoWDifficulty`](../../rpc/tx.md)
 * **checkPowDone**
     1. The check results, if need PoW go to **2**; else go to **powDone 1**.
     2. *beforePow ? beforePow() : go to **3***
@@ -283,7 +283,7 @@ return result;
 
 ## 快速发送交易
 
-Account 会自动从`client.builtinTxBlock`中获取生成块方法并进行封装。
+Account 会自动从[`client.builtinTxBlock`](../client/builtinTxBlock.md)中获取生成块方法并进行封装。
 
 ### 实现方式
 如果想自行实现此方法，可参照此调用逻辑进行封装。
