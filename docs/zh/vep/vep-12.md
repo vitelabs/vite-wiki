@@ -51,13 +51,12 @@ VITE随机数的方案是从现实生活中猜骰子的游戏中演化出来的�
 1. 不可以被操控；
 2. 不可以被预测；
 
-在实际实现中，为了节约存储，random<sub>N</sub>的类型为uint64，hash<sub>N</sub>的长度为32byte，为了防止hash被穷举，hash的规则如下：
+在实际实现中，为了节约存储，random<sub>N</sub>的类型为uint64，hash<sub>N</sub>的长度为32byte.
 
+为了防止hash被穷举，hash的规则是对随机数以及block的prevHash和时间戳进行Hash：
 
-```
-// 对随机数以及block的prevHash和时间戳进行Hash
 hash<sub>N</sub> = Hash(random<sub>N</sub>, Block<sub>N</sub>.PrevHash, Block<sub>N</sub>.Timestamp)
-```
+
 
 在VITE中，一个合约调用分为一个request和一个response，如果合约运行需要随机数进行参与，合约需要等到request被快照之后然后进行运行，使用request被快照的快照块计算出随机数种子，然后结合requestHash进行使用，这样就能保证合约使用随机数不可操控和预测。
 
