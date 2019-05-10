@@ -14,4 +14,4 @@ title: "Vite 提案"
 * [VEP 6: Vite URI 格式](./vep-6.html)
 * [VEP 7: 合并合约账户的response块和response块产生的request块](./vep-7.html)
 * [VEP 8: AccountBlock Data Content Type 规范](./vep-8.html)
-* [VEP 12: VITE中随机数的实现](./vep-10.html)
+* [VEP 12: VITE中随机数的实现](./vep-12.html)
