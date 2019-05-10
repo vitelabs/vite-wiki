@@ -25,43 +25,65 @@ module.exports = [
     link: '/zh/vep/'
   },
   {
-    text: '关于',
-    link: '/zh/about/'
-  },
-  {
-    text: 'Vite.net',
-    link: 'https://vite.net'
-  },
-  {
-    text: '区块浏览器',
-    link: 'https://testnet.vite.net'
-  },
-  {
-    text: '钱包',
+    text: '白皮书',
     items: [
       {
-        text: 'Desktop 钱包',
+        text: '英文',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_en.pdf'
+      },
+      {
+        text: '中文',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_cn.pdf'
+      }
+    ]
+  },
+  {
+    text: '关于',
+    items: [
+      {
+        text: '链接',
+        items: [
+          {
+            text: '官网',
+            link: 'https://vite.org'
+          },
+          {
+            text: '区块浏览器',
+            link: 'https://testnet.vite.net'
+          },
+          {
+            text: '论坛',
+            link: 'https://forum.vite.net'
+          },
+          {
+            text: '参与空投',
+            link: 'https://vite.org/airdrop'
+          }
+        ]
+      },
+      {
+        text: '钱包',
         items: [
           {
             text: 'Web 钱包',
             link: 'https://wallet.vite.net'
           },
           {
-            text: 'Windows 钱包',
-            link: 'http://download.vite.net/Vite.Wallet-1.0.0.exe'
+            text: 'iOS 钱包',
+            link: 'https://app.vite.net'
           },
           {
-            text: 'Mac 钱包',
-            link: 'http://download.vite.net/Vite.Wallet-1.0.0.dmg'
+            text: 'Android 钱包',
+            link: 'https://app.vite.net'
           }
         ]
       },
       {
-        text: '移动钱包',
+        text: '参与开发',
         items: [
           {
-            text: 'iOS 钱包',
-            link: 'https://app.vite.net'
+            text: 'Vite.wiki 编写指南',
+            link: '/zh/about/'
           }
         ]
       }

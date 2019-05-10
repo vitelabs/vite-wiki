@@ -62,6 +62,14 @@ npm run dev
 
 ![dag-ledger](~/images/dag-ledger.png)
 
+***静态资源命名规范***: `[markdown文件名]+[静态资源名称]`
+
+例如：
+
+```
+![dag-ledger](~/images/vep4-ledger.png)
+```
+
 ## 内置组件
 
 ### Demo 组件
