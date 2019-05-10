@@ -40,23 +40,23 @@ VITE随机数的方案是从现实生活中猜骰子的游戏中演化出来的�
 ![figure](~/images/vep12-random.png)<div align="center">图 1</div>
 
 每个随机数从产生到应用经历三个阶段：
-1. 随机数的Hash公布阶段；（类比摇骰子）
-2. 公布随机数阶段；（类比揭露骰子结果）
-3. 随机数的应用；（类比依据骰子结果确定输赢）
+1. 随机数的hash<sub>N</sub>公布阶段；（类比摇骰子）
+2. 公布随机数random<sub>N</sub>阶段；（类比揭露骰子结果）
+3. 随机数random<sub>N</sub>的应用；（类比依据骰子结果确定输赢）
 
 上图中，从N到N+5分别是有三个SBP生产的区块（当然，实际环境下不止有3个SBP），每个SBP生产两个block。
-每个SBP在生产一个区块的时候，需要发布这一轮随机数的Hash和上一轮的随机数，例如Block(N+3)中发布的随机数hash为hash(N+3)，发布的上一轮随机数为random(N)，其中要求Hash(random(N)) = hash(N)。
-这样，每个block生产出来之后就可以结合上一轮的其他人发布的随机数，生成一个随机数种子。例如以Block(N+5)可以计算出随机数种子为：random(N+2),random(N+1),random(N)的聚合。而这个随机数结果在Block(N+5)发布之前不可预知的，且block(N+5)的生产这也不能改变这一结果。
+每个SBP在生产一个区块的时候，需要发布这一轮随机数的hash和上一轮的随机数，例如Block<sub>N+3</sub>中发布的随机数hash为hash<sub>N+3</sub>，发布的上一轮随机数为random<sub>N</sub>，其中要求Hash(random<sub>N</sub>) = hash<sub>N</sub>。
+这样，每个block生产出来之后就可以结合上一轮的其他人发布的随机数，生成一个随机数种子。例如以Block<sub>N+5</sub>可以计算出随机数种子为：random<sub>N+2</sub>,random<sub>N+1</sub>,random<sub>N</sub>的聚合。而这个随机数结果在Block<sub>N+5</sub>发布之前不可预知的，且block<sub>N+5</sub>的生产这也不能改变这一结果。
 满足了随机数的两个条件：
 1. 不可以被操控；
 2. 不可以被预测；
 
-在实际实现中，为了节约存储，random(N)的类型为uint64，hash(N)的长度为32byte，为了防止hash被穷举，hash的规则如下：
+在实际实现中，为了节约存储，random<sub>N</sub>的类型为uint64，hash<sub>N</sub>的长度为32byte，为了防止hash被穷举，hash的规则如下：
 
 
 ```
 // 对随机数以及block的prevHash和时间戳进行Hash
-hash(N) = Hash(random(N), Block(N).PrevHash, Block(N).Timestamp)
+hash<sub>N</sub> = Hash(random<sub>N</sub>, Block<sub>N</sub>.PrevHash, Block<sub>N</sub>.Timestamp)
 ```
 
 在VITE中，一个合约调用分为一个request和一个response，如果合约运行需要随机数进行参与，合约需要等到request被快照之后然后进行运行，使用request被快照的快照块计算出随机数种子，然后结合requestHash进行使用，这样就能保证合约使用随机数不可操控和预测。
