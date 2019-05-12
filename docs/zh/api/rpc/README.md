@@ -53,6 +53,12 @@ title: 开始
 | 创建合约时确认次数非法 |  `-35007` | invalid confirm time |{"code":-35007,"message":"invalid confirm time"}|
 | 合约地址不存在 |  `-35008` | contract not exists |{"code":-35008,"message":"contract not exists"}|
 | 创建合约时配额翻倍数非法 |  `-35010` | invalid quota ratio |{"code":-35010,"message":"invalid quota ratio"}|
+| 出块地址不合法 |  `-36001`  |  block address not valid |{"code":-36001, "message":"general account's sendBlock.Height must be larger than 1"}|
+| Hash校验失败 |  `-36002`  | verify hash failed | {"code":-36002,"message":"verify hash failed"} |
+| 签名校验失败 |  `-36003`  | verify signature failed | {"code":-36003,"message":"verify signature failed"} |
+| Pow值校验失败 |  `-36004`  | check pow nonce failed | {"code":-36004,"message":"check pow nonce failed"} |
+| 校验依赖的前一个块Hash失败 |  `-36005`  | verify prevBlock hash failed | {"code":-36005,"message":"verify prevBlock failed, incorrect use of prevHash or fork happened"} |
+| 等待依赖的关联交易块 |  `-36006`  | pending for the block referred to | {"code":-36006,"message":"verify referred block failed, pending for them"} |
 
 ## JSON-RPC Support
 
