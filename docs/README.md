@@ -14,7 +14,7 @@ projects:
       details: Core Functions, Rules and TestNet Incentive Plan
       link: /tutorial/start/
     - title: SBP
-      details: How to Run an SBP or a Full Node
+      details: How to Run a SBP or a Full Node
       link: /tutorial/node/install.html
     - title: Wallet
       details: Vite Wallet for iOS, Web, Windows and Mac OS

@@ -62,6 +62,14 @@ npm run dev
 
 ![dag-ledger](~/images/dag-ledger.png)
 
+***静态资源命名规范***: `[markdown文件名]+[静态资源名称]`
+
+例如：
+
+```
+![dag-ledger](~/images/vep4-ledger.png)
+```
+
 ## 内置组件
 
 ### Demo 组件
@@ -132,3 +140,53 @@ npm run dev
               }
   ```
   :::
+  
+### TeX Support
+
+在线**LaTeX**编辑器：[https://arachnoid.com/latex/](https://arachnoid.com/latex/)
+
+#### 例子
+
+```
+Supposing that $y >= 0$ and that $[\log x]$ represents the integer part of $\log x$, let:
+
+$$\Phi (y) = \frac {1} {2 \pi i} \int_{2 - i \infty}^{2 + i \infty} \frac {y^{\omega} \mathrm{d} \omega} {\omega \left(1 + \frac {\omega} {(\log x)^{1.1}}\right)^{[ \log x ] + 1}}, x > 1$$
+
+Obviously, when $0 <= y <= 1$, there is $\Phi(y) = 0$. For all $y >= 0$, $\Phi(y)$ is a non-decreasing function.
+
+When $\log x>=10^4$ and $y>= e^{2{(\log x)}^{-0.1}}$, thus:
+
+$$1 - x^{- 0.1} <= \Phi (y) <= 1$$
+```  
+
+**Output**:
+
+Supposing that $y >= 0$ and that $[\log x]$ represents the integer part of $\log x$, let:
+
+$$\Phi (y) = \frac {1} {2 \pi i} \int_{2 - i \infty}^{2 + i \infty} \frac {y^{\omega} \mathrm{d} \omega} {\omega \left(1 + \frac {\omega} {(\log x)^{1.1}}\right)^{[ \log x ] + 1}}, x > 1$$
+
+Obviously, when $0 <= y <= 1$, there is $\Phi(y) = 0$. For all $y >= 0$, $\Phi(y)$ is a non-decreasing function.
+
+When $\log x>=10^4$ and $y>= e^{2{(\log x)}^{-0.1}}$, thus:
+
+$$1 - x^{- 0.1} <= \Phi (y) <= 1$$
+
+* **块级元素**
+
+  ```markdown
+  这是一个行内元素：$$x_1$$ 
+  ```
+  
+  **Output**:
+  
+  这是一个 ***块级元素*** ：$$x_1$$ 
+  
+* **行内元素**
+
+  ```markdown
+  这是一个行内元素：$x_1$ 
+  ```
+  
+  **Output**:
+  
+  这是一个 ***行内元素***：$x_1$ 
