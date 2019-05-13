@@ -28,18 +28,15 @@ The ownership of re-issuable token can be transferred, also the token type can b
 
 ## Mintage
 
-Mintage transaction is always initiated by token owner by calling mintage contract and passing in token parameters. 
-Once the transaction is processed successfully, mintage contract will transfer tokens of the total supply to owner's account. 
+Mintage transaction is the transaction of issuing a new token on Vite. The issuer can send mintage transaction to mintage contract with passed-in parameters. 
+Once the transaction is processed successfully, a total supply amount of tokens will be sent to the issuer's account and the issuer is assigned as owner.
 
-Mintage transaction will charge a certain fee in two alternative ways:
-
-* Burn ***1,000 VITE***, or
-* Stake ***100,000 VITE***, which can be retrieved in **7776000** snapshot blocks(about 3 months). The token issued will continue to be effective.
+Mintage transaction will burn ***1,000 VITE***.
 
 ### Parameters
 
 * `tokenName`: **1**-**40** characters token name, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-* `tokenSymbol`: **1**-**10** characters token symbol, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
+* `tokenSymbol`: **1**-**10** characters token symbol, including uppercase and lowercase letters and numbers
 * `totalSupply` and `decimals`: Having $totalSupply \times 10^{decimals} \leq 2^{256}-1$
 * `isReIssuable`: Token type. Fixed-supply or re-issuable.
 * `maxSupply`: Maximum supply. Mandatory for re-issuable token. Having $maxSupply \leq 2^{256}-1$
@@ -72,7 +69,7 @@ Once the transaction is processed successfully by the contract, the token's tota
 
 Ownership of re-issuable tokens can be transferred. In this case, the token owner should send a ownership-transfer transaction to mintage contract, specifying necessary parameters, once the transaction is processed successfully, the ownership of the token has been transferred to new owner.
 
-A certain token can have only one owner. This process won't change the token's creator. If a specific token was issued via staking, the new owner has no authority to retrieve staked tokens after staking expires.
+A certain token can have only one owner at a moment. 
 
 ### Parameters
 * Token id: The unique id of a re-issuable token
@@ -117,7 +114,3 @@ No, re-issuance transaction does not consume **VITE**.
 * Can I change fix-supply tokens to re-issuable?
 
 No. Change of token type is one-way only and not reversible.
-
-* I issued my token by staking. Can I still have this token after I retrieve staking?
-
-Yes. Once issued, the token is in effective, no matter whether the staked Vite tokens are retrieved or not.

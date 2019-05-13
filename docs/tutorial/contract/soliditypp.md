@@ -1,8 +1,10 @@
 # Solidity++
 
-Solidity++ retains most syntax in Solidity. The difference mainly comes from Vite's asynchronous architecture and native multi-token model, as explained below.
+Solidity++ retains most syntax of Solidity. However, Solidity++ is still a different language. The difference mainly lies in asynchronous design.
 
 ## Syntax Removed in Solidity++
+
+Below syntax has been removed from Solidity
 
 ```
 tx.gasprice;
@@ -17,16 +19,33 @@ suicide(_addr);
 address(_addr).send(_amount);
 ```
 
-Above syntax has been disabled in Solidity++
-
 Syntax related to `ecrecover` and `ripemd160` has been disabled
 
-`DELEGATECALL` is not available at this moment
+`DELEGATECALL` is not available in Solidity++ at this moment
+
+Syntax of inline assembly in Solidity is temporarily unavailable
 
 
 ## Syntax Added/Modified in Solidity++
 
-`address` and `tokenId` are redefined in Solidity++
+Below syntax has been added in Solidity++
+
+```
+bytes32 b1 = fromhash();
+uint height = accountheight();
+bytes32 b2 = prevhash();
+uint64 random = random64();
+```
+
+* `fromhash()` returns request transaction's hash
+
+* `accountheight()` returns latest block height of an account
+
+* `prevhash()` returns latest block hash of an account
+
+* `random64()` returns a random number in `uint64`
+
+Functions `address` and `tokenId` are redefined in Solidity++:
 
 ```
 tokenId token01 = tokenId("tti_2445f6e5cde8c2c70e446c83");
@@ -35,33 +54,39 @@ address addr01 = address("vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13
 address addr02 = "vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13c";
 ```
 
-To obtain transfer tokenId in Solidity++
-
+Obtain transfer value in Solidity:
 ```
-msg.tokenid
+msg.value
 ```
 
-To obtain account balance
+Obtain transfer value in Solidity++(`value` has been changed to `amount`):
+```
+msg.amount;
+```
 
-In Solidity,
+Obtain transfer token id(Solidity doesn't have the feature):
+```
+msg.tokenid;
+```
+
+Obtain account balance in Solidity:
 
 ```
 address.balance
 ```
 
-In Solidity++, since multiple tokens co-exist in an account, a parameter of tokenId is required
-
+Obtain account balance in Solidity++(a parameter of tokenId is required):
 ```
 address.balance(_tokenId)
 ```
 
-In Solidity, sending ETH to an address
+In Solidity, send ETH to an address:
 
 ```
 address(_addr).transfer(_amount);
 ```
 
-In Solidity++, sending token to an address. An additional parameter of tokenId is required
+In Solidity++, send specific token to an address:
 
 ```
 address(_addr).transfer(_tokenId, _amount);
@@ -75,15 +100,17 @@ Unit of VITE in Solidity++: attov/vite
 
 1 vite = 1000000000000000000 attov
 
-In Solidity++, all syntax related to sha256 or sha3 is replaced by blake2b
+In Solidity++, all syntax related to `sha256` or `sha3` is replaced by `blake2b`
 
 ## Asynchronous Syntax in Solidity++
 
-In Solidity++, cross-contract calls are not completed by function calls, but only by message sending
+Unlike Solidity, in-contract communication in Solidity++ is not done through function calls, but by message passing
 
-`public` function in Solidity++ won't provide external access. Moreover, `function` is not be able to declare as `external`. Instead, `function` can only be declared as `public`, `private` or `internal`
+In Solidity++, 
 
-In the meantime, `public` static variable can not be visited from outside
+* `public` functions cannot be accessed from outside of the contract
+* `function` cannot be declared as `external`. Instead, `function` can only be declared as `public`, `private` or `internal`
+* `public` static variable is not visible from outside of the contract
 
 An example
 
@@ -114,31 +141,34 @@ contract B {
 }
 ```
 
-`message`: keyword, declaring a message, including message name and passed-in parameter. `message sum(uint result)` declares message "sum", accepting a `uint` parameter.
+* `message`: keyword, declaring a message, including message name and passed-in parameter. In above example, `message sum(uint result)` declares message "sum" accepting a `uint` parameter.
 
-`onMessage`: keyword, declaring a message listener, including message name, passed-in parameter and logic that handles the message. `onMessage add(uint a, uint b)` declares message listener "add", accepting two `uint` parameters.
+* `onMessage`: keyword, declaring a message listener, including message name, passed-in parameter and business logic that handles the message. In above example, `onMessage add(uint a, uint b)` declares message listener "add" accepting two `uint` parameters.
 
-`send`: keyword, sending a message, accepting two parameters, the message receiving address and the actual message
+* `send`: keyword, sending a message, accepting two parameters including message receiving address and message body
 
 
-Messages can be declared in contract. The send operation of the message can only be called in the contract that declares it. If a message is to be processed by another contract, the name and passed-in parameters of the message rely on how message listener defines in the other contract.
+Message can be declared in contract and can only be sent out from the exact contract who declares it. If a message should be processed by another contract, the name and passed-in parameters of the message rely on how message listener is defined in the other contract.
 
-In other words, if contract A is going to send a message to contract B for processing, contract B must define a listener of a certain type of message for A to follow when declaring the message.
+In other words, if contract A would like to send a message to contract B, A must define the message in a format that complies to the listener defined in contract B.
 
-A contract can define a message listener. The message listener specifies the type of message that the contract can receive. Only messages that conform to spec will be normally received and processed.
+Message listener is defined in contract. A message listener specifies a certain type of message that can be processed by the contract. Unrecognized messages will not be handled but discarded.
 
-Note: message listener cannot be called directly like normal function.
+:::warning
+Message listeners cannot be called directly as normal functions.
+:::
 
 In above example,
 
-Contract A defines message listener `add(uint a, uint b)` while contract B defines message listener `sum(uint result)`, indicating contract A and contract B will receive the two kinds of messages and process respectively.
+Contract A defines a message listener `add(uint a, uint b)` while contract B defines `sum(uint result)`, indicating the messages that can be processed by contract A or contract B.
 
-Since contract B sends message to contract A, contract B must declare an "add" message which complies to the message listener defined in contract A. Meanwhile, contract A should declare a "sum" message according to the message listener in contract B, since contract A will send "sum" message to contract B in message listener "add".
+Here contract B sends message to contract A. For this purpose, contract B must declare "add" message which complies to `add(uint a, uint b)` defined in contract A. 
+Similarly, contract A should declare "sum" message matching message listener `sum(uint result)` of contract B, since contract A will send such a message to contract B in return.
 
 ## `getter` in Solidity++
 
-In Solidity++, the interaction between contracts is carried out through message passing in an asynchronous manner, so the contract's public fields cannot be accessed externally. 
-To address this situation, Solidity++ provides a special way to access the fields.
+In Solidity++, because interactions between contracts are carried out through asynchronous messaging, the `public` fields cannot be accessed directly from outside of the contract. 
+To address this problem, Solidity++ provides a solution.
 
 ```
 pragma soliditypp ^0.4.2;
@@ -160,30 +190,30 @@ contract A {
 }
 ```
 
-As shown in the example above, a `getter` keyword is defined, which has the following characteristics:
+As shown in above example, a "getter" method `getMagic()` is defined to access public field `magic`. In general, "getter" in Solidity++ has the following characteristics:
 
-* Keyword `getter` is used to define a method.
-* Method name, input parameters and return value are required when defining a "getter". As a query interface, this method is only used to obtain the state of contract but cannot modify it.
-* The compiled code of "getter" method is not stored on chain, so it is not allowed to get transaction information, such as calling `msg.amount` or `msg.tokenid`, within the method.
-* "getter" cannot interact with other accounts, such as sending transactions, sending messages, etc. It cannot call `require` or `revert` either.
-* "getter" can call other functions. The function it calls should be defined as `view` type.
+* Keyword `getter` is used to declare such a method.
+* Method name, input parameters and return value are required. As query method, it is only used to obtain the specific field's value and cannot modify it.
+* The compiled code of "getter" is not stored on chain, so it is not allowed to access transaction related information, such as `msg.amount` or `msg.tokenid`, within "getter".
+* "getter" cannot send transactions or send messages. It cannot call `require` or `revert` either.
+* "getter" can call functions, which should be defined as `view` type.
 
 ## Example of Solidity++ Contract
 
-A batch transfer contract which accepts a list of addresses and amounts and transfers the specified amount to the specified address
+Below contract defines a batch transfer which accepts a list of addresses and amounts and then transfers specified amount to specified address in the list
 
 ```
-// Declares the contract is written in soliditypp 0.4.0. Backwards compatibility is guaranteed to ensure different version of compilers will yield the same output.
+// Declare the contract is written in soliditypp 0.4.2. Backwards compatibility is guaranteed for generating the same compiling result.
 pragma soliditypp ^0.4.2;
  
- 
-// Defines contract A
+
+// Define contract A
 contract A {
-     // Defines a message listener. Since cross-contract communication has to be completed via message sending, all external methods must be defined as message listeners
-     // The listener needs to define message name and parameters. Visibility is not necessary. Message listener has no return value
-     // In this example, a "transfer" listener is defined with a passed-in parameter of uint array, representing address in odd element and amount in even
+     // Define a message listener. Every external method should be defined as message listener in Solidity++
+     // Define listener name and parameters. Visibility is not necessary. Message listener has no return value
+     // Messsage listener "transfer" is defined with a passed-in parameter of a uint array, in format of address in odd element and amount in even
      onMessage transfer(uint[] calldata body) payable {
-         // Checks if the parameter length is even because each address has to match an amount
+         // Check if the parameter length is even because each address should have corresponding amount
          require(body.length%2==0);
          uint256 totalAmount = 0;
          for(uint i = 0; i < body.length; i=i+2) {
@@ -192,8 +222,8 @@ contract A {
              totalAmount = totalAmount + amount;
              require(totalAmount >= amount);
              if(amount > 0) {
-                // Transfers the amount to address. Token ID is defined in msg.tokenid
-                address(addr).transfer(msg.tokenid ,amount);
+                // Transfer to address
+                address(addr).transfer(msg.tokenid, amount);
              }
          }
          require(totalAmount == msg.amount);
