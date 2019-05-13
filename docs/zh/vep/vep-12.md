@@ -54,12 +54,12 @@ VITE随机数的方案是从现实生活中猜骰子的游戏中演化出来的�
 
 在实际实现中，为了节约存储， $random_N$ 的类型为 `uint64`， $hash_N$ 的长度为 `32byte`.
 
-为了防止hash被穷举，hash的规则是对随机数以及block的prevHash和时间戳进行Hash：
+同时，从安全性方面考虑，为了防止uint64的hash被穷举，hash的规则是对随机数以及block的prevHash和时间戳进行Hash：
 
 $$hash_N = Hash(random_N,  Block_N.PrevHash,  Block_N.Timestamp)$$
 
-
-在VITE中，一个合约调用分为一个request和一个response，如果合约运行需要随机数进行参与，合约需要等到request被快照之后然后进行运行，使用request被快照的快照块计算出随机数种子，然后结合requestHash进行使用，这样就能保证合约使用随机数不可操控和预测。
+上面说明了每一个snapshot block都可以计算出一个random seed来生成随机数，那么对于合约而言，如何确定random seed呢？
+在VITE中，一个合约调用分为一个request和一个response，如果合约运行需要随机数进行参与，合约需要等到request被快照之后再进行运行生成response，使用request被快照的快照块计算出随机数种子，然后结合requestHash进行使用，这样就能保证合约使用随机数不可操控和预测。
 
 
 
