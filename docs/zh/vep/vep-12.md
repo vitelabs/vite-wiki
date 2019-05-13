@@ -46,6 +46,7 @@ VITE随机数的方案是从现实生活中猜骰子的游戏中演化出来的�
 
 上图中，从 $N$ 到 $N+5$ 分别是有3个SBP生产的区块（当然，实际环境下不止有3个SBP），每个SBP生产两个block。
 每个SBP在生产一个区块的时候，需要发布这一轮随机数的hash和上一轮的随机数，例如 $Block_{N+3}$ 中发布的随机数hash为 $hash_{N+3}$ ，发布的上一轮随机数为 $random_N$，其中要求 $Hash(random_N)=hash_N$，即`对$random_N$取Hash之后要等于上一次发布的hash_N$，否则$random_N$无效`。
+
 这样，每个block生产出来之后就可以结合上一轮的其他人发布的随机数，生成一个随机数种子。例如以 $Block_{N+5}$ 可以计算出随机数种子为： $random_{N+2}$, $random_{N+1}$, $random_{N}$ 的聚合。
 而这个随机数结果在 $Block_{N+5}$ 发布之前不可预知的，且 $Block_{N+5}$ 的生产这也不能改变这一结果。
 满足了随机数的两个条件：
@@ -59,6 +60,7 @@ VITE随机数的方案是从现实生活中猜骰子的游戏中演化出来的�
 $$hash_N = Hash(random_N,  Block_N.PrevHash,  Block_N.Timestamp)$$
 
 上面说明了每一个snapshot block都可以计算出一个random seed来生成随机数，那么对于合约而言，如何确定random seed呢？
+
 在VITE中，一个合约调用分为一个request和一个response，如果合约运行需要随机数进行参与，合约需要等到request被快照之后再进行运行生成response，使用request被快照的快照块计算出随机数种子，然后结合requestHash进行使用，这样就能保证合约使用随机数不可操控和预测。
 
 
