@@ -14,8 +14,6 @@ ABI：
 
 ```json
 [
-  // 取回铸币抵押
-  {"type":"function","name":"CancelMintPledge","inputs":[{"name":"tokenId","type":"tokenId"}]},
   // 铸币
   {"type":"function","name":"Mint","inputs":[{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"ownerBurnOnly","type":"bool"}]},
   // 增发代币
@@ -82,38 +80,6 @@ ABI：
    "jsonrpc":"2.0",
    "id":1,
    "result": "cbf0e4fa000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000174876e80000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000002e90edd0000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000a5465737420546f6b656e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000047465737400000000000000000000000000000000000000000000000000000000"
-}
-```
-:::
-
-## mintage_getMintageCancelPledgeData
-获取取回铸币抵押交易请求数据，也可以通过对ABI中的`CancelMintPledge`方法编码获取交易请求数据。
-
-- **Parameters**: 
-
-  * `TokenId`: 取回铸币抵押的代币id
-
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-::: demo
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"mintage_getMintageCancelPledgeData",
-   "params":["tti_5649544520544f4b454e6e40"]
-}
-```
-
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result":  "9b9125f5000000000000000000000000000000000000000000005649544520544f4b454e"
 }
 ```
 :::
@@ -278,10 +244,7 @@ ABI：
   6. `isReIssuable`: `bool`  是否可增发
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
-  9. `pledgeAmount`: `big.Int` 抵押金额
-  10. `withdrawHeight`: `uint64` 抵押到期高度
-  11. `pledgeAddr`: `Address` 抵押账户
-  12. `tokenId`: `TokenId` 代币id
+  9. `tokenId`: `TokenId` 代币id
 
 - **Example**:
 
@@ -309,9 +272,6 @@ ABI：
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "pledgeAmount":"0",
-      "withdrawHeight":"0",
-      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       "tokenId":"tti_5649544520544f4b454e6e40"
    }]
 }
@@ -336,10 +296,7 @@ ABI：
   6. `isReIssuable`: `bool`  是否可增发
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
-  9. `pledgeAmount`: `big.Int` 抵押金额
-  10. `withdrawHeight`: `uint64` 抵押到期高度
-  11. `pledgeAddr`: `Address` 抵押账户
-  12. `tokenId`: `TokenId` 代币id
+  9. `tokenId`: `TokenId` 代币id
 
 - **Example**:
 
@@ -367,9 +324,6 @@ ABI：
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "pledgeAmount":"0",
-      "withdrawHeight":"0",
-      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       "tokenId":"tti_5649544520544f4b454e6e40"
    }
 }
@@ -394,10 +348,7 @@ ABI：
   6. `isReIssuable`: `bool`  是否可增发
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
-  9. `pledgeAmount`: `big.Int` 抵押金额
-  10. `withdrawHeight`: `uint64` 抵押到期高度
-  11. `pledgeAddr`: `Address` 抵押账户
-  12. `tokenId`: `TokenId` 代币id
+  9. `tokenId`: `TokenId` 代币id
 
 - **Example**:
 
@@ -425,9 +376,6 @@ ABI：
       "isReIssuable":true,
       "maxSupply":"200000000000",
       "ownBurnOnly":true,
-      "pledgeAmount":"0",
-      "withdrawHeight":"0",
-      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
       "tokenId":"tti_251a3e67a41b5ea2373936c8"
    }]
 }
