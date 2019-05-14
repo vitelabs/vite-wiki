@@ -34,9 +34,9 @@ Staking contract (address `vite_0000000000000000000000000000000000000003f6af7459
 * Retain all staking information with new expiration height 1 (can be retrieved immediately after the pre-mainnet launches)
 
 Original SBP registration contract, voting contract and consensus group contract are merged into new consensus group contract (address `vite_0000000000000000000000000000000000000004d28108e76b`)
-* Retain all valid SBP registrations with new staking amount 100,000 VITE each, return the remains to registered address, and change the registration expiration height to 7776000 (about 3 months after pre-mainnet launches);
+* Retain all valid SBP registrations with new registration expiration height 7776000 (about 3 months after pre-mainnet launches)
 * Retain all voting information
-* Retain all settings in snapshot consensus group and public delegated consensus group.
+* Retain all settings in snapshot consensus group and public delegated consensus group
 
 Mintage contract (address `vite_000000000000000000000000000000000000000595292d996d`)
 * Retain token information for **VITE** and **VCP**
