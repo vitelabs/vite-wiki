@@ -44,7 +44,7 @@ ABI：
 
 `Object`
   1. `tokenName`:`string`  代币名称，1-40个字符，包含大小写字母、空格和下划线，不能有连续空格，不能以空格开头或结尾
-  2. `tokenSymbol`: `string` 代币简称，1-10个字符，包含大小写字母、空格和下划线，不能有连续空格，不能以空格开头或结尾
+  2. `tokenSymbol`: `string` 代币简称，1-10个字符，包含大写字母、数字
   3. `totalSupply`: `big.int` 总发行量，不能超过2**256-1
   4. `decimals`: `uint8` 小数位数，10**decimals不能超过totalSupply
   5. `isReIssuable`: `bool` 是否可增发，true-可增发 false-不可增发
