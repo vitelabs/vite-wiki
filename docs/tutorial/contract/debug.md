@@ -277,19 +277,6 @@ Download [Gvite Debugging Package](https://github.com/vitelabs/gvite-contracts/r
 
 Installation steps in testing environment are similar as in development environment. See [Install](#install).
 
-#### Initialize
-
-Since account balance and quota will be verified in testing environment, additional initialization is required for the first boot-up.
-
-Following steps are finished during initialization
- * A total supply of VITE tokens are sent to genesis account. This step needs calculate a PoW, so it may take some time
- * Waiting for a new snapshot block
- * Genesis account stakes for itself(in the purpose of sending subsequent transactions). This step needs calculate a PoW, so it may take some time
- * Waiting until quota is received
-```bash
-sh init.sh
-```
-
 #### Create Test Account
 
 Remember to create new test account and stake for the account each time gvite has been rebooted. The test account will be used to create or call contract.
