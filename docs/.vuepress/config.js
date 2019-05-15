@@ -61,6 +61,7 @@ const sidebarConfigs = {
                 'node/sbp',
                 'node/node_config',
                 'node/example',
+                'node/genesis_config',
             ]
         },
         {
