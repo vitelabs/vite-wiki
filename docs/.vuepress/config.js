@@ -266,6 +266,7 @@ module.exports = {
         'seo',
         'baidu-autopush',
         'pangu',
+        'tabs',
         [require('./plugins/tab-code-example')]
     ],
     themeConfig: {

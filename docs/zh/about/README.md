@@ -74,7 +74,7 @@ npm run dev
 
 ### Demo 组件
 
-内置Demo组件，用于分Tab展示示例代码。
+内置Demo组件，用于分Tab展示示例代码，并支持在线测试RPC接口。
 
 * **用法**：
 
@@ -140,6 +140,46 @@ npm run dev
               }
   ```
   :::
+  
+  
+
+### Tab 组件
+
+内置Tab组件，支持分Tab展示不同内容，与Demo组件不同的地方是，Tab组件支持在Tab内展示任何Markdown内容（Demo组件只支持在Tab内显示代码）。
+
+```markdown
+:::: tabs
+
+::: tab title
+__markdown content__
+:::
+
+
+::: tab javascript
+    () => {
+      console.log('Javascript code example')
+    }
+:::
+
+::::
+```
+
+**Output**
+
+:::: tabs
+
+::: tab title
+__markdown content__
+:::
+
+
+::: tab javascript
+    () => {
+      console.log('Javascript code example')
+    }
+:::
+
+::::
   
 ### TeX Support
 
