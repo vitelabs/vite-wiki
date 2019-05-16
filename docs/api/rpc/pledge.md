@@ -6,7 +6,7 @@ sidebarDepth: 4
 :::tip Maintainer
 [viteLiz](https://github.com/viteLiz)
 :::
-The built-in staking contract. Contract address is vite_000000000000000000000000000000000000000309508ba646
+The built-in staking contract. Contract address is vite_0000000000000000000000000000000000000003f6af7459b9
 
 **Supported protocol：**
 

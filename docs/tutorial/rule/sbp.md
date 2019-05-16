@@ -28,7 +28,7 @@ To register a new SBP, you need to stake a designated amount of Vite tokens. The
 
 **Staking Amount：**
 
-*100,000 VITE*
+*500,000 VITE*
 
 **Staking Period：**
 
