@@ -1,1 +1,1 @@
-# VEP 13
+# VEP-13: Rules of SBP Rewards Calculation and Distribution

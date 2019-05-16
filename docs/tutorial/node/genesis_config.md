@@ -61,7 +61,7 @@ The only reason the comments are here is to explain certain configuration settin
         "s1": { // Supernode name
           "NodeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Block producing address
           "PledgeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Staking address
-          "Amount": 100000000000000000000000, // Staking amount
+          "Amount": 500000000000000000000000, // Staking amount
           "WithdrawHeight": 7776000,  // Staking period
           "RewardTime": 1,  // Starting block height from which mining rewards are available for retrieval
           "CancelTime": 0,  // Block height at which the supernode can be cancelled and the corresponding staking can be retrieved. 0 means the supernode can be cancelled immediately
@@ -72,7 +72,7 @@ The only reason the comments are here is to explain certain configuration settin
         "s2": {
           "NodeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
           "PledgeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
-          "Amount": 100000000000000000000000,
+          "Amount": 500000000000000000000000,
           "WithdrawHeight": 7776000,
           "RewardTime": 1,
           "CancelTime": 0,

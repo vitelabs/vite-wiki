@@ -1,104 +1,124 @@
-# Vite TestNet Introduction
+# Introduction to Vite Pre-Mainnet <Badge text="2.0.x"/>
 
-Vite TestNet officially launched on November 8, 2018.
-In the TestNet, you can play with all new features. This includes participating in mining, voting, running full nodes as well as getting rewards.
-Token migration from ERC20 to VITE is also available now. You can migrate your Vite ERC20 tokens to Vite TestNet at a 1:1 ratio earning profits in ahead of the release of Vite MainNet! Come and enjoy!
+Vite Pre-Mainnet is the first stage of Mainnet's launch process. In the Pre-Mainnet, we will examine network performance, stability and security and perform optimizations accordingly.
+Vite Pre-Mainnet share the same design and specification with Mainnet. The only major difference is mandatory ERC20-to-Vite token swap will not be conducted in Pre-Mainnet.
+Vite Mainnet will launch in Q3, 2019.
 
-## TestNet Rewards
+**Key Features Implemented**
+
+* [VEP 5: Remove Explicit Snapshot Hash Reference as Timestamps](/vep/vep-5.html) - *Exponential rise on Vite network performance*
+* [VEP 7: Merge In-Contract Request Calls into Original Response as one Transaction](/vep/vep-7.html) - *Improvement on block producing efficiency of smart contract*
+* [VEP 10: Vite TestNet-PreMainnet Data Migration Plan](/vep/vep-10.html) - *Data Migration from Testnet*
+* [VEP 12: The Implementation of Random Numbers in Vite](/vep/vep-12.html) - *Security improved by introducing unpredictable randoms*
+* [VEP 13: Rules of SBP Rewards Calculation and Distribution](/vep/vep-13.html) - *New rules of SBP rewards in Pre-Mainnet*
+
+::: warning
+In Pre-Mainnet all historical transaction records of Testnet will be cleared, and only account balances are kept. 
+See [VEP 10: Vite TestNet-PreMainnet Data Migration Plan](/zh/vep/vep-10.html) for details.
+:::
+
+## Rewards in Pre-Mainnet
 
 ### SBP Rewards
 
-Mining will be enabled in the TestNet. For the time being, if you run a SBP node, your SBP reward won't show up in wallet. Vite Labs will instead send the actual reward directly to your address on a daily basis.
+:::tip
+**Block Creation Reward** is `0.951293759512937595` **VITE** per snapshot block. In Pre-Mainnet, rewards will be issued on-chain. Each SBP should send **Reward Retrieval Transaction** to get rewards.
+:::
 
-Related Documents:
+Related links:
 
 * [How to Run a SBP][sbp-manage]
 * [Rules for SBP Rewards Allocation][sbp-reward]
 
-::: warning Why can't I see my SBP reward in wallet?
-The reason is we want to verify [SBP reward allocation rules][sbp-reward] in the TestNet to see if they are appropriate.
-
-In TestNet, we may alter [rule parameters][sbp-reward] frequently, which may cause hard forks. In order to avoid this, for the time being, Vite wallet does not display SBP rewards but show a link to let anybody query in Vite Block Explorer.
-:::
-
 ### Full Node Rewards
 
-In the TestNet, running full nodes will be rewarded on a daily basis. Full Node Rewards Program has launched on December 13th, 2018. 
+Full node rewards will continue in Pre-Mainnet. Same as in Testnet, full node rewards will be distributed on daily basis. 
 
-Related Documents:
+Related links:
 
 * [Rules for Full Node Rewards][fullnode-reward]
-* [Configuration Spec](../node/install.md#full-node-reward)
+* [Configuration Specification](../node/install.md#full-node-reward)
 
-## TestNet Features
+## Features in Pre-Mainnet
 
-### Feeless Transactions
+### Fee-less Transactions
 
-Users in Vite do not pay gas for transactions. Instead, Vite implements a TPS(transactions per second) Quota-Based Model. This model dictates that the amount of Vite tokens staked accounts for the amount of quota or TPS facilitated. For low-frequency users, Vite allows a quota to be obtained through a simple PoW (Proof of Work) mechanism. For high-frequency users, however, higher quotas will be obtained through the ability to stake the corresponding amount of Vite Tokens.
-
-In addition, a built-in function configured with accounts provides assurance that all valid transactions are automatically received.
+Transactions are free in Vite. No gas(as in Ethereum) is charged. Instead, Vite implements a **Quota-Based Model** according to the amount of Vite tokens staked for the account, and then measures how many transactions the account can send out in TPS(Transaction Per Second). 
+For most of users who usually do not have demand to send a lot of transactions in short time, an alternative method of PoW(Proof of Work) mechanism can be used to obtain a small amount of quota for one-time usage(one transaction). 
+For high-trading-frequency users, they should stake **VITE** for adequate quota.
 
 ### HDPoS Consensus
 
-Currently, Hierarchical Delegated Proof of Stake (HDPoS) Consensus Algorithm is implemented on Vite's TestNet. The system consensus is provided by a global consensus group. The DAG ledger ensures quick recording of transactions. In addition, the Snapshot Chain prevents transactions from being tempered with. Future improvements upon this consensus algorithm will allow side chains, private chains and consortium chains to be easily implemented in Vite.
+Vite's consensus algorithm is called **Hierarchical Delegated Proof of Stake(HDPoS)**. This is a multi-tiers dPoS algorithm.
+The top-level consensus is guaranteed by **Snapshot Consensus Group**. **Delegated Consensus Group** and **Private Consensus Group** will provide consensus results at smart contract and account level.
+There should have multiple **Delegated Consensus Group** and **Private Consensus Group** in the network.
+In this consensus, transactions can be verified and written into ledger at high speed, and Vite **Snapshot Chain** prevents all transactions from being tempered with. 
+In addition, logical private chain or consortium chain can be easily implemented in this consensus.
 
 ### Fast Transactions
 
-The DAG ledger structure and Asynchronous Architecture are essential to ensuring Vite's high performance. In particular, Asynchronous designs within Vite come in three categories: 
+DAG ledger and asynchronous communication are essential for high performance. In particular, asynchronous design in Vite lies in three aspects: 
 
 * Asynchronous Design of Request and Response 
 * Asynchronous Design of Transaction Writing and Confirmation 
-* Asynchronous Design of Inter-contract Invocation
+* Asynchronous Design of Inter-Contract Calls
 
-These features improve system performance through utilization of optimized P2P (peer to peer) data transmission.
+Align with "pull and push" based data delivery model, Vite Pre-Mainnet is equipped with high throughput in nature.
 
-### Built-In Smart Contract
+### Built-In Smart Contracts
 
-Vite lays the foundation for timed scheduling, decentralized exchanges as well as other functions facilitated through the TestNet's built-in smart contract capability. Built-in contracts that have been implemented include SBP registration, voting, token staking and token issuance. Vite will provide users the capability to write, compile and deploy smart contracts soon.
+From SBP registration, voting, staking and new token issuance to ViteX exchange, built-in smart contracts are widely used in Vite.
+In addition to build-in smart contracts, users can also write and deploy their own smart contracts in Pre-Mainnet.
 
-#### SBP Registration
+#### Supernode Registration
 
-In the TestNet, users are able to migrate the ERC20 tokens to the TestNet to participate in SBP elections. At the time of MainNet launch, all SBPs on the TestNet will automatically become SBPs on the MainNet. Users who are interested in operating an SBP will be able to register in advance. The election process is as follows:
+In Pre-Mainnet, user can migrate ERC20 tokens to Pre-Mainnet to register supernode and participate in SBP election. All existing supernodes will be carried over to MainNet when Mainnet is released. 
+Registering supernode is as follows:
 
-* Stake 500,000 VITE (this requirement will become 1,000,000 VITE for the MainNet).
-* Run a node server and have necessary skills to maintain said server
+* Stake 500,000 **VITE**
+* Operate a node server and have skills to maintain the said server
 * Have substantial community influence and be able to solicit votes from VITE holders
 
-#### Voting for SBP
+#### Voting for Supernode
 
-In the TestNet, users can create a transaction to vote for an SBP. The user's current VITE balance will be used as the number of votes counted towards the SBP. A user is only allowed to vote for one SBP at a time, but he can change voting at any time. In the TestNet phase, voting for the Vite official SBP will receive voting reward. The reward yield is dependent upon how many users participate in the voting process. As more users vote, the return will be diluted.
+In Pre-Mainnet, user can vote for supernode in the amount of his current **VITE** balance, one at a time. Voting can be changed at any time, such as re-vote for another supernode or cancel. 
+Many supernodes(will be listed on forum) from the community will issue voting rewards to backers. Vote for them and get rewards!
 
-#### Vite Token Staking
+#### Staking
 
-In the TestNet, users can stake VITE tokens to obtain a certain amount of quota. The minimum stake value is 10 VITE; there is no maximum limit. The "lock-up" period, defined as the period of time in which tokens cannot be withdrawn from a staking request, lasts 3 days. After the user engages in staking, the VITE amount staked will be automatically sent to a smart contract address. Vite has ensured that only the staker has the authority to use the designated staked tokens.
+In Pre-Mainnet, staking **VITE** is the recommended way to get quota. The minimum staking amount is 134 VITE and no maximum limit. 
+**Staking lock-up**, defined as the period of time in which staked tokens are "frozen" and cannot be withdrawn, is 3 days. At the time a staking transaction takes place, the designated amount of **VITE** will be sent to built-in staking contract. And only the original staker has the permission to retrieve the staked tokens once they are unlocked.
 
-#### Staking with a Recipient Account
+#### Staking for a Recipient Account
 
-The staker will designate a recipient account for the amount of Vite tokens chosen to be to staked bearing in mind the 3 day duration of the lock-up period. The recipient account attains the corresponding quota during the staking period after the response transaction has been snapshot.
+Staker should designate a recipient account to receive quota. The recipient will be granted the corresponding amount of quota until the staking is cancelled by staker. The default recipient is the staker himself.
 
-#### Stake Withdrawal
+#### Staking Withdrawal
 
-The staker is able to retrieve their deposit after the staking time expires by specifying the recipient account and token amount to be withdrawn. The amount withdrawn cannot exceed the original amount staked for the recipient.
+Staker can cancel the staking and retrieve staked **VITE** after it expires. The withdrawal amount cannot exceed the original staking amount for the specific recipient.
 
 #### One Step Token Issuance
 
-Unlike Ethereum users who have to write and deploy their own ERC20 contracts, Vite users only need to send a transaction to a token issuance smart contract address. This built-in user friendly feature has been designed to effectively reduce the high cost of token issuance on Ethereum as well as enforce heightened security.
+Unlike Ethereum where user has to write ERC20 contract, in Vite issuing new token only needs to send transaction to built-in token issuance smart contract. Not a single line of code is written at all!
+This feature effectively reduces the cost of token issuance and no doubt improve security.
 
-## Tokens
+## Tokens in Pre-Mainnet
 
-Besides VITE, two other tokens are officially released in the TestNet: VCP and VTT.
+In addition to **VITE**, two other official coins, **VCP** and **VX**, are issued in Pre-Mainnet.
 
 ### VCP
 
 Full name：*Vite Community Points*
 
-VCP stands for Vite Community Points used to incentivize the community with rewards points, similar to systems used by other consumer apps or credit cards. The Vite Community Incentive program was created in order help test the Vite network. You can use VCP to redeem Vite limited edition merchandise (such as T-shirts and hats) in Vite Store. VCP is stable, and is donated by Vite’s official operations. It is only used to redeem products at Vite Store (therefore, it has no value as an investment nor will it ever be traded on an exchange)
+VCP is used to incentivize the community. They are distributed for free to recognize community members who have contribution. At the time being, VCP is mainly used for redeeming Vite merchandise (such as T-shirts and hats) in ViteStore. 
+VCP has stable value and should not be listed for trade in exchange.
 
-### VTT
+### VX
 
-Full name：*Vite Test Token*
+Full name：*ViteX Coin*
 
-VTT stands for Vite Test Token. It can be obtained freely in [Vite wallet][web-wallet] and mainly serves to help us test the Vite network.
+As the platform token of ViteX, VX's holders are subject to ViteX's dividends. 100% of VX are mined in real transactions of ViteX. There is no pre-mining at all.
+Mining VX will start soon after Pre-Mainnet and ViteX are released.
 
 [sbp-reward]: <../rule/sbp.html#SBP-rewards>
 [fullnode-reward]: <../rule/fullnode.html>
