@@ -155,7 +155,7 @@ npm run dev
 
 内置Tab组件，支持分Tab展示不同内容，与Demo组件不同的地方是，Tab组件支持在Tab内展示任何Markdown内容（Demo组件只支持在Tab内显示代码）。
 
-::: warn
+::: warning
 若只是想分Tab显示不同的代码和内容，请使用该组件，若想使用**在线测试功能**，请使用Demo组件。
 :::
 
