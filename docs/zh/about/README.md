@@ -76,11 +76,11 @@ npm run dev
 
 ## 内置组件
 
-### Badge 组件
+### Badge 组件 <Badge text="Stable"/>
 
 [https://v1.vuepress.vuejs.org/zh/guide/using-vue.html#badge](https://v1.vuepress.vuejs.org/zh/guide/using-vue.html#badge)
 
-### Demo 组件
+### Demo 组件 <Badge type="error" text="Experimental"/>
 
 内置Demo组件，用于分Tab展示示例代码，并支持在线测试RPC接口。
 
@@ -151,9 +151,13 @@ npm run dev
   
   
 
-### Tab 组件
+### Tab 组件 <Badge text="stable"/>
 
 内置Tab组件，支持分Tab展示不同内容，与Demo组件不同的地方是，Tab组件支持在Tab内展示任何Markdown内容（Demo组件只支持在Tab内显示代码）。
+
+::: warn
+若只是想分Tab显示不同的代码和内容，请使用该组件，若想使用**在线测试功能**，请使用Demo组件。
+:::
 
 ```markdown
 :::: tabs
@@ -193,7 +197,7 @@ npm run dev
 
 ::::
   
-### TeX Support
+### TeX Support <Badge text="stable"/>
 
 在线**LaTeX**编辑器：[https://arachnoid.com/latex/](https://arachnoid.com/latex/)
 
