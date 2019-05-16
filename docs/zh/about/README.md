@@ -25,8 +25,8 @@ Vite 项目正在开发，有关Vite的相关的技术文档均会放此处，�
 
 ### 环境要求
 
-* node: >= 9.xx
-* yarn: >= 1.3.xx
+* **Node**: <Badge vertical="middle" text=">= 9.xx"/>
+* **Yarn**: <Badge vertical="middle" text=">= 1.3.xx"/>
 
 ### 安装 yarn
 
@@ -70,7 +70,15 @@ npm run dev
 ![dag-ledger](~/images/vep4-ledger.png)
 ```
 
+## Markdown 扩展
+
+[https://v1.vuepress.vuejs.org/zh/guide/markdown.html](https://v1.vuepress.vuejs.org/zh/guide/markdown.html)
+
 ## 内置组件
+
+### Badge 组件
+
+[https://v1.vuepress.vuejs.org/zh/guide/using-vue.html#badge](https://v1.vuepress.vuejs.org/zh/guide/using-vue.html#badge)
 
 ### Demo 组件
 
@@ -151,7 +159,9 @@ npm run dev
 :::: tabs
 
 ::: tab title
-__markdown content__
+  * __markdown content__
+  * __markdown content__
+  * __markdown content__
 :::
 
 
@@ -169,7 +179,9 @@ __markdown content__
 :::: tabs
 
 ::: tab title
-__markdown content__
+  * __markdown content__
+  * __markdown content__
+  * __markdown content__
 :::
 
 
