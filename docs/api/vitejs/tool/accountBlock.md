@@ -117,9 +117,10 @@ const receiveTxBlock = getReceiveTxBlock({
 Get specified transaction type
 
 - **Parameters**
-    * `toAddress : HexAddr` ToAddress
-    * `data : string` `accountBlock.data` 
-    * `blockType : BlockType`
+    * `__namedParameters: object`
+        - `toAddress : HexAddr` ToAddress
+        - `data : string` `accountBlock.data` 
+        - `blockType : BlockType`
 
 - **Return**
     * `builtinTxType : BuiltinTxType` Transaction Type
@@ -134,7 +135,7 @@ const RevokeVoting = {
     toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
 };
 
-const builtinTxType = getBuiltinTxType(RevokeVoting.toAddress, RevokeVoting.data, RevokeVoting.blockType);
+const builtinTxType = getBuiltinTxType(RevokeVoting);
 // builtinTxType === 'RevokeVoting'
 ```
 

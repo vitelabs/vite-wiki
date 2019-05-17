@@ -32,10 +32,18 @@ const { account } = require('@vite/vitejs-account');
 - **Constructor Parameters**: 
     * `__namedParameters : object`
         - `privateKey? : Hex` 私钥
+        - `address?: Address` 地址
         - `client : Client` client实例
     * `__namedParameters? : object` Default { autoPow: false, usePledgeQuota: true }
         - `autoPow?: boolean` 配额不足时，发送交易是否默认运行PoW Default false
         - `usePledgeQuota? : boolean` 检查是否需要运行PoW时，是否优先使用配额 Default true
+
+| privateKey | address | 是否可调用全部方法 | 是否自动生成私钥 | 是否自动生成地址| 描述 |
+|:-----------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| -- | -- | &#x2713; | &#x2713; | &#x2713; | |
+| &#x2713; | -- | &#x2713; | -- | &#x2713; | |
+| -- | &#x2713; | -- | -- | -- | 只能调用不使用私钥的方法，否则报错 |
+| &#x2713; | &#x2713; | &#x2713; | -- | -- | 私钥和地址不匹配则报错 |
 
 - **Example**: 
 ```javascript
@@ -62,11 +70,20 @@ myAccount.getBalance().then((result) => {
 |:------------:|:-----:|:-----:|
 | privateKey | string | 私钥 |
 | publicKey | string | 公钥 |
+| address | Address | 地址 |
 | balance | object | 余额 |
 | autoPow | boolean | 是否自动运行PoW |
 | usePledgeQuota | boolean | 检查PoW时，是否优先使用配额 |
 
 ## Methods
+
+### clearPrivateKey
+冻结账户并且清空私钥
+
+### setPrivateKey
+
+- **Parameters** 
+    * `privateKey : string`
 
 ### getPublicKey
 
@@ -80,6 +97,14 @@ myAccount.getBalance().then((result) => {
 
 - **Return**:
     * `signature : string` 签名后的信息
+
+### signAccountBlock
+
+- **Parameters** 
+    * `accountBlock : AccountBlock`
+
+- **Return**:
+    * `accountBlock : AccountBlock` 签名后的accountBlock
 
 ### activate
 激活账户

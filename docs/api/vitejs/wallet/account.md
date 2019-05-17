@@ -32,10 +32,18 @@ const { account } = require('@vite/vitejs-account');
 - **constructor params**: 
     * `__namedParameters: object`
         - `privateKey? : string` Private Key
+        - `address?: Address` Address
         - `client : Client` Client Instance
     * `__namedParameters? : object` Default { autoPow: false, usePledgeQuota: true }
         - `autoPow?: boolean` Whether to run PoW by default when sending a transaction without quota. Default false
         - `usePledgeQuota? : boolean` Whether the quota is used preferentially, when checking if you need to run pow. Default true
+
+| privateKey | address | All methods can be called | Automatic generation of private keys | Automatic generation of address | Description |
+|:-----------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| -- | -- | &#x2713; | &#x2713; | &#x2713; | |
+| &#x2713; | -- | &#x2713; | -- | &#x2713; | |
+| -- | &#x2713; | -- | -- | -- | Can only call methods that do not use a private key, otherwise throw an error |
+| &#x2713; | &#x2713; | &#x2713; | -- | -- | If the private key and address do not match, throw an error |
 
 - **Example**: 
 ```javascript
@@ -62,11 +70,20 @@ myAccount.getBalance().then((result) => {
 |:------------:|:-----:|:-----:|
 | privateKey | string | Private Key |
 | publicKey | string | Public Key |
+| address | Address | Address |
 | balance | object | Account Balance |
 | autoPow | boolean | Whether to automatically run PoW when the quota is insufficient |
 | usePledgeQuota | boolean | Whether the quota is used preferentially, when checking if you need to run pow |
 
 ## Methods
+
+### clearPrivateKey
+Freeze account and clear privateKey
+
+### setPrivateKey
+
+- **Parameters** 
+    * `privateKey : string`
 
 ### getPublicKey
 
@@ -81,6 +98,13 @@ myAccount.getBalance().then((result) => {
 - **Return**:
     * `signature : string` Results after signing
 
+### signAccountBlock
+
+- **Parameters** 
+    * `accountBlock : AccountBlock`
+
+- **Return**:
+    * `accountBlock : AccountBlock` Signed accountBlock
 
 ### activate
 Activate Account

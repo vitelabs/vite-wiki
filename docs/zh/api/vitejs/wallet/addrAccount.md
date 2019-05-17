@@ -218,13 +218,14 @@ getBlock封装了[client.builtinTxBlock](../client/builtinTxBlock.md)模块下�
 2. 通过 `client.builtinTxBlock[methodName]` 获取到合法块
 
 **Code**
-```javascript
+```typescript
 for (const key in this._client.builtinTxBlock) {
     if (key === '_client') {
         continue;
     }
 
     this.getBlock[key] = (block, requestType?) => {
+        block = block || {};
         block.accountAddress = this.address;
         return this._client.builtinTxBlock[key](block, requestType);
     };
