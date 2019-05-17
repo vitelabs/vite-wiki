@@ -436,6 +436,8 @@ Return the given number of account blocks since the specific block
 ```
 :::
 ## ledger_getBlocksByHashInToken
+注意：此API只有在全节点的node_config.json中设置`"OpenPlugins": true`时才生效
+
 Return the given number of account blocks of a certain token since the specific block
 
 - **Parameters**: 
@@ -515,6 +517,8 @@ Return the given number of account blocks of a certain token since the specific 
             "data": "0e0HOSvpbeG+SKedm33fgHuNqHlmEFCIQhf2z3O3iQ8A",
             "logHash": null,
             "nonce": null,
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "signature": "n4PqczrUj4YWRB1xExYehKrusbSlKS2kIwTXQuodjuAOK4vEXGx+IklZY71yY2TPKE2tbGk3PW1XmTfKUHz8AA==",
             "fromAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
             "height": "3",
@@ -553,7 +557,7 @@ Return the given number of account blocks of a certain token since the specific 
 :::
 
 ## ledger_getSnapshotChainHeight
-Return the current height of snapshot chain
+Query the current height of snapshot chain
 
 - **Parameters**: `none`
 
@@ -591,6 +595,176 @@ Return the current height of snapshot chain
 ```
 :::
 
+## ledger_getSnapshotBlockByHash
+Query the snapshot block by hash
+
+- **Parameters**: 
+    - `Hash`  hash of snapshot block
+
+- **Returns**: 
+               
+    `Object` : detail of snapshot block
+     -  `hash` : `Hash` hash of snapshot block
+     -  `prevHash` : `Hash` hash of previous snapshot block
+     -  `height` : `uint64` height of snapshot block
+     -  `publicKey` : `ed25519.PublicKey` public key of super node who produce the snapshot block
+     -  `signature` : `[]byte` 签名 signature of the snapshot block 
+     -  `timestamp` : `time` time when produce the snapshot block
+     -  `seed`: `uint64` 
+     -  `seedHash`: `Hash`
+     -  `snapshotContent` : `map[types.Address]HashHeight` detail of snapshot
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getSnapshotBlockByHash",
+    "params": ["6c6c000ab47527b4f5e7d250538c7e32e9e134f2c0db265e007af2b7bac978dd"]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+        "hash": "6c6c000ab47527b4f5e7d250538c7e32e9e134f2c0db265e007af2b7bac978dd",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "height": 1,
+        "publicKey": null,
+        "signature": null,
+        "seed": 0,
+        "seedHash": null,
+        "snapshotContent": {
+            "vite_0000000000000000000000000000000000000003f6af7459b9": {
+                "height": 1,
+                "hash": "1772519602b4bfd8dd40ab13eb62f3d1e86eb6d22144835c068ff68f894a0d8a"
+            },
+            "vite_0000000000000000000000000000000000000004d28108e76b": {
+                "height": 1,
+                "hash": "dacdc0e6250b64cba6a9d6c666edf3cce08977170e05ca4b2b4a6e19257c1696"
+            },
+            "vite_000000000000000000000000000000000000000595292d996d": {
+                "height": 1,
+                "hash": "d519bd49599df00b6a5992a50065af7945c4b6af269af8791cca5688f3277e37"
+            },
+            "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a": {
+                "height": 1,
+                "hash": "87431f8efedd7be224f3fe985f0257fadfce3259a2b2395ec7f8ec65f1d5148a"
+            },
+            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
+                "height": 1,
+                "hash": "ef2788f1e0dcece653b297b087ab79e5411786596e0a2a23daa02c1c29c80694"
+            },
+            "vite_847e1672c9a775ca0f3c3a2d3bf389ca466e5501cbecdb7107": {
+                "height": 1,
+                "hash": "30ddc46a82a909b242ec0ad4cb75f1fe16999c17a2c29aae6c8aa2524bc90fa5"
+            },
+            "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a": {
+                "height": 1,
+                "hash": "d517e8d4dc9c676876b72ad0cbb4c45890804aa438edd1f171ffc66276202a95"
+            },
+            "vite_ce18b99b46c70c8e6bf34177d0c5db956a8c3ea7040a1c1e25": {
+                "height": 1,
+                "hash": "e544ea40948c22ba0003ca034f440a57903a3a562ed0e129b5517438562ebdd5"
+            }
+        },
+        "timestamp": 1557892800
+    }
+}
+```
+:::
+
+## ledger_getSnapshotBlockByHeight
+query the snapshot block by height
+
+- **Parameters**: 
+    - `uint64`  height of the snapshot block
+
+- **Returns**: 
+               
+    `Object` : detail of snapshot block
+     -  `hash` : `Hash` hash of snapshot block
+     -  `prevHash` : `Hash` hash of previous snapshot block
+     -  `height` : `uint64` height of snapshot block
+     -  `publicKey` : `ed25519.PublicKey` public key of super node who produce the snapshot block
+     -  `signature` : `[]byte` 签名 signature of the snapshot block 
+     -  `timestamp` : `time` time when produce the snapshot block
+     -  `seed`: `uint64` 
+     -  `seedHash`: `Hash`
+     -  `snapshotContent` : `map[types.Address]HashHeight` detail of snapshot
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getSnapshotBlockByHeight",
+    "params": [6363411]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+        "hash": "6c6c000ab47527b4f5e7d250538c7e32e9e134f2c0db265e007af2b7bac978dd",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "height": 1,
+        "publicKey": null,
+        "signature": null,
+        "seed": 0,
+        "seedHash": null,
+        "snapshotContent": {
+            "vite_0000000000000000000000000000000000000003f6af7459b9": {
+                "height": 1,
+                "hash": "1772519602b4bfd8dd40ab13eb62f3d1e86eb6d22144835c068ff68f894a0d8a"
+            },
+            "vite_0000000000000000000000000000000000000004d28108e76b": {
+                "height": 1,
+                "hash": "dacdc0e6250b64cba6a9d6c666edf3cce08977170e05ca4b2b4a6e19257c1696"
+            },
+            "vite_000000000000000000000000000000000000000595292d996d": {
+                "height": 1,
+                "hash": "d519bd49599df00b6a5992a50065af7945c4b6af269af8791cca5688f3277e37"
+            },
+            "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a": {
+                "height": 1,
+                "hash": "87431f8efedd7be224f3fe985f0257fadfce3259a2b2395ec7f8ec65f1d5148a"
+            },
+            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
+                "height": 1,
+                "hash": "ef2788f1e0dcece653b297b087ab79e5411786596e0a2a23daa02c1c29c80694"
+            },
+            "vite_847e1672c9a775ca0f3c3a2d3bf389ca466e5501cbecdb7107": {
+                "height": 1,
+                "hash": "30ddc46a82a909b242ec0ad4cb75f1fe16999c17a2c29aae6c8aa2524bc90fa5"
+            },
+            "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a": {
+                "height": 1,
+                "hash": "d517e8d4dc9c676876b72ad0cbb4c45890804aa438edd1f171ffc66276202a95"
+            },
+            "vite_ce18b99b46c70c8e6bf34177d0c5db956a8c3ea7040a1c1e25": {
+                "height": 1,
+                "hash": "e544ea40948c22ba0003ca034f440a57903a3a562ed0e129b5517438562ebdd5"
+            }
+        },
+        "timestamp": 1557892800
+    }
+}
+```
+:::
+
 ## ledger_getVmLogList
 Return the list of VM contract execution logs
 
@@ -621,42 +795,6 @@ Return the list of VM contract execution logs
     "jsonrpc": "2.0",
     "id": 1,
     "result": null
-}
-```
-:::
-
-## ledger_getFittestSnapshotHash
-Return the hash of snapshot block which is most suitable for being referenced by a new transaction
-
-- **Parameters**:
-   * `address` : `Address` `Optional` account address. Once specified, the hash of snapshot block referenced by last transaction of the account or afterwards will be returned.
-   * `sendblockHash` : `Hash` `Optional` hash of the corresponding request block if a new response transaction is to be created. Once specified, the hash of snapshot block referenced by the request transaction or afterwards will be returned.
-
-   If neither is specified, the hash of the snapshot block which is 10 blocks prior to current will be returned.
-
-- **Returns**: `Hash` The hash of snapshot block
-
-- **Example**:
-
-::: demo
-
-```json tab:Request
-{
-    "jsonrpc":"2.0",
-    "id":1,
-    "method":"ledger_getFittestSnapshotHash",
-    "params": [
-        "vite_bece0bfc8893a6dde206dea9d4058af7dd718c165c3a17332e",
-        "e698b4b6cdf2fe40bc74f27097cd53eb07c85e2268e04062c193da8fc294f393",
-    ]
-}
-
-```
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "result": "df6c3c2d874b790dd1f1cad0a4bbcd539bbfa99d9dc75b19056ebee310d2e47a"
 }
 ```
 :::
