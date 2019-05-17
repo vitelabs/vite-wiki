@@ -25,47 +25,88 @@ module.exports = [
     link: '/vep/'
   },
   {
-    text: 'Vite.net',
-    link: 'https://vite.net'
-  },
-  {
-    text: 'Explorer',
-    link: 'https://testnet.vite.net'
-  },
-  /* // {
-     text: 'Technology Detail',
-     link: '/technology/'
-   },
-   */
-  {
-    text: 'Wallet',
+    text: 'White Paper',
     items: [
       {
-        text: 'Desktop Wallet',
+        text: 'English',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_en.pdf'
+      },
+      {
+        text: 'Chinese',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_cn.pdf'
+      },
+      {
+        text: 'Korean',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_korean.pdf'
+      },
+      {
+        text: 'French',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_fr.pdf'
+      },
+      {
+        text: 'Vietnamese',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_vietnamese.pdf'
+      },
+      {
+        text: 'Russian',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_russian.pdf'
+      },
+      {
+        text: 'Japanese',
+        link: 'https://github.com/vitelabs/whitepaper/blob/master/vite_japan.pdf'
+      }
+    ]
+  },
+  {
+    text: 'About',
+    items: [
+      {
+        text: 'Links',
+        items: [
+          {
+            text: 'Website',
+            link: 'https://vite.org'
+          },
+          {
+            text: 'Block explorer',
+            link: 'https://testnet.vite.net'
+          },
+          {
+            text: 'Forum',
+            link: 'https://forum.vite.net'
+          },
+          {
+            text: 'Airdrop',
+            link: 'https://vite.org/airdrop'
+          }
+        ]
+      },
+      {
+        text: 'Wallets',
         items: [
           {
             text: 'Web Wallet',
             link: 'https://wallet.vite.net'
           },
           {
-            text: 'Windows Wallet',
-            link: 'http://download.vite.net/Vite.Wallet-1.0.0.exe'
+            text: 'iOS Wallet',
+            link: 'https://app.vite.net'
           },
           {
-            text: 'Mac Wallet',
-            link: 'http://download.vite.net/Vite.Wallet-1.0.0.dmg'
-          }
-        ]
-      },
-      {
-        text: 'Mobile Wallet',
-        items: [
-          {
-            text: 'iOS Wallet',
+            text: 'Android Wallet',
             link: 'https://app.vite.net'
           }
         ]
-      }
+      },
+      // {
+      //   text: 'Contribute',
+      //   items: [
+      //     {
+      //       text: 'Vite.wiki 编写指南',
+      //       link: '/zh/about/'
+      //     }
+      //   ]
+      // }
     ]
   }
 ]

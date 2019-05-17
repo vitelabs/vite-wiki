@@ -41,6 +41,7 @@
     "vuepress-plugin-pangu": "^1.0.1",
     "vuepress-plugin-redirect": "^1.1.2",
     "vuepress-plugin-seo": "^0.1.2",
+    "vuepress-plugin-tabs": "^0.2.2",
     "whatwg-fetch": "^2.0.4"
   }
 }

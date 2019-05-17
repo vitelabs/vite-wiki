@@ -46,7 +46,6 @@ Various quota consumptions of different transactions:
 | Stake for quota via delegation | 82000 | 3.9048 |
 | Cancel staking for quota via delegation | 73000 | 3.4762 |
 | Issue new token | 104525 | 4.9774 |
-| Retrieve staking for token issuance | 83200 | 3.9619 |
 | Mint additional token | 69325 | 3.3012 |
 | Burn token | 48837 | 2.3256 |
 | Transfer token ownership | 58981 | 2.8086 |
@@ -59,6 +58,11 @@ In addition, each character in transaction's comment consumes additional 68 quot
 For example, given hex encoding is used, sending a transfer with a comment of '0x0001' (two characters) will consume
 
 $${\it Q} = 21000 + 68 * 2 = 21136$$ quota, which translates to `1.0065` unit transaction.
+
+::: tip Note
+Due to implementation of [VEP-8](../../vep/vep-8.md), additional 136 quota (2 characters prefix) will be cost if you send a transfer with comment from Vite official wallet. 
+No additional quota will be cost if no comment is attached.
+:::
 
 ## Quota Calculation
 

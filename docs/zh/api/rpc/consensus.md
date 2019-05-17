@@ -8,7 +8,7 @@ sidebarDepth: 4
 :::
 
 ## 合约信息说明
-共识信息合约，合约账户地址： `vite_00000000000000000000000000000000000000042d7ef71894`
+共识信息合约，合约账户地址： `vite_0000000000000000000000000000000000000004d28108e76b`
 
 ABI：
 
@@ -229,6 +229,7 @@ ABI：
   1. `totalReward`: `string`  待提取奖励
   2. `blockReward`: `Address`  待提取按块奖励
   3. `voteReward`: `Address`  待提取按票奖励
+  3. `drained`: `bool`  是否已提取完所有的奖励。已提取完奖励的条件是节点已取消注册，并且当前所有的奖励已提取完。
 
 - **Example**:
 
@@ -254,7 +255,8 @@ ABI：
     {
       "totalReward": "10",
       "blockReward": "6",
-      "voteReward": "4"
+      "voteReward": "4",
+      "drained":true
     }
 }
 ```

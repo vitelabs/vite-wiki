@@ -7,7 +7,7 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-The built-in token issuance contract. Contract address: vite_00000000000000000000000000000000000000056ad6d26692
+The built-in token issuance contract. Contract address: vite_000000000000000000000000000000000000000595292d996d
 
 **Supported protocols:**
 

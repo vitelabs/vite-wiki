@@ -63,13 +63,13 @@ myAddrAccount.getBalance().then((result) => {
 ## Methods
 
 ### getBalance
-Get balance, including unreceived tokens ([client.getBalance](../client/client.md))
+Get balance, including unreceived tokens. *[client.getBalance](../client/client.md)*
 
 - **Return**
     * Promise<`{ balance, onroad }`>
 
 ### sendAccountBlock
-[client.sendRawTx](../client/client.md)
+*[client.sendRawTx](../client/client.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -79,7 +79,7 @@ Get balance, including unreceived tokens ([client.getBalance](../client/client.m
     * Promise<`AccountBlock`>
 
 ### getTxList
-[client.getTxList](../client/client.md)
+*[client.getTxList](../client/client.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -91,7 +91,7 @@ Get balance, including unreceived tokens ([client.getBalance](../client/client.m
     * Promise<`{ list, totalNum }`>
 
 ### callOffChainContract
-Query contract status ([client.callOffChainContract](../client/client.md))
+Query contract status. *[client.callOffChainContract](../client/client.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -102,13 +102,13 @@ Query contract status ([client.callOffChainContract](../client/client.md))
     * Promise<`result`>
 
 ### getOnroad
-Get unreceived tokens (Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpc/onroad.md))
+Get unreceived tokens. *Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpc/onroad.md)*
 
 - **Return**:
     * Promise
 
 ### getOnroadBlocks
-Get unreceived account block list (Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpc/onroad.md))
+Get unreceived account block list. *Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpc/onroad.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -119,7 +119,7 @@ Get unreceived account block list (Gvite-RPC [onroad_getOnroadBlocksByAddress](.
     * Promise
 
 ### getBlocks
-Get account block list (Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md))
+Get account block list. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -130,19 +130,19 @@ Get account block list (Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.m
     * Promise
 
 ### getAccountBalance
-Get account balance (Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md))
+Get account balance. *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md)*
 
 - **Return**:
     * Promise
 
 ### getLatestBlock
-Get last block (Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md))
+Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
 
 - **Return**:
     * Promise
 
 ### getBlockByHeight
-Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)
+*Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `height`
@@ -151,7 +151,7 @@ Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)
     * Promise
 
 ### getBlocksByHash
-Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)
+*Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -162,7 +162,7 @@ Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)
     * Promise
 
 ### getBlocksByHashInToken
-Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)
+*Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -174,13 +174,13 @@ Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)
     * Promise
 
 ### getPledgeQuota
-Gvite-RPC [pledge_getPledgeQuota](../../rpc/pledge.md)
+*Gvite-RPC [pledge_getPledgeQuota](../../rpc/pledge.md)*
 
 - **Return**:
     * Promise
 
 ### getPledgeList
-Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)
+*Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -191,26 +191,26 @@ Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)
     * Promise
 
 ### getRegistrationList
-Gvite-RPC [register_getPledgeList](../../rpc/consensus.md)
+*Gvite-RPC [register_getPledgeList](../../rpc/consensus.md)*
 
 - **Return**:
     * Promise
 
 ### getVoteInfo
-Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)
+*Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)*
 
 - **Return**:
     * Promise
 
 ### getTokenInfoListByOwner
-Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)
+*Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)*
 
 - **Return**:
     * Promise
 
 ## getBlock
 
-This part will automatically wrap the method in `client.builtinTxBlock` (For quickly calling the methods of `client.builtinTxBlock`)
+This part will automatically wrap the method in [client.builtinTxBlock](../client/builtinTxBlock.md) (For quickly calling the methods of [client.builtinTxBlock](../client/builtinTxBlock.md) )
 
 ### How to achieve
 

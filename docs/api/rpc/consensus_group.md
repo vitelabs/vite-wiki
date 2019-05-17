@@ -8,7 +8,7 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-The built-in delegated consensus group contract. Contract address: vite_00000000000000000000000000000000000000042d7ef71894
+The built-in delegated consensus group contract. Contract address: vite_0000000000000000000000000000000000000004d28108e76b
 
 :::warning Attention
 The term `super node` in this page stands for block producer in the corresponding delegated consensus group. Please do NOT mix up with SBP(snapshot block producer) or super node in snapshot consensus group. 
