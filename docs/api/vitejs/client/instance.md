@@ -129,26 +129,36 @@ Increase return value accountBlock. *Gvite-RPC [tx_sendRawTx](../../rpc/tx.md)*
 **The client is only encapsulated for call Gvite-RPC apis, the returned data will directly expose RPC api original data. [Reference](/api/rpc/)**
 
 1. `client.namespace.funcName`: If this method is defined in `constant.methods`, you can directly call `client.namespace.funcName`
+
+```javascript
+import { methods } from '@vite/vitejs-constant';
+// ......
+
+let myClient = new client(WS_RPC);
+myClient.ledger.getLatestSnapshotChainHash().then(()=>{
+    // ......
+});
+```
+
 2. `client.request(methodName, ...args)`: If this method is not defined in `constant.methods`, you can directly call `client.request(methodName, ...args)`
 
-- **Example**
 ```javascript
+// ......
+let myClient = new client(WS_RPC);
+myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
+    // ......
+});
+```
 
+3. `subscribe` should be changed to `subscribeFunc`
+
+```javascript
 import { methods } from '@vite/vitejs-constant';
 
 // ......
 
 let myClient = new client(WS_RPC);
-myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
-    // ......
-})
 
-// or
-myClient.ledger.getLatestSnapshotChainHash().then(()=>{
-    // ......
-});
-
-// If it is a subscribe method
 myClient.subscribeFunc.newAccountBlocks().then(()=>{
     // ......
 });

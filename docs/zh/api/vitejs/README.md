@@ -12,20 +12,9 @@ title: Version 2.1.0
 
 Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的rpc协议调用；对 Gvite-RPC 接口进行了上层封装；并且支持各类account实例，可以快捷生成钱包。
 
-**2.0.0版本及以上，vitejs包进行了细化拆分。**
-
-1. 如果你需要vitejs中的全部功能，可直接引用`@vite/vitejs`。
-2. 若使用某个功能，可以单独引用某个包
-`@vite/vitejs-abi`、`@vite/vitejs-addraccount`、`@vite/vitejs-account`、`@vite/vitejs-accountblock`、
-`@vite/vitejs-client`、`@vite/vitejs-communication`、`@vite/vitejs-constant`、`@vite/vitejs-error`、
-`@vite/vitejs-hdaccount`、`@vite/vitejs-hdaddr`、`@vite/vitejs-keystore`、`@vite/vitejs-netprocessor`、
-`@vite/vitejs-privtoaddr`、`@vite/vitejs-utils`、`@vite/vitejs-ws`、`@vite/vitejs-http`、`@vite/vitejs-ipc`
-3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装`@vite/vitejs`，引用其中的es5模块，使用你喜欢的任意打包工具自行打包
-
 :::warning 注意
 
-1. 引用 npm 包时最好版本一致，以避免不必要的错误与冲突。
-2. 阅读文档前, 建议先行了解 Gvite-RPC 接口。
+阅读文档前, 建议先行了解 Gvite-RPC 接口。
 
 :::
 
@@ -48,6 +37,14 @@ yarn add @vite/vitejs-ws
 :::
 
 ## 引入
+
+**2.0.0版本及以上，vitejs包进行了细化拆分。**
+
+:::warning 注意
+
+引用 npm 包时最好版本一致，以避免不必要的错误与冲突。
+
+:::
 
 :::demo
 
@@ -78,6 +75,34 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 ```
 
 :::
+
+1. 如果你需要 ViteJS 中的全部功能，可直接引用`@vite/vitejs`。
+
+```javascript tab:ES6
+import {
+    constant, error, utils, accountBlock, keystore, 
+    privToAddr, hdAddr, netProcessor, client, 
+    addrAccount, account, hdAccount, abi
+} from '@vite/vitejs';
+```
+
+2. 若使用某一个功能，可以单独引用某一个包。
+`@vite/vitejs-abi`、`@vite/vitejs-addraccount`、`@vite/vitejs-account`、`@vite/vitejs-accountblock`、
+`@vite/vitejs-client`、`@vite/vitejs-communication`、`@vite/vitejs-constant`、`@vite/vitejs-error`、
+`@vite/vitejs-hdaccount`、`@vite/vitejs-hdaddr`、`@vite/vitejs-keystore`、`@vite/vitejs-netprocessor`、
+`@vite/vitejs-privtoaddr`、`@vite/vitejs-utils`、`@vite/vitejs-ws`、`@vite/vitejs-http`、`@vite/vitejs-ipc`
+
+```javascript tab:ES6
+import ws from '@vite/vitejs-ws';
+import * as abi from '@vite/vitejs-abi';
+```
+
+3. 若使用部分功能，需要处理项目依赖以及避免不必要的代码重复，可安装`@vite/vitejs`，引用其中的es5模块，使用你喜欢的任意打包工具自行打包
+
+```javascript tab:ES6
+import * as abi from '@vite/vitejs/es5/abi';
+import * as utils from '@vite/vitejs/es5/utils';
+```
 
 ## 快速开始  
 
