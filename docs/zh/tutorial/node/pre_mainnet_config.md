@@ -9,7 +9,7 @@ pre_mainnet 值为 1， testnet 为 2。使用提供的配置即可。
 此字段是新增配置，用于替换 BootNodes 字段，保持默认配置就行。
 
 3. DataDir
-在testnet中默认为"${HOME}/.gvite/testdata/"，在pre_mainnet中默认为"${HOME}/.gvite/maindata"。在节点上配置了keystore的用户，需要将keystore由"${HOME}/.gvite/testdata/wallet/"目录下移动到"${HOME}/.gvite/maindata/wallet/"目录下。
+在testnet中默认为"{{HOME}}/.gvite/testdata/"，在pre_mainnet中默认为"{{HOME}}/.gvite/maindata"。在节点上配置了keystore的用户，需要将keystore由"{{HOME}}/.gvite/testdata/wallet/"目录下移动到"{{HOME}}/.gvite/maindata/wallet/"目录下。
 
 
 # 配置 node_config.json
