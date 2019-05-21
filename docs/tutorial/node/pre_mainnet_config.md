@@ -44,4 +44,5 @@ Full Nodes Rewards, the field of reward address for full nodes is RewardAddr
 Other configurations, connect related fields are "MaxPeers" and "MinPeers"
 
 Port Related Fields `Port` `FilePort` `HttpPort` `WSPort`
+
 Node status `DashboardTargetURL`
