@@ -436,7 +436,7 @@ Return the given number of account blocks since the specific block
 ```
 :::
 ## ledger_getBlocksByHashInToken
-注意：此API只有在全节点的node_config.json中设置`"OpenPlugins": true`时才生效
+Note：This api is available only when the full node set `"OpenPlugins": true` in node_config.json
 
 Return the given number of account blocks of a certain token since the specific block
 
@@ -681,7 +681,7 @@ Query the snapshot block by hash
 :::
 
 ## ledger_getSnapshotBlockByHeight
-query the snapshot block by height
+Query the snapshot block by height
 
 - **Parameters**: 
     - `uint64`  height of the snapshot block
