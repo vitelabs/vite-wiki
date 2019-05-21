@@ -62,6 +62,7 @@ const sidebarConfigs = {
                 'node/node_config',
                 'node/example',
                 'node/genesis_config',
+                'node/pre_mainnet_config'
             ]
         },
         {

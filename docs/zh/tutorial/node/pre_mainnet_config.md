@@ -1,18 +1,20 @@
-# pre_mainnet 网络 node_config.json
+# 从Test-Net 迁移到 Pre-Mainnet
+
+## ChangeLog
 
 pre_mainnet 环境的配置文件相对于 testnet 有一些改变，具体如下，发版包中已经提供了默认配置。
 
 1. NetID
-pre_mainnet 值为 1， testnet 为 2。使用提供的配置即可。
+`pre_mainnet` 值为 1， testnet 为 2。使用提供的配置即可。
 
 2. BootSeeds
-此字段是新增配置，用于替换 BootNodes 字段，保持默认配置就行。
+此字段是新增配置，用于替换 `BootNodes` 字段，保持默认配置就行。
 
 3. DataDir
-在testnet中默认为"~/.gvite/testdata/"，在pre_mainnet中默认为"~/.gvite/maindata"。在节点上配置了keystore的用户，需要将keystore由"~/.gvite/testdata/wallet/"目录下移动到"~/.gvite/maindata/wallet/"目录下。
+在testnet中默认为 `~/.gvite/testdata/` ，在pre_mainnet中默认为 `~/.gvite/maindata` 。在节点上配置了keystore的用户，需要将keystore由 `~/.gvite/testdata/wallet/` 目录下移动到 `~/.gvite/maindata/wallet/` 目录下。
 
 
-# 配置 node_config.json
+## 配置 node_config.json
 
 对于大多数全节点，只需要配置少数字段，其余使用提供的 node_config.json 即可。
 
