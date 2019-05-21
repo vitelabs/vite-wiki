@@ -28,3 +28,5 @@ pre_mainnet 值为 1， testnet 为 2。使用提供的配置即可。
 连接相关字段 `MaxPeers` `MinPeers`
 
 端口相关字段 `Port` `FilePort` `HttpPort` `WSPort`
+
+节点状态 `DashboardTargetURL`
