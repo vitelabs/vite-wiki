@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.0
+title: Version 2.1.1
 ---
 
 :::tip Created by
@@ -12,20 +12,9 @@ title: Version 2.1.0
 
 Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the Gvite-RPC interface; and supports various account instances, which can quickly generate a wallet.
 
-**Version 2.0.0 and above. We optimise the architecture of vitejs project and refine vitejs packages as well as split them into detailed functionality.**
-
-1. If you need to use all the functions of vitejs, you can import `@vite/vitejs` directly.
-2. Or you can import some function individually.
-`@vite/vitejs-abi`、`@vite/vitejs-addraccount`、`@vite/vitejs-account`、`@vite/vitejs-accountblock`、
-`@vite/vitejs-client`、`@vite/vitejs-communication`、`@vite/vitejs-constant`、`@vite/vitejs-error`、
-`@vite/vitejs-hdaccount`、`@vite/vitejs-hdaddr`、`@vite/vitejs-keystore`、`@vite/vitejs-netprocessor`、
-`@vite/vitejs-privtoaddr`、`@vite/vitejs-utils`、`@vite/vitejs-ws`、`@vite/vitejs-http`、`@vite/vitejs-ipc`
-3. If you need to process project dependency and any other redundant codes when using partial of functions, you can install `@vite/vitejs` and import es5 module, using whatever you like to package your project.
-
 :::warning warning
 
-1. You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
-2. Before you start reading this document, we suggest that you can know about Gvite-RPC api at first.
+Before you start reading this document, we suggest that you can know about Gvite-RPC api at first.
 
 :::
 
@@ -48,6 +37,15 @@ yarn add @vite/vitejs-ws
 :::
 
 ## Import
+
+**Version 2.0.0 and above. We optimise the architecture of vitejs project and refine vitejs packages as well as split them into detailed functionality.**
+
+:::warning warning
+
+1. You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
+2. Before you start reading this document, we suggest that you can know about Gvite-RPC api at first.
+
+:::
 
 :::demo
 
@@ -78,6 +76,35 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 ```
 
 :::
+
+1. If you need to use all the functions of ViteJS, you can import `@vite/vitejs` directly.
+
+```javascript tab:ES6
+import {
+    constant, error, utils, accountBlock, keystore, 
+    privToAddr, hdAddr, netProcessor, client, 
+    addrAccount, account, hdAccount, abi
+} from '@vite/vitejs';
+```
+
+2. If you need a certain function, you can import a package separately.
+`@vite/vitejs-abi`、`@vite/vitejs-addraccount`、`@vite/vitejs-account`、`@vite/vitejs-accountblock`、
+`@vite/vitejs-client`、`@vite/vitejs-communication`、`@vite/vitejs-constant`、`@vite/vitejs-error`、
+`@vite/vitejs-hdaccount`、`@vite/vitejs-hdaddr`、`@vite/vitejs-keystore`、`@vite/vitejs-netprocessor`、
+`@vite/vitejs-privtoaddr`、`@vite/vitejs-utils`、`@vite/vitejs-ws`、`@vite/vitejs-http`、`@vite/vitejs-ipc`
+
+```javascript tab:ES6
+import ws from '@vite/vitejs-ws';
+import * as abi from '@vite/vitejs-abi';
+import * as utils from '@vite/vitejs-utils';
+```
+
+3. If you need to process project dependency and any other redundant codes when using partial of functions, you can install `@vite/vitejs` and import es5 module, using whatever you like to package your project.
+
+```javascript tab:ES6
+import * as abi from '@vite/vitejs/es5/abi';
+import * as utils from '@vite/vitejs/es5/utils';
+```
 
 ## Quick Start  
 

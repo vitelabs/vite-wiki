@@ -128,25 +128,34 @@ myclient.getBalance.then(({balance, onroad}) => {
 **关于 Gvite-RPC 接口只是对于调用方式进行封装，返回数据是直接暴露RPC接口的原始数据。[详细参考](/api/rpc/)**
 
 1. `client.namespace.funcName`: 如果`constant.methods`中定义了此方法，可以直接使用`client.namespace.funcName`的方式调用
+
+```javascript
+import { methods } from '@vite/vitejs-constant';
+// ......
+
+let myClient = new client(WS_RPC);
+myClient.ledger.getLatestSnapshotChainHash().then(()=>{
+    // ......
+});
+```
+
 2. `client.request(methodName, ...args)`: 如果`constant.methods`中未定义此方法，可以直接通过`client.request(methodName, ...args)`的方式调用
 
-- **Example**
+```javascript
+// ......
+let myClient = new client(WS_RPC);
+myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
+    // ......
+});
+```
+
+3. 如果是subscribe方法，subscribe 应改为 subscribeFunc
+
 ```javascript
 import { methods } from '@vite/vitejs-constant';
 
 // ......
-
 let myClient = new client(WS_RPC);
-myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
-    // ......
-});
-
-// 或者
-myClient.ledger.getLatestSnapshotChainHash().then(()=>{
-    // ......
-});
-
-// 如果是subscribe方法
 myClient.subscribeFunc.newAccountBlocks().then(()=>{
     // ......
 });
