@@ -43,6 +43,8 @@
             "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
@@ -197,6 +199,8 @@
         "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
         "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
         "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+        "receiveBlockHeight": "",
+        "receiveBlockHash": null,
         "tokenId": "tti_5649544520544f4b454e6e40",
         "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
         "data": null,
@@ -269,6 +273,8 @@
             "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
@@ -342,6 +348,8 @@
         "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
         "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
         "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+        "receiveBlockHeight": "",
+        "receiveBlockHash": null,
         "tokenId": "tti_5649544520544f4b454e6e40",
         "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
         "data": null,
@@ -408,6 +416,8 @@
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
             "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
@@ -490,6 +500,8 @@
             "logHash": null,
             "nonce": null,
             "signature": "nfrz9nF6a5KhOFWdwnfcy1hqvoAeFkokHyk0XkiLEXiY+t11XnzlFsR04Y1t8ZzVCC1x17JezKU6W+BZ1JGKBA==",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "fromAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
             "height": "5",
             "quota": "0",
@@ -518,6 +530,8 @@
             "toAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
             "fromBlockHash": "2c757064c78cf25bdbd80dfc4af0377c00d155b1d0f71f209bf7a0589670354f",
             "tokenId": "tti_5649544520544f4b454e6e40",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "snapshotHash": "4f9e834598ebad22047308a5b7489ef27de1120ea80d33f5310801cd1eaa5e4f",
             "data": "0e0HOSvpbeG+SKedm33fgHuNqHlmEFCIQhf2z3O3iQ8A",
             "logHash": null,
@@ -699,7 +713,7 @@
         "height": 6363411,
         "publicKey": "uPBd4umnBsp0rGrKQWWsabcawNYEjPh3MKXnGNVTMWs=",
         "signature": "JcYfU1LWuZTgKgpMrQ1T6uUuw3krUImikmgTqoyEDXubYt00ND/loABQ7KoQkBh8PYQOvVrPZtBjVlTGWJx6DQ==",
-        "timestamp": "2019-01-25T03:18:04Z",
+        "timestamp": "1558012705",
         "stateHash": "93f40fc8892855ae46134c85f7a5010308da9cb7a07337b2a68da34473c04492",
         "snapshotContent": {
             "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
@@ -749,39 +763,3 @@
 ```
 :::
 
-## ledger_getFittestSnapshotHash
-return the fittest snapshotHash when create tx
-
-- **Parameters**:
-   * `address` : `Address`  用户地址。`选填`，当填写时会选择账户链上最新一笔交易所依赖的快照块高度本身或之后的快照块Hash。
-   * `sendblockHash` : `Hash`  在创建接受交易时，建议填写对应的发送交易的Hash，而创建发送交易时，无需填写。`选填`，当填写时会选择对应发送交易所依赖的快照块高度本身或之后的快照块Hash。
-
-   如果以上两个参数均不填，会选择最新快照块之前10个块高度的快照块Hash。
-
-
-- **Returns**: `Hash` 适宜引用用来发起交易的快照快Hash
-
-- **Example**:
-
-::: demo
-
-```json tab:Request
-{
-    "jsonrpc":"2.0",
-    "id":1,
-    "method":"ledger_getFittestSnapshotHash",
-    "params": [
-        "vite_bece0bfc8893a6dde206dea9d4058af7dd718c165c3a17332e",
-        "e698b4b6cdf2fe40bc74f27097cd53eb07c85e2268e04062c193da8fc294f393",
-    ]
-}
-
-```
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "result": "df6c3c2d874b790dd1f1cad0a4bbcd539bbfa99d9dc75b19056ebee310d2e47a"
-}
-```
-:::

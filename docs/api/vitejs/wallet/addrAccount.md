@@ -218,13 +218,14 @@ This part will automatically wrap the method in [client.builtinTxBlock](../clien
 2. Get the legal accountBlock by `client.builtinTxBlock[methodName]`
 
 **Code**
-```javascript
+```typescript
 for (const key in this._client.builtinTxBlock) {
     if (key === '_client') {
         continue;
     }
 
     this.getBlock[key] = (block, requestType?) => {
+        block = block || {};
         block.accountAddress = this.address;
         return this._client.builtinTxBlock[key](block, requestType);
     };

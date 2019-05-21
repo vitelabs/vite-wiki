@@ -314,6 +314,12 @@
     margin-right: 0;
     list-style: none;
     border-left: 3px solid transparent;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    .tabs-component-tab-a {
+        font-weight: bold;
+    }
   }
 
   .tabs-component-tab:not(:last-child) {
@@ -326,7 +332,8 @@
 
   .tabs-component-tab.is-active {
     color: #000;
-    border-left: 3px solid $accentColor;
+    border-left: 1px solid #ddd;
+    border-bottom: none;
   }
 
   .tabs-component-tab.is-disabled * {
@@ -353,9 +360,9 @@
     }
 
     .tabs-component-tab.is-active {
-      border-bottom: solid 2px $accentColor;
+      border-bottom: none;
       z-index: 2;
-      border-left: none;
+      border-left: 1px solid #ddd;
       /*transform: translateY(0);*/
     }
 

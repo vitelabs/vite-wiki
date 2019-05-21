@@ -61,6 +61,7 @@ const sidebarConfigs = {
                 'node/sbp',
                 'node/node_config',
                 'node/example',
+                'node/genesis_config',
             ]
         },
         {
@@ -203,6 +204,7 @@ const sidebarConfigs = {
                 'vep-7',
                 'vep-8',
                 'vep-10',
+                'vep-12',
                 'vep-13'
             ]
         }
@@ -266,6 +268,7 @@ module.exports = {
         'seo',
         'baidu-autopush',
         'pangu',
+        'tabs',
         [require('./plugins/tab-code-example')]
     ],
     themeConfig: {

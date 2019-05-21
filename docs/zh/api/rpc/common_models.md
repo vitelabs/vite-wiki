@@ -48,8 +48,6 @@
 | totalSupply | string | bigint| 该币种的发行总量|
 | decimals | string | uint8| 该币种的最小可分割单位 1e`decimals`|
 | owner | string | address| 该币的铸币人|
-| pledgeAmount | string | bigint| 铸币的抵押费|
-| withdrawHeight | string | uint64| 可以取回抵押费的最低高度，过了高度就可以把钱取回来|
 | tokenId | string | TokenTypeId| token id|
 
 

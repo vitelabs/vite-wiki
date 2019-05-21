@@ -5,15 +5,16 @@ Solidity++和Solidity的语法基本上相同，他们之间的差异主要是�
 ## Solidity++删除的语法
 
 ```
-tx.gasprice
-block.coinbase
-block.difficulty
-block.gaslimit
-gasleft()
-msg.gas
-selfdestruct(_owner)
-suicide(_addr)
-address(_addr).send(_amount)
+tx.gasprice;
+block.coinbase;
+block.difficulty;
+block.gaslimit;
+blockhash(param);
+gasleft();
+msg.gas;
+selfdestruct(_owner);
+suicide(_addr);
+address(_addr).send(_amount);
 ```
 
 以上示例的语法在Solidity++中全部失效
@@ -32,14 +33,17 @@ Solidity++新增的语法如下:
 ```
 bytes32 b1 = fromhash();
 uint height = accountheight();
-bytes32 b2 = accounthash(height);
+bytes32 b2 = prevhash();
+uint64 random = random64();
 ```
 
 "fromhash()"返回请求交易的哈希值
 
 "accountheight()"获取账户链上最新块的高度
 
-"accounthash(uint height)"根据高度获取账户块哈希值
+"prevhash()"获取账户链上最新块的哈希
+
+"random64()"获取一个uint64的随机数
 
 Solidity++的address和tokenId定义的语法如下:
 
@@ -70,10 +74,10 @@ Solidity中的语法是如下
 address.balance
 ```
 
-直接获取某个账户的余额，因为现在一个账户可以拥有多种代币，因此在Solidity++中获取代币余额的时候需要指定tokenId
+直接获取某个账户的余额，因为现在一个账户可以拥有多种代币，因此在Solidity++中获取代币余额的时候需要指定tokenId，另外现在只能读取自己的余额
 
 ```
-address.balance(_tokenId)
+balance(_tokenId)
 ```
 
 在Solidity中发送以太币到一个地址可以使用transfer方法
@@ -110,7 +114,7 @@ Solidity中以太币的单位为:wei/szabo/finney/ether
 示例
 
 ```
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.2;
 contract A {
    message sum(uint result);
 
@@ -161,7 +165,7 @@ send:关键字，是一条message的发送操作，需要有两个参数，一�
 在Solidity++中，合约间的交互是通过消息传递的机制进行的，是异步的，因此合约内public类型的静态变量无法被合约外部访问，然而对于合约内部的状态，Solidity++提供了一种特殊的访问方式
 
 ```
-pragma soliditypp ^0.4.1;
+pragma soliditypp ^0.4.2;
 contract A {
 
     uint magic = 0;
@@ -197,8 +201,8 @@ contract A {
 定义一个合约，合约的主要功能是给一个地址和金额的列表，合约给指定的地址转账指定金额数
 
 ```
-// 告诉该合约用的是0.4.1版本的soliditypp编写，并且这些代码具有向上兼容性。保证不会在不同soliditypp编译版本下编译会出现不同的行为。
-pragma soliditypp ^0.4.1;
+// 告诉该合约用的是0.4.2版本的soliditypp编写，并且这些代码具有向上兼容性。保证不会在不同soliditypp编译版本下编译会出现不同的行为。
+pragma soliditypp ^0.4.2;
  
  
 // 定义一个合约A

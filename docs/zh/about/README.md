@@ -25,8 +25,8 @@ Vite 项目正在开发，有关Vite的相关的技术文档均会放此处，�
 
 ### 环境要求
 
-* node: >= 9.xx
-* yarn: >= 1.3.xx
+* **Node**: <Badge vertical="middle" text=">= 9.xx"/>
+* **Yarn**: <Badge vertical="middle" text=">= 1.3.xx"/>
 
 ### 安装 yarn
 
@@ -70,11 +70,19 @@ npm run dev
 ![dag-ledger](~/images/vep4-ledger.png)
 ```
 
+## Markdown 扩展
+
+[https://v1.vuepress.vuejs.org/zh/guide/markdown.html](https://v1.vuepress.vuejs.org/zh/guide/markdown.html)
+
 ## 内置组件
 
-### Demo 组件
+### Badge 组件 <Badge text="Stable"/>
 
-内置Demo组件，用于分Tab展示示例代码。
+[https://v1.vuepress.vuejs.org/zh/guide/using-vue.html#badge](https://v1.vuepress.vuejs.org/zh/guide/using-vue.html#badge)
+
+### Demo 组件 <Badge type="error" text="Experimental"/>
+
+内置Demo组件，用于分Tab展示示例代码，并支持在线测试RPC接口。
 
 * **用法**：
 
@@ -140,3 +148,101 @@ npm run dev
               }
   ```
   :::
+  
+  
+
+### Tab 组件 <Badge text="stable"/>
+
+内置Tab组件，支持分Tab展示不同内容，与Demo组件不同的地方是，Tab组件支持在Tab内展示任何Markdown内容（Demo组件只支持在Tab内显示代码）。
+
+::: warning
+若只是想分Tab显示不同的代码和内容，请使用该组件，若想使用**在线测试功能**，请使用Demo组件。
+:::
+
+```markdown
+:::: tabs
+
+::: tab title
+  * __markdown content__
+  * __markdown content__
+  * __markdown content__
+:::
+
+
+::: tab javascript
+    () => {
+      console.log('Javascript code example')
+    }
+:::
+
+::::
+```
+
+**Output**
+
+:::: tabs
+
+::: tab title
+  * __markdown content__
+  * __markdown content__
+  * __markdown content__
+:::
+
+
+::: tab javascript
+    () => {
+      console.log('Javascript code example')
+    }
+:::
+
+::::
+  
+### TeX Support <Badge text="stable"/>
+
+在线**LaTeX**编辑器：[https://arachnoid.com/latex/](https://arachnoid.com/latex/)
+
+#### 例子
+
+```
+Supposing that $y >= 0$ and that $[\log x]$ represents the integer part of $\log x$, let:
+
+$$\Phi (y) = \frac {1} {2 \pi i} \int_{2 - i \infty}^{2 + i \infty} \frac {y^{\omega} \mathrm{d} \omega} {\omega \left(1 + \frac {\omega} {(\log x)^{1.1}}\right)^{[ \log x ] + 1}}, x > 1$$
+
+Obviously, when $0 <= y <= 1$, there is $\Phi(y) = 0$. For all $y >= 0$, $\Phi(y)$ is a non-decreasing function.
+
+When $\log x>=10^4$ and $y>= e^{2{(\log x)}^{-0.1}}$, thus:
+
+$$1 - x^{- 0.1} <= \Phi (y) <= 1$$
+```  
+
+**Output**:
+
+Supposing that $y >= 0$ and that $[\log x]$ represents the integer part of $\log x$, let:
+
+$$\Phi (y) = \frac {1} {2 \pi i} \int_{2 - i \infty}^{2 + i \infty} \frac {y^{\omega} \mathrm{d} \omega} {\omega \left(1 + \frac {\omega} {(\log x)^{1.1}}\right)^{[ \log x ] + 1}}, x > 1$$
+
+Obviously, when $0 <= y <= 1$, there is $\Phi(y) = 0$. For all $y >= 0$, $\Phi(y)$ is a non-decreasing function.
+
+When $\log x>=10^4$ and $y>= e^{2{(\log x)}^{-0.1}}$, thus:
+
+$$1 - x^{- 0.1} <= \Phi (y) <= 1$$
+
+* **块级元素**
+
+  ```markdown
+  这是一个行内元素：$$x_1$$ 
+  ```
+  
+  **Output**:
+  
+  这是一个 ***块级元素*** ：$$x_1$$ 
+  
+* **行内元素**
+
+  ```markdown
+  这是一个行内元素：$x_1$ 
+  ```
+  
+  **Output**:
+  
+  这是一个 ***行内元素***：$x_1$ 
