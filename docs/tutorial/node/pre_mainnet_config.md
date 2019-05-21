@@ -40,8 +40,8 @@ the concerning field is Miner CoinBase EntropyStorePath EntropyStorePassword
 3.RewardAddr
 Full Nodes Rewards, the field of reward address for full nodes is RewardAddr
 
-4.MaxPeers MinPeers
-Other configurations, connect related fields are "MaxPeers" and "MinPeers"
+4.Other configurations
+connect related fields are "MaxPeers" and "MinPeers"
 
 Port Related Fields `Port` `FilePort` `HttpPort` `WSPort`
 
