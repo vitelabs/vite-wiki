@@ -1,4 +1,5 @@
 # AddrAccount
+Mainly used to quickly query the account status. eg: account balance / transactions / voting info ...
 
 ## Installation
 
@@ -68,6 +69,17 @@ Get balance, including unreceived tokens. *[client.getBalance](../client/client.
 - **Return**
     * Promise<`{ balance, onroad }`>
 
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getBalance().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
+```
+
 ### sendAccountBlock
 *[client.sendRawTx](../client/client.md)*
 
@@ -89,6 +101,19 @@ Get balance, including unreceived tokens. *[client.getBalance](../client/client.
 
 - **Return**:
     * Promise<`{ list, totalNum }`>
+
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getTxList({
+    index: 0,
+    pageCount: 50
+}).then((data) => {
+    let txList = data.list || [];
+    console.log(txList);
+});
+```
 
 ### callOffChainContract
 Query contract status. *[client.callOffChainContract](../client/client.md)*
@@ -117,6 +142,18 @@ Get unreceived account block list. *Gvite-RPC [onroad_getOnroadBlocksByAddress](
 
 - **Return**:
     * Promise
+
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getOnroadBlocks({
+    index: 0,
+    pageCount: 10
+}).then((onroad) => {
+    console.log(onroad);
+});
+``` 
 
 ### getBlocks
 Get account block list. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
@@ -179,6 +216,15 @@ Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
 - **Return**:
     * Promise
 
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getPledgeQuota().then((pledgeQuota) => {
+    console.log(pledgeQuota);
+});
+```
+
 ### getPledgeList
 *Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)*
 
@@ -196,11 +242,29 @@ Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
 - **Return**:
     * Promise
 
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getRegistrationList().then((list) => {
+    console.log(list);
+});
+```
+
 ### getVoteInfo
 *Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)*
 
 - **Return**:
     * Promise
+
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getVoteInfo().then((voteInfo) => {
+    console.log(voteInfo);
+});
+```
 
 ### getTokenInfoListByOwner
 *Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)*

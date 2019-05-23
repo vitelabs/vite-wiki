@@ -21,6 +21,10 @@ const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
 });
 
+myClient.ledger.getSnapshotChainHeight().then((height) => {
+    console.log(height);
+});
+
 const block = myclient.builtinTxBlock.getAccountBlock(
     //...
 );

@@ -43,12 +43,25 @@ const { hdAccount } = require('@vite/vitejs-hdaccount');
 - **Example**
 ```javascript
 import WS_RPC from '@vite/vitejs-ws';
-import { client, hdAccount, utils } from '@vite/vitejs';
+import { client, hdAccount, utils, constant } from '@vite/vitejs';
+
+let { Vite_TokenId } = constant;
 
 let myClient = new client( new WS_RPC("ws://example.com") );
-
 let myHdAccount = new hdAccount({ client: myClient });
 myHdAccount.addAddr();
+
+let firstAccount = myHdAccount.getAccount();
+
+firstAccount.sendTx({
+    toAddress: 'Your toAddress',
+    amount: '10000000000000000000',    // 10Vite + 18个0
+    tokenId: Vite_TokenId
+}).then((accountBlock) => {
+    console.log(accountBlock);
+}).catch((err) => {
+    console.log(err);
+});
 ```
 
 ## Properties

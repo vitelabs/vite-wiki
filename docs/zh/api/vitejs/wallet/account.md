@@ -48,19 +48,68 @@ const { account } = require('@vite/vitejs-account');
 - **Example**: 
 ```javascript
 import WS_RPC from '@vite/vitejs-ws';
-import { client, account, utils } from '@vite/vitejs';
+import { client, account, utils, constant } from '@vite/vitejs';
+
+let { Vite_TokenId } = constant;
 
 let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider);
 
 let myAccount = new account({
     client: myClient
+}, {
+    autoPow: true,
+    usePledgeQuota: true
 });
 
 myAccount.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
+});
+
+myAccount.getTxList({
+        index: 0,
+        pageCount: 50
+}).then((data) => {
+    let txList = data.list || [];
+    console.log(txList);
+});
+
+myAccount.sendTx({
+    toAddress: 'Your toAddress',
+    amount: '10000000000000000000',    // 10Vite + 18个0
+    tokenId: Vite_TokenId
+}).then((accountBlock) => {
+    console.log(accountBlock);
+}).catch((err) => {
+    console.log(err);
+});
+
+myAccount.getOnroadBlocks({
+    index: 0,
+    pageCount: 10
+}).then((data) => {
+    if (!data || !data.length) {
+        console.log('No onroad');
+        return;
+    }
+
+    // 接收第一笔交易
+    myAccount.receiveTx({
+        fromBlockHash: data[0].hash
+    }).then((accountBlock) => {
+        console.log(accountBlock);
+    });
+});
+
+// 抵押配额
+myAccount.getQuota({
+    toAddress: myAccount.address,
+    tokenId: Vite_TokenId,
+    amount: '134000000000000000000' // 至少 134 Vite
+}).then((accountBlock) => {
+    console.log(accountBlock);
 });
 ```
 
