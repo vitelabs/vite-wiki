@@ -14,7 +14,7 @@ The Definitions of Terms:
 
 Vite adopts DPoS as consensus algorithm. Compared with original DPoS, following changes have been made:
 
-* **SBP Registration**：Register a new supernode requires a staking of 100,000 VITE
+* **SBP Registration**：Register a new supernode requires a staking of 500,000 VITE
 * **SBP Selection**: In each round, 25 SBPs(23 from top 25 supernodes and 2 others from 26-100) are selected for producing snapshot blocks.
 * **SBP Rewards**: 50% are given to block producers as mining rewards, and rest 50% are shared among top 100 supernodes according to voting weights.
 
