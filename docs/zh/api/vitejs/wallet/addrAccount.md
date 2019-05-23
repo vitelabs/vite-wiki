@@ -1,4 +1,5 @@
 # AddrAccount
+主要用于快速查询账户状态，如：账户余额、交易列表、投票信息等。
 
 ## 安装
 
@@ -68,6 +69,17 @@ myAddrAccount.getBalance().then((result) => {
 - **Return**
     * Promise<`{ balance, onroad }`>
 
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getBalance().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
+```
+
 ### sendAccountBlock
 [client.sendRawTx](../client/client.md)
 
@@ -89,6 +101,19 @@ myAddrAccount.getBalance().then((result) => {
         
 - **Return**:
     * Promise<`{ list, totalNum }`>
+
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getTxList({
+    index: 0,
+    pageCount: 50
+}).then((data) => {
+    let txList = data.list || [];
+    console.log(txList);
+});
+```
 
 ### callOffChainContract
 查询合约状态。 *[client.callOffChainContract](../client/client.md)*
@@ -117,6 +142,18 @@ myAddrAccount.getBalance().then((result) => {
 
 - **Return**:
     * Promise
+
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getOnroadBlocks({
+    index: 0,
+    pageCount: 10
+}).then((onroad) => {
+    console.log(onroad);
+});
+``` 
 
 ### getBlocks
 获取账户块列表。 *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
@@ -179,6 +216,15 @@ myAddrAccount.getBalance().then((result) => {
 - **Return**:
     * Promise
 
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getPledgeQuota().then((pledgeQuota) => {
+    console.log(pledgeQuota);
+});
+```
+
 ### getPledgeList
 *Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)*
 
@@ -196,11 +242,29 @@ myAddrAccount.getBalance().then((result) => {
 - **Return**:
     * Promise
 
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getRegistrationList().then((list) => {
+    console.log(list);
+});
+```
+
 ### getVoteInfo
 *Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)*
 
 - **Return**:
     * Promise
+
+- **Example**
+```javascript
+// ...
+
+myAddrAccount.getVoteInfo().then((voteInfo) => {
+    console.log(voteInfo);
+});
+```
 
 ### getTokenInfoListByOwner
 *Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)*
