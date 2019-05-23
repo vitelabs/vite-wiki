@@ -43,7 +43,7 @@ let myClient = new client(provider);
 
 let myAddrAccount = new addrAccount({
     client: myClient,
-    adrress: privToAddr.newHexAddr().hexAddr
+    adrress: privToAddr.newHexAddr().hexAddr    // vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689
 });
 
 myAddrAccount.getBalance().then((result) => {
@@ -245,10 +245,15 @@ for (const key in this._client.builtinTxBlock) {
 ```javascript
 // ....
 
-myAddrAccount.getBlock.SBPreg({ 
-    accountBlock, requestType 
-}).then((result) => {
-    console.log(result);
+myAddrAccount.getBlock.SBPreg({
+    nodeName: 'TEST_NODE',
+    toAddress: 'your address',
+    amount: '100000000000000000000000',
+    tokenId: Vite_TokenId,
+    height, 
+    prevHash
+}).then((block) => {
+    console.log(block);
 }).catch(err => {
     console.warn(err);
 });
