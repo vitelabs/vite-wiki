@@ -69,7 +69,7 @@ Vite network will select 25 SBPs in each round according to following rules:
 
 ## SBP Rewards
 
-An annual inflation of up to 3% is granted as SBP rewards. At the time the reward for producing a snapshot block in the TestNet is fixed at ${0.951293759512937595}$ **VITE**
+An annual inflation of up to 3% is granted as SBP rewards. At the time the reward for producing a snapshot block is fixed at ${0.951293759512937595}$ **VITE**
 
 ### Reward Allocation
 
@@ -98,7 +98,7 @@ The whole rewards are equally split in 2 parts:
 * `X`: The number of blocks that all SBPs produced in a cycle
 * `W`: The sum of all top 100 SBPs' total votes and total staking amount at last round in a cycle
 * `V`: The sum of the SBP's votes and staking amount at last round in a cycle
-* `R`: Fixed block creation reward of **0.951293759512937595 VITE** in the TestNet
+* `R`: Fixed block creation reward of **0.951293759512937595 VITE** in the Pre-Mainnet
 * `Q`: The total reward for the SBP in a cycle
 
 $$Q = \frac{l}{m}*\frac{V}{W}*X*R*0.5 + l*R*0.5$$
@@ -112,7 +112,7 @@ In other words, in this round, ${Total Blocks On Target} = 0$
 
 #### Reward Retrieval
 
-In Vite TestNet, SBP should explicitly send a **Reward Retrieval** transaction from the staking address to get the rewards.
+In Vite Pre-Mainnet, SBP should explicitly send a **Reward Retrieval** transaction from the staking address to get the rewards.
 
 **Reward retrieval rules:**
 
