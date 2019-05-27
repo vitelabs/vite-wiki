@@ -157,7 +157,7 @@ ABI：
 :::
 
 ## pledge_getPledgeQuota
-获取账户当前额度和最大能发起的交易数
+获取账户当前配额和最大能发起的交易数
 
 - **Parameters**: 
 
@@ -166,9 +166,10 @@ ABI：
 - **Returns**: 
 
 `Object`
-  1. `current`: `uint64`  当前额度
+  1. `current`: `uint64`  当前可用配额
   2. `utps`: `uint64`  当前每秒能发起的交易（不包含备注的请求交易）数
-  3. `total`: `uint64` 总额度，总额度 = 当前额度 + 最近75个快照块内已使用的额度
+  3. `quotaPerSnapshotBlock`: `uint64` 抵押vite后，每增长一个快照块获得的配额
+  
 
 - **Example**:
 
@@ -190,9 +191,9 @@ ABI：
    "jsonrpc":"2.0",
    "id":1,
    "result": {
-      "current": "21000",
-      "total": "42000",
-      "utps": "1"
+      "current": "1575000",
+      "quotaPerSnapshotBlock": "21000",
+      "utps": "75"
    }
 }
 ```

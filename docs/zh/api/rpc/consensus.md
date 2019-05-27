@@ -229,7 +229,7 @@ ABI：
   1. `totalReward`: `string`  待提取奖励
   2. `blockReward`: `Address`  待提取按块奖励
   3. `voteReward`: `Address`  待提取按票奖励
-  3. `drained`: `bool`  是否已提取完所有的奖励。已提取完奖励的条件是节点已取消注册，并且当前所有的奖励已提取完。
+  4. `drained`: `bool`  是否已提取完所有的奖励。已提取完奖励的条件是节点已取消注册，并且当前所有的奖励已提取完。
 
 - **Example**:
 
@@ -272,7 +272,13 @@ ABI：
 
 - **Returns**: 
 
-`map<string>RewardInfo` 出块节点名称和当天的奖励明细
+`map<string>Object` 
+  1. `totalReward`: `string`  待提取奖励
+  2. `blockReward`: `Address`  待提取按块奖励
+  3. `voteReward`: `Address`  待提取按票奖励
+  4. `expectedBlockNum`: `uint64` 本周期的应出块数，如果某一轮所有节点都没出块，那么那一轮的应出块数不计入本周期的应出块数  
+  5. `blockNum`: `uint64`  本周期的实际出块数
+
 
 - **Example**:
 
@@ -299,7 +305,9 @@ ABI：
       "super":{
         "totalReward": "10",
         "blockReward": "6",
-        "voteReward": "4"
+        "voteReward": "4",
+        "expectedBlockNum":3,
+        "blockNum":1,
       }
     }
 }
