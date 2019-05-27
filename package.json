@@ -33,6 +33,7 @@
     "@vuepress/plugin-notification": "^1.0.0-alpha.42",
     "deepmerge": "^2.1.1",
     "markdown-it-mathjax-chtml": "^0.1.0",
+    "moment": "^2.24.0",
     "vue-codemirror": "^4.0.5",
     "vue-tabs-component": "^1.4.0",
     "vue-toasted": "^1.1.24",
