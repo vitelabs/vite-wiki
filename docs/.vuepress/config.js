@@ -78,9 +78,9 @@ const sidebarConfigs = {
               'contract/dapp'
           ]
         },
-        // {
-        //   children: ['dex/']
-        // }
+        {
+          children: ['dex/']
+        }
     ],
     'api/rpc': [
         {
