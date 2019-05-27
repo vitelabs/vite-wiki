@@ -22,7 +22,7 @@ module.exports = [
   },
   {
     text: '交易所',
-    link: '/zh/tutorial/dex/'
+    link: '/zh/dex/'
   },
   {
     text: 'VEP',
