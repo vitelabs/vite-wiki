@@ -239,12 +239,23 @@ module.exports = {
         '@vuepress/plugin-notification',
         ['redirect', {
           locales: true,
+          storage: true
         }],
         'seo',
         'baidu-autopush',
         'pangu',
         'tabs',
-        [require('./plugins/tab-code-example')]
+        [require('./plugins/tab-code-example')],
+        [
+          '@vuepress/last-updated',
+          {
+            transformer: (timestamp, lang) => {
+              const moment = require('moment')
+              moment.locale(lang)
+              return moment(timestamp).fromNow()
+            }
+          }
+        ]
     ],
     themeConfig: {
         editLinks: true,
