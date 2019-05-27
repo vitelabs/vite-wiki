@@ -20,6 +20,10 @@ module.exports = [
       }
     ]
   },
+  // {
+  //   text: '交易所',
+  //   link: '/zh/tutorial/dex/'
+  // },
   {
     text: 'VEP',
     link: '/zh/vep/'

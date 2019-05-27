@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 
 const docBranch = process.env.BRANCH || 'master'
 const searchFilter = 'version: ' + docBranch
@@ -6,7 +7,6 @@ const searchFilter = 'version: ' + docBranch
 const sidebarConfigs = {
     introduction: [
         {
-            collapsable: false,
             children: [
                 '',
                 'dag-ledger',
@@ -18,20 +18,17 @@ const sidebarConfigs = {
     ],
     technology: [
         {
-            collapsable: false,
             children: [
                 '',
                 'design-features'
             ]
         },
         {
-            collapsable: false,
             children: [
                 'gen-address'
             ]
         },
         {
-            collapsable: false,
             children: [
                 'ledger-struct'
             ]
@@ -39,13 +36,11 @@ const sidebarConfigs = {
     ],
     tutorial: [
         {
-            collapsable: false,
             children: [
                 'start/',
             ]
         },
         {
-            collapsable: false,
             children: [
                 'wallet/install',
                 'wallet/manage',
@@ -53,7 +48,6 @@ const sidebarConfigs = {
             ]
         },
         {
-            collapsable: false,
             children: [
                 'node/install',
                 'node/wallet-manage',
@@ -66,7 +60,6 @@ const sidebarConfigs = {
             ]
         },
         {
-            collapsable: false,
             children: [
                 'rule/sbp',
                 'rule/fullnode',
@@ -76,7 +69,6 @@ const sidebarConfigs = {
             ]
         },
         {
-          collapsable: false,
           children: [
               'contract/contract',
               'contract/soliditypp',
@@ -85,19 +77,18 @@ const sidebarConfigs = {
               'contract/subscribe',
               'contract/dapp'
           ]
-        }
+        },
+        // {
+        //   children: ['dex/']
+        // }
     ],
     'api/rpc': [
         {
-            collapsable: false,
-            children: [
-                '',
-            ]
+            children: ['']
         },
 
         // wallet
         {
-            collapsable: false,
             children: [
                 'wallet',
                 'tx',
@@ -105,29 +96,25 @@ const sidebarConfigs = {
         },
         // ledger
         {
-            collapsable: false,
             children: [
                 'ledger',
             ]
         },
         // onroad
         {
-            collapsable: false,
             children: [
                 'onroad',
             ]
         },
         // smart-contract
         {
-          collapsable: false,
-          children: [
-            'contract'
-          ]
+            children: [
+              'contract'
+            ]
         },
 
         // build-in smart-contract
         {
-            collapsable: false,
             children: [
                 'pledge',
                 'consensus',
@@ -138,7 +125,6 @@ const sidebarConfigs = {
 
         // net
         {
-            collapsable: false,
             children: [
                 'net',
             ]
@@ -146,7 +132,6 @@ const sidebarConfigs = {
 
         // common
         {
-            collapsable: false,
             children: [
                 'testapi',
                 'common_models',
@@ -157,45 +142,26 @@ const sidebarConfigs = {
     ],
     'api/vitejs': [
         {
-            collapsable: false,
-            children: [
-                ''
-            ]
+            children: ['']
         },
         {
-            collapsable: false,
-            children: [
-                'provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor'
-            ]
+            children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
         },
         {
-            collapsable: false,
-            children: [
-                'constant/error', 'constant/constant'
-            ]
+            children: ['constant/error', 'constant/constant']
         },
         {
-            collapsable: false,
-            children: [
-                'tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock'
-            ]
+            children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            collapsable: false,
-            children: [
-                'client/client', 'client/instance', 'client/builtinTxBlock'
-            ]
+            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
         },
         {
-            collapsable: false,
-            children: [
-                'wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount'
-            ]
+            children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
         }
     ],
     vep: [
         {
-            collapsable: false,
             children: [
                 '',
                 'vep-3',
@@ -289,11 +255,11 @@ module.exports = {
                 lastUpdated: 'Last Updated',
                 nav: require('./nav/en'),
                 sidebar: {
-                    '/introduction/': genSidebarConfig('introduction', 'Introduction'),
-                    '/tutorial/': genSidebarConfig('tutorial', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
-                    '/vep/': genSidebarConfig('vep', 'VEP'),
+                    '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
+                    '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
+                    '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -312,11 +278,11 @@ module.exports = {
                 nav: require('./nav/zh'),
                 sidebar: {
                     // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
-                    '/zh/technology/': genSidebarConfig('technology', '开始', '地址', '账本', 'VEP'),
-                    '/zh/vep/': genSidebarConfig('vep', '提案'),
-                    '/zh/tutorial/': genSidebarConfig('tutorial', '开始', '钱包', '节点', '深入了解', '智能合约'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'P2P', '公共组件'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包')
+                    '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
+                    '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
+                    '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', '交易所'),
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'P2P', '公共组件'),
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -336,12 +302,46 @@ module.exports = {
     }
 }
 
-function genSidebarConfig(nav, ...titles) {
-    return sidebarConfigs[nav].map((item, index) => {
-        return Object.assign({}, item, {
+function genSidebarConfig(nav, lang, ...titles) {
+    lang = lang === 'en' ? '' : lang
+    let itemList = sidebarConfigs[nav].map((item, index) => {
+        return Object.assign({
+          collapsable: true
+        }, item, {
             title: titles[index]
         })
     })
+    itemList.forEach(item => {
+        let children = item.children
+        if (Array.isArray(children)) {
+          item.children = children.filter(childrenItem => {
+            childrenItem = childrenItem || '/'
+            let tmpPath = path.join(path.resolve(__dirname, '../'), lang, nav, childrenItem)
+            let result = isFileExist(tmpPath)
+            if (!result) {
+              console.warn('没有找到该文件：' + path.join(lang, nav, childrenItem));
+            }
+            return result
+          })
+        }
+    })
+    return itemList
+}
+
+function isFileExist(file) {
+  if (file[file.length - 1] === '/') {
+    file = file + 'README'
+  }
+  if (file.extname !== '.md') {
+    file = file + '.md'
+  }
+  try {
+    fs.accessSync(file, fs.constants.F_OK)
+    return true;
+  }
+  catch (e) {
+    return false;
+  }
 }
 
 
