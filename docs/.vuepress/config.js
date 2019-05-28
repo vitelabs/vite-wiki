@@ -178,7 +178,7 @@ const sidebarConfigs = {
         children: ['']
       },
       {
-        children: ['', 'api/gate', 'api/state']
+        children: ['api/', 'api/gate', 'api/state']
       },
       {
         children: ['operation/', 'operation/how-to', 'operation/tutorial', 'operation/integration']
