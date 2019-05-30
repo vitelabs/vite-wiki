@@ -1,50 +1,57 @@
-# Run SBP node on Ubuntu 16.04
+# Run SBP Node on Ubuntu 16.04
 
 :::tip
-This article explains how to run SBP node on ubuntu 16.04. All steps have been tested on ubuntu 16.04.
+This document explains how to set up an SBP node. All steps have been tested on ubuntu 16.04.
 :::
 
 
 ## Install gvite
 
-### Install from a binary package
+### Install from a Binary Package
+
+Latest installation package can be found at [gvite Releases](https://github.com/vitelabs/go-vite/releases).
+
 
 ```bash
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
+```bash
+## Unpack package
+tar -xzvf gvite-${version}-linux.tar.gz
 ```
-## Unpack
-tar -xzvf gvite-1.0.2-linux.tar.gz
-```
-```
-## Rename the extracted folder to vite then enter it. You should see 3 files: gvite, bootstrap and node_config.json
-mv gvite-1.0.2-linux vite
+```bash
+## Enter the folder. You should see 3 files: gvite, bootstrap and node_config.json
+mv gvite-${version}-linux vite
 cd vite
 ```
+```bash
+## Config node_config.json and then save
+vi node_config.json
 ```
-## Start-up
+```bash
+## Boot up gvite node
 ./bootstrap
 ```
 
-### Check if gvite service is started
+### Check if gvite is Started
 
-Check the content of gvite.log in the same folder to determine whether the program boots normally.
+Check the content of gvite.log in the same folder to determine whether the program is up and running.
 
 ```bash
 cat gvite.log
 ```
 
-The following messages indicate that the startup is successful.
+The following messages indicate that boot is successful.
 
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/maindata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/maindata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
 
-### Obtain the path of installation directory 
+### Obtain the Path of Installation Directory 
 
 ```bash
 pwd
@@ -52,20 +59,20 @@ pwd
 
 Please write down the path, which will be used later
 
-For example, if you are logged in as the root user, the installation directory is:
+For example, if you logged in as root user, the installation directory is:
 
 ```bash
 /root/vite
 ```
 
-## Create wallet
+## Create Wallet
 
-### Connect full node in command line
+### Connect Command Line Console
 
-Enter [full node installation directory](./install.md#Description-of-installation-directory) and execute the following command:
+Enter [Installation Directory](./install.md#Description-of-installation-directory) and execute the following command:
 
   ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
   ```
 
   Below output indicates the full node has been connected successfully:
@@ -75,13 +82,13 @@ Enter [full node installation directory](./install.md#Description-of-installatio
   Welcome to the Gvite JavaScript console!
   ->
   ```
-### Create a new wallet  
+### Create a New Wallet  
   
-Input：
+Execute the following command
 ```javascript
 vite.wallet_newMnemonicAndEntropyStore("123456")
 ```
-Here `123456` is the password for the keystore, you should replace it with your own password.
+Here `123456` is keystore's password, you should replace it with your own password.
 
 ```json
 {
@@ -90,27 +97,28 @@ Here `123456` is the password for the keystore, you should replace it with your 
     "result": {
         "mnemonic": "ancient rat fish intact viable flower now rebuild monkey add moral injury banana crash rabbit awful boat broom sphere welcome action exhibit job flavor", 
         "primaryAddr": "vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf", 
-        "filename": "~/.gvite/testdata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
+        "filename": "~/.gvite/maindata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
     }
 }
 ```
-* `mnemonic`: Mnemonic words, very important. Please keep in safe
-* `primaryAddr`: The first Vite address corresponding to the mnemonic
-* `filename`: The location of the keyStore file where the mnemonic is saved, must be specified in mining
+* `mnemonic`: Mnemonic phrase. Please keep it safe
+* `primaryAddr`: Vite address at index 0 corresponding to the mnemonic
+* `filename`: The location of the keyStore file
 
 Run `exit` to abort
 
-### Check if the wallet has been created successfully
+### Check if the Wallet has been Created Successfully
+
+Execute the following command
+```bash
+ls ~/.gvite/maindata/wallet/
+```
+The following result should be displayed
 
 ```bash
-ls ~/.gvite/testdata/wallet/
+vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf
 ```
-Have following result：
-
-```bash
-vite_065f8e8ed83dcd581bfb925ff285268d28ead80a9fc92ff083
-```
-`vite_065f8e8ed83dcd581bfb925ff285268d28ead80a9fc92ff083` is the address created above. Multiple addresses will be displayed here if more than one keystore have been created. 
+`vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf` is the wallet address created above. Multiple addresses will be displayed if more than one keystore files were created. 
 
 ## Edit node_config.json
 
@@ -122,22 +130,22 @@ Edit following content：
 
 ```
         "Miner": true,
-        "CoinBase": "0:your_address",
-        "EntropyStorePath": "your_address",
-        "EntropyStorePassword": "your_password",
+        "CoinBase": "0:${your_address}",
+        "EntropyStorePath": "${your_address}",
+        "EntropyStorePassword": "${your_password}",
 ```
 
-* `your_address`: Your wallet address created above, will be used in mining
-* `your_password`: Your wallet password
+* `${your_address}`: Your wallet address created above. This address will be used to produce snapshot blocks
+* `${your_password}`: Your wallet password
 
 Save and quit
 
-## Reboot full node
+## Reboot Node
 
-Kill gvite process
+Kill existing gvite process
 
 ```bash
-ps -efww|grep -w 'gvite'|grep -v grep|cut -c 9-15|xargs kill -9
+pgrep gvite | xargs kill -9
 ```
 
 Reboot
@@ -159,62 +167,34 @@ Below output indicates reboot is completed successfully:
 root      6560  5939  0 12:29 pts/1    00:00:00 grep --color=auto -w gvite
 ```
 
-## Query current node height in command line
+## Query Current Snapshot Height in Command Line
 
 ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
 ```
 Input：
 ```javascript
   vite.ledger_getSnapshotChainHeight();
 ```
 Output:
-```
+```json
   "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"499967\"}"
 ```
 499967 is current block height.
 
-For more command usage please run `vite.help`.
+For more command usage please run command `vite.help`.
 
-## Set gvite to start on boot
-
-### Create auto-start config file
-
-```bash
-sudo touch /etc/systemd/system/vite.service   
-sudo chmod 664 /etc/systemd/system/vite.service   
-sudo vi /etc/systemd/system/vite.service   
-```
-Edit as below：
-
-```text
-[Unit]
-Description=GVite node service
-After=network.target
-
-[Service]
-ExecStart=/path_to_gvite/gvite
-Restart=on-failure
-User=vite
-Group=vite
-
-[Install]
-WantedBy=multi-user.target
-```
-
-If the gvite installation path is `/root/vite`, **path_to_gvite** is `/root/vite/bootstrap`
-
-## Start gvite as auto-boot service
+## Config gvite as Auto-start Service
 
 ### Create install.sh
-```
+```bash
 ## Navigate to gvite installation directory, and make sure it contains gvite and node_config.json
 cd vite
 ls
 ```
 
 ```bash
-## Copy below script content into install.sh
+## Create install.sh and copy below script content in
 vi install.sh
 ```
 
@@ -267,11 +247,11 @@ sudo systemctl daemon-reload
 ```
 
 ```bash
-## Grant execution permission
+## Grant executable permission
 sudo chmod +x install.sh
 ```
 
-### Run install.sh and set auto-start
+### Run install.sh and Enable Service
 
 ```bash
 ## Run install.sh
@@ -281,7 +261,7 @@ sudo chmod +x install.sh
 sudo systemctl enable vite
 ```
 
-### Start gvite as service
+### Start gvite service
 
 ```bash
 ## Kill original gvite process
@@ -317,16 +297,16 @@ vite.service - GVite node service
 Nov 22 21:23:30 ubuntu systemd[1]: Started GVite node service.
 ```
 
+### Shut down gvite Service
 ```bash
-## Shut down gvite service
 sudo service vite stop
 ```
 
 !!! Gvite service config is located in /etc/vite. Gvite console messages are logged in $HOME/.gvite/std.log.
 
-## TIPS
+## Tips
 
-### Enter gvite command line using script
+### Enter gvite Command Line Console via Script
 
 Edit `~/.bashrc`
 
@@ -334,10 +314,10 @@ Edit `~/.bashrc`
 vi ~/.bashrc
 ```
 
-Add following content then save & quit
+Add the following content
 
 ```bash
-alias vite="~/vite/gvite attach ~/.gvite/testdata/gvite.ipc"
+alias vite="~/vite/gvite attach ~/.gvite/maindata/gvite.ipc"
 ```
 Run
 
@@ -351,7 +331,7 @@ Then execute
 vite
 ```
 
-Now you are in gvite command line. Have fun.
+Now you are in gvite command line console. Have fun.
 
 ```bash
 INFO[11-15|12:54:38]                                          monitor-log=/root/go-vite/backend-log/backend.log.9104
@@ -360,12 +340,12 @@ Welcome to the Gvite JavaScript console!
 -> 
 ```
 
-### Periodically output current block height
+### Print Current Snapshot Block Height Constantly
 
-Execute below command in gvite command line：
+Execute below command in gvite command line console
 
 ```bash
 setInterval(function(){vite.ledger_getSnapshotChainHeight();}, 1000)
 ```
 
-Current block height will be printed out every second. Use `exit` to abort.
+The latest height will be printed out in every second. Run `exit` to abort.

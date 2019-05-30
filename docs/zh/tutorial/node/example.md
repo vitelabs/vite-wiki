@@ -15,16 +15,16 @@ gvite版本记录可以从 [gvite release history](https://github.com/vitelabs/g
 ## 下载
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
-```
+```bash
 ## 解压
 tar -xzvf gvite-${version}-linux.tar.gz
 ```
-```
-## 修改文件名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
+```bash
+## 修改目录名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
 mv gvite-${version}-linux vite
 cd vite
 ```
-```
+```bash
 ## 启动
 ./bootstrap
 ```
@@ -107,9 +107,9 @@ ls ~/.gvite/maindata/wallet/
 会得到以下结果：
 
 ```bash
-vite_065f8e8ed83dcd581bfb925ff285268d28ead80a9fc92ff083
+vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf
 ```
-`vite_065f8e8ed83dcd581bfb925ff285268d28ead80a9fc92ff083`：就是上面创建的钱包的地址，如果创建了多个钱包，这里会显示多个条目。
+`vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`：就是上面创建的钱包的地址，如果创建了多个钱包，这里会显示多个条目。
 
 ## 编辑node_config.json
 
