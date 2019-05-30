@@ -3,7 +3,7 @@
 ``` javascript
 {
   "NetID": 1, //网络id, 用于识别网络环境，premainnet为1，请勿更改
-  "Identity": "vite-node-name",  // 此处
+  "Identity": "vite-node-name",  // 节点名称
   "MaxPeers": 10, // 最大连接peer数目，控制最多允许互联的节点个数，无须更改
   "MaxPendingPeers": 10, //最大同时接入的节点数，无须更改
   "BootSeed": [
