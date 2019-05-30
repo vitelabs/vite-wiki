@@ -16,3 +16,4 @@ title: "VEP"
 * [VEP 8: AccountBlock Data Content Type Definition](./vep-8.html)
 * [VEP 10: Vite TestNet-PreMainnet Data Migration Plan](./vep-10.html)
 * [VEP 12: The Implementation of Random Numbers in Vite](./vep-12.html)
+* [VEP 15: Add success rate factors to the consensus](./vep-15.html)

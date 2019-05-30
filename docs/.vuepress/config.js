@@ -55,7 +55,6 @@ const sidebarConfigs = {
                 'node/sbp',
                 'node/node_config',
                 'node/example',
-                'node/genesis_config',
                 'node/pre_mainnet_config'
             ]
         },
@@ -172,7 +171,8 @@ const sidebarConfigs = {
                 'vep-8',
                 'vep-10',
                 'vep-12',
-                'vep-13'
+                'vep-13',
+                'vep-15'
             ]
         }
     ]
