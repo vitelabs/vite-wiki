@@ -77,8 +77,6 @@ Enter [Installation Directory](./install.md#Description-of-installation-director
 
   Below output indicates the full node has been connected successfully:
   ```
-  INFO[11-12|16:47:07] cannot read the config file, will use the default config module=config error="open vite.config.json: no such file or directory"
-  INFO[11-12|16:47:07]                                          monitor-log=/home/ubuntu/go-vite/backend-log/backend.log.30693
   Welcome to the Gvite JavaScript console!
   ->
   ```
