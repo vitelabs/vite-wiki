@@ -16,11 +16,18 @@
 > * 验证或者发送交易。可以选择使用VITE官方RPC节点，也可以选择自行搭建VITE全节点并开启RPC功能。关于如何运行VITE全节点请参考[安装全节点](./../../tutorial/node/install.html)、[节点配置文件](./../../tutorial/node/node_config.html)。如果您的开发语言是java或者go，可使用官方提供的SDK与RPC节点交互。
 > * 关于VITE钱包管理。如果您的开发语言是java或者go，可使用官方提供的SDK管理VITE钱包。如果使用其他开发语言可以参考[钱包管理](./../../tutorial/node/wallet-manage.html)
 * 运行对手链全节点，或使用可信任的全节点API。用于验证或发送对手链上的资产。
-* 实现”跨链网关接口协议“所定义的接口。
+* 实现"[跨链网关接口协议](#跨链网关接口协议)"所定义的接口。
 
-### 跨链网关接口协议
+### 如何测试联调
+* 可以使用公测钱包作为联调入口。需要一个premainnet公测环境
+* 在该环境下铸币，在这里假如是ETH-0
+* ![](~/images/crosschain-set.png)
+* ![](~/images/crosschain-seturl.png)
+* ![](~/images/crosschain-debug.png)
+
+## 跨链网关接口协议
 > * 跨链网关服务需要支持CORS跨域
-#### 统一返回格式
+### 统一返回格式
 ```
 {
   "code": 0,//响应码，更多响应码见响应码表
@@ -29,23 +36,49 @@
   "data":""//响应数据，具体定义见接口列表
 }
 ```
-#### 元信息类接口
-##### /meta_info
-#### 转入转出交易类接口
-##### /deposit_address
-##### /verify_withdraw_address
-##### /withdraw_fee
-##### /withdraw
-#### 转入转出记录查询类接口
-##### /deposit_records
-##### /withdraw_records
+### 元信息类接口
+#### `/meta_info`
+> 描述
+```
+获取跨链网关元信息。
+```
 
-### 如何测试联调
-* 可以使用公测钱包作为联调入口。需要一个premainnet公测环境
-* 在该环境下铸币，在这里假如是ETH-0
-* ![](~/images/crosschain-set.png)
-* ![](~/images/crosschain-seturl.png)
-* ![](~/images/crosschain-debug.png)
+> 参数
+
+|参数名|方法|描述|数据类型|
+|:--|:--|:---|:---:|
+|tokenId|GET|TOT id|string|
+> Responses
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|type|地址类型|int|
+|depositState|转入通道状态|string|
+|withdrawState|转出通道状态|string|
+
+> Responses Demo
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": {
+		"type": 0,
+		"depositState": "OPEN",
+		"withdrawState": "OPEN"
+	}
+}
+```
+
+### 转入转出交易类接口
+#### `/deposit_address`
+#### `/verify_withdraw_address`
+#### `/withdraw_fee`
+#### `/withdraw`
+
+### 转入转出记录查询类接口
+#### `/deposit_records`
+#### `/withdraw_records`
 
 ## TIPS
 ### 资产托管
