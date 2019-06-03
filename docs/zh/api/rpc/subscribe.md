@@ -28,7 +28,7 @@ sidebarDepth: 4
 ```
 订阅成功后，产生新事件时自动回调。
 ```bash
-// 参数中的subscription为订阅id，result为事件内容
+// 返回值中的subscription为订阅id，result为事件内容
 {"jsonrpc":"2.0","method":"subscribe_subscription","params":{"subscription":"0x4b97e0674a5ebef942dbb07709c4a608","result":[{"log":{"topics":["aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb","000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"],"data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="},"accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40","addr":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f","removed":false}]}}
 ```
 长连接模式订阅无需取消订阅，断开连接时会自动取消。
@@ -87,7 +87,7 @@ sidebarDepth: 4
     }
 }
 ```
-轮询模式需要手动取消订阅
+轮询模式可以手动取消订阅
 ```bash
 {
 	"jsonrpc": "2.0",
@@ -104,7 +104,7 @@ sidebarDepth: 4
 例如，在重新订阅快照事件时，应该先通过`subscribe_newSnapshotBlocksFilter`或者`subscribe_newSnapshotBlocks`订阅事件，然后通过`ledger_getSnapshotChainHeight`接口获取最新的快照块高度，然后通过`ledger_getSnapshotBlocks`补全断开连接时缺失的快照块。
 
 注意：
- * gvite最低版本1.3.2。
+ * gvite最低版本2.1.4。
  * 需要在node_config.json的PublicModules中配置"subscribe"，并且配置"SubscribeEnabled":true，才能使用事件订阅接口。
 
 ## subscribe_newSnapshotBlocksFilter
@@ -158,6 +158,9 @@ sidebarDepth: 4
 ## subscribe_newAccountBlocksByAddrFilter
 轮询接口，创建单个账户新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
+- **Parameters**:
+  * `Address`: 订阅的账户地址
+
 - **Returns**:  
 	- `string` filterId
 
@@ -181,6 +184,9 @@ sidebarDepth: 4
 
 ## subscribe_newOnroadBlocksByAddrFilter
 轮询接口，创建单个账户在途交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+
+- **Parameters**:
+  * `Address`: 订阅的账户地址
 
 - **Returns**:  
 	- `string` filterId
@@ -212,17 +218,17 @@ sidebarDepth: 4
     1. `addrRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围，必须至少指定一个账户地址
     2. `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
     
-参数取值说明：
+`Range`
   1. `fromHeight`: `uint64` 起始高度，为0表示从最新的高度开始查询
   2. `toHeight`: `uint64` 结束高度，为0表示不设置结束高度
 
 ```
 topics取值示例：
- {} 匹配所有日志
- {{A}} 匹配topics中第一个元素为A的日志
- {{},{B}} 匹配topics中第二个元素为B的日志
- {{A},{B}} 匹配topics中第一个元素为A且第二个元素为B的日志
- {{A,B},{C,D}} 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
+ [] 匹配所有日志
+ [[A]] 匹配topics中第一个元素为A的日志
+ [[],[B]] 匹配topics中第二个元素为B的日志
+ [[A],[B]] 匹配topics中第一个元素为A且第二个元素为B的日志
+ [[A,B],[C,D]] 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
 ```
 ::: demo
 ```json tab:Request
@@ -286,7 +292,7 @@ topics取值示例：
   * `subscription`: `string` filterId
   * `result`: `Array<NewSnapshotBlocksMsg>`
     1. `hash`: `Hash` 快照块哈希
-    2. `heightStr`: `string` 快照块高度
+    2. `heightStr`: `uint64` 快照块高度
     3. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
   
 ::: demo
@@ -366,7 +372,7 @@ topics取值示例：
   * `subscription`: `string` filterId
   * `result`: `Array<NewAccountBlocksWithHeightMsg>`
     1. `hash`: `Hash` 账户块哈希
-    2. `heightStr`: `string` 账户块高度
+    2. `heightStr`: `uint64` 账户块高度
     3. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
   
 ::: demo
@@ -729,7 +735,7 @@ topics取值示例：
 :::
 
 ## subscribe_getLogs
-普通RPC接口，查询历史日志。
+查询历史日志。
 
 - **Parameters**:
 
