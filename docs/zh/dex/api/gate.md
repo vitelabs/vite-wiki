@@ -12,9 +12,14 @@
 ## 如何搭建跨链网关
 ### 运行跨链网关的必要条件
 * 在VITE上铸币TOT。用于在VITE链上代表对手链上的资产。关于如何铸币请参考[资产发行](./../../tutorial/rule/mintage.html)，铸币需要与对手链上资产的发行量、小数位保持一致。
-* 运行VITE全节点，或使用官方节点API。用于验证或者发送TOT交易。关于如何运行VITE全节点请参考[安装全节点](./../../tutorial/node/install.html)。关于如何发送或查询VITE交易请参考[RPC接口](./../../api/rpc/)
+* 运行VITE全节点，或使用官方节点API，用于验证或者发送TOT交易。关于如何发送或查询VITE交易请参考[RPC接口](./../../api/rpc/)
+> * 验证或者发送交易。可以选择使用VITE官方RPC节点，也可以选择自行搭建VITE全节点并开启RPC功能。关于如何运行VITE全节点请参考[安装全节点](./../../tutorial/node/install.html)、[节点配置文件](./../../tutorial/node/node_config.html)。如果您的开发语言是java或者go，可使用官方提供的SDK与RPC节点交互。
+> * 关于VITE钱包管理。如果您的开发语言是java或者go，可使用官方提供的SDK管理VITE钱包。如果使用其他开发语言可以参考[钱包管理](./../../tutorial/node/wallet-manage.html)
 * 运行对手链全节点，或使用可信任的全节点API。用于验证或发送对手链上的资产。
 * 实现”跨链网关接口协议“所定义的接口。
+
+### 跨链网关接口协议
+
 
 ### 如何测试联调
 * 可以使用公测钱包作为联调入口。需要一个premainnet公测环境
