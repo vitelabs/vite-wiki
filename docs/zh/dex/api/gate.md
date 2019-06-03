@@ -19,7 +19,26 @@
 * 实现”跨链网关接口协议“所定义的接口。
 
 ### 跨链网关接口协议
-
+> * 跨链网关服务需要支持CORS跨域
+#### 统一返回格式
+```
+{
+  "code": 0,//响应码，更多响应码见响应码表
+  "subCode": 0,//子响应码 ，更多响应码见响应码表
+  "msg": null,//响应说明
+  "data":""//响应数据，具体定义见接口列表
+}
+```
+#### 元信息类接口
+##### /meta_info
+#### 转入转出交易类接口
+##### /deposit_address
+##### /verify_withdraw_address
+##### /withdraw_fee
+##### /withdraw
+#### 转入转出记录查询类接口
+##### /deposit_records
+##### /withdraw_records
 
 ### 如何测试联调
 * 可以使用公测钱包作为联调入口。需要一个premainnet公测环境
