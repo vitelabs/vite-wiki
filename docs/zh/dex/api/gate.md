@@ -27,6 +27,7 @@
 
 ## 跨链网关接口协议
 > * 跨链网关服务需要支持CORS跨域
+> * 所有金额都使用最小精度表示
 ### 统一返回格式
 ```
 {
@@ -42,21 +43,25 @@
 ```
 获取跨链网关元信息。
 ```
+> 方法
+```
+GET
+```
 
-> 参数
-
-|参数名|方法|描述|数据类型|
-|:--|:--|:---|:---:|
-|tokenId|GET|TOT id|string|
-> Responses
+> 请求参数
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
-|type|地址类型|int|
-|depositState|转入通道状态|string|
-|withdrawState|转出通道状态|string|
+|tokenId|TOT id|string|
+> 返回参数
 
-> Responses Demo
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|type|类型,枚举值:`0`代表单地址模式，如ETH，`1`代表需通过备注区分地址模式，如EOS，|int|
+|depositState|转入通道状态,枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|
+|withdrawState|转出通道状态，枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|
+
+> 返回样例
 ```
 {
 	"code": 0,
@@ -71,9 +76,85 @@
 ```
 
 ### 转入转出交易类接口
-#### `/deposit_address`
+#### `/deposit_info`
+> 描述
+```
+获取转入信息。
+```
+
+> 方法
+```
+GET
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|tokenId|TOT id|string|
+|walletAddress|用户VITE地址|string|
+> 返回参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|type|类型,枚举值:`0`代表单地址模式，如ETH，`1`代表需通过备注区分地址模式，如EOS|int|
+|depositAddress|转入地址|string|
+|labelName|标签名，type为1时必传|string|
+|label|标签值，type为1时必传|string|
+|minimumDepositAmount|最小转入金额|string|
+|noticeMsg|注意事项描述|string|
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": {
+		"type": 1,
+		"depositAddress": "vitetothemoon",
+		"labelName": "memo",
+		"label": "123467",
+		"minimumDepositAmount": "30000",
+		"noticeMsg": ""
+	}
+}
+```
+
 #### `/verify_withdraw_address`
-#### `/withdraw_fee`
+> 描述
+```
+校验提现地址。
+```
+
+> 方法
+```
+GET
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|tokenId|TOT id|string|
+|walletAddress|用户VITE地址|string|
+> 返回参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+| |地址是否正确|bool|
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": true
+}
+```
+
+#### `/withdraw_info`
 #### `/withdraw`
 
 ### 转入转出记录查询类接口
