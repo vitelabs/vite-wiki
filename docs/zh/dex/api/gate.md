@@ -26,6 +26,7 @@
 * ![](~/images/crosschain-debug.png)
 
 ## 跨链网关接口协议
+> * 跨链网关服务需要HTTPS协议
 > * 跨链网关服务需要支持CORS跨域
 > * 所有金额都使用最小精度表示
 ### 统一返回格式
@@ -102,6 +103,7 @@ GET
 |labelName|标签名，type为1时必传|string|
 |label|标签值，type为1时必传|string|
 |minimumDepositAmount|最小转入金额|string|
+|comfirmationCount|入账确认数|string|
 |noticeMsg|注意事项描述|string|
 
 > 返回样例
@@ -116,6 +118,7 @@ GET
 		"labelName": "memo",
 		"label": "123467",
 		"minimumDepositAmount": "30000",
+		"comfirmationCount": 1,
 		"noticeMsg": ""
 	}
 }
@@ -159,7 +162,129 @@ GET
 
 ### 转入转出记录查询类接口
 #### `/deposit_records`
+> 描述
+```
+转入记录。
+```
+
+> 方法
+```
+GET
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|tokenId|TOT id|string|
+|walletAddress|用户VITE地址|string|
+|pageNum|分页参数，起始页序号，从1开始|int|
+|pageSize|分页参数，每页大小|int|
+
+> 返回参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|totalCount|总记录数|int|
+|depositRecords|转入记录列表|list|
+|inTxExplorerFormat|对手链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
+|outTxExplorerFormat|vite链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
+
+>> 其中depositRecords参数如下
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|inTxHash|对手链转入交易hash|string|
+|outTxHash|VITE链转出TOT交易hash|string|
+|amount|转入金额|string|
+|fee|网关收取的转入手续费|string|
+|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小充值金额，充值流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，充值流程结束|string|
+|dateTime|转入时间,timestamp毫秒|string|
+
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": {
+		"totalCount": 1,
+		"depositRecords": [{
+			"inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
+			"outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
+			"amount": "300000000000000000",
+			"fee": "0",
+			"state": "TOT_CONFIRMED",
+			"dateTime": "1556129201000"
+		}],
+		"inTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}",
+		"outTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}"
+	}
+}
+```
+
 #### `/withdraw_records`
+> 描述
+```
+转出记录。
+```
+
+> 方法
+```
+GET
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|tokenId|TOT id|string|
+|walletAddress|用户VITE地址|string|
+|pageNum|分页参数，起始页序号，从1开始|int|
+|pageSize|分页参数，每页大小|int|
+
+> 返回参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|totalCount|总记录数|int|
+|withdrawRecords|转出记录列表|list|
+|inTxExplorerFormat|vite链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
+|outTxExplorerFormat|对手链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
+
+>> 其中withdrawRecords参数如下
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|inTxHash|VITE链tot转入交易hash|string|
+|outTxHash|对手链转出交易hash|string|
+|amount|实际转出到账金额|string|
+|fee|网关收取的转出手续费|string|
+|state|转出状态，枚举值<br>`TODO`VITE TOT转入交易待发送至网络<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_NOT_RECEIVED`VITE TOT转入交易确认失败，提现流程结束<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，提现流程结束|string|
+|dateTime|转出时间,timestamp毫秒|string|
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": {
+		"totalCount": 2,
+		"withdrawRecords": [{
+			"inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
+			"outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
+			"amount": "190000000000000000",
+			"fee": "10000000000000000",
+			"state": "OPPOSITE_CONFIRMED",
+			"dateTime": "1556129201000"
+		}],
+		"inTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}",
+		"outTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}"
+	}
+}
+```
 
 ## TIPS
 ### 资产托管
@@ -178,6 +303,8 @@ GET
 * 保证监控的高可靠性
 * 转入与转出数据分析
 * 额充提币的监控及确认
+
+### 限流
 
 ## 实例
 以下以ETH网关为例子，介绍跨链网关基本流程
