@@ -153,19 +153,19 @@ myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
 });
 ```
 
-3. 如果是subscribe方法，subscribe 应改为 subscribeFunc
+3. 由于 client 继承自 netProcessor，已经有subscribe方法。所以如果需要调用 Gvite-RPC 的 subscribe方法，`subscribe` 应改为 `subscribeFunc`
 
 ```javascript
 import { methods } from '@vite/vitejs-constant';
 
 // ......
 let myClient = new client(WS_RPC);
-myClient.subscribeFunc.newAccountBlocks().then(()=>{
+myClient.subscribeFunc.newSnapshotBlocksFilter().then(()=>{
     // ......
 });
 
 // 或者
-myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+myClient.request(methods.subscribe.newSnapshotBlocksFilter).then(()=>{
     // ......
 })
 ```

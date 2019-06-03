@@ -574,5 +574,75 @@ ABI：
       "nodeStatus": 1
       "balance": 10,
    }
+}
+```
+:::
+
+
+## vote_getVoteDetails
+查询SBP每天投票信息
+
+- **Parameters**: 
+
+  * `Index`: 第几天：0代表最开始的一天
+ 
+
+- **Returns**: 
+
+`Array&lt;VoteDetails&gt;`
+  1. `Name`: `string`  出块节点名称
+  2. `Balance`: `big.Int`  总投票数
+  3. `Addr`: `map`  key:投票地址， value: 投票权重
+  
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "method":"vote_getVoteDetails",
+    "params":[0]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": [
+        {
+            "Name": "Vite_SBP01",
+            "Balance": 1.4292529985394005795698375e+25,
+            "Type": null,
+            "CurrentAddr": "vite_9065ff0e14ebf983e090cde47d59fe77d7164b576a6d2d0eda",
+            "RegisterList": [
+                "vite_9065ff0e14ebf983e090cde47d59fe77d7164b576a6d2d0eda"
+            ],
+            "Addr": {
+                "vite_002c698c0f89662679d03eb65344cea6ed18ab64cd3562e399": 153173820149812829427,
+                "vite_002f9cc5863815d27679b3a5e4f47675e680926a7ae5365d5e": 2.2637888780120236595891e+22,
+                "vite_0032cc9274aa2b3de392cf8f0840ebae0367419d11219bcd7e": 0,
+                "vite_003853b6b237b311a87029a669d589b19c97674d8b5473004f": 211999319045896173105,
+                "vite_0047b193c7d7791a94de7e45b7febf6eac8139fd81695cfdb5": 27349565445264753118,
+                "vite_dd8364662b3725ab89fff765091b8bc6a6e140adbfbfc3baca": 19926226954228583374
+            }
+        },
+        {
+            "Name": "Vite_SBP02",
+            "Balance": 6.905516255516640791260504e+24,
+            "Type": null,
+            "CurrentAddr": "vite_995769283a01ba8d00258dbb5371c915df59c8657335bfb1b2",
+            "RegisterList": [
+                "vite_995769283a01ba8d00258dbb5371c915df59c8657335bfb1b2"
+            ],
+            "Addr": {
+                "vite_013661a2b0ac7a7344b94308184105dfae64bb746aadfeb3eb": 1341892617448983441,
+                "vite_0139fa07eccdd3945941d6bd376ffb67db771cfb5999439639": 83666851810677644147
+            }
+        }
+   ]
+}
 ```
 :::

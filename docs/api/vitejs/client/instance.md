@@ -154,7 +154,7 @@ myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
 });
 ```
 
-3. `subscribe` should be changed to `subscribeFunc`
+3. Because of Client extends netProcessor, the client instance have the subscribe already. If you want to call the Gvite-RPC method `subscribe_`, the `myClient.subscribe` should be changed to `myClient.subscribeFunc`.
 
 ```javascript
 import { methods } from '@vite/vitejs-constant';
@@ -163,12 +163,12 @@ import { methods } from '@vite/vitejs-constant';
 
 let myClient = new client(WS_RPC);
 
-myClient.subscribeFunc.newAccountBlocks().then(()=>{
+myClient.subscribeFunc.newSnapshotBlocksFilter().then(()=>{
     // ......
 });
 
 // or
-myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+myClient.request(methods.subscribe.newSnapshotBlocksFilter).then(()=>{
     // ......
 })
 ```
