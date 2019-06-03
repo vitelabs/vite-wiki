@@ -124,10 +124,50 @@ GET
 }
 ```
 
+#### `/withdraw_info`
+> 描述
+```
+获取转出信息。
+```
+
+> 方法
+```
+GET
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|tokenId|TOT id|string|
+|walletAddress|用户VITE地址|string|
+> 返回参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|minimumWithdrawAmount|最小转出金额|string|
+|maximumWithdrawAmount|最小转出金额|string|
+|gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT转账交易，用于回收TOT|string|
+
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": {
+		"minimumWithdrawAmount": "1000000",
+		"maximumWithdrawAmount": "10000000000",
+		"gatewayAddress": "vite_42f9a5d93e1e392624b97dfa3d7cab057b79c2489d6bc13682"
+	}
+}
+```
+
 #### `/verify_withdraw_address`
 > 描述
 ```
-校验提现地址。
+校验转出地址。
 ```
 
 > 方法
@@ -157,8 +197,75 @@ GET
 }
 ```
 
-#### `/withdraw_info`
+#### `/withdraw_fee`
+> 描述
+```
+获取网关收取的转出手续费。
+```
+
+> 方法
+```
+GET
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|tokenId|TOT id|string|
+|walletAddress|用户VITE地址|string|
+|amount|金额|string|
+|containsFee|传入的amount是否已包含手续费，用于全部转出场景|string|
+
+> 返回参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|fee|网关收取的手续费|string|
+
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": {
+		"fee": "1000000"
+	}
+}
+```
+
 #### `/withdraw`
+> 描述
+```
+获取转出信息。
+```
+
+> 方法
+```
+POST
+```
+
+> 请求参数
+
+|参数名|描述|数据类型|
+|:--|:---|:---:|
+|rawTx|web钱包已签名的AccountBlock json<br>AccountBlock与[发送交易](./../../api/rpc/tx.html#tx-sendrawtx)接口所描述的accountBlock一致，其中ToAddress为`/withdraw_info`接口返回的gatewayAddress，Amount为实际转出金额+转出手续费|string|
+|withdrawAddress|用户转出地址|string|
+|signature|用户使用当前VITE地址的私钥，对rawTx和withdrawAddress组成的json，即{"rawTx": "xxx","withdrawAddress":"mjRrUJsFVUzefb9qoHLwE7ym7Mu9cFUtBZ"}进行签名|string|
+
+> 返回参数
+
+> 返回样例
+```
+{
+	"code": 0,
+	"subCode": 0,
+	"msg": null,
+	"data": true
+}
+```
 
 ### 转入转出记录查询类接口
 #### `/deposit_records`
@@ -198,7 +305,7 @@ GET
 |outTxHash|VITE链转出TOT交易hash|string|
 |amount|转入金额|string|
 |fee|网关收取的转入手续费|string|
-|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小充值金额，充值流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，充值流程结束|string|
+|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|
 |dateTime|转入时间,timestamp毫秒|string|
 
 
@@ -261,7 +368,7 @@ GET
 |outTxHash|对手链转出交易hash|string|
 |amount|实际转出到账金额|string|
 |fee|网关收取的转出手续费|string|
-|state|转出状态，枚举值<br>`TODO`VITE TOT转入交易待发送至网络<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_NOT_RECEIVED`VITE TOT转入交易确认失败，提现流程结束<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，提现流程结束|string|
+|state|转出状态，枚举值<br>`TODO`VITE TOT转入交易待发送至网络<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_NOT_RECEIVED`VITE TOT转入交易确认失败，转出流程结束<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|
 |dateTime|转出时间,timestamp毫秒|string|
 
 > 返回样例
