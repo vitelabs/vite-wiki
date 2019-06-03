@@ -94,7 +94,7 @@ ABI：
 :::
 
 ## register_getRewardData
-获取提取出块奖励交易请求数据，从上一次提取到的高度开始，提取90天的出块奖励（如果不足90天，提取所有出块奖励），不能提取最近30分钟的出块奖励，也可以通过对ABI中的`Reward`方法编码获取交易请求数据。
+获取提取出块奖励交易请求数据，也可以通过对ABI中的`Reward`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -131,9 +131,9 @@ ABI：
 
 - **Parameters**: 
 
-  * `Gid`: 共识组id，不可修改
-  * `string`: 出块节点名称，不可修改
-  * `Address`: 新的出块账户地址，可修改
+  * `Gid`: 共识组id
+  * `string`: 出块节点名称
+  * `Address`: 新的出块账户地址
 
 - **Returns**: 
 	- `[]byte` Data
@@ -176,7 +176,7 @@ ABI：
   4. `pledgeAmount`: `big.Int`  抵押金额
   5. `withdrawHeight`: `uint64`  抵押到期高度
   6. `withdrawTime`: `int64`  预计抵押到期时间
-  7. `cancelTime`: `int64`  抵押取消时间，值大于0时表示已注销
+  7. `cancelTime`: `int64`  抵押取消时间，值大于0时表示已取消注册
 
 - **Example**:
 
@@ -306,8 +306,8 @@ ABI：
         "totalReward": "10",
         "blockReward": "6",
         "voteReward": "4",
-        "expectedBlockNum":3,
-        "blockNum":1,
+        "expectedBlockNum":"3",
+        "blockNum":"1"
       }
     }
 }
@@ -572,7 +572,7 @@ ABI：
    "result": {
       "nodeName": "super",
       "nodeStatus": 1
-      "balance": 10,
+      "balance": "10",
    }
 ```
 :::

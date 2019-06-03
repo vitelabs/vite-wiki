@@ -16,6 +16,10 @@
 
 ## 开发环境准备
 
+### 安装合约调试工具
+
+安装[VS Code](https://code.visualstudio.com/)，安装[Soliditypp VS Code插件](./debug.html#vs-code插件)。
+
 ### 本地运行测试节点
 
 见 [本地运行测试节点教程](./testnode.html)
@@ -36,7 +40,7 @@ TODO
 
 ## 编写合约代码
 
-安装[VS Code](https://code.visualstudio.com/)，安装[Soliditypp VS Code插件](./debug.html#vs-code插件)。在本地编写合约代码并调试合约。
+在VS Code中编写合约代码并调试合约。
 
 ## 部署合约
 
@@ -141,9 +145,7 @@ TODO 用URI的方式调用上面示例中SayHello的接口
 
 ### 常用查询接口
 
-全部接口信息和接口调用注意事项见 [接口列表](../../api/rpc/)
-
-[vitejs接口调用说明和示例](../../api/vitejs/client/instance.md)
+全部接口信息和接口调用注意事项见 [RPC接口说明](../../api/rpc/) [vitejs接口调用说明和示例](../../api/vitejs/client/instance.md)
 
 |  接口名称  | 接口说明 |
 |:------------:|:-----------:|
@@ -157,7 +159,6 @@ TODO 用URI的方式调用上面示例中SayHello的接口
 | onroad_getOnroadBlocksByAddress | 查询账户的在途交易列表 |
 | contract_getContractInfo | 查询合约信息，包括合约代码，所属委托共识组信息等 |
 | contract_callOffChainMethod | 离线查询合约状态 |
-| testapi_getTestToken | 获取测试代币 |
 
 ```javascript
 import WS_RPC from '@vite/vitejs-WS';

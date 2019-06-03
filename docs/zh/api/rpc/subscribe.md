@@ -11,7 +11,7 @@ sidebarDepth: 4
 
 轮询模式先创建`filter`，然后通过`filterId`轮询`subscribe_getFilterChanges`接口，获取新事件。轮询模式如果超过5分钟没有请求则自动关闭这个`filterId`，也可以通过`subscribe_uninstallFilter`接口主动取消订阅。
 
-长连接模式先先注册一个`subscription`，然后当产生新事件时`subscription`会通过回调的方式返回新事件。长连接断开时自动取消订阅。
+长连接模式先注册一个`subscription`，然后当产生新事件时`subscription`会通过回调的方式返回新事件。长连接断开时自动取消订阅。
 
 当前支持3种类型的事件：新快照（即新快照块）事件、新交易（即新账户块）事件、新日志（即新账户块中的日志）事件。每一种类型的事件都包含相应的回滚事件，回滚时，事件消息中的removed字段为true。
 
