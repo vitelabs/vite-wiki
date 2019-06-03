@@ -1,10 +1,16 @@
 # 数据查询服务
 
 ## 1. RestAPI接入文档
-### url：
+
+### 环境地址：
 * 【test】`https://vitex.vite.net/test`
 
-### 1.1 Get Limit info.：`GET` `/api/v1/limit`
+### `/api/v1/limit` 
+> Describe
+```
+Get Limit info.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -30,7 +36,13 @@
 }
 ```
 
-### 1.2 Get tokens list.：`GET` `/api/v1/tokens`
+### `/api/v1/tokens`
+
+> Describe
+```
+Get tokens list。
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -65,7 +77,13 @@
 }
 ```
 
-### 1.3 Get Token Detail.：`GET` `/api/v1/token/detail`
+### `/api/v1/token/detail`
+
+> Describe
+```
+Get Token Detail.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -105,7 +123,13 @@
 }
 ```
 
-### 1.4 Get Token Mapped list.：`GET` `/api/v1/token/mapped`
+### `/api/v1/token/mapped`
+
+> Describe
+```
+Get Token Mapped list.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -134,7 +158,13 @@
 ```
 
 
-### 1.5 Get Token Unmapped list.：`GET` `/api/v1/token/unmapped`
+### `/api/v1/token/unmapped`
+
+> Describe
+```
+Get Token Unmapped list.上币时查询使用；
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -162,7 +192,13 @@
 }
 ```
 
-### 1.6 Get Markets list.：`GET` `/api/v1/markets`
+### `/api/v1/markets`
+
+> Describe
+```
+Get Markets list.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -196,7 +232,13 @@
 }
 ```
 
-### 1.7 Get Opened Order list.：`GET` `/api/v1/orders/open`
+### `/api/v1/orders/open`
+
+> Describe
+```
+Get Opened Order list.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -248,7 +290,13 @@
 }
 ```
 
-### 1.8 Get Order list.：`GET` `/api/v1/orders`
+### `/api/v1/orders`
+
+> Describe
+```
+Get Order list.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -304,7 +352,13 @@
 }
 ```
 
-### 1.9  Get 24 hour price change statistics for all market pair symbol.：`GET` `/api/v1/ticker/24hr`
+### `/api/v1/ticker/24hr`
+
+> Describe
+```
+Get 24 hour price change statistics for all market pair symbol.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -347,7 +401,13 @@
 }
 ```
 
-### 1.10  Get the best price for market pair symbol.：`GET` `/api/v1/ticker/bookTicker`
+### `/api/v1/ticker/bookTicker`
+
+> Describe
+```
+Get the best price for market pair symbol.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -378,7 +438,13 @@
 }
 ```
 
-### 1.11  Get market trades.：`GET` `/api/v1/trades`
+### `/api/v1/trades`
+
+> Describe
+```
+Get market trades.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -430,7 +496,13 @@
 }
 ```
 
-### 1.12  Get market depth.：`GET` `/api/v1/depth`
+### `/api/v1/depth`
+
+> Describe
+```
+Get market depth.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -469,7 +541,13 @@
 }
 ```
 
-### 1.13  Get market kline.：`GET` `/api/v1/klines`
+### `/api/v1/klines`
+
+> Describe
+```
+Get market kline.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -516,7 +594,13 @@
 ```
 
 
-### 1.14  Get Deposit WithDraw Records.：`GET` `/api/v1/deposit-withdraw`
+### `GET` `/api/v1/deposit-withdraw`
+
+> Describe
+```
+Get Deposit WithDraw Records.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -552,7 +636,13 @@
 }
 ```
 
-### 1.15  Get Token Exchange-Rate.：`GET` `/api/v1/exchange-rate`
+### `/api/v1/exchange-rate`
+
+> Describe
+```
+Get Token Exchange-Rate.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -583,7 +673,13 @@
 }
 ```
 
-### 1.16  Get Usd-Cny Exchange-Rate.：`GET` `/api/v1/usd-cny`
+### `/api/v1/usd-cny`
+
+> Describe
+```
+Get Usd-Cny Exchange-Rate.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
@@ -605,7 +701,13 @@
 }
 ```
 
-### 1.17  Get the Server Time：`GET` `/api/v1/time`
+### `/api/v1/time`
+
+> Describe
+```
+Get the Server Time.
+```
+
 > Parameters
 
 |Name|Located In|Description|Required|Schema|
