@@ -1,81 +1,82 @@
+---
+demoUrl: "https://vitex.vite.net/test"
+---
+
 # 数据查询服务
 
 ## 1. RestAPI接入文档
 
-### 环境地址：
+### 环境地址
 * 【test】`https://vitex.vite.net/test`
 
-### `/api/v1/limit` 
-> Describe
-```
-Get Limit info.
-```
+### `/api/v1/limit`
 
-> Parameters
+获取各个基础交易对的最小下单金额
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
+* **Method**: `GET`
 
-> Responses
+* **Responses**
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`Limit`|
-|1|error_msg|null|
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`Limit`|
+  |1|error_msg|null|
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "minAmount": {
-      "ETH": "0.01"
-    }
-  }
-}
-```
+* **Example**
+
+  :::demo
+  ```json test: "Test" url: /api/v1/limit method: GET
+  {}
+  ```
+  :::
 
 ### `/api/v1/tokens`
 
-> Describe
-```
 Get tokens list。
-```
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|category|query|default `all`; Allowed value:[`quote`,`all`]|no|string|
-|tokenSymbolLike|query|symbol like;e.g. `ETH`|no|string|
-|offset|query|start with `0`; default `0`.|no|integer|
-|limit|query|default `500`; max `500`.|no|integer|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |category|query|default `all`; Allowed value:[`quote`,`all`]|no|string|
+  |tokenSymbolLike|query|symbol like;e.g. `ETH`|no|string|
+  |offset|query|start with `0`; default `0`.|no|integer|
+  |limit|query|default `500`; max `500`.|no|integer|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`Token`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "tokenId": "tti_4e88a475c675971dab7ec917",
-      "name": "Bitcoin",
-      "symbol": "BTC",
-      "originalSymbol": "BTC",
-      "totalSupply": "2100000000000000",
-      "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a"
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`Token`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+        "tokenId": "tti_4e88a475c675971dab7ec917",
+        "name": "Bitcoin",
+        "symbol": "BTC",
+        "originalSymbol": "BTC",
+        "totalSupply": "2100000000000000",
+        "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a"
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/tokens method: GET
+  {}
+  ```
+  :::
 
 ### `/api/v1/token/detail`
 

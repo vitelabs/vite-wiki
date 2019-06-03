@@ -246,6 +246,7 @@ module.exports = {
         'pangu',
         'tabs',
         [require('./plugins/tab-code-example')],
+        // [require('./plugins/tabs-request-plugin')],
         [
           '@vuepress/last-updated',
           {

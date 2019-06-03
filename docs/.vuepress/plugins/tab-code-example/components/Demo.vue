@@ -10,7 +10,7 @@
             <div class="demo-test-title">
               {{tab.name}}
             </div>
-            <input type="url" v-model="url">
+            <input type="url" v-model="tab.url">
             <span class="code-play-btn" @click="onPlayClick(index)">
             <v-icon icon="play"></v-icon>
           </span>
@@ -78,6 +78,24 @@
     }
   }
 
+  function parseInfo(infoArr) {
+    let keys = ['tab', 'url', 'method', 'test']
+    let ob = {}
+    keys.forEach(item => {
+      ob[item] = null
+    })
+    if (['tab', 'test'].indexOf(infoArr[0]) === -1) {
+      infoArr.shift()
+    }
+    for (let i = 0; i < infoArr.length; i++) {
+      let index = keys.indexOf(infoArr[i])
+      if (index > -1) {
+        ob[keys[index]] = (infoArr[i+1] && infoArr[i+1].replace(/'/g, '')) || 'test'
+      }
+    }
+    return ob
+  }
+
 
   export default {
     components: {
@@ -93,11 +111,13 @@
       demoConfig() {
         let {demo} = this.$themeLocaleConfig
         return demo || defaultDemoConfig
+      },
+      preDefinedUrl() {
+        return this.$page.frontmatter.demoUrl || getReqUrl()
       }
     },
     data: function () {
       let codeList = this.$slots.default
-      // console.log(this.$slots.default)
       if (!Array.isArray(codeList)) {
         codeList = []
       }
@@ -126,12 +146,16 @@
           name: item.name.replace('tab:', '').trim()
         }
       })
+
+
       testList = testList.map(item => {
         return {
           ...item,
           name: item.name.replace('test:', '').trim()
         }
       })
+
+
       let codeSlot = this.$slots.code || []
 
 
@@ -142,22 +166,33 @@
       }
       let testSourceCode = []
       let tabSourceCode = []
+
+
       sourceCode.filter(item => item && item.info).forEach(item => {
         let {info = ''} = item
-        let testMatchArr = info.match(/(\s|^)test(:\s*|$)(.*)/)
-        let tabMatchArr = info.match(/(\s|^)tab:\s*(.*)/)
-        if (!testMatchArr && !tabMatchArr) {
+        info = info.replace(/:\s*/g, ':')
+        let infoArr = []
+        info.trim().split(':').forEach((item) => {
+           item.trim().split(' ').forEach((attr, index)=>{
+             infoArr.push(attr.trim())
+           })
+        })
+        let infoOb = parseInfo(infoArr)
+        if (!infoOb.tab && !infoOb.test) {
           return
         }
-        if (testMatchArr) {
+        if (infoOb.test) {
           testSourceCode.push({
             ...item,
-            name: testMatchArr[3].trim()
+            ...infoOb,
+            name: infoOb.test,
+            url: this.getUrl(infoOb.url)
           })
-        } else if (tabMatchArr) {
+        } else if (infoOb.tab) {
           tabSourceCode.push({
             ...item,
-            name: tabMatchArr[2].trim()
+            ...infoOb,
+            name: infoOb.tab
           })
         }
       })
@@ -189,21 +224,35 @@
           ...defaultCmOptions,
           readOnly: true
         },
-        selectedTab: null,
-        url: getReqUrl()
+        selectedTab: null
       }
+    },
+    mounted() {
+      this.testSourceCode.forEach((item, index) => {
+        item.url = this.getUrl(item.url)
+      })
     },
     methods: {
       onTabChanged(selectedTab) {
         this.selectedTab = selectedTab.tab.name
       },
-      run(reqData) {
-        return fetch(this.url || getReqUrl(), {
-          method: 'POST',
+      getUrl(url) {
+        if (url) {
+          if (url.startsWith('http')) {
+            return url
+          } else {
+            return (this.preDefinedUrl || '') + url
+          }
+        }
+        return url
+      },
+      run(reqData, opts = {}) {
+        return fetch(opts.url || this.url || getReqUrl(), {
+          method: opts.method || 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(reqData)
+          body: opts.method === 'GET' ? null : JSON.stringify(reqData)
         }).then(response => {
           if (response.status >= 200 && response.status < 300) {
             return response
@@ -228,7 +277,7 @@
         try {
           let json = JSON.parse(code)
 
-          this.run(json).then(data => {
+          this.run(json, {url: testCodeItem.url, method: testCodeItem.method}).then(data => {
             Vue.set(this.testSourceCode, index, {
               ...testCodeItem,
               success: true,
