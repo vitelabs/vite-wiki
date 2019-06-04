@@ -273,9 +273,9 @@ Return daily pending rewards for all supernodes in the specified consensus group
 - **Returns**: 
 
 `map<string>Object` 
-  1. `totalReward`: `string`  Pending rewards
-  2. `blockReward`: `Address`  Pending block creation rewards
-  3. `voteReward`: `Address`  Pending candidate additional rewards(voting rewards)
+  1. `totalReward`: `string`  Total rewards in the day
+  2. `blockReward`: `Address`  Block creation rewards in the day
+  3. `voteReward`: `Address`  Candidate additional rewards(voting rewards) in the day
   4. `expectedBlockNum`: `uint64` Target block producing number in the day. If zero block is produced by all supernodes in a round, the target block producing number in this round won't be counted in that of the day  
   5. `blockNum`: `uint64`  Real block producing number in the day
 
