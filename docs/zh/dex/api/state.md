@@ -481,7 +481,7 @@ demoUrl: "https://vitex.vite.net/test"
     "data": {
         "symbol": "CSTT-47E_VITE",
         "bidPrice": "1.00000000",
-        "bidQuantity": "45336.20000000"
+        "bidQuantity": "45336.20000000",
         "askPrice": "1.00000000",
         "askQuantity": "45336.20000000"
       }
