@@ -315,7 +315,7 @@ ABI：
 :::
 
 ## register_getCandidateList
-查询候选节点列表
+查询快照共识组候选节点列表
 
 - **Parameters**: 
 
@@ -508,7 +508,7 @@ ABI：
 :::
 
 ## vote_getCancelVoteData
-获取为出块节点投票交易请求数据，也可以通过对ABI中的`CancelVote`方法编码获取交易请求数据。
+获取取消为出块节点投票交易请求数据，也可以通过对ABI中的`CancelVote`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
