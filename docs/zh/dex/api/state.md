@@ -467,7 +467,7 @@ demoUrl: "https://vitex.vite.net/test"
 
   |code|msg|data|
   |:--|:--|:--:|
-  |0|success|[`BookTicker`]|
+  |0|success|`BookTicker`|
   |1|error_msg|null|
 
 * **Example**
@@ -478,15 +478,13 @@ demoUrl: "https://vitex.vite.net/test"
   {
     "code": 0,
     "msg": "ok",
-    "data": [
-      {
+    "data": {
         "symbol": "CSTT-47E_VITE",
         "bidPrice": "1.00000000",
         "bidQuantity": "45336.20000000"
         "askPrice": "1.00000000",
         "askQuantity": "45336.20000000"
       }
-    ]
   }
   ```
   
