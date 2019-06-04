@@ -32,7 +32,7 @@ demoUrl: "https://vitex.vite.net/test"
 
 ### `/api/v1/tokens`
 
-Get tokens list。
+获取所有的Token列表
 
 * **Method**: `GET` 
 
@@ -41,9 +41,9 @@ Get tokens list。
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
   |category|query|default `all`; Allowed value:[`quote`,`all`]|no|string|
-  |tokenSymbolLike|query|symbol like;e.g. `ETH`|no|string|
-  |offset|query|start with `0`; default `0`.|no|integer|
-  |limit|query|default `500`; max `500`.|no|integer|
+  |tokenSymbolLike|query|symbol like; e.g. `ETH`|no|string|
+  |offset|query|start with `0`; default `0`|no|integer|
+  |limit|query|default `500`; max `500`|no|integer|
 
 * **Responses**
 
@@ -80,656 +80,759 @@ Get tokens list。
 
 ### `/api/v1/token/detail`
 
-> Describe
-```
-Get Token Detail.
-```
+获取Token的详细信息
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|tokenSymbol|query|the `symbol` of token, e.g. `ETH` |no|string|
-|tokenId|query|the `tokenId` of token, e.g. `tti_2152a3d33c5e2fc90073fad4`|no|string|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |tokenSymbol|query|the `symbol` of token; e.g. `VITE`|no|string|
+  |tokenId|query|the `tokenId` of token; e.g. `tti_5649544520544f4b454e6e40`|no|string|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`TokenDetail`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "tokenId": "tti_4e88a475c675971dab7ec917",
-    "name": "Bitcoin",
-    "symbol": "BTC",
-    "originalSymbol": "BTC",
-    "totalSupply": "2100000000000000",
-    "publisher": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-    "tokenDecimals": 8,
-    "tokenAccuracy": "0.00000001",
-    "publisherDate": null,
-    "reissue": 2,
-    "urlIcon": null,
-    "gateway": null,
-    "website": null,
-    "links": null,
-    "overview": null
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`TokenDetail`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "tokenId": "tti_4e88a475c675971dab7ec917",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "originalSymbol": "BTC",
+      "totalSupply": "2100000000000000",
+      "publisher": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+      "tokenDecimals": 8,
+      "tokenAccuracy": "0.00000001",
+      "publisherDate": null,
+      "reissue": 2,
+      "urlIcon": null,
+      "gateway": null,
+      "website": null,
+      "links": null,
+      "overview": null
+    }
   }
-}
-```
-
+  ```
+  
+  ```json test:Test url: /api/v1/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
+  {}
+  ```
+  :::
+  
 ### `/api/v1/token/mapped`
 
-> Describe
-```
-Get Token Mapped list.
-```
+获取已开通交易对的Token列表
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|quoteTokenSymbol|query|the `symbol` of quote token, e.g. `vite` |yes|string|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |quoteTokenSymbol|query|the `symbol` of quote token; e.g. `VITE` |yes|string|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`TokenMapping`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "tokenId": "tti_c2695839043cf966f370ac84",
-      "symbol": "VCP"
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`TokenMapping`]|
+  |1|error_msg|null|
 
+* **Example**
 
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+        "tokenId": "tti_c2695839043cf966f370ac84",
+        "symbol": "VCP"
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/token/mapped?quoteTokenSymbol=VITE method: GET
+  {}
+  ```
+  :::
+  
 ### `/api/v1/token/unmapped`
 
-> Describe
-```
-Get Token Unmapped list.上币时查询使用；
-```
+获取未开通交易对的Token列表(上币使用)
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|quoteTokenSymbol|query|the `symbol` of quote token, e.g. `vite` |yes|string|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |quoteTokenSymbol|query|the `symbol` of quote token; e.g. `VITE`|yes|string|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`TokenMapping`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "tokenId": "tti_2736f320d7ed1c2871af1d9d",
-      "symbol": "VTT"
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`TokenMapping`]|
+  |1|error_msg|null|
 
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+        "tokenId": "tti_2736f320d7ed1c2871af1d9d",
+        "symbol": "VTT"
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/token/unmapped?quoteTokenSymbol=VITE method: GET
+  {}
+  ```
+  :::
+  
 ### `/api/v1/markets`
 
-> Describe
-```
-Get Markets list.
-```
+获取所有的市场(交易对)
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|offset|query|start with `0`; default `0`.|no|integer|
-|limit|query|default `500`; max `500`.|no|integer|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |offset|query|start with `0`; default `0`|no|integer|
+  |limit|query|default `500`; max `500`|no|integer|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`Market`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "symbol": "BTC-A_USDT",
-      "tradeTokenSymbol": "BTC-A",
-      "quoteTokenSymbol": "USDT",
-      "tradeToken": "tti_322862b3f8edae3b02b110b1",
-      "quoteToken": "tti_973afc9ffd18c4679de42e93",
-      "pricePrecision": 8,
-      "quantityPrecision": 8
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`Market`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+        "symbol": "BTC-A_USDT",
+        "tradeTokenSymbol": "BTC-A",
+        "quoteTokenSymbol": "USDT",
+        "tradeToken": "tti_322862b3f8edae3b02b110b1",
+        "quoteToken": "tti_973afc9ffd18c4679de42e93",
+        "pricePrecision": 8,
+        "quantityPrecision": 8
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/markets method: GET
+  {}
+  ```
+  :::
 
 ### `/api/v1/orders/open`
 
-> Describe
-```
-Get Opened Order list.
-```
+获取Pending(挂单中)状态的订单
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|address|query|start with `0`; default `0`.|yes|string|
-|quoteTokenSymbol|query|the `symbol` of quote token.|no|string|
-|tradeTokenSymbol|query|the `symbol` of trade token.|no|string|
-|offset|query|start with `0`; default `0`.|no|integer|
-|limit|query|default `30`; max `100`.|no|integer|
-|total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |address|query|start with `0`; default `0`|yes|string|
+  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
+  |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
+  |offset|query|start with `0`; default `0`|no|integer|
+  |limit|query|default `30`; max `100`|no|integer|
+  |total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`OrderList`|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "order": [
-      {
-        "orderId": "quEOx/ai3o7Xyv9em+qJIbJu7pM=",
-        "symbol": "VCP-4_VITE",
-        "tradeTokenSymbol": "VCP.test",
-        "quoteTokenSymbol": "VITE",
-        "tradeToken": "tti_c2695839043cf966f370ac84",
-        "quoteToken": "tti_5649544520544f4b454e6e40",
-        "side": 1,
-        "price": "6.00000000",
-        "quantity": "1.00000000",
-        "amount": "6.00000000",
-        "executedQuantity": "0.00000000",
-        "executedAmount": "0.00000000",
-        "executedPercent": "0.00000000",
-        "executedAvgPrice": "0.00000000",
-        "fee": "0.00000000",
-        "status": 1,
-        "type": 0,
-        "createTime": 1554722699
-      }
-    ],
-    "total": 13
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`OrderList`|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "order": [
+        {
+          "orderId": "quEOx/ai3o7Xyv9em+qJIbJu7pM=",
+          "symbol": "VCP-4_VITE",
+          "tradeTokenSymbol": "VCP.test",
+          "quoteTokenSymbol": "VITE",
+          "tradeToken": "tti_c2695839043cf966f370ac84",
+          "quoteToken": "tti_5649544520544f4b454e6e40",
+          "side": 1,
+          "price": "6.00000000",
+          "quantity": "1.00000000",
+          "amount": "6.00000000",
+          "executedQuantity": "0.00000000",
+          "executedAmount": "0.00000000",
+          "executedPercent": "0.00000000",
+          "executedAvgPrice": "0.00000000",
+          "fee": "0.00000000",
+          "status": 1,
+          "type": 0,
+          "createTime": 1554722699
+        }
+      ],
+      "total": 13
+    }
   }
-}
-```
+  ```
+  
+  ```json test:Test url: /api/v1/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  {}
+  ```
+  :::
 
 ### `/api/v1/orders`
 
-> Describe
-```
-Get Order list.
-```
+获取订单列表
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|address|query|the buyer/seller address|yes|string|
-|quoteTokenSymbol|query|the `symbol` of quote token.|no|string|
-|tradeTokenSymbol|query|the `symbol` of trade token.|no|string|
-|startTime|query|start time in Seconds.|no|long|
-|endTime|query|end time in Seconds.|no|long|
-|side|query|order side. Allowed value: [`0`:buy, `1`:sell].|no|integer|
-|status|query|order status list. Allowed value: [`1`:open, `2`:closed, `3`:canceled, `4`:failed].|no|integer|
-|offset|query|start with `0`; default `0`.|no|integer|
-|limit|query|default `30`; max `100`.|no|integer|
-|total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |address|query|the buyer/seller address|yes|string|
+  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
+  |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
+  |startTime|query|start time in Seconds|no|long|
+  |endTime|query|end time in Seconds|no|long|
+  |side|query|order side; Allowed value: [`0`:buy, `1`:sell]|no|integer|
+  |status|query|order status list; Allowed value: [`1`:open, `2`:closed, `3`:canceled, `4`:failed]|no|integer|
+  |offset|query|start with `0`; default `0`|no|integer|
+  |limit|query|default `30`; max `100`|no|integer|
+  |total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`OrderList`|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "order": [
-      {
-        "orderId": "ZDFDKEcwCs2BVs8fE8vULzb10/g=",
-        "symbol": "CSTT-47E_VITE",
-        "tradeTokenSymbol": "CSTT.test",
-        "quoteTokenSymbol": "VITE",
-        "tradeToken": "tti_b6f7019878fdfb21908a1547",
-        "quoteToken": "tti_5649544520544f4b454e6e40",
-        "side": 0,
-        "price": "1.00000000",
-        "quantity": "118222.20000000",
-        "amount": "118222.20000000",
-        "executedQuantity": "0.00000000",
-        "executedAmount": "0.00000000",
-        "executedPercent": "0.00000000",
-        "executedAvgPrice": "0.00000000",
-        "fee": "0.00000000",
-        "status": 4,
-        "type": 0,
-        "createTime": 1554702092
-      }
-    ],
-    "total": 1215
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`OrderList`|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "order": [
+        {
+          "orderId": "ZDFDKEcwCs2BVs8fE8vULzb10/g=",
+          "symbol": "CSTT-47E_VITE",
+          "tradeTokenSymbol": "CSTT.test",
+          "quoteTokenSymbol": "VITE",
+          "tradeToken": "tti_b6f7019878fdfb21908a1547",
+          "quoteToken": "tti_5649544520544f4b454e6e40",
+          "side": 0,
+          "price": "1.00000000",
+          "quantity": "118222.20000000",
+          "amount": "118222.20000000",
+          "executedQuantity": "0.00000000",
+          "executedAmount": "0.00000000",
+          "executedPercent": "0.00000000",
+          "executedAvgPrice": "0.00000000",
+          "fee": "0.00000000",
+          "status": 4,
+          "type": 0,
+          "createTime": 1554702092
+        }
+      ],
+      "total": 1215
+    }
   }
-}
-```
+  ```
+  
+  ```json test:Test url: /api/v1/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  {}
+  ```
+  :::
 
 ### `/api/v1/ticker/24hr`
 
-> Describe
-```
-Get 24 hour price change statistics for all market pair symbol.
-```
+获取ticker的24小时价格变化统计信息
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|symbols|query|market pair symbols. split by '`,`,e.g. `CSTT-47E_VITE,CSTT-47E_VITE`.|no|string|
-|quoteTokenSymbol|query|the `symbol` of quote token.|no|string|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |symbols|query|market pair symbols; split by `,`; e.g. `ABC-000_VITE,ABC-001_VITE`|no|string|
+  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`TickerStatistics`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "symbol": "CSTT-47E_VITE",
-      "tradeTokenSymbol": "CSTT",
-      "quoteTokenSymbol": "VITE",
-      "tradeToken": "tti_b6f7019878fdfb21908a1547",
-      "quoteToken": "tti_5649544520544f4b454e6e40",
-      "openPrice": "1.00000000",
-      "prevClosePrice": "0.00000000",
-      "closePrice": "1.00000000",
-      "priceChange": "0.00000000",
-      "priceChangePercent": 0.0,
-      "highPrice": "1.00000000",
-      "lowPrice": "1.00000000",
-      "quantity": "45336.20000000",
-      "amount": "45336.20000000",
-      "pricePrecision": 8,
-      "quantityPrecision": 8
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`TickerStatistics`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+        "symbol": "CSTT-47E_VITE",
+        "tradeTokenSymbol": "CSTT",
+        "quoteTokenSymbol": "VITE",
+        "tradeToken": "tti_b6f7019878fdfb21908a1547",
+        "quoteToken": "tti_5649544520544f4b454e6e40",
+        "openPrice": "1.00000000",
+        "prevClosePrice": "0.00000000",
+        "closePrice": "1.00000000",
+        "priceChange": "0.00000000",
+        "priceChangePercent": 0.0,
+        "highPrice": "1.00000000",
+        "lowPrice": "1.00000000",
+        "quantity": "45336.20000000",
+        "amount": "45336.20000000",
+        "pricePrecision": 8,
+        "quantityPrecision": 8
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/ticker/24hr?quoteTokenSymbol=VITE method: GET
+  {}
+  ```
+  :::
+
 
 ### `/api/v1/ticker/bookTicker`
 
-> Describe
-```
-Get the best price for market pair symbol.
-```
+获取ticker的最佳价格
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|symbol|query|market pair symbol. e.g. `CSTT-47E_VITE`.|yes|string|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |symbol|query|market pair symbol. e.g. `ABC-000_VITE`|yes|string|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`BookTicker`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "symbol": "CSTT-47E_VITE",
-      "bidPrice": "1.00000000",
-      "bidQuantity": "45336.20000000"
-      "askPrice": "1.00000000",
-      "askQuantity": "45336.20000000"
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`BookTicker`]|
+  |1|error_msg|null|
 
-### `/api/v1/trades`
+* **Example**
 
-> Describe
-```
-Get market trades.
-```
-
-> Parameters
-
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
-|orderId|query|order id.|no|string|
-|startTime|query|start time in Seconds.|no|long|
-|endTime|query|end time in Seconds.|no|long|
-|side|query|order side. Allowed value: [`0`:buy, `1`:sell].|no|integer|
-|offset|query|start with `0`; default `0`.|no|integer|
-|limit|query|default `30`; max `100`.|no|integer|
-|total|query|total number required ;`0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
-
-> Responses
-
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`TradeList`|
-|1|error_msg|null|
-
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "trade": [
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
       {
-        "tradeId": "4EOgUqsCyZ73O4+A2gZuK9RfOXs=",
-        "symbol": "VTT-F_ETH",
-        "tradeTokenSymbol": "VTT",
-        "quoteTokenSymbol": "ETH",
-        "tradeToken": "tti_2736f320d7ed1c2871af1d9d",
-        "quoteToken": "tti_06822f8d096ecdf9356b666c",
-        "price": "0.10000000",
-        "quantity": "1.00000000",
-        "amount": "0.10000000",
-        "time": 1554793244,
-        "side": 0,
-        "buyerOrderId": "DqpoIXTCT+4s1rMBFVCoWY9iDys=",
-        "sellerOrderId": "FB4eiknqAQpIEOYi+HgamZOj/ac=",
-        "buyFee": "0.00010000",
-        "sellFee": "0.00010000",
-        "blockHeight": 2806
-      }
-    ],
-    "total": 1
-  }
-}
-```
-
-### `/api/v1/depth`
-
-> Describe
-```
-Get market depth.
-```
-
-> Parameters
-
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
-|limit|query|default `100`; max `100`.|no|integer|
-
-> Responses
-
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`MarketDepth`]|
-|1|error_msg|null|
-
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "asks": [
-      {
-        "price": "1.00000000",
-        "quantity": "111233.50000000",
-        "amount": "111233.50000000"
-      }    
-    ],
-    "bids": [
-      {
-        "price": "2.00000000",
-        "quantity": "111233.50000000",
-        "amount": "111233.50000000"
+        "symbol": "CSTT-47E_VITE",
+        "bidPrice": "1.00000000",
+        "bidQuantity": "45336.20000000"
+        "askPrice": "1.00000000",
+        "askQuantity": "45336.20000000"
       }
     ]
   }
-}
-```
+  ```
+  
+  ```json test:Test url: /api/v1/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
+  {}
+  ```
+  :::
+  
+### `/api/v1/trades`
+
+获取所有的交易(订单撮合)记录
+
+* **Method**: `GET` 
+
+* **Parameters**
+
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |symbol|query|market pair symbol ; e.g. `BTC-000_VITE`.|yes|string|
+  |orderId|query|order id.|no|string|
+  |startTime|query|start time in Seconds.|no|long|
+  |endTime|query|end time in Seconds.|no|long|
+  |side|query|order side. Allowed value: [`0`:buy, `1`:sell].|no|integer|
+  |offset|query|start with `0`; default `0`.|no|integer|
+  |limit|query|default `30`; max `100`.|no|integer|
+  |total|query|total number required ;`0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+
+* **Responses**
+
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`TradeList`|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "trade": [
+        {
+          "tradeId": "4EOgUqsCyZ73O4+A2gZuK9RfOXs=",
+          "symbol": "VTT-F_ETH",
+          "tradeTokenSymbol": "VTT",
+          "quoteTokenSymbol": "ETH",
+          "tradeToken": "tti_2736f320d7ed1c2871af1d9d",
+          "quoteToken": "tti_06822f8d096ecdf9356b666c",
+          "price": "0.10000000",
+          "quantity": "1.00000000",
+          "amount": "0.10000000",
+          "time": 1554793244,
+          "side": 0,
+          "buyerOrderId": "DqpoIXTCT+4s1rMBFVCoWY9iDys=",
+          "sellerOrderId": "FB4eiknqAQpIEOYi+HgamZOj/ac=",
+          "buyFee": "0.00010000",
+          "sellFee": "0.00010000",
+          "blockHeight": 2806
+        }
+      ],
+      "total": 1
+    }
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/trades?symbol=BTC-000_VITE-000 method: GET
+  {}
+  ```
+  :::
+  
+### `/api/v1/depth`
+
+获取市场(交易对)的深度
+
+* **Method**: `GET` 
+
+* **Parameters**
+
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
+  |limit|query|default `100`; max `100`.|no|integer|
+
+* **Responses**
+
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`MarketDepth`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "asks": [
+        {
+          "price": "1.00000000",
+          "quantity": "111233.50000000",
+          "amount": "111233.50000000"
+        }    
+      ],
+      "bids": [
+        {
+          "price": "2.00000000",
+          "quantity": "111233.50000000",
+          "amount": "111233.50000000"
+        }
+      ]
+    }
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/depth?symbol=BTC-000_VITE-000 method: GET
+  {}
+  ```
+  :::
 
 ### `/api/v1/klines`
 
-> Describe
-```
-Get market kline.
-```
+获取市场(交易对)的K线
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
-|interval|query|interval. Allowed value: [`minute`、`hour`、`day`、`minute30`、`hour6`、`hour12`、`week`]|yes|string|
-|limit|query|default `500`; max `1500`.|no|integer|
-|startTime|query|start time in Seconds.|no|integer|
-|endTime|query|end time in Seconds.|no|integer|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
+  |interval|query|interval. Allowed value: [`minute`、`hour`、`day`、`minute30`、`hour6`、`hour12`、`week`]|yes|string|
+  |limit|query|default `500`; max `1500`.|no|integer|
+  |startTime|query|start time in Seconds.|no|integer|
+  |endTime|query|end time in Seconds.|no|integer|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`MarketKline`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "t": [
-      1554207060
-    ],
-    "c": [
-      1.0
-    ],
-    "p": [
-      1.0
-    ],
-    "h": [
-      1.0
-    ],
-    "l": [
-      1.0
-    ],
-    "v": [
-      12970.8
-    ]
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`MarketKline`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "t": [
+        1554207060
+      ],
+      "c": [
+        1.0
+      ],
+      "p": [
+        1.0
+      ],
+      "h": [
+        1.0
+      ],
+      "l": [
+        1.0
+      ],
+      "v": [
+        12970.8
+      ]
+    }
   }
-}
-```
+  ```
+  
+  ```json test:Test url: /api/v1/klines?symbol=BTC-000_VITE-000&interval=minute method: GET
+  {}
+  ```
+  :::
+  
+### `/api/v1/deposit-withdraw`
 
+获取充提记录
 
-### `GET` `/api/v1/deposit-withdraw`
+* **Method**: `GET` 
 
-> Describe
-```
-Get Deposit WithDraw Records.
-```
+* **Parameters**
 
-> Parameters
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |address|query|the buyer/seller address|yes|string|
+  |tokenId|query|token id.|yes|string|
+  |offset|query|start with `0`; default `0`.|no|integer|
+  |limit|query|default `100`; max `100`.|no|integer|
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|address|query|the buyer/seller address|yes|string|
-|tokenId|query|token id.|yes|string|
-|offset|query|start with `0`; default `0`.|no|integer|
-|limit|query|default `100`; max `100`.|no|integer|
+* **Responses**
 
-> Responses
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`DepositWithdrawList`|
+  |1|error_msg|null|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`DepositWithdrawList`|
-|1|error_msg|null|
+* **Example**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": {
-    "record": [
-      {
-        "time": 1555057049,
-        "tokenSymbol": "VITE",
-        "amount": "1000000.00000000",
-        "type": 1
-      }
-    ],
-    "total": 16
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "record": [
+        {
+          "time": 1555057049,
+          "tokenSymbol": "VITE",
+          "amount": "1000000.00000000",
+          "type": 1
+        }
+      ],
+      "total": 16
+    }
   }
-}
-```
-
+  ```
+  
+  ```json test:Test url: /api/v1/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
+  {}
+  ```
+  :::
+  
 ### `/api/v1/exchange-rate`
 
-> Describe
-```
-Get Token Exchange-Rate.
-```
+获取Token的汇率
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
-|tokenSymbols|query|token symbols ; split by `,` ; e.g. `CSTT-47E_VITE,CSTT-47E_VITE`.|no|string|
-|tokenIds|query|token ids ; split by `,`; e.g.`tti_5649544520544f4b454e6e40,tti_5649544520544f4b454e6e40`.|no|string|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |tokenSymbols|query|token symbols ; split by `,` ; e.g. `CSTT-47E_VITE,CSTT-47E_VITE`.|no|string|
+  |tokenIds|query|token ids ; split by `,`; e.g.`tti_5649544520544f4b454e6e40,tti_5649544520544f4b454e6e40`.|no|string|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|[`ExchangeRate`]|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": [
-    {
-      "tokenId": "tti_5649544520544f4b454e6e40",
-      "tokenSymbol": "VITE",
-      "usdRate": 0.03,
-      "cnyRate": 0.16
-    }
-  ]
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`ExchangeRate`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+        "tokenId": "tti_5649544520544f4b454e6e40",
+        "tokenSymbol": "VITE",
+        "usdRate": 0.03,
+        "cnyRate": 0.16
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
+  {}
+  ```
+  :::  
 
 ### `/api/v1/usd-cny`
 
-> Describe
-```
-Get Usd-Cny Exchange-Rate.
-```
+获取USD-CNY的汇率
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`double`|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": 6.849
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`double`|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": 6.849
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/usd-cny method: GET
+  {}
+  ```
+  ::: 
 
 ### `/api/v1/time`
 
-> Describe
-```
-Get the Server Time.
-```
+获取服务器时间(ms)
 
-> Parameters
+* **Method**: `GET` 
 
-|Name|Located In|Description|Required|Schema|
-|:--|:--|:---|:---|:--:|
+* **Parameters**
 
-> Responses
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
 
-|code|msg|data|
-|:--|:--|:--:|
-|0|success|`long`|
-|1|error_msg|null|
+* **Responses**
 
-> Responses Demo
-```
-{
-  "code": 0,
-  "msg": "ok",
-  "data": 1559033445000
-}
-```
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|`long`|
+  |1|error_msg|null|
 
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": 1559033445000
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/time method: GET
+  {}
+  ```
+  ::: 
 
 ## 2. WS接入文档
 ### 1. 环境地址：
