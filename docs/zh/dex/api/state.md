@@ -730,7 +730,7 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |tokenSymbols|query|token symbols ; split by `,` ; e.g. `CSTT-47E_VITE,CSTT-47E_VITE`.|no|string|
+  |tokenSymbols|query|token symbols ; split by `,` ; e.g. `VITE,ETH`.|no|string|
   |tokenIds|query|token ids ; split by `,`; e.g.`tti_5649544520544f4b454e6e40,tti_5649544520544f4b454e6e40`.|no|string|
 
 * **Responses**
