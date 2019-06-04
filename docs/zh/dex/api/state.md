@@ -4,7 +4,7 @@ demoUrl: "https://vitex.vite.net/test"
 
 # 数据查询服务
 
-## 1. RestAPI接入文档
+## RestAPI接入文档
 
 ### 环境地址
 * 【test】`https://vitex.vite.net/test`
@@ -834,7 +834,7 @@ demoUrl: "https://vitex.vite.net/test"
   ```
   ::: 
 
-## 2. WS接入文档
+## WS接入文档
 ### 1. 环境地址：
 * 【测试】wss://vitex.vite.net/test/websocket
 * op_type:`ping`消息包需要至少1分钟周期发送，如果：心跳间隔超过1分钟后，注册的event会失效清理
