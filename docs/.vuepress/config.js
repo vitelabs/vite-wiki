@@ -76,10 +76,7 @@ const sidebarConfigs = {
               'contract/subscribe',
               'contract/dapp'
           ]
-        },
-        // {
-        //   children: ['dex/']
-        // }
+        }
     ],
     'api/rpc': [
         {
@@ -176,6 +173,17 @@ const sidebarConfigs = {
                 'vep-16'
             ]
         }
+    ],
+    dex: [
+      {
+        children: ['']
+      },
+      {
+        children: ['api/gate', 'api/state']
+      },
+      {
+        children: ['operation/gate-integration','operation/', 'operation/how-to', 'operation/tutorial']
+      }
     ]
 };
 
@@ -239,6 +247,7 @@ module.exports = {
         'pangu',
         'tabs',
         [require('./plugins/tab-code-example')],
+        // [require('./plugins/tabs-request-plugin')],
         [
           '@vuepress/last-updated',
           {
@@ -294,7 +303,8 @@ module.exports = {
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', '交易所'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'P2P', '公共组件'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包')
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包'),
+                    '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
