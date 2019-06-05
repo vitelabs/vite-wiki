@@ -22,15 +22,15 @@ Gvite supports installation from binary or source code
 Download latest gvite installation package at [gvite Releases](https://github.com/vitelabs/go-vite/releases) in command line then install
 
 ### Installation example on ubuntu
-```bash
+```bash  replace version
 ## Download
 curl -L -O  https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
-```
+```bash replace version
 ## Unpack package
 tar -xzvf gvite-${version}-linux.tar.gz
 ```
-```
+```bash replace version
 ## Enter the folder extracted. It should have three files: gvite, bootstrap and node_config.json
 cd gvite-${version}-linux
 ```
@@ -52,7 +52,7 @@ Start the Node success!!!
 
 ### Installation example on mac 
 
-```bash
+```bash replace version
 ## Download
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-darwin.tar.gz
 ## Unpack package
@@ -81,7 +81,7 @@ Start the Node success!!!
 ### Installation example on windows 
 Open up your preferred browser and paste in the following link:
 
-```bash
+```bash replace version
 https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-windows.tar.gz
 ```
 and save file to preferred directory. Upon download completion, open up explorer, navigate to the directory where file is downloaded to, right click file and select extract file option.
@@ -100,7 +100,7 @@ To launch node, simply open up command prompt (by pressing Win + R, then, type c
 
 Then in command prompt:
 
-```
+```bash replace version
 C:\Users\user>d:
 
 D:\>cd gvite-${version}-windows
