@@ -9,20 +9,22 @@
 
 ### 下载安装
 
+gvite版本记录可以从 [gvite release history](https://github.com/vitelabs/go-vite/releases)获得，下载Latest release版本。
+
 ```bash
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/v1.2.3-alpha.4/gvite-v1.2.3-alpha.4-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
-```
+```bash
 ## 解压
-tar -xzvf gvite-v1.2.3-alpha.4-linux.tar.gz
+tar -xzvf gvite-${version}-linux.tar.gz
 ```
-```
-## 修改文件名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-mv gvite-v1.2.3-alpha.4-linux vite
+```bash
+## 修改目录名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
+mv gvite-${version}-linux vite
 cd vite
 ```
-```
+```bash
 ## 启动
 ./bootstrap
 ```
@@ -38,8 +40,8 @@ cat gvite.log
 如下说明启动成功
 
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/maindata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/maindata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
@@ -64,13 +66,11 @@ pwd
 通过命令行连接全节点：找到[全节点的安装目录][pwd]。进入到该目录，然后执行如下命令
 
   ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
   ```
 
   得到类似如下的结果，代表已经连接成功
   ```
-  INFO[11-12|16:47:07] cannot read the config file, will use the default config module=config error="open vite.config.json: no such file or directory"
-  INFO[11-12|16:47:07]                                          monitor-log=/home/ubuntu/go-vite/backend-log/backend.log.30693
   Welcome to the Gvite JavaScript console!
   ->
   ```
@@ -89,7 +89,7 @@ vite.wallet_newMnemonicAndEntropyStore("123456")
     "result": {
         "mnemonic": "24 g个单词", 
         "primaryAddr": "vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf", 
-        "filename": "~/.gvite/testdata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
+        "filename": "~/.gvite/maindata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
     }
 }
 ```
@@ -102,14 +102,14 @@ vite.wallet_newMnemonicAndEntropyStore("123456")
 ### 验证钱包是否创建
 
 ```bash
-ls ~/.gvite/testdata/wallet/
+ls ~/.gvite/maindata/wallet/
 ```
 会得到以下结果：
 
 ```bash
-vite_065f8e8ed83dcd581bfb925ff285268d28ead80a9fc92ff083
+vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf
 ```
-`vite_065f8e8ed83dcd581bfb925ff285268d28ead80a9fc92ff083`：就是上面创建的钱包的地址，如果创建了多个钱包，这里会显示多个条目。
+`vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf`：就是上面创建的钱包的地址，如果创建了多个钱包，这里会显示多个条目。
 
 ## 编辑node_config.json
 
@@ -136,7 +136,7 @@ vi node_config.json
 杀死进程
 
 ```bash
-ps -efww|grep -w 'gvite'|grep -v grep|cut -c 9-15|xargs kill -9
+pgrep gvite | xargs kill -9
 ```
 
 重新执行
@@ -147,7 +147,7 @@ ps -efww|grep -w 'gvite'|grep -v grep|cut -c 9-15|xargs kill -9
 验证是否启动成功：
 
 ```bash
-ps -efww|grep -w 'gvite'
+ps -efww | grep -w 'gvite'
 ```
 
 如果显示以下内容即为启动成功：
@@ -159,7 +159,7 @@ root      6560  5939  0 12:29 pts/1    00:00:00 grep --color=auto -w gvite
 ## 查询区块同步高度
 
 ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
 ```
 在交互命令行中输入：
 ```javascript
@@ -304,7 +304,7 @@ vi ~/.bashrc
 往里面添加以下内容
 
 ```bash
-alias vite="~/vite/gvite attach ~/.gvite/testdata/gvite.ipc"
+alias vite="~/vite/gvite attach ~/.gvite/maindata/gvite.ipc"
 ```
 然后执行
 
@@ -321,8 +321,6 @@ vite
 会输出以下内容：
 
 ```bash
-INFO[11-15|12:54:38]                                          monitor-log=/root/go-vite/backend-log/backend.log.9104
-this vite node`s git GO version is  7aa4ebc97dfb1d9be4cdd812bd68170b13de59f5
 Welcome to the Gvite JavaScript console!
 -> 
 ```

@@ -36,7 +36,7 @@ Mintage transaction will burn ***1,000 VITE***.
 ### Parameters
 
 * `tokenName`: **1**-**40** characters token name, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-* `tokenSymbol`: **1**-**10** characters token symbol, including uppercase and lowercase letters and numbers
+* `tokenSymbol`: **1**-**10** characters token symbol, including uppercase and lowercase letters and numbers. Existing names like VITE, VCP and VX cannot be reused.
 * `totalSupply` and `decimals`: Having $totalSupply \times 10^{decimals} \leq 2^{256}-1$
 * `isReIssuable`: Token type. Fixed-supply or re-issuable.
 * `maxSupply`: Maximum supply. Mandatory for re-issuable token. Having $maxSupply \leq 2^{256}-1$
