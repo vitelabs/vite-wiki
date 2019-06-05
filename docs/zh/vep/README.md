@@ -17,3 +17,4 @@ title: "Vite 提案"
 * [VEP 10: 测试网络迁移主网的数据映射方案](./vep-10.html)
 * [VEP 12: Vite中随机数的实现](./vep-12.html)
 * [VEP 15: 在共识时增加出块成功率因素](./vep-15.html)
+* [VEP 16: 账户地址规范](./vep-16.html)

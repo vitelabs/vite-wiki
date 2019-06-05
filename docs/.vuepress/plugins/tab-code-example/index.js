@@ -1,5 +1,7 @@
 const path = require('path');
+const _ = require('lodash');
 const container = require('markdown-it-container')
+const variable = require('../../variable')
 
 
 module.exports = (options, ctx) => {
@@ -11,6 +13,27 @@ module.exports = (options, ctx) => {
     },
     extendMarkdown: md => {
       let name = options.name || 'demo'
+
+      // for test
+      const fence = md.renderer.rules.fence
+      md.renderer.rules.fence = (...args) => {
+        const [tokens, idx] = args
+        const token = tokens[idx]
+        let rawCode = fence(...args)
+        if (token.markup === '```' && token.info.indexOf('replace') > -1) {
+          let tokenInfo = token.info.trim().split(' ').map(item => item.trim())
+          let index = tokenInfo.indexOf('replace')
+          if (index === -1) return
+          tokenInfo.slice(index + 1).forEach(item => {
+            if (variable[item]) {
+              rawCode = rawCode.replace(new RegExp('\\$\{' + item +'\}', 'gm'), variable[item])
+            }
+          })
+        }
+        return `<!--beforebegin--><div class="language-${token.info.trim()} extra-class">`
+          + `<!--afterbegin-->${rawCode}<!--beforeend--></div><!--afterend-->`
+      }
+
       md
         .use(...createContainer(name, name.toUpperCase()))
         // explicitly escape Vue syntax

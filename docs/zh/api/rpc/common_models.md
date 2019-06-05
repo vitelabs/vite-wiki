@@ -76,4 +76,4 @@
 | amount |string|  big.Int | 该交易发生的金额|
 | fee | string | big.Int | 发送该交易使用的手续费 |
 | confirmedTimes |string| uint64 | 该交易被确认次数 |
-| tokenInfo | TokenInfo | 该交易涉及的Token信息 |
+| tokenInfo | tokenInfo | tokenInfo | 该交易涉及的Token信息 |
