@@ -341,7 +341,7 @@ ABI：
    "method":"register_getRewardByIndex",
    "params": [
       "00000000000000000001",
-      0
+      "0"
     ]
 }
 ```
