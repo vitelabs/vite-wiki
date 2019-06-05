@@ -314,6 +314,58 @@ ABI：
 ```
 :::
 
+## register_getRewardByIndex
+按天查询所有超级节点的奖励
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `uint64`: 周期数，从创世时间开始，每24小时为一周期，周期数从0开始。例如第0周期表示2019/05/21 12:00:00 - 2019/05/22 12:00:00。
+
+- **Returns**: 
+
+`map<string>Object` 
+  1. `totalReward`: `string`  本周期总奖励
+  2. `blockReward`: `Address`  本周期按块奖励
+  3. `voteReward`: `Address`  本周期按票奖励
+  4. `expectedBlockNum`: `uint64` 本周期的应出块数，如果某一轮所有节点都没出块，那么那一轮的应出块数不计入本周期的应出块数  
+  5. `blockNum`: `uint64`  本周期的实际出块数
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRewardByIndex",
+   "params": [
+      "00000000000000000001",
+      0
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": 
+    {
+      "super":{
+        "totalReward": "10",
+        "blockReward": "6",
+        "voteReward": "4",
+        "expectedBlockNum":3,
+        "blockNum":1,
+      }
+    }
+}
+```
+:::
+
 ## register_getCandidateList
 查询快照共识组候选节点列表
 
