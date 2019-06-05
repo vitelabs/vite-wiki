@@ -14,7 +14,7 @@
 
 ### 创建钱包
 
-钱包的生成参见：[钱包管理](./install.html#钱包管理)。
+钱包的生成参见：[钱包管理](./wallet-manage.md)。
 
 ### 修改node_config.json的配置
 
