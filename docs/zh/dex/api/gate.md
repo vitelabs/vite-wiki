@@ -32,7 +32,7 @@ Web Wallet需在请求header中添加如下参数
 ```javascript
 {
   "code": 0,//响应码，更多响应码见响应码表
-  "subCode": 0,//子响应码 ，更多响应码见响应码表
+  "subCode": 0,//子响应码 ，网关自行定义，用于问题排查
   "msg": null,//响应说明，网关自行定义，用于问题排查
   "data":""//响应数据，具体定义见接口列表
 }
@@ -45,7 +45,7 @@ Web Wallet需在请求header中添加如下参数
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
   |参数名|描述|数据类型|是否必传|
   |:--|:---|:---:|:---:|
@@ -88,7 +88,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
   |参数名|描述|数据类型|是否必传|
   |:--|:---|:---:|:---:|
@@ -156,7 +156,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
@@ -196,7 +196,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
@@ -230,7 +230,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
@@ -259,37 +259,6 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   }
   ```
 
-### `/withdraw`
-
-请求转出。
-
-* **Method**: `POST`
-
-* **Request**
-
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|rawTx|web钱包已签名的AccountBlock json<br>AccountBlock与[发送交易](./../../api/rpc/tx.html#tx-sendrawtx)接口所描述的accountBlock一致，其中ToAddress为`/withdraw_info`接口返回的gatewayAddress，Amount为实际转出金额+转出手续费|string|
-|withdrawAddress|用户转出地址|string|
-|signature|用户使用当前VITE地址的私钥，对rawTx和withdrawAddress组成的json，即{"rawTx": "xxx","withdrawAddress":"mjRrUJsFVUzefb9qoHLwE7ym7Mu9cFUtBZ"}进行签名|string|
-  
-  
-* **Response**
-
-
-  
-
-* **Example**
-
-  ```javascript
-  {
-    "code": 0,
-    "subCode": 0,
-    "msg": null,
-    "data": true
-  }
-  ```
-
 ## 转入转出记录查询类接口
 
 ### `/deposit_records`
@@ -298,14 +267,14 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|tokenId|TOT id|string|
-|walletAddress|用户VITE地址|string|
-|pageNum|分页参数，起始页序号，从1开始|int|
-|pageSize|分页参数，每页大小|int|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|tokenId|TOT id|string|true|
+|walletAddress|用户VITE地址|string|true|
+|pageNum|分页参数，起始页序号，从1开始|int|true|
+|pageSize|分页参数，每页大小|int|true|
   
   
 * **Response**
@@ -315,7 +284,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |totalCount|总记录数|int|
 |depositRecords|转入记录列表|list|
 |inTxExplorerFormat|对手链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
-|outTxExplorerFormat|vite链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
+|outTxExplorerFormat|VITE链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
   
 * ***其中depositRecords参数如下***
 
@@ -357,14 +326,14 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Method**: `GET`
 
-* **Request**
+* **Request**: `query string`
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|tokenId|TOT id|string|
-|walletAddress|用户VITE地址|string|
-|pageNum|分页参数，起始页序号，从1开始|int|
-|pageSize|分页参数，每页大小|int|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|tokenId|TOT id|string|true|
+|walletAddress|用户VITE地址|string|true|
+|pageNum|分页参数，起始页序号，从1开始|int|true|
+|pageSize|分页参数，每页大小|int|true|
   
   
 * **Response**
@@ -373,7 +342,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |:--|:---|:---:|
 |totalCount|总记录数|int|
 |withdrawRecords|转出记录列表|list|
-|inTxExplorerFormat|vite链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
+|inTxExplorerFormat|VITE链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
 |outTxExplorerFormat|对手链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
   
 * ***其中withdrawRecords参数如下***
@@ -384,7 +353,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |outTxHash|对手链转出交易hash|string|
 |amount|实际转出到账金额|string|
 |fee|网关收取的转出手续费|string|
-|state|转出状态，枚举值<br>`TODO`VITE TOT转入交易待发送至网络<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_NOT_RECEIVED`VITE TOT转入交易确认失败，转出流程结束<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|
+|state|转出状态，枚举值<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|
 |dateTime|转出时间,timestamp毫秒|string|
 
 * **Example**
@@ -411,9 +380,15 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   ```
   
 ## 错误码表
+  |code|描述|
+  |:--|:---|
+  |0|请求成功|
+  |1|请求参数校验不通过|
+  |2|服务器内部异常|
 
 ## 协议版本
-### 当前版本 `v1.0`
+### 当前版本 
+`v1.0`
 ### 历史版本
 |版本号|更新说明|
 |:--|:---|
