@@ -11,15 +11,29 @@
 * 跨链网关服务需要支持CORS跨域
 * 所有金额都使用最小精度表示
 :::
+## 统一请求格式
 
+### header
+Web Wallet需在请求header中添加如下参数
+  |参数名|描述|
+  |:--|:--|
+  |lang|Web Wallet会根据当前语言设置传递参数,网关服务可自行处理以应对国际化需求<br>目前的枚举有`zh-cn`中文简体，`en`英文|
+  |version|Web Wallet当前支持的跨链网关接口协议版本，兼容多个版本用`,`分隔|
 
 ## 统一返回格式
 
+### header
+跨链网关服务需在响应header中添加如下参数
+  |参数名|描述|
+  |:--|:--|
+  |version|跨链网关服务实现的接口协议版本，兼容多个版本用`,`分隔|
+  
+### body
 ```javascript
 {
   "code": 0,//响应码，更多响应码见响应码表
   "subCode": 0,//子响应码 ，更多响应码见响应码表
-  "msg": null,//响应说明
+  "msg": null,//响应说明，网关自行定义，用于问题排查
   "data":""//响应数据，具体定义见接口列表
 }
 ```
@@ -27,23 +41,29 @@
 
 ### `/meta_info`
 
-获取跨链网关元信息。
+获取跨链网关TOT的元信息。如TOT转入转出的通道状态、类型等。
 
-* **Method**： `GET`
+* **Method**: `GET`
 
 * **Request**
 
-  |参数名|描述|数据类型|
-  |:--|:---|:---:|
-  |tokenId|TOT id|string|
+  |参数名|描述|数据类型|是否必传|
+  |:--|:---|:---:|:---:|
+  |tokenId|TOT id|string|true|
   
 * **Response**
 
   |参数名|描述|数据类型|
   |:--|:---|:---:|
-  |type|类型,枚举值:`0`代表单地址模式，如ETH，`1`代表需通过备注区分地址模式，如EOS，|int|
+  |type|通道类型,枚举值<br>`0`单地址模式<br>`1`通过备注区分地址模式|int|
   |depositState|转入通道状态,枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|
   |withdrawState|转出通道状态，枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|
+
+:::tip 关于通道类型
+Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面与请求结构，网关服务需根据不同的通道类型返回不同的响应结构。当前协议定义了两种类型，未来还会根据需要定义更多的类型，如GRIN的文件模式
+* `0`单地址模式：在这种类型下，网关会为每个用户VITE地址绑定一个独有的转入地址，比如BTC、ETH<br>
+* `1`通过备注区分地址模式：在这种类型下，网关无法为每个用户VITE地址绑定不同的转入地址，因此需要通过额外的备注标识对应的用户VITE地址，如EOS、XMR
+:::
 
 * **Example**
 
@@ -60,43 +80,38 @@
   }
   ```
 
-### 转入转出交易类接口
-#### `/deposit_info`
-> 描述
-```
-获取转入信息。
-```
+## 转入转出交易类接口
 
-> 方法
-```
-GET
-```
+### `/deposit_info`
 
-* **请求参数**
+获取转入信息。如转入地址、转入确认次数、转入说明等。Web Wallet根据响应展示跨链转入界面。
 
-	|参数名|描述|数据类型|
-	|:--|:---|:---:|
-	|tokenId|TOT id|string|
-	|walletAddress|用户VITE地址|string|
+* **Method**: `GET`
 
-* **返回参数**
+* **Request**
+
+  |参数名|描述|数据类型|是否必传|
+  |:--|:---|:---:|:---:|
+  |tokenId|TOT id|string|true|
+  |walletAddress|用户VITE地址|string|true|
+  
+* **Response**
 
 	|参数名|描述|数据类型|
 	|:--|:---|:---:|
-	|type|类型,枚举值:`0`代表单地址模式，如ETH，`1`代表需通过备注区分地址模式，如EOS|int|
 	|depositAddress|转入地址|string|
 	|labelName|标签名，type为1时必传|string|
 	|label|标签值，type为1时必传|string|
 	|minimumDepositAmount|最小转入金额|string|
-	|comfirmationCount|入账确认数|string|
-	|noticeMsg|注意事项描述|string|
+	|comfirmationCount|对手链入账确认数|string|
+	|noticeMsg|注意事项描述，网关自行定义|string|
 
-* **返回样例**
-
+* **Example**
+<br>根据`/meta_info`中的参数type
 	:::: tabs
 
-	::: tab BTC网关例子
-	通常BTC充值地址是每一个用户绑定一个，充值时只需要一个地址就行。
+	::: tab 0:单地址模式
+	通常BTC转入地址是每一个用户VITE地址绑定一个，转入时只需要一个地址就行。
 	```javascript
 	{
 		"code": 0,
@@ -104,17 +119,18 @@ GET
 		"msg": null,
 		"data": {
 			"type": 1,
-			"depositAddress": "vitetothemoon",
+			"depositAddress": "mrkRBVtsd96oqHLELaDtCYWzcxUr7s4D26",
 			"minimumDepositAmount": "30000",
-			"comfirmationCount": 1,
+			"comfirmationCount": 2,
 			"noticeMsg": ""
 		}
 	}
 	```
 	:::
 
-	::: tab EOS网关例子
-	EOS充值时没有为每一个用户绑定一个地址，所以不同的用户需要不同的一个`label`来区别。
+	::: tab 1:通过备注区分地址模式
+	通常EOS转入时除了转入地址，还需要通过`memo`来标识不同用户VITE地址，所以不同的用户VITE地址需要不同的`label`值来区别。
+	<br>在EOS中labelName为`memo`，在XMR中labelName为`paymentID`,网关自行通过`labelName`定义名称
 	```javascript
 	{
 		"code": 0,
@@ -134,162 +150,155 @@ GET
 	:::
 	::::
 
-#### `/withdraw_info`
-> 描述
-```
-获取转出信息。
-```
+### `/withdraw_info`
 
-> 方法
-```
-GET
-```
+获取转出信息。如最小转出金额，TOT回收地址等。Web Wallet根据响应展示跨链转出界面。
 
-> 请求参数
+* **Method**: `GET`
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|tokenId|TOT id|string|
-|walletAddress|用户VITE地址|string|
-> 返回参数
+* **Request**
+
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|tokenId|TOT id|string|true|
+|walletAddress|用户VITE地址|string|true|
+  
+  
+* **Response**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
 |minimumWithdrawAmount|最小转出金额|string|
-|maximumWithdrawAmount|最小转出金额|string|
+|maximumWithdrawAmount|最大转出金额|string|
 |gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT转账交易，用于回收TOT|string|
+|noticeMsg|注意事项描述，网关自行定义|string|
+  
 
+* **Example**
 
-> 返回样例
-```
-{
-	"code": 0,
-	"subCode": 0,
-	"msg": null,
-	"data": {
-		"minimumWithdrawAmount": "1000000",
-		"maximumWithdrawAmount": "10000000000",
-		"gatewayAddress": "vite_42f9a5d93e1e392624b97dfa3d7cab057b79c2489d6bc13682"
-	}
-}
-```
+  ```javascript
+  {
+    "code": 0,
+    "subCode": 0,
+    "msg": null,
+    "data": {
+      "minimumWithdrawAmount": "1000000",
+      "maximumWithdrawAmount": "10000000000",
+      "gatewayAddress": "vite_42f9a5d93e1e392624b97dfa3d7cab057b79c2489d6bc13682",
+      "noticeMsg": ""
+    }
+  } 
+  ```
 
-#### `/verify_withdraw_address`
-> 描述
-```
-校验转出地址。
-```
+### `/verify_withdraw_address`
 
-> 方法
-```
-GET
-```
+校验转出地址。当用户在跨链转出界面中输入转出地址时进行校验。
 
-> 请求参数
+* **Method**: `GET`
+
+* **Request**
+
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|tokenId|TOT id|string|true|
+|withdrawAddress|用户对手链转出地址|string|true|
+  
+  
+* **Response**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
-|tokenId|TOT id|string|
-|walletAddress|用户VITE地址|string|
-> 返回参数
+|isValidAddress|地址是否合法|bool|
+  
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-| |地址是否正确|bool|
+* **Example**
 
-> 返回样例
-```
-{
-	"code": 0,
-	"subCode": 0,
-	"msg": null,
-	"data": true
-}
-```
+  ```javascript
+  {
+  	"code": 0,
+  	"subCode": 0,
+  	"msg": null,
+  	"data": {
+  		"isValidAddress": true
+  	}
+  }
+  ```
 
-#### `/withdraw_fee`
-> 描述
-```
+### `/withdraw_fee`
+
 获取网关收取的转出手续费。
-```
 
-> 方法
-```
-GET
-```
+* **Method**: `GET`
 
-> 请求参数
+* **Request**
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|tokenId|TOT id|string|
-|walletAddress|用户VITE地址|string|
-|amount|金额|string|
-|containsFee|传入的amount是否已包含手续费，用于全部转出场景|string|
-
-> 返回参数
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|tokenId|TOT id|string|true|
+|walletAddress|用户VITE地址|string|true|
+|amount|金额|string|true|
+|containsFee|传入的amount是否已包含手续费，用于全部转出场景|bool|true|
+  
+  
+* **Response**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
 |fee|网关收取的手续费|string|
 
+* **Example**
 
-> 返回样例
-```
-{
-	"code": 0,
-	"subCode": 0,
-	"msg": null,
-	"data": {
-		"fee": "1000000"
-	}
-}
-```
+  ```javascript
+  {
+    "code": 0,
+    "subCode": 0,
+    "msg": null,
+    "data": {
+      "fee": "1000000"
+    }
+  }
+  ```
 
-#### `/withdraw`
-> 描述
-```
-获取转出信息。
-```
+### `/withdraw`
 
-> 方法
-```
-POST
-```
+请求转出。
 
-> 请求参数
+* **Method**: `POST`
+
+* **Request**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
 |rawTx|web钱包已签名的AccountBlock json<br>AccountBlock与[发送交易](./../../api/rpc/tx.html#tx-sendrawtx)接口所描述的accountBlock一致，其中ToAddress为`/withdraw_info`接口返回的gatewayAddress，Amount为实际转出金额+转出手续费|string|
 |withdrawAddress|用户转出地址|string|
 |signature|用户使用当前VITE地址的私钥，对rawTx和withdrawAddress组成的json，即{"rawTx": "xxx","withdrawAddress":"mjRrUJsFVUzefb9qoHLwE7ym7Mu9cFUtBZ"}进行签名|string|
+  
+  
+* **Response**
 
-> 返回参数
 
-> 返回样例
-```
-{
-	"code": 0,
-	"subCode": 0,
-	"msg": null,
-	"data": true
-}
-```
+  
 
-### 转入转出记录查询类接口
-#### `/deposit_records`
-> 描述
-```
+* **Example**
+
+  ```javascript
+  {
+    "code": 0,
+    "subCode": 0,
+    "msg": null,
+    "data": true
+  }
+  ```
+
+## 转入转出记录查询类接口
+
+### `/deposit_records`
+
 转入记录。
-```
 
-> 方法
-```
-GET
-```
+* **Method**: `GET`
 
-> 请求参数
+* **Request**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
@@ -297,8 +306,9 @@ GET
 |walletAddress|用户VITE地址|string|
 |pageNum|分页参数，起始页序号，从1开始|int|
 |pageSize|分页参数，每页大小|int|
-
-> 返回参数
+  
+  
+* **Response**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
@@ -306,8 +316,8 @@ GET
 |depositRecords|转入记录列表|list|
 |inTxExplorerFormat|对手链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
 |outTxExplorerFormat|vite链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
-
->> 其中depositRecords参数如下
+  
+* ***其中depositRecords参数如下***
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
@@ -318,41 +328,36 @@ GET
 |state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|
 |dateTime|转入时间,timestamp毫秒|string|
 
+* **Example**
 
-> 返回样例
-```
-{
-	"code": 0,
-	"subCode": 0,
-	"msg": null,
-	"data": {
-		"totalCount": 1,
-		"depositRecords": [{
-			"inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
-			"outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
-			"amount": "300000000000000000",
-			"fee": "0",
-			"state": "TOT_CONFIRMED",
-			"dateTime": "1556129201000"
-		}],
-		"inTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}",
-		"outTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}"
-	}
-}
-```
+  ```javascript
+  {
+    "code": 0,
+    "subCode": 0,
+    "msg": null,
+    "data": {
+      "totalCount": 1,
+      "depositRecords": [{
+        "inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
+        "outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
+        "amount": "300000000000000000",
+        "fee": "0",
+        "state": "TOT_CONFIRMED",
+        "dateTime": "1556129201000"
+      }],
+      "inTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}",
+      "outTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}"
+    }
+  }
+  ```
 
-#### `/withdraw_records`
-> 描述
-```
+### `/withdraw_records`
+
 转出记录。
-```
 
-> 方法
-```
-GET
-```
+* **Method**: `GET`
 
-> 请求参数
+* **Request**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
@@ -360,8 +365,9 @@ GET
 |walletAddress|用户VITE地址|string|
 |pageNum|分页参数，起始页序号，从1开始|int|
 |pageSize|分页参数，每页大小|int|
-
-> 返回参数
+  
+  
+* **Response**
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
@@ -369,8 +375,8 @@ GET
 |withdrawRecords|转出记录列表|list|
 |inTxExplorerFormat|vite链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
 |outTxExplorerFormat|对手链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
-
->> 其中withdrawRecords参数如下
+  
+* ***其中withdrawRecords参数如下***
 
 |参数名|描述|数据类型|
 |:--|:---|:---:|
@@ -381,24 +387,35 @@ GET
 |state|转出状态，枚举值<br>`TODO`VITE TOT转入交易待发送至网络<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_NOT_RECEIVED`VITE TOT转入交易确认失败，转出流程结束<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|
 |dateTime|转出时间,timestamp毫秒|string|
 
-> 返回样例
-```
-{
-	"code": 0,
-	"subCode": 0,
-	"msg": null,
-	"data": {
-		"totalCount": 2,
-		"withdrawRecords": [{
-			"inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
-			"outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
-			"amount": "190000000000000000",
-			"fee": "10000000000000000",
-			"state": "OPPOSITE_CONFIRMED",
-			"dateTime": "1556129201000"
-		}],
-		"inTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}",
-		"outTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}"
-	}
-}
-```
+* **Example**
+
+  ```javascript
+  {
+    "code": 0,
+    "subCode": 0,
+    "msg": null,
+    "data": {
+      "totalCount": 2,
+      "withdrawRecords": [{
+        "inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
+        "outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
+        "amount": "190000000000000000",
+        "fee": "10000000000000000",
+        "state": "OPPOSITE_CONFIRMED",
+        "dateTime": "1556129201000"
+      }],
+      "inTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}",
+      "outTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}"
+    }
+  }
+  ```
+  
+## 错误码表
+
+## 协议版本
+### 当前版本 `v1.0`
+### 历史版本
+|版本号|更新说明|
+|:--|:---|
+|v1.0|初始化版本|
+
