@@ -4,10 +4,6 @@
 [TiantaoZhu](https://github.com/TiantaoZhu) && [lyd00](https://github.com/lyd00)
 :::
 
-:::warning
-All byte arrays should be converted to base64 encoding before passed in; uint64 and big.int types should be passed in string
-:::
-
 ## RpcAccountInfo
 ```json ::Demo
 {
@@ -32,55 +28,53 @@ All byte arrays should be converted to base64 encoding before passed in; uint64 
 ```
 `tokenBalanceInfoMap: [tokentypeid]TokenBalanceInfo`
 
-|  Name  | JSON type | Actual type |Desc |
+|  Name  | JSON type | Actual type |Description |
 |:------------:|:-----------:|:-----:|:-----:|
-| accountAddress |  string | Address| The account address|
+| accountAddress |  string | Address| Account address|
 | totalNumber | string | uint64| The total transaction number of the account|
-| tokenBalanceInfoMap | map | map| The token-balance map|
+| tokenBalanceInfoMap | map | map| Token balance map|
 
 `TokenBalanceInfo`
-|  Name  | JSON type | Actual type |Desc |
+|  Name  | JSON type | Actual type |Description |
 |:------------:|:-----------:|:-----:|:-----:|
-| tokenInfo |  tokenInfo | tokenInfo| The token information|
-| totalAmount | string | bigint| The token balance|
-| number | string | uint64| The total transaction number in the token of the account|
+| tokenInfo |  tokenInfo | tokenInfo| Token information|
+| totalAmount | string | bigint| Token balance|
+| number | string | uint64| The total transaction number for the specific token and account|
 
 `tokenInfo`
-|  Name  | JSON type | Actual type |Desc |
+|  Name  | JSON type | Actual type |Description |
 |:------------:|:-----------:|:-----:|:-----:|
-| tokenName |  string | string| The token name|
-| tokenSymbol | string | string| The token symbol|
-| totalSupply | string | bigint| The total supply|
-| decimals | string | uint8| The smallest separable unit of the token 1e`decimals`|
-| owner | string | address| The name of token issuer|
-| pledgeAmount | string | bigint| The amount of VITE staked when the token is forged|
-| withdrawHeight | string | uint64| The minimum height to retrieve staking. The staked VITE can be withdrawn once the minimum height is reached|
-| tokenId | string | TokenTypeId| The token ID|
+| tokenName |  string | string| Token name|
+| tokenSymbol | string | string| Token symbol|
+| totalSupply | string | bigint| Total supply|
+| decimals | string | uint8| The smallest separable token unit|
+| owner | string | address| Token issuer|
+| tokenId | string | TokenTypeId| Token ID|
 
 
 
 
 ## AccountBlock
-|  Name  | JSON type | Actual type |Desc |
+|  Name  | JSON type | Actual type |Description |
 |:------------:|:-----------:|:-----------:|:-----:|
-| blockType | Byte |Byte | The block type(1-create contract request, 2-transaction request, 3-reward request, 4-transaction response, 5-transaction response fail. Type 1, 2 and 3 are request types and 4, 5 are response. For common transactions the request block type is 2 and response block type is 4)|
+| blockType | Byte | Byte | Block type (1->request(create contract). 2->request(transfer). 3->request(claim SBP rewards). 4->response. 5->response(failed). 6->request(refund by contract). 7->response(genesis). 1, 2, 3 and 6 are request. 4, 5 and 7 are response. Specifically, common transfer has request block type 2 and response block type 4)|
 | hash | hex string | Hash | The hash of transaction|
-| prevHash |hex string| Hash | The hash of previous transaction in the account chain. '0000000000000000000000000000000000000000000000000000000000000000' will be filled if this is the first transaction in the account|
-| accountAddress| string | Address | The account address|
-| publicKey|base64 string | []byte | The public key of block producer|
-| fromAddress |string| Address | The transaction sender address. Response block only|
-| toAddress|string | Address | The transaction receiver address. Request block only|
-| fromBlockHash |hex string |  Hash | The hash of request transaction if this is a response transaction, otherwise '0000000000000000000000000000000000000000000000000000000000000000' will be filled|
+| prevHash |hex string| Hash | The hash of previous transaction in the account chain. `0000000000000000000000000000000000000000000000000000000000000000` if no previous transaction in the account|
+| accountAddress| string | Address | Account address|
+| publicKey|base64 string | []byte | The public key of whom the block was produced|
+| fromAddress |string| Address | The address of whom the transaction was sent from. For response only|
+| toAddress|string | Address | The address of whom the transaction is sent to. For request only|
+| fromBlockHash |hex string |  Hash | The hash of request transaction. For response only, otherwise `0000000000000000000000000000000000000000000000000000000000000000` is filled|
 | tokenId |string |TokenTypeId | The token ID in which the transaction is settled|
 | snapshotHash | hex string | Hash | The hash of snapshot block which the transaction refers to |
-| data | string| []byte | The additional data. Can be used as transaction annotation|
-| timestamp | int64 | int64 | The transaction time in seconds|
+| data | string| []byte | Additional data which the transaction may carry |
+| timestamp | int64 | int64 | Transaction time(in seconds)|
 | logHash | hex string | Hash  | The hash of smart contract LogList |
-| nonce | base64 string |[]byte] | The PoW nonce |
-| signature | base64 string| []byte] | The transaction signature |
-| height | string | uint64 | The transaction height |
+| nonce | base64 string |[]byte] | PoW nonce |
+| signature | base64 string| []byte] | Transaction signature |
+| height | string | uint64 | Transaction height |
 | quota | string | uint64 | The quota consumed by the transaction |
-| amount |string|  big.Int | The transaction amount |
-| fee | string | big.Int | The transaction fee |
+| amount |string|  big.Int | Transaction amount |
+| fee | string | big.Int | Transaction fee |
 | confirmedTimes |string| uint64 | The confirmation number of the transaction |
-| tokenInfo | TokenInfo | The token information in which the transaction is settled|
+| tokenInfo | tokenInfo | tokenInfo | The token information in which the transaction is settled|

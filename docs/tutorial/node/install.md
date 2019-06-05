@@ -2,79 +2,78 @@
 
 ## What is gvite node?
 
-There are 2 gvite node categories: `full node` and `SBP`. 
-At present, full nodes maintain the complete ledger locally on the basis of gvite consensus algorithm, with guaranteed data integrity across the network.
-Full nodes have full gvite functionality, such as accessing all data on the network, sending and receiving transactions, as well as participating in super node election or voting.
-Full nodes provide `HTTP`, `WEBSOCKET`, `IPC` APIs and `command line` tool. SBPs are special full nodes who are eligible for snapshot block producing. 
+In Vite network, nodes are categorized into full nodes and supernodes. Supernode is special full nodes for producing snapshot blocks. This document mainly introduces full node.
+
+Full node is responsible for maintaining a complete copy of ledger, sending or receiving transactions, and verifying all transactions in the network.
+Full node can also participate in SBP election and voting.
+Full node exposes HTTP/WEBSOCKET APIs externally and has a command line console at local. 
 
 ## Before the start
 
-Gvite supports installation from `binary package` or `source code`
+Gvite supports installation from binary or source code
 
 | OS | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite 1.0.3   | yes  |yes |yes |
+| gvite-v2.x.x   | Yes  |Yes |Yes |
 
-:::tip
-Go 1.11.1 or above version is required to compile the source code. See [Go download and installation](https://golang.org/dl/)
-:::
 
 ## Install from binary
-Download gvite in command line and install (supporting ubuntu, mac, centos, windows)
+
+Download latest gvite installation package at [gvite Releases](https://github.com/vitelabs/go-vite/releases) in command line then install
 
 ### Installation example on ubuntu
-```bash
+```bash  replace version
 ## Download
-curl -L -O  https://github.com/vitelabs/go-vite/releases/download/v1.1.1/gvite-v1.1.1-linux.tar.gz
+curl -L -O  https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
+```
+```bash replace version
+## Unpack package
+tar -xzvf gvite-${version}-linux.tar.gz
+```
+```bash replace version
+## Enter the folder extracted. It should have three files: gvite, bootstrap and node_config.json
+cd gvite-${version}-linux
 ```
 ```
-## Unpack
-tar -xzvf gvite-v1.1.1-linux.tar.gz
-```
-```
-## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-v1.1.1-linux
-```
-```
-## Start-up
+## Boot up gvite node
 ./bootstrap
 ```
-Check the content of gvite.log in the same folder to determine whether the program boots normally.
+Check the content of gvite.log in the same folder to determine whether the program is up and running.
 ```bash
 cat gvite.log
 ```
-The following messages indicate that the startup is successful.
+The following messages indicate boot is successful.
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/maindata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/maindata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
 
 ### Installation example on mac 
 
-```bash
+```bash replace version
 ## Download
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/v1.1.1/gvite-v1.1.1-darwin.tar.gz
-## Unpack
-tar -xzvf gvite-v1.1.1-darwin.tar.gz
-## Enter the extracted folder, which should contain three files: gvite, bootstrap and node_config.json
-cd gvite-v1.1.1-darwin
-## Start-up
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-darwin.tar.gz
+## Unpack package
+tar -xzvf gvite-${version}-darwin.tar.gz
+## Enter the folder extracted. It should have three files: gvite, bootstrap and node_config.json
+cd gvite-${version}-darwin
+## Boot up gvite node
 ./bootstrap
 ```
 
-Check the content of gvite.log in the same folder to determine whether the program boots normally.
+Check the content of gvite.log in the same folder to determine whether the program is up and running.
 
 ```bash
 cat gvite.log
 ```
 
-The following messages indicate that the startup is successful.
+The following messages indicate boot is successful.
 
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:~/Library/GVite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:~/Library/GVite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:~/Library/GVite/maindata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:~/Library/GVite/maindata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
@@ -82,8 +81,8 @@ Start the Node success!!!
 ### Installation example on windows 
 Open up your preferred browser and paste in the following link:
 
-```bash
-https://github.com/vitelabs/go-vite/releases/download/v1.1.1/gvite-v1.1.1-windows.tar.gz
+```bash replace version
+https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-windows.tar.gz
 ```
 and save file to preferred directory. Upon download completion, open up explorer, navigate to the directory where file is downloaded to, right click file and select extract file option.
 
@@ -101,41 +100,41 @@ To launch node, simply open up command prompt (by pressing Win + R, then, type c
 
 Then in command prompt:
 
-```
+```bash replace version
 C:\Users\user>d:
 
-D:\>cd gvite-v1.1.1-windows
+D:\>cd gvite-${version}-windows
 
-D:\gvite-v1.1.1-windows>gvite-windows-amd64.exe (or your preferred executable)
+D:\gvite-${version}-windows>gvite-windows-amd64.exe (or your preferred executable)
 
 ```
-The following messages indicate that the startup is successful.
+The following messages indicate boot is successful.
 
 ```bash
-INFO[11-21|09:28:42] NodeServer.DataDir:C:\Users\user\AppData\Roaming\GVite\testdata module=gvite/node_manager
-INFO[11-21|09:28:42] NodeServer.KeyStoreDir:C:\Users\user\AppData\Roaming\GVite\testdata\wallet module=gvite/node_manager
+INFO[11-21|09:28:42] NodeServer.DataDir:C:\Users\user\AppData\Roaming\GVite\maindata module=gvite/node_manager
+INFO[11-21|09:28:42] NodeServer.KeyStoreDir:C:\Users\user\AppData\Roaming\GVite\maindata\wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
 ### Description of installation directory
 
-**Installation directory**：Refers to the folder where gvite startup scripts and configuration file are located. For example, `~/gvite-${version}-${os}`
+**Installation Directory**：Refers to the folder where gvite boot script and configuration file are located. For example, `~/gvite-${version}-${os}` is an installation directory.
 
 * `gvite`： Gvite executable file
-* `bootstrap`： Startup script
-* `node_config.json`： Configuration file. See [configuration description](./node_config.md)
+* `bootstrap`： Boot script
+* `node_config.json`： Configuration file. See [Configuration Description](./node_config.md)
 
 ### Ports
 
-The system default ports are 8483/8484. If you are using default ports, please ensure that they are not occupied by other programs or blocked by firewall.
+The default ports are 8483/8484. If you choose to go with default ports, please ensure that they are not occupied by other programs or blocked by firewall.
 
 ```bash
  netstat -nlp|grep 8483 
 ```
 
-Check if the default ports are occupied. Gvite will display the following messages if it boots successfully.
+Check if the default ports are occupied. Gvite will display the following messages if it boots up successfully.
  
-```
+```bash
 netstat -nlp|grep 8483
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
@@ -146,14 +145,14 @@ udp6       0      0 :::8483                 :::*                                
 ### Description of working directory
 
 ```bash
-cd ~/.gvite/testdata
+cd ~/.gvite/maindata
 ```
-Gvite working directory, containing sub-directories/files such as ledger, ledger_files, LOCK, p2p, rpclog, runlog and wallet.
+Gvite working directory, containing sub-directories/files such as "ledger", "ledger_files", "LOCK", "p2p", "rpclog", "runlog" and "wallet".
 
 * `ledger`： Ledger directory
-* `rpclog`： Rpc access log
+* `rpclog`： RPC log directory
 * `runlog`： Run-time log directory
-* `wallet`： Wallet keyStore directory to store keyStore file with secured private key. If you run a super node, please be sure to `keep your private key safe`.
+* `wallet`： Wallet keystore directory for storing keystore files that secure private keys. Do remember **KEEP YOUR PRIVATE KEY SAFE**.
 
 ## Install from source
 ### Golang environment check
@@ -163,79 +162,77 @@ go env
 ```
 
 :::warning
-Go 1.11.1 or above version is required. See Go installation guild: [go installation](https://golang.org/doc/install)
+Go 1.11.1 or above version is required. See [Go Installation Guide](https://golang.org/doc/install).
 :::
 
 ### Compile source code
-   * Get gvite source code
+
+  Pull gvite source code
   ```
     go get github.com/vitelabs/go-vite
   ```
-  Source code is downloaded at:
+  and will be downloaded at:
   ```
   $GOPATH/src/github.com/vitelabs/go-vite/
   ```
-  The system default GOPATH is ```~/go```
+  The system default `GOPATH` is ```~/go```
   
   Go to the source code directory and run 
   ```
   make gvite
   ```
-  Executable file is generated here: 
+  Executable file is generated at: 
   
   ```
   $GOPATH/src/github.com/vitelabs/go-vite/build/cmd/gvite/gvite
   ```
 
 ### Configuration file
-  Config file name: `node_config.json`. It should reside in the same directory with gvite executables. Details can be found at: [Config Description](./node_config.md)
+  `node_config.json` is gvite configuration file. It should reside in the same directory with gvite executables. Details can be found at: [Config Description](./node_config.md)
 
-### Start-up script
-  For example, in linux environment run
+### Boot script
+  Taking Linux as example, the script has the following content:
   ```
   nohup ./gvite -pprof >> gvite.log 2>&1 &
   ```
-  to start gvite.
 
 ## Monitoring
 
-### Query current node height in command line
+### Query snapshot block height in command line
 
-* Start a full node as instructed
-* Access the full node in command line: Enter [full node installation directory](./install.md#Description-of-installation-directory) and execute the following command
+* Start a full node as instructed above
+* Connect to gvite command line console: Navigate to [Full Node Installation Directory](./install.md#Description-of-installation-directory) and execute the following command
 
-  If using Linux/Unix：
+  Linux/Unix:
   ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
   ```
-  If using Windows：
+  Windows:
   ```bash
   gvite-windows-amd64.exe attach \\.\pipe\gvite.ipc
   ```
-  Input：
+  Then execute command:
   ```javascript
   vite.ledger_getSnapshotChainHeight();
   ```
-  Output:
+  The following result will be displayed:
   ```
   "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"2166918\"}"
   ```
   2166918 is current block height. 
-  For more command usage please run `vite.help`.
   
-## Full node reward
+* For more information please run command `vite.help`.
+  
+## Full node rewards
 
-Starting from gvite-1.1.1, we will distribute token rewards to those who run full nodes in the TestNet. To participate in the reward program, you need check the following points.
-
-### Version requirement
-Minimum required gvite version: [1.3.0](https://github.com/vitelabs/go-vite/releases/tag/v1.3.0)
+In Vite Pre-Mainnet, rewards will be distributed to full node owners as incentives. 
 
 ### Node configuration
 
 Additional settings in `node_config.json` are required:
-* Set full-node status report URL: `"DashboardTargetURL": "wss://stats.vite.net"`
+* Set full node stats URL: `"DashboardTargetURL": "wss://stats.vite.net"`
 * Add "dashboard" to `PublicModules`
-* Set `"RewardAddr": "vite_youraddress"`. This is the address to receive your full node reward, please keep the mnemonic phrase secure.
+* Set `"RewardAddr": "${your_address}"` to receive full node reward
 
 The modified part of node_config.json is as below(please note this is not the full config file):
 ```
@@ -255,11 +252,10 @@ The modified part of node_config.json is as below(please note this is not the fu
   "DashboardTargetURL":"wss://stats.vite.net",  // new add
   "RewardAddr":"vite_youraddress"   // new add
 ```
-Save the changes.
 
 ### Node status check
 
-Reboot your full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers) to examine if your node has shown up correctly(result will reflect in 5 minutes).
+Reboot full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers) to examine if your node has shown up correctly (result will reflect in 5 minutes).
   
 ## Next steps
 

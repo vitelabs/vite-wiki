@@ -11,27 +11,27 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 
 | 操作系统 | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite 1.0.0 testNet  | yes  |yes |yes |
+| gvite  Pre-Mainnet  | yes  |yes |yes |
 
-:::tip
-源码编译需要额外的go环境安装，需要go环境至少需要1.11.1及以上, 官方地址: [go 安装和下载](https://golang.org/dl/)
-:::
+
 
 ## 二进制文件安装
 通过命令行下载和安装gvite, 支持ubuntu、mac、centos、windows
 
+版本记录可以从 [gvite release history](https://github.com/vitelabs/go-vite/releases)获得，下载Latest release版本。
+
 ### ubuntu安装示例
-```bash
+```bash replace version
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-linux.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
-```
+```bash replace version
 ## 解压
-tar -xzvf gvite-1.0.2-linux.tar.gz
+tar -xzvf gvite-${version}-linux.tar.gz
 ```
-```
+```bash replace version
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-cd gvite-1.0.2-linux
+cd gvite-${version}-linux
 ```
 ```
 ## 启动
@@ -43,21 +43,21 @@ cat gvite.log
 ```
 如下说明启动成功
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:/home/ubuntu/.gvite/maindata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:/home/ubuntu/.gvite/maindata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
 
 ### mac 安装示例
 
-```bash
+```bash replace version
 ## 下载
-curl -L -O https://github.com/vitelabs/go-vite/releases/download/1.0.2/gvite-1.0.2-darwin.tar.gz
+curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-darwin.tar.gz
 ## 解压
-tar -xzvf gvite-1.0.2-darwin.tar.gz
+tar -xzvf gvite-${version}-darwin.tar.gz
 ## 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
-cd gvite-1.0.2-darwin
+cd gvite-${version}-darwin
 ## 启动
 ./bootstrap
 ```
@@ -71,15 +71,19 @@ cat gvite.log
 如下说明启动成功
 
 ```bash
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:~/Library/GVite/testdata module=gvite/node_manager
-t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:~/Library/GVite/testdata/wallet module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.DataDir:~/Library/GVite/maindata module=gvite/node_manager
+t=2018-11-09T17:44:48+0800 lvl=info msg=NodeServer.KeyStoreDir:~/Library/GVite/maindata/wallet module=gvite/node_manager
 Prepare the Node success!!!
 Start the Node success!!!
 ```
 
 ### 安装目录文件说明
 
-**安装目录**：指gvite启动脚本和配置文件所在文件夹。例如上文中的安装目录路径为： `~/gvite-${version}-${os}`
+**安装目录**：指gvite启动脚本和配置文件所在文件夹。例如上文中的安装目录路径为：
+ 
+```bash replace version
+~/gvite-${version}-${os}
+```
 
 * `gvite`： 执行程序
 * `bootstrap`： 启动脚本
@@ -106,7 +110,7 @@ udp6       0      0 :::8483                 :::*                                
 ### 运行目录说明
 
 ```bash
-cd ~/.gvite/testdata
+cd ~/.gvite/maindata
 ```
 这是gvite的数据目录，在下面你会看到ledger  ledger_files  LOCK  p2p  rpclog  runlog  wallet 等目录和文件。
 gvite 数据目录说明:
@@ -116,7 +120,7 @@ gvite 数据目录说明:
 * `runlog`： 运行日志目录, runlog目录
 * `wallet`： 钱包keyStore目录，用于存储私钥生成的keyStore文件，如果是超级节点涉及到挖矿账户安全，请`妥善保管`
 
-mac 默认目录：~/Library/GVite/testdata
+mac 默认目录：~/Library/GVite/maindata
 
 ## 源码安装
 ### golang 环境确认
@@ -169,7 +173,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
   Unix/Linux平台：
   ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
   ```
   Windows平台：
   ```bash
@@ -187,12 +191,9 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   
 ## 全节点奖励配置
 
-Gvite-1.1.1起新增了全节点奖励功能。用户运行一个全节点并满足以下版本和配置要求，即可参加全节点奖励活动。
+为了激励全节点运行，vite官方对全节点运行给予一定奖励，用户需为全节点配置自己的奖励地址。
 
 本文档主要阐述如何为全节点添加奖励相关配置，全节点如何运行，参见[安装](https://vite.wiki/zh/tutorial/node/install.html)。
-
-### 版本要求
-全节点最低版本要求: [1.3.0](https://github.com/vitelabs/go-vite/releases/tag/v1.3.0)
 
 ### 配置要求
 当前，vite对运行全节点会发放一定量的奖励，参与奖励的全节点需要进行一些额外的配置。
