@@ -324,12 +324,10 @@ ABI：
 
 - **Returns**: 
 
-`map<string>Object` 
-  1. `totalReward`: `string`  本周期总奖励
-  2. `blockReward`: `Address`  本周期按块奖励
-  3. `voteReward`: `Address`  本周期按票奖励
-  4. `expectedBlockNum`: `uint64` 本周期的应出块数，如果某一轮所有节点都没出块，那么那一轮的应出块数不计入本周期的应出块数  
-  5. `blockNum`: `uint64`  本周期的实际出块数
+`Object`
+  1. `rewardMap`:`map<string>RewardInfo` 奖励详情，和`register_getRewardByDay`返回值相同
+  2. `startTime`:`int64` 本周期开始时间
+  3. `endTime`:`int64` 本周期结束时间
 
 
 - **Example**:
@@ -354,13 +352,17 @@ ABI：
    "id":1,
    "result": 
     {
-      "super":{
-        "totalReward": "10",
-        "blockReward": "6",
-        "voteReward": "4",
-        "expectedBlockNum":3,
-        "blockNum":1,
-      }
+      "rewardMap":{
+        "super":{
+          "totalReward": "10",
+          "blockReward": "6",
+          "voteReward": "4",
+          "expectedBlockNum":3,
+          "blockNum":1,
+        }
+      },
+      "startTime": 1558411200,
+      "endTime": 1558497600
     }
 }
 ```
