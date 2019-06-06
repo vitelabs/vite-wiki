@@ -32,7 +32,7 @@ Navigate to [Full Node Installation Directory][pwd] and execute the following co
   
 Execute the following command
 ```javascript
-vite.wallet_newMnemonicAndEntropyStore("${Your_Password}")
+vite.wallet_newMnemonicAndEntropyStore("Your_Password")
 ```
 This will give you below result
 ```json
@@ -58,7 +58,7 @@ Run `exit` to abort
 Execute the following command
 
 ```javascript
-vite.wallet_recoverEntropyStoreFromMnemonic("${Your_Mnemonic}", "${Your_Password}")
+vite.wallet_recoverEntropyStoreFromMnemonic("Your_Mnemonic", "Your_Password")
 ```
 
 For example：
