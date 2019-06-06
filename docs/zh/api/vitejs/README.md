@@ -14,7 +14,7 @@ Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的
 
 :::warning 注意
 
-阅读文档前, 建议先行了解 [Gvite-RPC](../../rpc/README.md) 接口。
+阅读文档前, 建议先行了解 [Gvite-RPC](../rpc/README.md) 接口。
 
 :::
 
