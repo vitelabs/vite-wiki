@@ -53,11 +53,11 @@ Web Wallet需在请求header中添加如下参数
   
 * **Response**
 
-  |参数名|描述|数据类型|
-  |:--|:---|:---:|
-  |type|通道类型,枚举值<br>`0`单地址模式<br>`1`通过备注区分地址模式|int|
-  |depositState|转入通道状态,枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|
-  |withdrawState|转出通道状态，枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|
+  |参数名|描述|数据类型|是否必传|
+  |:--|:---|:---:|:---:|
+  |type|通道类型,枚举值<br>`0`单地址模式<br>`1`通过备注区分地址模式|int|true|
+  |depositState|转入通道状态,枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|true|
+  |withdrawState|转出通道状态，枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|true|
 
 :::tip 关于通道类型
 Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面与请求结构，网关服务需根据不同的通道类型返回不同的响应结构。当前协议定义了两种类型，未来还会根据需要定义更多的类型，如GRIN的文件模式
@@ -97,14 +97,14 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   
 * **Response**
 
-	|参数名|描述|数据类型|
-	|:--|:---|:---:|
-	|depositAddress|转入地址|string|
-	|labelName|标签名，type为1时必传|string|
-	|label|标签值，type为1时必传|string|
-	|minimumDepositAmount|最小转入金额|string|
-	|comfirmationCount|对手链入账确认数|string|
-	|noticeMsg|注意事项描述，网关自行定义|string|
+	|参数名|描述|数据类型|是否必传|
+	|:--|:---|:---:|:---:|
+	|depositAddress|转入地址|string|true|
+	|labelName|标签名，type为1时必传|string|false|
+	|label|标签值，type为1时必传|string|false|
+	|minimumDepositAmount|最小转入金额|string|true|
+	|confirmationCount|对手链入账确认数|string|true|
+	|noticeMsg|注意事项描述，网关自行定义|string|false|
 
 * **Example**
 <br>根据`/meta_info`中的参数type
@@ -173,12 +173,12 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   
 * **Response**
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|minimumWithdrawAmount|最小转出金额|string|
-|maximumWithdrawAmount|最大转出金额|string|
-|gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT转账交易，用于回收TOT|string|
-|noticeMsg|注意事项描述，网关自行定义|string|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|minimumWithdrawAmount|最小转出金额|string|true|
+|maximumWithdrawAmount|最大转出金额|string|true|
+|gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT回收交易，用于回收TOT|string|true|
+|noticeMsg|注意事项描述，网关自行定义|string|false|
   
 
 * **Example**
@@ -213,9 +213,9 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   
 * **Response**
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|isValidAddress|地址是否合法|bool|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|isValidAddress|地址是否合法|bool|true|
   
 
 * **Example**
@@ -249,9 +249,9 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   
 * **Response**
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|fee|网关收取的手续费|string|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|fee|网关收取的手续费|string|true|
 
 * **Example**
 
@@ -293,23 +293,23 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   
 * **Response**
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|totalCount|总记录数|int|
-|depositRecords|转入记录列表|list|
-|inTxExplorerFormat|对手链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
-|outTxExplorerFormat|VITE链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|totalCount|总记录数|int|true|
+|depositRecords|转入记录列表|list|false|
+|inTxExplorerFormat|对手链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|true|
+|outTxExplorerFormat|VITE链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|true|
   
 * ***其中depositRecords参数如下***
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|inTxHash|对手链转入交易hash|string|
-|outTxHash|VITE链转出TOT交易hash|string|
-|amount|转入金额|string|
-|fee|网关收取的转入手续费|string|
-|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|
-|dateTime|转入时间,timestamp毫秒|string|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|inTxHash|对手链转入交易hash|string|true|
+|outTxHash|VITE链转出TOT交易hash|string|false|
+|amount|转入金额|string|true|
+|fee|网关收取的转入手续费|string|true|
+|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|true|
+|dateTime|转入时间,timestamp毫秒|string|true|
 
 * **Example**
 
@@ -352,23 +352,23 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   
 * **Response**
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|totalCount|总记录数|int|
-|withdrawRecords|转出记录列表|list|
-|inTxExplorerFormat|VITE链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|
-|outTxExplorerFormat|对手链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|totalCount|总记录数|int|true|
+|withdrawRecords|转出记录列表|list|false|
+|inTxExplorerFormat|VITE链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|true|
+|outTxExplorerFormat|对手链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|true|
   
 * ***其中withdrawRecords参数如下***
 
-|参数名|描述|数据类型|
-|:--|:---|:---:|
-|inTxHash|VITE链tot转入交易hash|string|
-|outTxHash|对手链转出交易hash|string|
-|amount|实际转出到账金额|string|
-|fee|网关收取的转出手续费|string|
-|state|转出状态，枚举值<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|
-|dateTime|转出时间,timestamp毫秒|string|
+|参数名|描述|数据类型|是否必传|
+|:--|:---|:---:|:---:|
+|inTxHash|VITE链tot转入交易hash|string|true|
+|outTxHash|对手链转出交易hash|string|false|
+|amount|实际转出到账金额|string|true|
+|fee|网关收取的转出手续费|string|true|
+|state|转出状态，枚举值<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|true|
+|dateTime|转出时间,timestamp毫秒|string|true|
 
 * **Example**
 
