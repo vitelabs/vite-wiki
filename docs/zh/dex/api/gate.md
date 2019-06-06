@@ -39,7 +39,7 @@ Web Wallet需在请求header中添加如下参数
 ```
 ## 元信息类接口
 
-### `/meta_info`
+### `/meta-info`
 
 获取跨链网关TOT的元信息。如TOT转入转出的通道状态、类型等。
 
@@ -82,7 +82,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 ## 转入转出交易类接口
 
-### `/deposit_info`
+### `/deposit-info`
 
 获取转入信息。如转入地址、转入确认次数、转入说明等。网关需要生成对手链转入地址并与用户VITE地址绑定，Web Wallet根据响应展示跨链转入界面。
 
@@ -107,7 +107,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 	|noticeMsg|注意事项描述，网关自行定义|string|false|
 
 * **Example**
-<br>根据`/meta_info`中的参数type
+<br>根据`/meta-info`中的参数type
 	:::: tabs
 
 	::: tab 0:单地址模式
@@ -157,7 +157,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 4. 网关监听VITE上的该笔TOT转出交易，如果交易没有最终被确认，需要重试发送。
 :::
 
-### `/withdraw_info`
+### `/withdraw-info`
 
 获取转出信息。如最小转出金额，TOT回收地址等。Web Wallet根据响应展示跨链转出界面。
 
@@ -197,7 +197,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   } 
   ```
 
-### `/verify_withdraw_address`
+### `/withdraw-address/verification`
 
 校验转出地址。当用户在跨链转出界面中输入转出地址时进行校验。
 
@@ -231,7 +231,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   }
   ```
 
-### `/withdraw_fee`
+### `/withdraw-fee`
 
 获取网关收取的转出手续费。
 
@@ -275,7 +275,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 ## 转入转出记录查询类接口
 
-### `/deposit_records`
+### `/deposit-records`
 
 转入记录。
 
@@ -334,7 +334,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   }
   ```
 
-### `/withdraw_records`
+### `/withdraw-records`
 
 转出记录。
 
