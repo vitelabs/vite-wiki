@@ -13,7 +13,7 @@ A mnemonic can derive multiple private keys, one for each address.[Refer to hdwa
 
 ## About quota
 
-Sending transaction needs quota, which can be obtained through PoW or pledge Vite. [Refer to](/tutorial/rule/quota)
+Sending transaction needs quota, which can be obtained through PoW or pledge Vite. [Refer to quota](/tutorial/rule/quota)
 
 ## About Account Instances
 
