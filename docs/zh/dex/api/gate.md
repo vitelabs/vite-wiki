@@ -67,18 +67,23 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Example**
 
-  ```javascript
-  {
-    "code": 0,
-    "subCode": 0,
-    "msg": null,
-    "data": {
-      "type": 0,
-      "depositState": "OPEN",
-      "withdrawState": "OPEN"
+  ***Request***
+    ```
+    /meta-info?tokenId=tti_82b16ac306f0d98bf9ccf7e7
+    ```
+  ***Response***
+    ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "type": 0,
+        "depositState": "OPEN",
+        "withdrawState": "OPEN"
+      }
     }
-  }
-  ```
+    ```
 
 ## 转入转出交易类接口
 
@@ -107,48 +112,54 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 	|noticeMsg|注意事项描述，网关自行定义|string|false|
 
 * **Example**
-<br>根据`/meta-info`中的参数type
-	:::: tabs
 
-	::: tab 0:单地址模式
-	通常BTC转入地址是每一个用户VITE地址绑定一个，转入时只需要一个地址就行。
-	```javascript
-	{
-		"code": 0,
-		"subCode": 0,
-		"msg": null,
-		"data": {
-			"type": 1,
-			"depositAddress": "mrkRBVtsd96oqHLELaDtCYWzcxUr7s4D26",
-			"minimumDepositAmount": "30000",
-			"comfirmationCount": 2,
-			"noticeMsg": ""
-		}
-	}
-	```
-	:::
-
-	::: tab 1:通过备注区分地址模式
-	通常EOS转入时除了转入地址，还需要通过`memo`来标识不同用户VITE地址，所以不同的用户VITE地址需要不同的`label`值来区别。
-	<br>在EOS中labelName为`memo`，在XMR中labelName为`paymentID`,网关自行通过`labelName`定义名称
-	```javascript
-	{
-		"code": 0,
-		"subCode": 0,
-		"msg": null,
-		"data": {
-			"type": 1,
-			"depositAddress": "vitetothemoon",
-			"labelName": "memo",
-			"label": "123467",
-			"minimumDepositAmount": "30000",
-			"comfirmationCount": 1,
-			"noticeMsg": ""
-		}
-	}
-	```
-	:::
-	::::
+  ***Request***
+    ```
+    /deposit-info?tokenId=tti_82b16ac306f0d98bf9ccf7e7&walletAddress=vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9
+    ```
+  ***Response***
+  <br>根据`/meta-info`中的参数type分为:
+  :::: tabs
+  
+  ::: tab 0:单地址模式
+    通常BTC转入地址是每一个用户VITE地址绑定一个，转入时只需要一个地址就行。
+  ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "type": 1,
+        "depositAddress": "mrkRBVtsd96oqHLELaDtCYWzcxUr7s4D26",
+        "minimumDepositAmount": "30000",
+        "comfirmationCount": 2,
+        "noticeMsg": ""
+      }
+    }
+  ```
+  :::
+  
+  ::: tab 1:通过备注区分地址模式
+    通常EOS转入时除了转入地址，还需要通过`memo`来标识不同用户VITE地址，所以不同的用户VITE地址需要不同的`label`值来区别。
+    <br>在EOS中labelName为`memo`，在XMR中labelName为`paymentID`,网关自行通过`labelName`定义名称
+  ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "type": 1,
+        "depositAddress": "vitetothemoon",
+        "labelName": "memo",
+        "label": "123467",
+        "minimumDepositAmount": "30000",
+        "comfirmationCount": 1,
+        "noticeMsg": ""
+      }
+    }
+  ```
+  :::
+  ::::
 
 :::tip 关于跨链转入流程
 1. 网关建立`用户VITE地址`与`对手链转入地址`的绑定关系。
@@ -183,19 +194,24 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Example**
 
-  ```javascript
-  {
-    "code": 0,
-    "subCode": 0,
-    "msg": null,
-    "data": {
-      "minimumWithdrawAmount": "1000000",
-      "maximumWithdrawAmount": "10000000000",
-      "gatewayAddress": "vite_42f9a5d93e1e392624b97dfa3d7cab057b79c2489d6bc13682",
-      "noticeMsg": ""
-    }
-  } 
-  ```
+  ***Request***
+    ```
+    /withdraw-info?tokenId=tti_82b16ac306f0d98bf9ccf7e7&walletAddress=vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9
+    ```
+  ***Response***
+    ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "minimumWithdrawAmount": "1000000",
+        "maximumWithdrawAmount": "10000000000",
+        "gatewayAddress": "vite_42f9a5d93e1e392624b97dfa3d7cab057b79c2489d6bc13682",
+        "noticeMsg": ""
+      }
+    } 
+    ```
 
 ### `/withdraw-address/verification`
 
@@ -220,16 +236,21 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Example**
 
-  ```javascript
-  {
-  	"code": 0,
-  	"subCode": 0,
-  	"msg": null,
-  	"data": {
-  		"isValidAddress": true
-  	}
-  }
-  ```
+  ***Request***
+    ```
+    /withdraw-address/verification?tokenId=tti_82b16ac306f0d98bf9ccf7e7&withdrawAddress=moEGgYAg8KT9tydfNDofbukiUNjWTXaZTm
+    ```
+  ***Response***
+    ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "isValidAddress": true
+      }
+    }
+    ```
 
 ### `/withdraw-fee`
 
@@ -255,16 +276,21 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Example**
 
-  ```javascript
-  {
-    "code": 0,
-    "subCode": 0,
-    "msg": null,
-    "data": {
-      "fee": "1000000"
+  ***Request***
+    ```
+    /withdraw-fee?tokenId=tti_82b16ac306f0d98bf9ccf7e7&walletAddress=vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9&amount=100000000000000&containsFee=true
+    ```
+  ***Response***
+    ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "fee": "1000000"
+      }
     }
-  }
-  ```
+    ```
   
 :::tip 关于跨链转出
 1. 当用户填写完合法的转出地址与金额并确认转出后，Web Wallet会签名一笔TOT回收交易并发送至VITE网络。用户填写的转出地址会填写在交易的备注中。
@@ -313,26 +339,31 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Example**
 
-  ```javascript
-  {
-    "code": 0,
-    "subCode": 0,
-    "msg": null,
-    "data": {
-      "totalCount": 1,
-      "depositRecords": [{
-        "inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
-        "outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
-        "amount": "300000000000000000",
-        "fee": "0",
-        "state": "TOT_CONFIRMED",
-        "dateTime": "1556129201000"
-      }],
-      "inTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}",
-      "outTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}"
+  ***Request***
+    ```
+    /deposit-records?tokenId=tti_82b16ac306f0d98bf9ccf7e7&walletAddress=vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9&pageNum=1&pageSize=10
+    ```
+  ***Response***
+    ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "totalCount": 1,
+        "depositRecords": [{
+          "inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
+          "outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
+          "amount": "300000000000000000",
+          "fee": "0",
+          "state": "TOT_CONFIRMED",
+          "dateTime": "1556129201000"
+        }],
+        "inTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}",
+        "outTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}"
+      }
     }
-  }
-  ```
+    ```
 
 ### `/withdraw-records`
 
@@ -372,26 +403,31 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 
 * **Example**
 
-  ```javascript
-  {
-    "code": 0,
-    "subCode": 0,
-    "msg": null,
-    "data": {
-      "totalCount": 2,
-      "withdrawRecords": [{
-        "inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
-        "outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
-        "amount": "190000000000000000",
-        "fee": "10000000000000000",
-        "state": "OPPOSITE_CONFIRMED",
-        "dateTime": "1556129201000"
-      }],
-      "inTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}",
-      "outTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}"
+  ***Request***
+    ```
+    /withdraw-records?tokenId=tti_82b16ac306f0d98bf9ccf7e7&walletAddress=vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9&pageNum=1&pageSize=10
+    ```
+  ***Response***
+    ```javascript
+    {
+      "code": 0,
+      "subCode": 0,
+      "msg": null,
+      "data": {
+        "totalCount": 2,
+        "withdrawRecords": [{
+          "inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
+          "outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
+          "amount": "190000000000000000",
+          "fee": "10000000000000000",
+          "state": "OPPOSITE_CONFIRMED",
+          "dateTime": "1556129201000"
+        }],
+        "inTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}",
+        "outTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}"
+      }
     }
-  }
-  ```
+    ```
   
 ## 错误码表
   |code|描述|
