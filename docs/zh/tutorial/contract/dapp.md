@@ -26,7 +26,7 @@ js可执行环境即可
 
 ### 下载solidity++编译器solppc
 
-TODO github release链接
+[solppc releases](https://github.com/vitelabs/soliditypp-bin/releases)
 
 ### 官方测试钱包
 
