@@ -108,7 +108,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 	|labelName|标签名，type为1时必传|string|false|
 	|label|标签值，type为1时必传|string|false|
 	|minimumDepositAmount|最小转入金额|string|true|
-	|confirmationCount|对手链入账确认数|string|true|
+	|confirmationCount|对手链入账确认数|int|true|
 	|noticeMsg|注意事项描述，网关自行定义|string|false|
 
 * **Example**
@@ -129,10 +129,9 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
       "subCode": 0,
       "msg": null,
       "data": {
-        "type": 1,
         "depositAddress": "mrkRBVtsd96oqHLELaDtCYWzcxUr7s4D26",
         "minimumDepositAmount": "30000",
-        "comfirmationCount": 2,
+        "confirmationCount": 2,
         "noticeMsg": ""
       }
     }
@@ -148,12 +147,11 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
       "subCode": 0,
       "msg": null,
       "data": {
-        "type": 1,
         "depositAddress": "vitetothemoon",
         "labelName": "memo",
         "label": "123467",
         "minimumDepositAmount": "30000",
-        "comfirmationCount": 1,
+        "confirmationCount": 1,
         "noticeMsg": ""
       }
     }
