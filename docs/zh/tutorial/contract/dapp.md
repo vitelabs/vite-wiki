@@ -164,7 +164,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");

@@ -1,8 +1,6 @@
 # The Client Instance
 `Client extends netProcessor`
 
-Inherit all of netProcessor's methods (`setProvider` / `request` / `notification` / `batch` / `subscribe` / `unSubscribe` / `clearSubscriptions`)
-
 ## Constructor 
 
 - **Constructor params**
@@ -15,7 +13,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
@@ -45,9 +43,6 @@ myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
     // ......
 });
 ```
-
-## BuiltinTxBlock
-[Refer to BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
@@ -127,48 +122,3 @@ Increase return value accountBlock. *Gvite-RPC [tx_sendRawTx](../../rpc/tx.md)*
 
 - **Return**:
     * Promise<`AccountBlock`>
-
-### How to call Gvite-RPC api
-
-**The client is only encapsulated for call Gvite-RPC apis, the returned data will directly expose RPC api original data. [Reference](/api/rpc/)**
-
-1. `client.namespace.funcName`: If this method is defined in `constant.methods`, you can directly call `client.namespace.funcName`
-
-```javascript
-import { methods } from '@vite/vitejs-constant';
-// ......
-
-let myClient = new client(WS_RPC);
-myClient.ledger.getLatestSnapshotChainHash().then(()=>{
-    // ......
-});
-```
-
-2. `client.request(methodName, ...args)`: If this method is not defined in `constant.methods`, you can directly call `client.request(methodName, ...args)`
-
-```javascript
-// ......
-let myClient = new client(WS_RPC);
-myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
-    // ......
-});
-```
-
-3. Because of Client extends netProcessor, the client instance have the subscribe already. If you want to call the Gvite-RPC method `subscribe_`, the `myClient.subscribe` should be changed to `myClient.subscribeFunc`.
-
-```javascript
-import { methods } from '@vite/vitejs-constant';
-
-// ......
-
-let myClient = new client(WS_RPC);
-
-myClient.subscribeFunc.newSnapshotBlocksFilter().then(()=>{
-    // ......
-});
-
-// or
-myClient.request(methods.subscribe.newSnapshotBlocksFilter).then(()=>{
-    // ......
-})
-```

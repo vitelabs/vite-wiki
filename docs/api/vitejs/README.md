@@ -10,11 +10,11 @@ title: Version 2.1.1
 
 ## Introduction
 
-Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the [Gvite-RPC](../../rpc/README.md) interface; and supports various account instances, which can quickly generate a wallet.
+Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the [Gvite-RPC](../rpc/README.md) interface; and supports various account instances, which can quickly generate a wallet.
 
 :::warning warning
 
-Before you start reading this document, we suggest that you can know about [Gvite-RPC](../../rpc/README.md) api at first.
+Before you start reading this document, we suggest that you can know about [Gvite-RPC](../rpc/README.md) api at first.
 
 :::
 
@@ -187,8 +187,7 @@ const rawTokenId = "5649544520544f4b454e";
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { client } = require('@vite/vitejs');
 
-let provider = new WS_RPC("wss://example.com");
-
+let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider, (_myClient) => {
     console.log("Connected");
 });

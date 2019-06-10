@@ -10,11 +10,11 @@ title: Version 2.1.1
 
 ## 介绍
 
-Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的rpc协议调用；对 [Gvite-RPC](../../rpc/README.md) 接口进行了上层封装；并且支持各类account实例，可以快捷生成钱包。
+Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的rpc协议调用；对 [Gvite-RPC](../rpc/README.md) 接口进行了上层封装；并且支持各类account实例，可以快捷生成钱包。
 
 :::warning 注意
 
-阅读文档前, 建议先行了解 [Gvite-RPC](../../rpc/README.md) 接口。
+阅读文档前, 建议先行了解 [Gvite-RPC](../rpc/README.md) 接口。
 
 :::
 
@@ -185,8 +185,7 @@ const rawTokenId = "5649544520544f4b454e";
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { client } = require('@vite/vitejs');
 
-let provider = new WS_RPC("wss://example.com");
-
+let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider, (_myClient) => {
     console.log("Connected");
 });
