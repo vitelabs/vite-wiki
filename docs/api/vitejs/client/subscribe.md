@@ -12,7 +12,6 @@ Inherit all of netProcessor's methods (`setProvider` / `request` / `notification
 :::
 
 ## subscribe
-Event Subscription: Share the same parameters passing mode with request
 
 - **Parameters**
     * `methods : string` Method name
