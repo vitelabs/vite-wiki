@@ -23,7 +23,7 @@ myClient.ledger.getSnapshotChainHeight().then((height) => {
     console.log(height);
 });
 
-const block = myclient.builtinTxBlock.getAccountBlock(
+const block = myclient.getBlock.getAccountBlock(
     //...
 );
 

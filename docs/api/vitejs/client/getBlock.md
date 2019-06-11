@@ -1,4 +1,4 @@
-# BuiltinTxBlock
+# GetBlock (BuiltinTxBlock)
 
 Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)
 
@@ -9,25 +9,25 @@ accountBlock.prevHash = latestBlock ? latestBlock.hash : Default_Hash;
 accountBlock.height = latestBlock ? latestBlock.height + 1 : 1;
 ```
 
-## 调用方式
+## How to invoke
 
 :::warning Notice
-`client.builtinTxBlock`中的方法，当`requestType`为`async`时，非必填参数皆可不填，默认`requestType = async`. 
+You can leave out those optional parameters in Methods of `client.getBlock` as below when `requestType` equals to `async`. Default`requestType = async`
 :::
 
 ```javascript
 // ...
 
-const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
+const block = myclient.getBlock.getAccountBlock(/** ... */);
 ```
 
-## 通用
+## Common
 
 ### getAccountBlock
-[同 accountBlock.getAccountBlock](../tool/accountBlock.md)
+[Same as accountBlock.getAccountBlock](../tool/accountBlock.md)
 
 ### asyncAccountBlock
-异步获取accountBlock
+Get accountBlock asynchronously
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -48,7 +48,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
     * Promise<`AccountBlock`>
 
 ### pow
-获取运行PoW成功后的AccountBlock。 *Gvite-RPC [pow_getPowNonce](../../rpc/pow.md)*
+Get the AccountBlock after running PoW successfully. *Gvite-RPC [pow_getPowNonce](../../rpc/pow.md)*
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -69,7 +69,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
     * Promise<`AccountBlock`>
 
 ### autoPow
-当没有配额时，自动运行PoW获取accountBlock。 *Gvite-RPC [tx_calcPoWDifficulty](../../rpc/tx.md) + [pow_getPowNonce](../../rpc/pow.md)*
+Automatically run PoW to get the accountBlock, when there is no quota. *Gvite-RPC [tx_calcPoWDifficulty](../../rpc/tx.md) + [pow_getPowNonce](../../rpc/pow.md)*
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -84,16 +84,16 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `fee?: BigInt`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `usePledgeQuota : Boolean` 是否优先使用配额
+    * `usePledgeQuota : Boolean` Whether to use quotas preferentially
 
 - **Return**:
     * Promise<`{ accountBlock, difficulty, quota }`>
 
 ### getSendTxBlock
-[同 accountBlock.getSendTxBlock](../tool/accountBlock.md)
+[Same as accountBlock.getSendTxBlock](../tool/accountBlock.md)
 
 ### asyncSendTx
-获取发送交易的accountBlock
+Get accountBlock of sending transaction
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -104,15 +104,15 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `message?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-
+        
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### getReceiveTxBlock
-同 accountBlock.getReceiveTxBlock
+[Same as accountBlock.getReceiveTxBlock](../tool/accountBlock.md)
 
 ### asyncReceiveTx
-获取接收交易的accountBlock
+Get accountBlock of receiving transaction
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -120,14 +120,14 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `fromBlockHash: Hex`
         - `prevHash?: Hex`
         - `height?: Uint64`
-        
+
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## Contract
 
 ### createContract
-获取创建合约的accountBlock。 *Gvite-RPC [contract_getCreateContractToAddress](../../rpc/contract.md)*
+Get accountBlock of creating contract. *Gvite-RPC [contract_getCreateContractToAddress](../../rpc/contract.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -142,13 +142,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `params?: stirng`
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType?: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType?: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### callContract
-获取调用合约的accountBlock
+Get accountBlock of calling contract
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -162,7 +162,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `params?: stirng`
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType?: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    - `requestType?: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -170,7 +170,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ## SBP
 
 ### SBPreg
-获取注册SBP的accountBlock。 *this.callContract [constant.Register_Abi](../constant/constant.md)*
+Get accountBlock of SBP registration. *this.callContract [constant.Register_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -182,13 +182,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `Gid?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### updateReg
-获取更新注册SBP的accountBlock。 *this.callContract [constant.UpdateRegistration_Abi](../constant/constant.md)*
+Get accountBlock of updating SBP registration. *this.callContract [constant.UpdateRegistration_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -199,13 +199,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `Gid?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### revokeReg
-获取取消注册SBP的accountBlock。 *this.callContract [constant.CancelRegister_Abi](../constant/constant.md)*
+Get accountBlock of revoking SBP registration. *this.callContract [constant.CancelRegister_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -215,13 +215,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `Gid?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### retrieveReward
-获取奖励的accountBlock。 *this.callContract [constant.Reward_Abi](../constant/constant.md)*
+Get accountBlock of rewards. *this.callContract [constant.Reward_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -232,7 +232,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `Gid?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -240,7 +240,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ## Vote
 
 ### voting
-获取投票的accountBlock。 *this.callContract [constant.Vote_Abi](../constant/constant.md)*
+Get accountBlock of voting. *this.callContract [constant.Vote_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -250,13 +250,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `Gid?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### revokeVoting
-获取撤销投票的accountBlock。 *this.callContract [constant.CancelVote_Abi](../constant/constant.md)*
+Get accountBlock when revoking vote. *this.callContract [constant.CancelVote_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -265,7 +265,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `Gid?: string`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -273,7 +273,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ## Pledge
 
 ### getQuota
-获取配额的accountBlock。 *this.callContract [constant.Pledge_Abi](../constant/constant.md)*
+Get accountBlock of quota. *this.callContract [constant.Pledge_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -283,13 +283,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `amount: BigInt`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### withdrawalOfQuota
-获取取消配额的accountBlock。 *this.callContract [constant.CancelPledge_Abi](../constant/constant.md)*
+Get accountBlock of withdraw quota. *this.callContract [constant.CancelPledge_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -299,15 +299,15 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `amount: BigInt`
         - `prevHash?: Hex`
         - `height?: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
-    
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
+
 - **Return**:
     * Promise<`AccountBlock`>
 
 ## Mintage
 
 ### mintage
-获取铸币accountBlock。 *this.callContract [constant.Mint_Abi](../constant/constant.md)*
+Get accountBlock of token issuance. *this.callContract [constant.Mint_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -322,58 +322,58 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `height?: Uint64`
         - `prevHash?: Hex`
         - `feeType: string<'burn' | 'stake'>` Default burn.
-    * `requestType: string<'async' | 'sync'>` Default async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### mintageCancelPledge
-取消代币抵押的accountBlock。 *this.callContract [constant.CancelMintPledge_Abi](../constant/constant.md)*
+Cancel token staked accountBlock. *this.callContract [constant.CancelMintPledge_Abi](../constant/constant.md)*
 
 - **Parameters** 
-    - `__namedParameters: object`
-        * `accountAddress: Address`
-        * `tokenId: TokenId` 代币id
-        * `height?: Uint64`
-        * `prevHash?: Hex`
-    - `requestType: string<'async' | 'sync'>` Default async 规范化accountBlock时，使用同步还是异步方式
+    * `__namedParameters: object`
+        - `accountAddress: Address`
+        - `tokenId: TokenId` Token id
+        - `height?: Uint64`
+        - `prevHash?: Hex`
+    * `requestType: string<'async' | 'sync'>` Default async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### mintageIssue
-获取增发代币的accountBlock。 *this.callContract [constant.Issue_Abi](../constant/constant.md)*
+Get accountBlock of additional token issuance. *this.callContract [constant.Issue_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `tokenId: TokenId` 代币id
-        - `amount: uint64` 增发数量
-        - `beneficial: Address` 增发代币接收地址
+        - `tokenId: TokenId` Token id
+        - `amount: uint64` Additional amount
+        - `beneficial: Address` Additional token receiving address
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType: string<'async' | 'sync'>` Default async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### mintageBurn
-获取销毁代币的accountBlock。 *this.callContract [constant.Burn_Abi](../constant/constant.md)*
+Get accountBlock of token destruction. *this.callContract [constant.Burn_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `tokenId: TokenId` 销毁的代币id
-        - `amount: uint64` 销毁的代币数量
+        - `tokenId: TokenId` Destroyed token id
+        - `amount: uint64` Destroyed token amount
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    - `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock.
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### changeTransferOwner
-获取修改所有者的accountBlock。 *this.callContract [constant.TransferOwner_Abi](../constant/constant.md)*
+Get account block of changed transfer owner. *this.callContract [constant.TransferOwner_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -382,13 +382,13 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### changeTokenType
-获取修改代币类型的accountBlock, 将可增发代币修改为不可增发。 *this.callContract [constant.ChangeTokenType_Abi](../constant/constant.md)*
+Get accountBlock of changing token type, change token type from enable additional token issuance to disable. *this.callContract [constant.ChangeTokenType_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -396,7 +396,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
@@ -404,33 +404,33 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ## DEX
 
 ### dexFundUserDeposit
-ViteX充值。 *this.callContract [constant.DexFundUserDeposit_Abi](../constant/constant.md)*
+ViteX Deposit. *this.callContract [constant.DexFundUserDeposit_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
         - `tokenId: TokenId`
         - `amount: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### dexFundUserWithdraw
-ViteX提现。 *this.callContract [constant.DexFundUserWithdraw_Abi](../constant/constant.md)*
+ViteX Withdrawal. *this.callContract [constant.DexFundUserWithdraw_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
         - `tokenId: TokenId`
         - `amount: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### dexTradeCancelOrder
-ViteX撤单。 *this.callContract [constant.DexTradeCancelOrder_Abi](../constant/constant.md)*
+ViteX Revoking Orders. *this.callContract [constant.DexTradeCancelOrder_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -439,13 +439,13 @@ ViteX撤单。 *this.callContract [constant.DexTradeCancelOrder_Abi](../constant
         - `tradeToken: TokenId`
         - `side: <0 | 1>` buy: 0; sell: 1
         - `quoteToken: TokenId`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### dexFundNewOrder
-ViteX挂单。 *this.callContract [constant.DexFundNewOrder_Abi](../constant/constant.md)*
+ViteX Creating Orders. *this.callContract [constant.DexFundNewOrder_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -455,13 +455,13 @@ ViteX挂单。 *this.callContract [constant.DexFundNewOrder_Abi](../constant/con
         - `quoteToken: TokenId`
         - `price: string`
         - `quantity: string`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>
 
 ### dexFundNewMarket
-ViteX上币。 *this.callContract [constant.DexFundNewMarket_Abi](../constant/constant.md)*
+ViteX Token Listing. *this.callContract [constant.DexFundNewMarket_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -470,7 +470,7 @@ ViteX上币。 *this.callContract [constant.DexFundNewMarket_Abi](../constant/co
         - `amount: Uint64`
         - `quoteToken: TokenId`
         - `tradeToken: TokenId`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
+    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:
     * Promise<`AccountBlock`>

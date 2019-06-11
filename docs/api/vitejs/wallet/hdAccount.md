@@ -1,8 +1,14 @@
 # HdAccount
 
-`HdAccount contains multiple Account instances` 
+**Hierarchical Deterministic Wallets**
 
-Using mnemonics to generate a HdAccount instance. Since a mnemonic can spawn multiple addresses, a HdAccount instance can also get multiple Account instances.
+:::warning Notice
+
+1. Using mnemonics to generate a `HdAccount instance`
+2. Because a mnemonic can spawn multiple addresses, a `HdAccount instance` contains multiple `Account instances`.
+
+:::
+
 
 ## Installation
 

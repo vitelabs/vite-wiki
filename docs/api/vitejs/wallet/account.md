@@ -362,7 +362,7 @@ return result;
 
 ## How to send tx quickly
 
-Account will automatically wrap the method in [client.builtinTxBlock](../client/builtinTxBlock.md).
+Account will automatically wrap the method in [client.getBlock](../client/getBlock.md).
 
 ### How to achieve in account instance
 If you want to implement this method yourself, you can refer to this call logic for encapsulation.
@@ -373,7 +373,7 @@ If you want to implement this method yourself, you can refer to this call logic 
 
 - **Code**
 ```javascript
-for (const key in this._client.builtinTxBlock) {
+for (const key in this._client.getBlock) {
     if (key === '_client' || key.endsWith('Block')) {
         continue;
     }

@@ -128,5 +128,5 @@ Verify if it is a legal mnemonic words
 ### getAddrFromHexAddr
 Get actual address [Same as privToAddr.getAddrFromHexAddr](./privToAddr.md)
 
-### isValidHexAddr
-Verify if it is a legal hex address [Same as privToAddr.isValidHexAddr](./privToAddr.md)
+### isHexAddr
+Verify if it is a legal hex address [Same as privToAddr.isHexAddr](./privToAddr.md)

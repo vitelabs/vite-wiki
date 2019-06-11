@@ -275,16 +275,16 @@ myAddrAccount.getVoteInfo().then((voteInfo) => {
 
 ## getBlock
 
-This part will automatically wrap the method in [client.builtinTxBlock](../client/builtinTxBlock.md) (For quickly calling the methods of [client.builtinTxBlock](../client/builtinTxBlock.md) )
+This part will automatically wrap the method in [client.getBlock](../client/getBlock.md) (For quickly calling the methods of [client.getBlock](../client/getBlock.md) )
 
 ### How to achieve
 
 1. `accountBlock.accountAddress = this.address`
-2. Get the legal accountBlock by `client.builtinTxBlock[methodName]`
+2. Get the legal accountBlock by `client.getBlock[methodName]`
 
 **Code**
 ```typescript
-for (const key in this._client.builtinTxBlock) {
+for (const key in this._client.getBlock) {
     if (key === '_client') {
         continue;
     }
@@ -292,7 +292,7 @@ for (const key in this._client.builtinTxBlock) {
     this.getBlock[key] = (block, requestType?) => {
         block = block || {};
         block.accountAddress = this.address;
-        return this._client.builtinTxBlock[key](block, requestType);
+        return this._client.getBlock[key](block, requestType);
     };
 }
 ```

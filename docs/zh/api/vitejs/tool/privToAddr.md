@@ -39,7 +39,7 @@ import { newHexAddr } from '@vite/vitejs-privtoaddr';
 const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 ```
 
-### newHexAddrFromPub
+### newHexAddrFromPubKey
 根据公钥生成hex地址
 
 - **Parameters**
@@ -75,7 +75,7 @@ const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587e
 - **Return**
     * `hexaddr : HexAddr` hex编码地址
 
-### isValidHexAddr
+### isHexAddr
 校验是否为合法的hex地址
 
 - **Parameters**

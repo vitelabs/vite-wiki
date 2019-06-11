@@ -113,7 +113,7 @@ const receiveTxBlock = getReceiveTxBlock({
 });
 ```
 
-### getBuiltinTxType 
+### getTxType 
 获取详细的交易类型
 
 - **Parameters**
@@ -123,11 +123,11 @@ const receiveTxBlock = getReceiveTxBlock({
         - `blockType : BlockType`
 
 - **Return**
-    * `builtinTxType : BuiltinTxType`
+    * `txType : TxType`
 
 - **Example**
 ```javascript
-import { getBuiltinTxType } from '@vite/vitejs-accountblock';
+import { getTxType } from '@vite/vitejs-accountblock';
 
 const RevokeVoting = {
     blockType: 2,
@@ -135,8 +135,8 @@ const RevokeVoting = {
     toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
 };
 
-const builtinTxType = getBuiltinTxType(RevokeVoting);
-// builtinTxType === 'RevokeVoting'
+const txType = getTxType(RevokeVoting);
+// txType === 'RevokeVoting'
 ```
 
 ### getBlockHash

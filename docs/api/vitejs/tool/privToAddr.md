@@ -39,7 +39,7 @@ import { newHexAddr } from '@vite/vitejs-privtoaddr';
 const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 ```
 
-### newHexAddrFromPub
+### newHexAddrFromPubKey
 Generating hex address according to public key
 
 - **Parameters**
@@ -75,7 +75,7 @@ Generating hex address according to real address
 - **Return**
     * `hexaddr : HexAddr` Hex encoded address
 
-### isValidHexAddr
+### isHexAddr
 Verify if it is a legal hex address
 
 - **Parameters**

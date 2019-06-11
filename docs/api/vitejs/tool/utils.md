@@ -76,7 +76,7 @@ Get token ID according to original token ID
 - **Return**
     * `tokenId : TokenId`
 
-## validNodeName 
+## isNodeName 
 Verify if the node is legal
 
 - **Parameters**

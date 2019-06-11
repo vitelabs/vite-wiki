@@ -274,16 +274,16 @@ myAddrAccount.getVoteInfo().then((voteInfo) => {
 
 ## getBlock
 
-getBlock封装了[client.builtinTxBlock](../client/builtinTxBlock.md)模块下的方法（用于快速调用[client.builtinTxBlock](../client/builtinTxBlock.md)模块的方法）
+getBlock封装了[client.getBlock](../client/getBlock.md)模块下的方法（用于快速调用[client.getBlock](../client/getBlock.md)模块的方法）
 
 ### 实现方式
 
 1. `accountBlock.accountAddress = this.address`
-2. 通过 `client.builtinTxBlock[methodName]` 获取到合法块
+2. 通过 `client.getBlock[methodName]` 获取到合法块
 
 **Code**
 ```typescript
-for (const key in this._client.builtinTxBlock) {
+for (const key in this._client.getBlock) {
     if (key === '_client') {
         continue;
     }
@@ -291,7 +291,7 @@ for (const key in this._client.builtinTxBlock) {
     this.getBlock[key] = (block, requestType?) => {
         block = block || {};
         block.accountAddress = this.address;
-        return this._client.builtinTxBlock[key](block, requestType);
+        return this._client.getBlock[key](block, requestType);
     };
 }
 ```

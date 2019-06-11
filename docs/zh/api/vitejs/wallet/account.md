@@ -368,7 +368,7 @@ return result;
 
 ## 快速发送交易
 
-Account 会自动从[client.builtinTxBlock](../client/builtinTxBlock.md)中获取生成块方法并进行封装。
+Account 会自动从[client.getBlock](../client/getBlock.md)中获取生成块方法并进行封装。
 
 ### 实现方式
 如果想自行实现此方法，可参照此调用逻辑进行封装。
@@ -379,7 +379,7 @@ Account 会自动从[client.builtinTxBlock](../client/builtinTxBlock.md)中获�
 
 - **Code**
 ```javascript
-for (const key in this._client.builtinTxBlock) {
+for (const key in this._client.getBlock) {
     if (key === '_client' || key.endsWith('Block')) {
         continue;
     }

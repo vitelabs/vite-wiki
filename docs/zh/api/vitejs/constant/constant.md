@@ -95,7 +95,7 @@ import * as constant from '@vite/vitejs-constant';
 
 ## viteJS 内置交易类型
 
-- BuiltinTxType : `TX type`
+- TxType : `TX type`
     - SBPreg = 0 : `注册SBP`
     - UpdateReg : `更新注册`
     - RevokeReg : `撤销注册`

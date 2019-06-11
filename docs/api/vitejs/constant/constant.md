@@ -95,7 +95,7 @@ import * as constant from '@vite/vitejs-constant';
 
 ## viteJS built-in transaction type
 
-- BuiltinTxType : `TX type`
+- TxType : `TX type`
     - SBPreg = 0 : `SBP Registration`
     - UpdateReg : `Update Registration`
     - RevokeReg : `Revoke Registration`

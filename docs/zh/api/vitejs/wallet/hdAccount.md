@@ -1,8 +1,13 @@
 # HdAccount
 
-`HdAccount 包含多个 Account 实例`
+**Hierarchical Deterministic Wallets** 分层确定性钱包
 
-使用助记词生成 HdAccount 实例。由于一个助记词可以派生出多个地址，所以一个钱包账户也可以包含多个 Account 实例。
+:::warning Notice
+
+1. `HdAccount实例` 由助记词生成
+2. 由于一个助记词可以派生出多个地址，所以一个`HdAccount实例`也可以包含多个`Account实例`
+
+:::
 
 ## 安装
 

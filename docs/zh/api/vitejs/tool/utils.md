@@ -77,7 +77,7 @@ test(a); // Got an error
 - **Return**
     * `tokenId : TokenId`
 
-## validNodeName 
+## isNodeName 
 验证是否为合法的节点名称
 
 - **Parameters**

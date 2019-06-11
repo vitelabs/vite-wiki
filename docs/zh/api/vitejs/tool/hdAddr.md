@@ -128,5 +128,5 @@ let addrObjArr = getAddrsFromMnemonic('your mnemonic');
 ### getAddrFromHexAddr
 获取真实地址 [同privToAddr.getAddrFromHexAddr](./privToAddr.md)
 
-### isValidHexAddr
-校验是否为合法的hex地址 [同privToAddr.isValidHexAddr](./privToAddr.md)
+### isHexAddr
+校验是否为合法的hex地址 [同privToAddr.isHexAddr](./privToAddr.md)

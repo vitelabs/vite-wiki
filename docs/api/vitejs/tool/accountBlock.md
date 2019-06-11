@@ -113,7 +113,7 @@ const receiveTxBlock = getReceiveTxBlock({
 });
 ```
 
-### getBuiltinTxType 
+### getTxType 
 Get specified transaction type
 
 - **Parameters**
@@ -123,11 +123,11 @@ Get specified transaction type
         - `blockType : BlockType`
 
 - **Return**
-    * `builtinTxType : BuiltinTxType` Transaction Type
+    * `txType : TxType` Transaction Type
 
 - **Example**
 ```javascript
-import { getBuiltinTxType } from '@vite/vitejs-accountblock';
+import { getTxType } from '@vite/vitejs-accountblock';
 
 const RevokeVoting = {
     blockType: 2,
@@ -135,8 +135,8 @@ const RevokeVoting = {
     toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
 };
 
-const builtinTxType = getBuiltinTxType(RevokeVoting);
-// builtinTxType === 'RevokeVoting'
+const txType = getTxType(RevokeVoting);
+// txType === 'RevokeVoting'
 ```
 
 ### getBlockHash
