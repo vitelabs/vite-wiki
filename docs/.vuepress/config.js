@@ -148,7 +148,7 @@ const sidebarConfigs = {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
         },
         {
-            children: ['constant/error', 'constant/constant']
+            children: ['constant/constant']
         },
         {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']

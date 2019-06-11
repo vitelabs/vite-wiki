@@ -29,7 +29,7 @@ Inherit all of netProcessor's methods (`setProvider` / `request` / `notification
 import WS_RPC from '@vite/vitejs-ws';
 import { client } from '@vite/vitejs';
 
-const wsProvider = new WS_RPC("https://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 const myClient = new client(WS_RPC);
 
 myClient.subscribe('newAccountBlocks').then((event) => {
