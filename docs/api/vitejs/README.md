@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.1
+title: Version 2.1.2
 ---
 
 :::tip Created by
@@ -10,11 +10,11 @@ title: Version 2.1.1
 
 ## Introduction
 
-Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the [Gvite-RPC](../../rpc/README.md) interface; and supports various account instances, which can quickly generate a wallet.
+Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the [Gvite-RPC](../rpc/README.md) interface; and supports various account instances, which can quickly generate a wallet.
 
 :::warning warning
 
-Before you start reading this document, we suggest that you can know about [Gvite-RPC](../../rpc/README.md) api at first.
+Before you start reading this document, we suggest that you can know about [Gvite-RPC](../rpc/README.md) api at first.
 
 :::
 
@@ -178,6 +178,22 @@ const tokenId = "tti_5649544520544f4b454e6e40";
 const rawTokenId = "5649544520544f4b454e";
 ```
 
+## Common error
+
+1. [Gvite common error](../rpc/README.md)
+
+2. ViteJS common error
+
+| property | code | description |
+|:-----:|:-------:|:--------:|
+| no | 100000 | Unknown Error |
+| paramsMissing | 100001 | Missing Parameters |
+| paramsFormat | 100002 | Wrong Format |
+| paramsConflict | 100003 | Parameter Conflict |
+| addressIllegal | 200001 | Illegal Address |
+| addressMissing | 200002 | Address Not Existed |
+| requestTimeout | 300001 | Request timeout |
+
 ## Quick Start  
 
 1. `npm install @vite/vitejs-ws`
@@ -187,8 +203,7 @@ const rawTokenId = "5649544520544f4b454e";
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { client } = require('@vite/vitejs');
 
-let provider = new WS_RPC("wss://example.com");
-
+let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider, (_myClient) => {
     console.log("Connected");
 });

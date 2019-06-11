@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.1
+title: Version 2.1.2
 ---
 
 :::tip 作者
@@ -10,7 +10,7 @@ title: Version 2.1.1
 
 ## 介绍
 
-Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的rpc协议调用；对 [Gvite-RPC](../../rpc/README.md) 接口进行了上层封装；并且支持各类account实例，可以快捷生成钱包。
+Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的rpc协议调用；对 [Gvite-RPC](../rpc/README.md) 接口进行了上层封装；并且支持各类account实例，可以快捷生成钱包。
 
 :::warning 注意
 
@@ -176,6 +176,22 @@ const tokenId = "tti_5649544520544f4b454e6e40";
 const rawTokenId = "5649544520544f4b454e";
 ```
 
+## 常见错误汇总
+
+1. [Gvite 常见错误类型](../rpc/README.md)
+
+2. ViteJS 常见错误类型
+
+| 属性 | code | 说明 |
+|:-----:|:-------:|:--------:|
+| no | 100000 | 未知错误 |
+| paramsMissing | 100001 | 丢失参数 |
+| paramsFormat | 100002 | 参数格式错误 |
+| paramsConflict | 100003 | 参数冲突 |
+| addressIllegal | 200001 | 地址不合法 |
+| addressMissing | 200002 | 地址不存在 |
+| requestTimeout | 300001 | 请求超时 |
+
 ## 快速开始  
 
 1. `npm install @vite/vitejs-ws`
@@ -185,8 +201,7 @@ const rawTokenId = "5649544520544f4b454e";
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { client } = require('@vite/vitejs');
 
-let provider = new WS_RPC("wss://example.com");
-
+let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider, (_myClient) => {
     console.log("Connected");
 });

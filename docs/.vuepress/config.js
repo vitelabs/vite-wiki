@@ -147,16 +147,16 @@ const sidebarConfigs = {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
         },
         {
-            children: ['constant/error', 'constant/constant']
+            children: ['constant/constant']
         },
         {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
+            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
         },
         {
-            children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
+            children: ['wallet/wallet', 'wallet/QA', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
         }
     ],
     vep: [
