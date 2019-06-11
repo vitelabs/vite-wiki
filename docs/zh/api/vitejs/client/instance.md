@@ -35,17 +35,14 @@ myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
     // ......
 })
 
-myClient.subscribeFunc.newAccountBlocks().then(()=>{
+myClient.subscribeFunc.newAccountBlocksFilter().then(()=>{
     // ......
 });
 
-myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+myClient.request(methods.subscribe.newAccountBlocksFilter).then(()=>{
     // ......
 });
 ```
-
-## BuiltinTxBlock
-[见 BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
