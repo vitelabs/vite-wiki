@@ -63,7 +63,7 @@ import WS_RPC from '@vite/vitejs-ws';
 import { client, account, hdAccount, constant } from '@vite/vitejs';
 
 let { Vite_TokenId } = constant;
-let provider = new WS_RPC("ws://example.com");
+let provider = new WS_RPC("wss://example.com");
 let myClient = new client(provider);
 
 // 导入一个账户
