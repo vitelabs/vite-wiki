@@ -136,33 +136,6 @@ For creating mnemonic words
     - korean : `korean`
     - spanish : `spanish`
 
-## Abi Function Signature
-
-```javascript 
-let Register = abi.encodeFunctionSignature(Register_Abi);
-```
-
-- abiFuncSignature
-    - Register
-    - UpdateRegistration
-    - CancelRegister
-    - Reward
-    - Vote
-    - CancelVote
-    - Pledge
-    - CancelPledge
-    - Mint
-    - Issue
-    - Burn
-    - TransferOwner
-    - ChangeTokenType
-    - CancelMintPledge
-    - DexFundUserDeposit
-    - DexFundUserWithdraw
-    - DexFundNewOrder
-    - DexTradeCancelOrder
-    - DexFundNewMarket
-
 ## RPC methods
 
 ```typescript

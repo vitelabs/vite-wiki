@@ -1,5 +1,9 @@
 # HdAccount
 
+`HdAccount contains multiple Account instances` 
+
+Using mnemonics to generate a HdAccount instance. Since a mnemonic can spawn multiple addresses, a HdAccount instance can also get multiple Account instances.
+
 ## Installation
 
 :::demo
@@ -40,21 +44,27 @@ const { hdAccount } = require('@vite/vitejs-hdaccount');
         - `maxAddrNum : number` Max number of addresses. Default 10
         - `addrStartInx : number` Index of the generated addresses. Default 0
 
-- **Example**
+## Example
+firstAccount is an [account instance](./account)
+
 ```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, hdAccount, utils, constant } from '@vite/vitejs';
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { client, hdAccount, utils, constant } = require('@vite/vitejs');
 
 let { Vite_TokenId } = constant;
 
 let myClient = new client( new WS_RPC("ws://example.com") );
-let myHdAccount = new hdAccount({ client: myClient });
-myHdAccount.addAddr();
+let myHdAccount = new hdAccount({ 
+    client: myClient,
+    mnemonic: 'your mnemonic'
+});
 
-let firstAccount = myHdAccount.getAccount();
+let firstAccount = myHdAccount.getAccount({
+    index: 0
+});
 
 firstAccount.sendTx({
-    toAddress: 'Your toAddress',    
+    toAddress: 'Your toAddress',
     amount: '10000000000000000000',    // 10Vite + 18个0
     tokenId: Vite_TokenId
 }).then((accountBlock) => {

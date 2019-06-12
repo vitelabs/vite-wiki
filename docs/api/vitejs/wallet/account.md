@@ -1,5 +1,9 @@
 # Account
 
+`Account extends AddrAccount` 
+
+Use the private key to generate an Account instance. In addition to all the functions of AddrAccount, you can also quickly send transactions, as well as a variety of signature-related operations.
+
 ## Installation
 
 :::demo
@@ -45,10 +49,11 @@ const { account } = require('@vite/vitejs-account');
 | -- | &#x2713; | -- | -- | -- | Can only call methods that do not use a private key, otherwise throw an error |
 | &#x2713; | &#x2713; | &#x2713; | -- | -- | If the private key and address do not match, throw an error |
 
-- **Example**: 
+## Example
+
 ```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, account, utils, constant } from '@vite/vitejs';
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { client, account, utils, constant } = require('@vite/vitejs');
 
 let { Vite_TokenId } = constant;
 
@@ -56,10 +61,8 @@ let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider);
 
 let myAccount = new account({
-    client: myClient
-}, {
-    autoPow: true,
-    usePledgeQuota: true
+    client: myClient,
+    privateKey: 'your privateKey'   // Notice: PrivateKey is not mnemonic. A privateKey generates an address.
 });
 
 myAccount.getBalance().then((result) => {
@@ -68,9 +71,18 @@ myAccount.getBalance().then((result) => {
     console.warn(err);
 });
 
+// Please ensure that you have balance. Quotas are required for sending transactions, so that you can get quotas first.
+myAccount.getQuota({
+    toAddress: myAccount.address,
+    tokenId: Vite_TokenId,
+    amount: '134000000000000000000' // 至少 134 Vite
+}).then((accountBlock) => {
+    console.log(accountBlock);
+});
+
 myAccount.getTxList({
-        index: 0,
-        pageCount: 50
+    index: 0,
+    pageCount: 50
 }).then((data) => {
     let txList = data.list || [];
     console.log(txList);
@@ -78,7 +90,7 @@ myAccount.getTxList({
 
 myAccount.sendTx({
     toAddress: 'Your toAddress',
-    amount: '10000000000000000000',    // 10 Vite + 18 0
+    amount: '10000000000000000000',    // 10Vite + 18个0
     tokenId: Vite_TokenId
 }).then((accountBlock) => {
     console.log(accountBlock);
@@ -95,21 +107,12 @@ myAccount.getOnroadBlocks({
         return;
     }
 
-    // Receive the first tx;
+    // When found onroad-blocks, you can start receiving.
     myAccount.receiveTx({
         fromBlockHash: data[0].hash
     }).then((accountBlock) => {
         console.log(accountBlock);
     });
-});
-
-// Quota
-myAccount.getQuota({
-    toAddress: myAccount.address,
-    tokenId: Vite_TokenId,
-    amount: '134000000000000000000' // At least 134 Vite
-}).then((accountBlock) => {
-    console.log(accountBlock);
 });
 ```
 
@@ -209,7 +212,7 @@ Send a transaction. Use different function callbacks to perform custom user acti
     1. Get block. `this.getBlock[methodName](...params)`
 * **beforeCheckPow** 
     1. *beforeCheckPow ? beforeCheckPow() : go to **2***
-    2. Check PoW. [tx_calcPoWDifficulty](../../rpc/tx.md)
+    2. Check PoW. [tx_calcPoWDifficulty](/api/rpc/tx.md)
 * **checkPowDone**
     1. The check results, if need PoW go to **2**; else go to **powDone 1**.
     2. *beforePow ? beforePow() : go to **3***
