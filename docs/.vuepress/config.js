@@ -147,16 +147,16 @@ const sidebarConfigs = {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
         },
         {
-            children: ['constant/constant']
+            children: ['constant/error', 'constant/constant']
         },
         {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
+            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
         },
         {
-            children: ['wallet/wallet', 'wallet/QA', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
+            children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
         }
     ],
     vep: [
@@ -203,7 +203,8 @@ module.exports = {
         ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
         ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
         ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
-        ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+        ['meta', { name: 'msapplication-TileColor', content: '#000000' }],
+        ['meta', { name: 'google-site-verification', content: 'aFFDoYqDZ_SUQtuOmoAjiKaq0A8TzrTS-X1MR-jdfUU'}]
     ],
     configureWebpack: {
         resolve: {
