@@ -180,7 +180,7 @@ sidebarDepth: 4
 :::
 
 ## subscribe_newOnroadBlocksByAddrFilter
-轮询接口，创建单个账户在途交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+轮询接口，创建单个账户在途交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。新事件包括新在途交易、在途交易被接收和在途交易被回滚。
 
 - **Returns**:  
 	- `string` filterId
@@ -408,9 +408,10 @@ topics取值示例：
 
 - **subscribe_newOnroadBlocksByAddrFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewAccountBlocksMsg>`
+  * `result`: `Array<OnroadMsg>`
     1. `hash`: `Hash` 账户块哈希
-    2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+    2. `closed`: `bool` 在途交易是否被接收。
+    3. `removed`: `bool` 是否回滚。removed为true时表示在途交易被回滚；removed为false，closed为false时表示为新在途交易；removed为false，closed为true时表示在途交易被接收。
   
 ::: demo
 ```json tab:Request
@@ -429,15 +430,18 @@ topics取值示例：
       "result": [
           {
               "hash": "72ec861cb2f6c32a48632407f3aa1b05d5ad450ef75fa7660dd39d7be6d3ab68",
+              "closed": false,
               "removed": false
           },
           {
-              "hash": "9d0df2fbc311ceb232e851a758e88fcc0a9f16d7a4240c2aa486f26f1b36d8f2",
+              "hash": "72ec861cb2f6c32a48632407f3aa1b05d5ad450ef75fa7660dd39d7be6d3ab68",
+              "closed": true,
               "removed": false
           },
           {
               "hash": "18914060ba6fe9474b4c724dfe3ff5999d9cb90b5128222ade210d11fe3216f0",
-              "removed": false
+              "closed": false,
+              "removed": true
           }
       ],
       "subscription": "0x64e1eb3d26517a0d736b3d85ae9ce299"
@@ -629,7 +633,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array<NewAccountBlocksMsg>` 事件信息
+  2. `result`: `Array<OnroadMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
@@ -655,6 +659,7 @@ topics取值示例：
     "subscription":"0xa809145803ebb2a52229aefcbd52a99d",
     "result":[{
       "hash":"20009ee78d5f77122d215c3021f839b4024e4f2701e57bdb574e0cae1ae44e6c",
+      "closed":false,
       "removed":false
     }]
   }
