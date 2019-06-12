@@ -1,8 +1,6 @@
 # Client 实例
 `Client extends netProcessor`
 
-继承netProcessor的所有方法 (`setProvider` / `request` / `notification` / `batch` / `subscribe` / `unSubscribe` / `clearSubscriptions`)
-
 ## Constructor
 
 - **Constructor Parameters**
@@ -15,7 +13,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
@@ -37,17 +35,14 @@ myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
     // ......
 })
 
-myClient.subscribeFunc.newAccountBlocks().then(()=>{
+myClient.subscribeFunc.newAccountBlocksFilter().then(()=>{
     // ......
 });
 
-myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+myClient.request(methods.subscribe.newAccountBlocksFilter).then(()=>{
     // ......
 });
 ```
-
-## BuiltinTxBlock
-[见 BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
@@ -126,46 +121,3 @@ myclient.getBalance.then(({balance, onroad}) => {
 
 - **Return**:
     * Promise<`AccountBlock`>
-
-### Gvite-RPC 接口调用方式
-
-**关于 Gvite-RPC 接口只是对于调用方式进行封装，返回数据是直接暴露RPC接口的原始数据。[详细参考](/api/rpc/)**
-
-1. `client.namespace.funcName`: 如果`constant.methods`中定义了此方法，可以直接使用`client.namespace.funcName`的方式调用
-
-```javascript
-import { methods } from '@vite/vitejs-constant';
-// ......
-
-let myClient = new client(WS_RPC);
-myClient.ledger.getLatestSnapshotChainHash().then(()=>{
-    // ......
-});
-```
-
-2. `client.request(methodName, ...args)`: 如果`constant.methods`中未定义此方法，可以直接通过`client.request(methodName, ...args)`的方式调用
-
-```javascript
-// ......
-let myClient = new client(WS_RPC);
-myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
-    // ......
-});
-```
-
-3. 由于 client 继承自 netProcessor，已经有subscribe方法。所以如果需要调用 Gvite-RPC 的 subscribe方法，`subscribe` 应改为 `subscribeFunc`
-
-```javascript
-import { methods } from '@vite/vitejs-constant';
-
-// ......
-let myClient = new client(WS_RPC);
-myClient.subscribeFunc.newSnapshotBlocksFilter().then(()=>{
-    // ......
-});
-
-// 或者
-myClient.request(methods.subscribe.newSnapshotBlocksFilter).then(()=>{
-    // ......
-})
-```

@@ -1,5 +1,9 @@
 # Account
 
+`Account extends AddrAccount`
+
+使用私钥生成 Account 实例。除包含AddrAccount的所有功能外，还可以快速发送交易，以及各种签名相关操作。
+
 ## 安装
 
 :::demo
@@ -45,10 +49,15 @@ const { account } = require('@vite/vitejs-account');
 | -- | &#x2713; | -- | -- | -- | 只能调用不使用私钥的方法，否则报错 |
 | &#x2713; | &#x2713; | &#x2713; | -- | -- | 私钥和地址不匹配则报错 |
 
-- **Example**: 
+## Example
+
+:::warning Notice
+具体API调用，请参阅文档
+:::
+
 ```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, account, utils, constant } from '@vite/vitejs';
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { client, account, utils, constant } = require('@vite/vitejs');
 
 let { Vite_TokenId } = constant;
 
@@ -56,26 +65,36 @@ let provider = new WS_RPC("ws://example.com");
 let myClient = new client(provider);
 
 let myAccount = new account({
-    client: myClient
-}, {
-    autoPow: true,
-    usePledgeQuota: true
+    client: myClient,
+    privateKey: 'your privateKey'   // Notice: privateKey 不是助记词，一个地址对应一个 privateKey
 });
 
+// 查询余额
 myAccount.getBalance().then((result) => {
     console.log(result);
 }).catch((err) => {
     console.warn(err);
 });
 
+// 请确保您的账户中有余额。因为发送交易时需要配额，可以选择首先抵押配额
+myAccount.getQuota({
+    toAddress: myAccount.address,
+    tokenId: Vite_TokenId,
+    amount: '134000000000000000000' // 至少 134 Vite
+}).then((accountBlock) => {
+    console.log(accountBlock);
+});
+
+// 获取交易列表
 myAccount.getTxList({
-        index: 0,
-        pageCount: 50
+    index: 0,
+    pageCount: 50
 }).then((data) => {
     let txList = data.list || [];
     console.log(txList);
 });
 
+// 发送交易
 myAccount.sendTx({
     toAddress: 'Your toAddress',
     amount: '10000000000000000000',    // 10Vite + 18个0
@@ -86,6 +105,7 @@ myAccount.sendTx({
     console.log(err);
 });
 
+// 获取在途交易列表
 myAccount.getOnroadBlocks({
     index: 0,
     pageCount: 10
@@ -95,21 +115,12 @@ myAccount.getOnroadBlocks({
         return;
     }
 
-    // 接收第一笔交易
+    // 当发现在途时，你可以开始接收交易
     myAccount.receiveTx({
         fromBlockHash: data[0].hash
     }).then((accountBlock) => {
         console.log(accountBlock);
     });
-});
-
-// 抵押配额
-myAccount.getQuota({
-    toAddress: myAccount.address,
-    tokenId: Vite_TokenId,
-    amount: '134000000000000000000' // 至少 134 Vite
-}).then((accountBlock) => {
-    console.log(accountBlock);
 });
 ```
 

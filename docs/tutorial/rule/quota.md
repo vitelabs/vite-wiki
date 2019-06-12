@@ -53,7 +53,7 @@ Various quota consumptions of different transactions:
 
 * **Unit Transaction**: The minimal transaction unit measured in quota consumption, equivalent to an un-commented transfer transaction
 
-In addition, each character in transaction's comment consumes additional 68 quota.
+Each character in transaction's comment consumes additional 68 quota.
 
 For example, given hex encoding is used, sending a transfer with a comment of '0x0001' (two characters) will consume
 
@@ -63,6 +63,9 @@ $${\it Q} = 21000 + 68 * 2 = 21136$$ quota, which translates to `1.0065` unit tr
 Due to implementation of [VEP-8](../../vep/vep-8.md), additional 136 quota (2 characters prefix) will be cost if you send a transfer with comment from Vite official wallet. 
 No additional quota will be cost if no comment is attached.
 :::
+
+If `ConfirmTimes` is assigned when creating new smart contract, for each response transaction of the contract, an additional quota about `ConfirmTimes * 200` will be charged.
+`ConfirmTimes` defines a waiting number that specifies in how many confirmations the contract will produce a response after the request transaction is snapshotted.
 
 ## Quota Calculation
 

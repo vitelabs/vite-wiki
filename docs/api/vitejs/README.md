@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.1
+title: Version 2.1.2
 ---
 
 :::tip Created by
@@ -10,11 +10,11 @@ title: Version 2.1.1
 
 ## Introduction
 
-Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the Gvite-RPC interface; and supports various account instances, which can quickly generate a wallet.
+Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the [Gvite-RPC](../rpc/README.md) interface; and supports various account instances, which can quickly generate a wallet.
 
 :::warning warning
 
-Before you start reading this document, we suggest that you can know about Gvite-RPC api at first.
+Before you start reading this document, we suggest that you can know about [Gvite-RPC](../rpc/README.md) api at first.
 
 :::
 
@@ -106,26 +106,6 @@ import * as abi from '@vite/vitejs/es5/abi';
 import * as utils from '@vite/vitejs/es5/utils';
 ```
 
-## Quick Start  
-
-```javascript
-import provider from '@vite/vitejs-ws';
-import { client, constant } from '@vite/vitejs';
-
-const { methods } = constant;
-let WS_RPC = new provider("wss://example.com");
-
-let myClient = new client(WS_RPC, (_myClient) => {
- console.log("Connected");
-});
-
-myClient.ledger.getSnapshotChainHeight().then((result) => {
- console.log(result);
-}).catch((err) => {
- console.warn(err);
-});
-```
-
 ## Common type and specification
 [Refer to constant module](./constant/constant.md)
 
@@ -197,3 +177,41 @@ const tokenId = "tti_5649544520544f4b454e6e40";
 // Type RawTokenId
 const rawTokenId = "5649544520544f4b454e";
 ```
+
+## Common error
+
+1. [Gvite common error](../rpc/README.md)
+
+2. ViteJS common error
+
+| property | code | description |
+|:-----:|:-------:|:--------:|
+| no | 100000 | Unknown Error |
+| paramsMissing | 100001 | Missing Parameters |
+| paramsFormat | 100002 | Wrong Format |
+| paramsConflict | 100003 | Parameter Conflict |
+| addressIllegal | 200001 | Illegal Address |
+| addressMissing | 200002 | Address Not Existed |
+| requestTimeout | 300001 | Request timeout |
+
+## Quick Start  
+
+1. `npm install @vite/vitejs-ws`
+2. `npm install @vite/vitejs`
+3. Create `test.js`
+```javascript
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { client } = require('@vite/vitejs');
+
+let provider = new WS_RPC("ws://example.com");
+let myClient = new client(provider, (_myClient) => {
+    console.log("Connected");
+});
+
+myClient.ledger.getSnapshotChainHeight().then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
+```
+4. `node test.js`

@@ -15,7 +15,7 @@ sidebarDepth: 4
 1. 调用`contract_getCreateContractToAddress`接口生成新合约地址。
 2. 根据ABI定义对创建合约的参数进行编码。这一步可以使用`vitejs`的`abi.encodeParameters`方法（推荐），也可以调用`contract_getCreateContractParams`接口。
 3. 调用`contract_getCreateContractData`接口生成交易数据。
-4. 调用`tx_sendRawTx`接口发起创建合约交易，其中`toAddress`为第1步生成的合约地址；`data`为第3步生成的交易数据；`blockType`为1，表示该交易为创建合约交易；`amount`和`tokenId`为调用合约构造函数时的转账金额和代币id；`fee`字段值为创建合约费用，测试网络固定为10 vite。
+4. 调用`tx_sendRawTx`接口发起创建合约交易，其中`toAddress`为第1步生成的合约地址；`data`为第3步生成的交易数据；`blockType`为1，表示该交易为创建合约交易；`amount`和`tokenId`为调用合约构造函数时的转账金额和代币id；`fee`字段值为创建合约费用，预主网中固定为10 vite。
 
 注意：`vitejs`的`buildinTxBlock.createContract`接口实现了以上逻辑。
 
@@ -99,7 +99,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 {
     "jsonrpc": "2.0",
     "id": 1,
-    "method": "contract_getCreateContractData",
+    "method": "contract_getCreateContractParams",
     "params": [
         "[{\"constant\":false,\"inputs\":[{\"name\":\"voter\",\"type\":\"address\"}],\"name\":\"authorization\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"proposal\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"proposalNames\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}]",
         ["[\"0x1111111111111111111111111111111111111111111111111111111111111111\",\"0x2222222222222222222222222222222222222222222222222222222222222222\"]"]

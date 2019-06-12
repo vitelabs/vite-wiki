@@ -55,7 +55,6 @@ const sidebarConfigs = {
                 'node/sbp',
                 'node/node_config',
                 'node/example',
-                'node/genesis_config',
                 'node/pre_mainnet_config'
             ]
         },
@@ -148,16 +147,16 @@ const sidebarConfigs = {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
         },
         {
-            children: ['constant/error', 'constant/constant']
+            children: ['constant/constant']
         },
         {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
+            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
         },
         {
-            children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
+            children: ['wallet/wallet', 'wallet/QA', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
         }
     ],
     vep: [
@@ -172,7 +171,9 @@ const sidebarConfigs = {
                 'vep-8',
                 'vep-10',
                 'vep-12',
-                'vep-13'
+                'vep-13',
+                'vep-15',
+                'vep-16'
             ]
         }
     ]

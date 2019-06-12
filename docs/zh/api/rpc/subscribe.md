@@ -132,7 +132,7 @@ sidebarDepth: 4
 :::
 
 ## subscribe_newAccountBlocksFilter
-轮询接口，创建一个新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+轮询接口，创建一个所有账户新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
 - **Returns**:  
 	- `string` filterId
@@ -532,7 +532,7 @@ topics取值示例：
 :::
 
 ## subscribe_newAccountBlocks
-长连接接口，创建一个新交易事件的subscription。
+长连接接口，创建一个所有账户新交易事件的subscription。
 
 - **Returns**:  
 	- `string` 订阅id

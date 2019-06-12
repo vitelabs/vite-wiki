@@ -136,34 +136,6 @@ import * as constant from '@vite/vitejs-constant';
     - korean : `korean`
     - spanish : `spanish`
 
-
-## Abi 函数签名
-
-```javascript 
-let Register = abi.encodeFunctionSignature(Register_Abi);
-```
-
-- abiFuncSignature
-    - Register
-    - UpdateRegistration
-    - CancelRegister
-    - Reward
-    - Vote
-    - CancelVote
-    - Pledge
-    - CancelPledge
-    - Mint
-    - Issue
-    - Burn
-    - TransferOwner
-    - ChangeTokenType
-    - CancelMintPledge
-    - DexFundUserDeposit
-    - DexFundUserWithdraw
-    - DexFundNewOrder
-    - DexTradeCancelOrder
-    - DexFundNewMarket
-
 ## rpc方法
 
 ```typescript

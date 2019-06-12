@@ -26,7 +26,7 @@ js可执行环境即可
 
 ### 下载solidity++编译器solppc
 
-TODO github release链接
+[solppc releases](https://github.com/vitelabs/soliditypp-bin/releases)
 
 ### 官方测试钱包
 
@@ -164,7 +164,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");

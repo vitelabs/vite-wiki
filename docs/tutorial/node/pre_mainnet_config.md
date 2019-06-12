@@ -1,12 +1,10 @@
-# Switch into Pre-Mainnet from Test-Net
+# Migrate to Pre-Mainnet from TestNet
 
-## Where to begin?
+## Key Steps
 
-The easiest way to complete this switch is as follows:
+1. Change NetID from 2 to 1
 
-1.Change NetID from 2 into 1 in Test-Net
-
-2.Delete the field of BootNodes and add a new field - BootSeeds:
+2. Delete the original `BootNodes` and replace with `BootSeeds`. The content is as followed
 
 ```json
 "BootSeeds": [
@@ -14,35 +12,43 @@ The easiest way to complete this switch is as follows:
 ],
 ```
 
-3.The default of DataDir in testnet environment is "~/.gvite/testdata/" and it is "~/.gvite/maindata in pre_mainnet. If keystore configured on nodes already, shall move keystore from the "~/.gvite/testdata/wallet/" directory to the "~/.gvite/maindata/wallet/" directory.
+3. The default data directory in TestNet is "~/.gvite/testdata/". This has been moved to "~/.gvite/maindata in Pre-Mainnet. 
+Remember to move your keystore files as well from the "~/.gvite/testdata/wallet/" to "~/.gvite/maindata/wallet/" especially if you are migrating a supernode. 
 
-# More
-The default configurations have been offered in the released package of Pre-Mainnet.
+## More Information
 
-Comparing to Test-Net, the changes in configurations of Pre-Mainnet are as follows
+Starting from gvite v2.0.0, a updated **node_config.json** has been provided as template in the installation package. Make your own modification based on it!
+
+See below table for configuration changes in Pre-Mainnet
 
 | Field | TestNet | Pre-Mainnet | Details |
 |:--:|:--:|:--:|:--:|
-| NetID | 2 | 1 | The ID of Internet |
-| BootSeeds | - |  | Acquire the source of BootNodes. No this configuration in the former Test-Net. It is a newly added filed in Pre-Mainnet. |
-| DataDir | `~/.gvite/testdata/` | `~/.gvite/maindata` | Default Directory |
+| NetID | 2 | 1 | Vite network ID |
+| BootSeeds | - | https://bootnodes.vite.net/bootmainnet.json | Newly added for fetching boot nodes |
+| DataDir | ~/.gvite/testdata/ | ~/.gvite/maindata | Default data directory. Optional |
 
-# Other Configurations
+## Other Common Fields
 
-If Test-Net users have other custom configurations, please sync these configurations into that of Pre-Mainnet.
+Depending on specific usage, below fields in **node_config.json** may also need change
 
-1.Node Name
-The field of node name is Identity
+1. Node name
 
-2.For SBPs
-the concerning field is Miner CoinBase EntropyStorePath EntropyStorePassword
+`Identity` is used to identify a node name. Duplicated names are allowed.
 
-3.RewardAddr
-Full Nodes Rewards, the field of reward address for full nodes is RewardAddr
+2. Supernode related
 
-4.Other configurations
-connect related fields are "MaxPeers" and "MinPeers"
+`Miner`, `CoinBase`, `EntropyStorePath` and `EntropyStorePassword` should be filled in.
 
-Port Related Fields `Port` `FilePort` `HttpPort` `WSPort`
+3. Full node rewards and status
 
-Node status `DashboardTargetURL`
+In order to receive full node rewards, you should specify your address in `RewardAddr`. `DashboardTargetURL` specifies a server link that your node reports status to.
+
+4. Networking
+
+`MaxPeers` and `MinPeers` define the maximum and minimum neighbors your node is able to connect to. Don't set this too large or too small. Default is 10.
+
+5. API ports 
+
+`Port`, `FilePort`, `HttpPort` and `WSPort` are used to customize ports exposed.
+
+
