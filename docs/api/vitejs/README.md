@@ -42,8 +42,7 @@ yarn add @vite/vitejs-ws
 
 :::warning warning
 
-1. You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
-2. Before you start reading this document, we suggest that you can know about Gvite-RPC api at first.
+You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
 
 :::
 
