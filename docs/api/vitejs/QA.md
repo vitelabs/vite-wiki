@@ -1,7 +1,5 @@
 # Q & A
 
-[Wallet module](./wallet) is mainly used to quickly generate a wallet.
-
 ## About Mnemonic
 
 A mnemonic can derive multiple private keys, one for each address.[Refer to hdwallet](/tutorial/wallet/hdwallet.md)
@@ -15,14 +13,28 @@ A mnemonic can derive multiple private keys, one for each address.[Refer to hdwa
 
 Sending transaction needs quota, which can be obtained through PoW or pledge Vite. [Refer to quota](/tutorial/rule/quota)
 
-## About Account Instances
+## About Mintage
 
-[Refer to](./wallet)
+Client provides mintage function. [Refer to client/builtinTxBlock/Mintage](./client/builtinTxBlock)
+
+[Gvite-RPC Mintage](../rpc/mintage)
+
+## About Subscription
+
+Client extends netProcessor, providers subscription [Refer to client/subscription](./client/subscribe)
+
+## About Account Instances under wallet
+
+[Wallet module](./wallet/wallet) is mainly used to quickly generate a wallet.
+
+:::tip Tips
+[Refer to wallet introduction](./wallet/wallet)
+:::
 
 ## About Send Transaction
-Refer to [account](./account) and [hdAccount](./hdAccount)
+Refer to [account](./wallet/account) and [hdAccount](./wallet/hdAccount)
 
-1. You can generate an [`hdAccount` instance](./hdAccount) through your mnemonic. [Refer to more instances](./wallet)
+1. You can generate an [`hdAccount` instance](./wallet/hdAccount) through your mnemonic. [Refer to more instances](./wallet/wallet)
 
 ```javascript
 import WS_RPC from '@vite/vitejs-ws';
@@ -43,7 +55,7 @@ const firstAccount = myHdAccount.getAccount({
 });
 ```
 
-3. Send transactions through the [`account` instance](./account).
+3. Send transactions through the [`account` instance](./wallet/account).
 
 ```javascript
 firstAccount.sendTx({
