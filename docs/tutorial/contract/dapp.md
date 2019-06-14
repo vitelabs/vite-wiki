@@ -194,6 +194,26 @@ Event subscription can be used to monitor contract state change.
 For more details please visit [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/subscribe.md)
 
 
+### 免登陆方案
+发送交易调用合约涉及到使用私钥签名，vitejs提供了用户输入助记词生成钱包并签名数据的方案。  
+dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。  
+现在通过vite官方app提供两种免登陆方案：
+- [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
+    该方式提供给在vite官方app内打开的dapp使用，可以通过调用native-js桥的方法使用以下两个相关功能  
+    - vite官方app请求签名并发送一个交易  
+    - 获取用户当前地址。  
+    示例： 
+```javascript
+import Bridge from "@vite/bridge";
+import { utils } from "@vite/vitejs";
+const bridge = new Bridge();
+bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});
+```
+- Vite Bifrost  
+    该方式提供任意场景下远程签名方案。正在开发中。  
+
 
 ## Q&A
 
