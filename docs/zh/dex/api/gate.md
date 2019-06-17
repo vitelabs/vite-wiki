@@ -299,7 +299,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 :::
 
 #### 交易备注填写规范
-依据[VEP 8: AccountBlock Data Content Type 规范](../../../vep/vep-8.md)定义，由固定部分和可变部分拼接而成。
+依据[VEP 8: AccountBlock Data Content Type 规范](../../vep/vep-8.md)定义，由固定部分和可变部分拼接而成。
 * 固定部分为:
 
 |VEP-8 Type|Type|
