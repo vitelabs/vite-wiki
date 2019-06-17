@@ -263,8 +263,9 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |tokenId|TOT id|string|true|
 |walletAddress|用户VITE地址|string|true|
 |amount|金额|string|true|
-|containsFee|传入的amount是否已包含手续费，用于全部转出场景|bool|true|
-  
+|containsFee|传入的amount是否已包含手续费<br>如果为false，amount为实际到账金额，网关以该金额为基数直接计算手续费<br>如果为true，amount为实际到账金额+转出手续费，网关以amount为总额反推计算实际到账金额与手续费，用于全部转出场景|bool|true|
+
+
   
 * **Response**
 
@@ -291,11 +292,41 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
     ```
   
 :::tip 关于跨链转出
-1. 当用户填写完合法的转出地址与金额并确认转出后，Web Wallet会签名一笔TOT回收交易并发送至VITE网络。用户填写的转出地址会填写在交易的备注中。
+1. 当用户填写完合法的转出地址与金额并确认转出后，Web Wallet会签名一笔TOT回收交易并发送至VITE网络。`用户填写的转出信息表示在交易的备注中`。
 2. 网关监听VITE链上的TOT回收交易，等待合适的确认数。
 3. 网关确认VITE链上的TOT回收交易后，发起对手链上的转出交易，交易目标地址为TOT回收交易的备注。
 4. 网关监听对手链上的该笔转出交易，如果交易没有最终被确认，需要重试发送。
 :::
+
+#### 交易备注填写规范
+依据[VEP 8: AccountBlock Data Content Type 规范](../../../vep/vep-8.md)定义，由固定部分和可变部分拼接而成。
+* 固定部分为:
+
+|VEP-8 Type|Type|
+|:--|:---|
+|2 Byte|1 Byte|
+
+VEP-8 Type固定为`0x8011`
+<br>Type为`/meta-info`中的参数type
+* 可变部分为:
+
+  ::::: tabs
+  ::: tab 0:单地址模式
+  
+    |Address|
+    |:---:|
+    |0 ~ 128 Byte|  
+    
+  :::
+  ::: tab 1:通过备注区分地址模式
+  
+    |Address size|Address|Label size|Label|
+    |:---:|:---:|:---:|:---:|
+    |1 Byte|0 ~ 128 Byte|1 Byte|0 ~ 128 Byte|
+   
+  :::
+  :::::
+
 
 ## 转入转出记录查询类接口
 
