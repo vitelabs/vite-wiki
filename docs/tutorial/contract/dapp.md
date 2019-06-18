@@ -32,9 +32,7 @@ Download Solidity++ compiler at [solppc releases](https://github.com/vitelabs/so
 
 ### Install Testing Wallet
 
-Install Vite testing wallet and connect to your local dev node.
-
->TODO: Steps
+[Install Vite testing wallet](./testdapp.html) and connect to your local dev node.
 
 ## Write Contract
 
