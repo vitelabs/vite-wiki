@@ -132,13 +132,14 @@ myAccount.createContract({
 
 When successfully deployed, contract can be called by sending call contract request transaction in the wallet, with parameters transferred from dApp in **Vite URI**.
 
-### 免登陆方案
-dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。现在通过vite官方app提供两种免登陆方案：
+### Isolation of dApp and Private Key
+
+As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key. To address this issue, Vite mobile wallet provides two solutions.
 - [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
-    该方式提供给在vite官方app内打开的dapp使用，可以通过调用native-js桥的方法使用以下两个相关功能  
-    - vite官方app请求签名并发送一个交易  
-    - 获取用户当前地址。  
-    示例： 
+    Vite bridge is the recommended option for dApp integrated into Vite mobile wallet. By calling native-js bridge, the following actions are performed:
+    - Request for sending transaction from application
+    - Obtain current user address from application
+    Example:
 ```javascript
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
@@ -148,7 +149,7 @@ bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite a
 });
 ```
 - Vite Bifrost  
-    该方式提供任意场景下远程签名方案。正在开发中。
+    Vite Bifrost is the universal solution that supports signing/sending transactions from application for all scenarios, still under development.
 
 ## Query Chain Data
 
