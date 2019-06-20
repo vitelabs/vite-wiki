@@ -141,7 +141,7 @@ const sidebarConfigs = {
     ],
     'api/vitejs': [
         {
-            children: ['']
+            children: ['', 'types', 'errors', 'quickStart', 'QA']
         },
         {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
@@ -153,7 +153,7 @@ const sidebarConfigs = {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
+            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
         },
         {
             children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
