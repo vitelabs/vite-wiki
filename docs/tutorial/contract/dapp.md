@@ -130,11 +130,11 @@ myAccount.createContract({
 
 ## Call Contract
 
-When successfully deployed, contract can be called by sending call contract request transaction with vitejs, which required menonic.
+When successfully deployed, contract can be called by sending call contract request transaction through vite.js library. However, this operation would require to know user's mnemonic in advance.
 
 ### Isolation of dApp and Private Key
 
-As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key. To address this issue, Vite mobile wallet provides two solutions.
+As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key or mnemonics. To address this issue, Vite mobile wallet provides two solutions.
 - [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
     Vite bridge is the recommended option for dApp integrated into Vite mobile wallet. By calling native-js bridge, the following actions are performed:
     - Request for sending transaction from application
