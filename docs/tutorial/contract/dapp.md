@@ -130,7 +130,7 @@ myAccount.createContract({
 
 ## Call Contract
 
-When successfully deployed, contract can be called by sending call contract request transaction in the wallet, with parameters transferred from dApp in **Vite URI**.
+When successfully deployed, contract can be called by sending call contract request transaction with vitejs, which required menonic.
 
 ### Isolation of dApp and Private Key
 
@@ -144,7 +144,7 @@ As independent application developed by 3rd party, for security reason, dApp sho
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"self address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
   console.log(accountBlock);
 });
 ```
