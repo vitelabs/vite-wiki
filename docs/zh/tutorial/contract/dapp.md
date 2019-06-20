@@ -30,9 +30,7 @@ js可执行环境即可
 
 ### 官方测试钱包
 
-安装官方测试钱包，并连接到本地测试节点。
-
-TODO
+[安装和使用测试钱包](./testdapp.html)，并连接到本地测试节点。
 
 ## 编写合约代码
 
@@ -63,7 +61,7 @@ import WS_RPC from '@vite/vitejs-ws';
 import { client, account, hdAccount, constant } from '@vite/vitejs';
 
 let { Vite_TokenId } = constant;
-let provider = new WS_RPC("ws://example.com");
+let provider = new WS_RPC("wss://example.com");
 let myClient = new client(provider);
 
 // 导入一个账户
@@ -130,12 +128,23 @@ myAccount.createContract({
 
 合约部署成功后，可以通过vitejs向官方钱包App发送调用合约请求，钱包App会根据调用参数来签名一笔调用合约的交易。
 
-和官方钱包App交互时使用一种叫做Vite URI格式的数据，具体格式内容见 [URI格式](../../vep/vep-6.html)
-
-调用合约示例代码如下：
+### 免登陆方案
+dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。现在通过vite官方app提供两种免登陆方案：
+- [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
+    该方式提供给在vite官方app内打开的dapp使用，可以通过调用native-js桥的方法使用以下两个相关功能  
+    - vite官方app请求签名并发送一个交易  
+    - 获取用户当前地址。  
+    示例： 
+```javascript
+import Bridge from "@vite/bridge";
+import { utils } from "@vite/vitejs";
+const bridge = new Bridge();
+bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});
 ```
-TODO 用URI的方式调用上面示例中SayHello的接口
-```
+- Vite Bifrost  
+    该方式提供任意场景下远程签名方案。正在开发中。
 
 ## 链上数据查询
 
@@ -190,6 +199,8 @@ myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
 [事件订阅说明](./subscribe.md)
 
 [事件订阅接口说明](../../api/rpc/subscribe.md)
+
+
 
 ## 常见问题和注意事项
 

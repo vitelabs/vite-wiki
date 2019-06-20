@@ -213,7 +213,7 @@ ABI：
 `Object`
   1. `totalPledgeAmount`: `big.Int`  本账户抵押的总金额
   2. `totalCount`: `int`  抵押信息总数
-  3. `pledgeInfoList`: `Array&lt;PledgeInfo&gt;` 抵押信息列表
+  3. `pledgeInfoList`: `Array<PledgeInfo>` 抵押信息列表
      * `amount`: `big.int`  抵押金额
      * `withdrawHeight`: `uint64`  到期快照块高度
      * `beneficialAddr`: `Address`  受益地址

@@ -4,26 +4,19 @@
 [jerry-vite](https://github.com/jerry-vite)
 :::
 
-**Supported protocols:**
-
-| JSON-RPC 2.0 | HTTP | IPC | Publish–subscribe | Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713; | `false` | &#x2713; | future version |`false`|
-
 ## net_syncInfo
-Return the sync status of the node
+Return sync status of the node
 
 - **Parameters**: `none`
 
-- **Returns**: `SyncInfo`
+- **Returns**: 
 
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| from | string | uint64 | The starting sync height |
-| to | string | uint64| The target sync height |
-| current | string | uint64 | The current height of snapshot chain |
-| state | uint | uint | Sync state: 0 Sync not started, 1 Sync in process, 2 Sync complete, 3 Sync error, 4 Sync cancelled, 5 Data download complete |
-| status | string | string | The description of sync status |
+    `SyncInfo`
+     -  `from` : `string` Sync start height 
+     -  `to` : `string` Sync target height
+     -  `current` : `string` Current snapshot chain height
+     -  `state` : `uint` Sync state: 0 - not start, 1 - syncing, 2 - complete, 3 - error, 4 - cancelled, 5 - all data downloaded
+     -  `status` : `string` State description
 
 - **Example**:
 
@@ -62,22 +55,21 @@ Return the sync status of the node
 :::
 
 ## net_syncDetail
-Return the dailed information of sync status.
+Return detailed sync information
 
 - **Parameters**: `none`
 
-- **Returns**: `SyncDetail`
+- **Returns**: 
 
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| from | string | uint64 | The starting sync height |
-| to | string | uint64| The target sync height |
-| current | string | uint64 | The current height of snapshot chain |
-| status | string | string | The description of sync status |
-| tasks | array | []string | download tasks |
-| Connections | array | []SyncConnectionStatus | download connections |
-| Chunks | array | []Chunk | the parsed chunks, wait to inserted to local chain |
-| Caches | array | []Cache | the downloaded caches, will be parsed, and delete later |
+    `SyncDetail`
+     -  `from` : `string` Sync start height 
+     -  `to` : `string` Sync target height
+     -  `current` : `string` Current snapshot chain height
+     -  `status` : `string` State description
+     -  `tasks` : `array` Download task list
+     -  `Connections` : `array` Download connections
+     -  `Chunks` : `array` Resolved data chunks (including snapshot blocks and the account blocks it snapshotted) waiting to be inserted into local ledger
+     -  `Caches` : `array` Downloaded binary data waiting to be resolved into chunks. Caches may expire, and will be discarded if so.
 
 - **Example**:
 
@@ -172,29 +164,16 @@ Return the detailed information of current Node, like peers.
 
 - **Parameters**: `none`
 
-- **Returns**: `NodeInfo`
+- **Returns**: 
 
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| id | string | string | current NodeID |
-| name | string | string | current Node name, configured by field `Identity` in `node_config.json` |
-| netId | int | int | current Node network ID |
-| version | int | int | current Node version, not release version |
-| address | string | string | network interface the current Node listen on |
-| peerCount | int | int | peers count |
-| peers | \[\]*PeerInfo | \[\]*PeerInfo | The information of connected peers |
-
-`PeerInfo`
-
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| id | string | string | The node ID |
-| name | string | string | Node name |
-| version | int | int | Node version |
-| height | int | int | current Snapshot Chain height |
-| level | int | int | the connection flag |
-| address | string | string | The node's IP address <ip:port> |
-| createAt | string | string | The time peer is created |
+    `NodeInfo`
+     -  `id` : `string` Node ID
+     -  `name` : `string` Node name, configured in `Identity` field of `node_config.json`
+     -  `netId` : `int`  The ID of Vite network connected
+     -  `version` : `int` Node version. This is not equal to gvite release version
+     -  `address` : `string` Node's ip address
+     -  `peerCount` : `int` Number of peers connected
+     -  `peers` : `[]*PeerInfo` Information of peers connected
 
 - **Example**: 
 
@@ -252,3 +231,11 @@ Return the detailed information of current Node, like peers.
 }
 ```
 :::
+`PeerInfo`
+ -  `id` : `string` Node ID
+ -  `name` : `string` Node name
+ -  `version` : `int` Node version
+ -  `height` : `int` Current snapshot chain height
+ -  `level` : `int` Connection state
+ -  `address` : `string` Node's ip address
+ -  `createAt` : `string` The timestamp when the node was created
