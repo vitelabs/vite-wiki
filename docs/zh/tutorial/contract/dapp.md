@@ -128,7 +128,7 @@ myAccount.createContract({
 
 ## 调用合约
 
-合约部署成功后，可以通过vitejs向官方钱包App发送调用合约请求，钱包App会根据调用参数来签名一笔调用合约的交易。
+合约部署成功后，可以通过vitejs直接发送调用合约请求，但是这种方式会跟钱包一样，要求导入助记词。
 
 ### 免登陆方案
 dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。现在通过vite官方app提供两种免登陆方案：
@@ -141,7 +141,7 @@ dapp作为轻量级，第三方应用，理论上不应该获取到用户助记�
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
   console.log(accountBlock);
 });
 ```

@@ -132,7 +132,7 @@ myAccount.createContract({
 
 ## Call Contract
 
-When successfully deployed, contract can be called by sending call contract request transaction in the wallet, with parameters transferred from dApp in **Vite URI**.
+When successfully deployed, contract can be called by sending call contract request transaction with vitejs, which required menonic.
 
 ### 免登陆方案
 dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。现在通过vite官方app提供两种免登陆方案：
@@ -145,7 +145,7 @@ dapp作为轻量级，第三方应用，理论上不应该获取到用户助记�
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"self address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
   console.log(accountBlock);
 });
 ```
