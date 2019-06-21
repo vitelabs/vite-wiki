@@ -1,6 +1,30 @@
 <template>
-  <div class="home">
-    <Navbar/>
+  <div class="home theme-container"
+    :class="pageClasses"
+    @touchstart="onTouchStart"
+    @touchend="onTouchEnd"
+  >
+    <Navbar @toggle-sidebar="toggleSidebar" />
+
+    <div
+      class="sidebar-mask"
+      @click="toggleSidebar(false)"
+    ></div>
+
+    <Sidebar
+      :items="sidebarItems"
+      @toggle-sidebar="toggleSidebar"
+    >
+      <slot
+        name="sidebar-top"
+        slot="top"
+      />
+      <slot
+        name="sidebar-bottom"
+        slot="bottom"
+      />
+    </Sidebar>
+
     <div class="hero">
       <div class="left">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -44,13 +68,18 @@
 
 <script>
 import Navbar from '@vuepress/theme-default/components/Navbar.vue'
+import Sidebar from '@vuepress/theme-default/components/Sidebar.vue'
+import { resolveSidebarItems } from '../util/index'
+
 export default {
   components: {
-    Navbar
+    Navbar,
+    Sidebar,
   },
   data() {
     return {
-      githubScriptIsLoad: false
+      githubScriptIsLoad: false,
+      isSidebarOpen: false,
     }
   },
   computed: {
@@ -59,6 +88,44 @@ export default {
     },
     projects() {
       return this.data.projects
+    },
+    sidebarItems () {
+      return resolveSidebarItems(
+        this.$page,
+        this.$page.regularPath,
+        this.$site,
+        this.$localePath
+      )
+    },
+    pageClasses () {
+      return {
+        'sidebar-open': this.isSidebarOpen,
+        'no-sidebar': true,
+      }
+    }
+  },
+  methods: {
+    toggleSidebar (to) {
+      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
+    },
+    // side swipe
+    onTouchStart (e) {
+      this.touchStart = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY
+      }
+    },
+
+    onTouchEnd (e) {
+      const dx = e.changedTouches[0].clientX - this.touchStart.x
+      const dy = e.changedTouches[0].clientY - this.touchStart.y
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx > 0 && this.touchStart.x <= 80) {
+          this.toggleSidebar(true)
+        } else {
+          this.toggleSidebar(false)
+        }
+      }
     }
   },
   mounted() {
@@ -196,6 +263,7 @@ export default {
     padding-left 1.5rem
     padding-right 1.5rem
     .hero
+      margin-top: 4rem;
       .right
         h1
           font-size 2rem
@@ -233,10 +301,33 @@ export default {
           margin: 0 auto;
           width: 300px;
           padding: 0 40px 30px;
+          /*
           &:before
             content: "—";
             color: $accentColor
+          */
           p
             min-height auto
 
+/*
+  for sidebar
+*/
+@media (max-width: $MQMobile)
+  .sidebar
+    top 0
+    padding-top $navbarHeight
+    transform translateX(-100%)
+    transition transform .2s ease
+
+  .theme-container
+    &.sidebar-open
+      .sidebar
+        transform translateX(0)
+
+.theme-container
+  &.sidebar-open
+    .sidebar-mask
+      display: block
+    .sidebar
+      transform none
 </style>

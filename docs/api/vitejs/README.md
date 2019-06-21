@@ -1,14 +1,12 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.2
+title: Version 2.1.2 Introduction
 ---
 
 :::tip Created by
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
-
-## Introduction
 
 Vite JS implements generation of addresses, signature, abi and other basic functions; rpc protocol calls of IPC, HTTP, and WS; encapsulate the [Gvite-RPC](../rpc/README.md) interface; and supports various account instances, which can quickly generate a wallet.
 
@@ -42,8 +40,7 @@ yarn add @vite/vitejs-ws
 
 :::warning warning
 
-1. You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
-2. Before you start reading this document, we suggest that you can know about Gvite-RPC api at first.
+You'd better keep npm packages' version in accordance with each other when importing them in order to avoid unnecessary errors and conflicts.
 
 :::
 
@@ -105,113 +102,3 @@ import * as utils from '@vite/vitejs-utils';
 import * as abi from '@vite/vitejs/es5/abi';
 import * as utils from '@vite/vitejs/es5/utils';
 ```
-
-## Common type and specification
-[Refer to constant module](./constant/constant.md)
-
-```typescript
-// RPC
-export declare interface RPCrequest {
-    type: string;
-    methodName: Methods;
-    params: any[];
-}
-export declare interface RPCresponse {
-    jsonrpc: string;
-    id: number;
-    result?: any;
-    error?: RPCerror;
-}
-export declare interface RPCerror {
-    code: number;
-    message: string;
-}
-
-export declare type Hex = string;
-export declare type HexAddr = string;
-export declare type Addr = string;
-export declare type Base64 = string;
-export declare type TokenId = string;
-export declare type RawTokenId = string;
-export declare type Int64 = number;
-export declare type Uint64 = string;
-export declare type BigInt = string;
-
-export declare type AddrObj = {
-    addr: Addr;         // Actual Address
-    pubKey: Hex;        // Public Key
-    privKey: Hex;       // Private Key 
-    hexAddr: HexAddr;   // Hex Encode Address
-}
-
-export declare type AccountBlock = {
-    accountAddress: HexAddr;
-    blockType: BlockType;
-    prevHash: Hex;
-    height: Uint64;
-    hash: Hex;
-    signature: Base64;
-    publicKey: Base64;
-    fee?: BigInt;
-    fromBlockHash?: Hex;
-    toAddress?: HexAddr;
-    tokenId?: TokenId;
-    amount?: BigInt;
-    data?: Base64;
-    nonce?: Base64;
-    logHash?: Hex;
-    sendBlockList?: Array;
-}
-
-// For example
-
-// Type HexAddr
-const hexAddr = "vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689";
-
-// Type Addr
-const addr = "69f3bdb5cdcfa145ae6cc42593a89088ff3dac5800";
-
-// Type TokenId
-const tokenId = "tti_5649544520544f4b454e6e40";
-
-// Type RawTokenId
-const rawTokenId = "5649544520544f4b454e";
-```
-
-## Common error
-
-1. [Gvite common error](../rpc/README.md)
-
-2. ViteJS common error
-
-| property | code | description |
-|:-----:|:-------:|:--------:|
-| no | 100000 | Unknown Error |
-| paramsMissing | 100001 | Missing Parameters |
-| paramsFormat | 100002 | Wrong Format |
-| paramsConflict | 100003 | Parameter Conflict |
-| addressIllegal | 200001 | Illegal Address |
-| addressMissing | 200002 | Address Not Existed |
-| requestTimeout | 300001 | Request timeout |
-
-## Quick Start  
-
-1. `npm install @vite/vitejs-ws`
-2. `npm install @vite/vitejs`
-3. Create `test.js`
-```javascript
-const { WS_RPC } = require('@vite/vitejs-ws');
-const { client } = require('@vite/vitejs');
-
-let provider = new WS_RPC("ws://example.com");
-let myClient = new client(provider, (_myClient) => {
-    console.log("Connected");
-});
-
-myClient.ledger.getSnapshotChainHeight().then((result) => {
-    console.log(result);
-}).catch((err) => {
-    console.warn(err);
-});
-```
-4. `node test.js`

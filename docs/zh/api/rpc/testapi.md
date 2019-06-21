@@ -5,7 +5,7 @@
 :::
 
 ## testapi_getTestToken
-获取测试代币 随机发送1-1001个vite 
+获取测试代币 随机发送1-1001个测试Vite 
 
 - **Parameters**: 
 `toAddress`: `address` - 要发送的地址

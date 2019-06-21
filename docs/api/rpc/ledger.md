@@ -4,16 +4,16 @@
 :::
 
 ## ledger_getBlocksByAccAddr
-Return the transaction list of the account, equivalent to all blocks in the account chain
+Return transaction list of the specified account
 
 - **Parameters**:
 
-  * `string`: `Addr`  The account address
+  * `string`: `Addr`  Account address
   * `int`:  `Index` Page index
   * `int`: `Count`  Page size
 
 
-- **Returns**:  `Array&lt;AccountBlock&gt;`
+- **Returns**:  `Array<AccountBlock>`
   
 - **Example**:
 
@@ -42,6 +42,8 @@ Return the transaction list of the account, equivalent to all blocks in the acco
             "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
@@ -52,8 +54,6 @@ Return the transaction list of the account, equivalent to all blocks in the acco
             "height": "1",
             "quota": "0",
             "amount": "1000000000000000000000000000",
-            "receiveBlockHeight": "",
-            "receiveBlockHash": null,
             "fee": "0",
             "confirmedTimes": "0",
             "tokenInfo": {
@@ -83,17 +83,17 @@ Return the transaction list of the account, equivalent to all blocks in the acco
 
 
 ## ledger_getAccountByAccAddr
-Return the detailed account information, including the height of account chain and the respective balance of different tokens
+Return account info by address, including account height and token balance information
 
 - **Parameters**: 
-  * string: The account address
+  * string: Account address
 
 - **Returns**:
 
-  `Object` : The detailed account information
-   -  `AccountAddress` : `string of addr` The account address
-   -  `TokenBalanceInfoMap` : `Map<string of TokenTypeId>token` The balance map of tokens, having token ID as key and balance as value
-   -  `TotalNumber` : `string of uint64` The total number of transaction, equivalent to the height of account block
+  `Object` : Detailed account information
+   -  `AccountAddress` : `string of addr` Account address
+   -  `TokenBalanceInfoMap` : `Map<string of TokenTypeId>token` Balance map in various token IDs
+   -  `TotalNumber` : `string of uint64` Total transaction number of the account, equivalent to chain's height
 
 - **Example**:
 
@@ -143,7 +143,7 @@ Return the detailed account information, including the height of account chain a
 :::
 
 ## ledger_getLatestSnapshotChainHash
-Return the hash of latest snapshot block
+Return the latest snapshot block hash
 
 - **Parameters**: null 
 
@@ -152,26 +152,36 @@ Return the hash of latest snapshot block
 - **Example**:
 ::: demo
 ```json tab:Request
-{"jsonrpc":"2.0","id":1,"method":"ledger_getLatestSnapshotChainHash","params":null}
+{
+    "jsonrpc": "2.0",
+    "id": 0,
+    "method": "ledger_getLatestSnapshotChainHash",
+    "params": null
+}
 ```
 ```json tab:Response
 {
     "jsonrpc": "2.0",
-    "id": 1,
-    "result": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad"
+    "id": 0,
+    "result": "7f1b1c35a3f9c05cd621388cd8756240fad56568f777098b394005037237319e"
 }
 ```
 ```json test
-{"jsonrpc":"2.0","id":1,"method":"ledger_getLatestSnapshotChainHash","params":null}
+{
+    "jsonrpc": "2.0",
+    "id": 0,
+    "method": "ledger_getLatestSnapshotChainHash",
+    "params": null
+}
 ```
 ::: 
 
 ## ledger_getLatestBlock
 Return the latest account block
 
-- **Parameters**: `Address` The account address
+- **Parameters**: `Address` Account address
 
-- **Returns**: `AccountBlock` The latest account block 
+- **Returns**: `AccountBlock` Latest account block 
 
 - **Example**:
 ::: demo
@@ -197,13 +207,13 @@ Return the latest account block
         "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
         "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
         "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+        "receiveBlockHeight": "",
+        "receiveBlockHash": null,
         "tokenId": "tti_5649544520544f4b454e6e40",
         "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
         "data": null,
         "timestamp": "2018-10-11T01:21:45.899730786+08:00",
         "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
-        "receiveBlockHeight": "",
-        "receiveBlockHash": null,
         "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
         "nonce": "1GO9X2PtbDM=",
         "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
@@ -234,60 +244,14 @@ Return the latest account block
 ```
 ::: 
 
-## ledger_getTokenMintage
-Return the token information
-
-- **Parameters**: `string` : `TokenTypeId` The token ID
-
-- **Returns**: `Token` The token information
-- **Example**:
-
-::: demo
-```json tab:Request
-{
-    "jsonrpc": "2.0",
-    "id": 3,
-    "method": "ledger_getTokenMintage",
-    "params": [
-        "tti_5649544520544f4b454e6e40"
-    ]
-}
-```
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 3,
-    "result": {
-        "TokenName": "Vite Token",
-        "TokenSymbol": "VITE",
-        "TotalSupply": "1000000000000000000000000000",
-        "Decimals": 18,
-        "Owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
-        "PledgeAmount": "0",
-        "WithdrawHeight": "0"
-    }
-}
-```
-```json test
-{
-    "jsonrpc": "2.0",
-    "id": 3,
-    "method": "ledger_getTokenMintage",
-    "params": [
-        "tti_5649544520544f4b454e6e40"
-    ]
-}
-```
-:::
-
 ## ledger_getBlockByHeight
-Return the given address of account block in the given height
+Return an account block by address and height
 
 - **Parameters**: 
-    - `string` : `address` The account address
+    - `string` : `address` Account address
     - `string` : `height`  The height of account block
 
-- **Returns**: `AccountBlock` The account block
+- **Returns**: `AccountBlock` Account block
 
 - **Example**:
 
@@ -317,6 +281,8 @@ Return the given address of account block in the given height
             "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
@@ -324,8 +290,6 @@ Return the given address of account block in the given height
             "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
             "nonce": "1GO9X2PtbDM=",
             "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
-            "receiveBlockHeight": "",
-            "receiveBlockHash": null,
             "height": "1",
             "quota": "0",
             "amount": "1000000000000000000000000000",
@@ -356,15 +320,79 @@ Return the given address of account block in the given height
 }
 ```
 :::
-## ledger_getBlocksByHash
-Return the given number of account blocks since the specific block
+
+## ledger_getBlockByHash
+Return an account block by transaction hash
 
 - **Parameters**: 
-    - `string` : `address` The account address
-    - `string` : `hash`  The hash of account block to search from
-    - `int` :   The number of blocks
+    - `string` : `hash`  Transaction hash
 
-- **Returns**: `AccountBlock` The list of account blocks
+- **Returns**: `AccountBlock` Account block
+
+- **Example**:
+
+::: demo
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getBlockByHash",
+    "params": [
+        "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a"
+    ]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": 
+    {
+        "blockType": 4,
+        "hash": "8f37904d4df342569a2f79d8deb496c03c89eb89353cf027b1d7dc6dafcb351a",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "accountAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "publicKey": "OvmkehEUDGgcKyqFpM6Yf6sGklibLOIzv34XS9QwF3o=",
+        "fromAddress": "vite_00000000000000000000000000000000000000056ad6d26692",
+        "toAddress": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+        "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
+        "receiveBlockHeight": "",
+        "receiveBlockHash": null,
+        "tokenId": "tti_5649544520544f4b454e6e40",
+        "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
+        "data": null,
+        "timestamp": "2018-10-11T01:21:45.899730786+08:00",
+        "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "nonce": "1GO9X2PtbDM=",
+        "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
+        "height": "1",
+        "quota": "0",
+        "amount": "1000000000000000000000000000",
+        "fee": "0",
+        "confirmedTimes": "0",
+        "tokenInfo": {
+            "tokenName": "Vite Token",
+            "tokenSymbol": "VITE",
+            "totalSupply": "1000000000000000000000000000",
+            "decimals": 18,
+            "owner": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
+            "pledgeAmount": "0",
+            "withdrawHeight": "0"
+        }
+    }
+}
+```
+:::
+
+## ledger_getBlocksByHash
+Return a certain number of consecutive account blocks backward from the specified block by hash
+
+- **Parameters**: 
+    - `string` : `address` Account address
+    - `string` : `hash`  Start account block hash
+    - `int` :   Number of blocks to query
+
+- **Returns**: `Array<AccountBlock>` Account block list
 
 - **Example**:
 
@@ -395,14 +423,14 @@ Return the given number of account blocks since the specific block
             "toAddress": "vite_0000000000000000000000000000000000000000a4f3a0cb58",
             "fromBlockHash": "5113171e23ac1cdfcb6851f9bea7ad050058acccbe2e6faf8f5a2231f02c5f7c",
             "tokenId": "tti_5649544520544f4b454e6e40",
+            "receiveBlockHeight": "",
+            "receiveBlockHash": null,
             "snapshotHash": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad",
             "data": null,
             "timestamp": "2018-10-11T01:21:45.899730786+08:00",
             "stateHash": "53af30da1fc818c9a03ef539aadf7a1e0c90039d5c4eb42143dd9cfc211adbe6",
             "logHash": "0000000000000000000000000000000000000000000000000000000000000000",
             "nonce": "1GO9X2PtbDM=",
-            "receiveBlockHeight": "",
-            "receiveBlockHash": null,
             "signature": "rVA04yeWgERnmzVJ0LsLqIEkjn6r2BrePyxOCS2N4l+UKy3mjaIWO5ybk8sc6qiVR91reEwXHwyfeFo+CjNNCg==",
             "height": "1",
             "quota": "0",
@@ -436,17 +464,15 @@ Return the given number of account blocks since the specific block
 ```
 :::
 ## ledger_getBlocksByHashInToken
-Note：This api is available only when the full node set `"OpenPlugins": true` in node_config.json
-
-Return the given number of account blocks of a certain token since the specific block
+Return a certain number of consecutive account blocks backward from the specified block by hash. The transactions in the blocks were settled in the specified token.
 
 - **Parameters**: 
-    - `string` : `address` The account address
-    - `string` : `hash`  The hash of account block to search from
-    - `string` : `tokenId` The id of token
-    - `int` :   The number of blocks
+    - `string` : `address` Account address
+    - `string` : `hash`  Start account block hash
+    - `string` : `tokenId` Token id
+    - `int` :   Number of blocks to query
 
-- **Returns**: `AccountBlock` The list of account blocks
+- **Returns**: `Array<AccountBlock>` Account block list
 
 - **Example**:
 
@@ -557,7 +583,7 @@ Return the given number of account blocks of a certain token since the specific 
 :::
 
 ## ledger_getSnapshotChainHeight
-Query the current height of snapshot chain
+Return current snapshot chain height
 
 - **Parameters**: `none`
 
@@ -579,9 +605,9 @@ Query the current height of snapshot chain
 
 ```json tab:Response
 {
-	"jsonrpc": "2.0",
-	"id": 1,
-	"result": "1"
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "1816565"
 }
 ```
 ```json test
@@ -596,23 +622,24 @@ Query the current height of snapshot chain
 :::
 
 ## ledger_getSnapshotBlockByHash
-Query the snapshot block by hash
+Return a snapshot block by hash
 
 - **Parameters**: 
-    - `Hash`  hash of snapshot block
+    - `Hash`  Snapshot block hash
 
 - **Returns**: 
                
-    `Object` : detail of snapshot block
-     -  `hash` : `Hash` hash of snapshot block
-     -  `prevHash` : `Hash` hash of previous snapshot block
-     -  `height` : `uint64` height of snapshot block
-     -  `publicKey` : `ed25519.PublicKey` public key of super node who produce the snapshot block
-     -  `signature` : `[]byte` 签名 signature of the snapshot block 
-     -  `timestamp` : `time` time when produce the snapshot block
-     -  `seed`: `uint64` 
-     -  `seedHash`: `Hash`
-     -  `snapshotContent` : `map[types.Address]HashHeight` detail of snapshot
+    `Object` : Snapshot block
+     -  `producer` : `string` Snapshot block producer
+     -  `hash` : `Hash` Snapshot block hash
+     -  `prevHash` : `Hash` Previous snapshot block hash
+     -  `height` : `uint64` Snapshot block height
+     -  `publicKey` : `ed25519.PublicKey` Producer's public key
+     -  `signature` : `[]byte` Signature
+     -  `timestamp` : `time` Timestamp when the snapshot block was produced
+     -  `seed`: `uint64` Random seed that was generated by this producer in last round
+     -  `seedHash`: `Hash` Hash of random seed generated in current round
+     -  `snapshotContent` : `map[types.Address]HashHeight` Snapshot content
 
 
 - **Example**:
@@ -624,7 +651,7 @@ Query the snapshot block by hash
     "jsonrpc": "2.0",
     "id": 2,
     "method": "ledger_getSnapshotBlockByHash",
-    "params": ["6c6c000ab47527b4f5e7d250538c7e32e9e134f2c0db265e007af2b7bac978dd"]
+    "params": ["579db20cb0ef854bba4636d6eaff499ae106ecd918826072a75d47f3e7cbe857"]
 }
 ```
 
@@ -633,71 +660,49 @@ Query the snapshot block by hash
     "jsonrpc": "2.0",
     "id": 2,
     "result": {
-        "hash": "6c6c000ab47527b4f5e7d250538c7e32e9e134f2c0db265e007af2b7bac978dd",
-        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
-        "height": 1,
-        "publicKey": null,
-        "signature": null,
-        "seed": 0,
-        "seedHash": null,
+        "producer": "vite_94badf80abab06dc1cdb4d21038a6799040bb2feb154f730cb",
+        "hash": "579db20cb0ef854bba4636d6eaff499ae106ecd918826072a75d47f3e7cbe857",
+        "prevHash": "18cf03a6c5d5128bc0a419f23713689cb279165d057759640c700c28c9315470",
+        "height": 1807756,
+        "publicKey": "zpwPhKs0jClH2JYqn3HieI3SPqm97PMKZlsive8PjBw=",
+        "signature": "EzgWq2h2h+qkIHhsKSHK7IMIn3M9bAVR3Sy8ZpaLx2U7BJ6mjVhKIuerEKLcEsY9qbPfc9IYgJ9YYpd1uVK4Dw==",
+        "seed": 15994478024988707574,
+        "seedHash": "360f20aa86891f67fdab4da09fc4068521c7ffb581f54761f602c2771ecdb097",
         "snapshotContent": {
-            "vite_0000000000000000000000000000000000000003f6af7459b9": {
-                "height": 1,
-                "hash": "1772519602b4bfd8dd40ab13eb62f3d1e86eb6d22144835c068ff68f894a0d8a"
+            "vite_61088b1d4d334271f0ead08a1eec17b08e7ef25141dd427787": {
+                "height": 9596,
+                "hash": "b8a272bcebb5176fc5b918b6d1e4fc9aca5fd6a0be1fcea99386c6f8ae98a5c1"
             },
-            "vite_0000000000000000000000000000000000000004d28108e76b": {
-                "height": 1,
-                "hash": "dacdc0e6250b64cba6a9d6c666edf3cce08977170e05ca4b2b4a6e19257c1696"
-            },
-            "vite_000000000000000000000000000000000000000595292d996d": {
-                "height": 1,
-                "hash": "d519bd49599df00b6a5992a50065af7945c4b6af269af8791cca5688f3277e37"
-            },
-            "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a": {
-                "height": 1,
-                "hash": "87431f8efedd7be224f3fe985f0257fadfce3259a2b2395ec7f8ec65f1d5148a"
-            },
-            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
-                "height": 1,
-                "hash": "ef2788f1e0dcece653b297b087ab79e5411786596e0a2a23daa02c1c29c80694"
-            },
-            "vite_847e1672c9a775ca0f3c3a2d3bf389ca466e5501cbecdb7107": {
-                "height": 1,
-                "hash": "30ddc46a82a909b242ec0ad4cb75f1fe16999c17a2c29aae6c8aa2524bc90fa5"
-            },
-            "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a": {
-                "height": 1,
-                "hash": "d517e8d4dc9c676876b72ad0cbb4c45890804aa438edd1f171ffc66276202a95"
-            },
-            "vite_ce18b99b46c70c8e6bf34177d0c5db956a8c3ea7040a1c1e25": {
-                "height": 1,
-                "hash": "e544ea40948c22ba0003ca034f440a57903a3a562ed0e129b5517438562ebdd5"
+            "vite_866d14993fd17f8090d1b0b99e13318c0f99fdd180d3b6cca9": {
+                "height": 777,
+                "hash": "c78843e347f5927d255f4b57704335dc43222041bf5f27d45980ac83fcf1dbb3"
             }
         },
-        "timestamp": 1557892800
+        "timestamp": 1560422154
     }
 }
 ```
 :::
 
 ## ledger_getSnapshotBlockByHeight
-Query the snapshot block by height
+Return a snapshot block by height
 
 - **Parameters**: 
-    - `uint64`  height of the snapshot block
+    - `uint64`  Snapshot block height
 
 - **Returns**: 
                
-    `Object` : detail of snapshot block
-     -  `hash` : `Hash` hash of snapshot block
-     -  `prevHash` : `Hash` hash of previous snapshot block
-     -  `height` : `uint64` height of snapshot block
-     -  `publicKey` : `ed25519.PublicKey` public key of super node who produce the snapshot block
-     -  `signature` : `[]byte` 签名 signature of the snapshot block 
-     -  `timestamp` : `time` time when produce the snapshot block
-     -  `seed`: `uint64` 
-     -  `seedHash`: `Hash`
-     -  `snapshotContent` : `map[types.Address]HashHeight` detail of snapshot
+    `Object` : Snapshot block
+     -  `producer` : `string` Snapshot block producer
+     -  `hash` : `Hash` Snapshot block hash
+     -  `prevHash` : `Hash` Previous snapshot block hash
+     -  `height` : `uint64` Snapshot block height
+     -  `publicKey` : `ed25519.PublicKey` Producer's public key
+     -  `signature` : `[]byte` Signature
+     -  `timestamp` : `time` Timestamp when the snapshot block was produced
+     -  `seed`: `uint64` Random seed that was generated by this producer in last round
+     -  `seedHash`: `Hash` Hash of random seed generated in current round
+     -  `snapshotContent` : `map[types.Address]HashHeight` Snapshot content
 
 
 - **Example**:
@@ -709,7 +714,7 @@ Query the snapshot block by height
     "jsonrpc": "2.0",
     "id": 2,
     "method": "ledger_getSnapshotBlockByHeight",
-    "params": [6363411]
+    "params": [1815388]
 }
 ```
 
@@ -718,64 +723,41 @@ Query the snapshot block by height
     "jsonrpc": "2.0",
     "id": 2,
     "result": {
-        "hash": "6c6c000ab47527b4f5e7d250538c7e32e9e134f2c0db265e007af2b7bac978dd",
-        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
-        "height": 1,
-        "publicKey": null,
-        "signature": null,
+        "producer": "vite_d12cfc15515e56d289ff0d17dadc10e1ceeca9129063119a80",
+        "hash": "4738036512f2b8098371186174289926a626765bf8b9456cb87d58f13514d1dd",
+        "prevHash": "c9e481b85a36d89aa559e2fcc80ea2bfa164f9595c825f943ca70376bd6fc822",
+        "height": 1815388,
+        "publicKey": "D27o6IBeOJA4X5r7acPv+FVHOWiS9xA2QMlschv8Dvo=",
+        "signature": "OKQr77zN85mINoUDXRo8qflIwdNIVx+xzJggpQKVAS9fUA9DmTLfnQ3DHre+88zpxilFNJ/zv+MTFZ+ju60uBA==",
         "seed": 0,
         "seedHash": null,
         "snapshotContent": {
-            "vite_0000000000000000000000000000000000000003f6af7459b9": {
-                "height": 1,
-                "hash": "1772519602b4bfd8dd40ab13eb62f3d1e86eb6d22144835c068ff68f894a0d8a"
+            "vite_2da93df598f39c7afea75b25c1eab09f427ec0dc1d4fce5021": {
+                "height": 1078,
+                "hash": "c15931c17deefafd594f9eba784e2df53b4d1bd891c767b7122de668c01c14e8"
             },
-            "vite_0000000000000000000000000000000000000004d28108e76b": {
-                "height": 1,
-                "hash": "dacdc0e6250b64cba6a9d6c666edf3cce08977170e05ca4b2b4a6e19257c1696"
-            },
-            "vite_000000000000000000000000000000000000000595292d996d": {
-                "height": 1,
-                "hash": "d519bd49599df00b6a5992a50065af7945c4b6af269af8791cca5688f3277e37"
-            },
-            "vite_360232b0378111b122685a15e612143dc9a89cfa7e803f4b5a": {
-                "height": 1,
-                "hash": "87431f8efedd7be224f3fe985f0257fadfce3259a2b2395ec7f8ec65f1d5148a"
-            },
-            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
-                "height": 1,
-                "hash": "ef2788f1e0dcece653b297b087ab79e5411786596e0a2a23daa02c1c29c80694"
-            },
-            "vite_847e1672c9a775ca0f3c3a2d3bf389ca466e5501cbecdb7107": {
-                "height": 1,
-                "hash": "30ddc46a82a909b242ec0ad4cb75f1fe16999c17a2c29aae6c8aa2524bc90fa5"
-            },
-            "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a": {
-                "height": 1,
-                "hash": "d517e8d4dc9c676876b72ad0cbb4c45890804aa438edd1f171ffc66276202a95"
-            },
-            "vite_ce18b99b46c70c8e6bf34177d0c5db956a8c3ea7040a1c1e25": {
-                "height": 1,
-                "hash": "e544ea40948c22ba0003ca034f440a57903a3a562ed0e129b5517438562ebdd5"
+            "vite_ec432ee636eca9e37479b9bceec950385df82adaeaede35a6c": {
+                "height": 105,
+                "hash": "7e9fd85e7239cc32be33a02ea4036804e0087eb7d8a43e068063c48f7fb5b726"
             }
         },
-        "timestamp": 1557892800
+        "timestamp": 1560429988
     }
 }
 ```
 :::
 
 ## ledger_getVmLogList
-Return the list of VM contract execution logs
+Return contract execution logs by response transaction hash
 
 - **Parameters**:
-   * `string` : `Hash`  Transaction Hash
+   * `string` : `Hash`  Contract response transaction hash
 
 - **Returns**: `VmLogList<array<VmLog>>` VM log list
 
   `Object` : `VmLog`
-    * Topics : `[]types.Hash`
-	* Data : `[]byte`
+    * Topics : `[]types.Hash` Topic list
+	  * Data : `[]byte` Log data
 
 - **Example**:
 
@@ -786,7 +768,7 @@ Return the list of VM contract execution logs
     "jsonrpc":"2.0",
     "id":1,
     "method":"ledger_getVmLogList",
-    "params": null
+    "params": ["c5073890ca14637efbdceb078eb90cb853fc1a69a244273185848cf6c7e45dd5"]
 }
 
 ```
@@ -794,7 +776,15 @@ Return the list of VM contract execution logs
 {
     "jsonrpc": "2.0",
     "id": 1,
-    "result": null
+    "result": [
+        {
+            "topics": [
+                "96a65b1cd08da045d0318cafda7b8c8436092851d5a4b7e75054c005a296e3fb",
+                "000000000000000000000029480d1db34493941a5ab00026e0e25085b8fe5a00"
+            ],
+            "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK1468WsYgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF"
+        }
+    ]
 }
 ```
 :::
