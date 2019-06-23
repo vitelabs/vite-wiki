@@ -141,10 +141,44 @@ As independent application developed by 3rd party, for security reason, dApp sho
     - Obtain current user address from application
     Example:
 ```javascript
+//一个普通转账,发送一个vite 给 `a vite address`
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({address:"self address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});// 如果发送其它币总，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
+
+
+
+//一个合约调用
+import Bridge from "@vite/bridge";
+import { abi,utils } from "@vite/vitejs";
+
+const bridge = new Bridge();
+const hexData=abi.encodeFunctionCall([{
+    name: 'myMethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}, {
+    name: 'myethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}], ['2345675643', 'Hello!%'], 'myMethod');
+const base64Data=utils._Buffer.from(hexData,'hex').toString('base64');
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`合约地址`,function_name:'myMethod',params:{data:base64Data}}) }).then(accountBlock => {
   console.log(accountBlock);
 });
 ```

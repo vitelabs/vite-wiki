@@ -130,16 +130,50 @@ myAccount.createContract({
 
 ### 免登陆方案
 dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。现在通过vite官方app提供两种免登陆方案：
-- [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
+- [@vite/bridge 文档点击这里](https://www.npmjs.com/package/@vite/bridge)   
     该方式提供给在vite官方app内打开的dapp使用，可以通过调用native-js桥的方法使用以下两个相关功能  
     - vite官方app请求签名并发送一个交易  
     - 获取用户当前地址。  
     示例： 
 ```javascript
+//一个普通转账,发送一个vite 给 `a vite address`
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
 bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});// 如果发送其它币总，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
+
+
+
+//一个合约调用
+import Bridge from "@vite/bridge";
+import { abi,utils } from "@vite/vitejs";
+
+const bridge = new Bridge();
+const hexData=abi.encodeFunctionCall([{
+    name: 'myMethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}, {
+    name: 'myethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}], ['2345675643', 'Hello!%'], 'myMethod');
+const base64Data=utils._Buffer.from(hexData,'hex').toString('base64');
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`合约地址`,function_name:'myMethod',params:{data:base64Data}}) }).then(accountBlock => {
   console.log(accountBlock);
 });
 ```
