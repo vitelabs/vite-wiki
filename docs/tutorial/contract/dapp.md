@@ -182,8 +182,8 @@ bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringi
   console.log(accountBlock);
 });
 ```
-   [更详细的demo]https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js
-   
+   [更详细的demo](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
+
 - Vite Bifrost  
     Vite Bifrost is the universal solution that supports signing/sending transactions from application for all scenarios, still under development.
 
