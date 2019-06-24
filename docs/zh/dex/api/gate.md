@@ -431,7 +431,7 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
 |outTxHash|对手链转出交易hash|string|false|
 |amount|实际转出到账金额|string|true|
 |fee|网关收取的转出手续费|string|true|
-|state|转出状态，枚举值<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|true|
+|state|转出状态，枚举值<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`TOT_EXCEED_THE_LIMIT`超过限额<br>`WRONG_WITHDRAW_ADDRESS`转出地址错误<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|true|
 |dateTime|转出时间,timestamp毫秒|string|true|
 
 * **Example**
