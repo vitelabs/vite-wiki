@@ -177,6 +177,7 @@ bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringi
   console.log(accountBlock);
 });
 ```
+   [更详细的demo]https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js
 - Vite Bifrost  
     该方式提供任意场景下远程签名方案。正在开发中。
 
