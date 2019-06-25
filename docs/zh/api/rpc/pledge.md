@@ -261,3 +261,34 @@ ABI：
 ```
 :::
 
+## pledge_getPledgeAmountByUtps
+根据utps计算需要抵押的vite金额
+
+- **Parameters**: 
+  * `string`: 预期的`utps``，例如1`utps`表示预期每秒发起一笔不带备注的转账交易
+
+- **Returns**: 
+	- `big.Int` 需要抵押的vite金额
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"pledge_getPledgeAmountByUtps",
+   "params":["0.013"]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result":"134000000000000000000"
+}
+```
+:::
+

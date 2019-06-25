@@ -314,6 +314,60 @@ ABI：
 ```
 :::
 
+## register_getRewardByIndex
+按天查询所有超级节点的奖励
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `uint64`: 周期数，从创世时间开始，每24小时为一周期，周期数从0开始。例如第0周期表示2019/05/21 12:00:00 - 2019/05/22 12:00:00。
+
+- **Returns**: 
+
+`Object`
+  1. `rewardMap`:`map<string>RewardInfo` 奖励详情，和`register_getRewardByDay`返回值相同
+  2. `startTime`:`int64` 本周期开始时间
+  3. `endTime`:`int64` 本周期结束时间
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRewardByIndex",
+   "params": [
+      "00000000000000000001",
+      "0"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": 
+    {
+      "rewardMap":{
+        "super":{
+          "totalReward": "10",
+          "blockReward": "6",
+          "voteReward": "4",
+          "expectedBlockNum":3,
+          "blockNum":1,
+        }
+      },
+      "startTime": 1558411200,
+      "endTime": 1558497600
+    }
+}
+```
+:::
+
 ## register_getCandidateList
 查询快照共识组候选节点列表
 
