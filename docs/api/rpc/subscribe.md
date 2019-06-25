@@ -8,34 +8,34 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-Event subscription interface. 
+## Event Subscription 
 
-Vite provides two types of event subscription API: polling and persistent connection.
+To address different scenarios, subscription through **polling** and **persistent connection** are both provided in Vite as two options.
 
-With polling API, client program should create a filter first, then polls `subscribe_getFilterChanges` method with `filterId` for new events. 
-The filter will expire if there is no request for more than 5 minutes, so that the subscription will close automatically. Client can also unsubscribe by calling `subscribe_uninstallFilter` method.
+Polling API requires client program to create a filter first, then polls `subscribe_getFilterChanges` method by `filterId` for new events. 
+Remember, filter will expire if it has not been used for more than 5 minutes, in this case you should create a new filter for further subscription. 
+You can also manually un-subscribe by calling `subscribe_uninstallFilter` method.
 
-`subscribe_newAccountBlocksFilter`, `subscribe_newLogsFilter`, `subscribe_uninstallFilter` and `subscribe_getFilterChanges` are polling APIs.
+`subscribe_newSnapshotBlocksFilter`, `subscribe_newAccountBlocksFilter`, `subscribe_newLogsFilter`, `subscribe_uninstallFilter` and `subscribe_getFilterChanges` are polling APIs.
 
-Persistent connection API will register new subscription first. Any event that was subscribed to will be returned by callback when it is generated. 
-The subscription will close automatically When persistent connection is broken.
+Persistent connection API registers new subscription through WebSocket connection. Afterwards, subscribed events will be returned in callbacks when they are generated. 
+This kind of subscription will close automatically when the WebSocket connection is closed.
 
-`subscribe_newAccountBlocks`, `subscribe_newLogs` and `subscribe_getLogs` are persistent connection APIs.
+`subscribe_newSnapshotBlocks`, `subscribe_newAccountBlocks` and `subscribe_newLogs` are persistent connection APIs.
 
-Two types of events are currently supported: new transactions(new account blocks) and new logs(logs in new account blocks). 
-Each type contains corresponding rollback event. When rollback occurs, the `removed` field in the event message is set to true.
+Three kinds of events are supported: new snapshot(new snapshot block) event, new transaction(new account block) event and new log(event log in new account block) event. 
+Event supports rollback. When rollback occurs, `removed` field in the event content is set to true.
 
-:::tip To use event subscription, you should
+:::tip To enable event subscription, you should
 * Install a minimal 1.3.2 version of 'gvite' software
-* Include `"subscribe"` in `"PublicModules"` and set `"SubscribeEnabled":true` in node_config.json
+* Add `"subscribe"` into `"PublicModules"` and set `"SubscribeEnabled":true` in node_config.json
 :::
 
 ## Usage Example
 
-Let's see an example of subscription to new logs via persistent connection API
+Let's see how to subscribe to new logs via persistent connection API in an example
 
-First, register a new subscription listening on address `vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f`
-by calling `subscribe_subscribe` interface with name `newLogs`.
+First, register a new subscription on address `vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f` by calling `subscribe_subscribe` method with name `newLogs`.
 ```json
 {
   "jsonrpc": "2.0",
@@ -54,7 +54,7 @@ by calling `subscribe_subscribe` interface with name `newLogs`.
   ]
 }
 ```
-This will return new subscription id `0x4b97e0674a5ebef942dbb07709c4a608`
+This will return a new subscription id `0x4b97e0674a5ebef942dbb07709c4a608`
 ```json
 {
   "jsonrpc":"2.0",
@@ -86,10 +86,37 @@ New log will be sent to subscriber in callback's `result` field when generated
   }
 }
 ```
-Note: A broken connection may cause intermittent subscription. Under this situation, historical logs can be retrieved by `subscribe_getLogs` method.
+:::warning Attention
+Accidental connection interrupt may cause subscription broken. Under this situation, historical snapshot blocks or account blocks can be fetched by `ledger_getSnapshotBlocks` or `ledger_getBlocksByHeight`, while historical logs can be retrieved by `subscribe_getLogs` method.
+For example, to re-subscribe to new snapshot event, you should call `subscribe_newSnapshotBlocks` to resume subscription first, then obtain latest snapshot block height by `ledger_getSnapshotChainHeight`, finally call `ledger_getSnapshotBlocks` to get all snapshot blocks missed.
+:::
+
+## subscribe_newSnapshotBlocksFilter
+Create a filter for polling for new snapshots by passing into `subscribe_getFilterChanges` as parameter
+
+- **Returns**:  
+	- `string` filterId
+
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_newSnapshotBlocksFilter",
+	"params": []
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "0xf90906914486a9c22d620e50022b38d5"
+}
+```
+:::
 
 ## subscribe_newAccountBlocksFilter
-Create a filter to poll for new transactions by feeding into `subscribe_getFilterChanges` method
+Create a filter for polling for new transactions by passing into `subscribe_getFilterChanges` as parameter
 
 - **Returns**:  
 	- `string` filterId
@@ -113,17 +140,17 @@ Create a filter to poll for new transactions by feeding into `subscribe_getFilte
 :::
 
 ## subscribe_newLogsFilter
-Create a filter to poll for new logs by feeding into `subscribe_getFilterChanges` method
+Create a filter for polling for new logs by passing into `subscribe_getFilterChanges` as parameter
 
 - **Parameters**:
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` Query logs of specified account address and account height. Multiple account addresses and a range of height can be specified.
-    2. `topics`: `[][]Hash` Subscribed topics, see example for the usage.
+    1. `addrRange`: `map[Address]Range` Query logs of specified account address and height. Multiple addresses and height range can be specified.
+    2. `topics`: `[][]Hash` Subscribed topics, see example for usage.
     
 `Range`
-  1. `fromHeight`: `uint64` Start height, 0 means starting from the latest height
-  2. `toHeight`: `uint64` End height, 0 means no end height is set
+  1. `fromHeight`: `uint64` Start height. 0 means starting from the latest height
+  2. `toHeight`: `uint64` End height. 0 means no end height
 
 ```
 Topic examples：
@@ -159,7 +186,7 @@ Topic examples：
 :::
 
 ## subscribe_uninstallFilter
-Cancel an existing polling 
+Cancel event polling by removing specified filter 
 
 - **Parameters**:
   * `string`: filterId
@@ -186,16 +213,60 @@ Cancel an existing polling
 :::
 
 ## subscribe_getFilterChanges
-Poll for new events. The type of return value depends on the type of subscription. If no event is generated since last polling, an empty array will be returned.
+Poll for new events. The content of return value depends on the specific subscription. If no event is generated since last poll, an empty array will be returned.
 
 - **Parameters**:
   * `string`: filterId
+    
+- **Return in `subscribe_newSnapshotBlocksFilter`**: 
+  * `subscription`: `string` filterId
+  * `result`: `Array<NewSnapshotBlocksMsg>`
+    1. `hash`: `Hash` The hash of snapshot block
+    2. `height`: `uint64` The height of snapshot block
+    3. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
   
-- **Returns in `subscribe_newAccountBlocksFilter`**: 
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "subscribe_getFilterChanges",
+	"params": ["0xf90906914486a9c22d620e50022b38d5"]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "result": [
+          {
+              "hash": "5d47f2e0a532923f7ee53e7b465381f197a669e86155d541b3b7f3d63f07a0e2",
+              "height": 124,
+              "removed": false
+          },
+          {
+              "hash": "78b19cb84ac293d4af3f36e741938929f6d3311362e1265e87bbaa74e5fcef09",
+              "height": 125,
+              "removed": false
+          },
+          {
+              "hash": "94437996b3e70afd5d8593e2020ae56f63dbbc538df1ead1633340393bd52c1a",
+              "height": 126,
+              "removed": false
+          }
+      ],
+      "subscription": "0xf90906914486a9c22d620e50022b38d5"
+    }
+}
+```
+:::  
+  
+- **Return in `subscribe_newAccountBlocksFilter`**: 
   * `subscription`: `string` filterId
   * `result`: `Array<NewAccountBlocksMsg>`
     1. `hash`: `Hash` The hash of account block
-    2. `removed`: `bool` Whether the block was rolled back, `true` for yes and new transaction will be marked as `false`
+    2. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
   
 ::: demo
 ```json tab:Request
@@ -227,13 +298,13 @@ Poll for new events. The type of return value depends on the type of subscriptio
 ```
 :::
 
-- **Returns in `subscribe_newLogsFilter`**: 
+- **Return in `subscribe_newLogsFilter`**: 
   * `subscription`: `string` filterId
   * `result`: `Array<LogsMsg>`
     1. `accountBlockHash`: `Hash` The hash of account block
     2. `addr`: `Address` Account address
     3. `log`: `VmLog` Log
-    4. `removed`: `bool` Whether the log was rolled back, `true` for yes and new log will be marked as `false`
+    4. `removed`: `bool` Whether the log was rolled back. New log will be marked as `false`
 
 ::: demo
 ```json tab:Request
@@ -269,6 +340,48 @@ Poll for new events. The type of return value depends on the type of subscriptio
 ```
 :::
 
+## subscribe_newSnapshotBlocks
+Start listening for new snapshot blocks via persistent connection
+
+- **Returns**:  
+	- `string` Subscription id
+	
+- **Callback**:  
+`Object`
+  * `subscription`: `string`  Subscription id
+  * `result`: `Array<NewSnapshotBlocksMsg>`
+      1. `hash`: `Hash` The hash of snapshot block
+      2. `height`: `uint64` The height of snapshot block
+      3. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
+
+::: demo
+```json tab:Request
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "subscribe_subscribe",
+  "params": ["newSnapshotBlocks"]
+}
+```
+```json tab:Response
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0xa809145803ebb2a52229aefcbd52a99d"
+}
+```
+```json tab:Callback
+{
+  "jsonrpc":"2.0",
+  "method":"subscribe_subscription",
+  "params":{
+    "subscription":"0xa809145803ebb2a52229aefcbd52a99d",
+    "result":[{"hash":"22c38acb79e2de0de3c5a09618054b93ac7c7e82f41f9e15d754e58694eefe16","height":250,"removed":false}]
+  }
+}
+```
+:::
+
 ## subscribe_newAccountBlocks
 Start listening for new transactions via persistent connection
 
@@ -280,7 +393,7 @@ Start listening for new transactions via persistent connection
   * `subscription`: `string`  Subscription id
   * `result`: `Array<NewAccountBlocksMsg>`
      1. `hash`: `Hash` The hash of account block
-     2. `removed`: `bool` Whether the block was rolled back, `true` for yes and new transaction will be marked as `false`
+     2. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
 
 ::: demo
 ```json tab:Request
@@ -319,12 +432,12 @@ Start listening for new logs via persistent connection
 - **Parameters**:
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` Query logs of specified account address and account height. Multiple account addresses and a range of height can be specified.
-    2. `topics`: `[][]Hash` Subscribed topics, see example for the usage.
+    1. `addrRange`: `map[Address]Range` Query logs of specified account address and height. Multiple addresses and height range can be specified.
+    2. `topics`: `[][]Hash` Subscribed topics, see example for usage.
     
 `Range`
-  1. `fromHeight`: `uint64` Start height, 0 means starting from the latest height
-  2. `toHeight`: `uint64` End height, 0 means no end height is set
+  1. `fromHeight`: `uint64` Start height. 0 means starting from the latest height
+  2. `toHeight`: `uint64` End height. 0 means no end height
 
 - **Returns**:  
 	- `string` Subscription id
@@ -336,7 +449,7 @@ Start listening for new logs via persistent connection
     1. `accountBlockHash`: `Hash` The hash of account block
     2. `addr`: `Address` Account address
     3. `log`: `VmLog` Log
-    4. `removed`: `bool` Whether the log was rolled back, `true` for yes and new log will be marked as `false`
+    4. `removed`: `bool` Whether the log was rolled back. New log will be marked as `false`
 
 ::: demo
 ```json tab:Request
@@ -395,12 +508,12 @@ Return historical logs
 - **Parameters**:
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` Query logs of specified account address and account height. Multiple account addresses and a range of height can be specified.
-    2. `topics`: `[][]Hash` Subscribed topics, see example for the usage.
+    1. `addrRange`: `map[Address]Range` Query logs of specified account address and height. Multiple addresses and height range can be specified.
+    2. `topics`: `[][]Hash` Subscribed topics, see example for usage.
     
 `Range`
-  1. `fromHeight`: `uint64` Start height, 0 means starting from the latest height
-  2. `toHeight`: `uint64` End height, 0 means no end height is set
+  1. `fromHeight`: `uint64` Start height. 0 means starting from the latest height
+  2. `toHeight`: `uint64` End height. 0 means no end height
 
 - **Returns**:  
   * `result`: `Array<LogsMsg>`

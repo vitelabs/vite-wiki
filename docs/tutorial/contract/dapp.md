@@ -130,24 +130,60 @@ myAccount.createContract({
 
 ## Call Contract
 
-When successfully deployed, contract can be called by sending call contract request transaction in the wallet, with parameters transferred from dApp in **Vite URI**.
+When successfully deployed, contract can be called by sending call contract request transaction through vite.js library. However, this operation would require to know user's mnemonic in advance.
 
 ### Isolation of dApp and Private Key
 
-As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key. To address this issue, Vite mobile wallet provides two solutions.
+As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key or mnemonics. To address this issue, Vite mobile wallet provides two solutions.
 - [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
     Vite bridge is the recommended option for dApp integrated into Vite mobile wallet. By calling native-js bridge, the following actions are performed:
     - Request for sending transaction from application
     - Obtain current user address from application
     Example:
 ```javascript
+//一个普通转账,发送一个vite 给 `a vite address`
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({ uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});// 如果发送其它币总，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
+
+
+
+//一个合约调用
+import Bridge from "@vite/bridge";
+import { abi,utils } from "@vite/vitejs";
+
+const bridge = new Bridge();
+const hexData=abi.encodeFunctionCall([{
+    name: 'myMethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}, {
+    name: 'myethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}], ['2345675643', 'Hello!%'], 'myMethod');
+const base64Data=utils._Buffer.from(hexData,'hex').toString('base64');
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`合约地址`,function_name:'myMethod',params:{data:base64Data}}) }).then(accountBlock => {
   console.log(accountBlock);
 });
 ```
+   [更详细的demo](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
+
 - Vite Bifrost  
     Vite Bifrost is the universal solution that supports signing/sending transactions from application for all scenarios, still under development.
 
