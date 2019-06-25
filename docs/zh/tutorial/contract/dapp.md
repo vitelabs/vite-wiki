@@ -138,13 +138,13 @@ dapp作为轻量级，第三方应用，理论上不应该获取到用户助记�
     - 获取用户当前地址。  
     示例： 
 ```javascript
-//一个普通转账,发送一个vite 给 `a vite address`
+//一个普通转账,发送一个vite 给 `receiver's vite address`
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"sender's vite address", uri: utils.uriStringify({target_address:`receiver's vite address`,params:{amount:1}}) }).then(accountBlock => {
   console.log(accountBlock);
-});// 如果发送其它币总，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
+});// 如果发送其它币种，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
 
 
 

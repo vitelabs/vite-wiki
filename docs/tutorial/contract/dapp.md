@@ -128,6 +128,8 @@ myAccount.createContract({
 });
 ```
 
+Successfully created contract can be queried at [Contract Query](../rpc/contract.html#contract-getcontractinfo). This operation requires the contract's code is not null. A contract creation request without code may be accepted but due to absence of code the operation will eventually fail.
+
 ## Call Contract
 
 When successfully deployed, contract can be called by sending call contract request transaction through vite.js library. However, this operation would require to know user's mnemonic in advance.
@@ -141,17 +143,17 @@ As independent application developed by 3rd party, for security reason, dApp sho
     - Obtain current user address from application
     Example:
 ```javascript
-//一个普通转账,发送一个vite 给 `a vite address`
+// A normal transfer. Sending 1 Vite to receiver's address
 import Bridge from "@vite/bridge";
 import { utils } from "@vite/vitejs";
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`a vite address`,params:{amount:1}}) }).then(accountBlock => {
+bridge["wallet.sendTxByURI"]({address:"sender's vite address", uri: utils.uriStringify({target_address:`receiver's vite address`,params:{amount:1}}) }).then(accountBlock => {
   console.log(accountBlock);
-});// 如果发送其它币总，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
+});// For other token, you should specify "tti" in parameter
 
 
 
-//一个合约调用
+// Calling a contract
 import Bridge from "@vite/bridge";
 import { abi,utils } from "@vite/vitejs";
 
@@ -182,7 +184,7 @@ bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringi
   console.log(accountBlock);
 });
 ```
-   [更详细的demo](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
+See [Further Example](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
 
 - Vite Bifrost  
     Vite Bifrost is the universal solution that supports signing/sending transactions from application for all scenarios, still under development.

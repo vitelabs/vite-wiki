@@ -252,3 +252,33 @@ Return staking records of specified account
 ```
 :::
 
+## pledge_getPledgeAmountByUtps
+Return the amount of Vite required for staking by target UTPS
+
+- **Parameters**: 
+  * `string`: Target UTPS. 1 UTPS means being able to send a transfer without comment per second
+
+- **Returns**: 
+	- `big.Int` The amount of Vite required for staking, having 18 decimals
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"pledge_getPledgeAmountByUtps",
+   "params":["0.013"]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result":"134000000000000000000"
+}
+```
+:::

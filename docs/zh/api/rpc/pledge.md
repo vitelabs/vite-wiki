@@ -265,7 +265,7 @@ ABI：
 根据utps计算需要抵押的vite金额
 
 - **Parameters**: 
-  * `string`: 预期的`utps``，例如1`utps`表示预期每秒发起一笔不带备注的转账交易
+  * `string`: 预期的`utps`，例如1`utps`表示预期每秒发起一笔不带备注的转账交易
 
 - **Returns**: 
 	- `big.Int` 需要抵押的vite金额
