@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.2 Introduction
+title: Version 2.2.0
 ---
 
 :::tip Created by

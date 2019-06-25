@@ -378,7 +378,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `ownerAddress: Address`
+        - `newOwner: Address`
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`

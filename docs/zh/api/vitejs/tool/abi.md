@@ -255,6 +255,7 @@ let decodeParametersResult22 = abi.decodeParameters([
 - **Parameters**
     * `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
     * `hexString`
+    * `Array<hexString>`
     * `methodName?` 当第一个参数为jsonInterface数组时, 此参数必填(用于识别abi, 取出对应inputs)
 
 - **Return**

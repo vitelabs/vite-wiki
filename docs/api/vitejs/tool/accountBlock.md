@@ -113,7 +113,7 @@ const receiveTxBlock = getReceiveTxBlock({
 });
 ```
 
-### getBuiltinTxType 
+### getTxType
 Get specified transaction type
 
 - **Parameters**
@@ -123,11 +123,11 @@ Get specified transaction type
         - `blockType : BlockType`
 
 - **Return**
-    * `builtinTxType : BuiltinTxType` Transaction Type
+    * `txType : TxType` Transaction Type
 
 - **Example**
 ```javascript
-import { getBuiltinTxType } from '@vite/vitejs-accountblock';
+import { getTxType } from '@vite/vitejs-accountblock';
 
 const RevokeVoting = {
     blockType: 2,
@@ -135,8 +135,8 @@ const RevokeVoting = {
     toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
 };
 
-const builtinTxType = getBuiltinTxType(RevokeVoting);
-// builtinTxType === 'RevokeVoting'
+const txType = getTxType(RevokeVoting);
+// txType === 'RevokeVoting'
 ```
 
 ### getBlockHash
@@ -232,4 +232,47 @@ const accountBlock = {
 };
 
 const { hash, signature, publicKey } = signAccountBlock(accountBlock, /** your privateKey */);
+```
+
+### decodeBlockByContract
+
+- **Parameters**
+    * `__namedParameters: object`
+        - `accountBlock: AccountBlock`
+        - `contractAddr: Address`
+        - `abi: jsonInterface | Array<jsonInterface>`
+        - `topics?: Array<hexString>`
+        - `mehtodName?: string` This parameter is required when type of the first parameter is JsonInterface (Used to identify abi and get corresponding inputs)
+
+- **Return**
+    * `decodeResult`: If accountBlock does not belong to this contract, return null
+
+- **Example**
+```javascript
+import { accountblock, constant } from '@vite/vitejs';
+
+// Just Example
+const SBPregAccountBlock = {
+    accountAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    blockType: 2,
+    data: '8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAFU0YryhN7rCn0QOmvSrLiwbuCSTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACc3MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
+    toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
+}
+
+const decodeResult = accountblock.decodeBlockByContract({
+    accountBlock: SBPregAccountBlock,
+    contractAddr: constant.Contracts.SBPreg.contractAddr,
+    abi: constant.Contracts.SBPreg.abi
+});
+
+/** decodeResult like
+    { 
+        '0': '00000000000000000001',
+        '1': 'ss',
+        '2': 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+        gid: '00000000000000000001',
+        name: 'ss',
+        nodeAddr: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2' 
+    }
+*/
 ```

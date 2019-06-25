@@ -378,7 +378,7 @@ Get account block of changed transfer owner. *this.callContract [constant.Transf
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `ownerAddress: Address`
+        - `newOwner: Address`
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`

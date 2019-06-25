@@ -6,6 +6,8 @@
 - **Constructor params**
     * `provider : Provider Instance`
     * `firstConnectCb : function` : Callback function of first connection
+    * `config: object`
+        - `isDecodeTx? : boolean` : Default false. Whether to try to use the built-in contract decode transaction when calling `client.getTxList`.
 
 - **Example**
 ```javascript
@@ -79,6 +81,48 @@ Get Transaction List. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md
 - **Return**:
     * Promise<`{ list, totalNum }`>
 
+- **Example**
+
+:::demo
+```javascript tab:request
+myClient.getTxList({
+    addr: 'your address',
+    index: 0,
+    pageCount: 50
+});
+```
+
+```json tab:responce
+{
+    "list": [{
+        "accountAddress": "vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2",
+        "amount": "100000000",
+        "blockType": 2,
+        "data": "y/Dk+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjhvJvwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI4byb8EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtjc3Rlc3R0b2tlbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQ1NUVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        "toAddress": "vite_000000000000000000000000000000000000000595292d996d",
+        "txType": "Mintage",
+        "contract": {
+            "0": "1",
+            "1": "cstesttoken",
+            "2": "CSTT",
+            "3": "10000000000000000",
+            "4": "2",
+            "5": "10000000000000000",
+            "6": "1",
+            "decimals": "2",
+            "isReIssuable": "1",
+            "maxSupply": "10000000000000000",
+            "ownerBurnOnly": "1",
+            "tokenName": "cstesttoken",
+            "tokenSymbol": "CSTT",
+            "totalSupply": "10000000000000000"
+        }
+    }],
+    "totalNum": "1"
+}
+```
+:::
+
 ### callOffChainContract
 Query contract status. *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
 
@@ -122,3 +166,36 @@ Increase return value accountBlock. *Gvite-RPC [tx_sendRawTx](../../rpc/tx.md)*
 
 - **Return**:
     * Promise<`AccountBlock`>
+
+### addTxType
+Increase custom transaction type, when calling `client.getTxList` to get the transaction list, it will be parsed according to the new transaction type and populated into the `tx.txType` field.
+
+:::tip
+`addTxType` can be called multiple times, accumulate transaction type
+:::
+
+- **Parameters** 
+    * `__namedParameters: Object` Object.key is transaction type
+        - `contractAddr : Address` Contract address
+        - `abi : jsonInterface`
+
+- **Example**
+```js ::Demo
+import WS_RPC from '@vite/vitejs-WS';
+import { client } from '@vite/vitejs';
+
+const wsProvider = new WS_RPC("ws://example.com");
+
+const myClient = new Client(wsProvider, function(_myclient) {
+    console.log("Connected.");
+});
+
+const abi = { methodName: 'hello', inputs: [] };
+const contractAddr = '';
+myHTTPClient.addTxType({ 
+    helloWorld: { 
+        contractAddr: 'your contract address', 
+        abi: 'your abi' // For example: { methodName: 'hello', inputs: [], type: 'function' }
+    }
+});
+```
