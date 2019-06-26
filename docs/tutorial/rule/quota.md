@@ -4,7 +4,7 @@
 Please note this is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
 
 The Definitions of Terms:
-* **Quota**： In Vite, CPU cycles, storage space and network bandwidth consumed during transactions are paid by quota, instead of transaction fees
+* **Quota**： In Vite system, CPU cycles, storage space and network bandwidth consumed during transactions are paid by quota, instead of transaction fees
 * **PoW**： Proof of Work, representing a certain amount of computational work has been performed
 * **Stake**： Lock up an amount of VITE in the account for quota
 * **Staking address**：The account who starts the staking transaction
@@ -85,7 +85,7 @@ Here,
 * $T$: The idle time prior to sending a transaction, equivalent to height difference between the snapshot block that current transaction refers to and an earlier snapshot block that previous transaction refers to
 
 
-In Vite TestNet,
+In Vite Network,
 * $Qm$ = 1000000
 * $\rho d$ = 6.259408129e-10
 * $\rho s$ = 4.201037667e-24
@@ -248,7 +248,7 @@ The staking account can retrieve staked tokens after 259,200 snapshot blocks (ab
 
 User can obtain one-time-valid quota by calculating `PoW` upon sending transactions. According to above table, the target `PoW` difficulty is 0x3FFFFFF for sending an uncommented transfer transaction with no staking.
 
-In the TestNet, a central `PoW` service has been built to serve the purpose of calculating `PoW` from Vite wallets, some of which, like mobile wallets, may not have sufficient computation power to perform the calculation.
+In Pre-Mainnet, a central `PoW` service has been built to serve the purpose of calculating `PoW` from Vite wallets, some of which, like mobile wallets, may not have sufficient computation power to perform the calculation.
 
 #### Calculation Steps
 

@@ -5,7 +5,7 @@
 In order to debug smart contract, you need setup a local full node and perform contract debugging through your node's RPC interface.
 
 We provide 2 debugging environments: development and testing. The difference is that account balance will not be examined before sending transaction in development environment, and each transaction has 1,000,000 quota automatically. 
-In testing environment, checks for quota and balance will be the same as Vite TestNet. It's necessary to maintain sufficient balance or quota when debugging.
+In testing environment, checks for quota and balance will be the same as Vite network. It's necessary to maintain sufficient balance or quota when debugging.
 
 In development environment, it is also possible to debug your smart contract in Microsoft Visual Studio Code(aka VS Code).
 
