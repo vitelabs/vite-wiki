@@ -2,10 +2,10 @@
 
 ## What is Event
 
-Events are notifications triggered by smart contract to notify front-end program such as dApp.
-When an event is triggered, a log(`VmLog`) specific to the event is logged in the smart contract's response block.
+In Vite, events are notifications triggered by virtual machine to indicate state change and will be pushed to front-end program such as dApp for further processing.
+A `VmLog` will be created in the smart contract's response block when event is triggered.
 
-Take the following contract as an example. When method `TransferWithEvent` is called, the contract transfers the received tokens to the specified address and then triggers a `transferEvent` event.
+Taking the following contract as example, when method `TransferWithEvent` is called, the contract transfers the token received to specified address and then triggers a `transferEvent` event.
 
 ```
 pragma soliditypp ^0.4.1;
@@ -19,14 +19,14 @@ contract TransferContract {
 }
 ```
 
-A `transferEvent` event contains the following information:
-* The hash of contract response block that triggered the event. It indicates the context of the event, and can be used to trace the contract account address, contract account height, request transaction hash, and so on.
-* Event signature, which is the hash of `transferEvent(address, uint256, uint256)`.
-* Index parameters, which are marked as `indexed` in event definition. Up to 4 index parameters can be defined for an event. Event signature and index parameters are stored in `topics` field of `VmLog`, where event signature occupies `topics[0]`.
-* Non-index parameters, which are parameters without `indexed` associated with. Non-index parameters are stored in `data` field of `VmLog`.
+The `transferEvent` event contains the following content:
+* The hash of contract response block in which the event was created. This information can be used to retrieve contract address, contract account block height, request transaction hash and so on.
+* Event signature as the hash of `transferEvent(address, uint256, uint256)`.
+* Indexed parameters, which are marked as `indexed` in event definition. Up to 4 indexed parameters can be defined in an event. Event signature and indexed parameters are stored in `topics` field of `VmLog`, where `topics[0]` is occupied by event signature.
+* Non-indexed parameters having no `indexed` marked. Non-indexed parameters are stored in `data` field of `VmLog`.
 
 Below is an example of event logged when sending 1 VITE to `vite_9990375e0eaf10426d1d1f9b528b6dee158fd3adb0e1b9de70`
-```
+```json
 {
   "accountBlockHash":"0edcbbbbbf0d68e5721187c1866029e2f544e00f2f48358a9df5ca18f5d1d5a2",
   "log": {
@@ -41,16 +41,16 @@ Below is an example of event logged when sending 1 VITE to `vite_9990375e0eaf104
 
 ## What is Subscription
 
-If a type of event is subscribed, the subscriber will be notified when the event occurs. 
-For example, if you subscribe to `transferEvent` event of `TransferContract` contract, you will receive a notification when `TransferWithEvent` method is called.
+If a certain event is subscribed to, the subscriber will be notified when this certain event occurs. 
+For example, if you subscribe to `transferEvent` of `TransferContract`, you will receive a notification when `TransferWithEvent` method is called.
 
-Event subscription can be used to continuously listen for a specified type of transaction that occurs on blockchain. 
-It's only allowed to subscribe to events that have not occurred yet. Historical events cannot be subscribed but can only be queried through query interface.
+Event subscription can be used to listen to new transactions that occur on blockchain. 
+It's only allowed to listen to events that have not occurred yet. Historical events cannot be monitored but can only be fetched through query API.
 
 The following parameters need to be specified when subscribing to an event:
-* Contract account address. Required.
-* Contract account height range. Non-required. With this parameter, it's possible to subscribe to events happening within a certain height range.
-* Event signature or index parameter. Non-required. For example, you can subscribe to events of transferring to certain accounts.
+* Contract address. Required.
+* Contract account height range. Optional. By this parameter, it's possible to subscribe to events happening within a certain height range.
+* Event signature or indexed parameter. Optional. For example, you can subscribe to events that transfer to certain accounts.
 
 ## Two Modes of Event Subscription
 
