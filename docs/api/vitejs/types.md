@@ -1,7 +1,7 @@
-# Common type and specification
+# Common Type and Specification
 
 :::tip Tips
-[Refer to constant module](./constant/constant.md)
+Refer to [Constant Module](./constant/constant.md)
 :::
 
 ```typescript

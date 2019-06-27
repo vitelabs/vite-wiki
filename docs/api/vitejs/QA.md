@@ -1,40 +1,34 @@
-# Q & A
+# Q&A
 
 ## About Mnemonic
 
-A mnemonic can derive multiple private keys, one for each address.[Refer to hdwallet](/tutorial/wallet/hdwallet.md)
+A mnemonic phrase is able to derive multiple private keys, each having an address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md)
 
 :::warning Notice
-1. Keep your mnemonics carefully
-2. Don't transfer to an unknown address
+1. Always keep your mnemonics safe
+2. Never transfer to unknown address
 :::
 
-## About quota
+## About Quota
 
-Sending transaction needs quota, which can be obtained through PoW or pledge Vite. [Refer to quota](/tutorial/rule/quota)
+Sending transaction consumes quota, which can be obtained through PoW calculation or staking Vite. Refer to [Quota](/tutorial/rule/quota)
 
 ## About Mintage
 
-Client provides mintage function. [Refer to client/builtinTxBlock/Mintage](./client/builtinTxBlock)
-
-[Gvite-RPC Mintage](../rpc/mintage)
+Client module provides token issuance function. Refer to [client/builtinTxBlock/Mintage](./client/builtinTxBlock)
 
 ## About Subscription
 
-Client extends netProcessor, providers subscription [Refer to client/subscription](./client/subscribe)
+Client module extends `netProcessor` and supports event subscription. Refer to [client/subscription](./client/subscribe)
 
-## About Account Instances under wallet
+## About Account Instance
 
-[Wallet module](./wallet/wallet) is mainly used to quickly generate a wallet.
+Wallet module is mainly used to quickly generate a wallet. Refer to [Wallet Introduction](./wallet/wallet)
 
-:::tip Tips
-[Refer to wallet introduction](./wallet/wallet)
-:::
+## About Sending Transaction
+Refer to [Account](./wallet/account) and [HdAccount](./wallet/hdAccount)
 
-## About Send Transaction
-Refer to [account](./wallet/account) and [hdAccount](./wallet/hdAccount)
-
-1. You can generate an [`hdAccount` instance](./wallet/hdAccount) through your mnemonic. [Refer to more instances](./wallet/wallet)
+1. Generate `hdAccount` instance from mnemonic phrase. See more [Instances](./wallet/wallet) in wallet module.
 
 ```javascript
 import WS_RPC from '@vite/vitejs-ws';
@@ -47,7 +41,7 @@ let myHdAccount = new hdAccount({
 });
 ```
 
-2. Get the `account` instance of address through the `hdAccount` instance. For example, get `an account instance of 0'address` under the mnemonic.
+2. Get `account` instance for certain address through `hdAccount` instance. Below example shows how to get an account instance at address 0.
 
 ```javascript
 const firstAccount = myHdAccount.getAccount({
@@ -55,12 +49,12 @@ const firstAccount = myHdAccount.getAccount({
 });
 ```
 
-3. Send transactions through the [`account` instance](./wallet/account).
+3. Send transaction through `account` instance
 
 ```javascript
 firstAccount.sendTx({
     toAddress: 'Your toAddress',
-    amount: '10000000000000000000',    // 10Vite + 18个0
+    amount: '10000000000000000000',    // 10 Vite (having 18 decimals)
     tokenId: Vite_TokenId
 }).then((accountBlock) => {
     console.log(accountBlock);
