@@ -95,13 +95,13 @@ In Vite Network,
 
 $$UTPS=\frac{Q_{Stake}}{21000}$$
 
-The available quota of an account depends on UTPS and quota consumption during last 74 snapshot blocks. For example, account A has 1 UTPS quota through staking and hasn't send any transaction during last 74 snapshot blocks, then the available quota of account A is 75 UTPS.
+The available quota of an account depends on basic UTPS and quota consumption during the last 74 snapshot blocks. For example, account A has 1 UTPS' quota via staking and hasn't sent any transaction during last 74 snapshot blocks, then the available quota of account A is 75 UTPS.
 
-The actual available quota of an account upon sending transaction depends on UTPS, quota consumption during last 74 snapshot blocks and `PoW` calculation performed. For example, account B has 1 UTPS quota through staking, hasn't send any transaction during last 74 snapshot blocks, and calculated a `PoW` having difficulty equivalent to 2 UTPS, then the available quota of account B is 77 UTPS.
+The actual available quota of an account upon sending transaction depends on UTPS, quota consumption during last 74 snapshot blocks and `PoW` calculation. For example, account B has 1 UTPS' quota via staking and hasn't sent any transaction during last 74 snapshot blocks, while he also calculated a `PoW` nonce whose difficulty is entitled to obtain quota about 2 UTPS, then the available quota of account B is 77 UTPS.
 
 For convenience in calculation, it is acceptable to calculate $(\xi d \times \rho d)$ or $(\xi s \times T \times \rho s)$ only, and then map result to corresponding quota according to following table:
 
-|  $(\xi d \times \rho d)$ or $(\xi s \times \rho s)$ | $Q$ | UTPS | Maximum UTPS | Approximately equivalent to how much VITE staked without calculating `PoW` | Approximately equivalent to how difficult the `PoW` calculated without staking |
+|  $(\xi d \times \rho d)$ or $(\xi s \times \rho s)$ | $Q$ | UTPS | Maximum Unit Transaction(s) in 75 seconds | Approximately equivalent to how much VITE staked without calculating `PoW` | Approximately equivalent to how difficult the `PoW` calculated without staking |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0.0 | 0 | 0 | 0 | 0 | 0 |
 | $(0, 0.0005600000146345639]$ | 280 | 1/75 | 1 | 134 | 894654 |
@@ -226,9 +226,9 @@ For convenience in calculation, it is acceptable to calculate $(\xi d \times \rh
 | $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 3450 | 965808 | 6482075769 |
 | $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 3525 | 1197189 | 8034995932 |
 
-Here **Maximum UTPS** is the maximal available quota in unit transaction after waiting for 75 snapshot blocks.
+Here **Maximum Unit Transaction(s) in 75 seconds** is the maximum number of unit transactions that can be sent after waiting for 75 snapshot blocks.
 
-For example, if `PoW` calculation is not considered, staking 10000 and 20007 VITE will obtain 1 and 2 UTPS respectively, and this number will become 75 and 150 after waiting for 75 snapshot blocks.
+For example, if `PoW` is not taken into account, staking 10000 and 20007 VITE will get 1 and 2 UTPS' quota respectively, and the number of unit transactions that can be sent will reach 75 and 150 after waiting for 75 snapshot blocks.
 Staking 134 VITE and waiting 75 snapshot blocks also qualifies for sending a transfer transaction without comment.
 
 ## Two Methods to Obtain Quota
