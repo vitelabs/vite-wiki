@@ -1,45 +1,46 @@
 # Introduction
 
-Our network connection layer uses JSON-RPC 2.0 protocol.
-You can use http, websocket or IPC to get into connect with Gvite.
+In network layer, **Vite JS** employs JSON-RPC 2.0 to exchange information with Vite full node through IPC, HTTP and WebSocket protocols.
 
-HTTP / Websocket / IPC All of these have already integrated the following methods and attributes.
+The following methods and properties are supported in all protocols.
 
 ## Properties
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| type |  string | Type of network transport protocol |
-| timeout | number(ms) | Request timeout |
+| type |  string | Type of network transmission protocol |
+| timeout | number(ms) | Timeout of request |
 
 ## Methods
 
 ### abort
-Breaks the remaining requests for the current connection and clears the list of requests
+Break current connection and clear remaining requests in request list.
 
 ### request
-Initiates a request
+Initiates a request with return value
 
 - **Parameters**: 
   * `methodName : string` Method name
-  * `params : any` Request params
+  * `params : any` Request parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - `Promise<JsonRPC response>`
 
 ### notification
+Initiates a request without return value
 
 - **Parameters**: 
   * `methodName : string` Method name
-  * `params : any` Request params
+  * `params : any` Request parameters
 
 ### batch
+Initiate a batch request
 
 - **Parameters**: 
   * `requests : array<object>` 
 	- `type : string<request | notification | batch>` : Request type
     - `methodName : string`: Method name
-    - `params : any`: Request params
+    - `params : any`: Request parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - `Promise<JsonRPC response>`
