@@ -1,5 +1,9 @@
 # HdAccount
 
+`HdAccount 包含多个 Account 实例`
+
+使用助记词生成 HdAccount 实例。由于一个助记词可以派生出多个地址，所以一个钱包账户也可以包含多个 Account 实例。
+
 ## 安装
 
 :::demo
@@ -40,18 +44,24 @@ const { hdAccount } = require('@vite/vitejs-hdaccount');
         - `maxAddrNum : number` 最多可生成的地址数量 Default 10
         - `addrStartInx : number` 生成地址的开始index Default 0
 
-- **Example**
+## Example
+firstAccount是一个[`account`实例](./account)
+
 ```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, hdAccount, utils, constant } from '@vite/vitejs';
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { client, hdAccount, utils, constant } = require('@vite/vitejs');
 
 let { Vite_TokenId } = constant;
 
 let myClient = new client( new WS_RPC("ws://example.com") );
-let myHdAccount = new hdAccount({ client: myClient });
-myHdAccount.addAddr();
+let myHdAccount = new hdAccount({ 
+    client: myClient,
+    mnemonic: 'your mnemonic'
+});
 
-let firstAccount = myHdAccount.getAccount();
+let firstAccount = myHdAccount.getAccount({
+    index: 0
+});
 
 firstAccount.sendTx({
     toAddress: 'Your toAddress',

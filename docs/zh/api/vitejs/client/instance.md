@@ -1,13 +1,13 @@
 # Client 实例
 `Client extends netProcessor`
 
-继承netProcessor的所有方法 (`setProvider` / `request` / `notification` / `batch` / `subscribe` / `unSubscribe` / `clearSubscriptions`)
-
 ## Constructor
 
 - **Constructor Parameters**
     * `provider : Provider 实例`
     * `firstConnectCb : function` : 首次连接后的回调函数
+    * `config: object`
+        - `isDecodeTx? : boolean` : Default false 调用`client.getTxList`时，是否尝试用内置合约decode交易。
 
 - **Example**
 ```javascript
@@ -15,7 +15,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
@@ -37,17 +37,14 @@ myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
     // ......
 })
 
-myClient.subscribeFunc.newAccountBlocks().then(()=>{
+myClient.subscribeFunc.newAccountBlocksFilter().then(()=>{
     // ......
 });
 
-myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+myClient.request(methods.subscribe.newAccountBlocksFilter).then(()=>{
     // ......
 });
 ```
-
-## BuiltinTxBlock
-[见 BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
@@ -82,6 +79,48 @@ myclient.getBalance.then(({balance, onroad}) => {
 
 - **Return**:
     * Promise<`{ list, totalNum }`>
+
+- **Example**
+
+:::demo
+```javascript tab:request
+myClient.getTxList({
+    addr: 'your address',
+    index: 0,
+    pageCount: 50
+});
+```
+
+```json tab:responce
+{
+    "list": [{
+        "accountAddress": "vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2",
+        "amount": "100000000",
+        "blockType": 2,
+        "data": "y/Dk+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjhvJvwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI4byb8EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtjc3Rlc3R0b2tlbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQ1NUVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        "toAddress": "vite_000000000000000000000000000000000000000595292d996d",
+        "txType": "Mintage",
+        "contract": {
+            "0": "1",
+            "1": "cstesttoken",
+            "2": "CSTT",
+            "3": "10000000000000000",
+            "4": "2",
+            "5": "10000000000000000",
+            "6": "1",
+            "decimals": "2",
+            "isReIssuable": "1",
+            "maxSupply": "10000000000000000",
+            "ownerBurnOnly": "1",
+            "tokenName": "cstesttoken",
+            "tokenSymbol": "CSTT",
+            "totalSupply": "10000000000000000"
+        }
+    }],
+    "totalNum": "1"
+}
+```
+:::
 
 ### callOffChainContract
 查询合约状态。 *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
@@ -127,45 +166,35 @@ myclient.getBalance.then(({balance, onroad}) => {
 - **Return**:
     * Promise<`AccountBlock`>
 
-### Gvite-RPC 接口调用方式
+### addTxType
+增加自定义交易类型，通过`client.getTxList`获取交易列表时，会根据新增交易类型进行解析，并填充至`tx.txType`字段中
 
-**关于 Gvite-RPC 接口只是对于调用方式进行封装，返回数据是直接暴露RPC接口的原始数据。[详细参考](/api/rpc/)**
+:::tip
+`addTxType`可多次调用，累加交易类型
+:::
 
-1. `client.namespace.funcName`: 如果`constant.methods`中定义了此方法，可以直接使用`client.namespace.funcName`的方式调用
+- **Parameters** 
+    * `__namedParameters: Object` Object.key 是交易类型
+        - `contractAddr : Address` 合约地址
+        - `abi : jsonInterface`
 
-```javascript
-import { methods } from '@vite/vitejs-constant';
-// ......
+- **Example**
+```js ::Demo
+import WS_RPC from '@vite/vitejs-WS';
+import { client } from '@vite/vitejs';
 
-let myClient = new client(WS_RPC);
-myClient.ledger.getLatestSnapshotChainHash().then(()=>{
-    // ......
-});
-```
+const wsProvider = new WS_RPC("ws://example.com");
 
-2. `client.request(methodName, ...args)`: 如果`constant.methods`中未定义此方法，可以直接通过`client.request(methodName, ...args)`的方式调用
-
-```javascript
-// ......
-let myClient = new client(WS_RPC);
-myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
-    // ......
-});
-```
-
-3. 由于 client 继承自 netProcessor，已经有subscribe方法。所以如果需要调用 Gvite-RPC 的 subscribe方法，`subscribe` 应改为 `subscribeFunc`
-
-```javascript
-import { methods } from '@vite/vitejs-constant';
-
-// ......
-let myClient = new client(WS_RPC);
-myClient.subscribeFunc.newSnapshotBlocksFilter().then(()=>{
-    // ......
+const myClient = new Client(wsProvider, function(_myclient) {
+    console.log("Connected.");
 });
 
-// 或者
-myClient.request(methods.subscribe.newSnapshotBlocksFilter).then(()=>{
-    // ......
-})
+const abi = { methodName: 'hello', inputs: [] };
+const contractAddr = '';
+myHTTPClient.addTxType({ 
+    helloWorld: { 
+        contractAddr: 'your contract address', 
+        abi: 'your abi' // For example: { methodName: 'hello', inputs: [], type: 'function' }
+    }
+});
 ```

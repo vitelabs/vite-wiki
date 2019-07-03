@@ -77,6 +77,7 @@ The instruction set in Vite VM is as follows:
 | 0x48 | PREVHASH | 0 | 1 | Get the hash of previous account block | Additional |
 | 0x49 | FROMHASH | 0 | 1 | Get the hash of request Tx | Additional |
 | 0x4A | SEED | 0 | 1 | Get random seed | Additional |
+| 0x4B | RANDOM | 0 | 1 | Get next random | Additional |
 
 ## 50s: Stack, Memory, Storage and Flow Operations
 |  Opcode  | Mnemonic | POP | PUSH | Description | Differential with EVM |

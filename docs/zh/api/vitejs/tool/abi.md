@@ -188,7 +188,7 @@ let encodeParameterResult2 = abi.decodeParameter('uint8[]', '0000000000000000000
 
 - **Parameters**
     * `jsonInterface | Array<type-string> | Array<jsonInterface>`
-    * `params`
+    * `params<Array | json-string>`
     * `methodName?` 当第一个参数为数组时, 此参数必填(用于识别abi, 取出对应types)
 
 - **Return**
@@ -199,6 +199,12 @@ let encodeParameterResult2 = abi.decodeParameter('uint8[]', '0000000000000000000
 let encodeParametersResult1 = abi.encodeParameters({'type':'constructor','inputs':[
     {'type':'uint8[]'}, {'type': 'bytes'}
 ]}, [['34','43'], '324567ff']);
+
+// Or json-string, eg
+// let encodeParametersResult1 = abi.encodeParameters({'type':'constructor','inputs':[
+//     {'type':'uint8[]'}, {'type': 'bytes'}
+// ]}, JSON.stringfy([['34','43'], '324567ff']));
+
 // 000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000022000000000000000000000000000000000000000000000000000000000000002b0000000000000000000000000000000000000000000000000000000000000004324567ff00000000000000000000000000000000000000000000000000000000
 
 let encodeParametersResult4 = abi.encodeParameters(['tokenId','address'], ['tti_01000000000000000000fb5e', 'vite_010000000000000000000000000000000000000063bef3da00']);
@@ -249,6 +255,7 @@ let decodeParametersResult22 = abi.decodeParameters([
 - **Parameters**
     * `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
     * `hexString`
+    * `Array<hexString>`
     * `methodName?` 当第一个参数为jsonInterface数组时, 此参数必填(用于识别abi, 取出对应inputs)
 
 - **Return**

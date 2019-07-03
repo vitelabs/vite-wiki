@@ -1,13 +1,13 @@
 # The Client Instance
 `Client extends netProcessor`
 
-Inherit all of netProcessor's methods (`setProvider` / `request` / `notification` / `batch` / `subscribe` / `unSubscribe` / `clearSubscriptions`)
-
 ## Constructor 
 
 - **Constructor params**
     * `provider : Provider Instance`
     * `firstConnectCb : function` : Callback function of first connection
+    * `config: object`
+        - `isDecodeTx? : boolean` : Default false. Whether to try to use the built-in contract decode transaction when calling `client.getTxList`.
 
 - **Example**
 ```javascript
@@ -15,7 +15,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
@@ -37,17 +37,14 @@ myClient.request(methods.ledger.getLatestSnapshotChainHash).then(()=>{
     // ......
 })
 
-myClient.subscribeFunc.newAccountBlocks().then(()=>{
+myClient.subscribeFunc.newAccountBlocksFilter().then(()=>{
     // ......
 });
 
-myClient.request(methods.subscribe.newAccountBlocks).then(()=>{
+myClient.request(methods.subscribe.newAccountBlocksFilter).then(()=>{
     // ......
 });
 ```
-
-## BuiltinTxBlock
-[Refer to BuiltinTxBlock](./builtinTxBlock.md)
 
 ## Methods
 
@@ -83,6 +80,48 @@ Get Transaction List. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md
 
 - **Return**:
     * Promise<`{ list, totalNum }`>
+
+- **Example**
+
+:::demo
+```javascript tab:request
+myClient.getTxList({
+    addr: 'your address',
+    index: 0,
+    pageCount: 50
+});
+```
+
+```json tab:responce
+{
+    "list": [{
+        "accountAddress": "vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2",
+        "amount": "100000000",
+        "blockType": 2,
+        "data": "y/Dk+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjhvJvwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI4byb8EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtjc3Rlc3R0b2tlbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQ1NUVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        "toAddress": "vite_000000000000000000000000000000000000000595292d996d",
+        "txType": "Mintage",
+        "contract": {
+            "0": "1",
+            "1": "cstesttoken",
+            "2": "CSTT",
+            "3": "10000000000000000",
+            "4": "2",
+            "5": "10000000000000000",
+            "6": "1",
+            "decimals": "2",
+            "isReIssuable": "1",
+            "maxSupply": "10000000000000000",
+            "ownerBurnOnly": "1",
+            "tokenName": "cstesttoken",
+            "tokenSymbol": "CSTT",
+            "totalSupply": "10000000000000000"
+        }
+    }],
+    "totalNum": "1"
+}
+```
+:::
 
 ### callOffChainContract
 Query contract status. *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
@@ -128,47 +167,35 @@ Increase return value accountBlock. *Gvite-RPC [tx_sendRawTx](../../rpc/tx.md)*
 - **Return**:
     * Promise<`AccountBlock`>
 
-### How to call Gvite-RPC api
+### addTxType
+Increase custom transaction type, when calling `client.getTxList` to get the transaction list, it will be parsed according to the new transaction type and populated into the `tx.txType` field.
 
-**The client is only encapsulated for call Gvite-RPC apis, the returned data will directly expose RPC api original data. [Reference](/api/rpc/)**
+:::tip
+`addTxType` can be called multiple times, accumulate transaction type
+:::
 
-1. `client.namespace.funcName`: If this method is defined in `constant.methods`, you can directly call `client.namespace.funcName`
+- **Parameters** 
+    * `__namedParameters: Object` Object.key is transaction type
+        - `contractAddr : Address` Contract address
+        - `abi : jsonInterface`
 
-```javascript
-import { methods } from '@vite/vitejs-constant';
-// ......
+- **Example**
+```js ::Demo
+import WS_RPC from '@vite/vitejs-WS';
+import { client } from '@vite/vitejs';
 
-let myClient = new client(WS_RPC);
-myClient.ledger.getLatestSnapshotChainHash().then(()=>{
-    // ......
-});
-```
+const wsProvider = new WS_RPC("ws://example.com");
 
-2. `client.request(methodName, ...args)`: If this method is not defined in `constant.methods`, you can directly call `client.request(methodName, ...args)`
-
-```javascript
-// ......
-let myClient = new client(WS_RPC);
-myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
-    // ......
-});
-```
-
-3. Because of Client extends netProcessor, the client instance have the subscribe already. If you want to call the Gvite-RPC method `subscribe_`, the `myClient.subscribe` should be changed to `myClient.subscribeFunc`.
-
-```javascript
-import { methods } from '@vite/vitejs-constant';
-
-// ......
-
-let myClient = new client(WS_RPC);
-
-myClient.subscribeFunc.newSnapshotBlocksFilter().then(()=>{
-    // ......
+const myClient = new Client(wsProvider, function(_myclient) {
+    console.log("Connected.");
 });
 
-// or
-myClient.request(methods.subscribe.newSnapshotBlocksFilter).then(()=>{
-    // ......
-})
+const abi = { methodName: 'hello', inputs: [] };
+const contractAddr = '';
+myHTTPClient.addTxType({ 
+    helloWorld: { 
+        contractAddr: 'your contract address', 
+        abi: 'your abi' // For example: { methodName: 'hello', inputs: [], type: 'function' }
+    }
+});
 ```

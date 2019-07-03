@@ -38,13 +38,6 @@ import * as constant from '@vite/vitejs-constant';
 - Mintage_Addr : `铸币`
 - DexFund_Addr
 - DexTrade_Addr
-- contractAddrs
-    - Pledge: Pledge_Addr,
-    - Vote: Vote_Addr,
-    - Register: Register_Addr,
-    - Mintage: Mintage_Addr,
-    - DexFund: DexFund_Addr,
-    - DexTrade: DexTrade_Addr
 
 ## Abi
 
@@ -76,11 +69,14 @@ import * as constant from '@vite/vitejs-constant';
 
 ### DEX
 
+- DexTradeCancelOrder_Abi
 - DexFundUserDeposit_Abi
 - DexFundUserWithdraw_Abi
-- DexTradeCancelOrder_Abi
 - DexFundNewOrder_Abi
 - DexFundNewMarket_Abi
+- DexFundConfigMineMarket_Abi
+- DexFundPledgeForVx_Abi
+- DexFundPledgeForVip_Abi
 
 ## BlockType
 
@@ -93,35 +89,88 @@ import * as constant from '@vite/vitejs-constant';
     - SendRefund
     - GenesisReceive
 
-## viteJS 内置交易类型
+## Contracts
 
-- BuiltinTxType : `TX type`
-    - SBPreg = 0 : `注册SBP`
-    - UpdateReg : `更新注册`
-    - RevokeReg : `撤销注册`
-    - RetrieveReward : `提取奖励`
-    - Voting : `投票`
-    - RevokeVoting : `撤销投票`
-    - GetQuota : `获取配额`
-    - WithdrawalOfQuota : `取回配额抵押`
-    - Mintage : `铸币`
-    - MintageIssue
-    - MintageBurn
-    - MintageTransferOwner 
-    - MintageChangeTokenType
-    - MintageCancelPledge
-    - DexFundUserDeposit
-    - DexFundUserWithdraw
-    - DexFundNewOrder
-    - DexTradeCancelOrder
-    - DexFundNewMarket
-    - CreateContractReq : `创建合约`
-    - TxReq : `发送交易`
-    - RewardReq : `奖励`
-    - TxRes : `接收交易`
-    - TxResFail : `接收交易失败`
-    - SendRefund
-    - GenesisReceive
+```typescript
+const Contracts = {
+    SBPreg: {
+        contractAddr: Register_Addr,
+        abi: Register_Abi
+    },
+    UpdateReg: {
+        contractAddr: Register_Addr,
+        abi: UpdateRegistration_Abi
+    },
+    RevokeReg: {
+        contractAddr: Register_Addr,
+        abi: CancelRegister_Abi
+    },
+    RetrieveReward: {
+        contractAddr: Register_Addr,
+        abi: Reward_Abi
+    },
+    Voting: {
+        contractAddr: Vote_Addr,
+        abi: Vote_Abi
+    },
+    RevokeVoting: {
+        contractAddr: Vote_Addr,
+        abi: CancelVote_Abi
+    },
+    GetQuota: {
+        contractAddr: Pledge_Addr,
+        abi: Pledge_Abi
+    },
+    WithdrawalOfQuota: {
+        contractAddr: Pledge_Addr,
+        abi: CancelPledge_Abi
+    },
+    Mintage: {
+        contractAddr: Mintage_Addr,
+        abi: Mint_Abi
+    },
+    MintageIssue: {
+        contractAddr: Mintage_Addr,
+        abi: Issue_Abi
+    },
+    MintageBurn: {
+        contractAddr: Mintage_Addr,
+        abi: Burn_Abi
+    },
+    MintageTransferOwner: {
+        contractAddr: Mintage_Addr,
+        abi: TransferOwner_Abi
+    },
+    MintageChangeTokenType: {
+        contractAddr: Mintage_Addr,
+        abi: ChangeTokenType_Abi
+    },
+    MintageCancelPledge: {
+        contractAddr: Mintage_Addr,
+        abi: CancelMintPledge_Abi
+    },
+    DexFundUserDeposit: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundUserDeposit_Abi
+    },
+    DexFundUserWithdraw: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundUserWithdraw_Abi
+    },
+    DexFundNewOrder: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundNewOrder_Abi
+    },
+    DexTradeCancelOrder: {
+        contractAddr: DexTrade_Addr,
+        abi: DexTradeCancelOrder_Abi
+    },
+    DexFundNewMarket: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundNewMarket_Abi
+    }
+};
+```
 
 ## 语言列表
 用于创建助记词
@@ -135,34 +184,6 @@ import * as constant from '@vite/vitejs-constant';
     - italian : `italian`
     - korean : `korean`
     - spanish : `spanish`
-
-
-## Abi 函数签名
-
-```javascript 
-let Register = abi.encodeFunctionSignature(Register_Abi);
-```
-
-- abiFuncSignature
-    - Register
-    - UpdateRegistration
-    - CancelRegister
-    - Reward
-    - Vote
-    - CancelVote
-    - Pledge
-    - CancelPledge
-    - Mint
-    - Issue
-    - Burn
-    - TransferOwner
-    - ChangeTokenType
-    - CancelMintPledge
-    - DexFundUserDeposit
-    - DexFundUserWithdraw
-    - DexFundNewOrder
-    - DexTradeCancelOrder
-    - DexFundNewMarket
 
 ## rpc方法
 
@@ -261,7 +282,9 @@ enum mintage {
 
 enum dexfund {
     'getAccountFundInfo' = 'dexfund_getAccountFundInfo',
-    'getAccountFundInfoByStatus' = 'dexfund_getAccountFundInfoByStatus'
+    'getAccountFundInfoByStatus' = 'dexfund_getAccountFundInfoByStatus',
+    'isPledgeVip' = 'dexfund_isPledgeVip',
+    'getMarketInfo' = 'dexfund_getMarketInfo'
 }
 
 enum net {
@@ -284,10 +307,7 @@ enum subscribe {
     'newLogsFilter' = 'subscribe_newLogsFilter',
     'uninstallFilter' = 'subscribe_uninstallFilter',
     'getFilterChanges' = 'subscribe_getFilterChanges',
-    'newSnapshotBlocks' = 'subscribe_newSnapshotBlocks',
-    'newAccountBlocks' = 'subscribe_newAccountBlocks',
-    'newLogs' = 'subscribe_newLogs',
-    'getLogs' = 'subscribe_getLogs'
+    'subscribe' = 'subscribe_subscribe'
 }
 
 export const methods = { testapi, pow, dexfund, wallet, onroad, tx, ledger, contract, pledge, register, vote, mintage, net, subscribe };

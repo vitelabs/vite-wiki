@@ -378,7 +378,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `ownerAddress: Address`
+        - `newOwner: Address`
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
@@ -461,7 +461,7 @@ ViteX挂单。 *this.callContract [constant.DexFundNewOrder_Abi](../constant/con
     * Promise<`AccountBlock`>
 
 ### dexFundNewMarket
-ViteX上币。 *this.callContract [constant.DexFundNewMarket_Abi](../constant/constant.md)*
+ViteX 开通一个新的交易对。 *this.callContract [constant.DexFundNewMarket_Abi](../constant/constant.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
