@@ -18,7 +18,7 @@ Essentially, creating contract is sending a special transaction whose transactio
 4. Call RPC method `tx_sendRawTx` to create contract. Here parameter `toAddress` is the contract address generated in Step 1. `data` is transaction data created in Step 3. `blockType` is set to 1, indicating creating contract transaction. `amount` and `tokenId` stand for the amount of token that are transferred to the contract during creation. `fee` is the cost, fixed at 10 VITE in Pre-Mainnet.
 
 :::tip Tips
-Above steps are implemented in method `buildinTxBlock.createContract` in **vite.js** 
+Above steps are implemented in method `builtinTxBlock.createContract` in **vite.js** 
 :::
 
 ## Call Contract
@@ -29,7 +29,7 @@ Essentially, calling contract is sending a special transaction to smart contract
 2. Call RPC method `tx_sendRawTx` to send a transaction to contract. Here parameter `toAddress` is the contract address. `data` is transaction data created in Step 1. `blockType` is set to 2 for calling contract. `amount` and `tokenId` stand for the amount of token that are transferred to the contract. `fee` is 0, standing for free.
 
 :::tip Tips
-Above steps are implemented in method `buildinTxBlock.callContract` in **vite.js** 
+Above steps are implemented in method `builtinTxBlock.callContract` in **vite.js** 
 :::
 
 ## Read States Off-chain
@@ -48,7 +48,7 @@ Vite has implemented [Staking](./pledge.html), [Token Issuance](./mintage.html) 
 2. Call RPC method `tx_sendRawTx` to send the transaction to built-in contract.
 
 :::tip Tips
-Most methods of built-in contracts are provided in `buildinTxBlock` in **vite.js** 
+Most methods of built-in contracts are provided in `builtinTxBlock` in **vite.js** 
 :::
 
 ## API

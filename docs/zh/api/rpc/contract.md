@@ -17,7 +17,7 @@ sidebarDepth: 4
 3. 调用`contract_getCreateContractData`接口生成交易数据。
 4. 调用`tx_sendRawTx`接口发起创建合约交易，其中`toAddress`为第1步生成的合约地址；`data`为第3步生成的交易数据；`blockType`为1，表示该交易为创建合约交易；`amount`和`tokenId`为调用合约构造函数时的转账金额和代币id；`fee`字段值为创建合约费用，预主网中固定为10 vite。
 
-注意：`vitejs`的`buildinTxBlock.createContract`接口实现了以上逻辑。
+注意：`vitejs`的`builtinTxBlock.createContract`接口实现了以上逻辑。
 
 ## 调用合约步骤
 
@@ -26,7 +26,7 @@ sidebarDepth: 4
 1. 根据ABI定义对调用合约的方法名和参数进行编码，生成交易数据。这一步可以使用`vitejs`的`abi.encodeFunctionCall`方法（推荐），也可以调用`contract_getCallContractData`接口。
 2. 调用`tx_sendRawTx`接口发起调用合约交易，其中`toAddress`为被调用的合约地址；`data`为第1步生成的交易数据；`blockType`为2，表示该交易为转账交易或者调用合约交易；`amount`和`tokenId`为调用合约时的转账金额和代币id；`fee`字段值填0。
 
-注意：`vitejs`的`buildinTxBlock.callContract`接口实现了以上逻辑。
+注意：`vitejs`的`builtinTxBlock.callContract`接口实现了以上逻辑。
 
 ## 离线读取合约状态
 
@@ -41,7 +41,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 
 调用内置合约时，先调用相应的`getData`接口，例如铸币时，调用`mintage_getMintData`接口，然后通过`tx_sendRawTx`发送交易。
 
-`vitejs`的`buildinTxBlock`模块封装了大部分内置合约的调用接口。
+`vitejs`的`builtinTxBlock`模块封装了大部分内置合约的调用接口。
 
 ## contract_getCreateContractToAddress
 创建合约时生成新的合约地址
