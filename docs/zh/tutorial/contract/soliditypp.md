@@ -35,6 +35,7 @@ bytes32 b1 = fromhash();
 uint height = accountheight();
 bytes32 b2 = prevhash();
 uint64 random = random64();
+uint64 newRandom = nextrandom();
 ```
 
 "fromhash()"返回请求交易的哈希值
@@ -43,15 +44,17 @@ uint64 random = random64();
 
 "prevhash()"获取账户链上最新块的哈希
 
-"random64()"获取一个uint64的随机数
+"random64()"获取一个uint64的随机数，在一次合约运行过程中返回同一个值
+
+"nextrandom()"获取一个uint64的随机数，在一次合约运行过程中返回不同的值
 
 Solidity++的address和tokenId定义的语法如下:
 
 ```
 tokenId token01 = tokenId("tti_2445f6e5cde8c2c70e446c83");
 tokenId token02 = "tti_2445f6e5cde8c2c70e446c83";
-address addr01 = address("vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13c");
-address addr02 = "vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13c";
+address addr01 = address("vite_cab4f4d24fe8943c9ca4b332860da182e1362275ac7681246a1");
+address addr02 = "vite_cab4f4d24fe8943c9ca4b332860da182e1362275ac7681246a1";
 ```
 
 获取交易中的转账在Solidity中的语法如下:
