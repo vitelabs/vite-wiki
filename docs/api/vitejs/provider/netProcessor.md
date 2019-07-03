@@ -30,7 +30,7 @@ const { netProcessor } = require('@vite/vitejs-netprocessor');
 
 - **Constructor Parameters**
     * `provider : Provider Instance`
-    * `firstConnectCb : Function` : Callback function of first connection
+    * `firstConnectCb : Function` : Callback function of initial connection
 
 - **Example**
 ```javascript
@@ -51,21 +51,23 @@ myNetProcessor.request(method.ledger.getLatestSnapshotChainHash).then(() => {
 
 ## Methods
 
+The following methods are specifically supported in NetProcessor.
+
 ### setProvider
 Set provider
 
 - **Parameters**
     * `provider : Provider Instance`
-    * `abort : boolean` Whether or not to interrupt remaining provider request
+    * `abort : boolean` Whether the remaining requests on original provider will be abandoned
 
 ### request (Methods, ...args)
 
 - **Parameters**
     * `methods : string` Method name
-    * `...args` Params
+    * `...args` Request parameters
 
 - **Returns**:
-    * Promise<`JsonRPC response`>
+    * `Promise<JsonRPC response>`
 
 - **Example**
 ```javascript
@@ -84,20 +86,20 @@ myNetProcessor.request('rpcMethodName', 1, 1, 2).then(() => {
 
 ### notification (Methods, ...args)
 
-- **Parameters**
-    * `methods : string` Method name
-    * `...args` Params
+- **Parameters**: 
+  * `methodName : string` Method name
+  * `params : any` Request parameters
 
 ### batch (RPCrequest[])
 
 - **Parameters**
     * `__namedParameters: Object`
-        - `type: string<request | notification>`
+        - `type: string<request | notification>` Request type
         - `methodName: string` Method Name
-        - `params: any` Params
+        - `params: any` Request parameters
 
 - **Returns**:
-    * Promise<`JsonRPC response`>
+    * `Promise<JsonRPC response>`
 
 - **Example**
 ```javascript
@@ -119,18 +121,17 @@ myNetProcessor.batch([
 ```
 
 ### subscribe
-Event Subscription: Share the same parameters passing mode with request
+Start event subscription
 
 - **Parameters**
     * `methods : string` Method name
     * `...args : boolean` Parameters
 
 - **Returns**:
-    * Promise<`event`>
+    * `Promise<event>`
 
-- **event**: The returned event instance of subscribe
-    * on(`callback : Function`): Open event listener. Passing results into callback function if there is any event happened
-    * off: Cancel event listener
+- **event.on**(`callback : Function`): Event listener. Event instance will be passed into the callback function once generated
+- **event.off**: Stop listening to the event
 
 - **Example**
 ```javascript
@@ -155,10 +156,10 @@ myNetProcessor.subscribe('newAccountBlocks').then((event) => {
 ```
 
 ### unSubscribe
-Cancel Subscription
+Cancel subscription
 
 - **Parameters**: 
-  * `event`: Return event of subscribe
+  * `event`:  Event instance
 
 - **Example**
 ```javascript
@@ -166,7 +167,7 @@ myNetProcessor.unSubscribe(event);
 ```
 
 ### clearSubscriptions
-Clear all the Subscriptions
+Clear all existing subscriptions
 
 - **Example**
 ```javascript

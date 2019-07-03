@@ -27,10 +27,10 @@ const { HTTP_RPC } = require('@vite/vitejs-http');
 ## Constructor
 
 - **Constructor Parameters**: 
-    * `url : string` Connection url. Default: 'http://localhost:8415'
-    * `timout : number` Timeout(ms) Default: 60000
+    * `url : string` Connection url. Default is 'http://localhost:8415'
+    * `timout : number` Timeout(ms) Default is 60000
     * `Object` 
-        - `headers : object` : Request Header Information
+        - `headers : object` : Request header
 
 - **Example**:
 ```javascript
