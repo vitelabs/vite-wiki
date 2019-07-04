@@ -19,7 +19,7 @@ ABI：
   // 取消抵押
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
   // 代理抵押
-  {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
+  {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"},{"name":"stakeHeight","type":"uint64"}]},
   // 代理取消抵押
   {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
 ]
@@ -92,12 +92,12 @@ ABI：
   1. `pledgeAddr`:`Address`  实际抵押地址
   2. `beneficialAddr`:`Address`  抵押受益地址
   3. `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期时间也会顺延
+  4. `stakeHeight`:`uint64`  抵押高度，范围为259200~31536000，例如259200表示抵押之后等待259200个快照块之后可以取回抵押。
 
 - **Returns**: 
 	- `[]byte` Data
 
 - **Example**:
-
 
 ::: demo
 
@@ -110,7 +110,8 @@ ABI：
       {
       	"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23",
       	"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      	"bid":1
+      	"bid":1,
+      	"stakeHeight":"259200"
       }
    ]
 }
