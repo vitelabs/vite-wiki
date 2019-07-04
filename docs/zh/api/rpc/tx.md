@@ -149,9 +149,7 @@
 
 - **Example**:
 
-
 ::: demo
-
 
 ```json tab:Request
 {
