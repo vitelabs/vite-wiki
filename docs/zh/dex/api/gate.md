@@ -367,7 +367,7 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
 |outTxHash|VITE链转出TOT交易hash|string|false|
 |amount|转入金额|string|true|
 |fee|网关收取的转入手续费|string|true|
-|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|true|
+|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易成功<br>`OPPOSITE_CONFIRMED_FAIL`网关已确认对手链交易失败<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|true|
 |dateTime|转入时间,timestamp毫秒|string|true|
 
 * **Example**
