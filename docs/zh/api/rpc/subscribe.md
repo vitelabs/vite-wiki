@@ -88,7 +88,7 @@ sidebarDepth: 4
     }
 }
 ```
-轮询模式可以手动取消订阅
+轮询模式需要手动取消订阅
 ```bash
 {
 	"jsonrpc": "2.0",
@@ -105,7 +105,7 @@ sidebarDepth: 4
 例如，在重新订阅快照事件时，应该先通过`subscribe_newSnapshotBlocksFilter`或者`subscribe_newSnapshotBlocks`订阅事件，然后通过`ledger_getSnapshotChainHeight`接口获取最新的快照块高度，然后通过`ledger_getSnapshotBlocks`补全断开连接时缺失的快照块。
 
 注意：
- * gvite最低版本2.1.4。
+ * gvite最低版本2.1.4，建议使用最新版本的gvite。
  * 需要在node_config.json的PublicModules中配置"subscribe"，并且配置"SubscribeEnabled":true，才能使用事件订阅接口。
 
 ## subscribe_newSnapshotBlocksFilter
