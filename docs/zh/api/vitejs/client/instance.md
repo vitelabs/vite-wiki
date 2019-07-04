@@ -189,9 +189,7 @@ const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
 });
 
-const abi = { methodName: 'hello', inputs: [] };
-const contractAddr = '';
-myHTTPClient.addTxType({ 
+myClient.addTxType({ 
     helloWorld: { 
         contractAddr: 'your contract address', 
         abi: 'your abi' // For example: { methodName: 'hello', inputs: [], type: 'function' }
