@@ -30,13 +30,11 @@ js可执行环境即可
 
 ### 下载solidity++编译器solppc
 
-TODO github release链接
+[solppc releases](https://github.com/vitelabs/soliditypp-bin/releases)
 
 ### 官方测试钱包
 
-安装官方测试钱包，并连接到本地测试节点。
-
-TODO
+[安装和使用测试钱包](./testdapp.html)，并连接到本地测试节点。
 
 ## 编写合约代码
 
@@ -67,7 +65,7 @@ import WS_RPC from '@vite/vitejs-ws';
 import { client, account, hdAccount, constant } from '@vite/vitejs';
 
 let { Vite_TokenId } = constant;
-let provider = new WS_RPC("ws://example.com");
+let provider = new WS_RPC("wss://example.com");
 let myClient = new client(provider);
 
 // 导入一个账户
@@ -130,16 +128,64 @@ myAccount.createContract({
 });
 ```
 
+合约创建成功后，可以通过[合约信息查询接口](../rpc/contract.html#contract-getcontractinfo)查询合约信息，并**确保合约代码不为空**。如果创建合约请求交易被成功接收，但合约代码为空，可能是创建合约交易在接收过程中发生了不可预期的错误，导致合约创建失败。 
+
 ## 调用合约
 
-合约部署成功后，可以通过vitejs向官方钱包App发送调用合约请求，钱包App会根据调用参数来签名一笔调用合约的交易。
+合约部署成功后，可以通过vitejs直接发送调用合约请求，但是这种方式会跟钱包一样，要求导入助记词。
 
-和官方钱包App交互时使用一种叫做Vite URI格式的数据，具体格式内容见 [URI格式](../../vep/vep-6.html)
+### 免登陆方案
+dapp作为轻量级，第三方应用，理论上不应该获取到用户助记词，维护一个hd钱包。现在通过vite官方app提供两种免登陆方案：
+- [@vite/bridge 文档点击这里](https://www.npmjs.com/package/@vite/bridge)   
+    该方式提供给在vite官方app内打开的dapp使用，可以通过调用native-js桥的方法使用以下两个相关功能  
+    - vite官方app请求签名并发送一个交易  
+    - 获取用户当前地址。  
+    示例： 
+```javascript
+//一个普通转账,发送一个vite 给 `receiver's vite address`
+import Bridge from "@vite/bridge";
+import { utils } from "@vite/vitejs";
+const bridge = new Bridge();
+bridge["wallet.sendTxByURI"]({address:"sender's vite address", uri: utils.uriStringify({target_address:`receiver's vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});// 如果发送其它币种，请查阅 [token list](https://explorer.vite.net/zh/tokenList),并填入相应的tti参数。注意，不同环境的tti可能不同。
 
-调用合约示例代码如下：
+
+
+//一个合约调用
+import Bridge from "@vite/bridge";
+import { abi,utils } from "@vite/vitejs";
+
+const bridge = new Bridge();
+const hexData=abi.encodeFunctionCall([{
+    name: 'myMethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}, {
+    name: 'myethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}], ['2345675643', 'Hello!%'], 'myMethod');
+const base64Data=utils._Buffer.from(hexData,'hex').toString('base64');
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`合约地址`,function_name:'myMethod',params:{data:base64Data}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});
 ```
-TODO 用URI的方式调用上面示例中SayHello的接口
-```
+   [更详细的demo](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
+- Vite Bifrost  
+    该方式提供任意场景下远程签名方案。正在开发中。
 
 ## 链上数据查询
 
@@ -165,7 +211,7 @@ import WS_RPC from '@vite/vitejs-WS';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
-const wsProvider = new WS_RPC("wss://example.com");
+const wsProvider = new WS_RPC("ws://example.com");
 
 const myClient = new Client(wsProvider, function(_myclient) {
     console.log("Connected.");
@@ -191,6 +237,8 @@ myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
 [事件订阅说明](./subscribe.md)
 
 [事件订阅接口说明](../../api/rpc/subscribe.md)
+
+
 
 ## 常见问题和注意事项
 

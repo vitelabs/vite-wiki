@@ -79,6 +79,7 @@ sidebarDepth: 4
                     "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4Lazp2QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF"
                 },
                 "accountBlockHash": "802b82821ec52bdadb8b79a53363bf2f90645caef95a83c34af20c640a6c320b",
+                "accountHeight": "10",
                 "addr": "vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f",
                 "removed": false
             }
@@ -132,7 +133,7 @@ sidebarDepth: 4
 :::
 
 ## subscribe_newAccountBlocksFilter
-轮询接口，创建一个新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+轮询接口，创建一个所有账户新交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
 
 - **Returns**:  
 	- `string` filterId
@@ -183,7 +184,7 @@ sidebarDepth: 4
 :::
 
 ## subscribe_newOnroadBlocksByAddrFilter
-轮询接口，创建单个账户在途交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。
+轮询接口，创建单个账户在途交易事件的filter，创建成功后可以通过subscribe_getFilterChanges轮询新事件。新事件包括新在途交易、在途交易被接收和在途交易被回滚。
 
 - **Parameters**:
   * `Address`: 订阅的账户地址
@@ -414,9 +415,10 @@ topics取值示例：
 
 - **subscribe_newOnroadBlocksByAddrFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewAccountBlocksMsg>`
+  * `result`: `Array<OnroadMsg>`
     1. `hash`: `Hash` 账户块哈希
-    2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+    2. `closed`: `bool` 在途交易是否被接收。
+    3. `removed`: `bool` 是否回滚。removed为true时表示在途交易被回滚；removed为false，closed为false时表示为新在途交易；removed为false，closed为true时表示在途交易被接收。
   
 ::: demo
 ```json tab:Request
@@ -435,15 +437,18 @@ topics取值示例：
       "result": [
           {
               "hash": "72ec861cb2f6c32a48632407f3aa1b05d5ad450ef75fa7660dd39d7be6d3ab68",
+              "closed": false,
               "removed": false
           },
           {
-              "hash": "9d0df2fbc311ceb232e851a758e88fcc0a9f16d7a4240c2aa486f26f1b36d8f2",
+              "hash": "72ec861cb2f6c32a48632407f3aa1b05d5ad450ef75fa7660dd39d7be6d3ab68",
+              "closed": true,
               "removed": false
           },
           {
               "hash": "18914060ba6fe9474b4c724dfe3ff5999d9cb90b5128222ade210d11fe3216f0",
-              "removed": false
+              "closed": false,
+              "removed": true
           }
       ],
       "subscription": "0x64e1eb3d26517a0d736b3d85ae9ce299"
@@ -456,9 +461,10 @@ topics取值示例：
   * `subscription`: `string` filterId
   * `result`: `Array<LogsMsg>`
     1. `accountBlockHash`: `Hash` 账户块哈希
-    2. `addr`: `Address` 账户地址
-    3. `log`: `VmLog` 日志信息
-    4. `removed`: `bool` 是否回滚。true表示回滚；false表示新日志。
+    2. `accountHeight`: `uint64` 账户块高度
+    3. `addr`: `Address` 账户地址
+    4. `log`: `VmLog` 日志信息
+    5. `removed`: `bool` 是否回滚。true表示回滚；false表示新日志。
 
 ::: demo
 ```json tab:Request
@@ -484,6 +490,7 @@ topics取值示例：
                   "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
               },
               "accountBlockHash": "de8cd1dc188fd4bf44c0cb90958ffbcccab5766840d56f7b35443a1a1c5c9d3e",
+              "accountHeight": "10",
               "addr": "vite_78926f48bccef67a3b9cc64fdfe864f2a708ebce1d0bbe9aef",
               "removed": false
           }
@@ -534,7 +541,7 @@ topics取值示例：
 :::
 
 ## subscribe_newAccountBlocks
-长连接接口，创建一个新交易事件的subscription。
+长连接接口，创建一个所有账户新交易事件的subscription。
 
 - **Returns**:  
 	- `string` 订阅id
@@ -635,7 +642,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array<NewAccountBlocksMsg>` 事件信息
+  2. `result`: `Array<OnroadMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
@@ -661,6 +668,7 @@ topics取值示例：
     "subscription":"0xa809145803ebb2a52229aefcbd52a99d",
     "result":[{
       "hash":"20009ee78d5f77122d215c3021f839b4024e4f2701e57bdb574e0cae1ae44e6c",
+      "closed":false,
       "removed":false
     }]
   }
@@ -725,6 +733,7 @@ topics取值示例：
           "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
         },
         "accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40",
+        "accountHeight": "10",
         "addr":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f",
         "removed":false
       }
@@ -773,6 +782,7 @@ topics取值示例：
         "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQQurTFV9WklB2DRvsX8wLCgyoVomYHSCebb9Br/hQ+RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwYLIcJLnbQjGl+qeU7YWlTWwfsoF6mescP5xz2fDTEg="
       },
       "accountBlockHash": "e4917f357a4588ec1752797ee5516939f46078f5356b14422d4a9dfe45f88bf5",
+      "accountHeight": "10",
       "addr": "vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa",
       "removed": false
     }

@@ -273,9 +273,9 @@ ABI：
 - **Returns**: 
 
 `map<string>Object` 
-  1. `totalReward`: `string`  待提取奖励
-  2. `blockReward`: `Address`  待提取按块奖励
-  3. `voteReward`: `Address`  待提取按票奖励
+  1. `totalReward`: `string`  本周期总奖励
+  2. `blockReward`: `Address`  本周期按块奖励
+  3. `voteReward`: `Address`  本周期按票奖励
   4. `expectedBlockNum`: `uint64` 本周期的应出块数，如果某一轮所有节点都没出块，那么那一轮的应出块数不计入本周期的应出块数  
   5. `blockNum`: `uint64`  本周期的实际出块数
 
@@ -314,8 +314,62 @@ ABI：
 ```
 :::
 
+## register_getRewardByIndex
+按天查询所有超级节点的奖励
+
+- **Parameters**: 
+
+  * `Gid`: 共识组id
+  * `uint64`: 周期数，从创世时间开始，每24小时为一周期，周期数从0开始。例如第0周期表示2019/05/21 12:00:00 - 2019/05/22 12:00:00。
+
+- **Returns**: 
+
+`Object`
+  1. `rewardMap`:`map<string>RewardInfo` 奖励详情，和`register_getRewardByDay`返回值相同
+  2. `startTime`:`int64` 本周期开始时间
+  3. `endTime`:`int64` 本周期结束时间
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRewardByIndex",
+   "params": [
+      "00000000000000000001",
+      "0"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": 
+    {
+      "rewardMap":{
+        "super":{
+          "totalReward": "10",
+          "blockReward": "6",
+          "voteReward": "4",
+          "expectedBlockNum":3,
+          "blockNum":1,
+        }
+      },
+      "startTime": 1558411200,
+      "endTime": 1558497600
+    }
+}
+```
+:::
+
 ## register_getCandidateList
-查询候选节点列表
+查询快照共识组候选节点列表
 
 - **Parameters**: 
 
@@ -508,7 +562,7 @@ ABI：
 :::
 
 ## vote_getCancelVoteData
-获取为出块节点投票交易请求数据，也可以通过对ABI中的`CancelVote`方法编码获取交易请求数据。
+获取取消为出块节点投票交易请求数据，也可以通过对ABI中的`CancelVote`方法编码获取交易请求数据。
 
 - **Parameters**: 
 
@@ -574,5 +628,75 @@ ABI：
       "nodeStatus": 1
       "balance": "10",
    }
+}
+```
+:::
+
+
+## vote_getVoteDetails
+查询SBP每天投票信息
+
+- **Parameters**: 
+
+  * `Index`: 第几天：0代表最开始的一天
+ 
+
+- **Returns**: 
+
+`Array&lt;VoteDetails&gt;`
+  1. `Name`: `string`  出块节点名称
+  2. `Balance`: `big.Int`  总投票数
+  3. `Addr`: `map`  key:投票地址， value: 投票权重
+  
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "method":"vote_getVoteDetails",
+    "params":[0]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": [
+        {
+            "Name": "Vite_SBP01",
+            "Balance": 1.4292529985394005795698375e+25,
+            "Type": null,
+            "CurrentAddr": "vite_9065ff0e14ebf983e090cde47d59fe77d7164b576a6d2d0eda",
+            "RegisterList": [
+                "vite_9065ff0e14ebf983e090cde47d59fe77d7164b576a6d2d0eda"
+            ],
+            "Addr": {
+                "vite_002c698c0f89662679d03eb65344cea6ed18ab64cd3562e399": 153173820149812829427,
+                "vite_002f9cc5863815d27679b3a5e4f47675e680926a7ae5365d5e": 2.2637888780120236595891e+22,
+                "vite_0032cc9274aa2b3de392cf8f0840ebae0367419d11219bcd7e": 0,
+                "vite_003853b6b237b311a87029a669d589b19c97674d8b5473004f": 211999319045896173105,
+                "vite_0047b193c7d7791a94de7e45b7febf6eac8139fd81695cfdb5": 27349565445264753118,
+                "vite_dd8364662b3725ab89fff765091b8bc6a6e140adbfbfc3baca": 19926226954228583374
+            }
+        },
+        {
+            "Name": "Vite_SBP02",
+            "Balance": 6.905516255516640791260504e+24,
+            "Type": null,
+            "CurrentAddr": "vite_995769283a01ba8d00258dbb5371c915df59c8657335bfb1b2",
+            "RegisterList": [
+                "vite_995769283a01ba8d00258dbb5371c915df59c8657335bfb1b2"
+            ],
+            "Addr": {
+                "vite_013661a2b0ac7a7344b94308184105dfae64bb746aadfeb3eb": 1341892617448983441,
+                "vite_0139fa07eccdd3945941d6bd376ffb67db771cfb5999439639": 83666851810677644147
+            }
+        }
+   ]
+}
 ```
 :::

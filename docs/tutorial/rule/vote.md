@@ -31,7 +31,7 @@ TODO
 
 * Can I vote for multiple super nodes in the snapshot consensus group at the same time?
 
-No. In the TestNet, an individual user can only vote for one super node at a time, however, you can still vote for delegated node in delegated consensus group in the meantime.
+No. An individual user can only vote for one super node at a time, however, you can still vote for delegated node in delegated consensus group in the meantime.
 
 * If the delegate node I voted for has cancelled the qualification (delegate node can cancel the stake after 3 months of registration), what is going to happen to my voting?
 

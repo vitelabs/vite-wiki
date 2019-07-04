@@ -65,15 +65,19 @@
 | toAddress|string | Address | 交易的接受地址|
 | fromBlockHash |hex string |  Hash | 表示这个receive交易所对应的send交易的hash，所有send交易的fromBlockHash为"0000000000000000000000000000000000000000000000000000000000000000"|
 | tokenId |string |TokenTypeId | 该交易的币种ID|
-| snapshotHash | hex string | Hash | 交易引用的快照块hash |
 | data | string| []byte |  可用作交易备注|
-| timestamp | int64 | int64 |  该交易发生的时间 单位秒|
+| timestamp | int64 | int64 |  该交易被快照的时间 单位秒|
 | logHash | hex string | Hash  | 智能合约执行产生的LogList的Hash |
 | nonce | base64 string |[]byte] |  该交易Pow的nonce|
 | signature | base64 string| []byte] | 交易的签名|
 | height | string | uint64 | 该交易的高度 |
-| quota | string | uint64 | 该交易消耗的配额 |
+| quota | string | uint64 | 该账户的配额 |
+| quotaUsed | string | uint64 | 该交易消耗的配额 |
 | amount |string|  big.Int | 该交易发生的金额|
 | fee | string | big.Int | 发送该交易使用的手续费 |
 | confirmedTimes |string| uint64 | 该交易被确认次数 |
-| tokenInfo | TokenInfo | 该交易涉及的Token信息 |
+| confirmedHash |hex string| Hash | 该交易第一次被确认的SnapshotHash |
+| tokenInfo | tokenInfo | tokenInfo | 该交易涉及的Token信息 |
+| sendBlockList | []*RawTxBlock | []*RawTxBlock | 合约RS块发送的请求交易列表|
+| receiveBlockHeight | string | uint64 | 对应的receive交易的高度 仅send交易展示 |
+| receiveBlockHash | hex string | Hash | 对应的receive交易Hash 仅send交易展示|

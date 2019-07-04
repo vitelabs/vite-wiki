@@ -22,13 +22,11 @@
 通过命令行连接全节点：找到[全节点的安装目录][pwd]。进入到该目录，然后执行如下命令
 
   ```bash
-  ./gvite attach ~/.gvite/testdata/gvite.ipc
+  ./gvite attach ~/.gvite/maindata/gvite.ipc
   ```
 
   得到类似如下的结果，代表已经连接成功
   ```
-  INFO[11-12|16:47:07] cannot read the config file, will use the default config module=config error="open vite.config.json: no such file or directory"
-  INFO[11-12|16:47:07]                                          monitor-log=/home/ubuntu/go-vite/backend-log/backend.log.30693
   Welcome to the Gvite JavaScript console!
   ->
   ```
@@ -47,7 +45,7 @@ vite.wallet_newMnemonicAndEntropyStore("123456")
     "result": {
         "mnemonic": "24 g个单词", 
         "primaryAddr": "vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf", 
-        "filename": "~/.gvite/testdata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
+        "filename": "~/.gvite/maindata/wallet/vite_f1c2d944b1e5b8cbfcd5f90f94a0e877beafeced1f331d9acf"
     }
 }
 ```
@@ -85,7 +83,7 @@ vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction
     "result": {
         "mnemonic": "utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource",
         "primaryAddr": "vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0",
-        "filename": "~/.gvite/testdata/wallet/vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0"
+        "filename": "~/.gvite/maindata/wallet/vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0"
     }
 }
 ```

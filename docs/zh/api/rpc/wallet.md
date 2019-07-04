@@ -7,12 +7,6 @@ sidebarDepth: 4
 [TiantaoZhu](https://github.com/TiantaoZhu)
 :::
 
-**支持调用方式：**
-
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  `false` |  &#x2713; |waiting|`false`|
-
 ## wallet_listEntropyFilesInStandardDir
 返回所有在标准EntropyStore目录下的地址
 

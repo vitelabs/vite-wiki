@@ -55,7 +55,6 @@ const sidebarConfigs = {
                 'node/sbp',
                 'node/node_config',
                 'node/example',
-                'node/genesis_config',
                 'node/pre_mainnet_config'
             ]
         },
@@ -142,7 +141,7 @@ const sidebarConfigs = {
     ],
     'api/vitejs': [
         {
-            children: ['']
+            children: ['', 'types', 'errors', 'quickStart', 'QA']
         },
         {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
@@ -154,7 +153,7 @@ const sidebarConfigs = {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
+            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
         },
         {
             children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
@@ -172,7 +171,9 @@ const sidebarConfigs = {
                 'vep-8',
                 'vep-10',
                 'vep-12',
-                'vep-13'
+                'vep-13',
+                'vep-15',
+                'vep-16'
             ]
         }
     ]
@@ -202,7 +203,8 @@ module.exports = {
         ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
         ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
         ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
-        ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+        ['meta', { name: 'msapplication-TileColor', content: '#000000' }],
+        ['meta', { name: 'google-site-verification', content: 'aFFDoYqDZ_SUQtuOmoAjiKaq0A8TzrTS-X1MR-jdfUU'}]
     ],
     configureWebpack: {
         resolve: {
@@ -233,21 +235,36 @@ module.exports = {
           locales: true,
           storage: true
         }],
-        'seo',
+        ['seo', {
+          siteTitle: (_, $site) => $site.title,
+          title: $page => $page.title,
+          description: $page => $page.frontmatter.description || $page.title,
+          author: (_, $site) => 'Vite Labs',
+          tags: $page => $page.frontmatter.tags,
+          twitterCard: _ => 'summary_large_image',
+          type: $page => ['articles', 'posts', 'blog'].some(folder => $page.regularPath.startsWith('/' + folder)) ? 'article' : 'website',
+          url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
+          image: ($page, $site) => $page.frontmatter.image && (($site.themeConfig.domain || '') + $page.frontmatter.image),
+          publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
+          modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
+        }],
         'baidu-autopush',
+        ['sitemap', {
+          hostname: 'https://vite.wiki'
+        }],
         'pangu',
         'tabs',
         [require('./plugins/tab-code-example')],
-        [
-          '@vuepress/last-updated',
-          {
-            transformer: (timestamp, lang) => {
-              const moment = require('moment')
-              moment.locale(lang)
-              return moment(timestamp).fromNow()
-            }
-          }
-        ]
+        // [
+        //   '@vuepress/last-updated',
+        //   {
+        //     transformer: (timestamp, lang) => {
+        //       const moment = require('moment')
+        //       moment.locale(lang)
+        //       return moment(timestamp).fromNow()
+        //     }
+        //   }
+        // ]
     ],
     themeConfig: {
         editLinks: true,
@@ -258,6 +275,7 @@ module.exports = {
         logo: '/logo_black.svg',
         repo: 'vitelabs/go-vite',
         docsBranch: docBranch,
+        image: 'https://vite.wiki/icon.png',
         locales: {
             '/': {
                 label: 'English',

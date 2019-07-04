@@ -132,13 +132,14 @@ Get accountBlock of creating contract. *Gvite-RPC [contract_getCreateContractToA
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: BigInt`
-        - `fee: BigInt,`
+        - `tokenId: TokenId` Default: Vite_TokenId
+        - `amount: BigInt` Default: '0'
+        - `fee: BigInt,` Default: '10000000000000000000'
         - `hexCode: Hex`
         - `abi: string`
-        - `confirmTimes: number`
-        - `times: number`
+        - `confirmTime: Uint8` Default: '0'
+        - `quotaRatio: Uint8` Default: '10'
+        - `seedCount: Uint8` Default: '0'
         - `params?: stirng`
         - `height?: Uint64`
         - `prevHash?: Hex`
@@ -378,7 +379,7 @@ Get account block of changed transfer owner. *this.callContract [constant.Transf
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `ownerAddress: Address`
+        - `newOwner: Address`
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`

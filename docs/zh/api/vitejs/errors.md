@@ -1,27 +1,8 @@
-# Error
-常用错误类型
+# 常见错误汇总
 
-## 安装
+1. [Gvite 常见错误类型](../rpc/README.md)
 
-:::demo
-```bash tab:npm
-npm install @vite/vitejs-error --save
-```
-
-```bash tab:yarn
-yarn add @vite/vitejs-error
-```
-:::
-
-## 引入
-
-```javascript import
-import { error } from '@vite/vitejs';
-// Or
-import * as error from '@vite/vitejs-error';
-```
-
-## 类型说明
+2. ViteJS 常见错误类型
 
 | 属性 | code | 说明 |
 |:-----:|:-------:|:--------:|
@@ -31,4 +12,6 @@ import * as error from '@vite/vitejs-error';
 | paramsConflict | 100003 | 参数冲突 |
 | addressIllegal | 200001 | 地址不合法 |
 | addressMissing | 200002 | 地址不存在 |
+| integerIllegal | 200003 | 整数类型不合法 |
+| unsafeInteger | 200004 | 不安全的整数 |
 | requestTimeout | 300001 | 请求超时 |

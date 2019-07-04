@@ -1,30 +1,28 @@
 # Full Node Rewards
 
-In Vite TestNet, the rewards mined by the 5 official SBPs will be fully distributed to the community with 30% of those rewards going to full node operators. This article serves to explain what the program is about, its features, and how to participate.
+To incentivize operators who run full node in Vite network, full node rewards will continue in Vite Pre-Mainnet. 
+The daily reward amount is 5,700 **VITE** and will be shared equally by all valid full nodes. 
+This document mainly explain full node rewards program and how to participate in.
 
-## Full Nodes
+## Full Node
 
-There are 2 types of nodes in the Vite network: full nodes and supernodes. As one of the major components in the peer-to-peer network, each full node serves to maintain an entire copy of the ledger and is responsible for reaching consensus amongst the whole system.
-
-In terms of node function, full nodes have the complete set of features seen with gvite software. Users are able to visit remote data, engage in send/receive transactions, and register to vote for supernodes via HTTP, WEBSOCKET, IPC APIs, and the command line console. 
-
-Supernodes differ from their full node counterparts in their ability to access the snapshot block creation privilege.
+Please visit [What is gvite node](../node/install.md#What-is-gvite-node) for full node introduction.
 
 ## Instructions for Running a Full Node
 
-Upgrade to Gvite version: 1.3.0 or above is required
-
-See: [Installation](../node/install.md#full-node-reward) for configuration details.
+Configuration details can be found at [Installation](../node/install.md#full-node-reward).
 
 ## Reward Program Details
 
-* In the TestNet, full node rewards are derived from taking 30% of mining earnings secured from the official 5 SBPs per day.
-* All full nodes with 90%+ uptimes are eligible for the reward in equal share.
-* At the present moment, the official reward pool has accumulated over 98,000 VITE. VITE will be distributed to full node operators in the form of an “Early Bird Bonus”. This is done by increasing 40% of daily earnings for the consecutive 40 days following the Full Node Incentive Program kickoff.
-* The program will start its first 24 hr cycle at 12:13:14 GMT+8 on December 13th, and the rewards will be distributed on a daily basis. Please note the specific arrival time for rewards is dependent on real-time system calculations, therefore there is possibility for delay. Additional reward details can be found within this link: https://reward.vite.net/.
-* Supernodes are eligible for participation in the program.
+* A total amount of 5,700 **VITE** will be distributed equally to all valid full nodes per day. 
+* Only full nodes having at least 90% daily uptime are eligible.
+* The reward program started at 12:13:14 GMT+8 on December 13th, 2018. Rewards are distributed on a daily basis. Please note the time we send out rewards could be in delay due to large amount of computation, and be patient. Additional details can be found at https://reward.vite.net/.
+* As special full nodes, supernodes are eligible for the program as well.
 
-::: warning Note
-1. IP Restrictions: if more than one full node is running from the same IP address, the reward will only be distributed to the node with the highest uptime rate(>90%). If all uptimes happen to be the same, the reward will be distributed via random selection.
-2. As specialized full nodes, supernodes that meet the requirements listed above will be subject to the same rules and opportunities to reap full node rewards.
+::: tip Reward Increase
+Starting from June 5, 2019, until the Vite Mainnet launches, a temporary factor of 2.6 will be applied to base amount to increase the daily full node rewards to 14,820 VITE.
+:::
+
+::: warning IP Restriction
+If more than one full nodes run from the same IP address and all these nodes' uptime is above 90%, only the one having the highest uptime will receive rewards. If more than one nodes are at 100%, the reward will be distributed in random.
 :::
