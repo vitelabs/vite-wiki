@@ -207,7 +207,7 @@ bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringi
 | contract_callOffChainMethod | 离线查询合约状态 |
 
 ```javascript
-import WS_RPC from '@vite/vitejs-WS';
+import WS_RPC from '@vite/vitejs-ws';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;

@@ -11,7 +11,7 @@
 
 - **Example**
 ```javascript
-import WS_RPC from '@vite/vitejs-WS';
+import WS_RPC from '@vite/vitejs-ws';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
@@ -181,7 +181,7 @@ Add a new type for parsing transaction. Transactions will be parsed according to
 
 - **Example**
 ```js ::Demo
-import WS_RPC from '@vite/vitejs-WS';
+import WS_RPC from '@vite/vitejs-ws';
 import { client } from '@vite/vitejs';
 
 const wsProvider = new WS_RPC("ws://example.com");

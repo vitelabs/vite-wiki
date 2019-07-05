@@ -212,7 +212,7 @@ For API definitions for all RPC methods, please refer to [RPC API](../../api/rpc
 For vite.js usage, please refer to [vite.js Specification](../../api/vitejs/client/instance.md)
 
 ```javascript
-import WS_RPC from '@vite/vitejs-WS';
+import WS_RPC from '@vite/vitejs-ws';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
