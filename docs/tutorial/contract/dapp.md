@@ -87,12 +87,13 @@ let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f
 myAccount.createContract({
     abi,
     hexCode: binaryCode,
-    confirmTime: 2,                    // Execution waiting number in 0 ~ 75
-    quotaRatio: 0,                           // Quota consumption multiply factor for caller. Default is 10
+    confirmTime: 2,                    // 确认数 0 ~ 75
+    seedCount:2,                       // 取值范围0-75, 如果合约代码中使用了随机数指令，要求这个字段值大于0。注意confirmTime必须大于或等于seedCount。
+    // quotaRatio: 10,                       // 翻倍数 Default 10, 如传递此参数：取值范围为10-100
     params: [/** your parameters  */],
-    tokenId: Vite_TokenId,              // Default is Vite_TokenId
-    amount: '0',                        // Default is '0'
-    fee: '10000000000000000000',        // Default is '10000000000000000000'
+    tokenId: Vite_TokenId,              // Default Vite_TokenId
+    amount: '0',                        // Default '0'
+    fee: '10000000000000000000',        // Default '10000000000000000000'
 }).then((accountBlock) => {
     // accouuntBlock like this
     // { 
