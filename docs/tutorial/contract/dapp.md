@@ -87,8 +87,8 @@ let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f
 myAccount.createContract({
     abi,
     hexCode: binaryCode,
-    confirmTimes: 2,                    // Execution waiting number in 0 ~ 75
-    times: 0,                           // Quota consumption multiply factor for caller. Default is 0
+    confirmTime: 2,                    // Execution waiting number in 0 ~ 75
+    quotaRatio: 0,                           // Quota consumption multiply factor for caller. Default is 10
     params: [/** your parameters  */],
     tokenId: Vite_TokenId,              // Default is Vite_TokenId
     amount: '0',                        // Default is '0'
