@@ -89,7 +89,7 @@ myAccount.createContract({
     hexCode: binaryCode,
     confirmTime: 2,                    // 确认数 0 ~ 75
     seedCount:2,                       // 取值范围0-75, 如果合约代码中使用了随机数指令，要求这个字段值大于0。注意confirmTime必须大于或等于seedCount。
-    // times: 10,                       // 翻倍数 Default 0, 如传递此参数：取值范围为10-100
+    // quotaRatio: 10,                       // 翻倍数 Default 10, 如传递此参数：取值范围为10-100
     params: [/** your parameters  */],
     tokenId: Vite_TokenId,              // Default Vite_TokenId
     amount: '0',                        // Default '0'
