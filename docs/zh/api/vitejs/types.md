@@ -58,6 +58,12 @@ export declare type AccountBlock = {
     sendBlockList?: Array;
 }
 
+export enum ADDR_TYPE {
+    'Illegal' = 0,
+    'Account',
+    'Contract'
+}
+
 export enum TxType {
     'SBPreg' = 0,
     'UpdateReg',

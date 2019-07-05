@@ -82,4 +82,4 @@ const addr = getAddrFromHexAddr('vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587e
     * `hexaddr : HexAddr` hex编码地址
   
 - **Return**
-    * `validate : boolean` 是否合法
+    * `addrType : ADDR_TYPE` 非法地址: 0;  账户地址: 1; 合约账户地址: 2
