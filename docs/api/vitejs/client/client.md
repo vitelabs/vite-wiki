@@ -1,7 +1,10 @@
 # Introduction
-This part contains Gvite-RPC shortcuts.
 
-The invocation of different levels of API varies from diverse connection ways. (All of the APIs that are underlying Gvite wallet will be accessible only by IPC.)
+The client module provides convenient access to [Vite RPC API](../rpc/README.md) in Vite JS.
+
+:::tip Note
+Some API method can only be visited under certain protocol. For example, all wallet API are only available in IPC.
+:::
 
 ## Installation
 
