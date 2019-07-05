@@ -17,7 +17,7 @@ import { client, constant } from '@vite/vitejs';
 const { methods } = constant;
 const wsProvider = new WS_RPC("ws://example.com");
 
-const myClient = new Client(wsProvider, function(_myclient) {
+const myClient = new client(wsProvider, function(_myclient) {
     console.log("Connected.");
 });
 
@@ -25,11 +25,11 @@ myClient.ledger.getSnapshotChainHeight().then((height) => {
     console.log(height);
 });
 
-const block = myclient.builtinTxBlock.getAccountBlock(
+const block = myClient.builtinTxBlock.getAccountBlock(
     //...
 );
 
-myclient.onroad.getOnroadBlocksByAddress.then((data) => {
+myClient.onroad.getOnroadBlocksByAddress.then((data) => {
     console.log(data);
 });
 
@@ -61,7 +61,7 @@ Get balance. This method will return information of both the account and un-rece
 ```javascript
 // ...
 
-myclient.getBalance.then(({balance, onroad}) => {
+myClient.getBalance.then(({balance, onroad}) => {
     console.log(balance, onroad);
 }).catch(err => {
     console.warn(err);
@@ -186,7 +186,7 @@ import { client } from '@vite/vitejs';
 
 const wsProvider = new WS_RPC("ws://example.com");
 
-const myClient = new Client(wsProvider, function(_myclient) {
+const myClient = new client(wsProvider, function(_myclient) {
     console.log("Connected.");
 });
 
