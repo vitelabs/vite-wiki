@@ -744,11 +744,17 @@ topics取值示例：
 :::
 
 ## subscribe_getLogs
-查询历史日志。
+查询历史日志。返回值按账户块高度从低到高排序。
 
-- **Parameters**:
+- **Parameters**: 和`subscribe_newLogsFilter`参数类似，注意`fromHeight`和`toHeight`都填0时会查询整个账户链，可能会导致返回数据过多，最好指定明确的查询高度范围。
 
-  * `FilterParam` 日志查询参数，同subscribe_newLogsFilter
+  * `FilterParam`
+    1. `addrRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围，必须至少指定一个账户地址
+    2. `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见`subscribe_newLogsFilter`方法参数。
+    
+`Range`
+  1. `fromHeight`: `uint64` 起始高度，为0表示从账户链上第一个块开始查询
+  2. `toHeight`: `uint64` 结束高度，为0表示查询到账户链上最新的块
 
 - **Returns**:  
 	- `Array<LogsMsg>` 日志信息
@@ -762,8 +768,8 @@ topics取值示例：
 	"params": [{
 		"addrRange":{
 			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
-				"fromHeight":"0",
-				"toHeight":"0"
+				"fromHeight":"1",
+				"toHeight":"10"
 			}
 		}
 	}]
