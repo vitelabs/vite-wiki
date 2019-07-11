@@ -208,6 +208,7 @@ ABI：
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `tokenId`: `TokenId` 代币id
+  10. `index`: `uint16` 序号，范围为0-999，同一个代币简称，按铸币顺序分配序号
 
 - **Example**:
 
@@ -235,7 +236,8 @@ ABI：
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }]
 }
 ```
@@ -260,6 +262,7 @@ ABI：
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `tokenId`: `TokenId` 代币id
+  10. `index`: `uint16` 序号，范围为0-999，同一个代币简称，按铸币顺序分配序号
 
 - **Example**:
 
@@ -287,7 +290,8 @@ ABI：
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }
 }
 ```
@@ -312,6 +316,7 @@ ABI：
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `tokenId`: `TokenId` 代币id
+  10. `index`: `uint16` 序号，范围为0-999，同一个代币简称，按铸币顺序分配序号
 
 - **Example**:
 
@@ -339,7 +344,8 @@ ABI：
       "isReIssuable":true,
       "maxSupply":"200000000000",
       "ownBurnOnly":true,
-      "tokenId":"tti_251a3e67a41b5ea2373936c8"
+      "tokenId":"tti_251a3e67a41b5ea2373936c8",
+      "index":0
    }]
 }
 ```
