@@ -131,6 +131,7 @@ Query contract status off chain. See [contract_callOffChainMethod](../../rpc/con
         - `addr : HexAddr` Contract address
         - `abi` Contract's ABI
         - `offChainCode : Hex` Contract's hex code
+        - `params: Array`
 
 - **Return**:
     * `Promise<result>`

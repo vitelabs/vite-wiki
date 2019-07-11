@@ -130,6 +130,7 @@ myClient.getTxList({
         - `addr : HexAddr` 合约账户地址
         - `abi`
         - `offChainCode : Hex` 合约代码
+        - `params: Array`
 
 - **Return**:
     * Promise<`result`>
