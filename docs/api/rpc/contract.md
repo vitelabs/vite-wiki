@@ -18,7 +18,7 @@ Essentially, creating contract is sending a special transaction whose transactio
 4. Call RPC method `tx_sendRawTx` to create contract. Here parameter `toAddress` is the contract address generated in Step 1. `data` is transaction data created in Step 3. `blockType` is set to 1, indicating creating contract transaction. `amount` and `tokenId` stand for the amount of token that are transferred to the contract during creation. `fee` is the cost, fixed at 10 VITE in Pre-Mainnet.
 
 :::tip Tips
-Above steps are implemented in method `buildinTxBlock.createContract` in **vite.js** 
+Above steps are implemented in method `builtinTxBlock.createContract` in **vite.js** 
 :::
 
 ## Call Contract
@@ -29,7 +29,7 @@ Essentially, calling contract is sending a special transaction to smart contract
 2. Call RPC method `tx_sendRawTx` to send a transaction to contract. Here parameter `toAddress` is the contract address. `data` is transaction data created in Step 1. `blockType` is set to 2 for calling contract. `amount` and `tokenId` stand for the amount of token that are transferred to the contract. `fee` is 0, standing for free.
 
 :::tip Tips
-Above steps are implemented in method `buildinTxBlock.callContract` in **vite.js** 
+Above steps are implemented in method `builtinTxBlock.callContract` in **vite.js** 
 :::
 
 ## Read States Off-chain
@@ -48,7 +48,7 @@ Vite has implemented [Staking](./pledge.html), [Token Issuance](./mintage.html) 
 2. Call RPC method `tx_sendRawTx` to send the transaction to built-in contract.
 
 :::tip Tips
-Most methods of built-in contracts are provided in `buildinTxBlock` in **vite.js** 
+Most methods of built-in contracts are provided in `builtinTxBlock` in **vite.js** 
 :::
 
 ## API
@@ -127,7 +127,8 @@ Generate request data for creating contract
 - **Parameters**: 
   
   * `gid`:`Gid`: The id of delegated consensus group. A contract must assign a consensus group to have contract transaction executed. For example, global consensus group has id "00000000000000000002"
-  * `confirmTime`:`uint8`: Waiting number in 0-75 that defines in how many confirmations the response block will be produced after the request is received. 0 stands for no waiting. The parameter must be above 0 if the contract uses random number or timestamp. And additional quota will be consumed in response when confirmTime>0
+  * `confirmTime`:`uint8`: The number of snapshot blocks (in 0-75) by which request sent to this contract is confirmed before responding to the transaction. 0 stands for no additional confirmation required. This parameter must be positive if random number, timestamp or snapshot block height is used in the contract. If $confirmTime>0$, additional quota will be consumed for response 
+  * `seedCount`:`uint8`: The number of snapshot blocks (in 0-75) having random seed by which request sent to this contract is confirmed before responding to the transaction. 0 stands for no additional confirmation required. This parameter must be positive if random number is used in the contract. Having $confirmTime>=seedCount$
   * `quotaRatio`:`uint8`: Quota multiply factor in 10-100. Additional quota will be consumed for contract's caller when a number above 10 is passed in. For example, quotaRatio=15 means 1.5 times of quota will be charged for caller.
   * `hexCode`:`string`: The hex code of contract
   * `params`:`[]byte`: Encoded parameters
@@ -146,12 +147,14 @@ Generate request data for creating contract
     "jsonrpc": "2.0",
     "id": 1,
     "method": "contract_getCreateContractData",
-    "params": [
-        "00000000000000000002", 
-        "608060405234801561001057600080fd5b506101ca806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806380ae0ea114610046575b600080fd5b6100bd6004803603602081101561005c57600080fd5b810190808035906020019064010000000081111561007957600080fd5b82018360208201111561008b57600080fd5b803590602001918460208302840111640100000000831117156100ad57600080fd5b90919293919293905050506100bf565b005b60006002838390508115156100d057fe5b061415156100dd57600080fd5b600080905060008090505b8383905081101561018a576000848483818110151561010357fe5b9050602002013590506000858560018501818110151561011f57fe5b905060200201359050808401935080841015151561013c57600080fd5b600081111561017d578173ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff168260405160405180820390838587f1505050505b50506002810190506100e8565b50348114151561019957600080fd5b50505056fea165627a7a723058203cef4a3f93b33e64e99e0f88f586121282084394f6d4b70f1030ca8c360b74620029", 
-        "[{\"constant\":false,\"inputs\":[{\"name\":\"voter\",\"type\":\"address\"}],\"name\":\"authorization\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"proposal\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"proposalNames\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}]",
-        ["[\"0x1111111111111111111111111111111111111111111111111111111111111111\",\"0x2222222222222222222222222222222222222222222222222222222222222222\"]"]
-    ]
+    "params": [{
+        "gid":"00000000000000000002",
+        "confirmTime":2,
+        "seedCount":1,
+        "quotaRatio":10,
+        "hexCode":"608060405234801561001057600080fd5b506101ca806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806380ae0ea114610046575b600080fd5b6100bd6004803603602081101561005c57600080fd5b810190808035906020019064010000000081111561007957600080fd5b82018360208201111561008b57600080fd5b803590602001918460208302840111640100000000831117156100ad57600080fd5b90919293919293905050506100bf565b005b60006002838390508115156100d057fe5b061415156100dd57600080fd5b600080905060008090505b8383905081101561018a576000848483818110151561010357fe5b9050602002013590506000858560018501818110151561011f57fe5b905060200201359050808401935080841015151561013c57600080fd5b600081111561017d578173ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff168260405160405180820390838587f1505050505b50506002810190506100e8565b50348114151561019957600080fd5b50505056fea165627a7a723058203cef4a3f93b33e64e99e0f88f586121282084394f6d4b70f1030ca8c360b74620029", 
+        "params":""
+    }]
 }
 ```
 
@@ -201,7 +204,8 @@ Return contract information by specified contract address
 	`ContractInfo`
     1. `code`: `[]byte`  Contract's code
     2. `gid`: `Gid`  The id of delegated consensus group that the contract has assigned
-    3. `confirmTime`: `uint8` Waiting number that defines in how many confirmations the response block will be produced after the request is received
+    3 `confirmTime`:`uint8`: The number of snapshot blocks by which request sent to this contract is confirmed before responding to the transaction
+    4 `seedCount`:`uint8`: The number of snapshot blocks having random seed by which request sent to this contract is confirmed before responding to the transaction
 
 - **Example**:
 

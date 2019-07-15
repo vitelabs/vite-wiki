@@ -1,4 +1,4 @@
-# Websocket
+# WebSocket
 
 ## Installation
 
@@ -27,14 +27,14 @@ const { WS_RPC } = require('@vite/vitejs-ws');
 ## Constructor
 
 - **Constructor Parameters**: 
-    * `url : string` Connection url. Default: 'ws://localhost:31420'
-    * `timeout? : number` Timeout(ms) Default: 60000
+    * `url : string` Connection url. Default is 'ws://localhost:31420'
+    * `timeout? : number` Timeout(ms). Default is 60000
     * `__namedParameters? : object` 
-        - `headers? : object` : Request Header Information
+        - `headers? : object` : Request header
         - `protocol?` : Protocol
         - `clientConfig? : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
-        - `retryTimes? : number`: Reconnection times. Default: 10
-        - `retryInterval? : number`: Reconnection interval. Default: 10000
+        - `retryTimes? : number`: Reconnect times. Default is 10
+        - `retryInterval? : number`: Reconnect interval(ms). Default is 10000
 
 - **Example**:
 ```javascript
@@ -43,29 +43,30 @@ const wsProvider = new WS_RPC("ws://localhost:8080");
 ```
 
 ## Properties
-Except for the public methods and properties
+
+The following properties are specifically supported in WebSocket.
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| url | string | Network connection path |
+| url | string | Connection url |
 | protocol | string | Protocol |
-| headers | object | Request header information |
-| clientConfig | object | [Same as Above](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
+| headers | object | Request header |
+| clientConfig | object | [Client config](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
 
 ## Methods
-Except for the public methods and properties
+The following methods are specifically supported in WebSocket.
 
 ### Reconnect
-Network reconnection
+Reconnect
 
 ### disconnect
-Disconnection
+Disconnect
 
 ### subscribe
-Subscribe push events from server side
+Subscribe to events
 
 - **Parameters**: 
-  * `callback : Function` The result will return to this event when server side has any push event
+  * `callback : Function` Callback function will be invoked when subscribed event is triggered and pushed back
 
 ### unSubscribe
 Unsubscribe

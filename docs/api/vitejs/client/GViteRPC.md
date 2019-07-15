@@ -1,9 +1,11 @@
 
-# How to call Gvite-RPC api
+# How to Call Vite RPC API
 
-**The client is only encapsulated for call Gvite-RPC apis, the returned data will directly expose RPC api original data. [Reference](/api/rpc/)**
+:::tip Note
+Client instance won't do additional data processing but just encapsulates Vite RPC API. The return value is in raw RPC format.
+:::
 
-1. `client.namespace.funcName(...args)`: If this method is defined in `constant.methods`, you can directly call `client.namespace.funcName(...args)`
+1. If `client.namespace.funcName(...args)` has been defined in `constant.methods`, you can directly call `client.namespace.funcName(...args)`
 
 ```javascript
 import { methods } from '@vite/vitejs-constant';
@@ -15,7 +17,7 @@ myClient.ledger.getLatestSnapshotChainHash().then(()=>{
 });
 ```
 
-2. `client.request(methodName, ...args)`: If this method is not defined in `constant.methods`, you can directly call `client.request(methodName, ...args)`
+2. If `client.request(methodName, ...args)` is not defined in `constant.methods`, you can directly call `client.request(methodName, ...args)`
 
 ```javascript
 // ......
@@ -25,7 +27,7 @@ myClient.request('ledger_getLatestSnapshotChainHash').then(()=>{
 });
 ```
 
-3. Because of Client extends netProcessor, the client instance have the [subscribe function](./subscribe) already. This function provides subscription. If you want to call the Gvite-RPC method `subscribe_`, the `myClient.subscribe` should be changed to `myClient.subscribeFunc`.
+3. Since `Client` extends `netProcessor`, client instance naturally has [Subscription Method](./subscribe). If you would like to call original RPC method beginning with `subscribe_`, use `myClient.subscribeFunc` instead.
 
 ```javascript
 import { methods } from '@vite/vitejs-constant';

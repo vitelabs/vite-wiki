@@ -1,14 +1,12 @@
 ---
 sidebarDepth: 4
-title: Version 2.1.2
+title: 开始
 ---
 
 :::tip 作者
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
-
-## 介绍
 
 Vite JS 实现了生成地址、签名、abi等基础功能；IPC、HTTP、WS的rpc协议调用；对 [Gvite-RPC](../rpc/README.md) 接口进行了上层封装；并且支持各类account实例，可以快捷生成钱包。
 
@@ -103,113 +101,3 @@ import * as abi from '@vite/vitejs-abi';
 import * as abi from '@vite/vitejs/es5/abi';
 import * as utils from '@vite/vitejs/es5/utils';
 ```
-
-## 常用类型及说明
-[可同时参考 constant 模块](./constant/constant.md)
-
-```typescript
-// RPC
-export declare interface RPCrequest {
-    type: string;
-    methodName: Methods;
-    params: any[];
-}
-export declare interface RPCresponse {
-    jsonrpc: string;
-    id: number;
-    result?: any;
-    error?: RPCerror;
-}
-export declare interface RPCerror {
-    code: number;
-    message: string;
-}
-
-export declare type Hex = string;
-export declare type HexAddr = string;
-export declare type Addr = string;
-export declare type Base64 = string;
-export declare type TokenId = string;
-export declare type RawTokenId = string;
-export declare type Int64 = number;
-export declare type Uint64 = string;
-export declare type BigInt = string;
-
-export declare type AddrObj = {
-    addr: Addr;         // 真实地址
-    pubKey: Hex;        // 公钥
-    privKey: Hex;       // 私钥
-    hexAddr: HexAddr;   // hex编码地址
-}
-
-export declare type AccountBlock = {
-    accountAddress: HexAddr;
-    blockType: BlockType;
-    prevHash: Hex;
-    height: Uint64;
-    hash: Hex;
-    signature: Base64;
-    publicKey: Base64;
-    fee?: BigInt;
-    fromBlockHash?: Hex;
-    toAddress?: HexAddr;
-    tokenId?: TokenId;
-    amount?: BigInt;
-    data?: Base64;
-    nonce?: Base64;
-    logHash?: Hex;
-    sendBlockList?: Array;
-}
-
-// For example
-
-// Type HexAddr
-const hexAddr = "vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689";
-
-// Type Addr
-const addr = "69f3bdb5cdcfa145ae6cc42593a89088ff3dac5800";
-
-// Type TokenId
-const tokenId = "tti_5649544520544f4b454e6e40";
-
-// Type RawTokenId
-const rawTokenId = "5649544520544f4b454e";
-```
-
-## 常见错误汇总
-
-1. [Gvite 常见错误类型](../rpc/README.md)
-
-2. ViteJS 常见错误类型
-
-| 属性 | code | 说明 |
-|:-----:|:-------:|:--------:|
-| no | 100000 | 未知错误 |
-| paramsMissing | 100001 | 丢失参数 |
-| paramsFormat | 100002 | 参数格式错误 |
-| paramsConflict | 100003 | 参数冲突 |
-| addressIllegal | 200001 | 地址不合法 |
-| addressMissing | 200002 | 地址不存在 |
-| requestTimeout | 300001 | 请求超时 |
-
-## 快速开始  
-
-1. `npm install @vite/vitejs-ws`
-2. `npm install @vite/vitejs`
-3. 新建文件 `test.js`
-```javascript
-const { WS_RPC } = require('@vite/vitejs-ws');
-const { client } = require('@vite/vitejs');
-
-let provider = new WS_RPC("ws://example.com");
-let myClient = new client(provider, (_myClient) => {
-    console.log("Connected");
-});
-
-myClient.ledger.getSnapshotChainHeight().then((result) => {
-    console.log(result);
-}).catch((err) => {
-    console.warn(err);
-});
-```
-4. `node test.js`

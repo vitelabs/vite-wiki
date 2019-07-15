@@ -27,12 +27,12 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 ## Constructor
 
 - **Constructor Parameters**: 
-    * `path : string` Connection path. Default: ''
-    * `timeout : number` Timeout(ms) Default: 60000
+    * `path : string` Connection path. Default is empty string
+    * `timeout : number` Timeout(ms) Default is 60000
     * `__namedParameters? : object` 
-        - `delimiter? : string` : Delimiter. Default: `\n`
-        - `retryTimes? : number`: Reconnection Times. Default 10
-        - `retryInterval? : number`: Reconnection Interval(ms). Default 10000
+        - `delimiter? : string` : Delimiter. Default is `\n`
+        - `retryTimes? : number`: Reconnect times. Default is 10
+        - `retryInterval? : number`: Reconnect interval(ms). Default is 10000
 
 - **Example**:
 ```javascript
@@ -43,25 +43,28 @@ const ipcProvider = new IPC_RPC("~/.gvite/testdata/gvite.ipc");
 
 ## Properties
 
+The following properties are specifically supported in IPC.
+
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
 | path | string | Connection path |
 | delimiter | string | Delimiter |
 
 ## Methods
-Except for the public methods and properties
+
+The following methods are specifically supported in IPC.
 
 ### reconnect
-Reconnection
+Reconnect
 
 ### disconnect
-Disconnection
+Disconnect
 
 ### subscribe
-Subscribe push events from server side
+Subscribe to events
 
 - **Parameters**: 
-  * `callback : Function` The result will return to this event when server side has any push event
+  * `callback : Function` Callback function will be invoked when subscribed event is triggered and pushed back
 
 ### unSubscribe
 Unsubscribe

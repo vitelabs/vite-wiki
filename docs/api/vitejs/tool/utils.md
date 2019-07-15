@@ -85,7 +85,7 @@ Verify if the node is legal
 - **Return**
     * `target : boolean` Results: true(yes), false(no)
   
-## validInteger
+## isInteger
 Verify if the input string is an integer
 
 - **Parameters**
@@ -93,6 +93,25 @@ Verify if the input string is an integer
 
 - **Return**
     * `target : boolean` Results: true, false
+
+## isNonNegativeInteger
+Verify if the input string is a non-negative integer
+
+- **Parameters**
+    * `num : string`
+
+- **Return**
+    * `target : boolean` Results: true, false
+
+## isSafeInteger
+Verify if the input is a safe integer
+
+- **Parameters**
+    * `num : string | number`
+
+- **Return**
+    * `target : number` -1: the input isn't integer; 0: the input type is number, but isn't a safe integer(
+or a decimal); 1: it's ok
 
 ## uriStringify
 Convert a transaction object into formatted uri that complies to a specific schema
