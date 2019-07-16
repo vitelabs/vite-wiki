@@ -85,7 +85,7 @@ The whole rewards are equally split in 2 parts:
 
 **Candidate Additional Reward** has following rules:
 
-* Voting weight is measured in the amount of votes a certain SBP has. More weight, more rewards.
+* Voting reward is measured by the amount of votes a certain SBP acquired in last round. More weight, more rewards.
 * Rewards are generated daily in every *1152* rounds. Only rewards generated *48* rounds ago (about 1 hour) are subject to allocation. 
 * In each day, SBP's online rate (up-time) is calculated in $\frac{Total Blocks Produced}{Total Blocks On Target}$. The higher online rate, the more rewards.
 
