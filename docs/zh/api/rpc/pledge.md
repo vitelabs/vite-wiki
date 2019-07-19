@@ -19,11 +19,17 @@ ABI：
   // 取消抵押
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
   // 代理抵押
-  {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"},{"name":"stakeHeight","type":"uint64"}]},
-  // 代理取消抵押
-  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
+  {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
+  // 代理抵押回调
+  {"type":"callback","name":"AgentPledge","inputs":[{"name":"success","type":"bool"}]},
+  // 取消代理抵押
+  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
+  // 取消代理抵押回调
+  {"type":"callback","name":"AgentCancelPledge","inputs":[{"name":"success","type":"bool"}]}		
 ]
 ```
+
+其中，代理抵押和去掉代理抵押的响应交易会产生回调请求交易，通知本次代理抵押或者取消代理抵押交易是否成功。
 
 ## pledge_getPledgeData
 获取抵押交易请求数据，也可以通过对ABI中的`Pledge`方法编码获取交易请求数据。

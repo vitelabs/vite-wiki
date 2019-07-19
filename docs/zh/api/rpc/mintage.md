@@ -24,6 +24,10 @@ ABI：
   {"type":"function","name":"TransferOwner","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"newOwner","type":"address"}]},
   // 将可增发代币修改为不可增发
   {"type":"function","name":"ChangeTokenType","inputs":[{"name":"tokenId","type":"tokenId"}]},
+  // 链上查询代币信息
+  {"type":"function","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"}]},
+  // 链上查询代币信息回调
+  {"type":"callback","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"},{"name":"exist","type":"bool"},{"name":"decimals","type":"uint8"},{"name":"tokenSymbol","type":"string"},{"name":"index","type":"uint16"},{"name":"owner","type":"address"}]},
   // 铸币成功事件
   {"type":"event","name":"mint","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
   // 增发成功事件
@@ -36,6 +40,8 @@ ABI：
   {"type":"event","name":"changeTokenType","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]}
 ]
 ```
+
+其中，链上查询代币信息的响应交易会产生回调请求交易，通知本次查询结果。
 
 ## mintage_getMintData
 获取铸币交易请求数据，也可以通过对ABI中的`Mint`方法编码获取交易请求数据。
