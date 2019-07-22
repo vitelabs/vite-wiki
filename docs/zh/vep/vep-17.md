@@ -38,26 +38,26 @@ Vite在代号为DEX的硬分叉修改了内置合约方法和虚拟机指令的�
 | TransferOwnerRequest	| 136500	| 58981 |
 | ChangeTokenTypeRequest	| 115500	| 63125 |
 | GetTokenInfoRequest	| 31500	| - |
-| DepositResponse | 52500 | - |
-| WithdrawResponse | 52500 | - |
-| NewmarketResponse | 157500 | - |
-| NeworderResponse | 126000 | - |
-| SettleorderResponse | 105000 | - |
-| PeriodjobResponse | 42000 | - |
-| PledgeforvxResponse | 157500 | - |
-| PledgeforvipResponse | 157500 | - |
-| PledgecallbackResponse | 63000 | - |
-| CancelpledgecallbackResponse | 84000 | - |
-| GettokenibfocallbackResponse | 52500 | - |
-| OwnerconfigResponse | 84000 | - |
-| OwnerconfigtradeResponse | 52500 | - |
-| MarketownerconfigResponse | 52500 | - |
-| TransfertokenownerResponse | 42000 | - |
-| NotifytimeResponse | 52500 | - |
-| NewinviterResponse | 94500 | - |
-| BindInviteCodeResponse | 42000 | - |
-| EndorseVxResponse | 31500 | - |
-| SettleMakerMinedVxResponse | 126000 | - |
+| DepositResponse | 10500 | - |
+| WithdrawResponse | 10500 | - |
+| NewmarketResponse | 31500 | - |
+| NeworderResponse | 25200 | - |
+| SettleorderResponse | 21000 | - |
+| PeriodjobResponse | 8400 | - |
+| PledgeforvxResponse | 31500 | - |
+| PledgeforvipResponse | 31500 | - |
+| PledgecallbackResponse | 12600 | - |
+| CancelpledgecallbackResponse | 16800 | - |
+| GettokenibfocallbackResponse | 10500 | - |
+| OwnerconfigResponse | 16800 | - |
+| OwnerconfigtradeResponse | 10500 | - |
+| MarketownerconfigResponse | 10500 | - |
+| TransfertokenownerResponse | 8400 | - |
+| NotifytimeResponse | 10500 | - |
+| NewinviterResponse | 18900 | - |
+| BindInviteCodeResponse | 8400 | - |
+| EndorseVxResponse | 6300 | - |
+| SettleMakerMinedVxResponse | 25200 | - |
 
 ## 虚拟机指令配额消耗表
 
