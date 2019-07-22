@@ -146,7 +146,8 @@
 - **Returns**: `Object`
   * `difficulty`: `big.Int`  需要计算的PoW难度，如果为空字符串，说明不需要计算PoW
   * `quota`: `uint64`  交易需要的配额
-
+  * `isCongestion`: `bool`  全网是否拥堵，true表示当前全网拥堵，此时配额成本提高，false表示不拥堵
+  
 - **Example**:
 
 ::: demo
