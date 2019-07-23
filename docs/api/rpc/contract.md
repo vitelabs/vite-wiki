@@ -126,12 +126,12 @@ Generate request data for creating contract
 
 - **Parameters**: 
   
-  * `gid`:`Gid`: The id of delegated consensus group. A contract must assign a consensus group to have contract transaction executed. For example, global consensus group has id "00000000000000000002"
-  * `confirmTime`:`uint8`: The number of snapshot blocks (in 0-75) by which request sent to this contract is confirmed before responding to the transaction. 0 stands for no additional confirmation required. This parameter must be positive if random number, timestamp or snapshot block height is used in the contract. If $confirmTime>0$, additional quota will be consumed for response 
-  * `seedCount`:`uint8`: The number of snapshot blocks (in 0-75) having random seed by which request sent to this contract is confirmed before responding to the transaction. 0 stands for no additional confirmation required. This parameter must be positive if random number is used in the contract. Having $confirmTime>=seedCount$
-  * `quotaRatio`:`uint8`: Quota multiply factor in 10-100. Additional quota will be consumed for contract's caller when a number above 10 is passed in. For example, quotaRatio=15 means 1.5 times of quota will be charged for caller.
+  * `gid`:`Gid`: The id of delegated consensus group. A contract must assign a consensus group to have contract transaction executed. For example, global delegated consensus group has id "00000000000000000002"
+  * `confirmTime`:`uint8`: The number of snapshot blocks (between 0-75) by which request sent to this contract is confirmed before responding to the transaction. 0 stands for no additional confirmation required. This parameter must be positive if random number, timestamp or snapshot block height is used in the contract. If $confirmTime>0$, additional quota will be consumed for response 
+  * `seedCount`:`uint8`: The number of snapshot blocks (between 0-75) having random seed by which request sent to this contract is confirmed before responding to the transaction. 0 stands for no additional confirmation required. This parameter must be positive if random number is used in the contract. Having $confirmTime>=seedCount$
+  * `quotaRatio`:`uint8`: Quota multiply factor between 10-100. Additional quota will be consumed for contract's caller when a number above 10 is passed in. For example, quotaRatio=15 means 1.5 times of quota will be charged for caller.
   * `hexCode`:`string`: The hex code of contract
-  * `params`:`[]byte`: Encoded parameters
+  * `params`:`[]byte`: Encoded parameters, returned by `contract_getCreateContractParams`
 
 - **Returns**: 
 	- `[]byte` Data
@@ -250,14 +250,15 @@ Encode passed-in parameters for `getter` method. The returned value can be passe
 :::
 
 ## contract_callOffChainMethod
-Query contract's state by calling the specified `getter` method off-chain
+Query contract's state by calling the specified `getter` method off-chain. Please note that only one parameter of either `offchainCode` or `offChainCodeBytes` is needed.
 
 - **Parameters**: 
 
   * `Object`:
     * `selfAddr`:`Address` Contract address
-    * `offChainCode`:`string` Compiled binary query code. This can be obtained by specifying `--bin` argument when compiling the contract
-    * `Data`:`[]byte` Encoded parameters
+    * `offChainCode`:`string` Hex code generated as `OffChain Binary` when compiling the contract by specifying `--bin` argument
+    * `offChainCodeBytes`:`[]byte` Base64 byte code generated as `OffChain Binary` when compiling the contract by specifying `--bin` argument
+    * `Data`:`[]byte` Encoded parameters, returned by `contract_getCallOffChainData`
     
 - **Returns**: 
 	`[]byte` Return value of the `getter` method
@@ -272,8 +273,8 @@ Query contract's state by calling the specified `getter` method off-chain
     "method": "contract_callOffChainMethod",
     "params": [{
       "selfAddr":"vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8",
-      "offChainCode":"608060405260043610610050576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063be46813a14610054578063f1271e08146100b157610050565b5b5b005b61008d6004803603602081101561006b5760006000fd5b81019080803569ffffffffffffffffffff169060200190929190505050610111565b60405180848152602001838152602001828152602001935050505060405180910390f35b6100b96101d1565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b838110156100fd5780820151818401525b6020810190506100e1565b505050509050019250505060405180910390f35b600060006000600260005060008569ffffffffffffffffffff1669ffffffffffffffffffff16815260200190815260200160002160005060000160005054600260005060008669ffffffffffffffffffff1669ffffffffffffffffffff16815260200190815260200160002160005060010160005054600260005060008769ffffffffffffffffffff1669ffffffffffffffffffff168152602001908152602001600021600050600201600050549250925092506101ca565b9193909250565b6060600160005080548060200260200160405190810160405280929190818152602001828054801561025a57602002820191906000526020600021906000905b82829054906101000a900469ffffffffffffffffffff1669ffffffffffffffffffff16815260200190600a01906020826009010492830192600103820291508084116102115790505b50505050509050610266565b9056fea165627a7a72305820f495f61f697f25e46caa868c09b35b575ab331e3c608179880e1932b5848abaa0029",
-      "Data":"f1271e08"
+      "offChainCodeBytes":"YIBgQFJgBDYQYQBQV2AANXwBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAEY/////8WgGO+RoE6FGEAVFeAY/EnHggUYQCxV2EAUFZbW1sAW2EAjWAEgDYDYCCBEBVhAGtXYABgAP1bgQGQgIA1af////////////8WkGAgAZCSkZBQUFBhARFWW2BAUYCEgVJgIAGDgVJgIAGCgVJgIAGTUFBQUGBAUYCRA5DzW2EAuWEB0VZbYEBRgIBgIAGCgQOCUoOBgVGBUmAgAZFQgFGQYCABkGAgAoCDg2AAW4OBEBVhAP1XgIIBUYGEAVJbYCCBAZBQYQDhVltQUFBQkFABklBQUGBAUYCRA5DzW2AAYABgAGACYABQYACFaf////////////8Waf////////////8WgVJgIAGQgVJgIAFgACFgAFBgAAFgAFBUYAJgAFBgAIZp/////////////xZp/////////////xaBUmAgAZCBUmAgAWAAIWAAUGABAWAAUFRgAmAAUGAAh2n/////////////Fmn/////////////FoFSYCABkIFSYCABYAAhYABQYAIBYABQVJJQklCSUGEBylZbkZOQklBWW2BgYAFgAFCAVIBgIAJgIAFgQFGQgQFgQFKAkpGQgYFSYCABgoBUgBVhAlpXYCACggGRkGAAUmAgYAAhkGAAkFuCgpBUkGEBAAqQBGn/////////////Fmn/////////////FoFSYCABkGAKAZBgIIJgCQEEkoMBkmABA4ICkVCAhBFhAhFXkFBbUFBQUFCQUGECZlZbkFb+oWVienpyMFgg9JX2H2l/JeRsqoaMCbNbV1qzMePGCBeYgOGTK1hIq6oAKQ==",
+      "data":"f1271e08"
     }]
 }
 ```

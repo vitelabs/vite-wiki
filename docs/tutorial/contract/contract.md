@@ -31,23 +31,23 @@ Since prioritization of contract response transactions is not specified in Vite'
 
 FIFO(First In First Out) rule must be guaranteed when multiple messages are sent to a contract from the same account. In other words, the request transaction having lower block height is always accepted by the contract in ahead of that having higher height. FIFO does not apply to scenario where messages are sent out from different accounts.
 
-If multiple accounts happen to send messages to a contract simultaneously, the delegated consensus group will choose a random processing order by default. However, a prioritization algorithm doesn't belong to part of the Vite's protocol, it can also be customized as well.
+If multiple accounts happen to send messages to a contract simultaneously, the delegated consensus group will choose a random processing order. However, the consensus group can define an algorithm for prioritization purpose on its own. 
 
 ## Cost of Contract
 
 ### Fees for Creating Contract
 
-Creating new contract consumes VITE. In the Pre-Mainnet, a destruction of 10 VITE is required for creating a contract.
+Creating new contract consumes VITE. In Pre-Mainnet, a destruction of 10 VITE is required for creating a contract.
 
 ### Quota in Contract
 
-The quota for contract creation request transaction is supplied by contract creator while the quota for contract creation response transaction comes from the destruction of VITE. In the Pre-Mainnet, destroying 10 VITE to create a smart contract will receive a quota of up to 1,000,000, specifically for contract creation purpose.
+The quota for contract creation request transaction is supplied by contract creator, while the quota consumed in contract creation response transaction comes from the destruction of VITE. In Pre-Mainnet, destroying 10 VITE during smart contract creation will receive quota up to 47.62 `UTPS`.
 
 Similar to contract creation, contract execution consumes quota as well. The contract request transaction and the contract response transaction consume the quota of transaction initiator and contract account respectively.
 
-In the Pre-Mainnet, contract account can only obtain quota by staking. If a contract does not have sufficient quota, no transaction of this contract will be performed. Therefore, **contract provider should always ensure 'enough' VITE tokens have been staked for the contract**.
+In Pre-Mainnet, contract account can only obtain quota by staking. If a contract does not have sufficient quota, no transaction of this contract will be performed. Therefore, **contract provider should always ensure 'enough' VITE tokens have been staked for the contract**.
 
-Sometimes due to over-complicated contract, the quota of contract account is insufficient for generating response transaction. In this case, the response transaction will consume up all the quota and fail in the end by generating a "failed" response block on the contract chain. In Vite Pre-Mainnet, a "failed" contract response due to insufficient quota will be retried twice. After the 3rd failure, the requested transaction will be marked as "response failed" and all transferring amount(if has any) will be returned to requester's account. Due to the FIFO principle of contract response, when a response transaction fails, subsequent response transactions for this account will be blocked until the "failed" transaction is complete successfully or fails for 3 times. Response transactions for other accounts won't be affected.
+For complex contract, the quota of contract account may be insufficient for generating response transaction. In this case, the response transaction will consume up the quota and fail in the end by generating a "failed" response block on the contract chain. And, if the request has carried transfer amount, the tokens will be returned to original account after transaction fails. In Pre-Mainnet, a "failed" contract response due to insufficient quota will cause the contract locked for 75 snapshot blocks. In other words, no transaction for the contract will be processed during the time until it is unlocked.
 
 ## Smart Contract Language
 
