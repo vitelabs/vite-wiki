@@ -89,7 +89,7 @@ In addition to native token **VITE**, two other coins **VCP**(Vite Community Poi
 
 | Token Id | Token Name | Token Symbol | Total Supply | Decimals |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| tti_5649544520544f4b454e6e40 | Vite Token | VITE | 1 billion | 18 |
+| tti_5649544520544f4b454e6e40 | VITE | VITE | 1 billion | 18 |
 | tti_251a3e67a41b5ea2373936c8 | Vite Community Point | VCP | 10 billion | 0 |
 | tti_564954455820434f494e69b5 | ViteX Coin | VX | 100,000,000 | 18 |
 
@@ -101,7 +101,7 @@ Yes, all you need to do is to send multiple mintage transactions.
 
 * Can I issue token with existing token name and token symbol?
 
-Yes. Token name and symbol can be reused.
+Token name can be reused. A token symbol can have up to 1000 indexes as suffix from '000' to '999'. For example, `BTC-000`.
 
 * Does mintage transaction consume quota?
 
