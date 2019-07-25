@@ -23,6 +23,7 @@ import * as constant from '@vite/vitejs-constant';
 ## Common constants
 
 - Vite_TokenId
+- Vite_Token_Info
 - Default_Hash
 
 ## Gid
@@ -65,7 +66,6 @@ import * as constant from '@vite/vitejs-constant';
 - Burn_Abi
 - TransferOwner_Abi
 - ChangeTokenType_Abi
-- CancelMintPledge_Abi
 
 ### DEX
 
@@ -77,6 +77,10 @@ import * as constant from '@vite/vitejs-constant';
 - DexFundConfigMineMarket_Abi
 - DexFundPledgeForVx_Abi
 - DexFundPledgeForVip_Abi
+- DexFundBindInviteCode_Abi
+- DexFundNewInviter_Abi
+- DexFundTransferTokenOwner_Abi
+- DexFundMarketOwnerConfig_Abi
 
 ## BlockType
 
@@ -145,10 +149,6 @@ const Contracts = {
         contractAddr: Mintage_Addr,
         abi: ChangeTokenType_Abi
     },
-    MintageCancelPledge: {
-        contractAddr: Mintage_Addr,
-        abi: CancelMintPledge_Abi
-    },
     DexFundUserDeposit: {
         contractAddr: DexFund_Addr,
         abi: DexFundUserDeposit_Abi
@@ -168,6 +168,30 @@ const Contracts = {
     DexFundNewMarket: {
         contractAddr: DexFund_Addr,
         abi: DexFundNewMarket_Abi
+    },
+    DexFundPledgeForVx: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundPledgeForVx_Abi
+    },
+    DexFundPledgeForVip: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundPledgeForVip_Abi
+    },
+    DexFundBindInviteCode: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundBindInviteCode_Abi
+    },
+    DexFundNewInviter: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundNewInviter_Abi
+    },
+    DexFundTransferTokenOwner: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundTransferTokenOwner_Abi
+    },
+    DexFundMarketOwnerConfig: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundMarketOwnerConfig_Abi
     }
 };
 ```
@@ -284,7 +308,8 @@ enum dexfund {
     'getAccountFundInfo' = 'dexfund_getAccountFundInfo',
     'getAccountFundInfoByStatus' = 'dexfund_getAccountFundInfoByStatus',
     'isPledgeVip' = 'dexfund_isPledgeVip',
-    'getMarketInfo' = 'dexfund_getMarketInfo'
+    'getMarketInfo' = 'dexfund_getMarketInfo',
+    'getCurrentDividendPools' = 'dexfund_getCurrentDividendPools'
 }
 
 enum net {
