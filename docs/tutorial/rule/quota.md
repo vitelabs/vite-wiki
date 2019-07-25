@@ -4,11 +4,11 @@
 Please note this is not a technical document, but mainly describes quota and quota-related topics. Technical details will be introduced in the yellow paper.
 
 The Definitions of Terms:
-* **Quota**： In Vite system, CPU cycles, storage space and network bandwidth consumed during transactions are paid by quota, instead of transaction fees
+* **Quota**： In Vite system, CPU cycles, storage space and network bandwidth consumed in transactions are paid by quota, instead of transaction fees or gas
 * **PoW**： Proof of Work, representing a certain amount of computational work has been performed
-* **Stake**： Lock up an amount of VITE in the account for quota
-* **Staking address**：The account who starts the staking transaction
-* **Quota recipient address**：The account who receives quota
+* **Stake**： Lock up an certain amount of VITE in account in exchange for quota
+* **Staking address**：The address of the account from which the staking transaction is initiated
+* **Quota recipient address**：The address of the account receiving quota
 :::
 
 ## What is Quota
@@ -16,14 +16,14 @@ The Definitions of Terms:
 In Ethereum, in order to have a transaction executed timely, the sender usually has to offer an appealing transaction fee to miner. The higher gas price offered, the sooner transaction executed. 
 In this typical bidding model, the supply of system processing capability and the demand of sending transactions are balanced by gas price automatically. This model works fine in Ethereum, however, from user's perspective it is hard to determine what is the best gas price to offer for a certain time. Either too low or too high price will cause a market failure. 
 Moreover, since gas is associated with individual transactions, it is impossible to measure and allocate computational resources at account level.
-In Vite, instead of charging transaction fees, a certain amount of quota is consumed when user sends a transaction, such as transfer, deploying new smart contract, calling smart contract, issuing new token, registering SBP, retrieving mining rewards, voting and staking. Vite has implemented a quota model to meet the supply and demand of resources.
+Vite does not charge transaction fees, but instead an amount of quota will be consumed when user sends transaction, including transfer, deploying smart contract, calling smart contract, issuing token, registering SBP, retrieving mining rewards, voting and staking. Vite has implemented a quota model to meet the supply and demand of resources.
 
-Quota can be obtained in two ways:
-* Obtain one-time, small-amount quota by computing `PoW` when sending transactions, or
-* Stake VITE for account.
+Quota can be obtained in two methods:
+* Obtain a small amount of temporary quota by calculating `PoW` upon sending a transaction, or
+* Stake VITE
 
-If you just simply need to send a transaction, you can choose `PoW`.
-If you need send many transactions during a short period, you should stake VITE to get enough quota.
+If you just simply need to send a transaction, calculating `PoW` is sufficient for you.
+If you need send many transactions in short time, which means you may need a large amount of quota consistently, you should stake VITE.
 
 We recommend staking.
 
@@ -31,7 +31,7 @@ We recommend staking.
 
 Various quota consumptions of different transactions:
 
-|  Transaction Type  | Quota Consumed | In Unit Transaction | Minimal Staking Amount（Vite） |
+|  Transaction Type  | Quota Consumed | In Unit Transaction | Minimum Staking Amount（Vite） |
 |:------------:|:-----------:|:-----------:|:-----------:|
 | Send a transfer without comment | 21000 | 1 | 134 |
 | Receive a transfer | 21000 | 1 | 134 |
@@ -51,17 +51,17 @@ Various quota consumptions of different transactions:
 | Transfer token ownership | 58981 | 2.8086 | 400 |
 | Change token type | 63125 | 3.0060 | 534 |
 
-* **Unit Transaction**: The minimal transaction unit measured in quota consumption, equivalent to an un-commented transfer transaction
+* **Unit Transaction (UT)**: The minimum transaction unit measured by quota consumption, equivalent to an un-commented transfer transaction
 
 Each character in transaction's comment consumes additional 68 quota.
 
-For example, given hex encoding is used, sending a transfer with a comment of '0x0001' (two characters) will consume
+For example, sending a transfer transaction with a comment of '0x0001' (two hexadecimal characters) will consume
 
 $${\it Q} = 21000 + 68 * 2 = 21136$$ quota, which translates to `1.0065` unit transaction.
 
 ::: tip Note
-Due to implementation of [VEP-8](../../vep/vep-8.md), additional 136 quota (2 characters prefix) will be cost if you send a transfer with comment from Vite official wallet. 
-No additional quota will be cost if no comment is attached.
+Due to implementation of [VEP-8](../../vep/vep-8.md), additional 136 quota (2 characters prefix) will be charged if you send a transfer with comment from Vite wallet. 
+No additional quota will be consumed if no comment is associated.
 :::
 
 If `ConfirmTimes` is assigned when creating new smart contract, for each response transaction of the contract, an additional quota about `ConfirmTimes * 200` will be charged.
@@ -75,15 +75,13 @@ $$Q_{PoW}=Qm \times (1- \frac{2}{1+e^{\xi d \times \rho d}})$$
 $$Q_{Stake}=Qm \times (1- \frac{2}{1+e^{\xi s \times \rho s}})$$
 
 Here,
-* $Q_{PoW}$: Quota obtained through `PoW` calculation. This quota is valid once and can only be used in current transaction
-* $Q_{Stake}$: Quota obtained by staking. This quota is long-time valid and can be accumulated for up to 75 snapshot blocks
-* $Qm$: Quota cap of one account, related to overall system throughput and total account number
-* $\xi d$: The difficulty of `PoW` calculated
-* $\rho d$: The weight obtained through `PoW` calculation
-* $\xi s$: The staking amount
-* $\rho s$: The weight obtained by staking
-* $T$: The idle time prior to sending a transaction, equivalent to height difference between the snapshot block that current transaction refers to and an earlier snapshot block that previous transaction refers to
-
+* $Q_{PoW}$: Quota obtained by calculating `PoW`. Valid only for current transaction
+* $Q_{Stake}$: Quota obtained by staking. Will be restored every snapshot block and can accumulate for up to 75 snapshot blocks
+* $Qm$: Quota cap of a single account. Related to overall system throughput and total account number
+* $\xi d$: `PoW` difficulty
+* $\rho d$: Quota calculation weight of `PoW`
+* $\xi s$: Staking amount
+* $\rho s$: Quota calculation weight of staking
 
 In Vite Network,
 * $Qm$ = 1000000
@@ -91,17 +89,25 @@ In Vite Network,
 * $\rho s$ = 4.201037667e-24
 
 
-**UTPS**: Unit transaction per second, referring to how many un-commented transfer transactions can be sent by one account in one second
+**UTPS**: Unit transaction per second, referring to the number of unit transactions can be sent by the account in one second
 
 $$UTPS=\frac{Q_{Stake}}{21000}$$
 
-The available quota of an account depends on basic UTPS and quota consumption during the last 74 snapshot blocks. For example, account A has 1 UTPS' quota via staking and hasn't sent any transaction during last 74 snapshot blocks, then the available quota of account A is 75 UTPS.
+**UTPE**: Unit transaction per epoch, referring to the number of unit transactions that can be sent by the account in 75 snapshot blocks (approximately an epoch).
 
-The actual available quota of an account upon sending transaction depends on UTPS, quota consumption during last 74 snapshot blocks and `PoW` calculation. For example, account B has 1 UTPS' quota via staking and hasn't sent any transaction during last 74 snapshot blocks, while he also calculated a `PoW` nonce whose difficulty is entitled to obtain quota about 2 UTPS, then the available quota of account B is 77 UTPS.
+The available quota of an account depends on basic UTPS and actual quota consumption during the last 74 snapshot blocks. 
+For example, account A gets 1 UTPS by staking and hasn't sent or received any transaction during last 74 snapshot blocks, then the available quota of account A is 75 UT.
 
-For convenience in calculation, it is acceptable to calculate $(\xi d \times \rho d)$ or $(\xi s \times T \times \rho s)$ only, and then map result to corresponding quota according to following table:
+The actual available quota of an account upon sending transaction depends on basic UTPS, quota consumption during last 74 snapshot blocks and `PoW`. 
+For example, account B gets 1 UTPS by staking and hasn't sent or received any transaction during last 74 snapshot blocks, while he also calculated a `PoW` nonce entitled to additional quota equivalent to 2 UT, then the actual available quota of account B is 77 UT in current snapshot block.
 
-|  $(\xi d \times \rho d)$ or $(\xi s \times \rho s)$ | $Q$ | UTPS | Maximum Unit Transaction(s) in 75 seconds | Approximately equivalent to how much VITE staked without calculating `PoW` | Approximately equivalent to how difficult the `PoW` calculated without staking |
+::: tip Note
+For a single transaction, the maximum quota can be consumed is equivalent to 47.62 **Unit Transactions**.
+:::
+
+For convenience in calculation, it is acceptable to calculate $(\xi d \times \rho d)$ or $(\xi s \times T \times \rho s)$ and map result to corresponding quota according to following table:
+
+|  $(\xi d \times \rho d)$ or $(\xi s \times \rho s)$ | $Q$ | UTPS | Max UTPE | Approximately equivalent to how much VITE staked without calculating `PoW` | Approximately equivalent to how difficult the `PoW` calculated without staking |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0.0 | 0 | 0 | 0 | 0 | 0 |
 | $(0, 0.0005600000146345639]$ | 280 | 1/75 | 1 | 134 | 894654 |
@@ -226,10 +232,8 @@ For convenience in calculation, it is acceptable to calculate $(\xi d \times \rh
 | $(3.5656840708200748, 4.057395776090949]$ | 966000 | 46 | 3450 | 965808 | 6482075769 |
 | $(4.057395776090949, 5.029431885090279]$ | 987000 | 47 | 3525 | 1197189 | 8034995932 |
 
-Here **Maximum Unit Transaction(s) in 75 seconds** is the maximum number of unit transactions that can be sent after waiting for 75 snapshot blocks.
-
-For example, if `PoW` is not taken into account, staking 10000 and 20007 VITE will get 1 and 2 UTPS' quota respectively, and the number of unit transactions that can be sent will reach 75 and 150 after waiting for 75 snapshot blocks.
-Staking 134 VITE and waiting 75 snapshot blocks also qualifies for sending a transfer transaction without comment.
+According to above table, if `PoW` is not taken into account, staking 10000 VITE will support 1 UTPS, or maximum 75 UTPE throughput, while staking 20007 VITE will get 2 UTPS, or maximum 150 UTPE throughput.
+Staking 134 VITE also qualifies for sending a transfer transaction without comment after idling for 75 snapshot blocks, which translates to 1 UTPE.
 
 ## Two Methods to Obtain Quota
 
@@ -239,29 +243,29 @@ Quota can be obtained through staking. The specified recipient account will rece
 
 #### Parameters
 * Staking amount: The minimum staking amount is 134 VITE
-* Quota recipient address: The account who receives quota. This could be the staking account itself or any other account since staking for other accounts is permitted.
+* Quota recipient address: The address of the account who receives quota. This is not limited to the staking account but can be any other account. In other words, you can stake for others.
 
 The VITE staked will be temporarily deducted from user's balance and cannot be transferred during staking period.
-The staking account can retrieve staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. As a result, the corresponding quota will be deducted from recipient's account immediately.
+The staking account is able to retrieve staked tokens after 259,200 snapshot blocks (about 3 days) by sending a cancel-staking transaction. As a result, the recipient account will lose the quota correspondingly.
 
 ### Calculating PoW
 
-User can obtain one-time-valid quota by calculating `PoW` upon sending transactions. According to above table, the target `PoW` difficulty is 0x3FFFFFF for sending an uncommented transfer transaction with no staking.
+User can obtain one-time quota by calculating `PoW` upon sending transactions. According to above table, the required difficulty is 0x3FFFFFF for sending an uncommented transfer transaction through `PoW`.
 
-In Pre-Mainnet, a central `PoW` service has been built to serve the purpose of calculating `PoW` from Vite wallets, some of which, like mobile wallets, may not have sufficient computation power to perform the calculation.
+In Pre-Mainnet, a `PoW` service has been set up by ViteLabs to serve the purpose of calculating `PoW` for Vite wallets in consideration of that some client hardware may not have sufficient computation power to perform the calculation on their own.
 
 #### Calculation Steps
 
 1. Convert $difficulty$ to $target$ in following formula:
 
-$target$ = 2**256 / (1 + 1/$difficulty$)
+$$target=\frac{2^{256}}{1+\frac{1}{difficulty}}$$
 
-* $difficulty$: `PoW` difficulty in 256-bit number, with zeros padded at front when less than 256 bits
-* $target$: `PoW` target in 256-bit number, usually having 1 at first bit
+* $difficulty$: `PoW` difficulty in 256-bit number, filling zeros at head if less than 256 bits length
+* $target$: `PoW` target in 256-bit number, usually having 1 at the first bit
 
 For example, given $difficulty$ = 0x3FFFFFF, then $target$ = 0xFFFFFFC000000000.
 
-2. Work out correct $nonce$ from transaction data. $nonce$ is the proof of work. In this process, random numbers are constantly assigned to $nonce$ until the following condition is met:
+2. Work out a valid $nonce$ based on the transaction data as the proof of work. In this process, a widely range of random numbers are constantly feed to $nonce$ until the following condition is met:
 
 $$blake2b(address+prevHash) + nonce < target$$
 
@@ -271,14 +275,14 @@ $$blake2b(address+prevHash) + nonce < target$$
 
 ## Staking via Delegation
 
-As a typical example of delegated staking, Account A delegates Account B to stake a certain amount of VITE to Account C, where the staker is A, quota recipient is C, and B is the delegate. 
+As a typical example of delegated staking, Account A delegates Account B to stake a certain amount of VITE to Account C, where the staker is A, the quota recipient is C, and B is the delegate. 
 Similarly, when delegated staking is retrieved, Account B is authorized by Account A to retrieve the Vite tokens that was previously staked to Account C.
 
 ## FAQ
 
 * Can I stake for multiple quota recipient addresses?
 
-Yes. You need to send multiple staking transactions to different quota recipient addresses. Each staking can have different expiration.
+Yes. You need to send multiple staking transactions to different quota recipient addresses. In this case, each staking has its own expiration time.
 
 * Can I stake for the same recipient for multiple times?
 
@@ -286,7 +290,7 @@ Yes, the staking amount for the recipient will be accumulated, and the staking e
 
 * Can I retrieve my VITE, which was staked to a recipient address, in multiple times?
 
-Yes. After a staking expires, the staked VITE can be retrieved in multiple times. Staking retrieval won't renew the expiration time.
+Yes. After a staking expires, the staked VITE can be retrieved in multiple times. This won't get the expiration time reset.
 
 * Is a staking retrievable if it has not expired yet?
 
@@ -294,7 +298,7 @@ No. You can only retrieve expired staking.
 
 * Will the quota obtained by staking be used up?
 
-Yes but only in a certain snapshot block. Quota obtained through staking is related to staking amount and quota usage in last 74 snapshot blocks. If wallet shows your current quota is 0, you cannot send transactions in current snapshot any more. But no worries, your quota will be refilled in the next snapshot block.
+Yes it is possible in the current snapshot block. Quota obtained through staking is related to staking amount and actual quota consumption in last 74 snapshot blocks. If your quota shows 0 in the wallet, you cannot send or receive transaction right now. But no worries, your quota will be refilled in the next snapshot block. This is exactly the benefit staking for quota over `PoW`
 
 * Can a recipient accept quota staked from multiple staking addresses?
 
@@ -302,7 +306,7 @@ Yes. The quota obtained is calculated on the total staking amount applying to th
 
 * Does receiving transaction consume quota?
 
-Yes, receiving transaction consumes 21,000 quota.
+Yes, receiving transaction consumes 21,000 quota, or 1 UT.
 
 * How to receive the very first transaction in a new account if nobody stakes for me?
 

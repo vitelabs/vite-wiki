@@ -23,6 +23,7 @@ Following features are supported:
 * One-click smart contract deployment and debugging
 * Support for multiple smart contract interaction
 * Deployment/debugging result displaying
+* Support for offchain querying
 * Example `solidity++` code
 
 ### Install the Extension
@@ -51,10 +52,9 @@ Please note that all data will be cleared from the node after debugging is compl
 
 * Section 1: soliditypp source code panel
 * Section 2: shows current account address that will be used for contract deployment and debugging. Additional address can be created by clicking `+`. Use droplist in right side to switch to a different address if necessary
-* Section 3: deployment panel. Field `amount` can be used to send a certain amount of VITE tokens in `attov`(1 VITE = 1e18 attov) when deploying the contract. Click `deploy` button to deploy the contract in local development environment.
-* Section 4: list of contracts deployed. Multiple contracts will be displayed if more than one are deployed
-* Section 5: list of contract methods deployed. Multiple methods will be displayed if more than one are present. Parameter `amount` is used to send VITE tokens(in `attov`) to contract when calling the method. In our example, click `call "SayHello"` button will call `SayHello` of contract `HelloWorld`
-* Section 6: deployment/debugging result. `Request` and `Response` sections will show the information of request or response transaction respectively. New request transaction will be displayed in `Response` if the method still calls other function. Please note that transactions in Vite are executed asynchronously. User may need wait for a while before response transaction is generated, after a request is sent out. More information about `Request` and `Response` please see [AccountBlock](../../api/rpc/common_models.html#accountblock)。
+* Section 3: deployment panel. Field `amount` can be used to send a certain amount of VITE tokens in `vite`(1 VITE = 1e18 attov) when deploying the contract. Click `deploy` button to deploy the contract in local development environment.
+* Section 4: list of contracts deployed. Multiple contracts will be displayed if more than one are deployed. Multiple methods will be displayed if more than one are present. Parameter `amount` is used to send VITE tokens(in `vite`) to contract when calling the method. In our example, click `call "SayHello"` button will call `SayHello` of contract `HelloWorld`
+* Section 5: deployment/debugging result. `Send` and `Receive` sections will show the information of request or response transaction respectively. New request transaction will be displayed in `Receive` if the method still calls other function. Please note that transactions in Vite are executed asynchronously. User may need wait for a while before response transaction is generated, after a request is sent out. More information about `Send` and `Receive` please see [AccountBlock](../../api/rpc/common_models.html#accountblock)。
 
 ## Debugging in Command Line
  
