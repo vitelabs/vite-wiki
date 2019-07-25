@@ -1,11 +1,10 @@
+# Common Error
 
-# Common error
+1. [Gvite Common Error](../rpc/README.md)
 
-1. [Gvite common error](../rpc/README.md)
+2. ViteJS Common Error
 
-2. ViteJS common error
-
-| property | code | description |
+| Property | Code | Description |
 |:-----:|:-------:|:--------:|
 | no | 100000 | Unknown Error |
 | paramsMissing | 100001 | Missing Parameters |
@@ -13,4 +12,6 @@
 | paramsConflict | 100003 | Parameter Conflict |
 | addressIllegal | 200001 | Illegal Address |
 | addressMissing | 200002 | Address Not Existed |
-| requestTimeout | 300001 | Request timeout |
+| integerIllegal | 200003 | Illegal Integer |
+| unsafeInteger | 200004 | Unsafe Integer |
+| requestTimeout | 300001 | Request Timeout |

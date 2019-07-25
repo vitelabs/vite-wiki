@@ -7,11 +7,11 @@ sidebarDepth: 4
 [vite-crzn](https://github.com/vite-crzn)
 :::
 
-- 在途模块
+## 在途模块
 
-    对在途概念的定义，实际是用来描述账户发起交易的状态，具体是指账户发起的暂未被指定接收账户接收的交易，我们也称之为交易未闭合(Open)。BlockType常表现为1,2,3,4, 依次分别对应着 ”发起合约创建交易“、”发起转账或合约调用交易“、”发起提取出块奖励交易“、以及”发起退款交易“。
+对在途概念的定义，实际是用来描述账户发起交易的状态，具体是指账户发起的暂未被指定接收账户接收的交易，我们也称之为交易未闭合(Open)。BlockType常表现为1,2,3,6, 依次分别对应着 ”发起合约创建交易“、”发起转账或合约调用交易“、”发起提取出块奖励交易“、以及”发起退款交易“。
 
-    常与未确认交易混淆，未确认交易是指那些未被快照的交易。账本(Ledger模块)记录着所有发起和接受交易，而在途和未确认仅用来描述交易的不同状态，所有在途交易都是发送交易，而未确认交易既可为发送交易也可以是接受交易。
+常与未确认交易混淆，未确认交易是指那些未被快照的交易。账本(Ledger模块)记录着所有发起和接受交易，而在途和未确认仅用来描述交易的不同状态，所有在途交易都是发送交易，而未确认交易既可为发送交易也可以是接受交易。
 
 
 ## onroad_getOnroadBlocksByAddress <Badge text="public"/>
@@ -22,7 +22,7 @@ sidebarDepth: 4
 
   * `Address`: 账户地址
   * `uint64`: 页码
-  * `uint64`: 每页大小，<Badge text="public"/>个数上限为256个, <Badge text="private" type="error"/>除受类型大小限制以外没有特殊要求
+  * `uint64`: 每页大小，个数上限为256
 
 - **Return**:
 
@@ -81,9 +81,6 @@ sidebarDepth: 4
                 "totalSupply": "1000000000000000000000000000",
                 "decimals": 18,
                 "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                "pledgeAmount": "0",
-                "withdrawHeight": "0",
-                "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                 "tokenId": "tti_5649544520544f4b454e6e40",
                 "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                 "ownerBurnOnly": false,
@@ -119,8 +116,6 @@ sidebarDepth: 4
             * `totalSupply`: `*string` 总发行量
             * `decimals`: `uint8` 小数位数
             * `owner`: `Address` 所有者
-            * `pledgeAmount`: `*string` 抵押金额
-            * `withdrawHeight`: `string` 抵押到期高度
             * `maxSupply`: `*string` 最大发行量
             * `ownerBurnOnly`: `bool` 是否仅支持所有者销毁
             * `isReIssuable`: `bool` 是否可增发
@@ -161,9 +156,6 @@ sidebarDepth: 4
                     "totalSupply": "1000000000000000000000000000",
                     "decimals": 18,
                     "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                    "pledgeAmount": "0",
-                    "withdrawHeight": "0",
-                    "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                     "tokenId": "tti_5649544520544f4b454e6e40",
                     "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                     "ownerBurnOnly": false,
@@ -186,8 +178,7 @@ sidebarDepth: 4
 
 - **Parameters**:
 
-`[]Object`: 批量查询上限为10个
- `Object` 
+`[]Object`: 批量查询上限为10个 
   * `Address`: 账户地址
   * `uint64`: 页码
   * `uint64`: 每页大小，个数上限为256个
@@ -258,9 +249,6 @@ sidebarDepth: 4
                     "totalSupply": "1000000000000000000000000000",
                     "decimals": 18,
                     "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                    "pledgeAmount": "0",
-                    "withdrawHeight": "0",
-                    "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                     "tokenId": "tti_5649544520544f4b454e6e40",
                     "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                     "ownerBurnOnly": false,
@@ -339,9 +327,6 @@ sidebarDepth: 4
                         "totalSupply": "1000000000000000000000000000",
                         "decimals": 18,
                         "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                        "pledgeAmount": "0",
-                        "withdrawHeight": "0",
-                        "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                         "tokenId": "tti_5649544520544f4b454e6e40",
                         "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                         "ownerBurnOnly": false,
@@ -360,6 +345,8 @@ sidebarDepth: 4
 
 
 ## onroad_getContractOnRoadTotalNum <Badge text="private" type="error"/>
+
+获取某个合约账户的在途总数量
 
 - **Parameters**:
  * `Address` 仅可查询合约的地址
@@ -406,6 +393,8 @@ sidebarDepth: 4
 :::
 
 ## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="error"/>
+
+获取某个合约账户的分属所有调用者的最早在途交易列表
 
 - **Parameters**:
   * `Address` 仅可查询合约的地址
@@ -475,9 +464,6 @@ sidebarDepth: 4
                 "totalSupply": "1000000000000000000000000000",
                 "decimals": 18,
                 "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                "pledgeAmount": "0",
-                "withdrawHeight": "0",
-                "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                 "tokenId": "tti_5649544520544f4b454e6e40",
                 "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                 "ownerBurnOnly": false,

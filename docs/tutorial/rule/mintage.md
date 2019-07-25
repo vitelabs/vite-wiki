@@ -85,13 +85,13 @@ In this case, the token owner should send a transaction to mintage contract, spe
 
 ## Tokens in Vite
 
-In addition to native token **VITE**, two other tokens **VCP**(Vite Community Points) and **VTT**(Vite Test Token) were issued in Vite TestNet. The specific parameters are as follows:
+In addition to native token **VITE**, two other coins **VCP**(Vite Community Points) and **VX**(ViteX Coin) were issued in Vite. The specific parameters are as follows:
 
 | Token Id | Token Name | Token Symbol | Total Supply | Decimals |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | tti_5649544520544f4b454e6e40 | Vite Token | VITE | 1 billion | 18 |
 | tti_251a3e67a41b5ea2373936c8 | Vite Community Point | VCP | 10 billion | 0 |
-| tti_c55ec37a916b7f447575ae59 | Vite Test Token | VTT | 1 billion | 18 |
+| tti_564954455820434f494e69b5 | ViteX Coin | VX | 100,000,000 | 18 |
 
 ## FAQ
 

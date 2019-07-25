@@ -4,26 +4,19 @@
 [jerry-vite](https://github.com/jerry-vite)
 :::
 
-**支持调用方式：**
-
-| JSON-RPC 2.0 | HTTP | IPC | Publish–subscribe | Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713; | `false` | &#x2713; | waiting |`false`|
-
 ## net_syncInfo
 查看节点同步状态
 
 - **Parameters**: `none`
 
-- **Returns**: `SyncInfo` 结构如下
+- **Returns**: 
 
-| 名称 | json类型 | 实际类型 | 说明 |
-|:------------:|:-----------:|:-----:|:-----:|
-| from | string | uint64 | 同步的起始高度 |
-| to | string | uint64| 同步的目标高度 |
-| current | string | uint64 | 当前快照链的高度 |
-| state | uint | uint | 同步状态：0 未开始同步，1 同步中，2 同步完成 <br> 3 同步出错，4 同步取消，5 同步数据已全部下载 |
-| status | string | string | 同步状态的描述 |
+    `SyncInfo`
+     -  `from` : `string` 同步的起始高度
+     -  `to` : `string` 同步的目标高度
+     -  `current` : `string` 当前快照链的高度
+     -  `state` : `uint` 同步状态：0 未开始同步，1 同步中，2 同步完成 <br> 3 同步出错，4 同步取消，5 同步数据已全部下载
+     -  `status` : `string` 同步状态的描述
 
 - **Example**:
 
@@ -67,18 +60,17 @@
 
 - **Parameters**: `none`
 
-- **Returns**: `SyncDetail`
+- **Returns**: 
 
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| from | string | uint64 | 同步的起始高度 |
-| to | string | uint64| 同步的目标高度 |
-| current | string | uint64 | 当前快照链的高度 |
-| status | string | string | 同步状态的描述 |
-| tasks | array | []string | 同步任务队列 |
-| Connections | array | []SyncConnectionStatus | 用于同步账本的连接 |
-| Chunks | array | []Chunk | 已经解析的 chunk，包含快照块以及所快照的账户块，会被插入本地账本 |
-| Caches | array | []Cache | 已经下载的 chunk，以二进制形式存在本地，会被解析为 chunk，当快照链到达一定高度之后，cache 会被删除 |
+    `SyncDetail`
+     -  `from` : `string` 同步的起始高度
+     -  `to` : `string` 同步的目标高度
+     -  `current` : `string` 当前快照链的高度
+     -  `status` : `string` 同步状态的描述
+     -  `tasks` : `array` 同步任务队列
+     -  `Connections` : `array` 用于同步账本的连接
+     -  `Chunks` : `array` 已经解析的 chunk，包含快照块以及所快照的账户块，会被插入本地账本
+     -  `Caches` : `array` 已经下载的 chunk，以二进制形式存在本地，会被解析为 chunk，当快照链到达一定高度之后，cache 会被删除
 
 - **Example**:
 
@@ -173,29 +165,16 @@
 
 - **Parameters**: `none`
 
-- **Returns**: `NodeInfo`
+- **Returns**: 
 
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| id | string | string | 本节点的 NodeID |
-| name | string | string | 本节点的名称，通过 node_config.json 中的 Identity 字段设置 |
-| netId | int | int | 本节点的网络 Id |
-| version | int | int | 本节点的版本号，并非 release 版本 |
-| address | string | string | 本节点监听的地址 |
-| peerCount | int | int | 本节点所连接的 peer 数量 |
-| peers | \[\]*PeerInfo | \[\]*PeerInfo | 连接的 peers 信息 |
-
-`PeerInfo` 
-
-| Name | JSON type | Actual type | Desc |
-|:------------:|:-----------:|:-----:|:-----:|
-| id | string | string | 节点 Id |
-| name | string | string | 节点名称 |
-| version | int | int | 节点版本号 |
-| height | int | int | 节点的快照链高度 |
-| level | int | int | 节点连接的标识 |
-| address | string | string | 节点的地址 |
-| createAt | string | string | 节点的接入时间 |
+    `NodeInfo`
+     -  `id` : `string` 本节点的 NodeID
+     -  `name` : `string` 本节点的名称，通过 node_config.json 中的 Identity 字段设置
+     -  `netId` : `int` 本节点的网络 Id
+     -  `version` : `int` 本节点的版本号，并非 release 版本
+     -  `address` : `string` 本节点监听的地址
+     -  `peerCount` : `int` 本节点所连接的 peer 数量
+     -  `peers` : `[]*PeerInfo` 连接的 peers 信息
 
 - **Example**: 
 
@@ -253,3 +232,13 @@
 }
 ```
 :::
+
+`PeerInfo`
+ -  `id` : `string` 节点 Id
+ -  `name` : `string` 节点名称
+ -  `version` : `int` 节点版本号
+ -  `height` : `int` 节点的快照链高度
+ -  `level` : `int` 节点连接的标识
+ -  `address` : `string` 节点的地址
+ -  `createAt` : `string` 节点的接入时间
+

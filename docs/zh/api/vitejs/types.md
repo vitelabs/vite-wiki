@@ -58,6 +58,41 @@ export declare type AccountBlock = {
     sendBlockList?: Array;
 }
 
+export enum ADDR_TYPE {
+    'Illegal' = 0,
+    'Account',
+    'Contract'
+}
+
+export enum TxType {
+    'SBPreg' = 0,
+    'UpdateReg',
+    'RevokeReg',
+    'RetrieveReward',
+    'Voting',
+    'RevokeVoting',
+    'GetQuota',
+    'WithdrawalOfQuota',
+    'Mintage',
+    'MintageIssue',
+    'MintageBurn',
+    'MintageTransferOwner',
+    'MintageChangeTokenType',
+    'MintageCancelPledge',
+    'DexFundUserDeposit',
+    'DexFundUserWithdraw',
+    'DexFundNewOrder',
+    'DexTradeCancelOrder',
+    'DexFundNewMarket',
+    'CreateContractReq',
+    'TxReq',
+    'RewardReq',
+    'TxRes',
+    'TxResFail',
+    'SendRefund',
+    'GenesisReceive'
+}
+
 // For example
 
 // Type HexAddr

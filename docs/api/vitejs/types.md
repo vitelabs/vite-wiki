@@ -1,7 +1,7 @@
-# Common type and specification
+# Common Type and Specification
 
 :::tip Tips
-[Refer to constant module](./constant/constant.md)
+Refer to [Constant Module](./constant/constant.md)
 :::
 
 ```typescript
@@ -56,6 +56,35 @@ export declare type AccountBlock = {
     nonce?: Base64;
     logHash?: Hex;
     sendBlockList?: Array;
+}
+
+export enum TxType {
+    'SBPreg' = 0,
+    'UpdateReg',
+    'RevokeReg',
+    'RetrieveReward',
+    'Voting',
+    'RevokeVoting',
+    'GetQuota',
+    'WithdrawalOfQuota',
+    'Mintage',
+    'MintageIssue',
+    'MintageBurn',
+    'MintageTransferOwner',
+    'MintageChangeTokenType',
+    'MintageCancelPledge',
+    'DexFundUserDeposit',
+    'DexFundUserWithdraw',
+    'DexFundNewOrder',
+    'DexTradeCancelOrder',
+    'DexFundNewMarket',
+    'CreateContractReq',
+    'TxReq',
+    'RewardReq',
+    'TxRes',
+    'TxResFail',
+    'SendRefund',
+    'GenesisReceive'
 }
 
 // For example

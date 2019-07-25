@@ -18,9 +18,9 @@ ABI：
   {"type":"function","name":"Pledge", "inputs":[{"name":"beneficial","type":"address"}]},
   // 取消抵押
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
-  // 代理抵押
+  // 代理抵押（暂未提供）
   {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
-  // 代理取消抵押
+  // 代理取消抵押（暂未提供）
   {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
 ]
 ```
@@ -76,7 +76,7 @@ ABI：
    "method":"pledge_getCancelPledgeData",
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      10
+      "10"
     ]
 }
 ```
@@ -200,7 +200,7 @@ ABI：
 :::
 
 ## pledge_getPledgeList
-获取本账户的抵押金额列表
+获取本账户的抵押金额列表，按到期快照块高度倒序排序
 
 - **Parameters**: 
 
@@ -213,7 +213,7 @@ ABI：
 `Object`
   1. `totalPledgeAmount`: `big.Int`  本账户抵押的总金额
   2. `totalCount`: `int`  抵押信息总数
-  3. `pledgeInfoList`: `Array&lt;PledgeInfo&gt;` 抵押信息列表
+  3. `pledgeInfoList`: `Array<PledgeInfo>` 抵押信息列表
      * `amount`: `big.int`  抵押金额
      * `withdrawHeight`: `uint64`  到期快照块高度
      * `beneficialAddr`: `Address`  受益地址
@@ -257,6 +257,37 @@ ABI：
         }
       ]
    }
+}
+```
+:::
+
+## pledge_getPledgeAmountByUtps
+根据utps计算需要抵押的vite金额
+
+- **Parameters**: 
+  * `string`: 预期的`utps`，例如1`utps`表示预期每秒发起一笔不带备注的转账交易
+
+- **Returns**: 
+	- `big.Int` 需要抵押的vite金额
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"pledge_getPledgeAmountByUtps",
+   "params":["0.013"]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result":"134000000000000000000"
 }
 ```
 :::

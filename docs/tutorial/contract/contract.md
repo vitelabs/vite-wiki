@@ -3,7 +3,7 @@
 Vite is a high-performance decentralized application platform built on asynchronous message-driven architecture. 
 The smart contracts in Vite are written in Solidity++, a programming language that extends Ethereum Solidity by adding asynchronous semantics while maintains major compatibility.
 Smart contracts in Vite won't share states but communicate with each other via messaging.
-User is able to write, compile smart contracts and deploy in Vite TestNet now.
+User is able to write, compile smart contracts and deploy in Vite network now.
 
 ## What is Asynchronous Smart Contract
 
@@ -37,17 +37,17 @@ If multiple accounts happen to send messages to a contract simultaneously, the d
 
 ### Fees for Creating Contract
 
-Creating new contract consumes VITE. In the TestNet, a destruction of 10 VITE is required for creating a contract.
+Creating new contract consumes VITE. In the Pre-Mainnet, a destruction of 10 VITE is required for creating a contract.
 
 ### Quota in Contract
 
-The quota for contract creation request transaction is supplied by contract creator while the quota for contract creation response transaction comes from the destruction of VITE. In the TestNet, destroying 10 VITE to create a smart contract will receive a quota of up to 1,000,000, specifically for contract creation purpose.
+The quota for contract creation request transaction is supplied by contract creator while the quota for contract creation response transaction comes from the destruction of VITE. In the Pre-Mainnet, destroying 10 VITE to create a smart contract will receive a quota of up to 1,000,000, specifically for contract creation purpose.
 
 Similar to contract creation, contract execution consumes quota as well. The contract request transaction and the contract response transaction consume the quota of transaction initiator and contract account respectively.
 
-In the TestNet, contract account can only obtain quota by staking. If a contract does not have sufficient quota, no transaction of this contract will be performed. Therefore, **contract provider should always ensure 'enough' VITE tokens have been staked for the contract**.
+In the Pre-Mainnet, contract account can only obtain quota by staking. If a contract does not have sufficient quota, no transaction of this contract will be performed. Therefore, **contract provider should always ensure 'enough' VITE tokens have been staked for the contract**.
 
-Sometimes due to over-complicated contract, the quota of contract account is insufficient for generating response transaction. In this case, the response transaction will consume up all the quota and fail in the end by generating a "failed" response block on the contract chain. In Vite TestNet, a "failed" contract response due to insufficient quota will be retried twice. After the 3rd failure, the requested transaction will be marked as "response failed" and all transferring amount(if has any) will be returned to requester's account. Due to the FIFO principle of contract response, when a response transaction fails, subsequent response transactions for this account will be blocked until the "failed" transaction is complete successfully or fails for 3 times. Response transactions for other accounts won't be affected.
+Sometimes due to over-complicated contract, the quota of contract account is insufficient for generating response transaction. In this case, the response transaction will consume up all the quota and fail in the end by generating a "failed" response block on the contract chain. In Vite Pre-Mainnet, a "failed" contract response due to insufficient quota will be retried twice. After the 3rd failure, the requested transaction will be marked as "response failed" and all transferring amount(if has any) will be returned to requester's account. Due to the FIFO principle of contract response, when a response transaction fails, subsequent response transactions for this account will be blocked until the "failed" transaction is complete successfully or fails for 3 times. Response transactions for other accounts won't be affected.
 
 ## Smart Contract Language
 

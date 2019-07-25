@@ -86,7 +86,7 @@ test(a); // Got an error
 - **Return**
     * `target : boolean` 验证结果: true(是), false(不是)
   
-## validInteger
+## isInteger
 判断输入的字符串是否为整数
 
 - **Parameters**
@@ -94,6 +94,24 @@ test(a); // Got an error
 
 - **Return**
     * `target : boolean` 验证结果: true(是), false(不是)
+
+## isNonNegativeInteger
+判断输入的字符串是否为非负整数
+
+- **Parameters**
+    * `num : string`  字符串
+
+- **Return**
+    * `target : boolean` 验证结果: true(是), false(不是)
+
+## isSafeInteger
+判断输入是否为安全的整数
+
+- **Parameters**
+    * `num : string | number`
+
+- **Return**
+    * `target : number` -1: 输入不是整型; 0: 输入为number类型，但是超出安全数字范围(或者是小数); 1: 输入正确
 
 ## uriStringify
 序列化一个 vite schema 的uri

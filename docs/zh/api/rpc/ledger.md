@@ -153,17 +153,27 @@
 - **Example**:
 ::: demo
 ```json tab:Request
-{"jsonrpc":"2.0","id":1,"method":"ledger_getLatestSnapshotChainHash","params":null}
+{
+    "jsonrpc": "2.0",
+    "id": 0,
+    "method": "ledger_getLatestSnapshotChainHash",
+    "params": null
+}
 ```
 ```json tab:Response
 {
     "jsonrpc": "2.0",
-    "id": 1,
-    "result": "fc08446111289c671fe1547f634afcde92fab289c11fe16380958305b2f379ad"
+    "id": 0,
+    "result": "7f1b1c35a3f9c05cd621388cd8756240fad56568f777098b394005037237319e"
 }
 ```
 ```json test
-{"jsonrpc":"2.0","id":1,"method":"ledger_getLatestSnapshotChainHash","params":null}
+{
+    "jsonrpc": "2.0",
+    "id": 0,
+    "method": "ledger_getLatestSnapshotChainHash",
+    "params": null
+}
 ```
 ::: 
 
@@ -596,9 +606,9 @@
 
 ```json tab:Response
 {
-	"jsonrpc": "2.0",
-	"id": 1,
-	"result": "1"
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "1816565"
 }
 ```
 ```json test
@@ -621,13 +631,15 @@
 - **Returns**: 
                
     `Object` : 快照块详情
+     -  `producer` : `string` 出块地址
      -  `hash` : `Hash` 快照块hash
      -  `prevHash` : `Hash` 快照链上上一个快照块的hash
      -  `height` : `uint64` 快照块高度
      -  `publicKey` : `ed25519.PublicKey` 打包快照块的超级节点的公钥
      -  `signature` : `[]byte` 签名
      -  `timestamp` : `time` 出块时间
-     -  `stateHash` : `Hash` 状态hash
+     -  `seed`: `uint64` 出块节点上一轮生成的随机数
+     -  `seedHash`: `Hash` 出块节点本轮生成的随机数的hash
      -  `snapshotContent` : `map[types.Address]HashHeight` 快照的账户块高度和hash
 
 
@@ -637,10 +649,10 @@
 
 ```json tab:Request
 {
-	"jsonrpc": "2.0",
-	"id": 2,
-	"method": "ledger_getSnapshotBlockByHash",
-	"params": ["1cf965e7b9a8ab4a3758e7c2fa97890ce8724cfd071cd0b0966c1be17cfc48ad"]
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "ledger_getSnapshotBlockByHash",
+    "params": ["579db20cb0ef854bba4636d6eaff499ae106ecd918826072a75d47f3e7cbe857"]
 }
 ```
 
@@ -649,23 +661,25 @@
     "jsonrpc": "2.0",
     "id": 2,
     "result": {
-        "hash": "1cf965e7b9a8ab4a3758e7c2fa97890ce8724cfd071cd0b0966c1be17cfc48ad",
-        "prevHash": "ce0e8595aace97b2732126afd104c889d71f87586740f401135f1ff58309363e",
-        "height": 6363411,
-        "publicKey": "uPBd4umnBsp0rGrKQWWsabcawNYEjPh3MKXnGNVTMWs=",
-        "signature": "JcYfU1LWuZTgKgpMrQ1T6uUuw3krUImikmgTqoyEDXubYt00ND/loABQ7KoQkBh8PYQOvVrPZtBjVlTGWJx6DQ==",
-        "timestamp": "2019-01-25T03:18:04Z",
-        "stateHash": "93f40fc8892855ae46134c85f7a5010308da9cb7a07337b2a68da34473c04492",
+        "producer": "vite_94badf80abab06dc1cdb4d21038a6799040bb2feb154f730cb",
+        "hash": "579db20cb0ef854bba4636d6eaff499ae106ecd918826072a75d47f3e7cbe857",
+        "prevHash": "18cf03a6c5d5128bc0a419f23713689cb279165d057759640c700c28c9315470",
+        "height": 1807756,
+        "publicKey": "zpwPhKs0jClH2JYqn3HieI3SPqm97PMKZlsive8PjBw=",
+        "signature": "EzgWq2h2h+qkIHhsKSHK7IMIn3M9bAVR3Sy8ZpaLx2U7BJ6mjVhKIuerEKLcEsY9qbPfc9IYgJ9YYpd1uVK4Dw==",
+        "seed": 15994478024988707574,
+        "seedHash": "360f20aa86891f67fdab4da09fc4068521c7ffb581f54761f602c2771ecdb097",
         "snapshotContent": {
-            "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": {
-                "height": 31578,
-                "hash": "91fa958eb01f82b93ef4077a938fe9f9b5e1c2555979045e0a3c3b06721e69cc"
+            "vite_61088b1d4d334271f0ead08a1eec17b08e7ef25141dd427787": {
+                "height": 9596,
+                "hash": "b8a272bcebb5176fc5b918b6d1e4fc9aca5fd6a0be1fcea99386c6f8ae98a5c1"
             },
-            "vite_eef384a5fc40e0fbe282411e1d8e70c0f3c0e4a4f783448780": {
-                "height": 894,
-                "hash": "347a08b2e7666db832b1e0f69972f9dd1875fe6c1d3fc03aa55ab07e9a4858ae"
+            "vite_866d14993fd17f8090d1b0b99e13318c0f99fdd180d3b6cca9": {
+                "height": 777,
+                "hash": "c78843e347f5927d255f4b57704335dc43222041bf5f27d45980ac83fcf1dbb3"
             }
-        }
+        },
+        "timestamp": 1560422154
     }
 }
 ```
@@ -747,18 +761,26 @@
 
 ```json tab:Request
 {
-	"jsonrpc":"2.0",
+    "jsonrpc":"2.0",
     "id":1,
     "method":"ledger_getVmLogList",
-    "params": null
+    "params": ["c5073890ca14637efbdceb078eb90cb853fc1a69a244273185848cf6c7e45dd5"]
 }
 
 ```
 ```json tab:Response
 {
-	"jsonrpc": "2.0",
-	"id": 1,
-	"result": null
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": [
+        {
+            "topics": [
+                "96a65b1cd08da045d0318cafda7b8c8436092851d5a4b7e75054c005a296e3fb",
+                "000000000000000000000029480d1db34493941a5ab00026e0e25085b8fe5a00"
+            ],
+            "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK1468WsYgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF"
+        }
+    ]
 }
 ```
 :::

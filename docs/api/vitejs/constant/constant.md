@@ -23,6 +23,7 @@ import * as constant from '@vite/vitejs-constant';
 ## Common constants
 
 - Vite_TokenId
+- Vite_Token_Info
 - Default_Hash
 
 ## Gid
@@ -38,13 +39,6 @@ import * as constant from '@vite/vitejs-constant';
 - Mintage_Addr : `Token Issuance`
 - DexFund_Addr
 - DexTrade_Addr
-- contractAddrs
-    - Pledge: Pledge_Addr,
-    - Vote: Vote_Addr,
-    - Register: Register_Addr,
-    - Mintage: Mintage_Addr,
-    - DexFund: DexFund_Addr,
-    - DexTrade: DexTrade_Addr
 
 ## Abi
 
@@ -72,15 +66,21 @@ import * as constant from '@vite/vitejs-constant';
 - Burn_Abi
 - TransferOwner_Abi
 - ChangeTokenType_Abi
-- CancelMintPledge_Abi
 
 ### DEX
 
+- DexTradeCancelOrder_Abi
 - DexFundUserDeposit_Abi
 - DexFundUserWithdraw_Abi
-- DexTradeCancelOrder_Abi
 - DexFundNewOrder_Abi
 - DexFundNewMarket_Abi
+- DexFundConfigMineMarket_Abi
+- DexFundPledgeForVx_Abi
+- DexFundPledgeForVip_Abi
+- DexFundBindInviteCode_Abi
+- DexFundNewInviter_Abi
+- DexFundTransferTokenOwner_Abi
+- DexFundMarketOwnerConfig_Abi
 
 ## BlockType
 
@@ -93,35 +93,108 @@ import * as constant from '@vite/vitejs-constant';
     - SendRefund
     - GenesisReceive
 
-## viteJS built-in transaction type
+## Contracts
 
-- BuiltinTxType : `TX type`
-    - SBPreg = 0 : `SBP Registration`
-    - UpdateReg : `Update Registration`
-    - RevokeReg : `Revoke Registration`
-    - RetrieveReward 
-    - Voting
-    - RevokeVoting
-    - GetQuota
-    - WithdrawalOfQuota : `Withdraw Staked Quota`
-    - Mintage : `Token Issuance`
-    - MintageIssue
-    - MintageBurn
-    - MintageTransferOwner 
-    - MintageChangeTokenType
-    - MintageCancelPledge
-    - DexFundUserDeposit
-    - DexFundUserWithdraw
-    - DexFundNewOrder
-    - DexTradeCancelOrder
-    - DexFundNewMarket
-    - CreateContractReq : `Create Contract`
-    - TxReq : `Send Transaction`
-    - RewardReq : `Rewards`
-    - TxRes : `Receive Transaction`
-    - TxResFail : `Receive Transaction Failed`
-    - SendRefund
-    - GenesisReceive
+```typescript
+const Contracts = {
+    SBPreg: {
+        contractAddr: Register_Addr,
+        abi: Register_Abi
+    },
+    UpdateReg: {
+        contractAddr: Register_Addr,
+        abi: UpdateRegistration_Abi
+    },
+    RevokeReg: {
+        contractAddr: Register_Addr,
+        abi: CancelRegister_Abi
+    },
+    RetrieveReward: {
+        contractAddr: Register_Addr,
+        abi: Reward_Abi
+    },
+    Voting: {
+        contractAddr: Vote_Addr,
+        abi: Vote_Abi
+    },
+    RevokeVoting: {
+        contractAddr: Vote_Addr,
+        abi: CancelVote_Abi
+    },
+    GetQuota: {
+        contractAddr: Pledge_Addr,
+        abi: Pledge_Abi
+    },
+    WithdrawalOfQuota: {
+        contractAddr: Pledge_Addr,
+        abi: CancelPledge_Abi
+    },
+    Mintage: {
+        contractAddr: Mintage_Addr,
+        abi: Mint_Abi
+    },
+    MintageIssue: {
+        contractAddr: Mintage_Addr,
+        abi: Issue_Abi
+    },
+    MintageBurn: {
+        contractAddr: Mintage_Addr,
+        abi: Burn_Abi
+    },
+    MintageTransferOwner: {
+        contractAddr: Mintage_Addr,
+        abi: TransferOwner_Abi
+    },
+    MintageChangeTokenType: {
+        contractAddr: Mintage_Addr,
+        abi: ChangeTokenType_Abi
+    },
+    DexFundUserDeposit: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundUserDeposit_Abi
+    },
+    DexFundUserWithdraw: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundUserWithdraw_Abi
+    },
+    DexFundNewOrder: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundNewOrder_Abi
+    },
+    DexTradeCancelOrder: {
+        contractAddr: DexTrade_Addr,
+        abi: DexTradeCancelOrder_Abi
+    },
+    DexFundNewMarket: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundNewMarket_Abi
+    },
+    DexFundPledgeForVx: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundPledgeForVx_Abi
+    },
+    DexFundPledgeForVip: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundPledgeForVip_Abi
+    },
+    DexFundBindInviteCode: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundBindInviteCode_Abi
+    },
+    DexFundNewInviter: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundNewInviter_Abi
+    },
+    DexFundTransferTokenOwner: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundTransferTokenOwner_Abi
+    },
+    DexFundMarketOwnerConfig: {
+        contractAddr: DexFund_Addr,
+        abi: DexFundMarketOwnerConfig_Abi
+    }
+};
+```
 
 ## Languages 
 For creating mnemonic words
@@ -233,7 +306,10 @@ enum mintage {
 
 enum dexfund {
     'getAccountFundInfo' = 'dexfund_getAccountFundInfo',
-    'getAccountFundInfoByStatus' = 'dexfund_getAccountFundInfoByStatus'
+    'getAccountFundInfoByStatus' = 'dexfund_getAccountFundInfoByStatus',
+    'isPledgeVip' = 'dexfund_isPledgeVip',
+    'getMarketInfo' = 'dexfund_getMarketInfo',
+    'getCurrentDividendPools' = 'dexfund_getCurrentDividendPools'
 }
 
 enum net {

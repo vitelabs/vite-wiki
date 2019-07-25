@@ -129,6 +129,9 @@ myAccount.getOnroadBlocks({
 
 ## Methods
 
+### getBlock
+[Refer to addrAccount.getblock](./addrAccount)
+
 ### clearPrivateKey
 Freeze account and clear privateKey
 
