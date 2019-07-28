@@ -76,7 +76,8 @@ The instruction set in Vite VM is as follows:
 | 0x47 | ACCOUNTHEIGHT | 0 | 1 | Get account block height | Additional |
 | 0x48 | PREVHASH | 0 | 1 | Get the hash of previous account block | Additional |
 | 0x49 | FROMHASH | 0 | 1 | Get the hash of request Tx | Additional |
-| 0x4A | SEED | 0 | 1 | Get random seed | Additional |
+| 0x4A | SEED | 0 | 1 | Get random seed. This instruction will return the same random number in one transaction | Additional |
+| 0x4B | RANDOM | 0 | 1 | Get next random seed. This instruction can return different random numbers in one transaction | Additional |
 
 ## 50s: Stack, Memory, Storage and Flow Operations
 |  Opcode  | Mnemonic | POP | PUSH | Description | Differential with EVM |

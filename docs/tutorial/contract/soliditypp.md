@@ -43,15 +43,17 @@ uint64 random = random64();
 
 * `prevhash()` returns latest block hash of an account
 
-* `random64()` returns a random number in `uint64`
+* `random64()` returns a random number in `uint64`. This function will return the same random number in one transaction
+
+* `nextrandom()` returns a random number in `uint64`. This function can be called multiple times to obtain different random numbers in one transaction
 
 Functions `address` and `tokenId` are redefined in Solidity++:
 
 ```
 tokenId token01 = tokenId("tti_2445f6e5cde8c2c70e446c83");
 tokenId token02 = "tti_2445f6e5cde8c2c70e446c83";
-address addr01 = address("vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13c");
-address addr02 = "vite_8ba849f3678057aeefc84c787f7cb957426cc3a4b0e8eca13c";
+address addr01 = address("vite_0102030405060708090807060504030201020304eddd83748e");
+address addr02 = "vite_0102030405060708090807060504030201020304eddd83748e";
 ```
 
 Obtain transfer value in Solidity:
@@ -115,7 +117,7 @@ In Solidity++,
 An example
 
 ```
-pragma soliditypp ^0.4.2;
+pragma soliditypp ^0.4.3;
 contract A {
    message sum(uint result);
 
@@ -171,7 +173,7 @@ In Solidity++, because interactions between contracts are carried out through as
 To address this problem, Solidity++ provides a solution.
 
 ```
-pragma soliditypp ^0.4.2;
+pragma soliditypp ^0.4.3;
 contract A {
 
     uint magic = 0;
@@ -203,8 +205,8 @@ As shown in above example, a "getter" method `getMagic()` is defined to access p
 Below contract defines a batch transfer which accepts a list of addresses and amounts and then transfers specified amount to specified address in the list
 
 ```
-// Declare the contract is written in soliditypp 0.4.2. Backwards compatibility is guaranteed for generating the same compiling result.
-pragma soliditypp ^0.4.2;
+// Declare the contract is written in soliditypp 0.4.3. Backwards compatibility is guaranteed for generating the same compiling result.
+pragma soliditypp ^0.4.3;
  
 
 // Define contract A

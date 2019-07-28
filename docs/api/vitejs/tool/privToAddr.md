@@ -82,4 +82,4 @@ Verify if it is a legal hex address
     * `hexaddr : HexAddr` Hex encoded address
   
 - **Return**
-    * `validate : boolean` Legal or not
+    * `addrType : ADDR_TYPE` Illegal: 0;  Account Address: 1; Contract Address: 2

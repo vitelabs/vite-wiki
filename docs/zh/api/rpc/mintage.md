@@ -24,6 +24,10 @@ ABI：
   {"type":"function","name":"TransferOwner","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"newOwner","type":"address"}]},
   // 将可增发代币修改为不可增发
   {"type":"function","name":"ChangeTokenType","inputs":[{"name":"tokenId","type":"tokenId"}]},
+  // 链上查询代币信息
+  {"type":"function","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"}]},
+  // 链上查询代币信息回调
+  {"type":"callback","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"},{"name":"exist","type":"bool"},{"name":"decimals","type":"uint8"},{"name":"tokenSymbol","type":"string"},{"name":"index","type":"uint16"},{"name":"owner","type":"address"}]},
   // 铸币成功事件
   {"type":"event","name":"mint","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
   // 增发成功事件
@@ -36,6 +40,8 @@ ABI：
   {"type":"event","name":"changeTokenType","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]}
 ]
 ```
+
+其中，链上查询代币信息的响应交易会产生回调请求交易，通知本次查询结果。
 
 ## mintage_getMintData
 获取铸币交易请求数据，也可以通过对ABI中的`Mint`方法编码获取交易请求数据。
@@ -75,13 +81,6 @@ ABI：
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "cbf0e4fa000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000174876e80000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000002e90edd0000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000a5465737420546f6b656e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000047465737400000000000000000000000000000000000000000000000000000000"
-}
-```
 :::
 
 ## mintage_getIssueData
@@ -91,8 +90,8 @@ ABI：
 
 `Object`
   1. `tokenId`: `TokenId`  代币id
-  2. `amount`: `uint64`  增发数量
-  3. `beneficial`: `Hash`  增发代币接收地址
+  2. `amount`: `big.int`  增发数量
+  3. `beneficial`: `Address`  增发代币接收地址
 
 
 - **Returns**: 
@@ -115,19 +114,10 @@ ABI：
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "1adb5572000000000000000000000000000000000000000000005649544520544f4b454e000000000000000000000000000000000000000000000000000000174876e800000000000000000000000000a5a7f08011c2f0e40ccd41b5b79afbfb818d565f"
-}
-```
 :::
 
 ## mintage_getBurnData
 获取销毁交易请求数据，也可以通过对ABI中的`Burn`方法编码获取交易请求数据。
-
-- **Parameters**: 
 
 - **Returns**: 
 
@@ -146,13 +136,6 @@ ABI：
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "b7bf21b4"
-}
-```
 :::
 
 ## mintage_getTransferOwnerData
@@ -161,8 +144,8 @@ ABI：
 - **Parameters**: 
 
 `Object`
-  1. `TokenId`: 代币id
-  2. `Address`: 新的所有者账户
+  1. `tokenId`: `TokenId`: 代币id
+  2. `newOwner`: `Address`: 新的所有者账户
 
 - **Returns**: 
 
@@ -184,13 +167,6 @@ ABI：
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "a659fe5a00000000000000000000000000000000000000000000251a3e67a41b5ea23739000000000000000000000000a5a7f08011c2f0e40ccd41b5b79afbfb818d565f"
-}
-```
 :::
 
 ## mintage_getChangeTokenTypeData
@@ -216,13 +192,6 @@ ABI：
 }
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "7ecfb4d7000000000000000000000000000000000000000000005649544520544f4b454e"
-}
-```
 :::
 
 ## mintage_getTokenInfoList
@@ -245,6 +214,7 @@ ABI：
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `tokenId`: `TokenId` 代币id
+  10. `index`: `uint16` 序号，范围为0-999，同一个代币简称，按铸币顺序分配序号
 
 - **Example**:
 
@@ -272,7 +242,8 @@ ABI：
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }]
 }
 ```
@@ -297,6 +268,7 @@ ABI：
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `tokenId`: `TokenId` 代币id
+  10. `index`: `uint16` 序号，范围为0-999，同一个代币简称，按铸币顺序分配序号
 
 - **Example**:
 
@@ -324,7 +296,8 @@ ABI：
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }
 }
 ```
@@ -349,6 +322,7 @@ ABI：
   7. `maxSupply`: `big.Int`  最大发行量
   8. `ownBurnOnly`: `bool`  是否仅支持所有者销毁
   9. `tokenId`: `TokenId` 代币id
+  10. `index`: `uint16` 序号，范围为0-999，同一个代币简称，按铸币顺序分配序号
 
 - **Example**:
 
@@ -376,7 +350,8 @@ ABI：
       "isReIssuable":true,
       "maxSupply":"200000000000",
       "ownBurnOnly":true,
-      "tokenId":"tti_251a3e67a41b5ea2373936c8"
+      "tokenId":"tti_251a3e67a41b5ea2373936c8",
+      "index":0
    }]
 }
 ```

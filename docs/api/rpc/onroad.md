@@ -7,26 +7,26 @@ sidebarDepth: 4
 [vite-crzn](https://github.com/vite-crzn)
 :::
 
-- On-road Module
+## On-road Module
 
-    The definition of "OnRoad", is actually used to describe the state of a trade, it specifically refers to the trade which the send transaction has not been received by a account designated to receive it, we also call them open trades. The BlockType it refers to is usually represented as 1,2,3, and 4, which in turn correspond to 'send a transaction to create a contract', 'make a transfer or call contract invocation', 'send a transaction to get reward' and 'send a transaction to refund.'
+The definition of "OnRoad" is actually used to describe the state of a transaction. It specifically refers to request transaction which has not been received and has open, pending receive status. The BlockType of on-road transaction is usually represented as 1, 2, 3 or 6, which in turn correspond to 'send a transaction to create a contract', 'make a transfer or call contract', 'send a transaction to get reward' and 'send a transaction to refund.'
 
-    It is often confused with unconfirmed transactions, which are those that are not snapshoted. Ledger module records all transactions sended and received, while onroad and unconfirmed transactions are just used to describe the different states of transactions. All onroad are the sending transaction, while the unconfirmed can be either the sending  or received.
+This concept is often confusing with unconfirmed transactions. The latter are actually transactions not snapshoted. All transactions are stored in ledger, including request transactions and respond transactions, while the terms "onroad" and "unconfirmed" are just used to describe the different states of transactions. All onroad are request transactions, while an unconfirmed transaction can be either request or respond.
 
 
 ## onroad_getOnroadBlocksByAddress <Badge text="public"/>
 
-Return all open transactions waiting to be received by the account address
+Return all open transactions waiting to be received by specified account
 
 - **Parameters**:
 
-  * `Address`: The account address
+  * `Address`: Account address
   * `uint64`: Page index
-  * `uint64`: Page size, <Badge text="public"/>The upper limit is 256, <Badge text="private" type="error"/>No special size restrictions except by the type
+  * `uint64`: Page size up to 256
 
 - **Return**:
 
-  * `[]AccountBlock` Refer to Ledger module design for details
+  * `[]AccountBlock` Account block list
 
 - **Example**:
 
@@ -81,9 +81,6 @@ Return all open transactions waiting to be received by the account address
                 "totalSupply": "1000000000000000000000000000",
                 "decimals": 18,
                 "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                "pledgeAmount": "0",
-                "withdrawHeight": "0",
-                "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                 "tokenId": "tti_5649544520544f4b454e6e40",
                 "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                 "ownerBurnOnly": false,
@@ -101,33 +98,31 @@ Return all open transactions waiting to be received by the account address
 
 ## onroad_getOnroadInfoByAddress <Badge text="public"/>
 
-Return the information of tokens in all open transactions waiting to be received by the account address
+Return the information of tokens in all open transactions waiting to be received by specified account
 
 - **Parameters**:
 
-  *  `Address`- The account address
+  *  `Address`- Account address
 
 - **Return**:
 
-  * ``[]Object``:  `Object` detail:
-    * `accountAddress`: `Address` The account address
-    * `totalNumber`: `string` Total number
+  * ``[]Object``: 
+    * `accountAddress`: `Address` Account address
+    * `totalNumber`: `string` Total open transaction number
     * `tokenBalanceInfoMap`: `Map[tokenId]Object`
-        * `tokenInfo`: `Object` The information of a token
+        * `tokenInfo`: `Object` Token information
             * `tokenName`: `string` Token name
             * `tokenSymbol`: `string` Token symbol
             * `tokenId`: `TokenId` Token Id
             * `totalSupply`: `*string` Total supply
             * `decimals`: `uint8` Decimal digits
-            * `owner`: `Address` Owner address
-            * `pledgeAmount`: `*string` Amount pledged
-            * `withdrawHeight`: `string` Height expiring when can withdraw the amount pledged
+            * `owner`: `Address` Owner's address
             * `maxSupply`: `*string` Max supply
-            * `ownerBurnOnly`: `bool` Whether only the owner can destruct
-            * `isReIssuable`: `bool` Whether can issue additional shares
+            * `ownerBurnOnly`: `bool` Whether the token can be burned by the owner only
+            * `isReIssuable`: `bool` Whether the token can be re-issued
             * `index`: `uint16` index
-        * `totalAmount`: `*string` Total amount of a token
-        * `number`: `string` Total number of a token
+        * `totalAmount`: `*string` Total pending amount in this token
+        * `number`: `string` Total open transaction number in this token
 
 - **Example**:
 
@@ -161,9 +156,6 @@ Return the information of tokens in all open transactions waiting to be received
                     "totalSupply": "1000000000000000000000000000",
                     "decimals": 18,
                     "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                    "pledgeAmount": "0",
-                    "withdrawHeight": "0",
-                    "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                     "tokenId": "tti_5649544520544f4b454e6e40",
                     "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                     "ownerBurnOnly": false,
@@ -181,15 +173,14 @@ Return the information of tokens in all open transactions waiting to be received
 
 ## onroad_getOnroadBlocksInBatch <Badge text="private" type="error"/>
 
-Batch return all open transactions waiting to be received by account list
+Return all open transactions waiting to be received by a list of specified accounts
 
 - **Parameters**:
 
-`[]Object`: The upper limit in a batch is 10
- `Object` 
-  * `Address`: The account address
+`[]Object`: Up to 10 accounts
+  * `Address`: Account address
   * `uint64`: Page index
-  * `uint64`: Page size, the upper limit is 256
+  * `uint64`: Page size up to 256
 
 - **Return**:
 
@@ -257,9 +248,6 @@ Batch return all open transactions waiting to be received by account list
                     "totalSupply": "1000000000000000000000000000",
                     "decimals": 18,
                     "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                    "pledgeAmount": "0",
-                    "withdrawHeight": "0",
-                    "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                     "tokenId": "tti_5649544520544f4b454e6e40",
                     "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                     "ownerBurnOnly": false,
@@ -277,32 +265,30 @@ Batch return all open transactions waiting to be received by account list
 
 ## onroad_getOnroadInfoInBatch <Badge text="private" type="error"/>
 
-Batch return the information of tokens in all open transactions waiting to be received by account list
+Return the information of tokens in all open transactions waiting to be received by a list of specified accounts
 
 - **Parameters**:
-  * `[]Address`- Account addressed, the upper limit in a batch is 10
+  * `[]Address`- Account addresses, up to 10
 
 - **Return**:
 
-  * ``[]Object``:  `Object` detail:
-    * `accountAddress`: `Address` The account address
+  * ``[]Object``:  
+    * `accountAddress`: `Address` Account address
     * `totalNumber`: `string` Total number
     * `tokenBalanceInfoMap`: `Map[tokenId]Object`
-        * `tokenInfo`: `Object` The information of a token
+        * `tokenInfo`: `Object` Token information
             * `tokenName`: `string` Token name
             * `tokenSymbol`: `string` Token symbol
             * `tokenId`: `TokenId` Token Id
             * `totalSupply`: `*string` Total supply
             * `decimals`: `uint8` Decimal digits
-            * `owner`: `Address` Owner address
-            * `pledgeAmount`: `*string` Amount pledged
-            * `withdrawHeight`: `string` Height expiring when can withdraw the amount pledged
+            * `owner`: `Address` Owner's address
             * `maxSupply`: `*string` Max supply
-            * `ownerBurnOnly`: `bool` Whether only the owner can destruct
-            * `isReIssuable`: `bool` Whether can issue additional shares
+            * `ownerBurnOnly`: `bool` Whether the token can be burned by the owner only
+            * `isReIssuable`: `bool` Whether the token can be re-issued
             * `index`: `uint16` index
-        * `totalAmount`: `*string` Total amount of a token
-        * `number`: `string` Total number of a token
+        * `totalAmount`: `*string` Total pending amount in this token
+        * `number`: `string` Total open transaction number in this token
 
 - **Example**:
 
@@ -340,9 +326,6 @@ Batch return the information of tokens in all open transactions waiting to be re
                         "totalSupply": "1000000000000000000000000000",
                         "decimals": 18,
                         "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                        "pledgeAmount": "0",
-                        "withdrawHeight": "0",
-                        "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                         "tokenId": "tti_5649544520544f4b454e6e40",
                         "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                         "ownerBurnOnly": false,
@@ -361,12 +344,14 @@ Batch return the information of tokens in all open transactions waiting to be re
 
 ## onroad_getContractOnRoadTotalNum <Badge text="private" type="error"/>
 
+Return open transaction number waiting to be handled by specified contract
+
 - **Parameters**:
-  * `Address` Only the address of the contract can be inquired
-  * `Gid` Consensus group the address belong to,`Optional` default value is "00000000000000000002"
+  * `Address` Contract address
+  * `Gid` Consensus group id that above contract belongs to. Optional, default value is "00000000000000000002"
 
 - **Return**:
- * `uint64` Return the contract's total number of onroad tx
+ * `uint64` Open transaction number
 
 - **Example**:
 
@@ -407,12 +392,14 @@ Batch return the information of tokens in all open transactions waiting to be re
 
 ## onroad_getContractOnRoadFrontBlocks <Badge text="private" type="error"/>
 
+Return all callers' earliest open transactions waiting to be handled by specified contract
+
 - **Parameters**:
-  * `Address` Only the address of the contract can be inquired
-  * `Gid` Consensus group the address belong to, `Optional` default value is "00000000000000000002"
+  * `Address` Contract address
+  * `Gid` Consensus group id that above contract belongs to. Optional, default value is "00000000000000000002"
 
 - **Return**:
-  * `[]AccountBlock` Return the callers's lowest-hight send tx
+  * `[]AccountBlock` All callers' earliest open transactions
 
 - **Example**:
 
@@ -475,9 +462,6 @@ Batch return the information of tokens in all open transactions waiting to be re
                 "totalSupply": "1000000000000000000000000000",
                 "decimals": 18,
                 "owner": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-                "pledgeAmount": "0",
-                "withdrawHeight": "0",
-                "pledgeAddr": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
                 "tokenId": "tti_5649544520544f4b454e6e40",
                 "maxSupply": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
                 "ownerBurnOnly": false,

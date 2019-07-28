@@ -1,48 +1,49 @@
 # Vite dApp Development Guide
 
-## DApp开发流程
+## How dApp Works in Vite
+![](~/images/dapp-architecture-en.png)
 
-### DApp架构
-![](~/images/dapp-architecture.png)
+Above diagram describes how user interacts with dApp in Vite wallet. 
+Typically, in order to launch a dApp, user should either scan QR code of the dApp using Vite wallet or find an entry to it inside the wallet. This will show a landing page. 
+Vite dApp may communicate with a private full node via HTTP RPC or WS connection, fetch data on chain and display in the page. 
+In scenario where user needs call the contract, a call contract transaction is signed in the wallet and then sent to contract through Vite full node.
 
-用户通过在官方钱包App中扫描DApp二维码或者点击官方钱包App中的DApp入口，在官方钱包内部打开网页版DApp。网页版DApp通过HTTP RPC或者WS连接DApp的私有全节点，在DApp网页上展示链上数据。当需要调用合约时，通过WS和官方钱包App通信，在钱包内签名交易并通过官方全节点向链上发送交易。
+## Deployment Steps
+ 
+* Complete dApp(both contract and web application) development and testing
+* Deploy at least one full node that provides HTTP RPC and WS services
+* Deploy the contract on chain and stake for the contract account for quota
+* Deploy dApp web application
+* Register the dApp in Vite wallet. Now your dApp will have an entry point in the wallet.
 
-### DApp上线流程
- * 完成DApp的开发和测试
- * 部署至少一台提供HTTP RPC和WS服务的全节点
- * 链上部署合约，并给合约账户抵押vite
- * 部署网页版DApp
- * 上面的步骤完成后，向官方钱包注册DApp，注册成功后官方钱包中会展示DApp入口
+## Prepare for Development Environment
 
-## 开发环境准备
+### Run Local Dev Node
 
-### 本地运行测试节点
+See [Run a Local Dev Node](./testnode.html)
 
-见 [本地运行测试节点教程](./testnode.html)
+### Configure vite.js
 
-### 准备vitejs运行环境
+See vite.js [Installation](../../api/vitejs/README.md)
 
-js可执行环境即可
+### Download solppc
 
-### 下载solidity++编译器solppc
+Download Solidity++ compiler at [solppc releases](https://github.com/vitelabs/soliditypp-bin/releases)
 
-TODO github release链接
+### Install Testing Wallet
 
-### 官方测试钱包
+[Install Vite testing wallet](./testdapp.html) and connect to your local dev node.
 
-安装官方测试钱包，并连接到本地测试节点。
+## Write Contract
 
-TODO
+Install [VS Code](https://code.visualstudio.com/) and [Soliditypp VS Code Plug-in](./debug.html). 
+Then write business code and debug your contract.
 
-## 编写合约代码
+## Deploy Contract
 
-安装[VS Code](https://code.visualstudio.com/)，安装[Soliditypp VS Code插件](./debug.html#vs-code插件)。在本地编写合约代码并调试合约。
+Deploy contract in vite.js. Remember to stake for your contract account for quota.
 
-## 部署合约
-
-利用vitejs来部署合约，并给合约账户抵押vite，来获得配额。
-
-以部署一个HelloWorld合约为例，合约代码如下：
+The following code shows a simple HelloWorld contract:
 ```
 pragma soliditypp ^0.4.2;
 contract HelloWorld {
@@ -53,20 +54,21 @@ contract HelloWorld {
      }
 }
 ```
-编译合约，获得合约的abi和二进制代码
+Compile contract. Contract's ABI and binary code are generated in this step.
 ```
 ./solppc --abi --bin HelloWorld.solpp
 ```
-vitejs部署合约和抵押代码示例如下：
+
+Below vite.js code shows how to deploy contract and stake for quota:
 ```javascript
 import WS_RPC from '@vite/vitejs-ws';
 import { client, account, hdAccount, constant } from '@vite/vitejs';
 
 let { Vite_TokenId } = constant;
-let provider = new WS_RPC("ws://example.com");
+let provider = new WS_RPC("wss://example.com");
 let myClient = new client(provider);
 
-// 导入一个账户
+// import account
 let myAccount = new account({
     client: myClient,
     privateKey: 'your privateKey'
@@ -81,12 +83,13 @@ let myAccount = new account({
 let abi = [{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}];
 let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008a565b005b8073ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508073ffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a723058209e71140ee2fdf78fceeb608c3caa88fd69b06431f165312c4726b9fcbf46dbfb0029';
 
-// 用导入的账户创建合约
+// create a new contract
 myAccount.createContract({
     abi,
     hexCode: binaryCode,
-    confirmTimes: 2,                    // 确认数 0 ~ 75
-    times: 0,                           // 翻倍数 Default 0
+    confirmTime: 2,                    // 确认数 0 ~ 75
+    seedCount:2,                       // 取值范围0-75, 如果合约代码中使用了随机数指令，要求这个字段值大于0。注意confirmTime必须大于或等于seedCount。
+    // quotaRatio: 10,                       // 翻倍数 Default 10, 如传递此参数：取值范围为10-100
     params: [/** your parameters  */],
     tokenId: Vite_TokenId,              // Default Vite_TokenId
     amount: '0',                        // Default '0'
@@ -110,7 +113,7 @@ myAccount.createContract({
     //     publicKey: 'iE0KOlLusSBOImOb6BA/tTzocFgtW2q0iHVM1WsFkuA=' 
     // } 
 
-    // 给新创建的合约抵押vite
+    // stake for the new contract 
     let contractAddress = accountBlock.toAddress;
     myAccount.getQuota({
         toAddress: contractAddress,
@@ -126,41 +129,91 @@ myAccount.createContract({
 });
 ```
 
-## 调用合约
+Successfully created contract can be queried at [Contract Query](../rpc/contract.html#contract-getcontractinfo). This operation requires the contract's code is not null. A contract creation request without code may be accepted but due to absence of code the operation will eventually fail.
 
-合约部署成功后，可以通过vitejs向官方钱包App发送调用合约请求，钱包App会根据调用参数来签名一笔调用合约的交易。
+## Call Contract
 
-和官方钱包App交互时使用一种叫做Vite URI格式的数据，具体格式内容见 [URI格式](../../vep/vep-6.html)
+When successfully deployed, contract can be called by sending call contract request transaction through vite.js library. However, this operation would require to know user's mnemonic in advance.
 
-调用合约示例代码如下：
+### Isolation of dApp and Private Key
+
+As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key or mnemonics. To address this issue, Vite mobile wallet provides two solutions.
+- [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
+    Vite bridge is the recommended option for dApp integrated into Vite mobile wallet. By calling native-js bridge, the following actions are performed:
+    - Request for sending transaction from application
+    - Obtain current user address from application
+    Example:
+```javascript
+// A normal transfer. Sending 1 Vite to receiver's address
+import Bridge from "@vite/bridge";
+import { utils } from "@vite/vitejs";
+const bridge = new Bridge();
+bridge["wallet.sendTxByURI"]({address:"sender's vite address", uri: utils.uriStringify({target_address:`receiver's vite address`,params:{amount:1}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});// For other token, you should specify "tti" in parameter
+
+
+
+// Calling a contract
+import Bridge from "@vite/bridge";
+import { abi,utils } from "@vite/vitejs";
+
+const bridge = new Bridge();
+const hexData=abi.encodeFunctionCall([{
+    name: 'myMethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}, {
+    name: 'myethod',
+    type: 'function',
+    inputs: [{
+        type: 'uint256',
+        name: 'myNumber'
+    },{
+        type: 'string',
+        name: 'myString'
+    }]
+}], ['2345675643', 'Hello!%'], 'myMethod');
+const base64Data=utils._Buffer.from(hexData,'hex').toString('base64');
+bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`合约地址`,function_name:'myMethod',params:{data:base64Data}}) }).then(accountBlock => {
+  console.log(accountBlock);
+});
 ```
-TODO 用URI的方式调用上面示例中SayHello的接口
-```
+See [Further Example](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
 
-## 链上数据查询
+- Vite Bifrost  
+    Vite Bifrost is the universal solution that supports signing/sending transactions from application for all scenarios, still under development.
 
-### 常用查询接口
+## Query Chain Data
 
-全部接口信息和接口调用注意事项见 [接口列表](../../api/rpc/)
+### Query API
 
-[vitejs接口调用说明和示例](../../api/vitejs/client/instance.md)
-
-|  接口名称  | 接口说明 |
+|  Method name  | Description |
 |:------------:|:-----------:|
-| ledger_getLatestBlock | 查询账户链上最新一笔交易 |
-| ledger_getAccountByAccAddr | 查询账户信息，包含账户链高度、各种代币的余额等 |
-| ledger_getBlocksByAccAddr | 查询账户交易列表 |
-| ledger_getBlockByHeight | 根据账户地址和高度查询交易 |
-| ledger_getBlockByHash | 根据哈希查询交易 |
-| ledger_getVmLogList | 根据哈希查询合约产生的event |
-| onroad_getAccountOnroadInfo | 查询账户的在途交易信息，包括在途交易数量、资金信息等 |
-| onroad_getOnroadBlocksByAddress | 查询账户的在途交易列表 |
-| contract_getContractInfo | 查询合约信息，包括合约代码，所属委托共识组信息等 |
-| contract_callOffChainMethod | 离线查询合约状态 |
-| testapi_getTestToken | 获取测试代币 |
+| ledger_getLatestBlock | Return the latest transaction of the specified account |
+| ledger_getAccountByAccAddr | Return account info by address, including account chain height, balances of various tokens, etc. |
+| ledger_getBlocksByAccAddr | Return transaction list of the specified account |
+| ledger_getBlockByHeight | Return a certain transaction by account height |
+| ledger_getBlockByHash | Return a certain transaction by transaction hash  |
+| ledger_getVmLogList | Return contract execution logs by transaction hash |
+| onroad_getAccountOnroadInfo | Return pending receive info for specified account, including pending receive transaction number and total amount |
+| onroad_getOnroadBlocksByAddress | Return pending receive transaction list for specified account |
+| contract_getContractInfo | Return contract info by contract account, including code, designated consensus group, etc |
+| contract_callOffChainMethod | Query contract state off-chain |
+| testapi_getTestToken | Apply for test tokens |
+
+For API definitions for all RPC methods, please refer to [RPC API](../../api/rpc/)
+
+For vite.js usage, please refer to [vite.js Specification](../../api/vitejs/client/instance.md)
 
 ```javascript
-import WS_RPC from '@vite/vitejs-WS';
+import WS_RPC from '@vite/vitejs-ws';
 import { client, constant } from '@vite/vitejs';
 
 const { methods } = constant;
@@ -183,23 +236,26 @@ myClient.request(methods.ledger.getAccountByAccAddr, address).then(()=>{});
 myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
 ```
 
-### 事件订阅
+### Event Subscription
 
-可以通过订阅合约产生的event的方式来实时获取合约状态变更。
+Event subscription can be used to monitor contract state change.
 
-[事件订阅说明](./subscribe.md)
+For more details please visit [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/subscribe.md)
 
-[事件订阅接口说明](../../api/rpc/subscribe.md)
 
-## 常见问题和注意事项
 
-* 如何判断合约调用结果？
- 
-  由于Vite链上合约调用是异步执行的，因此用户发起调用合约交易成功后，并不能立即知道合约的执行结果，需要等合约接收这笔调用交易之后，才能查询到合约是否执行成功。
+
+## Q&A
+
+* How to determine contract execution result?
   
-  有两种方式监听合约响应交易，一种是通过`ledger_getBlockByHash`接口，根据请求交易哈希轮询请求交易的接收状态；另一种是通过事件订阅的方式监听链上事件。
+  Contract is executed asynchronously in Vite. User is unable to know execution result immediately when user has successfully sent a call contract transaction. 
+  Contract execution result can only be obtained after the response transaction is handled. 
   
-  当合约请求交易被成功接收时，可以根据响应交易的data字段的第33字节值来判断合约执行结果，值为0表示执行成功，值为1表示执行失败，包括遇到了revert指令、配额不足、合约给其他账户转账余额不足等。
+  One way to obtain execution result is to poll `ledger_getBlockByHash` by transaction hash of the request to determine if it was received. Another is using event subscription to monitor the contract.
+      
+  Once the request transaction is successfully received, user can check the 33 byte in data field of contract response for execution status, where 0 means success while 1 stands for failure. 
+  Usually execution failure may result from execution reverted, insufficient quota or insufficient balance upon transferring to a 3rd account.
   
-  如果合约执行成功，并且在执行过程中触发了event（即事件），那么这个响应交易的`logHash`字段值非空，此时可以调用`ledger_getVmLogList`接口，根据响应交易哈希来查询合约执行过程中产生的事件。
+  If the status is 0 (success) and some events were triggered during execution, they will be logged in `logHash` field of response transaction. User is able to call `ledger_getVmLogList` method to query the events by response transaction hash.
   

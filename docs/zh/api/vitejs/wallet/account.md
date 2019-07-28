@@ -137,6 +137,9 @@ myAccount.getOnroadBlocks({
 
 ## Methods
 
+### getBlock
+[Refer to addrAccount.getblock](./addrAccount)
+
 ### clearPrivateKey
 冻结账户并且清空私钥
 
@@ -236,7 +239,7 @@ myAccount.getOnroadBlocks({
     2. `next(isReject = false)` If need send Tx go to 3; else break.
     3. Send TX. 
 * **finish**
-:::
+
 
 - **Parameters** 
     * `__namedParameters : object`

@@ -334,6 +334,10 @@
     padding 0
     margin auto
   }
+  .vue-codemirror {
+    max-height: 400px;
+    overflow: scroll;
+  }
 
 
   .tabs-component {
