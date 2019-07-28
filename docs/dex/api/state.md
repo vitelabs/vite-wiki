@@ -2,16 +2,19 @@
 demoUrl: "https://vitex.vite.net/test"
 ---
 
-# 数据查询服务
+# ViteX Market Data Query Service
 
-## RestAPI接入文档
+## HTTP API
 
-### 环境地址
-* 【test】`https://vitex.vite.net/test`
+### Network
+
+* **Pre-mainnet**: https://vitex.vite.net/
+
+* **Testnet**: https://vitex.vite.net/test
 
 ### `/api/v1/limit`
 
-获取各个基础交易对的最小下单金额
+Get minimum order quantity for all 4 markets
 
 * **Method**: `GET`
 
@@ -25,14 +28,14 @@ demoUrl: "https://vitex.vite.net/test"
 * **Example**
 
   :::demo
-  ```json test: "Test" url: /api/v1/limit method: GET
+  ```json test:Run url: /api/v1/limit method: GET
   {}
   ```
   :::
 
 ### `/api/v1/tokens`
 
-获取所有的Token列表
+Get tokens list
 
 * **Method**: `GET` 
 
@@ -40,10 +43,10 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |category|query|default `all`; Allowed value:[`quote`,`all`]|no|string|
-  |tokenSymbolLike|query|symbol like; e.g. `ETH`|no|string|
-  |offset|query|start with `0`; default `0`|no|integer|
-  |limit|query|default `500`; max `500`|no|integer|
+  |category|query|Default `all`. Allowed value: [`quote`,`all`]|no|string|
+  |tokenSymbolLike|query|Token symbol. Example: `ETH`|no|string|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default `500`. Max `500`|no|integer|
 
 * **Responses**
 
@@ -73,14 +76,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/tokens method: GET
+  ```json test:Run url: /api/v1/tokens method: GET
   {}
   ```
   :::
 
 ### `/api/v1/token/detail`
 
-获取Token的详细信息
+Get token information
 
 * **Method**: `GET` 
 
@@ -88,8 +91,8 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |tokenSymbol|query|the `symbol` of token; e.g. `VITE`|no|string|
-  |tokenId|query|the `tokenId` of token; e.g. `tti_5649544520544f4b454e6e40`|no|string|
+  |tokenSymbol|query|Token symbol. Example: `VITE`|no|string|
+  |tokenId|query|Token Id. Example: `tti_5649544520544f4b454e6e40`|no|string|
 
 * **Responses**
 
@@ -126,14 +129,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Run url: /api/v1/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::
   
 ### `/api/v1/token/mapped`
 
-获取已开通交易对的Token列表
+Get a list of tokens have opened trading pair(s)
 
 * **Method**: `GET` 
 
@@ -141,7 +144,7 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |quoteTokenSymbol|query|the `symbol` of quote token; e.g. `VITE` |yes|string|
+  |quoteTokenSymbol|query|Token symbol. Example: `VITE` |yes|string|
 
 * **Responses**
 
@@ -167,14 +170,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/token/mapped?quoteTokenSymbol=VITE method: GET
+  ```json test:Run url: /api/v1/token/mapped?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
   
 ### `/api/v1/token/unmapped`
 
-获取未开通交易对的Token列表(上币使用)
+Get a list of tokens haven't opened any trading pair
 
 * **Method**: `GET` 
 
@@ -182,7 +185,7 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |quoteTokenSymbol|query|the `symbol` of quote token; e.g. `VITE`|yes|string|
+  |quoteTokenSymbol|query|Token symbol. Example: `VITE`|yes|string|
 
 * **Responses**
 
@@ -208,14 +211,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/token/unmapped?quoteTokenSymbol=VITE method: GET
+  ```json test:Run url: /api/v1/token/unmapped?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
   
 ### `/api/v1/markets`
 
-获取所有的市场(交易对)
+Get market pairs
 
 * **Method**: `GET` 
 
@@ -223,8 +226,8 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |offset|query|start with `0`; default `0`|no|integer|
-  |limit|query|default `500`; max `500`|no|integer|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default `500`. Max `500`|no|integer|
 
 * **Responses**
 
@@ -262,7 +265,7 @@ demoUrl: "https://vitex.vite.net/test"
 
 ### `/api/v1/orders/open`
 
-获取Pending(挂单中)状态的订单
+Get open orders for a given address
 
 * **Method**: `GET` 
 
@@ -270,12 +273,12 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|start with `0`; default `0`|yes|string|
-  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
-  |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
-  |offset|query|start with `0`; default `0`|no|integer|
-  |limit|query|default `30`; max `100`|no|integer|
-  |total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+  |address|query|Starting with `0`. Default `0`|yes|string|
+  |quoteTokenSymbol|query|Token symbol|no|string|
+  |tradeTokenSymbol|query|Token symbol|no|string|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default`30`. Max `100`|no|integer|
+  |total|query|Total number required. `0` for not required and `1` for required. Default is not required and will return total=-1 in response|no|integer|
 
 * **Responses**
 
@@ -320,14 +323,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test:Run url: /api/v1/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::
 
 ### `/api/v1/orders`
 
-获取订单列表
+Get orders list for a given address 
 
 * **Method**: `GET` 
 
@@ -335,16 +338,16 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|the buyer/seller address|yes|string|
-  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
-  |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
-  |startTime|query|start time in Seconds|no|long|
-  |endTime|query|end time in Seconds|no|long|
-  |side|query|order side; Allowed value: [`0`:buy, `1`:sell]|no|integer|
-  |status|query|order status list; Allowed value: [`1`:open, `2`:closed, `3`:canceled, `4`:failed]|no|integer|
-  |offset|query|start with `0`; default `0`|no|integer|
-  |limit|query|default `30`; max `100`|no|integer|
-  |total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+  |address|query|The buyer/seller address|yes|string|
+  |quoteTokenSymbol|query|Symbol of quote token|no|string|
+  |tradeTokenSymbol|query|Symbol of trade token|no|string|
+  |startTime|query|Start time in Seconds|no|long|
+  |endTime|query|End time in Seconds|no|long|
+  |side|query|Order side. Allowed value: [`0`:buy, `1`:sell]|no|integer|
+  |status|query|Order status list. Allowed value: [`1`:open, `2`:closed, `3`:canceled, `4`:failed]|no|integer|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default `30`. Max value `100`|no|integer|
+  |total|query|Total number required. `0` for not required and `1` for required. Default is not required and will return total=-1 in response|no|integer|
 
 * **Responses**
 
@@ -389,14 +392,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test:Run url: /api/v1/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::
 
 ### `/api/v1/ticker/24hr`
 
-获取ticker的24小时价格变化统计信息
+Get 24-hour price change statistics for a given market pair
 
 * **Method**: `GET` 
 
@@ -404,8 +407,8 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |symbols|query|market pair symbols; split by `,`; e.g. `ABC-000_VITE,ABC-001_VITE`|no|string|
-  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
+  |symbols|query|Market pair split by `,`. Example: `ABC-000_VITE, ABC-001_VITE`|no|string|
+  |quoteTokenSymbol|query|Symbol of quote token|no|string|
 
 * **Responses**
 
@@ -445,7 +448,7 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/ticker/24hr?quoteTokenSymbol=VITE method: GET
+  ```json test:Run url: /api/v1/ticker/24hr?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
@@ -453,7 +456,7 @@ demoUrl: "https://vitex.vite.net/test"
 
 ### `/api/v1/ticker/bookTicker`
 
-获取ticker的最佳价格
+Get the best bid/ask price for a given market pair
 
 * **Method**: `GET` 
 
@@ -461,7 +464,7 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |symbol|query|market pair symbol. e.g. `ABC-000_VITE`|yes|string|
+  |symbol|query|Market pair. Example: `ABC-000_VITE`|yes|string|
 
 * **Responses**
 
@@ -488,14 +491,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
+  ```json test:Run url: /api/v1/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
   {}
   ```
   :::
   
 ### `/api/v1/trades`
 
-获取所有的交易(订单撮合)记录
+Get a list of historical trades for a given market pair
 
 * **Method**: `GET` 
 
@@ -503,14 +506,14 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |symbol|query|market pair symbol ; e.g. `BTC-000_VITE`.|yes|string|
-  |orderId|query|order id.|no|string|
-  |startTime|query|start time in Seconds.|no|long|
-  |endTime|query|end time in Seconds.|no|long|
-  |side|query|order side. Allowed value: [`0`:buy, `1`:sell].|no|integer|
-  |offset|query|start with `0`; default `0`.|no|integer|
-  |limit|query|default `30`; max `100`.|no|integer|
-  |total|query|total number required ;`0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+  |symbol|query|Market pair. Example: `BTC-000_VITE`|yes|string|
+  |orderId|query|Order id|no|string|
+  |startTime|query|Start time in Seconds|no|long|
+  |endTime|query|End time in Seconds|no|long|
+  |side|query|Order side. Allowed value: [`0`:buy, `1`:sell].|no|integer|
+  |offset|query|Starting with `0`. Default `0`.|no|integer|
+  |limit|query|Default `30`. Max `100`.|no|integer|
+  |total|query|Total number required. `0` for not required and `1` for required. Default is not required and will return total=-1 in response|no|integer|
 
 * **Responses**
 
@@ -553,14 +556,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/trades?symbol=BTC-000_VITE-000 method: GET
+  ```json test:Run url: /api/v1/trades?symbol=BTC-000_VITE-000 method: GET
   {}
   ```
   :::
   
 ### `/api/v1/depth`
 
-获取市场(交易对)的深度
+Get the order book depth data for a given market pair
 
 * **Method**: `GET` 
 
@@ -568,8 +571,8 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
-  |limit|query|default `100`; max `100`.|no|integer|
+  |symbol|query|Market pair. Example: `CSTT-47E_VITE`|yes|string|
+  |limit|query|Default `100`. Max `100`|no|integer|
 
 * **Responses**
 
@@ -605,14 +608,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/depth?symbol=BTC-000_VITE-000 method: GET
+  ```json test:Run url: /api/v1/depth?symbol=BTC-000_VITE-000 method: GET
   {}
   ```
   :::
 
 ### `/api/v1/klines`
 
-获取市场(交易对)的K线
+Get kline bars for a given market pair
 
 * **Method**: `GET` 
 
@@ -620,11 +623,11 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |symbol|query|market pair symbol ; e.g. `CSTT-47E_VITE`.|yes|string|
-  |interval|query|interval. Allowed value: [`minute`、`hour`、`day`、`minute30`、`hour6`、`hour12`、`week`]|yes|string|
-  |limit|query|default `500`; max `1500`.|no|integer|
-  |startTime|query|start time in Seconds.|no|integer|
-  |endTime|query|end time in Seconds.|no|integer|
+  |symbol|query|Market pair. Example: `CSTT-47E_VITE`|yes|string|
+  |interval|query|Interval. Allowed value: [`minute`、`hour`、`day`、`minute30`、`hour6`、`hour12`、`week`]|yes|string|
+  |limit|query|Default `500`. Max `1500`|no|integer|
+  |startTime|query|Start time in Seconds|no|integer|
+  |endTime|query|End time in Seconds.|no|integer|
 
 * **Responses**
 
@@ -664,14 +667,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/klines?symbol=BTC-000_VITE-000&interval=minute method: GET
+  ```json test:Run url: /api/v1/klines?symbol=BTC-000_VITE-000&interval=minute method: GET
   {}
   ```
   :::
   
 ### `/api/v1/deposit-withdraw`
 
-获取充提记录
+Get historical deposit/withdraw records for a given address
 
 * **Method**: `GET` 
 
@@ -679,10 +682,10 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|the buyer/seller address|yes|string|
-  |tokenId|query|token id.|yes|string|
-  |offset|query|start with `0`; default `0`.|no|integer|
-  |limit|query|default `100`; max `100`.|no|integer|
+  |address|query|The buyer/seller address|yes|string|
+  |tokenId|query|Token id|yes|string|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default `100`. Max `100`|no|integer|
 
 * **Responses**
 
@@ -713,14 +716,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Run url: /api/v1/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::
   
 ### `/api/v1/exchange-rate`
 
-获取Token的汇率
+Get cryptocurrency rates
 
 * **Method**: `GET` 
 
@@ -728,8 +731,8 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |tokenSymbols|query|token symbols ; split by `,` ; e.g. `VITE,ETH`.|no|string|
-  |tokenIds|query|token ids ; split by `,`; e.g.`tti_5649544520544f4b454e6e40,tti_5649544520544f4b454e6e40`.|no|string|
+  |tokenSymbols|query|Token symbols split by `,`. Example: `VITE, ETH`|no|string|
+  |tokenIds|query|Token ids split by `,`. Example: `tti_5649544520544f4b454e6e40,tti_5649544520544f4b454e6e40`|no|string|
 
 * **Responses**
 
@@ -757,14 +760,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Run url: /api/v1/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::  
 
 ### `/api/v1/usd-cny`
 
-获取USD-CNY的汇率
+Get currency exchange rate of USD/CNY
 
 * **Method**: `GET` 
 
@@ -792,14 +795,14 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/usd-cny method: GET
+  ```json test:Run url: /api/v1/usd-cny method: GET
   {}
   ```
   ::: 
 
 ### `/api/v1/time`
 
-获取服务器时间(ms)
+Get the current time in milliseconds according to the HTTP service
 
 * **Method**: `GET` 
 
@@ -827,17 +830,22 @@ demoUrl: "https://vitex.vite.net/test"
   }
   ```
   
-  ```json test:Test url: /api/v1/time method: GET
+  ```json test:Run url: /api/v1/time method: GET
   {}
   ```
   ::: 
 
-## WS接入文档
-### 1. 环境地址：
-* 【测试】wss://vitex.vite.net/test/websocket
-* op_type:`ping`消息包需要至少1分钟周期发送，如果：心跳间隔超过1分钟后，注册的event会失效清理
+## WebSocket API
 
-### 2. 协议模型：
+### Network
+* **Pre-mainnet**: https://vitex.vite.net/websocket
+
+* **Testnet**: https://vitex.vite.net/test/websocket
+
+* op_type: The `ping` heartbeat message needs to be sent at least once per minute. If the interval exceeds 1 minute, the registered event will expire.
+
+
+### Protocol Model
 ```
 syntax = "proto3";
 
@@ -847,44 +855,45 @@ option java_package = "org.vite.data.dex.bean.protocol";
 option java_outer_classname = "DexProto";
 
 message DexProtocol {
-    string client_id = 1; //Identify a single client
-    string topics = 2; //见下面
+    string client_id = 1; // Identify a single client
+    string topics = 2; // See below
     string op_type = 3; // sub,un_sub,ping,pong,push
-    bytes message = 4; //proto数据
-    int32 error_code = 5; //错误编码 0:normal, 1:illegal_client_id，2:illegal_event_key，3:illegal_op_type,5:visit limit
+    bytes message = 4; // See proto data
+    int32 error_code = 5; // Error code. 0:normal, 1:illegal_client_id, 2:illegal_event_key, 3:illegal_op_type, 5:visit limit
 }
 
 ```
-### 3. op_type说明： 
-* sub,表示订阅
-* un_sub,表示取消订阅
-* ping,表示心跳请求，保证10s内一次，用于判断客户端client_id是否有效；
-* pong,服务端响应，无须关注
-* push,表示服务推送数据
+### Definition of op_type  
+* sub: subscription
+* un_sub: un-subscription
+* ping: heartbeat message sent every 10 seconds to validate client_id
+* pong: server-side acknowledgement
+* push: push data to client
 
 
-### 4. topics说明： 
-支持单个订阅，多个订阅使用`,`分割；比如：`xxx,xxx`
+### Definition of Topic
 
-|Topic|Description| Message 模型|
+Multiple topics can be subscribed to by `topic_1, topic2, ...`
+
+|Topic|Description| Message Model|
 |:--|:--|:--:|
-|`order.$address`|订单变化| 见`OrderProto`|
-|`market.$symbol.order.$address.open`|open订单变化| 见`OrderListProto`|
-|`market.$symbol.order.$address.history`|历史订单变化| 见`OrderListProto`|
-|`market.$symbol.depth`|深度数据| 见`DepthListProto`|
-|`market.$symbol.trade`|交易数据| 见`TradeListProto`|
-|`market.$symbol.tickers`|某个交易对统计数据|见`TickerStatisticsProto`|
-|`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|见`TickerStatisticsProto`|
-|`market.$symbol.kline.minute`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.minute30`|30分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.hour`|小时kline数据|见`KlineProto`|
-|`market.$symbol.kline.day`|日kline数据|见`KlineProto`|
-|`market.$symbol.kline.week`|周kline数据|见`KlineProto`|
-|`market.$symbol.kline.hour6`|6小时kline数据|见`KlineProto`|
-|`market.$symbol.kline.hour12`|12小时kline数据|见`KlineProto`|
+|`order.$address`|Order update| See `OrderProto`|
+|`market.$symbol.order.$address.open`|Open order update| See `OrderListProto`|
+|`market.$symbol.order.$address.history`|Historical order update| See `OrderListProto`|
+|`market.$symbol.depth`|Depth data update| See `DepthListProto`|
+|`market.$symbol.trade`|Trade data update| See `TradeListProto`|
+|`market.$symbol.tickers`|Market pair statistics update|See `TickerStatisticsProto`|
+|`market.quoteToken.$symbol.tickers`|Quote token statistics update|See `TickerStatisticsProto`|
+|`market.$symbol.kline.minute`|1-minute kline update|See `KlineProto`|
+|`market.$symbol.kline.minute30`|30-minute kline update|See `KlineProto`|
+|`market.$symbol.kline.hour`|1-hour kline update|See `KlineProto`|
+|`market.$symbol.kline.day`|1-day kline update|See `KlineProto`|
+|`market.$symbol.kline.week`|1-week kline update|See `KlineProto`|
+|`market.$symbol.kline.hour6`|6-hour kline update|See `KlineProto`|
+|`market.$symbol.kline.hour12`|12-hour kline update|See `KlineProto`|
 
 
-### 5. message数据格式定义
+### 5. Message Model
 ```
 syntax = "proto3";
 option java_package = "org.vite.data.dex.bean.proto";
@@ -895,35 +904,35 @@ message TickerStatisticsProto {
 
     //symbol
     string symbol = 1;
-    //symbol
+    //trade token symbol
     string tradeTokenSymbol = 2;
-    //symbol
+    //quote token symbol
     string quoteTokenSymbol = 3;
-    //tokenId
+    //trade tokenId
     string tradeToken = 4;
-    //tokenId
+    //quote tokenId
     string quoteToken = 5;
-    //价格
+    //opening price
     string openPrice = 6;
-    //价格
+    //previous closing price
     string prevClosePrice = 7;
-    //价格
+    //closing price
     string closePrice = 8;
-    //价格
+    //price change
     string priceChange = 9;
-    //变化率
+    //price change percentage
     string priceChangePercent = 10;
-    //价格
+    //highest price
     string highPrice = 11;
-    //价格
+    //lowest price
     string lowPrice = 12;
-    //数量
+    //trading volumn
     string quantity = 13;
-    //成交额
+    //turnover
     string amount = 14;
-    //price精度
+    //price precision
     int32 pricePrecision = 15;
-    //quantity精度
+    //quantity precision
     int32 quantityPrecision = 16;
 }
 
@@ -937,33 +946,33 @@ message TradeProto {
     string tradeId = 1;
     //symbol
     string symbol = 2;
-    //symbol
+    //trade token symbol
     string tradeTokenSymbol = 3;
-    //symbol
+    //quote token symbol
     string quoteTokenSymbol = 4;
-    //tokenId
+    //trade tokenId
     string tradeToken = 5;
-    //tokenId
+    //quote tokenId
     string quoteToken = 6;
     //price
     string price = 7;
-    //quantity
+    //trading volumn
     string quantity = 8;
-    //amount
+    //turnover
     string amount = 9;
     //time
     int64 time = 10;
     //side
     int32 side = 11;
-    //orderId
+    //buy order Id
     string buyerOrderId = 12;
-    //orderId
+    //sell order Id
     string sellerOrderId = 13;
-    //fee
+    //buyer fee
     string buyFee = 14;
-    //fee
+    //seller fee
     string sellFee = 15;
-    //height
+    //block height
     int64 blockHeight = 16;
 }
 
@@ -989,43 +998,43 @@ message OrderListProto {
 
 message OrderProto {
 
-    //订单ID
+    //order ID
     string orderId = 1;
     //symbol
     string symbol = 2;
-    //symbol
+    //trade token symbol
     string tradeTokenSymbol = 3;
-    //symbol
+    //quote token symbol
     string quoteTokenSymbol = 4;
-    //tokenId
+    //trade tokenId
     string tradeToken = 5;
-    //tokenId
+    //quote tokenId
     string quoteToken = 6;
-    //方向
+    //side
     int32 side = 7;
-    //价格
+    //price
     string price = 8;
-    //数量
+    //order quantity
     string quantity = 9;
-    //交易量
+    //order amount
     string amount = 10;
-    //成交Quantity
+    //filled quantity
     string executedQuantity = 11;
-    //成交Amount
+    //filled amount
     string executedAmount = 12;
-    //成交率
+    //turnover rate
     string executedPercent = 13;
-    //均价
+    //average price
     string executedAvgPrice = 14;
-    //手续费
+    //trading fee
     string fee = 15;
-    //状态
+    //order status
     int32 status = 16;
-    //类型
+    //order type
     int32 type = 17;
-    //时间
+    //creation time
     int64 createTime = 18;
-    //地址
+    //address
     string address = 19;
 }
 
@@ -1037,11 +1046,11 @@ message DepthListProto {
 }
 
 message DepthProto {
-    //价格
+    //price
     string price = 1;
-    //数量
+    //quantity
     string quantity = 2;
-    //交易量
+    //amount
     string amount = 3;
 }
 ```
