@@ -2,7 +2,7 @@
 demoUrl: "https://vitex.vite.net/test"
 ---
 
-# ViteX Market Data Query Service
+# Data Query API
 
 ## HTTP API
 

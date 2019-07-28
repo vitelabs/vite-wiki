@@ -147,9 +147,9 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
       "subCode": 0,
       "msg": null,
       "data": {
-        "depositAddress": "vitetothemoon",
+        "depositAddress": "viteeosgateway",
         "labelName": "memo",
-        "label": "123467",
+        "label": "vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9",
         "minimumDepositAmount": "30000",
         "confirmationCount": 1,
         "noticeMsg": ""

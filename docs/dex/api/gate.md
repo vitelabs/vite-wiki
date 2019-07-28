@@ -1,68 +1,71 @@
-# 跨链网关接口协议
+# ViteX Gateway Technical Specification
 
-:::tip 介绍
-此文档描述网关接入ViteX需要实现的API接口，此协议规范支持无缝接入[Vite Web Wallet](https://github.com/vitelabs/vite-web-wallet)。
+:::tip Introduction
+This specification describes the API interface that 3rd party gateways need to implement for plugging into ViteX. 
+It has been fully supported by [Vite Web Wallet](https://github.com/vitelabs/vite-web-wallet).
 
-有关如何接入网关的教程，请查看：[网关接入教程](../operation/gate-integration.md)
+For how to integrate the gateway in wallet, please see [Gateway Plug-in Tutorial](../operation/gate-integration.md)
 :::
 
-:::warning 注意事项
-* 跨链网关服务需要HTTPS协议
-* 跨链网关服务需要支持CORS跨域
-* 所有金额都使用最小精度表示
+:::warning Attention
+* HTTPS is required
+* CORS (Cross-Origin Resource Sharing) must be supported
+* Transfer amount should be expressed in minimum precision
 :::
-## 统一请求格式
+
+## Request
 
 ### header
-Web Wallet需在请求header中添加如下参数
-  |参数名|描述|
+The following parameter(s) are appended in request header from Vite web wallet
+  |Name|Description|
   |:--|:--|
-  |lang|Web Wallet会根据当前语言设置传递参数,网关服务可自行处理以应对国际化需求<br>目前的枚举有`zh-cn`中文简体，`en`英文|
-  |version|Web Wallet当前支持的跨链网关接口协议版本，兼容多个版本用`,`分隔|
-
-## 统一返回格式
+  |lang|The wallet will pass the current locale, and the gateway should handle it to provide i18n support.<br>`zh-cn`(Chinese simplified) and `en`(English) are currently supported in the wallet.|
+  |version|The spec version number(s) currently supported by the web wallet, split by `,`|
+  
+## Response
 
 ### header
-跨链网关服务需在响应header中添加如下参数
-  |参数名|描述|
+The following parameter(s) should be appended in response header from gateway
+  |Name|Description|
   |:--|:--|
-  |version|跨链网关服务实现的接口协议版本，兼容多个版本用`,`分隔|
+  |version|The spec version number(s) currently supported by the gateway, split by `,`|
   
 ### body
 ```javascript
 {
-  "code": 0,//响应码，更多响应码见响应码表
-  "subCode": 0,//子响应码 ，网关自行定义，用于问题排查
-  "msg": null,//响应说明，网关自行定义，用于问题排查
-  "data":""//响应数据，具体定义见接口列表
+  "code": 0,//response code
+  "subCode": 0,//sub code filled in by gateway for debugging
+  "msg": null,//additional message filled in by gateway for debugging
+  "data":""//response data
 }
 ```
-## 元信息类接口
+## Metadata API
 
 ### `/meta-info`
 
-获取跨链网关TOT的元信息。如TOT转入转出的通道状态、类型等。
+Get gateway information by token id
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-  |参数名|描述|数据类型|是否必传|
+  |Name|Description|Data Type|Required|
   |:--|:---|:---:|:---:|
-  |tokenId|TOT id|string|true|
+  |tokenId|Token id|string|true|
   
 * **Response**
 
-  |参数名|描述|数据类型|是否必传|
+  |Name|Description|Data Type|Required|
   |:--|:---|:---:|:---:|
-  |type|通道类型,枚举值<br>`0`单地址模式<br>`1`通过备注区分地址模式|int|true|
-  |depositState|转入通道状态,枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|true|
-  |withdrawState|转出通道状态，枚举值:`OPEN`，`MAINTAIN`，`CLOSED`|string|true|
+  |type|Binding type. Allowed value: <br>`0`Independent address mode<br>`1`Bind-by-comment mode|int|true|
+  |depositState|Deposit channel state. Allowed value: `OPEN`, `MAINTAIN`, `CLOSED`|string|true|
+  |withdrawState|Withdraw channel state. Allowed value: `OPEN`, `MAINTAIN`, `CLOSED`|string|true|
 
-:::tip 关于通道类型
-Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面与请求结构，网关服务需根据不同的通道类型返回不同的响应结构。当前协议定义了两种类型，未来还会根据需要定义更多的类型，如GRIN的文件模式
-* `0`单地址模式：在这种类型下，网关会为每个用户VITE地址绑定一个独有的转入地址，比如BTC、ETH<br>
-* `1`通过备注区分地址模式：在这种类型下，网关无法为每个用户VITE地址绑定不同的转入地址，因此需要通过额外的备注标识对应的用户VITE地址，如EOS、XMR
+:::tip Binding Types
+The web wallet needs use binding types to render different deposit/withdraw UI(s) and build different requests, while the gateway needs use it to return different responses. 
+At the time being the following two types have been defined:
+* `0` Independent address mode: In this mode, the gateway will bind a separate inbound address to each user's Vite address. Examples of this type are BTC and ETH<br>
+* `1` Bind-by-comment mode: In this mode, the gateway cannot bind separate inbound address to each user's Vite address, so that it is necessary to identify the user's VITE address with additional comment. Examples of this type are EOS and XMR
 :::
 
 * **Example**
@@ -85,31 +88,32 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
     }
     ```
 
-## 转入转出交易类接口
+## Deposit/Withdraw API
 
 ### `/deposit-info`
 
-获取转入信息。如转入地址、转入确认次数、转入说明等。网关需要生成对手链转入地址并与用户VITE地址绑定，Web Wallet根据响应展示跨链转入界面。
+Get deposit information by token id and user's Vite address. 
+The gateway should bind user's Vite address to a source chain address, and the web wallet will display a deposit page based on gateway's response.
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-  |参数名|描述|数据类型|是否必传|
+  |Name|Description|Data Type|Required|
   |:--|:---|:---:|:---:|
-  |tokenId|TOT id|string|true|
-  |walletAddress|用户VITE地址|string|true|
+  |tokenId|Gateway token id|string|true|
+  |walletAddress|User's Vite address|string|true|
   
 * **Response**
 
-	|参数名|描述|数据类型|是否必传|
+	|Name|Description|Data Type|Required|
 	|:--|:---|:---:|:---:|
-	|depositAddress|转入地址|string|true|
-	|labelName|标签名，type为1时必传|string|false|
-	|label|标签值，type为1时必传|string|false|
-	|minimumDepositAmount|最小转入金额|string|true|
-	|confirmationCount|对手链入账确认数|int|true|
-	|noticeMsg|注意事项描述，网关自行定义|string|false|
+	|depositAddress|Deposit address|string|true|
+	|labelName|Label name, required if type=1|string|false|
+	|label|Label value, required if type=1|string|false|
+	|minimumDepositAmount|Minimum deposit amount|string|true|
+	|confirmationCount|Confirmations on source chain|int|true|
+	|noticeMsg|Extra message filled in by gateway|string|false|
 
 * **Example**
 
@@ -118,11 +122,12 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
     /deposit-info?tokenId=tti_82b16ac306f0d98bf9ccf7e7&walletAddress=vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9
     ```
   ***Response***
-  <br>根据`/meta-info`中的参数type分为:
+  
+  According to binding type:
   :::: tabs
   
-  ::: tab 0:单地址模式
-    通常BTC转入地址是每一个用户VITE地址绑定一个，转入时只需要一个地址就行。
+  ::: tab 0:Independent-address
+    By binding a BTC deposit address to user's Vite address, one deposit address is sufficient.
   ```javascript
     {
       "code": 0,
@@ -138,18 +143,19 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   ```
   :::
   
-  ::: tab 1:通过备注区分地址模式
-    通常EOS转入时除了转入地址，还需要通过`memo`来标识不同用户VITE地址，所以不同的用户VITE地址需要不同的`label`值来区别。
-    <br>在EOS中labelName为`memo`，在XMR中labelName为`paymentID`,网关自行通过`labelName`定义名称
+  ::: tab 1:Bind-by-comment
+    A label `memo` and corresponding value are used to mark user's Vite address when depositing EOS. User's Vite address is stored in `label`.
+    
+    As `memo` is used in EOS gateway, similarly, `paymentID` can be used for XMR. The 3rd party gateways can define their own `labelName`.
   ```javascript
     {
       "code": 0,
       "subCode": 0,
       "msg": null,
       "data": {
-        "depositAddress": "vitetothemoon",
+        "depositAddress": "viteeosgateway",
         "labelName": "memo",
-        "label": "123467",
+        "label": "vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9",
         "minimumDepositAmount": "30000",
         "confirmationCount": 1,
         "noticeMsg": ""
@@ -159,11 +165,11 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
   :::
   ::::
 
-:::tip 关于跨链转入流程
-1. 网关建立`用户VITE地址`与`对手链转入地址`的绑定关系。
-2. 网关监听对手链交易，如果交易和绑定的转入地址相匹配，等待合适的确认数。
-3. 网关确认对手链交易后，发起VITE上的TOT转出交易，交易目标地址为绑定的用户VITE地址。
-4. 网关监听VITE上的该笔TOT转出交易，如果交易没有最终被确认，需要重试发送。
+:::tip Deposit Process
+1. The gateway establishes the binding relationship between the **user's VITE address** and the **source chain deposit address**.
+2. The gateway listens to the source chain transactions on the deposit address and waits for necessary confirmations.
+3. After the gateway confirms the deposit transaction on the source chain, it initiates a transfer transaction to send the same amount of gateway tokens to user's Vite address on Vite chain.
+4. The gateway listens to the transfer transaction on Vite. In case the transaction is not finally confirmed, it needs to be resent.
 :::
 
 ### `/withdraw-info`
