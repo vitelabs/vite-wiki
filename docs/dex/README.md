@@ -45,7 +45,7 @@ The total supply of VX will be 100,000,000 with no inflation. After the launch o
 * Year 1: The number of VX released will decrease by 0.5% every day. 477,032.36 VX will be released on the first day and 76,939.48 will be released on the last day. 
 * Year 2: The number of VX released will decrease by 0.2% every day. 76,785.60 VX will be released on the first day and 37,050.73 VX will be released on the last day. 
 
-![](~/images/vx-distribute-curve.png)
+![af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image.png](https://forum.vite.net/assets/uploads/files/1564036361941-af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image-resized.png)
 
 ### VX Mining Allocation
 
@@ -146,7 +146,7 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       
       Assuming that the **mining level** has not changed between 10:00:00 to 10:02:30, the **unchanged order time** for Alice is:
         * 10:00:00 ~ 10:01:00, $t_1$ = 60 seconds
-        * 10:01:00 ~ 10:02:30, $t_2$ = 150 seconds
+        * 10:01:00 ~ 10:02:30, $t_2$ = 90 seconds
       Following this, the order duration, T, would be $T = t_1 + t_2 = 60 + 150 = 210$ 
       
     * **Market-making points** ($m$): this variable is calculated using **unchanged order time** ($t$), **pending order amount** ($a$) and **order distance** ($g$)
