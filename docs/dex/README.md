@@ -142,12 +142,13 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       
       At 10:01:00, the order was 50% filled and the remaining order amount is 250. For this partial fill, the pending order amount, $a_1 = 500$.  
       
-      At 10:02:30, the order was completely filled. For this transaction, the pending order amount, $a_2 = 250$.
+      At 10:05:00, the order was completely filled. For this transaction, the pending order amount, $a_2 = 250$.
       
-      Assuming that the **mining level** has not changed between 10:00:00 to 10:02:30, the **unchanged order time** for Alice is:
+      Assuming that the **mining level** has not changed between 10:00:00 to 10:05:00, the **unchanged order time** for Alice is:
         * 10:00:00 ~ 10:01:00, $t_1$ = 60 seconds
-        * 10:01:00 ~ 10:02:30, $t_2$ = 90 seconds
-      Following this, the order duration, T, would be $T = t_1 + t_2 = 60 + 150 = 210$ 
+        * 10:01:00 ~ 10:05:00, $t_2$ = 240 seconds
+        
+      Following this, the order duration, T, would be $T = t_1 + t_2 = 60 + 240 = 300 
       
     * **Market-making points** ($m$): this variable is calculated using **unchanged order time** ($t$), **pending order amount** ($a$) and **order distance** ($g$)
     
@@ -163,7 +164,7 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       
       $g = \left \lceil \frac {11 - 10} {11} * 100 \right \rceil = 10$ 
       
-      $M = (t_1 * a_1 * 0.6^g) + (t_2 * a_2 * 0.6^g) = (60 * 500 * 0.6^{10}) + (150 * 250 * 0.6^{10}) = 408.15$
+      $M = (t_1 * a_1 * 0.6^g) + (t_2 * a_2 * 0.6^g) = (60 * 500 * 0.6^{10}) + (240 * 250 * 0.6^{10}) = 544.20$
     
     * $V$: The amount of VX mined by the user in the market on a given day
     
