@@ -59,10 +59,10 @@ Get gateway information by token id
   |:--|:---|:---:|:---:|
   |type|Binding type. Allowed value: <br>`0`Independent address mode<br>`1`Bind-by-comment mode|int|true|
   |depositState|Deposit channel state. Allowed value: `OPEN`, `MAINTAIN`, `CLOSED`|string|true|
-  |withdrawState|Withdraw channel state. Allowed value: `OPEN`, `MAINTAIN`, `CLOSED`|string|true|
+  |withdrawState|Withdrawal channel state. Allowed value: `OPEN`, `MAINTAIN`, `CLOSED`|string|true|
 
 :::tip Binding Types
-The web wallet needs use binding types to render different deposit/withdraw UI(s) and build different requests, while the gateway needs use it to return different responses. 
+The web wallet needs use binding types to render different deposit/withdrawal UI(s) and build different requests, while the gateway needs use it to return different responses. 
 At the time being the following two types have been defined:
 * `0` Independent address mode: In this mode, the gateway will bind a separate inbound address to each user's Vite address. Examples of this type are BTC and ETH<br>
 * `1` Bind-by-comment mode: In this mode, the gateway cannot bind separate inbound address to each user's Vite address, so that it is necessary to identify the user's VITE address with additional comment. Examples of this type are EOS and XMR
@@ -88,12 +88,12 @@ At the time being the following two types have been defined:
     }
     ```
 
-## Deposit/Withdraw API
+## Deposit/withdrawal API
 
 ### `/deposit-info`
 
 Get deposit information by token id and user's Vite address. 
-The gateway should bind user's Vite address to a source chain address, and the web wallet will display a deposit page based on gateway's response.
+The gateway should bind user's Vite address to a source chain address, and the web wallet will display a deposit page based on the API response.
 
 * **Method**: `GET`
 
@@ -155,7 +155,7 @@ The gateway should bind user's Vite address to a source chain address, and the w
       "data": {
         "depositAddress": "viteeosgateway",
         "labelName": "memo",
-        "label": "vite_52ea0d88812350817df9fb415443f865e5cf4d3fddc9931dd9",
+        "label": "12345",
         "minimumDepositAmount": "30000",
         "confirmationCount": 1,
         "noticeMsg": ""
@@ -169,32 +169,31 @@ The gateway should bind user's Vite address to a source chain address, and the w
 1. The gateway establishes the binding relationship between the **user's VITE address** and the **source chain deposit address**.
 2. The gateway listens to the source chain transactions on the deposit address and waits for necessary confirmations.
 3. After the gateway confirms the deposit transaction on the source chain, it initiates a transfer transaction to send the same amount of gateway tokens to user's Vite address on Vite chain.
-4. The gateway listens to the transfer transaction on Vite. In case the transaction is not finally confirmed, it needs to be resent.
+4. The gateway listens to the transfer transaction on Vite, and must resend the transaction in case it doesn't get confirmed.
 :::
 
 ### `/withdraw-info`
 
-获取转出信息。如最小转出金额，TOT回收地址等。Web Wallet根据响应展示跨链转出界面。
+Get withdrawal information by token id and user's Vite address. The web wallet will display a withdrawal page based on the API response.
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|tokenId|TOT id|string|true|
-|walletAddress|用户VITE地址|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |tokenId|Gateway token id|string|true|
+  |walletAddress|User's Vite address|string|true|
   
   
 * **Response**
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|minimumWithdrawAmount|最小实际到账转出金额|string|true|
-|maximumWithdrawAmount|最大实际到账转出金额|string|true|
-|gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT回收交易，用于回收TOT|string|true|
-|noticeMsg|注意事项描述，网关自行定义|string|false|
-  
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |minimumWithdrawAmount|Minimum withdrawal amount|string|true|
+  |maximumWithdrawAmount|Maximum withdrawal amount|string|true|
+  |gatewayAddress|Gateway address on Vite chain. The web wallet will send an amount of gateway tokens to the address for withdrawal|string|true|
+  |noticeMsg|Extra message filled in by gateway|string|false|
 
 * **Example**
 
@@ -219,23 +218,23 @@ The gateway should bind user's Vite address to a source chain address, and the w
 
 ### `/withdraw-address/verification`
 
-校验转出地址。当用户在跨链转出界面中输入转出地址时进行校验。
+Verify withdrawal address. The web wallet will use this API to verify the source chain withdrawal address
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|tokenId|TOT id|string|true|
-|withdrawAddress|用户对手链转出地址|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |tokenId|Gateway token id|string|true|
+  |withdrawAddress|User's withdrawal address on the source chain|string|true|
   
   
 * **Response**
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|isValidAddress|地址是否合法|bool|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |isValidAddress|Is the user's withdrawal address valid?|bool|true|
   
 
 * **Example**
@@ -258,26 +257,26 @@ The gateway should bind user's Vite address to a source chain address, and the w
 
 ### `/withdraw-fee`
 
-获取网关收取的转出手续费。
+Get gateway withdrawal fee
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|tokenId|TOT id|string|true|
-|walletAddress|用户VITE地址|string|true|
-|amount|金额|string|true|
-|containsFee|传入的amount是否已包含手续费<br>如果为false，amount为实际到账金额，网关以该金额为基数直接计算手续费<br>如果为true，amount为实际到账金额+转出手续费，网关以amount为总额反推计算实际到账金额与手续费，用于全部转出场景|bool|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |tokenId|Gateway token id|string|true|
+  |walletAddress|User's Vite address|string|true|
+  |amount|Withdrawal amount|string|true|
+  |containsFee|Is the fee included in the original withdrawal amount?<br>If this is false, then `amount` refers to actual amount transferred. The gateway will calculate the transaction fee based on this amount.<br>If this is true, then `amount` refers to the sum of actual amount transferred and the transaction fee. The gateway will subsequently derive the actual amount transferred and the transaction fee. Usually this is used in a full withdrawal.|bool|true|
 
 
   
 * **Response**
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|fee|网关收取的手续费|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |fee|Withdrawal fee|string|true|
 
 * **Example**
 
@@ -297,84 +296,86 @@ The gateway should bind user's Vite address to a source chain address, and the w
     }
     ```
   
-:::tip 关于跨链转出
-1. 当用户填写完合法的转出地址与金额并确认转出后，Web Wallet会签名一笔TOT回收交易并发送至VITE网络。`用户填写的转出信息表示在交易的备注中`。
-2. 网关监听VITE链上的TOT回收交易，等待合适的确认数。
-3. 网关确认VITE链上的TOT回收交易后，发起对手链上的转出交易，交易目标地址为TOT回收交易的备注。
-4. 网关监听对手链上的该笔转出交易，如果交易没有最终被确认，需要重试发送。
+:::tip Withdrawal Process
+1. The user fills in a valid withdrawal amount and source chain withdrawal address, then hits the transfer button. At this time, the web wallet will send a corresponding amount of gateway tokens to the gateway address on Vite chain. The source chain withdrawal address is stored in the comment of the transaction.
+2. The gateway listens for the transactions on the withdrawal address and waits for necessary confirmations.
+3. After the gateway confirms the withdrawal transaction on Vite chain, it initiates a transfer transaction to send the same amount of the source chain tokens to user's withdrawal address on the source chain.
+4. The gateway listens for the transfer transaction on the source chain, and must resend the transaction in case it doesn't get confirmed.
 :::
 
-#### 交易备注填写规范
-依据[VEP 8: AccountBlock Data Content Type 规范](../../vep/vep-8.md)定义，由固定部分和可变部分拼接而成。
-* 固定部分为:
+#### Gateway Transaction Comment
+
+According to [VEP 8: AccountBlock Data Content Type Definition](../../vep/vep-8.md), a transaction comment is a concatenation of fixed and variable strings. 
+* Fixed part:
 
 |VEP-8 Type|Type|
 |:--|:---|
 |2 Byte,uint16|1 Byte,uint8|
 
-VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
-<br>Type为`/meta-info`中的参数type
-* 可变部分为:
+For gateway transactions, **VEP-8 Type** is fixed at `3011`, or `0x0bc3` in hexadecimal format
+
+**Type** is the `type` parameter returned by `/meta-info` API
+
+* Variable part:
 
   ::::: tabs
-  ::: tab 0:单地址模式
+  ::: tab 0:Independent-address
   
     |Address|
     |:---:|
     |0 ~ 255 Byte,UTF-8|
     
-    以转出地址是`mrkRBVtsd96oqHLELaDtCYWzcxUr7s4D26`为例，交易备注Binary用HEX表示为`0x0bc3006d726b52425674736439366f71484c454c6144744359577a63785572377334443236`
+    Taking withdrawal address `mrkRBVtsd96oqHLELaDtCYWzcxUr7s4D26` as example, the transaction comment generated in hexadecimal format is `0x0bc3006d726b52425674736439366f71484c454c6144744359577a63785572377334443236`
     
   :::
-  ::: tab 1:通过备注区分地址模式
+  ::: tab 1:Bind-by-comment
   
     |Address size|Address|Label size|Label|
     |:---:|:---:|:---:|:---:|
     |1 Byte,uint8|0 ~ 255 Byte,UTF-8|1 Byte,uint8|0 ~ 255 Byte,UTF-8|
     
-    以转出地址是`vitetothemoon`,标签值为`12345`为例，交易备注Binary用HEX表示为`0x0bc3010d76697465746f7468656d6f6f6e053132333435`
+    Taking withdrawal address `viteeosgateway` as example, having label `12345`, the transaction comment generated in hexadecimal format is `0x0bc3010d76697465746f7468656d6f6f6e053132333435`
    
   :::
   :::::
 
-
-## 转入转出记录查询类接口
+## Deposit/withdrawal Records Query API
 
 ### `/deposit-records`
 
-转入记录。
+Get historical deposit records
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|tokenId|TOT id|string|true|
-|walletAddress|用户VITE地址|string|true|
-|pageNum|分页参数，起始页序号，从1开始|int|true|
-|pageSize|分页参数，每页大小|int|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |tokenId|Gateway token id|string|true|
+  |walletAddress|User's Vite address|string|true|
+  |pageNum|Page index, starting from 1|int|true|
+  |pageSize|Page size|int|true|
   
   
 * **Response**
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|totalCount|总记录数|int|true|
-|depositRecords|转入记录列表|list|false|
-|inTxExplorerFormat|对手链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|true|
-|outTxExplorerFormat|VITE链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |totalCount|Total deposit records|int|true|
+  |depositRecords|List of deposit records|list|false|
+  |inTxExplorerFormat|The transaction url on the source chain explorer. Replace {$tx} with the specific `inTxHash`|string|true|
+  |outTxExplorerFormat|The transaction url on Vite explorer. Replace {$tx} with the specific `outTxHash`|string|true|
   
-* ***其中depositRecords参数如下***
+* ***Definition of `depositRecords`***
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|inTxHash|对手链转入交易hash|string|true|
-|outTxHash|VITE链转出TOT交易hash|string|false|
-|amount|转入金额|string|true|
-|fee|网关收取的转入手续费|string|true|
-|state|转入状态，枚举值<br>`OPPOSITE_PROCESSING`对手链转入交易确认中<br>`OPPOSITE_CONFIRMED`网关已确认对手链交易成功<br>`OPPOSITE_CONFIRMED_FAIL`网关已确认对手链交易失败<br>`BELOW_MINIMUM`对手链交易金额小于最小转入金额，转入流程结束<br>`TOT_PROCESSING`网关已发出tot转出交易<br>`TOT_CONFIRMED`网关已确认tot转出交易，转入流程结束|string|true|
-|dateTime|转入时间,timestamp毫秒|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |inTxHash|The deposit transaction hash on the source chain|string|true|
+  |outTxHash|The deposit transaction hash on Vite chain|string|false|
+  |amount|Deposit amount|string|true|
+  |fee|Gateway fee|string|true|
+  |state|Transaction state. Allowed value: <br>`OPPOSITE_PROCESSING` Awaiting confirmation on the source chain<br>`OPPOSITE_CONFIRMED` Confirmed on the source chain<br>`OPPOSITE_CONFIRMED_FAIL` Transaction failed on the source chain<br>`BELOW_MINIMUM` Transaction aborted due to insufficient deposit amount<br>`TOT_PROCESSING` Gateway tokens sent out on Vite chain<br>`TOT_CONFIRMED` Deposit successful|string|true|
+  |dateTime|Deposit time in millisecond|string|true|
 
 * **Example**
 
@@ -399,46 +400,45 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
           "dateTime": "1556129201000"
         }],
         "inTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}",
-        "outTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}"
+        "outTxExplorerFormat": "https://explorer.vite.org/transaction/{$tx}"
       }
     }
     ```
 
 ### `/withdraw-records`
 
-转出记录。
+Get historical withdrawal records
 
 * **Method**: `GET`
 
 * **Request**: `query string`
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|tokenId|TOT id|string|true|
-|walletAddress|用户VITE地址|string|true|
-|pageNum|分页参数，起始页序号，从1开始|int|true|
-|pageSize|分页参数，每页大小|int|true|
-  
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |tokenId|Gateway token id|string|true|
+  |walletAddress|User's Vite address|string|true|
+  |pageNum|Page index, starting from 1|int|true|
+  |pageSize|Page size|int|true|
   
 * **Response**
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|totalCount|总记录数|int|true|
-|withdrawRecords|转出记录列表|list|false|
-|inTxExplorerFormat|VITE链浏览器，用inTxHash替换{$tx}为该交易区块浏览器地址|string|true|
-|outTxExplorerFormat|对手链浏览器，用outTxHash替换{$tx}为该交易区块浏览器地址|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |totalCount|Total withdrawal records|int|true|
+  |withdrawRecords|List of withdrawal records|list|false|
+  |inTxExplorerFormat|The transaction url on Vite explorer. Replace {$tx} with the specific `inTxHash`|string|true|
+  |outTxExplorerFormat|The transaction url on the source chain explorer. Replace {$tx} with the specific `outTxHash`|string|true|
   
-* ***其中withdrawRecords参数如下***
+* ***Definition of `withdrawRecords`***
 
-|参数名|描述|数据类型|是否必传|
-|:--|:---|:---:|:---:|
-|inTxHash|VITE链tot转入交易hash|string|true|
-|outTxHash|对手链转出交易hash|string|false|
-|amount|实际转出到账金额|string|true|
-|fee|网关收取的转出手续费|string|true|
-|state|转出状态，枚举值<br>`TOT_PROCESSING`VITE TOT转入交易已发送，待确认<br>`TOT_CONFIRMED`网关已确认VITE TOT交易<br>`TOT_EXCEED_THE_LIMIT`超过限额<br>`WRONG_WITHDRAW_ADDRESS`转出地址错误<br>`OPPOSITE_PROCESSING`网关已发出对手链转出交易<br>`OPPOSITE_CONFIRMED`网关已确认对手链转出交易，转出流程结束|string|true|
-|dateTime|转出时间,timestamp毫秒|string|true|
+  |Name|Description|Data Type|Required|
+  |:--|:---|:---:|:---:|
+  |inTxHash|The withdrawal transaction hash on Vite chain|string|true|
+  |outTxHash|The withdrawal transaction hash on the source chain|string|false|
+  |amount|Actual amount transferred|string|true|
+  |fee|Gateway fee|string|true|
+  |state|Transaction state. Allowed value: <br>`TOT_PROCESSING` Awaiting confirmation on Vite chain<br>`TOT_CONFIRMED` Confirmed on Vite chain<br>`TOT_EXCEED_THE_LIMIT` Transaction failed due to exceeding the maximum limit<br>`WRONG_WITHDRAW_ADDRESS` Transaction failed due to invalid withdrawal address<br>`OPPOSITE_PROCESSING` Source chain tokens sent out<br>`OPPOSITE_CONFIRMED` Withdrawal successful|string|true|
+  |dateTime|Withdrawal time in millisecond|string|true|
 
 * **Example**
 
@@ -462,24 +462,24 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
           "state": "OPPOSITE_CONFIRMED",
           "dateTime": "1556129201000"
         }],
-        "inTxExplorerFormat": "https://explorer.vite.org/zh/transaction/{$tx}",
+        "inTxExplorerFormat": "https://explorer.vite.org/transaction/{$tx}",
         "outTxExplorerFormat": "https://ropsten.etherscan.io/tx/{$tx}"
       }
     }
     ```
   
-## 错误码表
-  |code|描述|
+## Error Code
+  |Code|Description|
   |:--|:---|
-  |0|请求成功|
-  |1|请求参数校验不通过|
-  |2|服务器内部异常|
+  |0|Request is successful|
+  |1|Invalid request parameter|
+  |2|Internal gateway error|
 
-## 协议版本
-### 当前版本 
+## Version of the Specification
+### Current Version
 `v1.0`
-### 历史版本
-|版本号|更新说明|
+### Historical Version(s)
+|Version|Description|
 |:--|:---|
-|v1.0|初始化版本|
+|v1.0|Initial version|
 
