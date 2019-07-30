@@ -1,82 +1,88 @@
-# ViteX 网关接入
+# ViteX Gateway Integration Guide
 
-## 什么是跨链网关
+## What is Cross-chain Gateway
 
-跨链网关提供区块链上资产（我们称之为对手链）与VITE链上代币（我们称之为TOT）的交换能力。
+Cross-chain Gateways provide a way to exchange digital assets between any blockchain (Source Chain) and digital assets on the Vite chain (Gateway Token).
 
-例如，假如用户想在ViteX上交易BTC，用户需要先通过跨链网关将比特币链上的BTC置换成VITE链上的BTC代币，待完成交易后也可以通过跨链网关将VITE链上的BTC代币置换成比特币链上的BTC。在这个过程中跨链网关代用户锁定比特币链上的BTC。
+For instance, if a user wants to trade BTC on the ViteX DEX, she will first convert BTC on the Bitcoin chain ("Native BTC") into a BTC coin on the Vite chain ("VBTC"). If after her trades, she still has an amount of VBTCs, then she can convert these coins back to Native BTC via the cross-chain Gateway. Between the two said conversions, the Native BTCs are locked inside the cross-chain Gateway.
 
-任何人都可以运营一个跨链网关，因此我们设计了一套”跨链网关接口协议“，并且已经在官方web钱包中对接了这套协议，而跨链网关的运营者只需要实现”跨链网关接口协议“就可以轻松的完成与官方web钱包的对接。
+Thanks to the protocol "ViteX Gateway Technical Specification" designed by Vite, anyone can operate a Gateway. This is how it works: Vite's official web wallet already implements this protocol. So a Gateway operator only needs to implement this protocol on their end to easily integrate with the web wallet.
 
+## How to Create a Gateway
+### Pre-requisites
 
-## 如何搭建跨链网关
-### 运行跨链网关的必要条件
-* 在VITE上铸币TOT。用于在VITE链上代表对手链上的资产。关于如何铸币请参考[资产发行](./../../tutorial/rule/mintage.html)，铸币需要与对手链上资产的发行量、小数位保持一致。
-* 运行VITE全节点，或使用官方节点API，用于验证或者发送TOT交易。关于如何发送或查询VITE交易请参考[RPC接口](./../../api/rpc/)
-> * 验证或者发送交易。可以选择使用VITE官方RPC节点，也可以选择自行搭建VITE全节点并开启RPC功能。关于如何运行VITE全节点请参考[安装全节点](./../../tutorial/node/install.html)、[节点配置文件](./../../tutorial/node/node_config.html)。如果您的开发语言是java或者go，可使用官方提供的SDK与RPC节点交互。
-> * 关于VITE钱包管理。如果您的开发语言是java或者go，可使用官方提供的SDK管理VITE钱包。如果使用其他开发语言可以参考[钱包管理](./../../tutorial/node/wallet-manage.html)
-* 运行对手链全节点，或使用可信任的全节点API。用于验证或发送对手链上的资产。
-* 实现"[跨链网关接口协议](../api/gate.md)"所定义的接口。
+* Forge a new token on Vite chain to represent the digital asset in the Source Chain. See [here](./../../tutorial/rule/mintage.html) for instructions of token forging. The new token should have the same total issuance amount and decimal places as the Source Chain asset.
+* The operator must be able to verify and send transactions for Gateway Token. To do so, she can either run a Vite full node or use API from full nodes from Vite team. 
+> * Instructions for how to run a Vite full node are [here](./../..//tutorial/node/install.html). 
+> * Instructions for sending and inquiring about Vite transactions are [here](./../../api/rpc/).
+* The operator must be able to verify and send transactions for Source Chain token as well. Similarly to the above bullet point, she can run a full node for the Source Chain, or use API provided by trustworthy full nodes on the Source Chain.
+* Integrate with the interface as defined in the [ViteX Gateway Technical Specification](../api/gate.md).
 
-### 如何测试联调
-* 可以使用公测钱包作为联调入口。需要一个premainnet公测环境
-* 在该环境下铸币，在这里假如是ETH-0
-* ![](~/images/crosschain-set.png)
-* ![](~/images/crosschain-seturl.png)
-* ![](~/images/crosschain-debug.png)
+### How to Integrate
 
-## TIPS
-### 资产托管
-* 采用冷钱包管理私钥
-* 热钱包管理策略（存活周期，资金金额控制，密钥管理）
-* 私钥存储管理（多人多份多地）
-* 多地址分散（不要把鸡蛋放在一个篮子里）
-* 及时对账
+* The developer would need to use a testing environment. ([https://x-test.vite.net/assets](https://x-test.vite.net/assets)).
+* Forge the coin in the testing environment. In the below screenshot, we assume ETH-0 as the token forged.
 
-### 转入与转出
-* 合理的交易确认数
-* 分叉时关闭充提币功能
+* ![](~/images/crosschain-seturl-en.png)
+* ![](~/images/crosschain-debug-en.png)
 
-### 监控
-* 对首次提币地址及用户监控
-* 保证监控的高可靠性
-* 转入与转出数据分析
-* 大额充提币的监控及确认
+## Tips for Properly Operating a Gateway
+### Asset Custody
 
-### 限流
+* Private keys should be stored in cold wallets
+* Strategy for managing hot wallets (Holding period of assets, upper limit for amount of assets in custody)
+* Management of private keys (components of secrets shared across multiple people and stored in multiple locations)
+* Distribution of assets amongst multiple locations ("Don't put all your eggs in one basket")
+* Real-time reconciliation
 
-## 实例
-以下以ETH网关为例子，介绍跨链网关基本流程
-### 钱包构成
-以地址维度来看，整个跨链网关中存在
+### Deposits and Withdraws
 
-![](~/images/crosschain-wallet.png)
-1. 网关冷钱包地址，包括ETH的地址与VITE链的地址，为了保证资产托管安全一般将大部分资金存入冷钱包
-2. 网关热钱包地址，包括ETH的地址与VITE链的地址，用于应对网关日常的转入转出
-3. 网关ETH链转入地址，网关为每个VITE地址分配一个转入地址
-4. 用户对手链地址与VITE链地址
+* Wait for reasonable number of confirmations prior to transfers
+* Temporary halt of deposit/withdrawal functions during forks
 
-### 业务流程
-#### 跨链转入
-1. 为用户分配地址。当用户发起跨链转入请求时，为每个用户VITE地址分配独立的ETH转入地址。转入地址暴露给用户，私钥由网关保存。
+### Monitoring
 
-![](~/images/crosschain-deposit.png)
+* Pay attention to users who withdraw for the first time, and addresses used for withdrawal for the first time
+* Regularly check-in on internal monitoring process
+* Frequent and timely analyses of transfer data
+* Monitoring and confirmation for large deposits and withdrawals
 
-2. 监听ETH转入地址，并等待足够确认数。
-3. 当网关认为这笔ETH交易已确认后，操作VITE热钱包转账对应的TOT至用户的VITE地址。如果有需要，将ETH转入地址余额归集到ETH热钱包。
-4. 监听VITE网络，确认这笔TOT交易，更新跨链转入记录。
+### Throttling
 
-#### 跨链转出
-1. 当用户填写转出地址，并点击跨链转出后，官方web钱包会根据网关VITE热钱包地址，转出金额、手续费等，签名一个VITE交易并发送至VITE网络，该交易是将TOT从用户VITE地址转账至网关VITE热钱包地址。
+## Example
 
-![](~/images/crosschain-withdraw.png)
+The following illustrates the workflow of an Ethereum Gateway.
 
-2. 网关监听VITE网络，并等待这笔交易足够确认数。
-3. 当网关认为这笔VITE交易已确认后，操作ETH热钱包转账ETH至用户填写的ETH地址。
-4. 监听ETH网络，确认这笔ETH交易，更新跨链转出记录。
+### Gateway Addresses
 
-#### 冷热钱包资金转移
-一般将20%的资金放在热钱包，80%的资金放在冷钱包。具体策略根据网关余额总量，流动性，实时流水监控而不同。
+The Gateway needs to maintain the following types of addresses:
+
+![](~/images/crosschain-wallet-en.png)
+
+1. Cold wallet addresses, including ETH addresses and VITE addresses. Large amounts of assets should be stored in the cold wallet to ensure asset safety.
+2. Hot wallet addresses, including ETH addresses and VITE addresses. They are used to accommodate daily transfers.
+3. One ETH address for each VITE address, to facilitate deposits into the Gateway.
+4. User's own ETH address and VITE address.
+
+### Business Workflow
+#### Cross-Chain Deposits
+
+1. Assignment of user addresses. When a user initiates a cross-chain deposit, the Gateway assigns an ETH address dedicated to this user's deposit process. This address is shared with the user, and its private key is kept by the Gateway.
+2. Monitor the said ETH address and wait for a proper number of confirmations.
+3. Once the Gateway determines this ETH transaction as confirmed, transfer the appropriate amount of Gateway Tokens to the user's VITE address. If need be, transfer the Ether in said ETH address into the hot wallet.
+4. Monitor the VITE network and confirm this Gateway Token transaction. Update records for cross-chain deposits.
+
+#### Cross-Chain Withdraws
+
+1. The user provides an address for the withdraw and submits the withdraw request. At this point, the official web wallet will sign (on an offline basis) and send a VITE transaction (of the Gateway Token) from the user's VITE address to the Gateway's VITE hot wallet. The transaction will take into account the withdraw amount and transaction fees.
+2. The Gateway monitors for confirmations and waits until sufficient confirmations have taken place.
+3. Once the Gateway deems this transaction as confirmed, it transfers the appropriate amount of Ether from the ETH hot wallet into the user's ETH address
+4. Monitor the ETH network and update records for cross-chain withdraws once the transaction has been deemed confirmed.
+
+#### Transfer of Funds involving Cold Wallet
+
+Allocate 20% of the funds in the hot wallet, and 80% in the cold wallet. The allocation decision will be driven by total token balance and the nature of the flow of funds through the Gateway.
+
 
 
 
