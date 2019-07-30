@@ -7,7 +7,7 @@ sidebarDepth: 4
 [vite-crzn](https://github.com/vite-crzn)
 :::
 
-The built-in exchange contract. Contract address is `vite_000000000000000000000000000000000000000617d47459a8`
+The built-in exchange contract. Contract address is `vite_0000000000000000000000000000000000000006e82b8ba657`
 
 **Supported protocol:**
 
