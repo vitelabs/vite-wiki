@@ -271,8 +271,8 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|start with `0`; default `0`.|yes|string|
-  |orderId|query|the `orderId` of order.|yes|string|
+  |address|query|the buyer/seller address|yes|string|
+  |orderId|query|the order id|yes|string|
 
 * **Responses**
 
@@ -328,12 +328,12 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|start with `0`; default `0`|yes|string|
-  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
-  |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
-  |offset|query|start with `0`; default `0`|no|integer|
-  |limit|query|default `30`; max `100`|no|integer|
-  |total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+  |address|query|the buyer/seller address|yes|string|
+  |quoteTokenSymbol|query|Quote token symbol|no|string|
+  |tradeTokenSymbol|query|Trade token symbol|no|string|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default`30`. Max `100`|no|integer|
+  |total|query|Total number required. `0` for not required and `1` for required. Default is not required and will return total=-1 in response|no|integer|
 
 * **Responses**
 
@@ -464,7 +464,7 @@ demoUrl: "https://vitex.vite.net/test"
   |:--|:--|:---|:---|:--:|
   |symbols|query|market pair symbols; split by `,`; e.g. `ABC-000_VITE,ABC-001_VITE`|no|string|
   |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
-  |quoteTokenCategory|query|the `catetory` of quote token,e.g. [`VITE`,`ETH`,`BTC`,`USDT`]|no|string|
+  |quoteTokenCategory|query|the `category` of quote token,e.g. [`VITE`,`ETH`,`BTC`,`USDT`]|no|string|
 
 * **Responses**
 

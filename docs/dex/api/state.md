@@ -266,7 +266,7 @@ Get market pairs
 
 ### `/api/v1/order`
 
-Get address order
+Get an order for a given address and order id
 
 * **Method**: `GET` 
 
@@ -274,8 +274,8 @@ Get address order
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|start with `0`; default `0`.|yes|string|
-  |orderId|query|the `orderId` of order.|yes|string|
+  |address|query|the buyer/seller address|yes|string|
+  |orderId|query|the order id|yes|string|
 
 * **Responses**
 
@@ -315,7 +315,7 @@ Get address order
   }
   ```
   
-  ```json test:Test url: /api/v1/order method: GET
+  ```json test:Run url: /api/v1/order method: GET
   {}
   ```
   :::  
@@ -330,9 +330,9 @@ Get open orders for a given address
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|Starting with `0`. Default `0`|yes|string|
-  |quoteTokenSymbol|query|Token symbol|no|string|
-  |tradeTokenSymbol|query|Token symbol|no|string|
+  |address|query|the buyer/seller address|yes|string|
+  |quoteTokenSymbol|query|Quote token symbol|no|string|
+  |tradeTokenSymbol|query|Trade token symbol|no|string|
   |offset|query|Starting with `0`. Default `0`|no|integer|
   |limit|query|Default`30`. Max `100`|no|integer|
   |total|query|Total number required. `0` for not required and `1` for required. Default is not required and will return total=-1 in response|no|integer|
@@ -466,7 +466,7 @@ Get 24-hour price change statistics for a given market pair
   |:--|:--|:---|:---|:--:|
   |symbols|query|Market pair split by `,`. Example: `ABC-000_VITE, ABC-001_VITE`|no|string|
   |quoteTokenSymbol|query|Symbol of quote token|no|string|
-  |quoteTokenCategory|query|the `catetory` of quote token,e.g. [`VITE`,`ETH`,`BTC`,`USDT`]|no|string|
+  |quoteTokenCategory|query|The category of quote token. Allowed value: [`VITE`,`ETH`,`BTC`,`USDT`]|no|string|
 * **Responses**
 
   |code|msg|data|
@@ -939,10 +939,10 @@ Multiple topics can be subscribed to by `topic_1, topic2, ...`
 |`market.$symbol.trade`|Trade data update| See `TradeListProto`|
 |`market.$symbol.tickers`|Market pair statistics update|See `TickerStatisticsProto`|
 |`market.quoteToken.$symbol.tickers`|Quote token statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.VITE.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
-|`market.quoteTokenCategory.ETH.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
-|`market.quoteTokenCategory.USDT.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
-|`market.quoteTokenCategory.BTC.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.VITE.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
+|`market.quoteTokenCategory.ETH.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
+|`market.quoteTokenCategory.USDT.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
+|`market.quoteTokenCategory.BTC.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
 |`market.$symbol.kline.minute`|1-minute kline update|See `KlineProto`|
 |`market.$symbol.kline.minute30`|30-minute kline update|See `KlineProto`|
 |`market.$symbol.kline.hour`|1-hour kline update|See `KlineProto`|
