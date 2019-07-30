@@ -262,6 +262,63 @@ Get market pairs
   {}
   ```
   :::
+  
+
+### `/api/v1/order`
+
+Get address order
+
+* **Method**: `GET` 
+
+* **Parameters**
+
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |address|query|start with `0`; default `0`.|yes|string|
+  |orderId|query|the `orderId` of order.|yes|string|
+
+* **Responses**
+
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`Order`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+        "orderId": "quEOx/ai3o7Xyv9em+qJIbJu7pM=",
+        "symbol": "VCP-4_VITE",
+        "tradeTokenSymbol": "VCP.test",
+        "quoteTokenSymbol": "VITE",
+        "tradeToken": "tti_c2695839043cf966f370ac84",
+        "quoteToken": "tti_5649544520544f4b454e6e40",
+        "side": 1,
+        "price": "6.00000000",
+        "quantity": "1.00000000",
+        "amount": "6.00000000",
+        "executedQuantity": "0.00000000",
+        "executedAmount": "0.00000000",
+        "executedPercent": "0.00000000",
+        "executedAvgPrice": "0.00000000",
+        "fee": "0.00000000",
+        "status": 1,
+        "type": 0,
+        "createTime": 1554722699
+    }
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/order method: GET
+  {}
+  ```
+  :::  
 
 ### `/api/v1/orders/open`
 
@@ -409,7 +466,7 @@ Get 24-hour price change statistics for a given market pair
   |:--|:--|:---|:---|:--:|
   |symbols|query|Market pair split by `,`. Example: `ABC-000_VITE, ABC-001_VITE`|no|string|
   |quoteTokenSymbol|query|Symbol of quote token|no|string|
-
+  |quoteTokenCategory|query|the `catetory` of quote token,e.g. [`VITE`,`ETH`,`BTC`,`USDT`]|no|string|
 * **Responses**
 
   |code|msg|data|
@@ -878,12 +935,14 @@ Multiple topics can be subscribed to by `topic_1, topic2, ...`
 |Topic|Description| Message Model|
 |:--|:--|:--:|
 |`order.$address`|Order update| See `OrderProto`|
-|`market.$symbol.order.$address.open`|Open order update| See `OrderListProto`|
-|`market.$symbol.order.$address.history`|Historical order update| See `OrderListProto`|
 |`market.$symbol.depth`|Depth data update| See `DepthListProto`|
 |`market.$symbol.trade`|Trade data update| See `TradeListProto`|
 |`market.$symbol.tickers`|Market pair statistics update|See `TickerStatisticsProto`|
 |`market.quoteToken.$symbol.tickers`|Quote token statistics update|See `TickerStatisticsProto`|
+|`market.quoteTokenCategory.VITE.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.ETH.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.USDT.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.BTC.tickers`|Quote token Category statistics update|见`TickerStatisticsProto`|
 |`market.$symbol.kline.minute`|1-minute kline update|See `KlineProto`|
 |`market.$symbol.kline.minute30`|30-minute kline update|See `KlineProto`|
 |`market.$symbol.kline.hour`|1-hour kline update|See `KlineProto`|
@@ -989,11 +1048,6 @@ message KlineProto {
     double l = 5;
 
     double v = 6;
-}
-
-
-message OrderListProto {
-    repeated OrderProto order = 1;
 }
 
 message OrderProto {
