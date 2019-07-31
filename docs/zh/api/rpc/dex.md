@@ -13,7 +13,11 @@ sidebarDepth: 4
 ### 充值
 ABI接口定义
 ```
-{"type":"function","name":"DexFundUserDeposit", "inputs":[]}
+{
+  "type": "function",
+  "name": "DexFundUserDeposit",
+  "inputs": []
+}
 ```
 输入项
 
@@ -26,7 +30,20 @@ ABI接口定义
 ### 提现[ABI]
 ABI接口定义
 ```
-{"type":"function","name":"DexFundUserWithdraw", "inputs":[{"name":"token","type":"tokenId"},{"name":"amount","type":"uint256"}]}
+{
+  "type": "function",
+  "name": "DexFundUserWithdraw",
+  "inputs": [
+    {
+      "name": "token",
+      "type": "tokenId"
+    },
+    {
+      "name": "amount",
+      "type": "uint256"
+    }
+  ]
+}
 ```
 输入项
 
@@ -39,7 +56,20 @@ ABI接口定义
 ### 上币/开通新交易对
 ABI接口定义
 ```
-{"type":"function","name":"DexFundNewMarket", "inputs":[{"name":"tradeToken","type":"tokenId"}, {"name":"quoteToken","type":"tokenId"}]}
+{
+  "type": "function",
+  "name": "DexFundNewMarket",
+  "inputs": [
+    {
+      "name": "tradeToken",
+      "type": "tokenId"
+    },
+    {
+      "name": "quoteToken",
+      "type": "tokenId"
+    }
+  ]
+}
 ```
 输入项
 
@@ -54,7 +84,36 @@ ABI接口定义
 ### 提交新订单
 ABI接口定义
 ```
-{"type":"function","name":"DexFundNewOrder", "inputs":[{"name":"tradeToken","type":"tokenId"}, {"name":"quoteToken","type":"tokenId"}, {"name":"side", "type":"bool"}, {"name":"orderType", "type":"uint8"}, {"name":"price", "type":"string"}, {"name":"quantity", "type":"uint256"}]}
+{
+  "type": "function",
+  "name": "DexFundNewOrder",
+  "inputs": [
+    {
+      "name": "tradeToken",
+      "type": "tokenId"
+    },
+    {
+      "name": "quoteToken",
+      "type": "tokenId"
+    },
+    {
+      "name": "side",
+      "type": "bool"
+    },
+    {
+      "name": "orderType",
+      "type": "uint8"
+    },
+    {
+      "name": "price",
+      "type": "string"
+    },
+    {
+      "name": "quantity",
+      "type": "uint256"
+    }
+  ]
+}
 ```
 输入项
 
@@ -71,7 +130,20 @@ ABI接口定义
 ### 抵押挖矿
 ABI接口定义
 ```
-{"type":"function","name":"DexFundPledgeForVx", "inputs":[{"name":"actionType","type":"uint8"}, {"name":"amount","type":"uint256"}]}
+{
+  "type": "function",
+  "name": "DexFundPledgeForVx",
+  "inputs": [
+    {
+      "name": "actionType",
+      "type": "uint8"
+    },
+    {
+      "name": "amount",
+      "type": "uint256"
+    }
+  ]
+}
 ```
 输入项
 
@@ -84,7 +156,16 @@ ABI接口定义
 ### 抵押获取vip资格
 ABI接口定义
 ```
-{"type":"function","name":"DexFundPledgeForVip", "inputs":[{"name":"actionType","type":"uint8"}]}
+{
+  "type": "function",
+  "name": "DexFundPledgeForVip",
+  "inputs": [
+    {
+      "name": "actionType",
+      "type": "uint8"
+    }
+  ]
+}
 ```
 输入项
 
@@ -96,7 +177,40 @@ ABI接口定义
 ### 运营商配置交易对
 ABI接口定义
 ```
-{"type":"function","name":"DexFundMarketOwnerConfig", "inputs":[{"name":"operationCode","type":"uint8"},{"name":"tradeToken","type":"tokenId"},{"name":"quoteToken","type":"tokenId"},{"name":"owner","type":"address"},{"name":"takerFeeRate","type":"int32"},{"name":"makerFeeRate","type":"int32"},{"name":"stopMarket","type":"bool"}]}
+{
+  "type": "function",
+  "name": "DexFundMarketOwnerConfig",
+  "inputs": [
+    {
+      "name": "operationCode",
+      "type": "uint8"
+    },
+    {
+      "name": "tradeToken",
+      "type": "tokenId"
+    },
+    {
+      "name": "quoteToken",
+      "type": "tokenId"
+    },
+    {
+      "name": "owner",
+      "type": "address"
+    },
+    {
+      "name": "takerFeeRate",
+      "type": "int32"
+    },
+    {
+      "name": "makerFeeRate",
+      "type": "int32"
+    },
+    {
+      "name": "stopMarket",
+      "type": "bool"
+    }
+  ]
+}
 ```
 输入项
 
@@ -114,7 +228,20 @@ ABI接口定义
 ### 转让token owner
 ABI接口定义
 ```
-{"type":"function","name":"DexFundTransferTokenOwner", "inputs":[{"name":"token","type":"tokenId"}, {"name":"owner","type":"address"}]}
+{
+  "type": "function",
+  "name": "DexFundTransferTokenOwner",
+  "inputs": [
+    {
+      "name": "token",
+      "type": "tokenId"
+    },
+    {
+      "name": "owner",
+      "type": "address"
+    }
+  ]
+}
 ```
 输入项
 
