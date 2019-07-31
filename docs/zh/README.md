@@ -1,6 +1,6 @@
 ---
 heroImage: /logo_black_transparent.svg
-actionText: 测试网络1.0 →
+actionText: 了解 Vite →
 actionLink: /zh/tutorial/start/
 website: 官网
 highPerformance: 工业级

@@ -18,3 +18,5 @@ title: "Vite 提案"
 * [VEP 12: Vite中随机数的实现](./vep-12.html)
 * [VEP 15: 在共识时增加出块成功率因素](./vep-15.html)
 * [VEP 16: 账户地址规范](./vep-16.html)
+* [VEP 17: 配额衡量](./vep-17.html)
+* [VEP 18: 动态配额](./vep-18.html)

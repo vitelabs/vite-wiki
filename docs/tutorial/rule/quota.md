@@ -107,7 +107,7 @@ For a single transaction, the maximum quota can be consumed is equivalent to 47.
 
 For convenience in calculation, it is acceptable to calculate $(\xi d \times \rho d)$ or $(\xi s \times T \times \rho s)$ and map result to corresponding quota according to following table:
 
-|  $(\xi d \times \rho d)$ or $(\xi s \times \rho s)$ | $Q$ | UTPS | Max UTPE | Approximately equivalent to how much VITE staked without calculating `PoW` | Approximately equivalent to how difficult the `PoW` calculated without staking |
+|  $(\xi d \times \rho d)$ or $(\xi s \times \rho s)$ | $Q$ | UTPS | UTPE | Approximately equivalent to how much VITE staked without calculating `PoW` | Approximately equivalent to how difficult the `PoW` calculated without staking |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
 | 0.0 | 0 | 0 | 0 | 0 | 0 |
 | $(0, 0.0005600000146345639]$ | 280 | 1/75 | 1 | 134 | 894654 |
