@@ -10,7 +10,7 @@ sidebarDepth: 4
 ## 合约ABI接口
 交易所账户内置合约，合约地址： `vite_0000000000000000000000000000000000000006e82b8ba657`
 
-### 充值
+### Deposit
 ABI接口定义
 ```
 {
@@ -27,7 +27,7 @@ ABI接口定义
 | TokenId| 充值币种 |  TokenId |sendBlock| |
 | Amount| 金额 |  uint256 |sendBlock| |
 
-### 提现
+### Withdraw
 ABI接口定义
 ```
 {
@@ -53,7 +53,9 @@ ABI接口定义
 | token| 提现币种 |  TokenId |ABI| |
 | amount| 金额 |  uint256 |ABI| |
 
-### 上币/开通新交易对
+### NewMarket
+上币/开通新交易对
+
 ABI接口定义
 ```
 {
@@ -81,7 +83,9 @@ ABI接口定义
 
 ***上币费用从上币地址交易所账户可用余额扣除10,000个VITE***
 
-### 提交新订单
+### NewOrder
+提交新订单
+
 ABI接口定义
 ```
 {
@@ -127,7 +131,9 @@ ABI接口定义
 | price| 价格 |  string |ABI|小数的字符串表示，整数和小数部分最大都为12位有效数值|
 | quantity| 交易数量 |  uint256 |ABI|交易币种数量|
 
-### 抵押挖矿
+### PledgeForVx
+抵押挖矿，通过抵押VITE获取VX
+
 ABI接口定义
 ```
 {
@@ -153,7 +159,9 @@ ABI接口定义
 | actionType| 操作类型 |  uint8 |ABI| 1 抵押 2 解抵押|
 | amount| 抵押/解抵押金额 |  uint256 |ABI| 至少抵押134 VITE,解抵押后金额为0或者至少保留134VITE|
 
-### 抵押获取vip资格
+### PledgeForVip
+抵押获取vip资格
+
 ABI接口定义
 ```
 {
@@ -174,7 +182,9 @@ ABI接口定义
 | AccountAddress| 抵押地址 |  Address |sendBlock| |
 | actionType| 操作类型 |  uint8 |ABI| 1 抵押,2 解抵押|
 
-### 运营商配置交易对
+### MarketOwnerConfig
+运营商配置交易对
+
 ABI接口定义
 ```
 {
@@ -227,7 +237,7 @@ ABI接口定义
 
 ***实际费率计算方式为rate/100,000***
 
-### 转让token owner
+### TransferTokenOwner
 ABI接口定义
 ```
 {
