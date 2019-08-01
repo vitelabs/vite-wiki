@@ -128,8 +128,8 @@ ABI接口定义
 | quoteToken| 交易对计价币种 |  TokenId |ABI| |
 | side| 交易币种买卖方向 |  bool |ABI| false 买入,true 卖出|
 | orderType| 订单类型	 |  uint8 |ABI| 0 限价单|
-| price| 价格 |  string |ABI|小数的字符串表示，整数和小数部分最大都为12位有效数值|
-| quantity| 交易数量 |  uint256 |ABI|交易币种数量|
+| price| 价格 |  string |ABI|小数的字符串表示，整数和小数部分均最大支持12个有效位|
+| quantity| 交易数量 |  uint256 |ABI|交易币种计下单数额|
 
 ### PledgeForVx
 抵押挖矿，通过抵押VITE获取VX
@@ -156,8 +156,8 @@ ABI接口定义
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 抵押地址 |  Address |sendBlock| |
-| actionType| 操作类型 |  uint8 |ABI| 1 抵押 2 解抵押|
-| amount| 抵押/解抵押金额 |  uint256 |ABI| 至少抵押134 VITE,解抵押后金额为0或者至少保留134VITE|
+| actionType| 操作类型 |  uint8 |ABI| 1 抵押，2 解抵押|
+| amount| 抵押/解抵押金额 |  uint256 |ABI| 抵押操作至少抵押134 VITE，解抵押后余额为0或者至少保留134VITE|
 
 ***抵押金额从交易所账户可用余额扣除相应数量VITE***
 
@@ -231,13 +231,13 @@ ABI接口定义
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 交易对owner地址 |  Address |sendBlock| |
-| operationCode| 操作类型 |  uint8 |ABI| 1 转让Owner,2 设置takerFeeRate,4 设置makerFeeRate,8 停止交易,对应code进行加和来支持以上操作的同时执行|
+| operationCode| 操作类型 |  uint8 |ABI| 1 转让Owner，2 设置takerFeeRate，4 设置makerFeeRate，8 停止交易，对应code进行加和来支持以上操作的同时执行|
 | tradeToken| 交易对交易币种 | TokenId |ABI| |
 | quoteToken| 交易对计价币种 | TokenId |ABI| |
 | owner| 新owner |  Address |ABI| operationCode & 1 == 1 生效|
 | takerFeeRate| 运营商taker费率 | int32 |ABI| operationCode & 2 == 2 生效|
 | makerFeeRate| 运营商maker费率 | int32 |ABI| operationCode & 4 == 4 生效|
-| stopMarket| 开通/停止交易开关	 | bool |ABI| operationCode & 8 == 8 生效,true 停止交易,false 开通交易|
+| stopMarket| 开通/停止下单开关	 | bool |ABI| operationCode & 8 == 8 生效，true 停止下单，false 开通下单|
 
 ***实际费率计算方式为rate/100,000***
 

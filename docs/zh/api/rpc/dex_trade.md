@@ -29,7 +29,7 @@ ABI接口定义
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 提单地址 |  Address |sendBlock| |
-| orderId| 订单id |  bytes] |ABI| |
+| orderId| 订单id |  bytes |ABI| |
 
 ## RPC接口
 
@@ -40,7 +40,7 @@ ABI接口定义
 | &#x2713;|  &#x2713; |  &#x2713; |waiting| &#x2713; |
 
 ### dextrade_getOrderById
-查询指定订单详情，仅支持查询状态为未撤销和未完成的订单
+查询指定订单详情，仅支持查询状态为挂单的订单
 
 - **Parameters**: 
 
@@ -59,7 +59,7 @@ ABI接口定义
    "id":1,
    "method":"dextrade_getOrderById",
    "params": [
-         "AAADAP/////h//////8AXSiujAAAAQ=="
+         "AAAIAQAAAAAeAAAAAAAAXT6fSQAJVQ=="
          ]
 }
 ```
@@ -96,7 +96,7 @@ ABI接口定义
   * `tradeToken`: 交易对交易币种
   * `quoteToken`: 交易对计价币种
   * `side`: 交易币种买卖方向，false 买入，true 卖出
-  * `begin`: 起始索引，起始值为0
+  * `begin`: 开始索引，起始值为0
   * `end`: 结束索引
   
 - **Returns**: 

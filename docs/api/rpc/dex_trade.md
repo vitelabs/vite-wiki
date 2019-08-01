@@ -7,7 +7,7 @@ sidebarDepth: 4
 [weichaolee](https://github.com/weichaolee)
 :::
 
-## DexTrade ABI
+## ABI
 The built-in dex trade contract. Contract address is `vite_00000000000000000000000000000000000000079710f19dc7`
 
 ### CancelOrder
@@ -29,7 +29,7 @@ Inputs
 | Input item | Name | Data type | source | comment |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| new order owner |  Address |sendBlock| |
-| orderId| - |  bytes] |ABI| |
+| orderId| - |  bytes |ABI| |
 
 ## RPC interface
 **Supported protocol:**
@@ -58,7 +58,7 @@ query order detail by order Id
    "id":1,
    "method":"dextrade_getOrderById",
    "params": [
-         "AAADAP/////h//////8AXSiujAAAAQ=="
+         "AAAIAQAAAAAeAAAAAAAAXT6fSQAJVQ=="
          ]
 }
 ```
@@ -88,7 +88,7 @@ query order detail by order Id
 :::
 
 ### dextrade_getOrdersFromMarket
-query open orders from one trade pair, return orders will list by sequence will be matched
+query open orders from one trade pair, return orders will list by sequence which they will be matched
 
 - **Parameters**: 
 

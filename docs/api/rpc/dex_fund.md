@@ -8,7 +8,7 @@ sidebarDepth: 4
 [vite-crzn](https://github.com/vite-crzn)
 :::
 
-## DexFund ABI definitions
+## ABI
 Built-in dex contract, address: `vite_0000000000000000000000000000000000000006e82b8ba657`
 
 ### Deposit
