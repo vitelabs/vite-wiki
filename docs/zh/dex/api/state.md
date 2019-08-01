@@ -8,6 +8,7 @@ demoUrl: "https://vitex.vite.net/test"
 
 ### 环境地址
 * 【test】`https://vitex.vite.net/test`
+* 【Pre-mainnet】: `https://vitex.vite.net/`
 
 ### `/api/v1/limit`
 
@@ -260,6 +261,63 @@ demoUrl: "https://vitex.vite.net/test"
   ```
   :::
 
+### `/api/v1/order`
+
+查询订单信息
+
+* **Method**: `GET` 
+
+* **Parameters**
+
+  |Name|Located In|Description|Required|Schema|
+  |:--|:--|:---|:---|:--:|
+  |address|query|the buyer/seller address|yes|string|
+  |orderId|query|the order id|yes|string|
+
+* **Responses**
+
+  |code|msg|data|
+  |:--|:--|:--:|
+  |0|success|[`Order`]|
+  |1|error_msg|null|
+
+* **Example**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+        "orderId": "quEOx/ai3o7Xyv9em+qJIbJu7pM=",
+        "symbol": "VCP-4_VITE",
+        "tradeTokenSymbol": "VCP.test",
+        "quoteTokenSymbol": "VITE",
+        "tradeToken": "tti_c2695839043cf966f370ac84",
+        "quoteToken": "tti_5649544520544f4b454e6e40",
+        "side": 1,
+        "price": "6.00000000",
+        "quantity": "1.00000000",
+        "amount": "6.00000000",
+        "executedQuantity": "0.00000000",
+        "executedAmount": "0.00000000",
+        "executedPercent": "0.00000000",
+        "executedAvgPrice": "0.00000000",
+        "fee": "0.00000000",
+        "status": 1,
+        "type": 0,
+        "createTime": 1554722699
+    }
+  }
+  ```
+  
+  ```json test:Test url: /api/v1/order method: GET
+  {}
+  ```
+  :::  
+
+
 ### `/api/v1/orders/open`
 
 获取Pending(挂单中)状态的订单
@@ -270,12 +328,12 @@ demoUrl: "https://vitex.vite.net/test"
 
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
-  |address|query|start with `0`; default `0`|yes|string|
-  |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
-  |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
-  |offset|query|start with `0`; default `0`|no|integer|
-  |limit|query|default `30`; max `100`|no|integer|
-  |total|query|total number required, `0` for not required and `1` for required; default not required, return total=-1 in response|no|integer|
+  |address|query|the buyer/seller address|yes|string|
+  |quoteTokenSymbol|query|Quote token symbol|no|string|
+  |tradeTokenSymbol|query|Trade token symbol|no|string|
+  |offset|query|Starting with `0`. Default `0`|no|integer|
+  |limit|query|Default`30`. Max `100`|no|integer|
+  |total|query|Total number required. `0` for not required and `1` for required. Default is not required and will return total=-1 in response|no|integer|
 
 * **Responses**
 
@@ -406,6 +464,7 @@ demoUrl: "https://vitex.vite.net/test"
   |:--|:--|:---|:---|:--:|
   |symbols|query|market pair symbols; split by `,`; e.g. `ABC-000_VITE,ABC-001_VITE`|no|string|
   |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
+  |quoteTokenCategory|query|the `category` of quote token,e.g. [`VITE`,`ETH`,`BTC`,`USDT`]|no|string|
 
 * **Responses**
 
@@ -834,6 +893,7 @@ demoUrl: "https://vitex.vite.net/test"
 
 ## WS接入文档
 ### 1. 环境地址：
+* 【Pre-mainnet】wss://vitex.vite.net/websocket
 * 【测试】wss://vitex.vite.net/test/websocket
 * op_type:`ping`消息包需要至少1分钟周期发送，如果：心跳间隔超过1分钟后，注册的event会失效清理
 
@@ -869,19 +929,21 @@ message DexProtocol {
 |Topic|Description| Message 模型|
 |:--|:--|:--:|
 |`order.$address`|订单变化| 见`OrderProto`|
-|`market.$symbol.order.$address.open`|open订单变化| 见`OrderListProto`|
-|`market.$symbol.order.$address.history`|历史订单变化| 见`OrderListProto`|
 |`market.$symbol.depth`|深度数据| 见`DepthListProto`|
 |`market.$symbol.trade`|交易数据| 见`TradeListProto`|
 |`market.$symbol.tickers`|某个交易对统计数据|见`TickerStatisticsProto`|
 |`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.VITE.tickers`|VITE市场的交易对统计数据|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.ETH.tickers`|ETH市场的交易对统计数据|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.USDT.tickers`|USDT市场的交易对统计数据|见`TickerStatisticsProto`|
+|`market.quoteTokenCategory.BTC.tickers`|BTC市场的交易对统计数据|见`TickerStatisticsProto`|
 |`market.$symbol.kline.minute`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.minute30`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.hour`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.day`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.week`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.hour6`|分钟kline数据|见`KlineProto`|
-|`market.$symbol.kline.hour12`|分钟kline数据|见`KlineProto`|
+|`market.$symbol.kline.minute30`|30分钟kline数据|见`KlineProto`|
+|`market.$symbol.kline.hour`|小时kline数据|见`KlineProto`|
+|`market.$symbol.kline.day`|日kline数据|见`KlineProto`|
+|`market.$symbol.kline.week`|周kline数据|见`KlineProto`|
+|`market.$symbol.kline.hour6`|6小时kline数据|见`KlineProto`|
+|`market.$symbol.kline.hour12`|12小时kline数据|见`KlineProto`|
 
 
 ### 5. message数据格式定义
@@ -980,11 +1042,6 @@ message KlineProto {
     double l = 5;
 
     double v = 6;
-}
-
-
-message OrderListProto {
-    repeated OrderProto order = 1;
 }
 
 message OrderProto {

@@ -302,6 +302,7 @@ module.exports = {
                     '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
+                    '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

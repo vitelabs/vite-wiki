@@ -147,9 +147,9 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
       "subCode": 0,
       "msg": null,
       "data": {
-        "depositAddress": "vitetothemoon",
+        "depositAddress": "viteeosgateway",
         "labelName": "memo",
-        "label": "123467",
+        "label": "12345",
         "minimumDepositAmount": "30000",
         "confirmationCount": 1,
         "noticeMsg": ""
@@ -326,7 +326,7 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
     |:---:|:---:|:---:|:---:|
     |1 Byte,uint8|0 ~ 255 Byte,UTF-8|1 Byte,uint8|0 ~ 255 Byte,UTF-8|
     
-    以转出地址是`vitetothemoon`,标签值为`12345`为例，交易备注Binary用HEX表示为`0x0bc3010d76697465746f7468656d6f6f6e053132333435`
+    以转出地址是`viteeosgateway`,标签值为`12345`为例，交易备注Binary用HEX表示为`0x0bc3010d76697465746f7468656d6f6f6e053132333435`
    
   :::
   :::::
