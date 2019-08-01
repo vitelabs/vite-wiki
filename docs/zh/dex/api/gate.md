@@ -364,6 +364,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
 |inTxHash|对手链转入交易hash|string|true|
+|inTxConfirmedCount|对手链转入交易已确认数|int|false|
+|inTxConfirmationCount|对手链转入交易需要确认数|int|false|
 |outTxHash|VITE链转出TOT交易hash|string|false|
 |amount|转入金额|string|true|
 |fee|网关收取的转入手续费|string|true|
@@ -386,6 +388,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
         "totalCount": 1,
         "depositRecords": [{
           "inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
+          "inTxConfirmedCount": 2,
+          "inTxConfirmationCount": 12,
           "outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
           "amount": "300000000000000000",
           "fee": "0",
@@ -428,6 +432,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
 |inTxHash|VITE链tot转入交易hash|string|true|
+|inTxConfirmedCount|VITE链tot转入交易已确认数|int|false|
+|inTxConfirmationCount|VITE链tot转入交易需要确认数|int|false|
 |outTxHash|对手链转出交易hash|string|false|
 |amount|实际转出到账金额|string|true|
 |fee|网关收取的转出手续费|string|true|
@@ -450,6 +456,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
         "totalCount": 2,
         "withdrawRecords": [{
           "inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
+          "inTxConfirmedCount": 2,
+          "inTxConfirmationCount": 300,
           "outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
           "amount": "190000000000000000",
           "fee": "10000000000000000",
