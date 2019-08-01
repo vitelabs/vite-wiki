@@ -18,12 +18,18 @@ ABI：
   {"type":"function","name":"Pledge", "inputs":[{"name":"beneficial","type":"address"}]},
   // 取消抵押
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
-  // 代理抵押（暂未提供）
+  // 代理抵押
   {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
-  // 代理取消抵押（暂未提供）
-  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
+  // 代理抵押回调
+  {"type":"callback","name":"AgentPledge","inputs":[{"name":"success","type":"bool"}]},
+  // 取消代理抵押
+  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
+  // 取消代理抵押回调
+  {"type":"callback","name":"AgentCancelPledge","inputs":[{"name":"success","type":"bool"}]}		
 ]
 ```
+
+其中，代理抵押和去掉代理抵押的响应交易会产生回调请求交易，通知本次代理抵押或者取消代理抵押交易是否成功。
 
 ## pledge_getPledgeData
 获取抵押交易请求数据，也可以通过对ABI中的`Pledge`方法编码获取交易请求数据。
@@ -92,12 +98,12 @@ ABI：
   1. `pledgeAddr`:`Address`  实际抵押地址
   2. `beneficialAddr`:`Address`  抵押受益地址
   3. `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期时间也会顺延
+  4. `stakeHeight`:`uint64`  抵押高度，范围为259200~31536000，例如259200表示抵押之后等待259200个快照块之后可以取回抵押。
 
 - **Returns**: 
 	- `[]byte` Data
 
 - **Example**:
-
 
 ::: demo
 
@@ -110,7 +116,8 @@ ABI：
       {
       	"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23",
       	"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      	"bid":1
+      	"bid":1,
+      	"stakeHeight":"259200"
       }
    ]
 }
@@ -261,33 +268,64 @@ ABI：
 ```
 :::
 
-## pledge_getPledgeAmountByUtps
-根据utps计算需要抵押的vite金额
+## pledge_getAgentPledgeInfo
+获取代理抵押信息
 
 - **Parameters**: 
-  * `string`: 预期的`utps`，例如1`utps`表示预期每秒发起一笔不带备注的转账交易
+
+`Object`
+  1. `pledgeAddr`:`Address`  实际抵押地址
+  2. `agentAddr`:`Address`  代理抵押地址
+  3. `beneficialAddr`:`Address`  抵押受益地址
+  4. `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期时间也会顺延
 
 - **Returns**: 
-	- `big.Int` 需要抵押的vite金额
+
+`Object`
+  1.`amount`: `big.int`  抵押金额
+  2.`withdrawHeight`: `uint64`  到期快照块高度
+  3.`beneficialAddr`: `Address`  受益地址
+  4.`withdrawTime`: `int64`  预计到期时间
+  5.`agent`: `bool`  是否代理抵押，true-代理抵押 false-普通抵押
+  6.`agentAddress`: `Address`  代理地址，普通抵押时，代理地址为0
+  7.`bid`: `uint8`  业务id，普通抵押时，业务id为0
+    
 
 - **Example**:
 
+
 ::: demo
 
+
 ```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"pledge_getPledgeAmountByUtps",
-   "params":["0.013"]
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "pledge_getAgentPledgeInfo",
+	"params": [
+		{
+			"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23", 
+			"agentAddr":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+			"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+			"bid":1
+		}
+	]
 }
 ```
 
 ```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result":"134000000000000000000"
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+        "amount": "1000000000000000000000",
+        "withdrawHeight": "259992",
+        "beneficialAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+        "withdrawTime": 1561098331,
+        "agent": true,
+        "agentAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+        "bid": 1
+    }
 }
 ```
 :::

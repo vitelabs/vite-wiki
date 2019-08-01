@@ -21,6 +21,10 @@ module.exports = [
     ]
   },
   {
+    text: 'ViteX',
+    link: '/dex/'
+  },
+  {
     text: 'VEP',
     link: '/vep/'
   },

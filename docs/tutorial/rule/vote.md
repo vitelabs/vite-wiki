@@ -4,7 +4,7 @@
 Please note this is not a technical document, but mainly describes voting-related topics. Technical details will be introduced in the yellow paper.
 
 The Definitions of Terms:
-* **Voting**：A solution of on-chain governance, which calculates the VITE held by the voter and uses this as the voting weight to elect the super node.
+* **Voting**：A solution of on-chain governance by calculating the Vite coins held by voter as voting weight to elect super node.
 * **Super node**： The node in snapshot consensus group who is eligible for producing snapshot block.
 * **Delegated node**： The node in delegated consensus group who is eligible for producing blocks for corresponding smart contract.
 :::
@@ -23,10 +23,6 @@ Votes are calculated every round. The delegated nodes for next round will be ele
 
 Voting can be cancelled at any time, by sending a cancel-voting transaction with a specified consensus group ID.
 
-## Voting reward
-
-TODO
-
 ## FAQ
 
 * Can I vote for multiple super nodes in the snapshot consensus group at the same time?
@@ -41,4 +37,6 @@ If the delegate node cancels the stake, the belonging consensus group will no lo
 
 Voting consumes quota, not VITE, so that you can vote even if you do not have VITE in the account. However, SBP(snapshot block producer) is elected based on voting weight, if your VITE balance is 0, your vote has 0 voting weight and will be regarded as invalid.
 
+* Can I vote for the delegated node in public delegated consensus group?
 
+No, you cannot. However, since public delegated consensus group shares the same block producing nodes with snapshot consensus group, you should vote for super node in snapshot consensus group instead.
