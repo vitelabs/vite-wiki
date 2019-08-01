@@ -81,7 +81,7 @@ ABI接口定义
 | tradeToken| 交易对交易币种 |  TokenId |ABI| |
 | quoteToken| 交易对计价币种 |  TokenId |ABI| |
 
-***上币费用从上币地址交易所账户可用余额扣除10,000个VITE***
+***上币费用从交易所账户可用余额扣除10,000个VITE***
 
 ### NewOrder
 提交新订单
@@ -159,6 +159,8 @@ ABI接口定义
 | actionType| 操作类型 |  uint8 |ABI| 1 抵押 2 解抵押|
 | amount| 抵押/解抵押金额 |  uint256 |ABI| 至少抵押134 VITE,解抵押后金额为0或者至少保留134VITE|
 
+***抵押金额从交易所账户可用余额扣除相应数量VITE***
+
 ### PledgeForVip
 抵押获取vip资格
 
@@ -181,6 +183,8 @@ ABI接口定义
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 抵押地址 |  Address |sendBlock| |
 | actionType| 操作类型 |  uint8 |ABI| 1 抵押,2 解抵押|
+
+***抵押金额从交易所账户可用余额扣除10,000VITE***
 
 ### MarketOwnerConfig
 运营商配置交易对
