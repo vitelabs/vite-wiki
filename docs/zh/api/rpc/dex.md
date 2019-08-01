@@ -4,10 +4,10 @@ sidebarDepth: 4
 
 # DexFund
 :::tip 维护者
-[vite-crzn](https://github.com/vite-crzn)
 [weichaolee](https://github.com/weichaolee)
+[vite-crzn](https://github.com/vite-crzn)
 :::
-## 合约信息说明
+## 合约ABI接口
 交易所账户内置合约，合约地址： `vite_0000000000000000000000000000000000000006e82b8ba657`
 
 ### 充值
