@@ -27,7 +27,7 @@ ABI接口定义
 | TokenId| 充值币种 |  TokenId |sendBlock| |
 | Amount| 金额 |  uint256 |sendBlock| |
 
-### 提现[ABI]
+### 提现
 ABI接口定义
 ```
 {
@@ -75,11 +75,11 @@ ABI接口定义
 
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| AccountAddress| 上币人地址 |  Address |sendBlock| |
+| AccountAddress| 上币地址 |  Address |sendBlock| |
 | tradeToken| 交易对交易币种 |  TokenId |ABI| |
 | quoteToken| 交易对计价币种 |  TokenId |ABI| |
 
-*** 上币费用从交易所账户余额扣除，上币成功的前题是交易所账户余额有大于10,000个VITE
+***上币费用从上币地址交易所账户可用余额扣除10,000个VITE***
 
 ### 提交新订单
 ABI接口定义
@@ -122,9 +122,9 @@ ABI接口定义
 | AccountAddress| 提单地址 |  Address |sendBlock| |
 | tradeToken| 交易对交易币种 |  TokenId |ABI| |
 | quoteToken| 交易对计价币种 |  TokenId |ABI| |
-| side| 买卖方向 |  bool |ABI| false 买入,true 卖出|
-| orderType| 订单类型	 |  uint32 |ABI| 0 限价单|
-| price| 价格 |  string |ABI|小数的字符串表示，整数和小数部分最大都是12位有效数值|
+| side| 交易币种买卖方向 |  bool |ABI| false 买入,true 卖出|
+| orderType| 订单类型	 |  uint8 |ABI| 0 限价单|
+| price| 价格 |  string |ABI|小数的字符串表示，整数和小数部分最大都为12位有效数值|
 | quantity| 交易数量 |  uint256 |ABI|交易币种数量|
 
 ### 抵押挖矿
@@ -151,7 +151,7 @@ ABI接口定义
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 抵押地址 |  Address |sendBlock| |
 | actionType| 操作类型 |  uint8 |ABI| 1 抵押 2 解抵押|
-| amount| 抵押金额 |  uint256 |ABI| 最少抵押134 VITE|
+| amount| 抵押/解抵押金额 |  uint256 |ABI| 至少抵押134 VITE,解抵押后金额为0或者至少保留134VITE|
 
 ### 抵押获取vip资格
 ABI接口定义
@@ -172,7 +172,7 @@ ABI接口定义
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 抵押地址 |  Address |sendBlock| |
-| actionType| 操作类型 |  uint8 |ABI| 1 抵押 2 解抵押|
+| actionType| 操作类型 |  uint8 |ABI| 1 抵押,2 解抵押|
 
 ### 运营商配置交易对
 ABI接口定义
@@ -217,13 +217,15 @@ ABI接口定义
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
 | AccountAddress| 交易对owner地址 |  Address |sendBlock| |
-| operationCode| 操作类型 |  uint8 |ABI| 1 转让Owner,2 设置takerFeeRate,4 设置makerFeeRate,8 停止交易,对应code进行加和来支持以上多项的同时配置|
-| tradeToken| 交易对交易币种 |  TokenId |ABI| |
-| quoteToken| 交易对计价币种 |  TokenId |ABI| |
+| operationCode| 操作类型 |  uint8 |ABI| 1 转让Owner,2 设置takerFeeRate,4 设置makerFeeRate,8 停止交易,对应code进行加和来支持以上操作的同时执行|
+| tradeToken| 交易对交易币种 | TokenId |ABI| |
+| quoteToken| 交易对计价币种 | TokenId |ABI| |
 | owner| 新owner |  Address |ABI| operationCode & 1 == 1 生效|
-| takerFeeRate| 	运营商taker费率 |  int32 |ABI| operationCode & 2 == 2 生效|
-| makerFeeRate| 运营商maker费率	 |  int32 |ABI| operationCode & 4 == 4 生效|
-| stopMarket| 打开/关闭交易开关	 |  TokenId |ABI| operationCode & 8 == 8 生效,true 停止交易,false 开通交易|
+| takerFeeRate| 运营商taker费率 | int32 |ABI| operationCode & 2 == 2 生效|
+| makerFeeRate| 运营商maker费率 | int32 |ABI| operationCode & 4 == 4 生效|
+| stopMarket| 开通/停止交易开关	 | bool |ABI| operationCode & 8 == 8 生效,true 停止交易,false 开通交易|
+
+***实际费率计算方式为rate/100,000***
 
 ### 转让token owner
 ABI接口定义
@@ -247,8 +249,8 @@ ABI接口定义
 
 |  字段  | 名称 | 数据类型 |字段来源 |备注 |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| AccountAddress| 币种现owner地址 |  Address |sendBlock| |
-| token| 要转让的token |  TokenId |ABI| |
+| AccountAddress| 当前owner地址 |  Address |sendBlock| |
+| token| 转让token |  TokenId |ABI| |
 | owner| 新owner地址 |  Address |ABI| |
 
 ## RPC接口
@@ -265,7 +267,7 @@ ABI接口定义
 - **Parameters**: 
 
   * `Address`: 查询地址
-  * `TokenId`: 查询币种
+  * `TokenId`: 查询币种，不设置查询全部
   
 - **Returns**: 
 	- `Map[TokenTypeId]AccountFundInfo` 账户列表
@@ -320,7 +322,7 @@ ABI接口定义
 - **Parameters**: 
 
   * `Address`: 查询地址
-  * `TokenId`: 查询币种
+  * `TokenId`: 查询币种，不设置查询全部
   * `byte`: 余额类型(0 合计, 1 可用, 2 冻结)
 
 - **Returns**: 
