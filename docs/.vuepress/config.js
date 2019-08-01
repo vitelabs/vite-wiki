@@ -115,7 +115,8 @@ const sidebarConfigs = {
                 'pledge',
                 'consensus',
                 'mintage',
-                'dex',
+                'dex_fund',
+                'dex_trade',
             ]
         },
 

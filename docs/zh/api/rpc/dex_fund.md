@@ -469,7 +469,7 @@ ABI接口定义
 - **Parameters**: 
 
   * `tradeToken`:交易对交易币种
-  * `tradeToken`:交易对计价币种
+  * `quoteToken`:交易对计价币种
 
 - **Returns**: 
 
