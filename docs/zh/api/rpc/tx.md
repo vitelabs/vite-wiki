@@ -46,8 +46,9 @@
   * `data`: `[]byte`
   * `difficulty`: `*string`
   * `nonce`: `[]byte`
-  * `quota`: `*string` 该账户的配额
+  * `quota`: `*string` 该交易消耗的配额，不包含计算PoW获得的一次性配额
   * `quotaUsed`: `*string` 该交易消耗的配额
+  * `utUsed`: `*string` 该交易消耗的配额，单位：ut，精确到小数点后4位
   * `logHash`: `*types.Hash` 智能合约执行产生的LogList的Hash
   * `sendBlockList`: `[]*RawTxBlock` 合约RS块发送的请求交易列表
   * `tokenInfo`: `*RpcTokenInfo` 该交易涉及的Token信息
@@ -132,20 +133,21 @@
 
 ## tx_calcPoWDifficulty
 用户账户通过sendRawTx创建交易时获取difficulty。接口逻辑为先根据交易参数计算所需配额，然后判断账户是否有抵押受益金额，如果抵押获得的配额足够，则不需要计算PoW；如果没有抵押或者抵押获得的配额不够，则计算PoW难度。
-如果接口返回error，表示当前交易不能通过计算PoW来获取配额，例如在同一个快照时间内账户链上上一笔交易已通过PoW来获取配额，那么新交易不允许再次计算PoW。
+如果接口返回error，表示交易data过长，或者当前交易不能通过计算PoW来获取配额，例如在同一个快照块内账户链上上一笔交易已通过PoW来获取配额，那么新交易不允许再次计算PoW。
 
 - **Parameters**: 
 
   * `selfAddr`: `Address`  出块账户地址，必填
   * `prevHash`: `Hash`  出块账户链上上一个块的哈希，必填。如果是账户链上第一个交易，填0
   * `blockType`: `byte`  交易类型，必填
-  * `toAddr`: `Address`  交易接受地址，如果交易类型为请求交易，则此字段必填，否则填空
-  * `data`: `[]byte`  交易数据
+  * `toAddr`: `Address`  交易接收地址，如果交易类型为请求交易，则此字段必填，否则填空
+  * `data`: `[]byte`  交易数据，如果交易类型为响应交易，则此字段填空
   * `usePledgeQuota`: `bool`  是否优先使用配额
 
 - **Returns**: `Object`
   * `difficulty`: `big.Int`  需要计算的PoW难度，如果为空字符串，说明不需要计算PoW
-  * `quota`: `uint64`  交易需要的配额
+  * `quotaRequired`: `uint64`  交易需要的配额
+  * `utRequired`: `uint64`  交易需要的配额，单位：ut，精确到小数点后4位
   * `isCongestion`: `bool`  全网是否拥堵，true表示当前全网拥堵，此时配额成本提高，false表示不拥堵
   
 - **Example**:
@@ -160,7 +162,7 @@
 	"params": [{
 		"selfAddr":"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
 		"prevHash":"51ee7ce9c6218eee0e98551ebfa46255dfbd9c40bf73c4b69622ff90e5b8d153",
-		"blockType":4,
+		"blockType":2,
 		"toAddr":"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
 		"data":"8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAACA1EbeCzJnsDy6fZtJr6XnE0HHzQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFc3VwZXIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
 		"usePledgeQuota":true
@@ -173,8 +175,54 @@
     "jsonrpc": "2.0",
     "id": 17,
     "result": {
-        "quota": 21000,
-        "difficulty": "65534"
+        "quotaRequired": 32152,
+        "difficulty": "100506",
+        "utRequired": "1.531",
+        "isCongestion": false
+    }
+}
+```
+:::
+
+## tx_calcQuotaRequired
+计算本次交易需要的配额。
+
+- **Parameters**: 
+
+  * `selfAddr`: `Address`  出块账户地址，必填
+  * `blockType`: `byte`  交易类型，必填
+  * `toAddr`: `Address`  交易接收地址，如果交易类型为请求交易，则此字段必填，否则填空
+  * `data`: `[]byte`  交易数据，如果交易类型为响应交易，则此字段填空
+
+- **Returns**: `Object`
+  * `quotaRequired`: `uint64`  交易需要的配额
+  * `utRequired`: `uint64`  交易需要的配额，单位：ut，精确到小数点后4位
+  
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 17,
+	"method": "tx_calcPoWDifficulty",
+	"params": [{
+		"selfAddr":"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
+		"blockType":2,
+		"toAddr":"vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
+		"data":"8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAACA1EbeCzJnsDy6fZtJr6XnE0HHzQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFc3VwZXIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+	}]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": {
+        "quotaRequired": 32152,
+        "utRequired": "1.531"
     }
 }
 ```

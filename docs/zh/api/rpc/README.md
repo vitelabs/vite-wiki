@@ -20,7 +20,7 @@ title: 开始
     2. 术语 交易（transaction 或者Tx） = account block
 
 :::warning
-所有byte数组的类型，请转为base64传递，uint64和big.int都用string传递
+所有byte数组的类型，请转为base64传递，uint64、float和big.int都用string传递
 :::
 
 ## 常见RPC错误汇总

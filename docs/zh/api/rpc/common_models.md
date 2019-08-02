@@ -71,8 +71,9 @@
 | nonce | base64 string |[]byte] |  该交易Pow的nonce|
 | signature | base64 string| []byte] | 交易的签名|
 | height | string | uint64 | 该交易的高度 |
-| quota | string | uint64 | 该账户的配额 |
+| quota | string | uint64 | 该交易消耗的配额，不包含计算PoW获得的一次性配额 |
 | quotaUsed | string | uint64 | 该交易消耗的配额 |
+| utUsed | string | float | 该交易消耗的配额，单位：ut，精确到小数点后4位 |
 | amount |string|  big.Int | 该交易发生的金额|
 | fee | string | big.Int | 发送该交易使用的手续费 |
 | confirmedTimes |string| uint64 | 该交易被确认次数 |
