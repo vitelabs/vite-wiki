@@ -174,8 +174,10 @@ ABI：
 
 `Object`
   1. `current`: `uint64`  当前可用配额
-  2. `utps`: `uint64`  当前每秒能发起的交易（不包含备注的请求交易）数
-  3. `quotaPerSnapshotBlock`: `uint64` 抵押vite后，每增长一个快照块获得的配额
+  2. `quotaPerSnapshotBlock`: `uint64` 抵押vite后，每增长一个快照块获得的配额
+  3. `currentUt`: `float`: 当前可用配额，单位：ut，精确到小数点后4位
+  4. `utpe`: `float`: 当前抵押可以获得的最高配额，单位：ut，精确到小数点后4位
+  5. `pledgeAmount`: `big.Int`: 抵押的vite金额
   
 
 - **Example**:
@@ -200,7 +202,9 @@ ABI：
    "result": {
       "current": "1575000",
       "quotaPerSnapshotBlock": "21000",
-      "utps": "75"
+      "currentUt": "75",
+      "utpe": "75",
+      "pledgeAmount": "134000000000000000000"
    }
 }
 ```
