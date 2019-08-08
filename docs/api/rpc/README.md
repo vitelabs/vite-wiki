@@ -21,7 +21,7 @@ title: START
 
 :::warning
 * Byte array should be converted to base64 encoding
-* `uint64` and `big.int` are passed in string
+* `uint64`, `float` and `big.int` are passed in string
 :::
 
 ## Common RPC Errors

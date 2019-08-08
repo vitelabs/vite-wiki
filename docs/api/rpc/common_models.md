@@ -74,6 +74,7 @@
 | height | string | uint64 | Transaction height |
 | quota | string | uint64 | The quota of the account |
 | quotaUsed | string | uint64 | The quota consumed by the transaction |
+| utUsed | string | float | The quota consumed by the transaction in UT (4 decimals) |
 | amount |string|  big.Int | Transaction amount |
 | fee | string | big.Int | Transaction fee |
 | confirmedTimes |string| uint64 | The confirmation number of the transaction |

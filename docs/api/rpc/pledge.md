@@ -20,10 +20,17 @@ ABI：
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
   // Staking for a quota via delegation
   {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
+  // Callback function for delegated staking
+  {"type":"callback","name":"AgentPledge","inputs":[{"name":"success","type":"bool"}]},
   // Cancel staking via delegation
-  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
+  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
+  // Callback function for cancelling delegated staking
+  {"type":"callback","name":"AgentCancelPledge","inputs":[{"name":"success","type":"bool"}]}		
+]
 ]
 ```
+
+Delegated staking and cancelling delegated staking will return execution results in callbacks.
 
 ## pledge_getPledgeData
 Generate request data for staking for quota. Equivalent to `Pledge` method in ABI.
@@ -58,7 +65,7 @@ Generate request data for retrieving a certain amount of tokens staked for speci
 - **Parameters**: 
 
   * `Address`: Quota recipient's address
-  * `uint256`: The amount of token to withdraw
+  * `big.int`: The amount of token to withdraw
 
 - **Returns**: 
 	- `[]byte` Data
@@ -76,10 +83,12 @@ Generate request data for retrieving a certain amount of tokens staked for speci
    "method":"pledge_getCancelPledgeData",
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      10
+      "10"
     ]
 }
 ```
+
+:::
 
 ## pledge_getAgentPledgeData
 Generate request data for staking for specified quota recipient via delegation. Equivalent to `AgentPledge` method in ABI.
@@ -90,6 +99,7 @@ Generate request data for staking for specified quota recipient via delegation. 
   1. `pledgeAddr`:`Address`  Staking address
   2. `beneficialAddr`:`Address`  Quota recipient's address
   3. `bid`:`uint8`  Business id. Multiple staking from the same staking address and business id will be merged. As result, staking expiration will be extended
+  4. `stakeHeight`:`uint64`  Staking duration between 259200 and 31536000. For example, a staking duration of 259200 represents the staking can be retrieved after 259200 snapshot blocks
 
 - **Returns**: 
 	- `[]byte` Data
@@ -165,7 +175,10 @@ Return current quota and UTPS (unit transaction per second) of specified account
 
 `Object`
   1. `quota`: `uint64`  Current quota
-  2. `txNum`: `uint64`  UTPS
+  2. `quotaPerSnapshotBlock`: `uint64` Quota obtained per snapshot block through staking
+  3. `currentUt`: `float`: Current quota, measured in UT with 4 decimals
+  4. `utpe`: `float`: The maximum quota can be obtained with current staking amount, measured in UT with 4 decimals
+  5. `pledgeAmount`: `big.Int`: The staking amount
 
 - **Example**:
 
@@ -187,15 +200,18 @@ Return current quota and UTPS (unit transaction per second) of specified account
    "jsonrpc":"2.0",
    "id":1,
    "result": {
-      "quota": 21000,
-      "txNum":1
+      "current": "1575000",
+      "quotaPerSnapshotBlock": "21000",
+      "currentUt": "75",
+      "utpe": "75",
+      "pledgeAmount": "134000000000000000000"
    }
 }
 ```
 :::
 
 ## pledge_getPledgeList
-Return staking records of specified account
+Return staking records of specified account, ordered by expiration snapshot block height in descending order
 
 - **Parameters**: 
 
@@ -213,9 +229,9 @@ Return staking records of specified account
      * `withdrawHeight`: `uint64`  The snapshot block height when the staking expires
      * `beneficialAddr`: `Address`  Quota recipient's address
      * `withdrawTime`: `int64`  The estimated staking expiration time
-     * `agent`: `bool`  Whether the staking was done via delegation. `true` means delegated staking
-     * `agentAddress`: `Address` Delegate's address. 0 for normal staking
-     * `bid`: `uint8`  Business id. 0 for normal staking
+     * `agent`: `bool`  Whether this is delegated staking. `true` for yes and `false` for no.
+     * `agentAddress`: `Address` Delegated account address. 0 for non-delegated staking
+     * `bid`: `uint8`  Business id. 0 for non-delegated staking
 
 - **Example**:
 
@@ -252,33 +268,62 @@ Return staking records of specified account
 ```
 :::
 
-## pledge_getPledgeAmountByUtps
-Return the amount of Vite required for staking by target UTPS
+## pledge_getAgentPledgeInfo
+Get delegated staking 
 
 - **Parameters**: 
-  * `string`: Target UTPS. 1 UTPS means being able to send a transfer without comment per second
 
+`Object`
+  1. `pledgeAddr`:`Address`  Original staking address
+  2. `agentAddr`:`Address`  Delegated account address
+  3. `beneficialAddr`:`Address`  Quota recipient's address
+  4. `bid`:`uint8`  Business id. Multiple staking from the same staking address and business id will be merged. As result, staking expiration will be extended.
 - **Returns**: 
-	- `big.Int` The amount of Vite required for staking, having 18 decimals
+
+`Object`
+  1.`amount`: `big.int`  Staking amount
+  2.`withdrawHeight`: `uint64`  The snapshot block height when the staking expires
+  3.`beneficialAddr`: `Address`  Quota recipient's address
+  4.`withdrawTime`: `int64`  The estimated staking expiration time
+  5.`agent`: `bool`  Whether this is delegated staking. `true` for yes and `false` for no.
+  6.`agentAddress`: `Address`  Delegated account address. 0 for non-delegated staking
+  7.`bid`: `uint8`  Business id. 0 for non-delegated staking
 
 - **Example**:
 
+
 ::: demo
 
+
 ```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"pledge_getPledgeAmountByUtps",
-   "params":["0.013"]
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "pledge_getAgentPledgeInfo",
+	"params": [
+		{
+			"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23", 
+			"agentAddr":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+			"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+			"bid":1
+		}
+	]
 }
 ```
 
 ```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result":"134000000000000000000"
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+        "amount": "1000000000000000000000",
+        "withdrawHeight": "259992",
+        "beneficialAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+        "withdrawTime": 1561098331,
+        "agent": true,
+        "agentAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+        "bid": 1
+    }
 }
 ```
 :::

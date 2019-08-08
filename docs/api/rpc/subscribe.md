@@ -27,7 +27,7 @@ This kind of subscription will close automatically when the WebSocket connection
 Event supports rollback. When rollback occurs, `removed` field in the event content is set to true.
 
 :::tip To enable event subscription, you should
-* Install a minimal 1.3.2 version of 'gvite' software
+* Install a minimum 2.1.4 version of 'gvite' software
 * Add `"subscribe"` into `"PublicModules"` and set `"SubscribeEnabled":true` in node_config.json
 :::
 
@@ -79,6 +79,7 @@ New logs will be sent to subscriber in callback's `result` field when generated
           "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
         },
         "accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40",
+        "accountHeight": "10",
         "addr":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f",
         "removed":false
       }
@@ -186,7 +187,7 @@ Create a filter for polling for new snapshot blocks by passing into `subscribe_g
 :::
 
 ## subscribe_newAccountBlocksFilter
-Create a filter for polling for new transactions by passing into `subscribe_getFilterChanges` as parameter
+Create a filter for polling for new transactions on all accounts by passing into `subscribe_getFilterChanges` as parameter
 
 - **Returns**:  
 	- `string` filterId
@@ -235,7 +236,7 @@ Create a filter for polling for new transactions on specified account by passing
 
 ## subscribe_newOnroadBlocksByAddrFilter
 Create a filter for polling for un-received transactions on specified account by passing into `subscribe_getFilterChanges` as parameter. 
-The event includes new un-received transaction, transaction received and un-received transaction rolled back.
+The events include new un-received transaction, transaction is received and un-received transaction is rolled back.
 
 - **Returns**:  
 	- `string` filterId
@@ -260,16 +261,16 @@ The event includes new un-received transaction, transaction received and un-rece
 
 ## subscribe_newLogsFilter
 Create a filter for polling for new logs by passing into `subscribe_getFilterChanges` as parameter
-
+  
 - **Parameters**:
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` Query logs of specified account address and height. Multiple addresses and height range can be specified. At least one address should be specified.
-    2. `topics`: `[][]Hash` Subscribed topics, see example for usage.
+    1. `addrRange`: `map[Address]Range` Query logs of the specified account address with given query range. Addresses and height ranges are filled in a map. At least one address must be specified.
+    2. `topics`: `[][]Hash` Subscribed topics, see below example for usage.
     
 `Range`
-  1. `fromHeight`: `uint64` Start height. 0 means starting from the latest height
-  2. `toHeight`: `uint64` End height. 0 means no end height
+  1. `fromHeight`: `uint64` Start height. 0 means starting from the first block
+  2. `toHeight`: `uint64` End height. 0 means the latest block
 
 ```
 Topic examples：
@@ -735,16 +736,16 @@ Start listening for un-received transactions on specified account via callback
 
 ## subscribe_newLogs
 Start listening for new logs via callback
-
+  
 - **Parameters**:
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` Query logs of specified account address and height. Multiple addresses and height range can be specified.
-    2. `topics`: `[][]Hash` Subscribed topics, see example for usage.
+    1. `addrRange`: `map[Address]Range` Query logs of the specified account address with given query range. Addresses and height ranges are filled in a map. At least one address must be specified.
+    2. `topics`: `[][]Hash` Subscribed topics, see example in `subscribe_newLogsFilter` for usage.
     
 `Range`
-  1. `fromHeight`: `uint64` Start height. 0 means starting from the latest height
-  2. `toHeight`: `uint64` End height. 0 means no end height
+  1. `fromHeight`: `uint64` Start height. 0 means starting from the first block
+  2. `toHeight`: `uint64` End height. 0 means the latest block
 
 - **Returns**:  
 	- `string` Subscription id
@@ -812,22 +813,22 @@ Start listening for new logs via callback
 ## subscribe_getLogs
 Return historical logs
 
-- **Parameters**:
+- **Parameters**: 
 
   * `FilterParam`
-    1. `addrRange`: `map[Address]Range` Query logs of specified account address and height. Multiple addresses and height range can be specified.
-    2. `topics`: `[][]Hash` Subscribed topics, see example for usage.
+    1. `addrRange`: `map[Address]Range` Query logs of the specified account address with given query range. Addresses and height ranges are filled in a map. At least one address must be specified.
+    2. `topics`: `[][]Hash` Subscribed topics, see example in `subscribe_newLogsFilter` for usage.
     
 `Range`
-  1. `fromHeight`: `uint64` Start height. 0 means starting from the latest height
-  2. `toHeight`: `uint64` End height. 0 means no end height
+  1. `fromHeight`: `uint64` Start height. 0 means starting from the first block
+  2. `toHeight`: `uint64` End height. 0 means the latest block
 
 - **Returns**:  
   * `result`: `Array<LogsMsg>`
     1. `accountBlockHash`: `Hash` The hash of account block
     2. `addr`: `Address` Account address
     3. `log`: `VmLog` Log
-    4. `removed`: `bool` Whether the log was rolled back, `true` for yes and new log will be marked as `false`
+    4. `removed`: `bool` Whether the log was rolled back. New log will be marked as `false`
 	
 ::: demo
 ```json tab:Request
@@ -838,8 +839,8 @@ Return historical logs
 	"params": [{
 		"addrRange":{
 			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
-				"fromHeight":"0",
-				"toHeight":"0"
+				"fromHeight":"1",
+				"toHeight":"10"
 			}
 		}
 	}]

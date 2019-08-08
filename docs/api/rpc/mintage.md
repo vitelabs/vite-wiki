@@ -24,6 +24,10 @@ ABI：
   {"type":"function","name":"TransferOwner","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"newOwner","type":"address"}]},
   // Change token type from re-issuable to non-reissuable
   {"type":"function","name":"ChangeTokenType","inputs":[{"name":"tokenId","type":"tokenId"}]},
+  // Query token information
+  {"type":"function","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"}]},
+  // Callback function for token information query
+  {"type":"callback","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"},{"name":"exist","type":"bool"},{"name":"decimals","type":"uint8"},{"name":"tokenSymbol","type":"string"},{"name":"index","type":"uint16"},{"name":"owner","type":"address"}]},
   // Token issued event
   {"type":"event","name":"mint","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
   // Token re-issued event
@@ -36,6 +40,8 @@ ABI：
   {"type":"event","name":"changeTokenType","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]}
 ]
 ```
+
+Querying token information function will return execution results in callback.
 
 ## mintage_getMintData
 Generate request data for issuing new token. Equivalent to `Mint` method in ABI.
@@ -244,6 +250,7 @@ Return a list of all tokens issued
   7. `maxSupply`: `big.Int`  Maximum supply
   8. `ownBurnOnly`: `bool`  Whether the token can be burned by the owner only
   9. `tokenId`: `TokenId` Token ID
+  10. `index`: `uint16` Token index between 0-999. For token having the same symbol, sequential indexes will be allocated according to when the token is issued.
 
 - **Example**:
 
@@ -271,7 +278,8 @@ Return a list of all tokens issued
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }]
 }
 ```
@@ -296,6 +304,7 @@ Return token info by ID
   7. `maxSupply`: `big.Int`  Maximum supply
   8. `ownBurnOnly`: `bool`  Whether the token can be burned by the owner only
   9. `tokenId`: `TokenId` Token ID
+  10. `index`: `uint16` Token index between 0-999. For token having the same symbol, sequential indexes will be allocated according to when the token is issued.
 
 - **Example**:
 
@@ -323,7 +332,8 @@ Return token info by ID
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }
 }
 ```
@@ -348,6 +358,7 @@ Return a list of tokens issued by the specified owner
   7. `maxSupply`: `big.Int`  Maximum supply
   8. `ownBurnOnly`: `bool`  Whether the token can be burned by the owner only
   9. `tokenId`: `TokenId` Token ID
+  10. `index`: `uint16` Token index between 0-999. For token having the same symbol, sequential indexes will be allocated according to when the token is issued.
 
 - **Example**:
 
@@ -375,7 +386,8 @@ Return a list of tokens issued by the specified owner
       "isReIssuable":true,
       "maxSupply":"200000000000",
       "ownBurnOnly":true,
-      "tokenId":"tti_251a3e67a41b5ea2373936c8"
+      "tokenId":"tti_251a3e67a41b5ea2373936c8",
+      "index":0
    }]
 }
 ```
