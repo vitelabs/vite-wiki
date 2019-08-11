@@ -37,8 +37,10 @@
   "EntropyStorePath": "vite_d2fef1e5ffa7d9139bd7c80a672e0530789bac6c7c9ff58dc6", // The name of keystore file. Must conform to above coinbase address and should be stored in wallet directory.
   "EntropyStorePassword": "", // Keystore password
   "DashboardTargetURL":"wss://stats.vite.net",  // Full node statistics URL
-  "RewardAddr":"vite_xxx"   // Full node reward receiving address
-  "LogLevel": "info" // gvite log level. Default is info. No need to change.
+  "RewardAddr":"vite_xxx",   // Full node reward receiving address
+  "LogLevel": "info", // gvite log level. Default is info. No need to change.
+  "VmLogAll": false, // true will save the vmlog of all contracts. By default, vmlog (ie event) is not saved
+  "VmLogWhiteList": ["vite_d789431f1d820506c83fd539a0ae9863d6961382f67341a8b5"] // means that only the vmlog of the specified contract is saved.
 }
 ```
 
