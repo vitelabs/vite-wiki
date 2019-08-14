@@ -188,7 +188,6 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |maximumWithdrawAmount|最大实际到账转出金额|string|true|
 |gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT回收交易，用于回收TOT|string|true|
 |labelName|标签名，type为1时必传|string|false|
-|label|标签值，type为1时必传|string|false|
 |noticeMsg|注意事项描述，网关自行定义|string|false|
   
 
