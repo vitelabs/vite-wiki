@@ -17,6 +17,7 @@ Configure 'node_config.json' file with following settings:
  * Set coinbase's keystore path in `EntropyStorePath`, such as `vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906`
  * Set coinbase's keystore password in `EntropyStorePassword`, such as `123456`
  * Set genesis block file in `GenesisFile`. For example, `genesis.json` will read a file named 'genesis.json' in current folder
+ * Set `"VmLogAll": "true"` to save the vmlog of all contracts
 
 Following settings are specific to your environment:
  * Set data directory path in `DataDir`. For example, `gvite/singlemode` stands for directory `gvite/singlemode/devdata` under current folder
@@ -58,6 +59,7 @@ Below is a full example of node_config.json：
   "TestTokenTti":"tti_5649544520544f4b454e6e40",
   "TestTokenHexPrivKey":"7488b076b27aec48692230c88cbe904411007b71981057ea47d757c1e7f7ef24f4da4390a6e2618bec08053a86a6baf98830430cbefc078d978cf396e1c43e3a",
   "SubscribeEnabled":true,
+  "VmLogAll":true,
   "PublicModules": [
     "wallet",
     "public_onroad",
