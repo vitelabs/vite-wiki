@@ -187,6 +187,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |minimumWithdrawAmount|最小实际到账转出金额|string|true|
 |maximumWithdrawAmount|最大实际到账转出金额|string|true|
 |gatewayAddress|网关地址，web钱包会签名一个以该地址为目标地址的TOT回收交易，用于回收TOT|string|true|
+|labelName|标签名，type为1时必传|string|false|
 |noticeMsg|注意事项描述，网关自行定义|string|false|
   
 
@@ -223,6 +224,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |:--|:---|:---:|:---:|
 |tokenId|TOT id|string|true|
 |withdrawAddress|用户对手链转出地址|string|true|
+|label|标签值，type为1时必传|string|false|
   
   
 * **Response**
@@ -230,6 +232,7 @@ Web Wallet需根据不同的通道类型渲染不同的转入、转出的界面�
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
 |isValidAddress|地址是否合法|bool|true|
+|message|错误原因提示|string|false|
   
 
 * **Example**
@@ -364,6 +367,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
 |inTxHash|对手链转入交易hash|string|true|
+|inTxConfirmedCount|对手链转入交易已确认数|int|false|
+|inTxConfirmationCount|对手链转入交易需要确认数|int|false|
 |outTxHash|VITE链转出TOT交易hash|string|false|
 |amount|转入金额|string|true|
 |fee|网关收取的转入手续费|string|true|
@@ -386,6 +391,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
         "totalCount": 1,
         "depositRecords": [{
           "inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
+          "inTxConfirmedCount": 2,
+          "inTxConfirmationCount": 12,
           "outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
           "amount": "300000000000000000",
           "fee": "0",
@@ -428,6 +435,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
 |参数名|描述|数据类型|是否必传|
 |:--|:---|:---:|:---:|
 |inTxHash|VITE链tot转入交易hash|string|true|
+|inTxConfirmedCount|VITE链tot转入交易已确认数|int|false|
+|inTxConfirmationCount|VITE链tot转入交易需要确认数|int|false|
 |outTxHash|对手链转出交易hash|string|false|
 |amount|实际转出到账金额|string|true|
 |fee|网关收取的转出手续费|string|true|
@@ -450,6 +459,8 @@ VEP-8 Type固定为`3011`，用HEX表示为`0x0bc3`
         "totalCount": 2,
         "withdrawRecords": [{
           "inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
+          "inTxConfirmedCount": 2,
+          "inTxConfirmationCount": 300,
           "outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
           "amount": "190000000000000000",
           "fee": "10000000000000000",
