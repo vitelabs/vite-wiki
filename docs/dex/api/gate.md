@@ -193,6 +193,7 @@ Get withdrawal information by token id and user's Vite address. The web wallet w
   |minimumWithdrawAmount|Minimum withdrawal amount|string|true|
   |maximumWithdrawAmount|Maximum withdrawal amount|string|true|
   |gatewayAddress|Gateway address on Vite chain. The web wallet will send an amount of gateway tokens to the address for withdrawal|string|true|
+  |labelName|Label name, required if type=1|string|false|
   |noticeMsg|Extra message filled in by gateway|string|false|
 
 * **Example**
@@ -228,6 +229,7 @@ Verify withdrawal address. The web wallet will use this API to verify the source
   |:--|:---|:---:|:---:|
   |tokenId|Gateway token id|string|true|
   |withdrawAddress|User's withdrawal address on the source chain|string|true|
+  |labelName|Label name, required if type=1|string|false|
   
   
 * **Response**
@@ -235,6 +237,7 @@ Verify withdrawal address. The web wallet will use this API to verify the source
   |Name|Description|Data Type|Required|
   |:--|:---|:---:|:---:|
   |isValidAddress|Is the user's withdrawal address valid?|bool|true|
+  |message|Error message|string|false|
   
 
 * **Example**
@@ -371,6 +374,8 @@ Get historical deposit records
   |Name|Description|Data Type|Required|
   |:--|:---|:---:|:---:|
   |inTxHash|The deposit transaction hash on the source chain|string|true|
+  |inTxConfirmedCount|Confirmations conducted on source chain|int|false|
+  |inTxConfirmationCount|Confirmations required on source chain|int|false|
   |outTxHash|The deposit transaction hash on Vite chain|string|false|
   |amount|Deposit amount|string|true|
   |fee|Gateway fee|string|true|
@@ -393,6 +398,8 @@ Get historical deposit records
         "totalCount": 1,
         "depositRecords": [{
           "inTxHash": "0x8e791fc2430761ce82f432c6ad1614fa1ebc57b1e1e0925bd9302a9edf8fd235",
+          "inTxConfirmedCount": 2,
+          "inTxConfirmationCount": 12,
           "outTxHash": "9fb415eb6f30b27498a174bd868c29c9d30b9fa5bfb050d19156523ac540744b",
           "amount": "300000000000000000",
           "fee": "0",
@@ -434,6 +441,8 @@ Get historical withdrawal records
   |Name|Description|Data Type|Required|
   |:--|:---|:---:|:---:|
   |inTxHash|The withdrawal transaction hash on Vite chain|string|true|
+  |inTxConfirmedCount|Confirmations conducted on Vite chain|int|false|
+  |inTxConfirmationCount|Confirmations required on Vite chain|int|false|
   |outTxHash|The withdrawal transaction hash on the source chain|string|false|
   |amount|Actual amount transferred|string|true|
   |fee|Gateway fee|string|true|
@@ -456,6 +465,8 @@ Get historical withdrawal records
         "totalCount": 2,
         "withdrawRecords": [{
           "inTxHash": "b95c11ac34d4136f3be1daa3a9fab047e11ee9c87acef63ca21ba2cee388a80f",
+          "inTxConfirmedCount": 2,
+          "inTxConfirmationCount": 300,
           "outTxHash": "0x8096542d958a3ac4f247eba3551cea4aa09e1cdad5d7de79db4b55f28864b628",
           "amount": "190000000000000000",
           "fee": "10000000000000000",
