@@ -123,7 +123,7 @@ genesis_config.json完整示例，包含以下内容：
         "Height":2,
         "Version":2
       }
-    }
+    },
   "ConsensusGroupInfo": {
     "ConsensusGroupInfoMap": {
       "00000000000000000001": {
