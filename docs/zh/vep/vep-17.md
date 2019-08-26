@@ -92,15 +92,15 @@ Vite在代号为SPROUT的硬分叉修改了内置合约方法和虚拟机指令�
 | 0x21 | BLAKE2B | 20+words | 30+6×words | 计算Blake2b哈希。 |
 | 0x30 | ADDRESS | 1 | 2 | 获取当前账户地址。|
 | 0x31 | BALANCE | 150 | 400 | 获取当前账户某种代币的余额。 |
-| 0x30 | CALLER | 1 | 2 | 获取直接调用者地址。 |
-| 0x31 | CALLVALUE | 1 | 2 | 获取调用交易中的转账金额。 |
-| 0x32 | CALLDATALOAD | 2 | 3 | 获取本次调用的参数数据。 |
-| 0x33 | CALLDATASIZE | 1 | 2 | 获取本次调用的参数数据大小。 |
-| 0x34 | CALLDATACOPY | memGas + 3 + 3×memWords | memGas + 3 + 3×memWords  | 将调用参数数据拷贝到内存。 |
-| 0x35 | CODESIZE | 1 | 2 | 获取在当前环境中运行的代码的大小。 |
-| 0x36 | CODECOPY | memGas + 3 + 3×memWords | memGas + 3 + 3×memWords | 将当前环境中运行的代码拷贝到内存。 |
-| 0x37 | RETURNDATASIZE | 1 | 2 | 获取前一次调用返回的数据大小。 |
-| 0x38 | RETURNDATACOPY | memGas + 3 + 3×memWords | memGas + 3 + 3×memWords | 将前一次调用返回的数据拷贝到内存。 |
+| 0x33 | CALLER | 1 | 2 | 获取直接调用者地址。 |
+| 0x34 | CALLVALUE | 1 | 2 | 获取调用交易中的转账金额。 |
+| 0x35 | CALLDATALOAD | 2 | 3 | 获取本次调用的参数数据。 |
+| 0x36 | CALLDATASIZE | 1 | 2 | 获取本次调用的参数数据大小。 |
+| 0x37 | CALLDATACOPY | memGas + 3 + 3×memWords | memGas + 3 + 3×memWords  | 将调用参数数据拷贝到内存。 |
+| 0x38 | CODESIZE | 1 | 2 | 获取在当前环境中运行的代码的大小。 |
+| 0x39 | CODECOPY | memGas + 3 + 3×memWords | memGas + 3 + 3×memWords | 将当前环境中运行的代码拷贝到内存。 |
+| 0x3D | RETURNDATASIZE | 1 | 2 | 获取前一次调用返回的数据大小。 |
+| 0x3E | RETURNDATACOPY | memGas + 3 + 3×memWords | memGas + 3 + 3×memWords | 将前一次调用返回的数据拷贝到内存。 |
 | 0x42 | TIMESTAMP | 1 | 2 | 获取最新快照块的时间戳。 |
 | 0x43 | HEIGHT | 1 | 2 | 获取最新快照块的高度。 |
 | 0x46 | TOKENID | 1 | 2 | 获取交易的转账代币id。 |
