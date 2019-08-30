@@ -4,6 +4,12 @@
 :::
 
 ## RpcAccountInfo
+|  名称  | json类型 | 实际类型 |说明 |
+|:------------:|:-----------:|:-----:|:-----:|
+| accountAddress |  string | Address| 地址|
+| totalNumber | string | uint64| 该账户的交易数量|
+| tokenBalanceInfoMap | map | map| 各个币种的信息|
+
 ```json ::Demo
 {
     "accountAddress": "vite_f84b6eede43969a938dfd1c381e197ed47dd06f329b7c92328",
@@ -25,22 +31,16 @@
     }
 }
 ```
-`tokenBalanceInfoMap: [tokentypeid]TokenBalanceInfo`
+`tokenBalanceInfoMap: [tokenId]TokenBalanceInfo`
 
-|  名称  | json类型 | 实际类型 |说明 |
-|:------------:|:-----------:|:-----:|:-----:|
-| accountAddress |  string | Address| 地址|
-| totalNumber | string | uint64| 该账户的交易数量|
-| tokenBalanceInfoMap | map | map| 各个币种的信息|
-
-`TokenBalanceInfo`
+### RpcTokenBalanceInfo
 |  名称  | json类型 | 实际类型 |说明 |
 |:------------:|:-----------:|:-----:|:-----:|
 | tokenInfo |  tokenInfo | tokenInfo| token的属性详情|
 | totalAmount | string | bigint| 该币种的数量|
 | number | string | uint64| 该币种再该账户上的交易数量|
 
-`tokenInfo`
+### RpcTokenInfo
 |  名称  | json类型 | 实际类型 |说明 |
 |:------------:|:-----------:|:-----:|:-----:|
 | tokenName |  string | string| token的名字|
@@ -49,9 +49,6 @@
 | decimals | string | uint8| 该币种的最小可分割单位 1e`decimals`|
 | owner | string | address| 该币的铸币人|
 | tokenId | string | TokenTypeId| token id|
-
-
-
 
 ## AccountBlock
 |  名称  | json类型 |实际类型 |说明 |

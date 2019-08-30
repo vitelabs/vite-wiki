@@ -597,9 +597,5 @@ Add a new `EntropyStore` from non-standard directory.
 
 - **Parameters**:  
 	- `string`: The primary account address or the absolute file path of the `EntropyStore`
-	- `string`:`address`： Account address in the `EntropyStore`
 
-- **Returns**:
-	- `Object` 
-		- `entropyStoreFile : string` : The absolute file path of the `EntropyStore`
-		- `index : uint32 `: Index of the address in the `EntropyStore`
+- **Returns**: `none`

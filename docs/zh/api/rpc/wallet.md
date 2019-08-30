@@ -593,9 +593,5 @@ sidebarDepth: 4
 
 - **Parameters**:  
 	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
-	- `string`:`address`： 具体的地址
 
-- **Returns**:
-	- `Object` 
-		- `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- `index : uint32 `: 该地址在该Entropy下的序号
+- **Returns**: `none`

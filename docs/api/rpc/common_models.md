@@ -5,6 +5,12 @@
 :::
 
 ## RpcAccountInfo
+|  Name  | JSON type | Actual type |Description |
+|:------------:|:-----------:|:-----:|:-----:|
+| accountAddress |  string | Address| Account address|
+| totalNumber | string | uint64| The total transaction number of the account|
+| tokenBalanceInfoMap | map | map| Token balance map|
+
 ```json ::Demo
 {
     "accountAddress": "vite_f84b6eede43969a938dfd1c381e197ed47dd06f329b7c92328",
@@ -26,22 +32,16 @@
     }
 }
 ```
-`tokenBalanceInfoMap: [tokentypeid]TokenBalanceInfo`
+`tokenBalanceInfoMap: [tokenId]TokenBalanceInfo`
 
-|  Name  | JSON type | Actual type |Description |
-|:------------:|:-----------:|:-----:|:-----:|
-| accountAddress |  string | Address| Account address|
-| totalNumber | string | uint64| The total transaction number of the account|
-| tokenBalanceInfoMap | map | map| Token balance map|
-
-`TokenBalanceInfo`
+### RpcTokenBalanceInfo
 |  Name  | JSON type | Actual type |Description |
 |:------------:|:-----------:|:-----:|:-----:|
 | tokenInfo |  tokenInfo | tokenInfo| Token information|
 | totalAmount | string | bigint| Token balance|
 | number | string | uint64| The total transaction number for the specific token and account|
 
-`tokenInfo`
+### RpcTokenInfo
 |  Name  | JSON type | Actual type |Description |
 |:------------:|:-----------:|:-----:|:-----:|
 | tokenName |  string | string| Token name|
@@ -50,9 +50,6 @@
 | decimals | string | uint8| The smallest separable token unit|
 | owner | string | address| Token issuer|
 | tokenId | string | TokenTypeId| Token ID|
-
-
-
 
 ## AccountBlock
 |  Name  | JSON type | Actual type |Description |
