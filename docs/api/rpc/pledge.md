@@ -21,11 +21,11 @@ ABI：
   // Staking for a quota via delegation
   {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
   // Callback function for delegated staking
-  {"type":"callback","name":"AgentPledge","inputs":[{"name":"success","type":"bool"}]},
+  {"type":"function","name":"AgentPledgeCallback","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]},
   // Cancel staking via delegation
   {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
   // Callback function for cancelling delegated staking
-  {"type":"callback","name":"AgentCancelPledge","inputs":[{"name":"success","type":"bool"}]}		
+  {"type":"function","name":"AgentCancelPledgeCallback","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]}		
 ]
 ]
 ```
