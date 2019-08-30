@@ -1,8 +1,8 @@
 module.exports = [
-  // {
-  //   text: '介绍',
-  //   link: '/zh/introduction/',
-  // },
+  {
+    text: '介绍',
+    link: '/zh/introduction/',
+  },
   {
     text: '教程',
     link: '/zh/tutorial/start/'

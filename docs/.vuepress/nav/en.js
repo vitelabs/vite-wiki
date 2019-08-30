@@ -1,8 +1,8 @@
 module.exports = [
-  // {
-  //   text: 'Introduction',
-  //   link: '/introduction/',
-  // },
+  {
+    text: 'Introduction',
+    link: '/introduction/',
+  },
   {
     text: 'Tutorial',
     link: '/tutorial/start/'

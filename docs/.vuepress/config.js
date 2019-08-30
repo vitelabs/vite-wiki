@@ -321,7 +321,7 @@ module.exports = {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
+                    '/zh/introduction/': genSidebarConfig('introduction', 'zh', '介绍'),
                     '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', '交易所'),
