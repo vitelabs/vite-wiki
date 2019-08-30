@@ -1,4 +1,4 @@
-# Introduction to Vite Pre-Mainnet <Badge text="2.0.x"/>
+# Introduction to Vite Pre-Mainnet <Badge text="2.x"/>
 
 Vite Pre-Mainnet is the first stage of Mainnet's launch process. In the Pre-Mainnet, we will examine network performance, stability and security and perform optimizations accordingly.
 Vite Pre-Mainnet share the same design and specification with Mainnet. The only major difference is mandatory ERC20-to-Vite token swap will not be conducted in Pre-Mainnet.
