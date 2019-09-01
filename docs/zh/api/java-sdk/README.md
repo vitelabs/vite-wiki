@@ -15,6 +15,8 @@ title: 开始
                     <version>2.5.0</version>
           </dependency>
     ```    
+### JAVA doc
+    http://doc.vite.net/ [java doc](http://doc.vite.net "javadoc"). 
 ### 发送交易
      ```java
               // 构建RPC
