@@ -9,11 +9,11 @@ title: 开始
     https://github.com/vitelabs/vite-javasdk
 ### POM说明
     ```java
-          <dependency>
-                    <groupId>org.vite.sdk</groupId>
-                    <artifactId>vite-javasdk</artifactId>
-                    <version>2.5.0</version>
-          </dependency>
+                 <dependency>
+                           <groupId>org.vite.sdk</groupId>
+                           <artifactId>vite-java-client</artifactId>
+                           <version>0.1.0</version>
+                 </dependency>
     ```    
 ### JAVA doc
     http://doc.vite.net/ [java doc](http://doc.vite.net "javadoc"). 
