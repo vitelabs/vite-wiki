@@ -5,7 +5,7 @@
 :::
 
 ## 说明
-用于主机词派生和公私钥及地址管理
+用于助记词派生和公私钥及地址管理
 
 ## Key.createBip39Mnemonic
 
@@ -89,7 +89,7 @@
 ```java tab:Response
     
 ```
-
+:::
 
 ## Key.getPubKeyBase64FromPrivateKey
 根据私钥派生vite地址
@@ -108,6 +108,7 @@
 ```java tab:Response
     
 ```
+:::
 
 ## getHexAddress
  获取十六进制的地址
@@ -119,8 +120,11 @@
 ::: demo
 
 ```java tab:Request
+        Key key1 = Key.getKeyPairFromMnemonics("humble category output craft giant reform weapon business dinner gentle club diagram goat recycle cactus leopard library ship offer output history lake harvest struggle", 0);
+        key1.getHexPubKey();
 ```
 
 ```java tab:Response
-    
+      vite_8c89b353c29a06c957d2776a3e4b8165a962adc6b7b0105e45
 ```
+:::
