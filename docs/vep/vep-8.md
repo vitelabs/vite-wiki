@@ -22,7 +22,6 @@ It is known that content type might not be correctly recognized under the situat
 | Type | Type(Hex) | Description |
 | --- | --- | --- |
 | Binary | 0x0001 | Reserved, not used yet |
-| UTF-8 String | 0x0002 | Transaction comment |
 
 ### Custom Type
 | Type | Type(Hex) | Description |
