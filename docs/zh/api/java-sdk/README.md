@@ -6,13 +6,13 @@ title: 开始
 # 开始
 ## quickStart
 ### GITHUB
-    https://github.com/vitelabs/vite-javasdk
+    https://github.com/vitelabs/vite-java-client
 ### POM说明
     ```java
           <dependency>
                     <groupId>org.vite.sdk</groupId>
-                    <artifactId>vite-javasdk</artifactId>
-                    <version>2.5.0</version>
+                    <artifactId>vite-java-client</artifactId>
+                    <version>0.1.0</version>
           </dependency>
     ```    
 ### JAVA doc
