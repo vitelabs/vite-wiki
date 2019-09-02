@@ -11,7 +11,7 @@ module.exports = [
     text: 'API',
     items: [
       {
-        text: 'RPC 接口',
+        text: 'Vite RPC',
         link: '/zh/api/rpc/'
       },
     {
