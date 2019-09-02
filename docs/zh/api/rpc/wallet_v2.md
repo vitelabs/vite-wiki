@@ -236,7 +236,7 @@ sidebarDepth: 4
 - **Returns**:
 	- `Object`:
 		- `mnemonics : string` : 助记词
-		- `firstAddress : string` : 第0号地址
+		- `primaryAddress : string` : 第0号地址
 		- `filePath : string`: 文件地址  
 
 - **Example**:
@@ -259,7 +259,7 @@ sidebarDepth: 4
     "id": 2,
     "result": {
         "mnemonics": "pear lonely piece base local lift material damp animal siege error throw ride flag version dumb parent clever upper toe lumber great wild vivid",
-        "firstAddress": "vite_f646dc1f32b0ea88289bbfe4e4138d26edc9f9eac33a9e5292",
+        "primaryAddress": "vite_f646dc1f32b0ea88289bbfe4e4138d26edc9f9eac33a9e5292",
         "filePath": "/Users/xxx/Library/GVite/testdata/wallet/vite_f646dc1f32b0ea88289bbfe4e4138d26edc9f9eac33a9e5292"
     }
 }
@@ -360,7 +360,7 @@ sidebarDepth: 4
 - **Returns**:
 - `Object`:
 	- `mnemonics : string` : 助记词
-	- `firstAddr : string` : 地址
+	- `primaryAddress : string` : 地址
 	- `filePath : string`: 文件地址  
 
 - **Example**:
@@ -386,7 +386,7 @@ sidebarDepth: 4
     "id": 4,
     "result": {
         "mnemonics": "utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource",
-        "firstAddr": "vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0",
+        "primaryAddress": "vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0",
         "filePath": "/Users/xxx/Library/GVite/testdata/wallet/vite_981bca7a348de85bd431b842d4b6c17044335f71e5f3da59c0"
     }
 }
@@ -425,17 +425,17 @@ sidebarDepth: 4
 ```
 
 :::
-## wallet_findAddr
+## wallet_findAddressInEntropyFile
 在某个EntropyStore解锁的情况下 ，搜索某个地址
 
 - **Parameters**:  
-	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
+	- `string`: `第0号地址 address` 或者 `EntropyFile abs filepath`
 	- `string`:`address`： 具体的地址
 
 - **Returns**:
 	- `Object`
-		- `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- `index : uint32 `: 该地址在该Entropy下的序号
+		- `entropyFile : string` : 该EntropyFile的完整路径
+		- `index : uint32 `: 该地址在该EntropyFile下的序号
 - **Example**:
 
 ::: demo
@@ -444,7 +444,7 @@ sidebarDepth: 4
 {
 	"jsonrpc": "2.0",
 	"id": 4,
-	"method": "wallet_findAddr",
+	"method": "wallet_findAddressInEntropyFile",
 	"params": [
 		"vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
 		"vite_3fd41bb6ba4f15d5e74214a16153ff2f5abce67f73dc0dc07b"
@@ -457,7 +457,7 @@ sidebarDepth: 4
     "jsonrpc": "2.0",
     "id": 4,
     "result": {
-        "entropyStoreFile": "/Users/xxx/Library/GVite/testdata/wallet/vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
+        "entropyFile": "/Users/xxx/Library/GVite/testdata/wallet/vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
         "index": 84
     }
 }
@@ -466,7 +466,7 @@ sidebarDepth: 4
 
 :::
 
-### wallet_globalFindAddr
+### wallet_findAddress
 全局搜索某个地址
 
 - **Parameters**:  
@@ -474,8 +474,8 @@ sidebarDepth: 4
 
 - **Returns**:
 	- `Object`
-		- `entropyStoreFile : string` : 该EntropyStore的完整路径
-		- `index : uint32 `: 该地址在该Entropy下的序号
+		- `entropyFile : string` : 该EntropyFile的完整路径
+		- `index : uint32 `: 该地址在该EntropyFile下的序号
 - **Example**:
 
 ::: demo
@@ -484,7 +484,7 @@ sidebarDepth: 4
 {
 	"jsonrpc": "2.0",
 	"id": 4,
-	"method": "wallet_globalFindAddr",
+	"method": "wallet_findAddress",
 	"params": [
 	"vite_3fd41bb6ba4f15d5e74214a16153ff2f5abce67f73dc0dc07b"
 	]
@@ -496,22 +496,22 @@ sidebarDepth: 4
     "jsonrpc": "2.0",
     "id": 4,
     "result": {
-        "entropyStoreFile": "/Users/xxx/Library/GVite/testdata/wallet/vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
+        "entropyFile": "/Users/xxx/Library/GVite/testdata/wallet/vite_15391ac8b09d4e8ad78bfe5f9f9ab9682fe689572f6f53655e",
         "index": 84
     }
 }
 ```
 
 :::
-## wallet_createTxWithPassphrase
+## wallet_createTransaction
 发送交易
 
 - **Parameters**:  
 	-  `Object`:
-		- `entropystoreFile : string` :  `Primry address` 或者 `EntropyStore abs filepath`，可不填
-		- `selfAddr : string address` : 自己的地址，必填
-		- `toAddr : string address` : 转给谁，必填
-		- `tokenTypeId : string tokentypeid` : 哪个币，必填
+		- `entropyFile : string` :  `第0号地址 address` 或者 `EntropyFile abs path`，可不填
+		- `address : string address` : 自己的地址，必填
+		- `toAddress : string address` : 转给谁，必填
+		- `tokenId : string tokentypeid` : 哪个币，必填
 		- `passphrase : string` : 密码，必填
 		- `amount : string bigint` : 转多少钱，必填
 		- `data : string base64` : 转账留言，可不填
@@ -522,10 +522,10 @@ sidebarDepth: 4
 
 :::
 
-### wallet_addEntropyStore
-增加某个EntropyStore文件，可以用于应用非标准目录下托管的EntropyStore文件
+### wallet_addEntropyFile
+增加某个EntropyFile，可以用于应用非标准目录下托管的EntropyFile
 
 - **Parameters**:  
-	- `string`: `Primry address` 或者 `EntropyStore abs filepath`
+	- `string`: `第0号地址 address` 或者 `EntropyFile abs path`
 
 - **Returns**: `none`
