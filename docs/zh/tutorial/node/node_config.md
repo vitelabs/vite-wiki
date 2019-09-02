@@ -37,7 +37,9 @@
   "EntropyStorePath": "vite_d2fef1e5ffa7d9139bd7c80a672e0530789bac6c7c9ff58dc6", //keystore的文件名称
   "EntropyStorePassword": "", //keystore对应的密码
   "DashboardTargetURL":"wss://stats.vite.net",  // 全节点数据上报地址
-  "RewardAddr":"vite_xxx"   // 全节点奖励地址
-  "LogLevel": "info" // 日志级别，默认info级别，无须更改
+  "RewardAddr":"vite_xxx",   // 全节点奖励地址
+  "LogLevel": "info", // 日志级别，默认info级别，无须更改
+  "VmLogAll": false, // 值为false时不保存合约的vmlog（即event），值为true时保存所有合约的vmlog
+  "VmLogWhiteList": ["vite_bc68fb14f8a81015af1d28e6f88edff1e1db48473aca563a34"] // 保存指定合约的vmlog
 }
 ```

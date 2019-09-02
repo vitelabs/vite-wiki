@@ -4,6 +4,12 @@
 :::
 
 ## RpcAccountInfo
+|  名称  | json类型 | 实际类型 |说明 |
+|:------------:|:-----------:|:-----:|:-----:|
+| accountAddress |  string | Address| 地址|
+| totalNumber | string | uint64| 该账户的交易数量|
+| tokenBalanceInfoMap | map | map| 各个币种的信息|
+
 ```json ::Demo
 {
     "accountAddress": "vite_f84b6eede43969a938dfd1c381e197ed47dd06f329b7c92328",
@@ -25,22 +31,16 @@
     }
 }
 ```
-`tokenBalanceInfoMap: [tokentypeid]TokenBalanceInfo`
+`tokenBalanceInfoMap: [tokenId]TokenBalanceInfo`
 
-|  名称  | json类型 | 实际类型 |说明 |
-|:------------:|:-----------:|:-----:|:-----:|
-| accountAddress |  string | Address| 地址|
-| totalNumber | string | uint64| 该账户的交易数量|
-| tokenBalanceInfoMap | map | map| 各个币种的信息|
-
-`TokenBalanceInfo`
+### RpcTokenBalanceInfo
 |  名称  | json类型 | 实际类型 |说明 |
 |:------------:|:-----------:|:-----:|:-----:|
 | tokenInfo |  tokenInfo | tokenInfo| token的属性详情|
 | totalAmount | string | bigint| 该币种的数量|
 | number | string | uint64| 该币种再该账户上的交易数量|
 
-`tokenInfo`
+### RpcTokenInfo
 |  名称  | json类型 | 实际类型 |说明 |
 |:------------:|:-----------:|:-----:|:-----:|
 | tokenName |  string | string| token的名字|
@@ -49,9 +49,6 @@
 | decimals | string | uint8| 该币种的最小可分割单位 1e`decimals`|
 | owner | string | address| 该币的铸币人|
 | tokenId | string | TokenTypeId| token id|
-
-
-
 
 ## AccountBlock
 |  名称  | json类型 |实际类型 |说明 |
@@ -65,15 +62,20 @@
 | toAddress|string | Address | 交易的接受地址|
 | fromBlockHash |hex string |  Hash | 表示这个receive交易所对应的send交易的hash，所有send交易的fromBlockHash为"0000000000000000000000000000000000000000000000000000000000000000"|
 | tokenId |string |TokenTypeId | 该交易的币种ID|
-| snapshotHash | hex string | Hash | 交易引用的快照块hash |
 | data | string| []byte |  可用作交易备注|
-| timestamp | int64 | int64 |  该交易发生的时间 单位秒|
+| timestamp | int64 | int64 |  该交易被快照的时间 单位秒|
 | logHash | hex string | Hash  | 智能合约执行产生的LogList的Hash |
 | nonce | base64 string |[]byte] |  该交易Pow的nonce|
 | signature | base64 string| []byte] | 交易的签名|
 | height | string | uint64 | 该交易的高度 |
-| quota | string | uint64 | 该交易消耗的配额 |
+| quota | string | uint64 | 该交易消耗的配额，不包含计算PoW获得的一次性配额 |
+| quotaUsed | string | uint64 | 该交易消耗的配额 |
+| utUsed | string | float | 该交易消耗的配额，单位：ut，精确到小数点后4位 |
 | amount |string|  big.Int | 该交易发生的金额|
 | fee | string | big.Int | 发送该交易使用的手续费 |
 | confirmedTimes |string| uint64 | 该交易被确认次数 |
+| confirmedHash |hex string| Hash | 该交易第一次被确认的SnapshotHash |
 | tokenInfo | tokenInfo | tokenInfo | 该交易涉及的Token信息 |
+| sendBlockList | []*RawTxBlock | []*RawTxBlock | 合约RS块发送的请求交易列表|
+| receiveBlockHeight | string | uint64 | 对应的receive交易的高度 仅send交易展示 |
+| receiveBlockHash | hex string | Hash | 对应的receive交易Hash 仅send交易展示|

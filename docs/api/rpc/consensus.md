@@ -94,7 +94,7 @@ Generate request data for cancelling existing supernode registration in the spec
 :::
 
 ## register_getRewardData
-Generate request data for retrieving supernode rewards if applied. Rewards in 90 days(or all pending rewards if less than 90 days) since last retrieval can be retrieved per request. Cannot retrieve rewards generated in recent 30 minutes. Equivalent to `Reward` method in ABI. 
+Generate request data for retrieving supernode rewards if applied. Rewards in 90 days(or all accumulated un-retrieved rewards if less than 90 days) since last retrieval can be retrieved per request. Cannot retrieve rewards generated in recent 30 minutes. Equivalent to `Reward` method in ABI. 
 
 - **Parameters**: 
 
@@ -216,7 +216,7 @@ Return a list of supernodes registered in the specified consensus group by accou
 :::
 
 ## register_getAvailableReward
-Return pending rewards in the specified consensus group by supernode name
+Return un-retrieved rewards in the specified consensus group by supernode name
 
 - **Parameters**: 
 
@@ -226,10 +226,10 @@ Return pending rewards in the specified consensus group by supernode name
 - **Returns**: 
 
 `RewardInfo`
-  1. `totalReward`: `string`  Pending rewards
-  2. `blockReward`: `Address`  Pending block creation rewards
-  3. `voteReward`: `Address`  Pending candidate additional rewards(voting rewards)
-  4. `drained`: `bool`  Return `true` only if the supernode has been canceled and all pending reward is zero
+  1. `totalReward`: `string`  Accumulated un-retrieved rewards
+  2. `blockReward`: `Address`  Accumulated un-retrieved block creation rewards
+  3. `voteReward`: `Address`  Accumulated un-retrieved candidate additional rewards(voting rewards)
+  4. `drained`: `bool`  Return `true` only if the supernode has been canceled and all un-retrieved reward is zero
 
 - **Example**:
 
@@ -263,7 +263,7 @@ Return pending rewards in the specified consensus group by supernode name
 :::
 
 ## register_getRewardByDay
-Return daily pending rewards for all supernodes in the specified consensus group
+Return daily rewards for all supernodes in the specified consensus group by timestamp
 
 - **Parameters**: 
 
@@ -272,7 +272,7 @@ Return daily pending rewards for all supernodes in the specified consensus group
 
 - **Returns**: 
 
-`map<string>Object` 
+`map<string>RewardInfo` 
   1. `totalReward`: `string`  Total rewards in the day
   2. `blockReward`: `Address`  Block creation rewards in the day
   3. `voteReward`: `Address`  Candidate additional rewards(voting rewards) in the day
@@ -313,6 +313,61 @@ Return daily pending rewards for all supernodes in the specified consensus group
 }
 ```
 :::
+
+## register_getRewardByIndex
+Return daily rewards for all supernodes in the specified consensus group by cycle
+
+- **Parameters**: 
+
+  * `Gid`: Consensus group ID
+  * `uint64`: Index of cycle in 24h starting at 0 from 12:00:00 UTC+8 05/21/2019
+
+- **Returns**: 
+
+`Object`
+  1. `rewardMap`:`map<string>RewardInfo` Detailed reward information
+  2. `startTime`:`int64` Start time
+  3. `endTime`:`int64` End time
+
+
+- **Example**:
+
+::: demo
+
+```json tab:Request
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "method":"register_getRewardByIndex",
+   "params": [
+      "00000000000000000001",
+      "0"
+    ]
+}
+```
+
+```json tab:Response
+{  
+   "jsonrpc":"2.0",
+   "id":1,
+   "result": 
+    {
+      "rewardMap":{
+        "super":{
+          "totalReward": "10",
+          "blockReward": "6",
+          "voteReward": "4",
+          "expectedBlockNum":3,
+          "blockNum":1,
+        }
+      },
+      "startTime": 1558411200,
+      "endTime": 1558497600
+    }
+}
+```
+:::
+
 
 ## register_getCandidateList
 Return a list of SBP candidates in snapshot consensus group

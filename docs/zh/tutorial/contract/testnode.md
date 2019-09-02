@@ -18,6 +18,8 @@
  * 设置 `EntropyStorePath` 属性值为挖矿地址的keystore文件，例如 `vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906`；
  * 设置 `EntropyStorePassword` 属性值为挖矿地址的keystore文件密码，例如 `123`；
  * 设置 `GenesisFile` 属性值为创世块配置，例如 `genesis.json`，表示读取当前目录下的`genesis.json`文件作为创世块配置。
+ * 设置 `VmLogAll` 属性值为 `true`，表示保存所有合约的vmlog（即event）。
+ * 设置 `OpenPlugins` 属性值为 `true`，表示开启统计功能，包括在途交易数统计、分代币交易列表等。
 
 按需修改以下配置：
  * 设置数据文件目录，修改 `DataDir` 属性值，例如 `gvite/singlemode` 表示数据文件目录为当前目录下的`gvite/singlemode/devdata`目录；
@@ -59,6 +61,8 @@ node_config.json完整示例：
   "TestTokenTti":"tti_5649544520544f4b454e6e40",
   "TestTokenHexPrivKey":"7488b076b27aec48692230c88cbe904411007b71981057ea47d757c1e7f7ef24f4da4390a6e2618bec08053a86a6baf98830430cbefc078d978cf396e1c43e3a",
   "SubscribeEnabled":true,
+  "VmLogAll":true,
+  "OpenPlugins":true,
   "PublicModules": [
     "wallet",
     "public_onroad",
@@ -110,7 +114,16 @@ genesis_config.json完整示例，包含以下内容：
 ```json
 {
   "GenesisAccountAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
-  "ForkPoints": null,
+  "ForkPoints":{
+      "SeedFork":{
+        "Height":1,
+        "Version":1
+      },
+      "DexFork":{
+        "Height":2,
+        "Version":2
+      }
+    },
   "ConsensusGroupInfo": {
     "ConsensusGroupInfoMap": {
       "00000000000000000001": {

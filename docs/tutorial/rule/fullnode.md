@@ -19,6 +19,10 @@ Configuration details can be found at [Installation](../node/install.md#full-nod
 * The reward program started at 12:13:14 GMT+8 on December 13th, 2018. Rewards are distributed on a daily basis. Please note the time we send out rewards could be in delay due to large amount of computation, and be patient. Additional details can be found at https://reward.vite.net/.
 * As special full nodes, supernodes are eligible for the program as well.
 
+::: tip Reward Increase
+Starting from June 5, 2019, until the Vite Mainnet launches, a temporary factor of 2.6 will be applied to base amount to increase the daily full node rewards to 14,820 VITE.
+:::
+
 ::: warning IP Restriction
 If more than one full nodes run from the same IP address and all these nodes' uptime is above 90%, only the one having the highest uptime will receive rewards. If more than one nodes are at 100%, the reward will be distributed in random.
 :::

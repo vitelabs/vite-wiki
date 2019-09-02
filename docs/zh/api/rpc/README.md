@@ -14,18 +14,13 @@ title: 开始
 * **Http**：仅支持公共API(非wallet模块) 默认端口**48132**
 
 * **WebSocket**：仅支持公共API(非wallet模块) 默认端口**31420**
-* **不足**:
-
-    1. 暂时不支持发布订阅模式，后续会支持；
-
-    2. 项目迭代很快，目前的API在之后版本中会很大改变。
 
 * **注意**:
     1. 尽量使用标准的 ***Json rpc2*** 的库
     2. 术语 交易（transaction 或者Tx） = account block
 
 :::warning
-所有byte数组的类型，请转为base64传递，uint64和big.int都用string传递
+所有byte数组的类型，请转为base64传递，uint64、float和big.int都用string传递
 :::
 
 ## 常见RPC错误汇总
@@ -62,6 +57,6 @@ title: 开始
 
 ## JSON-RPC Support
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
+|  JSON-RPC 2.0  | HTTP | IPC |Publish–Subscribe |WebSocket |
 |:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |waiting|&#x2713;|
+| &#x2713;|  &#x2713; |  &#x2713; |&#x2713;|&#x2713;|

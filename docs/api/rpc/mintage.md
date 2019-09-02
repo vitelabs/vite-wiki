@@ -7,157 +7,55 @@ sidebarDepth: 4
 [viteLiz](https://github.com/viteLiz)
 :::
 
-The built-in token issuance contract. Contract address: vite_000000000000000000000000000000000000000595292d996d
+## Contract Specification
+Built-in token issuance contract. Contract address is `vite_000000000000000000000000000000000000000595292d996d`
 
-**Supported protocols:**
+ABI：
 
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  &#x2713; |  &#x2713; |future version| &#x2713; |
-
-## mintage_getMintageData
-Return the composed request data for issuing new token. The token will have fixed supply and cannot be re-issued. This method is **deprecated** and replaced by `mintage_getMintData` 
-
-- **Parameters**: 
-
-`Object`
-  1. `selfAddr`: `Address`  The account address of token issuer
-  2. `height`: `uint64`  The height of current block
-  3. `prevHash`: `Hash`  The hash of previous account block
-  4. `snapshotHash`: `Hash`  The hash of snapshot block that current account block refers to
-  5. `tokenName`:`string`  The token name in 1-40 characters, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-  6. `tokenSymbol`: `string` The token symbol in 1-10 characters, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-  7. `totalSupply`: `big.int` The total supply. Cannot exceed 2**256-1
-  8. `decimals`: `uint8` The decimal number. 10**`decimals` cannot exceed `totalSupply`
-
-
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"mintage_getMintageData",
-   "params": [{
-   	  "selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-   		"height":2,
-   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"snapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"tokenName":"Test Token",
-   		"tokenSymbol":"test",
-   		"totalSupply":100000000000,
-   		"decimals":6
-   	}]
-}
+```json
+[
+  // Issue new token
+  {"type":"function","name":"Mint","inputs":[{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"ownerBurnOnly","type":"bool"}]},
+  // Re-issue. Mint additional tokens
+  {"type":"function","name":"Issue","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"amount","type":"uint256"},{"name":"beneficial","type":"address"}]},
+  // Burn
+  {"type":"function","name":"Burn","inputs":[]},
+  // Transfer ownership of re-issuable token
+  {"type":"function","name":"TransferOwner","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"newOwner","type":"address"}]},
+  // Change token type from re-issuable to non-reissuable
+  {"type":"function","name":"ChangeTokenType","inputs":[{"name":"tokenId","type":"tokenId"}]},
+  // Query token information
+  {"type":"function","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"}]},
+  // Callback function for token information query
+  {"type":"callback","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"},{"name":"exist","type":"bool"},{"name":"decimals","type":"uint8"},{"name":"tokenSymbol","type":"string"},{"name":"index","type":"uint16"},{"name":"owner","type":"address"}]},
+  // Token issued event
+  {"type":"event","name":"mint","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
+  // Token re-issued event
+  {"type":"event","name":"issue","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
+  // Token burned event
+  {"type":"event","name":"burn","inputs":[{"name":"tokenId","type":"tokenId","indexed":true},{"name":"address","type":"address"},{"name":"amount","type":"uint256"}]},
+  // Ownership transferred event
+  {"type":"event","name":"transferOwner","inputs":[{"name":"tokenId","type":"tokenId","indexed":true},{"name":"owner","type":"address"}]},
+  // Token type changed event
+  {"type":"event","name":"changeTokenType","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]}
+]
 ```
 
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result": "46d0ce8b000000000000000000000000000000000000000000003fd16552e1551a267f3200000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000174876e8000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a5465737420546f6b656e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000047465737400000000000000000000000000000000000000000000000000000000"
-}
-```
-:::
-
-## mintage_getMintageCancelPledgeData
-Return the composed request data for retrieving the VITE that were staked for token issuance
-
-- **Parameters**: 
-
-  * `TokenId`: The issued token ID
-
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-
-::: demo
-
-
-```json tab:Request
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "method":"mintage_getMintageCancelPledgeData",
-   "params":["tti_5649544520544f4b454e6e40"]
-}
-```
-
-```json tab:Response
-{  
-   "jsonrpc":"2.0",
-   "id":1,
-   "result":  "9b9125f5000000000000000000000000000000000000000000005649544520544f4b454e"
-}
-```
-:::
-
-## mintage_newTokenId
-Return new token ID
-
-- **Parameters**: 
-
-`Object`
-  1. `selfAddr`: `Address`  The account address of token issuer
-  2. `height`: `uint64`  The height of current block
-  3. `prevHash`: `Hash`  The hash of previous account block
-  4. `snapshotHash`: `Hash`  The hash of snapshot block that current account block refers to
-
-- **Returns**: 
-	- `[]byte` Data
-
-- **Example**:
-
-::: demo
-
-```json tab:Request
-{
-	"jsonrpc": "1.0",
-	"id": 1,
-	"method": "mintage_newTokenId",
-	"params": [{
-   		"selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-   		"height":"2",
-   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"snapshotHash":"b65a60d090421928ad50c0f52044da46fa0286ef6a372047126939f64f7ebe07"
-   	}]
-}
-```
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 1,
-    "result": "tti_59f28063281a83f2d508d18e"
-}
-```
-:::
+Querying token information function will return execution results in callback.
 
 ## mintage_getMintData
-Return the composed request data for issuing new token
+Generate request data for issuing new token. Equivalent to `Mint` method in ABI.
 
 - **Parameters**: 
 
-`Object`
-  1. `selfAddr`: `Address`  The account address of token issuer
-  2. `height`: `uint64`  The height of current block
-  3. `prevHash`: `Hash`  The hash of previous account block
-  4. `snapshotHash`: `Hash`  The hash of snapshot block that current account block refers to
-  5. `tokenName`:`string`  The token name in 1-40 characters, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-  6. `tokenSymbol`: `string` The token symbol in 1-10 characters, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-  7. `totalSupply`: `big.int` The total supply. Cannot exceed 2**256-1
-  8. `decimals`: `uint8` The decimal number. 10**`decimals` cannot exceed `totalSupply`
-  9. `isReIssuable`: `bool` Whether the token can be re-issued. `true` means the token has dynamic supply and additional amount can be minted.
-  10. `maxSupply`: `uint256` Maximum supply. Mandatory for re-issuable token. Cannot exceed 2**256-1 and no less than `totalSupply`
-  11. `ownerBurnOnly`: `bool` Whether the token can be burned by owner only. Mandatory for re-issuable token. All token holders can perform burn action if this is `false`
+`Object`  
+  1. `tokenName`:`string`  Token name in 1-40 characters, including uppercase/lowercase letters, spaces and underscores. Cannot contain consecutive spaces or begin/end by space
+  2. `tokenSymbol`: `string` Token symbol in 1-10 characters, including uppercase/lowercase letters, spaces and underscores. 
+  3. `totalSupply`: `big.int` Total supply. Cannot exceed $2^{256}-1$
+  4. `decimals`: `uint8` Decimal digits. Having $10^{decimals}<=totalSupply$
+  5. `isReIssuable`: `bool` Whether the token can be re-issued. `true` means the token is in dynamic total supply and additional tokens can be minted.
+  6. `maxSupply`: `uint256` Maximum supply. Mandatory for re-issuable token. Cannot exceed $2^{256}-1$. Having $maxSupply>=totalSupply$
+  7. `ownerBurnOnly`: `bool` Whether the token can be burned by the owner only. Mandatory for re-issuable token. All token holders can burn if this flag is `false`
 
 - **Returns**: 
 	- `[]byte` Data
@@ -172,11 +70,7 @@ Return the composed request data for issuing new token
    "id":1,
    "method":"mintage_getMintData",
    "params": [{
-   	  "selfAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-   		"height":2,
-   		"prevHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"snapshotHash":"3a56babeb0a8140b12ac55e91d2e05c41f908ebe99767b0e4aa5cd7af22d6de7",
-   		"tokenName":"Test Token",
+   	  "tokenName":"Test Token",
    		"tokenSymbol":"test",
    		"totalSupply":"100000000000",
    		"decimals":6,
@@ -191,20 +85,20 @@ Return the composed request data for issuing new token
 {  
    "jsonrpc":"2.0",
    "id":1,
-   "result": "27ad872e0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000003fd16552e1551a267f3200000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000174876e8000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000174876e8000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000a5465737420546f6b656e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000047465737400000000000000000000000000000000000000000000000000000000"
+   "result": "cbf0e4fa000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000174876e80000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000002e90edd0000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000a5465737420546f6b656e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000047465737400000000000000000000000000000000000000000000000000000000"
 }
 ```
 :::
 
 ## mintage_getIssueData
-Return the composed request data for minting certain amount of token at an account address
+Generate request data for re-issuing the specified amount of tokens. Equivalent to `Issue` method in ABI.
 
 - **Parameters**: 
 
 `Object`
   1. `tokenId`: `TokenId`  Token ID
-  2. `amount`: `uint64`  Mint amount
-  3. `beneficial`: `Hash`  Account address to receive newly minted tokens
+  2. `amount`: `uint64`  Re-issuance amount
+  3. `beneficial`: `Hash`  The account address to receive newly minted tokens
 
 
 - **Returns**: 
@@ -237,7 +131,7 @@ Return the composed request data for minting certain amount of token at an accou
 :::
 
 ## mintage_getBurnData
-Return the composed request data for burning token
+Generate request data for burning token. Equivalent to `Burn` method in ABI.
 
 - **Parameters**: 
 
@@ -268,13 +162,13 @@ Return the composed request data for burning token
 :::
 
 ## mintage_getTransferOwnerData
-Return the composed request data for transferring token ownership
+Generate request data for transferring token ownership. Equivalent to `TransferOwner` method in ABI.
 
 - **Parameters**: 
 
 `Object`
   1. `TokenId`: Token ID
-  2. `Address`: Account address of new owner
+  2. `Address`: The account address of new owner
 
 - **Returns**: 
 
@@ -306,7 +200,7 @@ Return the composed request data for transferring token ownership
 :::
 
 ## mintage_getChangeTokenTypeData
-Return the composed request data for changing `isReIssuable` from `true` to `false`. One-way transition only.
+Generate request data for changing token type. This method can only change re-issuable token to non-reissuable. Equivalent to `ChangeTokenType` method in ABI.
 - **Parameters**: 
 
   * `TokenId`: Token ID
@@ -337,7 +231,7 @@ Return the composed request data for changing `isReIssuable` from `true` to `fal
 :::
 
 ## mintage_getTokenInfoList
-Return the information of all issued tokens
+Return a list of all tokens issued
 
 - **Parameters**: 
 
@@ -346,19 +240,17 @@ Return the information of all issued tokens
 
 - **Returns**: 
 
-`Array&lt;TokenInfo&gt;`
+`Array<TokenInfo>`
   1. `tokenName`: `string`  Token name
   2. `tokenSymbol`: `string`  Token symbol
-  3. `totalSupply`: `big.Int` The total supply
-  4. `decimals`: `uint8` The decimal number
+  3. `totalSupply`: `big.Int` Total supply
+  4. `decimals`: `uint8` Decimal digits
   5. `owner`: `Address` Token owner
   6. `isReIssuable`: `bool`  Whether the token can be re-issued
-  7. `maxSupply`: `big.Int`  The maximum supply
-  8. `ownBurnOnly`: `bool`  Whether the token can be burned by owner only
-  9. `pledgeAmount`: `big.Int` The amount of staking
-  10. `withdrawHeight`: `uint64` The height of staking expiration
-  11. `pledgeAddr`: `Address` The address of staking account
-  12. `tokenId`: `TokenId` Token ID
+  7. `maxSupply`: `big.Int`  Maximum supply
+  8. `ownBurnOnly`: `bool`  Whether the token can be burned by the owner only
+  9. `tokenId`: `TokenId` Token ID
+  10. `index`: `uint16` Token index between 0-999. For token having the same symbol, sequential indexes will be allocated according to when the token is issued.
 
 - **Example**:
 
@@ -386,17 +278,15 @@ Return the information of all issued tokens
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "pledgeAmount":"0",
-      "withdrawHeight":"0",
-      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }]
 }
 ```
 :::
 
 ## mintage_getTokenInfoById
-Return the information of specific token
+Return token info by ID
 
 - **Parameters**: 
 
@@ -407,16 +297,14 @@ Return the information of specific token
 `TokenInfo`  
   1. `tokenName`: `string`  Token name
   2. `tokenSymbol`: `string`  Token symbol
-  3. `totalSupply`: `big.Int` The total supply
-  4. `decimals`: `uint8` The decimal number
+  3. `totalSupply`: `big.Int` Total supply
+  4. `decimals`: `uint8` Decimal digits
   5. `owner`: `Address` Token owner
   6. `isReIssuable`: `bool`  Whether the token can be re-issued
-  7. `maxSupply`: `big.Int`  The maximum supply
-  8. `ownBurnOnly`: `bool`  Whether the token can be burned by owner only
-  9. `pledgeAmount`: `big.Int` The amount of staking
-  10. `withdrawHeight`: `uint64` The height of staking expiration
-  11. `pledgeAddr`: `Address` The address of staking account
-  12. `tokenId`: `TokenId` Token ID
+  7. `maxSupply`: `big.Int`  Maximum supply
+  8. `ownBurnOnly`: `bool`  Whether the token can be burned by the owner only
+  9. `tokenId`: `TokenId` Token ID
+  10. `index`: `uint16` Token index between 0-999. For token having the same symbol, sequential indexes will be allocated according to when the token is issued.
 
 - **Example**:
 
@@ -444,37 +332,33 @@ Return the information of specific token
       "isReIssuable":false,
       "maxSupply":"0",
       "ownBurnOnly":false,
-      "pledgeAmount":"0",
-      "withdrawHeight":"0",
-      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      "tokenId":"tti_5649544520544f4b454e6e40"
+      "tokenId":"tti_5649544520544f4b454e6e40",
+      "index":0
    }
 }
 ```
 :::
 
 ## mintage_getTokenInfoListByOwner
-Return the information of tokens issued by specific owner
+Return a list of tokens issued by the specified owner
 
 - **Parameters**: 
 
-  * `Address`: 所有者账号
+  * `Address`: The account address of token owner
 
 - **Returns**: 
 
-`Array&lt;TokenInfo&gt;`
+`Array<TokenInfo>`
   1. `tokenName`: `string`  Token name
   2. `tokenSymbol`: `string`  Token symbol
-  3. `totalSupply`: `big.Int` The total supply
-  4. `decimals`: `uint8` The decimal number
+  3. `totalSupply`: `big.Int` Total supply
+  4. `decimals`: `uint8` Decimal digits
   5. `owner`: `Address` Token owner
   6. `isReIssuable`: `bool`  Whether the token can be re-issued
-  7. `maxSupply`: `big.Int`  The maximum supply
-  8. `ownBurnOnly`: `bool`  Whether the token can be burned by owner only
-  9. `pledgeAmount`: `big.Int` The amount of staking
-  10. `withdrawHeight`: `uint64` The height of staking expiration
-  11. `pledgeAddr`: `Address` The address of staking account
-  12. `tokenId`: `TokenId` Token ID
+  7. `maxSupply`: `big.Int`  Maximum supply
+  8. `ownBurnOnly`: `bool`  Whether the token can be burned by the owner only
+  9. `tokenId`: `TokenId` Token ID
+  10. `index`: `uint16` Token index between 0-999. For token having the same symbol, sequential indexes will be allocated according to when the token is issued.
 
 - **Example**:
 
@@ -502,10 +386,8 @@ Return the information of tokens issued by specific owner
       "isReIssuable":true,
       "maxSupply":"200000000000",
       "ownBurnOnly":true,
-      "pledgeAmount":"0",
-      "withdrawHeight":"0",
-      "pledgeAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      "tokenId":"tti_251a3e67a41b5ea2373936c8"
+      "tokenId":"tti_251a3e67a41b5ea2373936c8",
+      "index":0
    }]
 }
 ```

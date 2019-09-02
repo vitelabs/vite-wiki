@@ -1,4 +1,4 @@
-# Pre-Mainnet 介绍 <Badge text="2.0.x"/>
+# Pre-Mainnet 介绍 <Badge text="2.x"/>
 
 目前Vite已具备主网上线的必备的功能，为进一步测试网络性能和稳定性，Pre-Mainnet将运行一段时间，若Pre-Mainnet稳定运行且没有任何问题，我们将开启主网上线。
 

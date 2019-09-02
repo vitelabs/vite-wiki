@@ -132,13 +132,14 @@ Get accountBlock of creating contract. *Gvite-RPC [contract_getCreateContractToA
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: BigInt`
-        - `fee: BigInt,`
+        - `tokenId: TokenId` Default: Vite_TokenId
+        - `amount: BigInt` Default: '0'
+        - `fee: BigInt,` Default: '10000000000000000000'
         - `hexCode: Hex`
         - `abi: string`
-        - `confirmTimes: number`
-        - `times: number`
+        - `confirmTime: Uint8` Default: '0'
+        - `quotaRatio: Uint8` Default: '10'
+        - `seedCount: Uint8` Default: '0'
         - `params?: stirng`
         - `height?: Uint64`
         - `prevHash?: Hex`
@@ -378,7 +379,7 @@ Get account block of changed transfer owner. *this.callContract [constant.Transf
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `ownerAddress: Address`
+        - `newOwner: Address`
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
@@ -396,80 +397,6 @@ Get accountBlock of changing token type, change token type from enable additiona
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-## DEX
-
-### dexFundUserDeposit
-ViteX Deposit. *this.callContract [constant.DexFundUserDeposit_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexFundUserWithdraw
-ViteX Withdrawal. *this.callContract [constant.DexFundUserWithdraw_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexTradeCancelOrder
-ViteX Revoking Orders. *this.callContract [constant.DexTradeCancelOrder_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `orderId: string`
-        - `tradeToken: TokenId`
-        - `side: <0 | 1>` buy: 0; sell: 1
-        - `quoteToken: TokenId`
-    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexFundNewOrder
-ViteX Creating Orders. *this.callContract [constant.DexFundNewOrder_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tradeToken: TokenId`
-        - `side: <0 | 1>` buy: 0; sell: 1
-        - `quoteToken: TokenId`
-        - `price: string`
-        - `quantity: string`
-    * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexFundNewMarket
-ViteX Token Listing. *this.callContract [constant.DexFundNewMarket_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tokenId: TokenId` Default Vite_TokenId
-        - `amount: Uint64`
-        - `quoteToken: TokenId`
-        - `tradeToken: TokenId`
     * `requestType: string<'async' | 'sync'>` Default: async. Options (sync or async) when reformatting accountBlock
 
 - **Return**:

@@ -1,4 +1,5 @@
 # AddrAccount
+
 Mainly used to quickly query the account status. eg: account balance / transactions / voting info ...
 
 ## Installation
@@ -44,7 +45,7 @@ let myClient = new client(provider);
 
 let myAddrAccount = new addrAccount({
     client: myClient,
-    adrress: privToAddr.newHexAddr().hexAddr    // vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689
+    address: 'your address'    // Eg: vite_69f3bdb5cdcfa145ae6cc42593a89088ff3dac587eb692d689
 });
 
 myAddrAccount.getBalance().then((result) => {
@@ -122,6 +123,7 @@ Query contract status. *[client.callOffChainContract](../client/client.md)*
     * `__namedParameters: object`
         - `abi`
         - `offChainCode : Hex` 合约代码
+        - `params: Array`
 
 - **Return**:
     * Promise<`result`>

@@ -2,13 +2,20 @@
 
 ## Debugging Environment
 
-In order to debug smart contract, you need setup a local full node and perform contract debugging through your node's RPC interface.
+In order to debug smart contract, you need setup a local node and do debugging through your node's RPC interface.
 
-We provide 2 debugging environments: development and testing. The difference is that account balance will not be examined before sending transaction in development environment, and each transaction has 1,000,000 quota automatically. 
-In testing environment, checks for quota and balance will be the same as Vite TestNet. It's necessary to maintain sufficient balance or quota when debugging.
+Vite provides 2 debugging environments: development and testing. 
 
-In development environment, it is also possible to debug your smart contract in Microsoft Visual Studio Code(aka VS Code).
+**Development Environment**
+* Account balance is NOT verified before sending transaction. 
+* Each transaction can utilize maximum 47.62`UT` quota with no staking. 
 
+**Testing Environment**
+* Quota and balance are verified normally. Pay attention to your balance and quota during debugging.
+
+::: tip Tips
+It is possible to debug your smart contract in Microsoft Visual Studio Code (aka VS Code) in development environment.
+:::
 ## Debugging in VS Code
 
 Soliditypp extension for VS Code supports debugging `solidity++` smart contract in local development environment.
@@ -23,6 +30,7 @@ Following features are supported:
 * One-click smart contract deployment and debugging
 * Support for multiple smart contract interaction
 * Deployment/debugging result displaying
+* Support for offchain queries
 * Example `solidity++` code
 
 ### Install the Extension
@@ -50,11 +58,10 @@ Please note that all data will be cleared from the node after debugging is compl
 ![](~/images/vscode-debug.png)
 
 * Section 1: soliditypp source code panel
-* Section 2: shows current account address that will be used for contract deployment and debugging. Additional address can be created by clicking `+`. Use droplist in right side to switch to a different address if necessary
-* Section 3: deployment panel. Field `amount` can be used to send a certain amount of VITE tokens in `attov`(1 VITE = 1e18 attov) when deploying the contract. Click `deploy` button to deploy the contract in local development environment.
-* Section 4: list of contracts deployed. Multiple contracts will be displayed if more than one are deployed
-* Section 5: list of contract methods deployed. Multiple methods will be displayed if more than one are present. Parameter `amount` is used to send VITE tokens(in `attov`) to contract when calling the method. In our example, click `call "SayHello"` button will call `SayHello` of contract `HelloWorld`
-* Section 6: deployment/debugging result. `Request` and `Response` sections will show the information of request or response transaction respectively. New request transaction will be displayed in `Response` if the method still calls other function. Please note that transactions in Vite are executed asynchronously. User may need wait for a while before response transaction is generated, after a request is sent out. More information about `Request` and `Response` please see [AccountBlock](../../api/rpc/common_models.html#accountblock)。
+* Section 2: current address used for contract deployment and debugging. If you want to use a different address, click `+` to generate a new address and then choose the address in the droplist on the right side
+* Section 3: deploy panel. Field `amount` can be used to send VITE (1 VITE = 1e18 attov) upon deploying the contract. Click `deploy` button to deploy the contract in local development environment.
+* Section 4: contracts deployed. Multiple results will be displayed if more than one contracts are deployed. Parameter `amount` is used to send VITE to the contract when calling a function. For example, clicking `call "SayHello"` will call method `SayHello` of contract `HelloWorld`
+* Section 5: deployment/debugging result. `Send`/`Receive` shows the information of request/response transaction. New request transaction is displayed in `Receive` if it calls other method. Please note that transactions in Vite are asynchronous and user may need wait until the response transaction is generated after sending the request. More information about `Send` and `Receive` please see [AccountBlock](../../api/rpc/common_models.html#accountblock)。
 
 ## Debugging in Command Line
  

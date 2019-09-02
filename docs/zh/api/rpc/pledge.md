@@ -20,10 +20,16 @@ ABI：
   {"type":"function","name":"CancelPledge","inputs":[{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"}]},
   // 代理抵押
   {"type":"function","name":"AgentPledge", "inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"bid","type":"uint8"}]},
-  // 代理取消抵押
-  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]}
+  // 代理抵押回调
+  {"type":"function","name":"AgentPledgeCallback","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]},
+  // 取消代理抵押
+  {"type":"function","name":"AgentCancelPledge","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
+  // 取消代理抵押回调
+  {"type":"function","name":"AgentCancelPledgeCallback","inputs":[{"name":"pledgeAddress","type":"address"},{"name":"beneficial","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]}		
 ]
 ```
+
+其中，代理抵押和去掉代理抵押的响应交易会产生回调请求交易，通知本次代理抵押或者取消代理抵押交易是否成功。
 
 ## pledge_getPledgeData
 获取抵押交易请求数据，也可以通过对ABI中的`Pledge`方法编码获取交易请求数据。
@@ -76,7 +82,7 @@ ABI：
    "method":"pledge_getCancelPledgeData",
    "params":[
       "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      10
+      "10"
     ]
 }
 ```
@@ -92,12 +98,12 @@ ABI：
   1. `pledgeAddr`:`Address`  实际抵押地址
   2. `beneficialAddr`:`Address`  抵押受益地址
   3. `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期时间也会顺延
+  4. `stakeHeight`:`uint64`  抵押高度，范围为259200~31536000，例如259200表示抵押之后等待259200个快照块之后可以取回抵押。
 
 - **Returns**: 
 	- `[]byte` Data
 
 - **Example**:
-
 
 ::: demo
 
@@ -110,7 +116,8 @@ ABI：
       {
       	"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23",
       	"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
-      	"bid":1
+      	"bid":1,
+      	"stakeHeight":"259200"
       }
    ]
 }
@@ -167,8 +174,10 @@ ABI：
 
 `Object`
   1. `current`: `uint64`  当前可用配额
-  2. `utps`: `uint64`  当前每秒能发起的交易（不包含备注的请求交易）数
-  3. `quotaPerSnapshotBlock`: `uint64` 抵押vite后，每增长一个快照块获得的配额
+  2. `quotaPerSnapshotBlock`: `uint64` 抵押vite后，每增长一个快照块获得的配额
+  3. `currentUt`: `float`: 当前可用配额，单位：ut，精确到小数点后4位
+  4. `utpe`: `float`: 当前抵押可以获得的最高配额，单位：ut，精确到小数点后4位
+  5. `pledgeAmount`: `big.Int`: 抵押的vite金额
   
 
 - **Example**:
@@ -193,14 +202,16 @@ ABI：
    "result": {
       "current": "1575000",
       "quotaPerSnapshotBlock": "21000",
-      "utps": "75"
+      "currentUt": "75",
+      "utpe": "75",
+      "pledgeAmount": "134000000000000000000"
    }
 }
 ```
 :::
 
 ## pledge_getPledgeList
-获取本账户的抵押金额列表
+获取本账户的抵押金额列表，按到期快照块高度倒序排序
 
 - **Parameters**: 
 
@@ -213,7 +224,7 @@ ABI：
 `Object`
   1. `totalPledgeAmount`: `big.Int`  本账户抵押的总金额
   2. `totalCount`: `int`  抵押信息总数
-  3. `pledgeInfoList`: `Array&lt;PledgeInfo&gt;` 抵押信息列表
+  3. `pledgeInfoList`: `Array<PledgeInfo>` 抵押信息列表
      * `amount`: `big.int`  抵押金额
      * `withdrawHeight`: `uint64`  到期快照块高度
      * `beneficialAddr`: `Address`  受益地址
@@ -257,6 +268,68 @@ ABI：
         }
       ]
    }
+}
+```
+:::
+
+## pledge_getAgentPledgeInfo
+获取代理抵押信息
+
+- **Parameters**: 
+
+`Object`
+  1. `pledgeAddr`:`Address`  实际抵押地址
+  2. `agentAddr`:`Address`  代理抵押地址
+  3. `beneficialAddr`:`Address`  抵押受益地址
+  4. `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期时间也会顺延
+
+- **Returns**: 
+
+`Object`
+  1.`amount`: `big.int`  抵押金额
+  2.`withdrawHeight`: `uint64`  到期快照块高度
+  3.`beneficialAddr`: `Address`  受益地址
+  4.`withdrawTime`: `int64`  预计到期时间
+  5.`agent`: `bool`  是否代理抵押，true-代理抵押 false-普通抵押
+  6.`agentAddress`: `Address`  代理地址，普通抵押时，代理地址为0
+  7.`bid`: `uint8`  业务id，普通抵押时，业务id为0
+    
+
+- **Example**:
+
+
+::: demo
+
+
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "pledge_getAgentPledgeInfo",
+	"params": [
+		{
+			"pledgeAddr":"vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23", 
+			"agentAddr":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+			"beneficialAddr":"vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+			"bid":1
+		}
+	]
+}
+```
+
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+        "amount": "1000000000000000000000",
+        "withdrawHeight": "259992",
+        "beneficialAddr": "vite_a5a7f08011c2f0e40ccd41b5b79afbfb818d565f566002d3c6",
+        "withdrawTime": 1561098331,
+        "agent": true,
+        "agentAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+        "bid": 1
+    }
 }
 ```
 :::

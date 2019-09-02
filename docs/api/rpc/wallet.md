@@ -8,20 +8,13 @@ sidebarDepth: 4
 [TiantaoZhu](https://github.com/TiantaoZhu)
 :::
 
-**Supported protocols:**
-
-|  JSON-RPC 2.0  | HTTP | IPC |Publish–subscribe |Websocket |
-|:------------:|:-----------:|:-----:|:-----:|:-----:|
-| &#x2713;|  `false` |  &#x2713; |future version|`false`|
-
-
 ## wallet_listEntropyFilesInStandardDir
 Return all `EntropyStore` in the standard directory
 
 - **Parameters**: `none`
 
 - **Returns**: 
-	- `Array[string]` An array of `EntropyStore` paths
+	- `Array[string]` An list of absolute paths of `EntropyStore`
 
 - **Example**:
 
@@ -59,7 +52,7 @@ Return all `EntropyStore` managed by the wallet
 - **Parameters**: `none`
 
 - **Returns**: 
-	- `Array[string]` An array of `EntropyStore` paths
+	- `Array[string]` An list of absolute paths of `EntropyStore`
 
 
 - **Example**:
@@ -88,14 +81,14 @@ Return all `EntropyStore` managed by the wallet
 :::
 
 ## wallet_extractMnemonic
-Return mnemonics of an `EntropyStore`
+Return mnemonics of specified `EntropyStore`
 
 - **Parameters**: 
-	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. The standard `EntropyStore` name is Address 0.
+	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. Address 0 is used as standard `EntropyStore` name.
 	- `string` : Wallet password
 
 - **Returns**: 
-	- `string`: Mnemonic
+	- `string`: Mnemonic phrase
 
 - **Example**: 
 
@@ -124,7 +117,7 @@ Return mnemonics of an `EntropyStore`
 Unlock the specified `EntropyStore`
 
 - **Parameters**: 
-	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. The standard `EntropyStore` name is Address 0.
+	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. Address 0 is used as standard `EntropyStore` name.
 	- `string` : Wallet password
 
 - **Returns**: 
@@ -157,7 +150,7 @@ Unlock the specified `EntropyStore`
 Lock the specified `EntropyStore`
 
 - **Parameters**: 
-	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. The standard `EntropyStore` name is Address 0.
+	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. Address 0 is used as standard `EntropyStore` name.
 
 
 - **Returns**:
@@ -190,12 +183,12 @@ Lock the specified `EntropyStore`
 Return a specified range of addresses in the `EntropyStore`
 
 - **Parameters**: 
-	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. The standard `EntropyStore` name is Address 0.
-	- `uint32`: Starting index, included
-	- `uint32`: Ending index, excluded
+	- `string` : The absolute file path of the `EntropyStore`, or `EntropyStore` name if the file is in standard directory. Address 0 is used as standard `EntropyStore` name.
+	- `uint32`: Start index, included
+	- `uint32`: End index, excluded
 
 - **Returns**: 
-	- `Array[string]`: An array of account addresses
+	- `Array[string]`: An list of account addresses
 
 - **Example**:
 
@@ -233,7 +226,7 @@ Return a specified range of addresses in the `EntropyStore`
 :::
 
 ## wallet_newMnemonicAndEntropyStore
-Create new mnemonics and `EntropyStore`
+Create new mnemonics and corresponding `EntropyStore`
 
 - **Parameters**: 
 	- `string`: Wallet password
@@ -241,8 +234,8 @@ Create new mnemonics and `EntropyStore`
 - **Returns**: 
 	- `Object`:
 		- `mnemonic : string` : The newly created mnemonics
-		- `primaryAddr : string` : The primary account address
-		- `filename : string`: The `EntropyStore` path
+		- `primaryAddr : string` : Primary account address
+		- `filename : string`: Absolute `EntropyStore` file path
 
 - **Example**:
 
@@ -272,17 +265,17 @@ Create new mnemonics and `EntropyStore`
 :::
 
 ## wallet_deriveByIndex
-Derive sub account address by index
+Generate sub address by index
 
 - **Parameters**: 
-	- `string` : The `EntropyStore` path or primary account address
-	- `uint32`: The sub address index
+	- `string` : The primary account address or the absolute file path of the `EntropyStore`
+	- `uint32`: The index of sub address
 
 - **Returns**: 
 	- `Object`:
-		-  `bip44Path : string` : The address bip44 path
-		-  `address : string` : Derived sub address
-		-  `privateKey : []byte`: The private key in Base64 encoding
+		-  `bip44Path : string` : The BIP44 path of the address
+		-  `address : string` : Sub address
+		-  `privateKey : []byte`: Private key in base64 encoding
 
 - **Example**:
 
@@ -314,17 +307,17 @@ Derive sub account address by index
 :::
 
 ## wallet_deriveByFullPath
-Derive sub account address by bip44 path. This method supports deriving sub address at more flexible hierarchy.
+Generate sub address by BIP44 path. This method supports deriving sub address more flexibly.
 
 - **Parameters**: 
-	- `string` : The `EntropyStore` path or primary account address
-	- `string`: The address bip44 path
+	- `string` : The primary account address or the absolute file path of the `EntropyStore`
+	- `string`: The BIP44 path of the address
 
 - **Returns**: 
 	- `Object`:
-		-  `bip44Path : string` : The address bip44 path
-		-  `address : string` : Derived sub address
-		-  `privateKey : []byte`: The private key in Base64 encoding
+		-  `bip44Path : string` : The BIP44 path of the address
+		-  `address : string` : Sub address
+		-  `privateKey : []byte`: Private key in base64 encoding
 
 - **Example**:
 
@@ -356,7 +349,7 @@ Derive sub account address by bip44 path. This method supports deriving sub addr
 :::
 
 ## wallet_recoverEntropyStoreFromMnemonic
-Recover `EntropyStore` from the mnemonics
+Recover `EntropyStore` from mnemonics
 
 - **Parameters**: 
 	- `string` : Mnemonics
@@ -365,8 +358,8 @@ Recover `EntropyStore` from the mnemonics
 - **Returns**: 
 - `Object`:
 	- `mnemonic : string` : Mnemonics
-	- `primaryAddr : string` : The primary account address
-	- `filename : string`: The `EntropyStore` path 
+	- `primaryAddr : string` : Primary account address
+	- `filename : string`: Absolute `EntropyStore` file path 
 
 - **Example**:
 
@@ -401,11 +394,11 @@ Recover `EntropyStore` from the mnemonics
 :::
 
 ## wallet_globalCheckAddrUnlocked
-Check if the specified address is unlocked globally.
+Check if the specified address is unlocked
 
-- **Parameters**: `string` : `address` The account address to check
+- **Parameters**: `string` : `address` Account address
 
-- **Returns**: `bool` True if the address is unlocked
+- **Returns**: `bool` Whether the address is unlocked. `true` means unlocked
 
 - **Example**:
 
@@ -434,13 +427,13 @@ Check if the specified address is unlocked globally.
 :::
 
 ## wallet_isAddrUnlocked
-Check if the specified address in the `EntropyStore` is unlocked. The `EntropyStore` should be unlocked in advance.
+Check if the specified address in the `EntropyStore` is unlocked. The specific `EntropyStore` must be unlocked in advance before calling this method.
 
 - **Parameters**: 
-	- `string` : The primary account address or the absolute file path of the `EntropyStore`.
-	- `string`:`address`： The account address to check
+	- `string` : The primary account address or the absolute file path of the `EntropyStore`
+	- `string`:`address`： Account address
 
-- **Returns**: `bool` True if the address is unlocked
+- **Returns**: `bool` Whether the address is unlocked. `true` means unlocked
 
 - **Example**:
 
@@ -472,9 +465,9 @@ Check if the specified address in the `EntropyStore` is unlocked. The `EntropySt
 ## wallet_isUnlocked
 Check if the specified `EntropyStore` is unlocked.
 
-- **Parameters**:  `string`: The primary account address or the absolute file path of the `EntropyStore`.
+- **Parameters**:  `string`: The primary account address or the absolute file path of the `EntropyStore`
 
-- **Returns**: `bool` True if the `EntropyStore` is unlocked
+- **Returns**: `bool` Whether the address is unlocked. `true` means unlocked
 
 - **Example**:
 
@@ -502,16 +495,16 @@ Check if the specified `EntropyStore` is unlocked.
 :::
 
 ## wallet_findAddr
-Return the index of the specified address in the `EntropyStore`. The `EntropyStore` should be unlocked in advance.
+Return the index of specified address in the `EntropyStore`. The specific `EntropyStore` must be unlocked in advance before calling this method.
 
 - **Parameters**:  
-	- `string`: The primary account address or the absolute file path of the `EntropyStore`.
-	- `string`:`address`： The account address to look for
+	- `string`: The primary account address or the absolute file path of the `EntropyStore`
+	- `string`:`address`： Account address
 
 - **Returns**:
 	- `Object` 
-		- `entropyStoreFile : string` : The absolute file path of the `EntropyStore`
-		- `index : uint32 `: The address index in the `EntropyStore`
+		- `entropyStoreFile : string` : Absolute `EntropyStore` file path
+		- `index : uint32 `: Index of the address in the `EntropyStore`
 - **Example**: 
 
 ::: demo
@@ -543,15 +536,15 @@ Return the index of the specified address in the `EntropyStore`. The `EntropySto
 :::
 
 ## wallet_globalFindAddr
-Return the index of the specified address in the `EntropyStore` globally.
+Return the index of specified address
 
 - **Parameters**:  
-	 * `string`:`address`： The account address to look for
+	 * `string`:`address`： Account address
 
 - **Returns**:
 	- `Object` 
-		- `entropyStoreFile : string` : The absolute file path of the `EntropyStore`
-		- `index : uint32 `: The address index in the `EntropyStore`
+		- `entropyStoreFile : string` : Absolute `EntropyStore` file path
+		- `index : uint32 `: Index of the address in the `EntropyStore`
 - **Example**: 
 
 ::: demo
@@ -586,12 +579,12 @@ Send a transaction
 - **Parameters**:  
 	-  `Object`:
 		- `entropystoreFile : string` :  The primary account address or the absolute file path of the `EntropyStore`, optional
-		- `selfAddr : string address` : Transaction sender address, required
-		- `toAddr : string address` : Transaction receiver address, required
-		- `tokenTypeId : string tokentypeid` : The token ID, required
+		- `selfAddr : string address` : The account address from which the transaction is sent, required
+		- `toAddr : string address` : The account address to which the transaction is sent, required
+		- `tokenTypeId : string tokentypeid` : Token ID, required
 		- `passphrase : string` : Wallet password, required
-		- `amount : string bigint` : The transfer amount, required
-		- `data : string base64` : Transaction annotation, optional
+		- `amount : string bigint` : Transfer amount, required
+		- `data : string base64` : Additional data carried by the transaction, optional
 		- `difficulty : string bigint` : PoW difficulty, optional
 
 - **Returns**: `none`
@@ -600,13 +593,9 @@ Send a transaction
 :::
 
 ## wallet_addEntropyStore
-Add a new `EntropyStore`. This method is used to manage `EntropyStore` in non-standard directory.
+Add a new `EntropyStore` from non-standard directory.
 
 - **Parameters**:  
 	- `string`: The primary account address or the absolute file path of the `EntropyStore`
-	- `string`:`address`： The account address to add
 
-- **Returns**:
-	- `Object` 
-		- `entropyStoreFile : string` : The absolute file path of the `EntropyStore`
-		- `index : uint32 `: The address index in the `EntropyStore`
+- **Returns**: `none`

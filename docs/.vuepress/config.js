@@ -76,10 +76,7 @@ const sidebarConfigs = {
               'contract/subscribe',
               'contract/dapp'
           ]
-        },
-        // {
-        //   children: ['dex/']
-        // }
+        }
     ],
     'api/rpc': [
         {
@@ -118,7 +115,8 @@ const sidebarConfigs = {
                 'pledge',
                 'consensus',
                 'mintage',
-                'dex',
+                'dex_fund',
+                'dex_trade',
             ]
         },
 
@@ -141,7 +139,7 @@ const sidebarConfigs = {
     ],
     'api/vitejs': [
         {
-            children: ['']
+            children: ['', 'types', 'errors', 'quickStart', 'QA']
         },
         {
             children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
@@ -153,12 +151,17 @@ const sidebarConfigs = {
             children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
         },
         {
-            children: ['client/client', 'client/instance', 'client/builtinTxBlock']
+            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
         },
         {
             children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
         }
     ],
+    'api/java-sdk': [
+    {
+      children: ['','vitej','transfer','callcontract','key','dexDemo']
+    }
+  ],
     vep: [
         {
             children: [
@@ -173,9 +176,25 @@ const sidebarConfigs = {
                 'vep-12',
                 'vep-13',
                 'vep-15',
-                'vep-16'
+                'vep-16',
+                'vep-17',
+                'vep-18'
             ]
         }
+    ],
+    dex: [
+      {
+        children: ['']
+      },
+      {
+        children: ['api/gate', 'api/state']
+      },
+      {
+        children: [
+          'operation/gate-integration',
+          // 'operation/', 'operation/how-to', 'operation/tutorial'
+        ]
+      }
     ]
 };
 
@@ -203,7 +222,8 @@ module.exports = {
         ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
         ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
         ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
-        ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+        ['meta', { name: 'msapplication-TileColor', content: '#000000' }],
+        ['meta', { name: 'google-site-verification', content: 'aFFDoYqDZ_SUQtuOmoAjiKaq0A8TzrTS-X1MR-jdfUU'}]
     ],
     configureWebpack: {
         resolve: {
@@ -234,21 +254,36 @@ module.exports = {
           locales: true,
           storage: true
         }],
-        'seo',
+        ['seo', {
+          siteTitle: (_, $site) => $site.title,
+          title: $page => $page.title,
+          description: $page => $page.frontmatter.description || $page.title,
+          author: (_, $site) => 'Vite Labs',
+          tags: $page => $page.frontmatter.tags,
+          twitterCard: _ => 'summary_large_image',
+          type: $page => ['articles', 'posts', 'blog'].some(folder => $page.regularPath.startsWith('/' + folder)) ? 'article' : 'website',
+          url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
+          image: ($page, $site) => $page.frontmatter.image && (($site.themeConfig.domain || '') + $page.frontmatter.image),
+          publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
+          modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
+        }],
         'baidu-autopush',
+        ['sitemap', {
+          hostname: 'https://vite.wiki'
+        }],
         'pangu',
         'tabs',
         [require('./plugins/tab-code-example')],
-        [
-          '@vuepress/last-updated',
-          {
-            transformer: (timestamp, lang) => {
-              const moment = require('moment')
-              moment.locale(lang)
-              return moment(timestamp).fromNow()
-            }
-          }
-        ]
+        // [
+        //   '@vuepress/last-updated',
+        //   {
+        //     transformer: (timestamp, lang) => {
+        //       const moment = require('moment')
+        //       moment.locale(lang)
+        //       return moment(timestamp).fromNow()
+        //     }
+        //   }
+        // ]
     ],
     themeConfig: {
         editLinks: true,
@@ -259,6 +294,7 @@ module.exports = {
         logo: '/logo_black.svg',
         repo: 'vitelabs/go-vite',
         docsBranch: docBranch,
+        image: 'https://vite.wiki/icon.png',
         locales: {
             '/': {
                 label: 'English',
@@ -272,6 +308,7 @@ module.exports = {
                     '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
+                    '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
@@ -289,12 +326,14 @@ module.exports = {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    // '/zh/introduction/': genSidebarConfig('introduction', '介绍'),
+                    '/zh/introduction/': genSidebarConfig('introduction', 'zh', '介绍'),
                     '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', '交易所'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'P2P', '公共组件'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包')
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包'),
+                    '/zh/api/java-sdk/': genSidebarConfig('api/java-sdk', 'zh', '快速开始'),
+                  '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

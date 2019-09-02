@@ -1,8 +1,8 @@
 module.exports = [
-  // {
-  //   text: '介绍',
-  //   link: '/zh/introduction/',
-  // },
+  {
+    text: '介绍',
+    link: '/zh/introduction/',
+  },
   {
     text: '教程',
     link: '/zh/tutorial/start/'
@@ -17,13 +17,17 @@ module.exports = [
     {
         text: 'Vite JS',
         link: '/zh/api/vitejs/'
+      },
+      {
+        text: 'Vite Java SDK',
+        link: '/zh/api/java-sdk/'
       }
     ]
   },
-  // {
-  //   text: '交易所',
-  //   link: '/zh/tutorial/dex/'
-  // },
+  {
+    text: '交易所',
+    link: '/zh/dex/'
+  },
   {
     text: 'VEP',
     link: '/zh/vep/'

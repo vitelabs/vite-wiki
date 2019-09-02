@@ -1,8 +1,8 @@
 module.exports = [
-  // {
-  //   text: 'Introduction',
-  //   link: '/introduction/',
-  // },
+  {
+    text: 'Introduction',
+    link: '/introduction/',
+  },
   {
     text: 'Tutorial',
     link: '/tutorial/start/'
@@ -19,6 +19,10 @@ module.exports = [
         link: '/api/vitejs/'
       }
     ]
+  },
+  {
+    text: 'ViteX',
+    link: '/dex/'
   },
   {
     text: 'VEP',

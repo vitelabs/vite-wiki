@@ -132,14 +132,15 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: BigInt`
-        - `fee: BigInt,`
+        - `tokenId: TokenId` Default: Vite_TokenId
+        - `amount: BigInt` Default: '0'
+        - `fee: BigInt,` Default: '10000000000000000000'
         - `hexCode: Hex`
         - `abi: string`
-        - `confirmTimes: number`
-        - `times: number`
-        - `params?: stirng`
+        - `confirmTime: Uint8` Default: '0'
+        - `quotaRatio: Uint8` Default: '10'
+        - `seedCount: Uint8` Default: '0'
+        - `params?`
         - `height?: Uint64`
         - `prevHash?: Hex`
     * `requestType?: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
@@ -378,7 +379,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 - **Parameters** 
     * `__namedParameters: object`
         - `accountAddress: Address`
-        - `ownerAddress: Address`
+        - `newOwner: Address`
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
@@ -396,80 +397,6 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
         - `tokenId: TokenId`
         - `height?: Uint64`
         - `prevHash?: Hex`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-## DEX
-
-### dexFundUserDeposit
-ViteX充值。 *this.callContract [constant.DexFundUserDeposit_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexFundUserWithdraw
-ViteX提现。 *this.callContract [constant.DexFundUserWithdraw_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tokenId: TokenId`
-        - `amount: Uint64`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexTradeCancelOrder
-ViteX撤单。 *this.callContract [constant.DexTradeCancelOrder_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `orderId: string`
-        - `tradeToken: TokenId`
-        - `side: <0 | 1>` buy: 0; sell: 1
-        - `quoteToken: TokenId`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexFundNewOrder
-ViteX挂单。 *this.callContract [constant.DexFundNewOrder_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tradeToken: TokenId`
-        - `side: <0 | 1>` buy: 0; sell: 1
-        - `quoteToken: TokenId`
-        - `price: string`
-        - `quantity: string`
-    * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
-
-- **Return**:
-    * Promise<`AccountBlock`>
-
-### dexFundNewMarket
-ViteX上币。 *this.callContract [constant.DexFundNewMarket_Abi](../constant/constant.md)*
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `accountAddress: Address`
-        - `tokenId: TokenId` Default Vite_TokenId
-        - `amount: Uint64`
-        - `quoteToken: TokenId`
-        - `tradeToken: TokenId`
     * `requestType: string<'async' | 'sync'>` Default: async 规范化accountBlock时，使用同步还是异步方式
 
 - **Return**:
