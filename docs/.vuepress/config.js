@@ -99,12 +99,7 @@ const sidebarConfigs = {
         // smart-contract
         {
             children: [
-              'contract',
-              'pledge',
-              'consensus',
-              'mintage',
-              'dex_fund',
-              'dex_trade',
+              'contract_v2'
             ]
         },
 
