@@ -114,7 +114,7 @@ const sidebarConfigs = {
         {
             children: [
                 'testapi',
-                'common_models',
+                'common_models_v2',
                 'pow',
                 'subscribe'
             ]
