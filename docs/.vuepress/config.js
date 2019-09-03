@@ -305,7 +305,7 @@ module.exports = {
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'P2P', 'Common'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'Net', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
                     '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
@@ -330,7 +330,7 @@ module.exports = {
                     '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', '交易所'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'P2P', '公共组件'),
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'RPC 接口', '钱包', '账本', '在途', '智能合约', '内置合约', 'Net', '公共组件'),
                     '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包'),
                     '/zh/api/java-sdk/': genSidebarConfig('api/java-sdk', 'zh', '快速开始'),
                   '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
