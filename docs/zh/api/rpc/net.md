@@ -167,14 +167,12 @@
 
 - **Returns**: 
 
-    `NodeInfo`
-     -  `id` : `string` 本节点的 NodeID
-     -  `name` : `string` 本节点的名称，通过 node_config.json 中的 Identity 字段设置
-     -  `netId` : `int` 本节点的网络 Id
-     -  `version` : `int` 本节点的版本号，并非 release 版本
-     -  `address` : `string` 本节点监听的地址
-     -  `peerCount` : `int` 本节点所连接的 peer 数量
-     -  `peers` : `[]*PeerInfo` 连接的 peers 信息
+`NodeInfo`
+  -  `id` : `string` 本节点的 NodeID
+  -  `name` : `string` 本节点的名称，通过 node_config.json 中的 Identity 字段设置
+  -  `netId` : `int` 本节点的网络 Id
+  -  `peerCount` : `int` 本节点所连接的 peer 数量
+  -  `peers` : `[]*PeerInfo` 连接的 peers 信息
 
 - **Example**: 
 
@@ -190,36 +188,28 @@
 
 ```json tab:Response
 {
-    "jsonrpc": "2.0",
-    "id": 4,
-    "result": {
-        "id": "f8679730ae271e32f0e16cdea4cb2215f12a1783c81094fad5072bb52f4800f7",
-        "name": "vite-sbp-0",
-        "netId": 1,
-        "version": 0,
-        "address": "0.0.0.0:8483",
-        "peerCount": 2,
-        "peers": [
-{
-                "id": "8842e527f9af5d1c7a690757e10362b99b9d644840599011f627b67ef95ec3d2",
-                "name": "vite-sbp-1",
-                "version": 0,
-                "height": 726575,
-                "address": "119.28.221.175:8483",
-                "level": 3,
-                "createAt": "2019-05-31 03:05:09"
-            },
-            {
-                "id": "ee256e9026a7ea4312f4a5df847468255775b2bb75d0f97c07e4e70a46b4c401",
-                "name": "vite-full-node",
-                "version": 0,
-                "height": 726576,
-                "address": "117.50.66.76:8483",
-                "level": 3,
-                "createAt": "2019-05-31 12:33:44"
-            },
-        ]
-    }
+  "jsonrpc": "2.0",
+  "id": 4,
+  "result": {
+    "name": "vite-sbp-0",
+    "netId": 1,
+    "address": "0.0.0.0:8483",
+    "peerCount": 2,
+    "peers": [
+      {
+        "name": "vite-sbp-1",
+        "height": 726575,
+        "address": "119.28.221.175:8483",
+        "createAt": "2019-05-31 03:05:09"
+      },
+      {
+        "name": "vite-full-node",
+        "height": 726576,
+        "address": "117.50.66.76:8483",
+        "createAt": "2019-05-31 12:33:44"
+      },
+    ]
+  }
 }
 ```
 
@@ -234,11 +224,7 @@
 :::
 
 `PeerInfo`
- -  `id` : `string` 节点 Id
  -  `name` : `string` 节点名称
- -  `version` : `int` 节点版本号
  -  `height` : `int` 节点的快照链高度
- -  `level` : `int` 节点连接的标识
  -  `address` : `string` 节点的地址
  -  `createAt` : `string` 节点的接入时间
-
