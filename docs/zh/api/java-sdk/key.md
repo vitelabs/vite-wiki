@@ -1,6 +1,6 @@
-# Key
+# Wallet 管理工具
 
-::: Wallet 管理工具
+:::tip 维护者
 [Eric](https://github.com/roymoro)
 :::
 
@@ -17,19 +17,11 @@
   
 - **Example**:
 
-::: demo
-
-```java tab:Request
+```java
         List<String> mnemonics = Key.createBip39Mnemonic();
-```
-
-```java tab:Response
         System.out.println(JSONObject.toJSONString(mnemonics));
-       // ["type","rabbit","host","pitch","neither","series","ecology","broom","salt","carbon","hunt","mean","smile","net","exact","grape","onion","loop","nice","dirt","abstract","hen","stumble","lunar"]
+        // ["type","rabbit","host","pitch","neither","series","ecology","broom","salt","carbon","hunt","mean","smile","net","exact","grape","onion","loop","nice","dirt","abstract","hen","stumble","lunar"]
 ```
-
-:::
-
 
 ## Key.getKeyPairFromMnemonics
 根据助记词生成公私钥管理工具
@@ -40,18 +32,9 @@
   
 - **Example**:
 
-::: demo
-
 ```java tab:Request
         Key key = Wallet.getKeyPairFromMnemonics("humble category output craft giant reform weapon business dinner gentle club diagram goat recycle cactus leopard library ship offer output history lake harvest struggle", 0);
-   
 ```
-
-```java tab:Response
-    
-```
-
-:::
 
 ## Key.build
 根据助记词生成公私钥管理工具
@@ -61,16 +44,9 @@
   
 - **Example**:
 
-::: demo
-
 ```java tab:Request
       Key key = Key.build("fca1e0220b6d27345ca1e504833eabbe6c0ca44be8af4944ffb69ad8559c0c08");
 ```
-
-```java tab:Response
-    
-```
-
 
 ## Key.getAddressFromPrivateKey
 根据私钥派生vite地址
@@ -80,16 +56,9 @@
   
 - **Example**:
 
-::: demo
-
 ```java tab:Request
   String address = Key.getAddressFromPrivateKey("fca1e0220b6d27345ca1e504833eabbe6c0ca44be8af4944ffb69ad8559c0c08");
 ```
-
-```java tab:Response
-    
-```
-:::
 
 ## Key.getPubKeyBase64FromPrivateKey
 根据私钥派生vite地址
@@ -99,16 +68,9 @@
   
 - **Example**:
 
-::: demo
-
 ```java tab:Request
         String pubKeyBase64 = Key.getPubKeyBase64FromPrivateKey("fca1e0220b6d27345ca1e504833eabbe6c0ca44be8af4944ffb69ad8559c0c08"); 
 ```
-
-```java tab:Response
-    
-```
-:::
 
 ## getHexAddress
  获取十六进制的地址
@@ -117,14 +79,8 @@
   
 - **Example**:
 
-::: demo
-
 ```java tab:Request
         Key key1 = Key.getKeyPairFromMnemonics("humble category output craft giant reform weapon business dinner gentle club diagram goat recycle cactus leopard library ship offer output history lake harvest struggle", 0);
         key1.getHexPubKey();
+        //      vite_8c89b353c29a06c957d2776a3e4b8165a962adc6b7b0105e45
 ```
-
-```java tab:Response
-      vite_8c89b353c29a06c957d2776a3e4b8165a962adc6b7b0105e45
-```
-:::

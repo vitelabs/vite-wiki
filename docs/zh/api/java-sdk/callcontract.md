@@ -1,7 +1,7 @@
 # CallContract
 
-:::发送交易 维护者
-[Eric](https://github.com/roymoro)
+:::tip 
+发送交易 维护者[Eric](https://github.com/roymoro)
 :::
 
 ## 说明
@@ -17,9 +17,9 @@
   
 - **Example**:
 
-::: demo
-
-```java tab:Request
+::::tabs
+:::tab Request
+```java
    
        // 合约abi描述
        String abi = "[\n" +
@@ -70,8 +70,10 @@
     
     
 ```
+:::
 
-```java tab:Response
+:::tab Response
+```java
      SendTransactionRes sendTxResCallContract = CallContract.callContract(viteJ, callContractBuilder.build());
     
       if (sendTxResCallContract.hasError()) {
@@ -80,12 +82,12 @@
                 System.out.println(sendTxResCallContract.getHash());
       }    
 ```
-
 :::
+::::
 
 ### 超级节点投票合约调用
-    
-```java tab:Request
+
+```java
    
        // 合约abi描述
        String abi = "[\n" +
@@ -136,9 +138,8 @@
 ```
 
 ### 超级节点取消投票
- ::: demo
-   
-```java tab:Request
+
+```java
    
        // 合约abi描述
        String abi = "[\n" +
@@ -187,12 +188,12 @@
     
     
 ```
-::: 
+
 ### 超级节点收取奖励
 
-    调用地址需要时注册超级节点地址，收益地址需要也选择超级节点注册地址
-::: demo
-```java tab:Request
+调用地址需要时注册超级节点地址，收益地址需要也选择超级节点注册地址
+
+```java
    
        // 合约abi描述
        String abi = "[\n" +
@@ -242,4 +243,3 @@
         }
     
 ```
-:::

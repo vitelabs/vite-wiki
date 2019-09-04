@@ -8,17 +8,20 @@ title: 开始
 ### GITHUB
     https://github.com/vitelabs/vite-java-client
 ### POM说明
-    ```java
+
+```java
           <dependency>
                          <groupId>org.vite.sdk</groupId>
                          <artifactId>vite-java-client</artifactId>
                          <version>0.1.0</version>
                </dependency>
-    ```    
+```    
+
 ### JAVA doc
     http://doc.vite.net/ [java doc](http://doc.vite.net "javadoc"). 
 ### 发送交易
-     ```java
+
+```java
               // 构建RPC
               ViteJ viteJ = ViteJ.build("http://150.109.116.1:48132");
               // 根据助记词横撑Key，Key包含公私钥和地址派生工具
@@ -40,7 +43,7 @@ title: 开始
               } else {
                        System.out.println(sendTxRes.getHash());
               }               
-      ```  
+```  
 
 ## 常见RPC错误汇总
 
