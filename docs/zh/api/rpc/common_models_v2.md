@@ -28,7 +28,7 @@
 | tokenId | string tokenId | 代币id |
 | isReIssuable | bool | 是否可增发，true 可增发 false  不可增发 |
 | maxSupply | string bigint | 最大发行量，不可增发代币此字段值为0 |
-| isOwnerBurnOnly | bool | 是否仅所有者可销毁，true 仅所有者可销毁 false 所有持币账户可销毁，不可增发代币此字段值为0 |
+| isOwnerBurnOnly | bool | 是否仅所有者可销毁，true 仅所有者可销毁 false 所有持币账户可销毁，不可增发代币此字段值为false |
 | index | uint16 | 序号，从0开始，同名tokenSymbol的序号按铸币顺序递增 |
 
 ## AccountBlock 账户块信息
