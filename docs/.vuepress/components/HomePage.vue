@@ -251,7 +251,7 @@ export default {
           h4
             color: $accentColor;
             font-size: 1.5em;
-            font-weight: 400;
+            font-weight: 600;
             margin: 0;
             padding: 0.5em 0;
             border-bottom none
