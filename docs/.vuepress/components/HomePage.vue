@@ -39,8 +39,11 @@
       <div class="right">
       <h1 class="can-hide">Vite</h1>
       <h1>
-        {{data.highPerformance}}<br><span>{{data.dapp}}</span>
+        {{data.slogan}}
       </h1>
+      <div class="sub-slogan">
+        We are an open-source decentralized application platform with smart contracts.
+      </div>
       <p>
         <a class="button" target="_blank" href="https://vite.org">{{data.website}}</a>
         <a class="button white" :href="data.actionLink">{{data.actionText}}</a>
@@ -53,14 +56,17 @@
     <div class="projects">
       <div v-for="target in projects" class="inner">
         <h2 class="title">{{target.title}}</h2>
-        <a v-for="item in target.items" :href="item.link" class="item">
+        <div v-for="item in target.items" class="item">
             <div>
-              <h3>{{item.title}}</h3>
-              <p>
-                {{item.details}}
-              </p>
+              <h4>{{item.title}}</h4>
+              <div class="detail">{{item.detail}}</div>
+              <ul>
+                <li v-for="link in item.links">
+                  <a :href="link.url">{{link.name}}</a>
+                </li>
+              </ul>
             </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -154,6 +160,9 @@ export default {
     background-color: #fff;
     margin: 0 auto;
     overflow hidden
+    .sub-slogan
+      padding 1em 0
+      font-size 18px
     .can-hide
       display none
     .left, .right
@@ -216,7 +225,7 @@ export default {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
-    padding: 70px 0px;
+    padding: 30px 0px;
     .inner
       .title
         border-bottom none
@@ -227,12 +236,19 @@ export default {
         vertical-align: top;
         box-sizing: border-box;
         padding: 1em 1em;
+        .detail
+          font-size 13px
+          color rgba(0,0,0,0.4)
+          margin-bottom 1em
         & > div
-          background rgba(0,0,0,0.04)
-          padding 1.5rem 1rem
+          padding 0.8em 0.5em
           border-radius 5px
           min-height 150px
-          h3
+          ul
+            list-style none
+            li
+              font-size 14px
+          h4
             color: $accentColor;
             font-size: 1.5em;
             font-weight: 400;
@@ -242,21 +258,6 @@ export default {
           p
             min-height 60px
             color #7f8c8d
-
-          &:hover
-            background $accentColor
-            flex-direction row
-            display flex
-            h3
-              display none
-              color $accentColor
-            p
-              color rgba(255,255,255,0.9)
-              justify-content center
-              align-items center
-              display flex
-              text-align center
-              width 100%
 
 @media (max-width: $MQNarrow)
   .home

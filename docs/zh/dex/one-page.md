@@ -17,8 +17,8 @@
   
 * **释放曲线**：分两年发放，每天发放数量按比例递减，先到先得。
 
-![c7ec6ecd-6e7e-4143-a90d-e7197eb56bda-image.png](https://forum.vite.net/assets/uploads/files/1564036407651-c7ec6ecd-6e7e-4143-a90d-e7197eb56bda-image-resized.png) 
+  ![vx_release_chart.jpg](https://forum.vite.net/assets/uploads/files/1567510383257-vx_release_chart.jpg) 
   
 * **分配方案**：
   
-![af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image.png](https://forum.vite.net/assets/uploads/files/1564036361941-af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image-resized.png) 
+  ![ea309da3-388a-432e-84f8-5825adf48c0c-image.png](https://forum.vite.net/assets/uploads/files/1567667136811-ea309da3-388a-432e-84f8-5825adf48c0c-image.png) 
