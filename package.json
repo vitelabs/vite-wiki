@@ -20,8 +20,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.7",
-    "vuepress": "^1.0.0-alpha.47"
+    "sass-loader": "^6.0.7"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
@@ -37,6 +36,7 @@
     "vue-codemirror": "^4.0.5",
     "vue-tabs-component": "^1.4.0",
     "vue-toasted": "^1.1.24",
+    "vuepress": "^1.0.3",
     "vuepress-plugin-baidu-autopush": "^1.0.1",
     "vuepress-plugin-mathjax": "^1.2.4",
     "vuepress-plugin-pangu": "^1.0.1",

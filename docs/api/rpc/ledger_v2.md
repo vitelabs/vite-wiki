@@ -3,8 +3,10 @@ sidebarDepth: 4
 ---
 
 # Ledger
-:::tip 维护者
-[lyd00](https://github.com/lyd00) && [vite-crzn](https://github.com/vite-crzn)
+:::tip Maintainer
+[lyd00](https://github.com/lyd00)
+
+[vite-crzn](https://github.com/vite-crzn)
 :::
 
 
@@ -12,12 +14,12 @@ sidebarDepth: 4
 
 - **Parameters**:
 
-  * `Address`: 账户地址
-  * `uint64`: 页码, 从0开始
-  * `uint64`: 每页大小
+  * `Address`: Account address
+  * `uint64`: Page index, start with 0
+  * `uint64`: Page size
 
 - **Return**:
-  * `list<AccountBlock>` AccountBlock具体参考common_models_v2模块设计
+  * `list<AccountBlock>`  Refer to the `common_models_v2` for more detail about object AccountBlock
 
 - **Example**:
 
@@ -96,22 +98,25 @@ sidebarDepth: 4
 }
 ```
 
-
 :::
+
+
 ## ledger_getUnreceivedBlocksInBatch
 
 - **Parameters**:
 
-  *  `PagingQueryBatch`- Object 具体字段类型如下
-    |  名称  | 类型 |说明 |
+  *  `PagingQueryBatch`- Object 
+
+    | Input item | Data type | comment |
     |:------------:|:-----------:|:-----:|
-    | address |  string | 账户地址 |
-    | pageNumber | uint64 | 页码, 从0开始 |
-    | pageCount | uint64 | 每页大小 |
+    | address |  string | Account address |
+    | pageNumber | uint64 | Page index, start with 0 |
+    | pageCount | uint64 | Page size |
 
 - **Return**:
 
-  * `map<string Address, list<AccountBlock>>` AccountBlock具体参考common_models_v2模块 设计
+  * `map<string Address, list<AccountBlock>>`  Refer to the `common_models_v2` for more detail about object AccountBlock
+
 
 - **Example**:
 
@@ -206,11 +211,11 @@ sidebarDepth: 4
 
 - **Parameters**:
 
-  *  `Address`- 账户地址
+  *  `Address`- Account address
 
 - **Return**:
 
-  * `AccountInfo` AccountInfo具体参考common_models_v2模块设计
+  * `AccountInfo` refer to the `common_models_v2` for more detail about object AccountInfo
 
 - **Example**:
 
@@ -263,11 +268,12 @@ sidebarDepth: 4
 
 - **Parameters**:
 
-  *  `list<Address>`- 账户地址列表
+  *  `list<Address>`- Account address list
 
 - **Return**:
 
-  * `list<AccountInfo>` AccountInfo具体参考common_models_v2模块 设计
+  * `list<AccountInfo>` Refer to the `common_models_v2` for more detail about object AccountInfo
+
 
 - **Example**:
 
@@ -341,51 +347,4 @@ sidebarDepth: 4
 }
 ```
 
-:::
-
-## ledger_getVmlogsByFilter
-根据参数查询历史日志。返回值按账户块高度从低到高排序。
-
-- **Parameters**: 
-  - 查询参数，同`subscribe_createVmlogFilter`，注意`fromHeight`和`toHeight`都填0时会查询整个账户链，可能会导致返回数据过多，最好指定明确的查询高度范围
-
-- **Returns**:  
-	- `Array<VmlogMessage>` 日志信息，同`subscribe_getChangesByFilterId`返回值
-	
-::: demo
-```json tab:Request
-{
-	"jsonrpc": "2.0",
-	"id": 1,
-	"method": "ledger_getVmlogsByFilter",
-	"params": [{
-		"addressHeightRange":{
-			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
-				"fromHeight":"1",
-				"toHeight":"10"
-			}
-		}
-	}]
-}
-```
-```json tab:Response
-{
-  "jsonrpc":"2.0",
-  "id":1,
-  "result": [
-    {
-      "vmlog": {
-        "topics": [
-          "28e6ea56797f4a1b22a1d1986cb6c22e80099ba8e4fd14d42accfaedfe5f6640"
-        ],
-        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQQurTFV9WklB2DRvsX8wLCgyoVomYHSCebb9Br/hQ+RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwYLIcJLnbQjGl+qeU7YWlTWwfsoF6mescP5xz2fDTEg="
-      },
-      "accountBlockHash": "e4917f357a4588ec1752797ee5516939f46078f5356b14422d4a9dfe45f88bf5",
-      "accountBlockHeight": "10",
-      "address": "vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa",
-      "removed": false
-    }
-  ]
-}
-```
 :::

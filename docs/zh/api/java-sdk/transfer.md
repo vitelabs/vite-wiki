@@ -1,11 +1,8 @@
-# Transfer
+# 发送交易
 
-:::发送交易 维护者
+:::tip 维护者
 [Eric](https://github.com/roymoro)
 :::
-
-## 说明
-
 
 ## sendRawTransaction
 获得一个账户的交易列表

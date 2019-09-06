@@ -4,16 +4,18 @@
 [Eric](https://github.com/roymoro)
 :::
 
-##流程说明
-1、搭建全节点，参见搭建全节点篇教程 [全节点偏](https://vite.wiki/zh/tutorial/node/install.html "全节点搭建"). 
+## 流程说明
 
-2、引入java SDK  [java SDK](https://vite.wiki/zh/api/java-sdk/#quickstart "java sdk教程")
+1、搭建全节点，参见搭建全节点篇教程 [全节点搭建](https://vite.wiki/zh/tutorial/node/install.html). 
+
+2、引入java SDK  [java sdk教程](https://vite.wiki/zh/api/java-sdk/#quickstart)
 
 3、采用地址+备注方式作为充值方式
 
 4、转账地址的配额抵押 
 
 5、转账的确定
+
 ## 采用地址+备注方式作为充值方式
 
 1、生成一个充值地址，所有用户使用同一地址来充值，生成地址通过Key公私钥管理工具生成，例如 vite_682ee3c0967f325b439e5b7bde5148860e422aa7d1cd740xxx
