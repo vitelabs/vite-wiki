@@ -370,7 +370,6 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 ```
 :::
 
-
 ## contract_callOffChainMethod
 离线调用合约的getter方法。
 
@@ -402,6 +401,37 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
     "jsonrpc": "2.0",
     "id": 1,
     "result": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+}
+```
+:::
+
+## contract_getContractStorage
+离线查询合约存储。
+
+- **Parameters**: 
+  * `string address` 合约账户地址
+  * `string` 合约存储的十六进制key或者key的前缀
+    
+- **Returns**: 
+  - `map<string,string>` 合约状态的十六进制key和value
+
+- **Example**:
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 17,
+	"method": "contract_getContractStorage",
+	"params": ["vite_22f4f195b6b0f899ea263241a377dbcb86befb8075f93eeac8","0000000000000000000000000000000000000000000000000000000000000001"]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 17,
+    "result": {
+        "0000000000000000000000000000000000000000000000000000000000000001": "01"
+    }
 }
 ```
 :::

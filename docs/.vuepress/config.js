@@ -76,6 +76,12 @@ const sidebarConfigs = {
               'contract/subscribe',
               'contract/dapp'
           ]
+        },
+        {
+          children: [
+            'faq/node',
+            'faq/develop'
+          ]
         }
     ],
     'api/rpc': [
@@ -92,8 +98,7 @@ const sidebarConfigs = {
         // ledger
         {
             children: [
-                'ledger',
-                'tx',
+                'ledger_v2'
             ]
         },
         // smart-contract
@@ -106,17 +111,16 @@ const sidebarConfigs = {
         // net
         {
             children: [
-                'net',
+                'net'
             ]
         },
 
         // common
         {
             children: [
-                'testapi',
                 'common_models_v2',
-                'pow',
-                'subscribe'
+                'util',
+                'subscribe_v2'
             ]
         },
     ],
@@ -312,7 +316,7 @@ module.exports = {
                     '/zh/introduction/': genSidebarConfig('introduction', 'zh', '介绍'),
                     '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
-                    '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', '交易所'),
+                    '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', 'FAQ'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC', '钱包', '账本', '智能合约', '网络', '其他'),
                     '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包'),
                     '/zh/api/java-sdk/': genSidebarConfig('api/java-sdk', 'zh', '快速开始'),
