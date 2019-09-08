@@ -291,7 +291,7 @@ topics取值示例：
 
 - **subscribe_newSnapshotBlocksFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewSnapshotBlocksMsg>`
+  * `result`: `Array<SnapshotBlocksMsg>`
     1. `hash`: `Hash` 快照块哈希
     2. `heightStr`: `uint64` 快照块高度
     3. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
@@ -335,7 +335,7 @@ topics取值示例：
 
 - **subscribe_newAccountBlocksFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewAccountBlocksMsg>`
+  * `result`: `Array<AccountBlocksMsg>`
     1. `hash`: `Hash` 账户块哈希
     2. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
   
@@ -371,7 +371,7 @@ topics取值示例：
 
 - **subscribe_newAccountBlocksByAddrFilter返回值**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewAccountBlocksWithHeightMsg>`
+  * `result`: `Array<AccountBlocksWithHeightMsg>`
     1. `hash`: `Hash` 账户块哈希
     2. `heightStr`: `uint64` 账户块高度
     3. `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
@@ -510,7 +510,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array<NewSnapshotBlocksMsg>` 事件信息
+  2. `result`: `Array<SnapshotBlocksMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
@@ -549,7 +549,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array<NewAccountBlocksMsg>` 事件信息
+  2. `result`: `Array<AccountBlocksMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
@@ -595,7 +595,7 @@ topics取值示例：
 - **Callback**:  
 `Object`
   1. `subscription`: `string`  订阅id
-  2. `result`: `Array<NewAccountBlocksWithHeightMsg>` 事件信息
+  2. `result`: `Array<AccountBlocksWithHeightMsg>` 事件信息
 
 ::: demo
 ```json tab:Request
