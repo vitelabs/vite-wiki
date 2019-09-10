@@ -49,12 +49,18 @@ title: START
 | Invalid confirm time upon contract creation |  `-35007` | Invalid confirm time |{"code":-35007,"message":"invalid confirm time"}|
 | Contract not found |  `-35008` | Contract not exist |{"code":-35008,"message":"contract not exists"}|
 | Invalid quota ratio upon contract creation |  `-35010` | Invalid quota ratio |{"code":-35010,"message":"invalid quota ratio"}|
-| Invalid block producing address |  `-36001`  |  Block producing address not valid |{"code":-36001, "message":"general account's sendBlock.Height must be larger than 1"}|
+| Invalid block producing address |  `-36001`  |  Block producing address not valid |{"code":-36001, "message":"the account address does not exist on the chain"}|
 | Hash verification failure |  `-36002`  | Hash verification failed | {"code":-36002,"message":"verify hash failed"} |
 | Signature verification failure |  `-36003`  | Signature verification failed | {"code":-36003,"message":"verify signature failed"} |
 | Invalid PoW nonce |  `-36004`  | PoW nonce check failed | {"code":-36004,"message":"check pow nonce failed"} |
 | PreHash verification failure |  `-36005`  | PreHash verification failed | {"code":-36005,"message":"verify prevBlock failed, incorrect use of prevHash or fork happened"} |
-| Pending for blocks |  `-36006`  | Pending for block referred to | {"code":-36006,"message":"verify referred block failed, pending for them"} |
+| pending for the block referred to |  `-36006`  | pending for the block referred to | {"code":-36005,"message":"verify referred block failed, pending for them"} |
+| FromBlock verification failure |  `-36007`  | FromBlock verification failure | {"code":-36007,"message":"receive's dependent send block is not exists on chain"} |
+| It’s not eligible to do pow |  `-36008`  | It’s not eligible to do pow | {"code":-36008,"message":"verify that it's not eligible to do pow"} |
+| Block producer is illegal |  `-36009`  | Block producer is illegal | {"code":-36009,"message":"verify that the producer is illegal"} |
+| Block field data is illegal |  `-36010`  | Block field data is illegal | {"code":-36010,"message":"verify that block field data is illegal"} |
+| Repeat receiving |  `-36011`  | Repeat receiving  | {"code":-36011,"message":"block is already received successfully"} |
+| Inconsistent verification results in vm |  `-36012`  | Inconsistent verification results in vm | {"code":-36012,"message":"inconsistent execution results in vm"} |
 
 ## JSON-RPC Support
 

@@ -50,12 +50,18 @@ title: 开始
 | 创建合约时配额翻倍数非法 |  `-35010` | invalid quota ratio |{"code":-35010,"message":"invalid quota ratio"}|
 | 全网拥堵时，PoW服务不可用 |  `-35011` | PoW service not supported |{"code":-35011,"message":"PoW service not supported"}|
 | 超过交易最大可用配额 |  `-35012` | quota limit for block reached |{"code":-35012,"message":"quota limit for block reached"}|
-| 出块地址不合法 |  `-36001`  |  block address not valid |{"code":-36001, "message":"general account's sendBlock.Height must be larger than 1"}|
+| 出块地址不合法 |  `-36001`  |  block address not valid |{"code":-36001, "message":"the account address does not exist on the chain"}|
 | Hash校验失败 |  `-36002`  | verify hash failed | {"code":-36002,"message":"verify hash failed"} |
 | 签名校验失败 |  `-36003`  | verify signature failed | {"code":-36003,"message":"verify signature failed"} |
 | Pow值校验失败 |  `-36004`  | check pow nonce failed | {"code":-36004,"message":"check pow nonce failed"} |
 | 校验依赖的前一个块Hash失败 |  `-36005`  | verify prevBlock hash failed | {"code":-36005,"message":"verify prevBlock failed, incorrect use of prevHash or fork happened"} |
 | 等待依赖的关联交易块 |  `-36006`  | pending for the block referred to | {"code":-36006,"message":"verify referred block failed, pending for them"} |
+| 依赖的Send块链上不存在 |  `-36007`  | FromBlock verification failure | {"code":-36007,"message":"receive's dependent send block is not exists on chain"} |
+| 行Pow的资格不满足 |  `-36008`  | It’s not eligible to do pow | {"code":-36008,"message":"verify that it's not eligible to do pow"} |
+| 块生产者不合法 |  `-36009`  | Block producer is illegal | {"code":-36009,"message":"verify that the producer is illegal"} |
+| 块字段错误 |  `-36010`  | Block field data is illegal | {"code":-36010,"message":"verify that block field data is illegal"} |
+| 重复接受 |  `-36011`  | Repeat receiving  | {"code":-36011,"message":"block is already received successfully"} |
+| VM校验执行结果不一致 |  `-36012`  | Inconsistent verification results in vm | {"code":-36012,"message":"inconsistent execution results in vm"} |
 
 ## JSON-RPC Support
 
