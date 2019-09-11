@@ -8,7 +8,7 @@
         // 以下配置表示：
         // 快照共识组每一轮选出2个节点出块，节点每秒出1个快照块，连续出3个快照块后换下一个节点。
         // 选举时根据vite代币来计票，第1个节点为得票最高的节点，第2个节点从得票最高的第2-100个节点中随机选取。
-        // 注册快照共识组节点时，需要抵押500000000000000000000000金额的vite（即50w vite），抵押在7776000个快照块后到期（大约3个月）
+        // 注册快照共识组节点时，需要抵押1000000000000000000000000金额的vite（即100w vite），抵押在7776000个快照块后到期（大约3个月）
         "NodeCount": 2, // 每一轮出块节点数
         "Interval": 1,  // 每个块的出块间隔
         "PerCount": 3,  // 每个节点连续出块的个数
@@ -19,7 +19,7 @@
         "CountingTokenId": "tti_5649544520544f4b454e6e40",  // 共识计票的代币id
         "RegisterConditionId": 1, // 注册信息类型，无需更改
         "RegisterConditionParam": {
-          "PledgeAmount": 500000000000000000000000, // 注册出块节点时的抵押金额
+          "PledgeAmount": 1000000000000000000000000, // 注册出块节点时的抵押金额
           "PledgeToken": "tti_5649544520544f4b454e6e40",  // 注册出块节点时抵押的代币id
           "PledgeHeight": 7776000 // 注册出块节点时的抵押到期高度
         },
@@ -40,7 +40,7 @@
         "CountingTokenId": "tti_5649544520544f4b454e6e40",
         "RegisterConditionId": 1,
         "RegisterConditionParam": {
-          "PledgeAmount": 100000000000000000000000,
+          "PledgeAmount": 1000000000000000000000000,
           "PledgeToken": "tti_5649544520544f4b454e6e40",
           "PledgeHeight": 7776000
         },
@@ -56,7 +56,7 @@
         "s1": { // 出块节点名称
           "NodeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // 出块地址
           "PledgeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // 抵押地址
-          "Amount": 100000000000000000000000, // 抵押金额
+          "Amount": 1000000000000000000000000, // 抵押金额
           "WithdrawHeight": 7776000,  // 抵押到期高度
           "RewardTime": 1,  // 出块奖励起始高度
           "CancelTime": 0,  // 出块节点取消时间
@@ -67,7 +67,7 @@
         "s2": {
           "NodeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
           "PledgeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
-          "Amount": 100000000000000000000000,
+          "Amount": 1000000000000000000000000,
           "WithdrawHeight": 7776000,
           "RewardTime": 1,
           "CancelTime": 0,

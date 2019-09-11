@@ -105,7 +105,7 @@ to check if gvite is rebooted successfully
 ## SBP Registration
 
 :::tip
-Registering new SBP requires staking 500,000 VITE. Please ensure you have the amount in your account.
+Registering new SBP requires staking 1,000,000 VITE. Please ensure you have the amount in your account.
 :::
 
 Log in [Vite Web Wallet](https://wallet.vite.net/) and navigate to **SBP Registration** page.

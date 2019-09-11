@@ -2,7 +2,7 @@
 
 This shows a full example of genesis.json. In this example, 2 SBPs are selected in each round and each SBP is responsible for producing 3 continuous blocks.
 Vite SBP is selected based on how many votes the supernode has in amount of **VITE**. In the example, one SBP is constantly assigned as the supernode who has most votes, while another is randomly selected from supernodes ranking from 2 to 100.
-Registering supernode of snapshot consensus group needs staking **VITE**. Here 100000000000000000000000 **VITE** for 7776000 snapshots, approximately equivalent to 3 months, is required.
+Registering supernode of snapshot consensus group needs staking **VITE**. Here 1000000000000000000000000 **VITE** for 7776000 snapshots, approximately equivalent to 3 months, is required.
 
 :::warning
 The example is a complete configuration file. You can make your own config based on it. But do remember to remove the text comments following after "//". 
@@ -24,7 +24,7 @@ The only reason the comments are here is to explain certain configuration settin
         "CountingTokenId": "tti_5649544520544f4b454e6e40",  // Token id in which the voting number is calculated. Default is VITE
         "RegisterConditionId": 1, // Registration type id. No need to change
         "RegisterConditionParam": {
-          "PledgeAmount": 100000000000000000000000, // Amount of staking upon supernode registration
+          "PledgeAmount": 1000000000000000000000000, // Amount of staking upon supernode registration
           "PledgeToken": "tti_5649544520544f4b454e6e40",  // Staking token id
           "PledgeHeight": 7776000 // Staking period in number of snapshots
         },
@@ -45,7 +45,7 @@ The only reason the comments are here is to explain certain configuration settin
         "CountingTokenId": "tti_5649544520544f4b454e6e40",
         "RegisterConditionId": 1,
         "RegisterConditionParam": {
-          "PledgeAmount": 100000000000000000000000,
+          "PledgeAmount": 1000000000000000000000000,
           "PledgeToken": "tti_5649544520544f4b454e6e40",
           "PledgeHeight": 7776000
         },
@@ -61,7 +61,7 @@ The only reason the comments are here is to explain certain configuration settin
         "s1": { // Supernode name
           "NodeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Block producing address
           "PledgeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Staking address
-          "Amount": 500000000000000000000000, // Staking amount
+          "Amount": 1000000000000000000000000, // Staking amount
           "WithdrawHeight": 7776000,  // Staking period
           "RewardTime": 1,  // Starting block height from which mining rewards are available for retrieval
           "CancelTime": 0,  // Block height at which the supernode can be cancelled and the corresponding staking can be retrieved. 0 means the supernode can be cancelled immediately
@@ -72,7 +72,7 @@ The only reason the comments are here is to explain certain configuration settin
         "s2": {
           "NodeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
           "PledgeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
-          "Amount": 500000000000000000000000,
+          "Amount": 1000000000000000000000000,
           "WithdrawHeight": 7776000,
           "RewardTime": 1,
           "CancelTime": 0,
