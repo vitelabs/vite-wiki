@@ -102,7 +102,7 @@ kill -9 27268
 ## 超级节点注册
 
 :::tip
-注册需要抵押50w vite，请先确保钱包中有50w以上的vite
+注册需要抵押100w vite，请先确保钱包中有100w以上的vite
 :::
 
 登录[Web钱包](https://wallet.vite.net/)，点击进入SBP注册页。
