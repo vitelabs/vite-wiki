@@ -389,3 +389,52 @@ sidebarDepth: 4
 }
 ```
 :::
+
+## ledger_getPoWDifficulty
+用户账户通过ledger_sendRawTransaction创建交易时获取difficulty。接口逻辑为先根据交易参数计算所需配额，然后判断账户是否有抵押受益金额，如果抵押获得的配额足够，则不需要计算PoW；如果没有抵押或者抵押获得的配额不够，则计算PoW难度。
+如果接口返回error，通常是交易data过长，或者当前交易不能通过计算PoW来获取配额，例如在同一个快照块内账户链上上一笔交易已通过PoW来获取配额，那么新交易不允许再次计算PoW。
+
+- **Parameters**: 
+  * `GetPoWDifficultyParams`
+    * `address`: `string address` 账户地址
+    * `previousHash`: `string hash` 账户链上上一个块的哈希
+    * `blockType`: `byte` 交易类型
+    * `toAddress`: `string address` 响应账户地址，交易类型为请求交易时填写
+    * `data`: `string base64` 备注，交易类型为请求交易填写
+
+- **Returns**: 
+  - `GetPoWDifficultyResult`
+    - `quota`: `string uint64`  交易需要的配额
+    - `difficulty`: `string bigint` 需要计算的PoW难度，如果为空字符串，说明不需要计算PoW
+    - `qc`: `string bigint ` 拥堵系数 * 1e18
+    - `isCongestion`: `bool` 全网是否拥堵，true表示当前全网拥堵，此时配额成本提高，false表示不拥堵
+    
+- **Example**:
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "tx_calcPoWDifficulty",
+	"params": [{
+		"address":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+		"previousHash":"7b5dcb470889997100e0e09cd292d221ad1c11bb0daf8b9fa39a2d1f90210aa0",
+		"blockType":2,
+		"toAddress":"vite_0000000000000000000000000000000000000004d28108e76b",
+		"data":"8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAICy1ooG9SwPu0VPZ17lQ1+3hyUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFc3VwZXIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+	}]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+        "quota": 32152,
+        "difficulty": "102920708",
+        "qc": "1000000000000000000",
+        "isCongestion": false
+    }
+}
+```
+:::
