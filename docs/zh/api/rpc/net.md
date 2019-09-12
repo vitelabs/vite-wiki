@@ -96,19 +96,17 @@
     "state": "Synchronising",
     "status": "Synchronising",
       "tasks": [
-        "692001-693000 74add6f7f61c33dd741276d97d8ade4456c47485da78752587aef8a209fe7e88-b6af1c6fb3b502268b17928b1d91206e71003f614c134f8865bf6886d88d8e30 done",
-        "693001-694000 b6af1c6fb3b502268b17928b1d91206e71003f614c134f8865bf6886d88d8e30-c6cd65717345f017309ee961a6bcda9ba021e0ed5913d8111471ff09fc95590c pending"
+        "692001-693000 done",
+        "693001-694000 pending"
       ],
       "connections": [
         {
           "address": "24a160122317e6e4940ef2a91242b07f@118.25.49.80:8484",
           "speed": "0.00 Byte/s",
-          "task": "693001-694000 b6af1c6fb3b502268b17928b1d91206e71003f614c134f8865bf6886d88d8e30-c6cd65717345f017309ee961a6bcda9ba021e0ed5913d8111471ff09fc95590c"
         },
         {
           "address": "04508fbe0512c01a48c8a450425547de@118.24.112.185:8484",
           "speed": "0.00 Byte/s",
-          "task": "724001-725000 b2a6097b8a619462377cea0412aa26acd75cf14bbe97539447c7773ab733cbb8-bb6bf0775e3d93e8f743be1b43956d6c954e34a8d69d8a28cb34332a9ea64975"
         }
       ],
       "chunks": [
@@ -228,3 +226,7 @@
  -  `height` : `int` 节点的快照链高度
  -  `address` : `string` 节点的地址
  -  `createAt` : `string` 节点的接入时间
+
+## net_peers
+同 net_nodeInfo
+

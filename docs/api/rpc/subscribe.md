@@ -340,7 +340,7 @@ Poll for new events. The content of return value depends on the specific subscri
     
 - **Return in `subscribe_newSnapshotBlocksFilter`**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewSnapshotBlocksMsg>`
+  * `result`: `Array<SnapshotBlocksMsg>`
     1. `hash`: `Hash` The hash of snapshot block
     2. `heightStr`: `string` The height of snapshot block
     3. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
@@ -384,7 +384,7 @@ Poll for new events. The content of return value depends on the specific subscri
   
 - **Return in `subscribe_newAccountBlocksFilter`**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewAccountBlocksMsg>`
+  * `result`: `Array<AccountBlocksMsg>`
     1. `hash`: `Hash` The hash of account block
     2. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
   
@@ -420,7 +420,7 @@ Poll for new events. The content of return value depends on the specific subscri
 
 - **Return in `subscribe_newAccountBlocksByAddrFilter`**: 
   * `subscription`: `string` filterId
-  * `result`: `Array<NewAccountBlocksWithHeightMsg>`
+  * `result`: `Array<AccountBlocksWithHeightMsg>`
     1. `hash`: `Hash` The hash of account block
     2. `heightStr`: `string` The height of account block
     3. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
@@ -557,7 +557,7 @@ Start listening for new snapshot blocks via callback
 - **Callback**:  
 `Object`
   * `subscription`: `string`  Subscription id
-  * `result`: `Array<NewSnapshotBlocksMsg>`
+  * `result`: `Array<SnapshotBlocksMsg>`
       1. `hash`: `Hash` The hash of snapshot block
       2. `height`: `uint64` The height of snapshot block
       3. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
@@ -599,7 +599,7 @@ Start listening for new transactions via callback
 - **Callback**:  
 `Object`
   * `subscription`: `string`  Subscription id
-  * `result`: `Array<NewAccountBlocksMsg>`
+  * `result`: `Array<AccountBlocksMsg>`
      1. `hash`: `Hash` The hash of account block
      2. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`
 
@@ -647,7 +647,7 @@ Start listening for new transactions on specified account via callback
 - **Callback**:  
 `Object`
   * `subscription`: `string`  Subscription id
-  * `result`: `Array<NewAccountBlocksWithHeightMsg>`
+  * `result`: `Array<AccountBlocksWithHeightMsg>`
     1. `hash`: `Hash` The hash of account block
     2. `heightStr`: `string` The height of account block
     3. `removed`: `bool` Whether the block was rolled back. New transaction will be marked as `false`

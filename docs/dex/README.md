@@ -40,12 +40,17 @@ VX is the coin native to the VX platform. VX holders enjoy benefits in the form 
   
 ### VX Distribution Schedule
 
-The total supply of VX will be 100,000,000 with no inflation. After the launch of ViteX, the total supply of VX will be fully distributed within two years.
+After the launch of VX mining, there will be two phases of VX release with the total supply set to 100,000,000 with no inflation. All VX will be mined in about 2 years. 
 
-* Year 1: The number of VX released will decrease by 0.5% every day. 477,032.36 VX will be released on the first day and 76,939.48 will be released on the last day. 
-* Year 2: The number of VX released will decrease by 0.2% every day. 76,785.60 VX will be released on the first day and 37,050.73 VX will be released on the last day. 
+* **Phase 1**: Buffer Phase. In Phase 1 a fixed amount of 10,000 VX will be released daily
 
-![af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image.png](https://forum.vite.net/assets/uploads/files/1564036361941-af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image-resized.png)
+* **Phase 2**: Standard Phase. In this phase, all un-mined VX will be released according to below schedule:
+
+  * Year 1: **0.5%** daily decrement rate. 477,032.36 VX will be released on the first day while 76,939.48 will be released on the last day. 
+  * Year 2: **0.2%** daily decrement rate. 76,785.60 VX will be released on the first day.
+
+![vx_release_chart.jpg](https://forum.vite.net/assets/uploads/files/1567510383257-vx_release_chart.jpg)  
+
 
 ### VX Mining Allocation
 
