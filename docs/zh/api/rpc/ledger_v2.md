@@ -404,7 +404,7 @@ sidebarDepth: 4
 
 - **Returns**: 
   - `GetPoWDifficultyResult`
-    - `quota`: `string uint64`  交易需要的配额
+    - `requiredQuota`: `string uint64`  交易需要的配额
     - `difficulty`: `string bigint` 需要计算的PoW难度，如果为空字符串，说明不需要计算PoW
     - `qc`: `string bigint ` 拥堵系数 * 1e18
     - `isCongestion`: `bool` 全网是否拥堵，true表示当前全网拥堵，此时配额成本提高，false表示不拥堵
@@ -415,7 +415,7 @@ sidebarDepth: 4
 {
 	"jsonrpc": "2.0",
 	"id": 1,
-	"method": "tx_calcPoWDifficulty",
+	"method": "ledger_getPoWDifficulty",
 	"params": [{
 		"address":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
 		"previousHash":"7b5dcb470889997100e0e09cd292d221ad1c11bb0daf8b9fa39a2d1f90210aa0",
@@ -430,7 +430,7 @@ sidebarDepth: 4
     "jsonrpc": "2.0",
     "id": 1,
     "result": {
-        "quota": 32152,
+        "requiredQuota": 32152,
         "difficulty": "102920708",
         "qc": "1000000000000000000",
         "isCongestion": false
