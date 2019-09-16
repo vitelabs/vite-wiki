@@ -193,7 +193,7 @@ NONE
 
 ### 获取一组交易对信息
 ```
-GET /v1/markets
+GET /api/v1/markets
 ```
 **参数:**
 
@@ -256,7 +256,7 @@ operatorTakerFee | STRING | 运营商额外收取的taker手续费，0.001表示
 
 ### 获取一个交易对的详细信息
 ```
-GET /v1/market
+GET /api/v1/market
 ```
 **参数:**
 
