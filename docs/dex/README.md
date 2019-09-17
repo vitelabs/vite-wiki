@@ -119,14 +119,12 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
   :::tab Calculation
 
   **Glossary**:
-    * **Mining interval** ($M_{INT}$) and **mining threshold** ($TH$): Buy orders that are set within mining threshold from the best buy offer in the order book will be considered for mining rewards. For most of trading pairs the mining threshold is **10%**, however, different mining thresholds are also allowed. 
+    * **Mining interval** ($M_{INT}$) and **mining threshold** ($TH$): Buy orders that are set within mining threshold from the best buy offer in the order book will be considered for mining rewards. For most of trading pairs the mining threshold is **10%**, however, different mining thresholds are also allowed. For threshold table please refer to: [Mining Thresholds](./mining-threshold.html).
       
       $TH = 10\%$
       
       $M_{INT} = [{Best Buy Order} * (1-TH), {Best Buy Order})$
-      
-    * **Mining levels** ($g$): The **mining interval** is divided into **10 levels**, with level 1 being the closest to the best bid offer and level 10 being the furthest from the best bid offer. The closer the order to the best bid offer, the higher the mining weight. As described in the overview, the levels exponentially decrease the further away the order gets from the best bid offer. From level 1 to 10 the **mining weights** are $0.6^1$, $0.6^2$, ... , $0.6^9$ up to $0.6^{10}$.
-    
+          
     * **Order duration** ($T$): A buy order must stay pending on the **mining level** for at least **300** seconds. Orders placed for less than **300** seconds will not be considered for the mining reward.
     
     * **Pending order amount** ($a$): The unfilled amount of a user's order in primary coins within a certain time range
@@ -136,10 +134,8 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       $d = \frac {Best Buy Order - User Order} {Best Buy Order}$
       
       If the percentage deviation is greater than **threshold** ($TH$), the order will not be considered for mining rewards. If the deviation is less than **threshold** ($TH$), the g value will be: 
-      
-      $g = \left \lceil \frac {d}{TH} * 10 \right \rceil \ where \ \{d \ |\ 0 < d <= TH\}$
-      
-    * **Unchanged order time** ($t$): refers to the amount of time a buy order sits in the order book with a set **amount** ($a$) at a given **mining level** ($g$). This value is different from the **order duration** ($T$) mentioned above. The latter is the cumulative time of the pending order. 
+            
+    * **Unchanged order time** ($t$): refers to the amount of time a buy order sits in the order book with a set **amount** ($a$) at a given **distance** ($d$). This value is different from the **order duration** ($T$) mentioned above. The latter is the cumulative time of the pending order. 
             
       $T = t_1 + t_2 + t_3 + ... + t_n$
       
@@ -149,15 +145,15 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       
       At 10:05:00, the order was completely filled. For this transaction, the pending order amount, $a_2 = 250$.
       
-      Assuming that the **mining level** has not changed between 10:00:00 to 10:05:00, the **unchanged order time** for Alice is:
+      Assuming that **order distance** ($d$) has not changed between 10:00:00 to 10:05:00, the **unchanged order time** for Alice is:
         * 10:00:00 ~ 10:01:00, $t_1$ = 60 seconds
         * 10:01:00 ~ 10:05:00, $t_2$ = 240 seconds
         
       Following this, the order duration, T, would be $T = t_1 + t_2 = 60 + 240 = 300 
       
-    * **Market-making points** ($m$): this variable is calculated using **unchanged order time** ($t$), **pending order amount** ($a$) and **order distance** ($g$)
+    * **Market-making points** ($m$): this variable is calculated using **unchanged order time** ($t$), **pending order amount** ($a$) and **order distance** ($d$)
     
-      $m = t * a * 0.6^g$ 
+      $m = t * a * 0.6^{1+\frac{9}{TH} * d} \ | \ \{0 < d <= TH\}$
       
     * $M$: The sum of market-making points from all eligible orders for the user within the market on a given day.
     
@@ -167,9 +163,13 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       
       Assume the best buy order is $11 and remains at $11 for the duration of Alice's order:
       
-      $g = \left \lceil \frac {11 - 10} {11} * 100 \right \rceil = 10$ 
+      $d = \left \lceil \frac {11 - 10} {11} \right \rceil = 0.1$ 
       
-      $M = (t_1 * a_1 * 0.6^g) + (t_2 * a_2 * 0.6^g) = (60 * 500 * 0.6^{10}) + (240 * 250 * 0.6^{10}) = 544.20$
+      $M = t_1 * a_1 * 0.6^{1+\frac{9d_1}{TH}} + t_1 * a_1 * 0.6^{1+\frac{9d_2}{TH}}$
+
+         = $60 * 500 * 0.6^{1+\frac{9 * 0.1}{0.1}} + 240 * 250 * 0.6^{1+\frac{9 * 0.1}{0.1}}$
+         
+         = 544.195584
     
     * $V$: The amount of VX mined by the user in the market on a given day
     
@@ -189,7 +189,7 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
   User can request invitation codes to invite friends to join the ViteX platform. The invitees will enjoy a **10%** discount on trading fees on the ViteX platform while the inviter will receive a "commission" of **5%** on all transaction fees generated by the invitees. This means that 5% of their invitees trading fees will get counted towards the inviter's total trading fees.
   
   * **How to participate**:
-    - Apply for a referral code using this form: [https://forms.gle/D71gwnVVXdEBWfKi8](https://forms.gle/24FoWgWUhwqF2Bcf8)
+    - Apply for a referral code at [Vite Web Wallet](https://x.vite.net)
     - If you are approved, you will get a referral code that you can send to your friends
   
   * **How to generate a referral code**:

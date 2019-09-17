@@ -1,7 +1,7 @@
-# 挂单挖矿区间阈值
+# Mining Thresholds for Market-making
 
-|  交易对   | 挂单挖矿区间阈值  |
-|:----:|:----:|
+|  Pair  | Valid Threshold |
+| :----: | :----: |
 |  ETH-000/BTC-000  | 10% |
 | GRIN-000/BTC-000  | 10% |
 | VITE/BTC-000  | 10% |
