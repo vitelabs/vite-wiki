@@ -21,4 +21,4 @@
   
 * **分配方案**：
   
-![af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image.png](https://forum.vite.net/assets/uploads/files/1564036361941-af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image-resized.png) 
+![af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image.png](https://forum.vite.net/assets/uploads/files/1567510383257-vx_release_chart.jpg) 
