@@ -17,9 +17,9 @@ A decentralized exchange built on the Vite public chain. The world's first DAG-b
   * Market-making as mining: place orders to boost liquidity on ViteX and get rewarded with VX. 
   * Listing as mining: a user that lists a new trading pair receives VX. 
 
-![c7ec6ecd-6e7e-4143-a90d-e7197eb56bda-image.png](https://forum.vite.net/assets/uploads/files/1564036407651-c7ec6ecd-6e7e-4143-a90d-e7197eb56bda-image-resized.png) 
+![vx-supply-chart](../../assets/images/vx-supply.jpg) 
   
 **Release schedule**：100 million VX will be released over the course of two years at a fixed percentage rate.
   
-![af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image.png](https://forum.vite.net/assets/uploads/files/1564036361941-af9e673d-bca9-4b6a-8fc5-1a3ff8e0d0df-image-resized.png) 
+![vx-release-chart](https://forum.vite.net/assets/uploads/files/1567510383257-vx_release_chart.jpg) 
 
