@@ -244,10 +244,7 @@ module.exports = {
         '@vuepress/back-to-top',
         '@vuepress/i18n-ui',
         ['mathjax', {
-          target: 'svg',
-          macros: {
-            '*': '\\times',
-          },
+          target: 'chtml',
         }],
         '@vuepress/plugin-notification',
         ['redirect', {
