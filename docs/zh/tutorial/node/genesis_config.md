@@ -2,7 +2,7 @@
 ```
 {
   "GenesisAccountAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792", // 创世账号
-  "ConsensusGroupInfo": { // 共识组信息
+  "GovernanceInfo": { // 共识组信息
     "ConsensusGroupInfoMap": {
       "00000000000000000001": { // 共识组id,00000000000000000001为快照共识组，00000000000000000002为公共委托共识组
         // 以下配置表示：
@@ -19,15 +19,15 @@
         "CountingTokenId": "tti_5649544520544f4b454e6e40",  // 共识计票的代币id
         "RegisterConditionId": 1, // 注册信息类型，无需更改
         "RegisterConditionParam": {
-          "PledgeAmount": 1000000000000000000000000, // 注册出块节点时的抵押金额
-          "PledgeToken": "tti_5649544520544f4b454e6e40",  // 注册出块节点时抵押的代币id
-          "PledgeHeight": 7776000 // 注册出块节点时的抵押到期高度
+          "StakeAmount": 1000000000000000000000000, // 注册出块节点时的抵押金额
+          "StakeToken": "tti_5649544520544f4b454e6e40",  // 注册出块节点时抵押的代币id
+          "StakeHeight": 7776000 // 注册出块节点时的抵押到期高度
         },
         "VoteConditionId": 1, // 投票信息类型，无需更改
         "VoteConditionParam": {}, // 无需更改
         "Owner": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792", // 共识组所有者，无需更改
-        "PledgeAmount": 0,  // 共识组抵押金额，无需更改
-        "WithdrawHeight": 1 // 共识组抵押到期高度，无需更改
+        "StakeAmount": 0,  // 共识组抵押金额，无需更改
+        "ExpirationHeight": 1 // 共识组抵押到期高度，无需更改
       },
       "00000000000000000002": {
         "NodeCount": 2,
@@ -40,37 +40,37 @@
         "CountingTokenId": "tti_5649544520544f4b454e6e40",
         "RegisterConditionId": 1,
         "RegisterConditionParam": {
-          "PledgeAmount": 1000000000000000000000000,
-          "PledgeToken": "tti_5649544520544f4b454e6e40",
-          "PledgeHeight": 7776000
+          "StakeAmount": 1000000000000000000000000,
+          "StakeToken": "tti_5649544520544f4b454e6e40",
+          "StakeHeight": 7776000
         },
         "VoteConditionId": 1,
         "VoteConditionParam": {},
         "Owner": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
-        "PledgeAmount": 0,
-        "WithdrawHeight": 1
+        "StakeAmount": 0,
+        "ExpirationHeight": 1
       }
     },
     "RegistrationInfoMap": {  // 出块节点信息
       "00000000000000000001": { // 当前快照共识组共有两个出块节点
         "s1": { // 出块节点名称
-          "NodeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // 出块地址
-          "PledgeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // 抵押地址
+          "BlockProducingAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // 出块地址
+          "StakeAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // 抵押地址
           "Amount": 1000000000000000000000000, // 抵押金额
-          "WithdrawHeight": 7776000,  // 抵押到期高度
+          "ExpirationHeight": 7776000,  // 抵押到期高度
           "RewardTime": 1,  // 出块奖励起始高度
-          "CancelTime": 0,  // 出块节点取消时间
+          "RevokeTime": 0,  // 出块节点取消时间
           "HisAddrList": [  // 历史出块地址
             "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906"
           ]
         },
         "s2": {
-          "NodeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
-          "PledgeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
+          "BlockProducingAddress": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
+          "StakeAddress": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
           "Amount": 1000000000000000000000000,
-          "WithdrawHeight": 7776000,
+          "ExpirationHeight": 7776000,
           "RewardTime": 1,
-          "CancelTime": 0,
+          "RevokeTime": 0,
           "HisAddrList": [
             "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87"
           ]
@@ -84,7 +84,7 @@
       }
     }
   },
-  "MintageInfo": {  // 代币信息
+  "AssetInfo": {  // 代币信息
     "TokenInfoMap": {
       "tti_5649544520544f4b454e6e40": { // 代币id，当前为vite代币
         "TokenName": "Vite Token",  // 代币名称
@@ -92,33 +92,33 @@
         "TotalSupply": 1000000000000000000000000000,  // 总发行量，vite的总发行量为1e9 * 1e18
         "Decimals": 18, // 小数位数
         "Owner": "vite_0000000000000000000000000000000000000004d28108e76b", // 代币所有者
-        "PledgeAmount": 0,  // 铸币时抵押的vite金额
-        "PledgeAddr": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",  // 铸币时的抵押地址
-        "WithdrawHeight": 0,  // 铸币时的抵押到期高度
+        "StakeAmount": 0,  // 铸币时抵押的vite金额
+        "StakeAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",  // 铸币时的抵押地址
+        "ExpirationHeight": 0,  // 铸币时的抵押到期高度
         "MaxSupply": 115792089237316195423570985008687907853269984665640564039457584007913129639935,  // 可增发代币的最大发行量
-        "OwnerBurnOnly": false, // 是否只允许代币所有者销毁代币
+        "IsOwnerBurnOnly": false, // 是否只允许代币所有者销毁代币
         "IsReIssuable": true  // 是否为可增发代币
       }
     }
   },
-  "PledgeInfo": { // 获得配额的抵押信息
-    "PledgeBeneficialMap": {  // 抵押受益信息
+  "QuotaInfo": { // 获得配额的抵押信息
+    "StakeBeneficialMap": {  // 抵押受益信息
       "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792": 1000000000000000000000,  // 抵押受益地址:受益总金额
       "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": 1000000000000000000000
     },
-    "PledgeInfoMap": {  // 抵押信息
+    "StakeInfoMap": {  // 抵押信息
       "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792": [  // 抵押地址
         {
           "Amount": 1000000000000000000000, // 抵押金额
-          "WithdrawHeight": 259200, // 抵押到期高度
-          "BeneficialAddr": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792" // 受益地址
+          "ExpirationHeight": 259200, // 抵押到期高度
+          "Beneficiary": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792" // 受益地址
         }
       ],
       "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": [
         {
           "Amount": 1000000000000000000000,
-          "WithdrawHeight": 259200,
-          "BeneficialAddr": "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23"
+          "ExpirationHeight": 259200,
+          "Beneficiary": "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23"
         }
       ]
     }

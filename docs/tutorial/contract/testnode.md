@@ -64,14 +64,8 @@ Below is a full example of node_config.json：
   "OpenPlugins":true,
   "PublicModules": [
     "wallet",
-    "public_onroad",
-    "tx",
-    "ledger",
     "contract",
-    "pledge",
-    "register",
-    "vote",
-    "mintage",
+    "ledger",
     "net",
     "testapi",
     "dashboard",
@@ -125,9 +119,21 @@ Below is a full example of genesis_config.json with following settings:
       "DexFork":{
         "Height":2,
         "Version":2
+      },
+      "DexFeeFork":{
+        "Height":3,
+        "Version":3
+      },
+      "StemFork":{
+        "Height":4,
+        "Version":4
+      },
+      "LeafFork":{
+        "Height":5,
+        "Version":5
       }
     },
-  "ConsensusGroupInfo": {
+  "GovernanceInfo": {
     "ConsensusGroupInfoMap": {
       "00000000000000000001": {
         "NodeCount": 2,
@@ -140,15 +146,15 @@ Below is a full example of genesis_config.json with following settings:
         "CountingTokenId": "tti_5649544520544f4b454e6e40",
         "RegisterConditionId": 1,
         "RegisterConditionParam": {
-          "PledgeAmount": 100000000000000000000000,
-          "PledgeToken": "tti_5649544520544f4b454e6e40",
-          "PledgeHeight": 0
+          "StakeAmount": 100000000000000000000000,
+          "StakeToken": "tti_5649544520544f4b454e6e40",
+          "StakeHeight": 0
         },
         "VoteConditionId": 1,
         "VoteConditionParam": {},
         "Owner": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
-        "PledgeAmount": 0,
-        "WithdrawHeight": 1
+        "StakeAmount": 0,
+        "ExpirationHeight": 1
       },
       "00000000000000000002": {
         "NodeCount": 2,
@@ -161,37 +167,37 @@ Below is a full example of genesis_config.json with following settings:
         "CountingTokenId": "tti_5649544520544f4b454e6e40",
         "RegisterConditionId": 1,
         "RegisterConditionParam": {
-          "PledgeAmount": 100000000000000000000000,
-          "PledgeToken": "tti_5649544520544f4b454e6e40",
-          "PledgeHeight": 7776000
+          "StakeAmount": 100000000000000000000000,
+          "StakeToken": "tti_5649544520544f4b454e6e40",
+          "StakeHeight": 7776000
         },
         "VoteConditionId": 1,
         "VoteConditionParam": {},
         "Owner": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
-        "PledgeAmount": 0,
-        "WithdrawHeight": 1
+        "StakeAmount": 0,
+        "ExpirationHeight": 1
       }
     },
     "RegistrationInfoMap": {
       "00000000000000000001": {
         "s1": {
-          "NodeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
-          "PledgeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
+          "BlockProducingAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
+          "StakeAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
           "Amount": 100000000000000000000000,
-          "WithdrawHeight": 7776000,
+          "ExpirationHeight": 7776000,
           "RewardTime": 1,
-          "CancelTime": 0,
+          "RevokeTime": 0,
           "HisAddrList": [
             "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906"
           ]
         },
         "s2": {
-          "NodeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
-          "PledgeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
+          "BlockProducingAddress": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
+          "StakeAddress": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
           "Amount": 100000000000000000000000,
-          "WithdrawHeight": 7776000,
+          "ExpirationHeight": 7776000,
           "RewardTime": 1,
-          "CancelTime": 0,
+          "RevokeTime": 0,
           "HisAddrList": [
             "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87"
           ]
@@ -211,7 +217,7 @@ Below is a full example of genesis_config.json with following settings:
       }
     }
   },
-  "MintageInfo": {
+  "AssetInfo": {
     "TokenInfoMap": {
       "tti_5649544520544f4b454e6e40": {
         "TokenName": "Vite Token",
@@ -219,11 +225,11 @@ Below is a full example of genesis_config.json with following settings:
         "TotalSupply": 1000000000000000000000000000,
         "Decimals": 18,
         "Owner": "vite_00000000000000000000000000000000000000042d7ef71894",
-        "PledgeAmount": 0,
-        "PledgeAddr": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
-        "WithdrawHeight": 0,
+        "StakeAmount": 0,
+        "StakeAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
+        "ExpirationHeight": 0,
         "MaxSupply": 115792089237316195423570985008687907853269984665640564039457584007913129639935,
-        "OwnerBurnOnly": false,
+        "IsOwnerBurnOnly": false,
         "IsReIssuable": true
       }
     },
@@ -237,24 +243,24 @@ Below is a full example of genesis_config.json with following settings:
       }
     ]
   },
-  "PledgeInfo": {
-    "PledgeBeneficialMap": {
+  "QuotaInfo": {
+    "StakeBeneficialMap": {
       "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792": 1000000000000000000000,
       "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": 1000000000000000000000
     },
-    "PledgeInfoMap": {
+    "StakeInfoMap": {
       "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792": [
         {
           "Amount": 1000000000000000000000,
-          "WithdrawHeight": 259200,
-          "BeneficialAddr": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792"
+          "ExpirationHeight": 259200,
+          "Beneficiary": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792"
         }
       ],
       "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": [
         {
           "Amount": 1000000000000000000000,
-          "WithdrawHeight": 259200,
-          "BeneficialAddr": "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23"
+          "ExpirationHeight": 259200,
+          "Beneficiary": "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23"
         }
       ]
     }

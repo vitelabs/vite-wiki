@@ -11,7 +11,7 @@ The only reason the comments are here is to explain certain configuration settin
 ```
 {
   "GenesisAccountAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792", // Genesis account
-  "ConsensusGroupInfo": { // Consensus group settings
+  "GovernanceInfo": { // Consensus group settings
     "ConsensusGroupInfoMap": {
       "00000000000000000001": { // Consensus group id. "00000000000000000001" stands for snapshot consensus group. "00000000000000000002" stands for delegated consensus group
         "NodeCount": 2, // Number of SBP(s) selected in each round
@@ -24,15 +24,15 @@ The only reason the comments are here is to explain certain configuration settin
         "CountingTokenId": "tti_5649544520544f4b454e6e40",  // Token id in which the voting number is calculated. Default is VITE
         "RegisterConditionId": 1, // Registration type id. No need to change
         "RegisterConditionParam": {
-          "PledgeAmount": 1000000000000000000000000, // Amount of staking upon supernode registration
-          "PledgeToken": "tti_5649544520544f4b454e6e40",  // Staking token id
-          "PledgeHeight": 7776000 // Staking period in number of snapshots
+          "StakeAmount": 1000000000000000000000000, // Amount of staking upon supernode registration
+          "StakeToken": "tti_5649544520544f4b454e6e40",  // Staking token id
+          "StakeHeight": 7776000 // Staking period in number of snapshots
         },
         "VoteConditionId": 1, // Voting type id. No need to change
         "VoteConditionParam": {}, // No need to change
         "Owner": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792", // Owner of snapshot consensus group. No need to change
-        "PledgeAmount": 0,  // Amount of staking for this consensus group. No need to change
-        "WithdrawHeight": 1 // Staking period for this consensus group. No need to change
+        "StakeAmount": 0,  // Amount of staking for this consensus group. No need to change
+        "ExpirationHeight": 1 // Staking period for this consensus group. No need to change
       },
       "00000000000000000002": {
         "NodeCount": 2,
@@ -45,37 +45,37 @@ The only reason the comments are here is to explain certain configuration settin
         "CountingTokenId": "tti_5649544520544f4b454e6e40",
         "RegisterConditionId": 1,
         "RegisterConditionParam": {
-          "PledgeAmount": 1000000000000000000000000,
-          "PledgeToken": "tti_5649544520544f4b454e6e40",
-          "PledgeHeight": 7776000
+          "StakeAmount": 1000000000000000000000000,
+          "StakeToken": "tti_5649544520544f4b454e6e40",
+          "StakeHeight": 7776000
         },
         "VoteConditionId": 1,
         "VoteConditionParam": {},
         "Owner": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",
-        "PledgeAmount": 0,
-        "WithdrawHeight": 1
+        "StakeAmount": 0,
+        "ExpirationHeight": 1
       }
     },
     "RegistrationInfoMap": {  // Supernode settings
       "00000000000000000001": { 
         "s1": { // Supernode name
-          "NodeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Block producing address
-          "PledgeAddr": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Staking address
+          "BlockProducingAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Block producing address
+          "StakeAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",  // Staking address
           "Amount": 1000000000000000000000000, // Staking amount
-          "WithdrawHeight": 7776000,  // Staking period
+          "ExpirationHeight": 7776000,  // Staking period
           "RewardTime": 1,  // Starting block height from which mining rewards are available for retrieval
-          "CancelTime": 0,  // Block height at which the supernode can be cancelled and the corresponding staking can be retrieved. 0 means the supernode can be cancelled immediately
+          "RevokeTime": 0,  // Block height at which the supernode can be cancelled and the corresponding staking can be retrieved. 0 means the supernode can be cancelled immediately
           "HisAddrList": [  // Historical block producing addresses
             "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906"
           ]
         },
         "s2": {
-          "NodeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
-          "PledgeAddr": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
+          "BlockProducingAddress": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
+          "StakeAddress": "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87",
           "Amount": 1000000000000000000000000,
-          "WithdrawHeight": 7776000,
+          "ExpirationHeight": 7776000,
           "RewardTime": 1,
-          "CancelTime": 0,
+          "RevokeTime": 0,
           "HisAddrList": [
             "vite_0acbb1335822c8df4488f3eea6e9000eabb0f19d8802f57c87"
           ]
@@ -89,7 +89,7 @@ The only reason the comments are here is to explain certain configuration settin
       }
     }
   },
-  "MintageInfo": {  // Token settings
+  "AssetInfo": {  // Token settings
     "TokenInfoMap": {
       "tti_5649544520544f4b454e6e40": { // Token id
         "TokenName": "Vite Token",  // Token name
@@ -97,33 +97,33 @@ The only reason the comments are here is to explain certain configuration settin
         "TotalSupply": 1000000000000000000000000000,  // Total supply. The total supply of VITE is 1e9 * 1e18
         "Decimals": 18, // Decimals
         "Owner": "vite_0000000000000000000000000000000000000004d28108e76b", // Token owner
-        "PledgeAmount": 0,  // 铸币时抵押的vite金额
-        "PledgeAddr": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",  // 铸币时的抵押地址
-        "WithdrawHeight": 0,  // 铸币时的抵押到期高度
+        "StakeAmount": 0,  // 铸币时抵押的vite金额
+        "StakeAddress": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792",  // 铸币时的抵押地址
+        "ExpirationHeight": 0,  // 铸币时的抵押到期高度
         "MaxSupply": 115792089237316195423570985008687907853269984665640564039457584007913129639935,  // Maximum supply
-        "OwnerBurnOnly": false, // Boolean flag representing if the token can only be burned by token owner. Re-issuable token only.
+        "IsOwnerBurnOnly": false, // Boolean flag representing if the token can only be burned by token owner. Re-issuable token only.
         "IsReIssuable": true  // Boolean flag representing if the token is re-issuable or not
       }
     }
   },
-  "PledgeInfo": { // Quota settings
-    "PledgeBeneficialMap": { 
+  "QuotaInfo": { // Quota settings
+    "StakeBeneficialMap": { 
       "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792": 1000000000000000000000,  // Quota recipient address and staking amount
       "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": 1000000000000000000000
     },
-    "PledgeInfoMap": {  
+    "StakeInfoMap": {  
       "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792": [  // Staking address
         {
           "Amount": 1000000000000000000000, // Staking amount
-          "WithdrawHeight": 259200, // Staking period
-          "BeneficialAddr": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792" // Quota recipient address
+          "ExpirationHeight": 259200, // Staking period
+          "Beneficiary": "vite_bb6ad02107a4422d6a324fd2e3707ad53cfed9359378a78792" // Quota recipient address
         }
       ],
       "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23": [
         {
           "Amount": 1000000000000000000000,
-          "WithdrawHeight": 259200,
-          "BeneficialAddr": "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23"
+          "ExpirationHeight": 259200,
+          "Beneficiary": "vite_56fd05b23ff26cd7b0a40957fb77bde60c9fd6ebc35f809c23"
         }
       ]
     }
