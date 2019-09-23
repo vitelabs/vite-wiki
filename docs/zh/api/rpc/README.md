@@ -48,6 +48,8 @@ title: 开始
 | 创建合约时确认次数非法 |  `-35007` | invalid confirm time |{"code":-35007,"message":"invalid confirm time"}|
 | 合约地址不存在 |  `-35008` | contract not exists |{"code":-35008,"message":"contract not exists"}|
 | 创建合约时配额翻倍数非法 |  `-35010` | invalid quota ratio |{"code":-35010,"message":"invalid quota ratio"}|
+| 全网拥堵时，PoW服务不可用 |  `-35011` | PoW service not supported |{"code":-35011,"message":"PoW service not supported"}|
+| 超过交易最大可用配额 |  `-35012` | quota limit for block reached |{"code":-35012,"message":"quota limit for block reached"}|
 | 出块地址不合法 |  `-36001`  |  block address not valid |{"code":-36001, "message":"general account's sendBlock.Height must be larger than 1"}|
 | Hash校验失败 |  `-36002`  | verify hash failed | {"code":-36002,"message":"verify hash failed"} |
 | 签名校验失败 |  `-36003`  | verify signature failed | {"code":-36003,"message":"verify signature failed"} |
