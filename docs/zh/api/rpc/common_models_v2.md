@@ -37,7 +37,7 @@
 | blockType | byte | 交易类型 1 创建合约请求 2 转账或调用合约请求 3 增发请求 4 响应 5 响应失败 6 退款请求 7 创世响应|
 | height | string uint64 | 块高度 |
 | hash | string Hash | 交易哈希|
-| previousHash | string hash | 账户链上上一笔交易的哈希, 账户链上第一笔交易的值为`0000000000000000000000000000000000000000000000000000000000000000``|
+| previousHash | string hash | 账户链上上一笔交易的哈希, 账户链上第一笔交易的值为`0000000000000000000000000000000000000000000000000000000000000000`|
 | address| string Address | 账户块所属的账户地址|
 | publicKey| string base64 | 账户公钥 |
 | producer |string address | 出块账户地址，用户账户块的出块地址为用户账户地址，合约账户块的出块地址为委托共识组的出块节点地址 |
@@ -59,5 +59,5 @@
 | confirmations |string uint64 | 交易被快照块确认的次数 |
 | firstSnapshotHash | string hash | 快照这笔交易的快照块哈希 |
 | timestamp | int64 | 交易被快照的时间，单位秒 |
-| receiveBlockHeight | string uint64 | 请求交易对应的响应交易哈希 |
-| receiveBlockHash | string hash | 请求交易对应的响应交易的块高度 |
+| receiveBlockHeight | string uint64 | 请求交易对应的响应交易块高度 |
+| receiveBlockHash | string hash | 请求交易对应的响应交易的哈希 |
