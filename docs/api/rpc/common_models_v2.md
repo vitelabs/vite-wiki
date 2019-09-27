@@ -43,7 +43,7 @@
 | producer |string address | Block producer's address. For user account, producer is account address. For contract account, producer is the supernode of delegate consensus group |
 | fromAddress |string address | The address of whom the transaction was sent from |
 | toAddress|string address | The address of whom the transaction is sent to |
-| fromBlockHash | string  hash | The hash of request transaction. `0000000000000000000000000000000000000000000000000000000000000000` for response |
+| sendBlockHash | string  hash | The hash of request transaction. `0000000000000000000000000000000000000000000000000000000000000000` for response |
 | tokenId |string tokenId | Token id |
 | amount |string bigint | Transfer amount |
 | tokenInfo | RpcTokenInfo| Token info |
