@@ -11,6 +11,9 @@ module.exports = (options, ctx) => {
         name: options.name || 'demo'
       })
     },
+    extendPageData: ($page) => {
+      Object.assign($page, variable)
+    },
     extendMarkdown: md => {
       let name = options.name || 'demo'
 
