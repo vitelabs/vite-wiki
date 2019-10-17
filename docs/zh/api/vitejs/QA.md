@@ -15,56 +15,56 @@
 
 ## 铸币
 
-Client 提供铸币相关函数，[详见 client/builtinTxBlock/Mintage](./client/builtinTxBlock)
-
 [Gvite-RPC 铸币](../rpc/mintage)
 
 ## 事件监听
 
-Client继承自netProcessor 提供监听功能，[详见client/subscription](./client/subscribe)
-
-## wallet模块下account实例间的关系
-
-Wallet模块主要用于快速生成钱包。
-
-:::tip Tips
-[请参考wallet模块介绍](./wallet/wallet)
-:::
+ViteAPI 提供监听功能，[详见 ViteAPI](./client/subscribe)
 
 ## 发送交易
-Refer to [account](./wallet/account) and [hdAccount](./wallet/hdAccount)
 
-1. 通过助记词 [生成一个`hdAccount`实例](./wallet/hdAccount)。[更多实例参考](./wallet/wallet)
+```typescript
+import HTTP_RPC from '../../src/HTTP';
+import { wallet, accountBlock, ViteAPI, constant } from '@vite/vitejs';
 
-```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, hdAccount } from '@vite/vitejs';
+const { Vite_TokenId } = constant;
+const { getWallet } = wallet;
+const { createAccountBlock } = accountBlcok;
 
-let myClient = new client( new WS_RPC("ws://example.com") );
-let myHdAccount = new hdAccount({ 
-    client: myClient,
-    mnemonic: 'your mnemonic'
+// 1. 通过助记词派生私钥和地址
+const wallet = getWallet(yourMnemonic);
+const { privateKey, address } = wallet.deriveAddress(0);  // 得到助记词0号派生路径下的私钥
+
+// 2. 通过开发地址得到一个provider
+const httpService = new HTTP_RPC("http://example.com");
+const provider = new ViteAPI(httpService);
+
+// 3. 生成accountBlock: 比如创建一个发送交易的accountBlock
+const accountBlock = createAccountBlock('sendTransaction', {
+    toAddress: 'your toAddress', 
+    tokenId: Vite_TokenId,
+    amount: '1000000000000000000000'    // 10Vite + 18个0
 });
-```
 
-2. 通过[`hdAccount`实例](./wallet/hdAccount)，获取到具体地址的`account`实例。比如，获取此助记词下的`0号地址的账户实例`。
+// 4. 发送accountBlock
+const sendAccountBlock = async () => {
+    // Step 1
+    accountBlock.setProvider(provider).setPrivateKey(privateKey);
 
-```javascript
-const firstAccount = myHdAccount.getAccount({
-    index: 0
-});
-```
+    // Step 2
+    await accountBlock.autoSetPreviousAccountBlock();
+    // 如果是创建合约
+    // await accountBlock.autoSetToAddress();
+    // 如果需要 PoW
+    // await accountBlock.PoW();
 
-3. 通过[`account`实例](./wallet/account)发送交易。
+    // Step 3
+    return accountBlock.sign().send();
+}
 
-```javascript
-firstAccount.sendTx({
-    toAddress: 'Your toAddress',
-    amount: '10000000000000000000',    // 10Vite + 18个0
-    tokenId: Vite_TokenId
-}).then((accountBlock) => {
-    console.log(accountBlock);
+sendAccountBlock().then(() => {
+    console.log('Send success');
 }).catch((err) => {
-    console.log(err);
+    console.warn(err);
 });
 ```

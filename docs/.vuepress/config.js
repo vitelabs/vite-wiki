@@ -126,22 +126,19 @@ const sidebarConfigs = {
     ],
     'api/vitejs': [
         {
-            children: ['', 'types', 'errors', 'quickStart', 'QA']
+            children: ['', 'types', 'errors', 'QA']
         },
         {
-            children: ['provider/provider', 'provider/http', 'provider/websocket', 'provider/ipc', 'provider/netProcessor']
+            children: ['ViteAPI/start', 'ViteAPI/GViteRPC']
         },
         {
-            children: ['constant/error', 'constant/constant']
+            children: ['accountBlock/start', 'accountBlock/createAccountBlock', 'accountBlock/accountBlock', 'accountBlock/utils']
         },
         {
-            children: ['tool/utils', 'tool/keystore', 'tool/abi', 'tool/privToAddr', 'tool/hdAddr', 'tool/accountBlock']
+            children: ['wallet/start', 'wallet/wallet', 'wallet/more']
         },
         {
-            children: ['client/client', 'client/instance', 'client/GViteRPC', 'client/builtinTxBlock', 'client/subscribe']
-        },
-        {
-            children: ['wallet/wallet', 'wallet/addrAccount', 'wallet/account', 'wallet/hdAccount']
+            children: ['tool/http', 'tool/websocket', 'tool/ipc', 'tool/abi', 'tool/utils', 'tool/keystore']
         }
     ],
     'api/java-sdk': [
@@ -290,7 +287,7 @@ module.exports = {
                     '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
                     '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'Net', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'Network Connection', 'Constants', 'Tools', 'Client', 'Wallet'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
                     '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
                 },
@@ -315,7 +312,7 @@ module.exports = {
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', 'FAQ'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC', '钱包', '账本', '智能合约', '网络', '其他'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', '网络连接', '常量', '工具', 'Client', '钱包'),
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', 'ViteAPI', 'AccountBlock', 'Wallet', '更多'),
                     '/zh/api/java-sdk/': genSidebarConfig('api/java-sdk', 'zh', '快速开始'),
                   '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
                 },
