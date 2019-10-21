@@ -1,5 +1,21 @@
 # Wallet实例
 
+## 应用
+
+```javascript
+import { wallet } from '@vite/vitejs';
+
+const myWallet = wallet.createWallet();
+
+console.log('rootPath: ', myWallet.rootPath);
+console.log('my mnemonics: ', myWallet.mnemonics);
+console.log('my entropy: ', myWallet.entropy);
+console.log('my seed: ', myWallet.seedHex);
+
+const theFirstAddress = myWallet.deriveAddress(0);
+const { originalAddress, publicKey, privateKey, address, path } = theFirstAddress;
+```
+
 ## Properties
 
 |  Name  | Type | Description |
@@ -19,6 +35,12 @@
 
 - **Return**
     * Object{ index: `WalletAddressObj` } 当前已经生成过的地址列表
+
+- **Example**
+```javascript
+// ....
+const currentAddressList = myWallet.getAddressList();
+```
 
 ### deriveAddress
 

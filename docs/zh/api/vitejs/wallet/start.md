@@ -45,6 +45,38 @@ export declare type WalletAddressObj {
 - **Return**
     * `String` 助记词
 
+- **Example**
+```javascript
+const bip39 = require('bip39');
+import { wallet } from '@vite/vitejs';
+
+const { createMnemonics } = wallet;
+
+const myMnemonics = createMnemonics();
+// 如果选择其他语言
+const myJapanMnemonics = createMnemonics(256, bip39.wordlists.japanese)
+```
+
+### validateMnemonics
+校验助记词
+
+- **Parameters** 
+    * `string` 必填，助记词
+    * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
+
+- **Return**
+    * `boolean` 校验结果
+
+- **Example**
+```javascript
+const bip39 = require('bip39');
+import { wallet } from '@vite/vitejs';
+
+const result = wallet.validateMnemonics('your menemonics');
+// 若是语言不是英语
+const myJapanMnemonics = wallet.validateMnemonics('your menemonics', bip39.wordlists.japanese);
+```
+
 ### deriveAddress
 根据助记词派生地址
 
@@ -58,6 +90,16 @@ export declare type WalletAddressObj {
 
 - **Return**
     * `AddressObj` { originalAddress, publicKey, privateKey, address }
+
+- **Example**
+```javascript
+import { wallet } from '@vite/vitejs';
+
+const { originalAddress, publicKey, privateKey, address } = wallet.deriveAddress({ 
+    mnemonics: 'your mnemonics', 
+    index: 0 
+});
+```
 
 ### deriveAddressList
 根据助记词派生地址列表
@@ -76,6 +118,34 @@ export declare type WalletAddressObj {
 - **Return**
     * `AddressObj[]` [{ originalAddress, publicKey, privateKey, address }, ...]
 
+- **Example**
+```javascript
+import { wallet } from '@vite/vitejs';
+
+const addressList = wallet.deriveAddressList({ 
+    mnemonics: 'your mnemonics', 
+    startIndex: 0,
+    endIndex: 9
+});
+```
+
+### isValidAddress
+判断地址类型
+
+- **Parameters** 
+    * `string` 地址
+
+- **Return**
+    * `0 | 1 | 2` Illegal: 0; Account Address: 1; Contract Address: 2
+
+- **Example**
+```javascript
+import { wallet } from '@vite/vitejs';
+
+const addrType = wallet.isValidAddress('vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2');  // addrType === 1
+const addrType2 = wallet.isValidAddress('32323');  // addrType2 === 0
+```
+
 ### createWallet
 创建钱包（即私钥管理器）
 
@@ -86,6 +156,13 @@ export declare type WalletAddressObj {
 
 - **Return**
     * Wallet实例
+
+- **Example**
+```javascript
+import { wallet } from '@vite/vitejs';
+
+const myWallet = wallet.createWallet();
+```
 
 ### getWallet
 根据助记词还原钱包（即私钥管理器）
@@ -98,3 +175,11 @@ export declare type WalletAddressObj {
 
 - **Return**
     * Wallet实例
+
+
+- **Example**
+```javascript
+import { wallet } from '@vite/vitejs';
+
+const myWallet = wallet.getWallet('your mnemonics');
+```
