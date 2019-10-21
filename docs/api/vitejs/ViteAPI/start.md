@@ -29,11 +29,11 @@ import { ViteAPI } from '@vite/vitejs';
 
 const wsService = new WS_RPC("ws://example.com");
 
-const provider = new ViteAPI(wsService, () => {
+const api = new ViteAPI(wsService, () => {
     console.log("Connected.");
 });
 
-provider.request('ledger_getSnapshotChainHeight').then((height) => {
+api.request('ledger_getSnapshotChainHeight').then((height) => {
     console.log(height);
 });
 ```
@@ -159,7 +159,7 @@ Set provider
     * `firstConnect : Function` 首次连接成功回调函数
     * `abort : boolean` 是否打断原有provider的残余请求
 
-### request (Methods, ...args)
+### request
 
 - **Parameters**
     * `methods : string` 方法名称
@@ -183,15 +183,15 @@ myNetProcessor.request('rpcMethodName', 1, 1, 2).then(() => {
 });
 ```
 
-### notification (Methods, ...args)
+### notification
 
 - **Parameters**
     * `methods : string` 方法名称
     * `...args` 参数
 
-### batch (RPCrequest[])
+### batch 
 
-- **Parameters**
+- **Parameters** (RPCrequest[])
     * `__namedParameters: Object`
         - `type: string<request | notification>`
         - `methodName: string` 方法名称
@@ -224,7 +224,7 @@ myNetProcessor.batch([
 
 :::tip Tips
 如果是采用`http`方式连接`Gvite`，`ViteJS`会自动采用轮询模式。
-[具体参考GVite subscribe](/api/rpc/subscribe)
+[具体参考GVite subscribe](/api/rpc/subscribe_v2)
 :::
 
 - **Parameters**

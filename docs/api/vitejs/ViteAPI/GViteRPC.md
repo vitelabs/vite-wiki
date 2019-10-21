@@ -10,7 +10,7 @@
 
 ## 调用
 
-使用方法`provider.request`
+- **使用方法`provider.request`**
 
 - **Parameters** 
     * `methodName: string` Gvite-RPC 接口名称

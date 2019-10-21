@@ -29,6 +29,19 @@ import { accountBlock } from '@vite/vitejs';
 
 const { utils } = accountBlock;
 
+utils.isValidAccountBlockBeforeHash({
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    amount: '0',
+    blockType: 2,
+    data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB',
+    fee: '0',
+    hash: '156a47de8b5a690562278360e41e337ee4f1b4aa8d979f377beb0cc70f939032',
+    height: '105',
+    previousHash: '558c6873d27c903ec9067cf54432e9d16d9b31474adab165ad1f6cc392beeb8d',
+    producer: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b',
+    tokenId: 'tti_5649544520544f4b454e6e40'
+});
 ```
 
 ### isValidAccountBlockBeforeSignature
@@ -53,14 +66,6 @@ const { utils } = accountBlock;
 - **Return**
     * `Boolean` 验证结果
 
-- **Example**
-```javascript
-import { accountBlock } from '@vite/vitejs';
-
-const { utils } = accountBlock;
-
-```
-
 ### isValidAccountBlock
 是否为一个完整、合法、可发送的AccountBlock
 
@@ -84,14 +89,6 @@ const { utils } = accountBlock;
 
 - **Return**
     * `Boolean` 验证结果
-
-- **Example**
-```javascript
-import { accountBlock } from '@vite/vitejs';
-
-const { utils } = accountBlock;
-
-```
 
 ### getAccountBlockHash
 获取AccountBlock的hash
@@ -120,7 +117,22 @@ const { utils } = accountBlock;
  
 - **Example**
 ```javascript
+import { accountBlock } from '@vite/vitejs';
 
+const { utils } = accountBlock;
+
+const hash = utils.getAccountBlockHash({
+    address: 'vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a',
+    blockType: 2,
+    previousHash: 'd517e8d4dc9c676876b72ad0cbb4c45890804aa438edd1f171ffc66276202a95',
+    height: '2',
+    tokenId: 'tti_5649544520544f4b454e6e40',
+    toAddress: 'vite_13f1f8e230f2ffa1e030e664e525033ff995d6c2bb15af4cf9',
+    amount: '1000000000000000000000000',
+    hash: '9c3f2b59408aa6a5c76f6f30cab40085eb181d200d574a029323b0822f54eef1',
+    signature: 'sGELMXeZ/ZTvwec5n2kvo2hz/i824QTadKHC35sQcdVhSAPS6+uzanfcjPqp7qaQFEEorTfFNnd90hgbJpSNCw==',
+    publicKey: 'WHZinxslscE+WaIqrUjGu2scOvorgD4Q+DQOOcDBv4M='
+});
 ```
 
 ### signAccountBlock
@@ -148,12 +160,13 @@ const { utils } = accountBlock;
         - `signature: Base64`
         - `publicKey: Base64`
 
-
 - **Example**
 ```javascript
-import { signAccountBlock } from '@vite/vitejs-accountblock';
+import { accountBlock } from '@vite/vitejs';
 
-const accountBlock = {
+const { utils } = accountBlock;
+
+const { signature, publicKey } = utils.signAccountBlock({
     accountAddress: 'vite_13f1f8e230f2ffa1e030e664e525033ff995d6c2bb15af4cf9',
     blockType: 4,
     prevHash: '6388daf1e34e9aa9000006f455737ec3d191c7cb7b0d79a882cb976200f55b68',
@@ -162,9 +175,7 @@ const accountBlock = {
     nonce: 'Sg0sdhyaEus=',
     difficulty: '65534',
     hash: '23b9a085f0280eb5309f27094bd00420ba2e2c5b16ef98dc40b1c778820f31a7'
-};
-
-const { hash, signature, publicKey } = signAccountBlock(accountBlock, /** your privateKey */);
+}, /** your privateKey */);
 ```
 
 ## 更多方法
@@ -172,14 +183,89 @@ const { hash, signature, publicKey } = signAccountBlock(accountBlock, /** your p
 ### isRequestBlock
 根据blockType判断, 是非为一个请求块
 
+- **Parameters**
+    * `BlockType`: blockType
+
+- **Return**
+    * `boolean`: 判断结果
+
+- **Example**
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { utils } = accountBlock;
+utils.isRequestBlock(1);
+```
+
 ### isResponseBlock
 根据blockType判断, 是非为一个响应块
+
+- **Parameters**
+    * `BlockType`: blockType
+
+- **Return**
+    * `boolean`: 判断结果
+
+- **Example**
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { utils } = accountBlock;
+utils.isResponseBlock(1);
+```
 
 ### getCreateContractData
 生成创建合约 (即 blockType 为1) 的 AccountBlock 的 data
 
+- **Parameters**
+    * `__namedParameters: object`
+        - `responseLatency?: Uint8` 确认数
+        - `quotaMultiplier?: Uint8` 配额翻倍数
+        - `randomDegree?: Uint8` 随机数确认数
+        - `code?: Hex` 合约代码
+        - `abi?: Object | Array<Object>` Abi
+        - `params?: string | Array<string | boolean>` Abi 参数
+
+- **Return**
+    * `Base64`: AccountBlock.data
+
+- **Example**
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { utils } = accountBlock;
+
+const data = utils.getCreateContractData({
+    'responseLatency': 2,
+    'randomDegree': 1,
+    'quotaMultiplier': 10,
+    'code': '608060405234801561001057600080fd5b506101ca806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806380ae0ea114610046575b600080fd5b6100bd6004803603602081101561005c57600080fd5b810190808035906020019064010000000081111561007957600080fd5b82018360208201111561008b57600080fd5b803590602001918460208302840111640100000000831117156100ad57600080fd5b90919293919293905050506100bf565b005b60006002838390508115156100d057fe5b061415156100dd57600080fd5b600080905060008090505b8383905081101561018a576000848483818110151561010357fe5b9050602002013590506000858560018501818110151561011f57fe5b905060200201359050808401935080841015151561013c57600080fd5b600081111561017d578173ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff168260405160405180820390838587f1505050505b50506002810190506100e8565b50348114151561019957600080fd5b50505056fea165627a7a723058203cef4a3f93b33e64e99e0f88f586121282084394f6d4b70f1030ca8c360b74620029',
+    'params': ''
+});
+```
+
 ### getCallContractData
 生成调用合约的 AccountBlock 的 data
+
+- **Parameters**
+    * `__namedParameters: object`
+        - `abi: Object | Array<Object>`
+        - `params?: any`
+        - `methodName?: string`
+
+- **Return**
+    * `Base64`: AccountBlock.data
+
+- **Example**
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { utils } = accountBlock;
+
+const params = [ '00000000000000000001', 'ss', 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2' ];
+const abi = Contracts.RegisterSBP.abi;
+const data = utils.getCallContractData({ params, abi });
+```
 
 ### getTransactionType 
 获取详细的交易类型
@@ -195,7 +281,9 @@ const { hash, signature, publicKey } = signAccountBlock(accountBlock, /** your p
 
 - **Example**
 ```javascript
-import { getTxType } from '@vite/vitejs-accountblock';
+import { accountBlock } from '@vite/vitejs';
+
+const { utils } = accountBlock;
 
 const RevokeVoting = {
     blockType: 2,
@@ -203,7 +291,7 @@ const RevokeVoting = {
     toAddress: 'vite_000000000000000000000000000000000000000270a48cc491'
 };
 
-const txType = getTxType(RevokeVoting);
+const txType = utils.getTransactionType(RevokeVoting);
 // txType === 'RevokeVoting'
 ```
 
@@ -224,6 +312,8 @@ const txType = getTxType(RevokeVoting);
 ```javascript
 import { accountblock, constant } from '@vite/vitejs';
 
+const { utils } = accountBlock;
+
 // Just Example
 const SBPregAccountBlock = {
     accountAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
@@ -232,7 +322,7 @@ const SBPregAccountBlock = {
     toAddress: 'vite_0000000000000000000000000000000000000004d28108e76b'
 }
 
-const decodeResult = accountblock.decodeBlockByContract({
+const decodeResult = utils.decodeAccountBlockByContract({
     accountBlock: SBPregAccountBlock,
     contractAddr: constant.Contracts.SBPreg.contractAddr,
     abi: constant.Contracts.SBPreg.abi

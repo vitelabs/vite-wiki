@@ -5,7 +5,7 @@
 
 - **Parameters** 
     * `methodName: String` [accountBlock 类型](#accountblock-类型)
-    * `params: Object` accountBlock 类型对应的参数
+    * `params: Object` [accountBlock 类型](#accountblock-类型) 对应的参数
 
 - **Return**
     * AccountBlock实例
@@ -45,8 +45,8 @@ async function sendAccountBlock(accountBlock) {
 - **Example**
 ```javascript
 const accountBlock = createAccountBlock('receive', {
-    address: 'your address',
-    sendBlockHash: 'sendBlockHash'
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sendBlockHash: '156a47de8b5a690562278360e41e337ee4f1b4aa8d979f377beb0cc70f939032'
 });
 ```
 
@@ -66,11 +66,12 @@ const accountBlock = createAccountBlock('receive', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('send', {
-    address: 'your address',
-    toAddress: 'your toAddress',
-    tokenId: 'TokenId',
-    amount: '0'
+const accountBlock = createAccountBlock('receive', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'tti_5649544520544f4b454e6e40',
+    amount: '0',
+    data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB'
 });
 ```
 
@@ -90,10 +91,10 @@ const accountBlock = createAccountBlock('send', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('send', {
-    address: 'your address',
-    toAddress: 'your toAddress',
-    tokenId: 'TokenId',
+const accountBlock = createAccountBlock('receive', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'tti_5649544520544f4b454e6e40',
     amount: '0',
     message: '123456'
 });
@@ -117,12 +118,11 @@ const accountBlock = createAccountBlock('send', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('send', {
-    address: 'your address',
-    toAddress: 'your toAddress',
-    tokenId: 'TokenId',
-    amount: '0',
-    message: '123456'
+const accountBlock = createAccountBlock('receive', {
+    abi:[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}],
+    code: '608060405234801561001057600080fd5b50610141806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100896004803603602081101561005c57600080fd5b81019080803574ffffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008b565b005b8074ffffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508074ffffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a7230582023e9669dd6fec3b6b2a84a1fd7c9939f49197203d0e1db312278e633c219c2480029',
+    responseLatency: 2,
+    params: ['vite_13f1f8e230f2ffa1e030e664e525033ff995d6c2bb15af4cf9']
 });
 ```
 
@@ -143,6 +143,23 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+import { constant } from '~@vite/vitejs';
+const { Contracts, Vite_TokenId } = constant;
+
+// ....
+
+const accountBlock = createAccountBlock('callContract', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    abi: Contracts.RegisterSBP.abi,
+    toAddress: Contracts.RegisterSBP.contractAddress,
+    params: [ Snapshot_Gid, sbpName, blockProducingAddress ],
+    tokenId: Vite_TokenId,
+    amount: '1000000000000000000000000'
+});
+```
+
 ### registerSBP 
 注册超级节点
 
@@ -157,6 +174,20 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+import { constant } from '~@vite/vitejs';
+const { Contracts, Vite_TokenId } = constant;
+
+// ....
+
+const accountBlock = createAccountBlock('callContract', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sbpName: 'TEST_NODE', 
+    blockProducingAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2'
+});
+```
+
 ### updateSBPBlockProducingAddress 
 更新超级节点出块地址
 
@@ -169,6 +200,15 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('updateSBPBlockProducingAddress', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sbpName: 'TEST_NODE',
+    newBlockProducingAddress: 'vite_869a06b8963bd5d88a004723ad5d45f345a71c0884e2c80e88'
+});
+```
+
 ### revokeSBP 
 注销超级节点
 
@@ -179,6 +219,14 @@ const accountBlock = createAccountBlock('send', {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('revokeSBP', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sbpName: 'TEST_NODE'
+});
+```
 
 ### withdrawSBPReward 
 提取出块奖励
@@ -191,6 +239,15 @@ const accountBlock = createAccountBlock('send', {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('withdrawSBPReward', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sbpName: 'TEST_NODE',
+    receiveAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+});
+```
 
 ### voteForSBP 
 投票给超级节点
@@ -205,6 +262,14 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('voteForSBP', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sbpName: 'TEST_NODE'
+});
+```
+
 ### cancelVote 
 取消投票
 
@@ -214,6 +279,13 @@ const accountBlock = createAccountBlock('send', {
         
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('cancelVote', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2'
+});
+```
 
 ### stakeForQuota 
 抵押获取配额
@@ -227,6 +299,15 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('stakeForQuota', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    beneficiaryAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    amount: '134000000000000000000'
+});
+```
+
 ### cancelStake 
 取消抵押
 
@@ -238,6 +319,15 @@ const accountBlock = createAccountBlock('send', {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('cancelStake', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    beneficiaryAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    amount: '134000000000000000000'
+});
+```
 
 ### issueToken 
 铸币
@@ -258,6 +348,20 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('issueToken', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenName: 'testToken', 
+    isReIssuable: true, 
+    maxSupply: '10000000000000000000000000', 
+    isOwnerBurnOnly: false, 
+    totalSupply: '100000000000000000000000', 
+    decimals: 2, 
+    tokenSymbol: 'TestT'
+});
+```
+
 ### reIssueToken 
 增发代币
 
@@ -272,7 +376,17 @@ const accountBlock = createAccountBlock('send', {
 
 - **Return**
     * accountBlock实例
-    
+   
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('reIssueToken', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'your tokenId', // eg: tti_5649544520544f4b454e6e40
+    amount: '100',
+    receiveAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2'
+});
+```
+
 ### burnToken 
 销毁代币
 
@@ -287,6 +401,15 @@ const accountBlock = createAccountBlock('send', {
 - **Return**
     * accountBlock实例
        
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('burnToken', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'your tokenId', // eg: tti_5649544520544f4b454e6e40
+    amount: '100'
+});
+```
+
 ### disableReIssueToken 
 将可增发代币修改为不可增发代币
 
@@ -299,6 +422,14 @@ const accountBlock = createAccountBlock('send', {
 
 - **Return**
     * accountBlock实例 
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('disableReIssueToken', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'your tokenId' // eg: tti_5649544520544f4b454e6e40
+});
+```
 
 ### transferTokenOwnership 
 转移可增发代币的所有权
@@ -313,3 +444,12 @@ const accountBlock = createAccountBlock('send', {
 
 - **Return**
     * accountBlock实例 
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('transferTokenOwnership', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'your tokenId', // eg: tti_5649544520544f4b454e6e40
+    newOwnerAddress: 'vite_869a06b8963bd5d88a004723ad5d45f345a71c0884e2c80e88'
+});
+```

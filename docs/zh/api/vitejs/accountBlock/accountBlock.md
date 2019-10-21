@@ -2,7 +2,7 @@
 
 ## 如何发送一个accountBlock
 
-1. 初始化一个AccountBlock实例
+1. 得到一个AccountBlock实例
 2. 配置 provider 和 privateKey
     - provider: 用于发送请求
     - privateKey: 用于签名AccountBlock
@@ -14,14 +14,13 @@
 
 ```javascript
 async function sendAccountBlock() {
-    // 1. 初始化一个AccountBlock实例, 并设置 provider 和 privateKey
-    const myAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }, provider, privateKey);
+    // 1. 得到一个AccountBlock实例, 并设置 provider 和 privateKey
+    const myAccountBlock = createAccountBlock('send', {
+        address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+        toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+        tokenId: 'tti_5649544520544f4b454e6e40',
+        amount: '0'
+    }).setProvider(provider).setPrivateKey(privateKey);
 
     // 2. 自动补全AccountBlock缺少的属性
     await myAccountBlock.autoSetProperty();
