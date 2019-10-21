@@ -42,6 +42,14 @@ async function sendAccountBlock(accountBlock) {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('receive', {
+    address: 'your address',
+    sendBlockHash: 'sendBlockHash'
+});
+```
+
 ### send 
 生成一个request accountBlock
 
@@ -56,6 +64,16 @@ async function sendAccountBlock(accountBlock) {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('send', {
+    address: 'your address',
+    toAddress: 'your toAddress',
+    tokenId: 'TokenId',
+    amount: '0'
+});
+```
+
 ### sendTransaction 
 发送交易
 
@@ -69,6 +87,17 @@ async function sendAccountBlock(accountBlock) {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('send', {
+    address: 'your address',
+    toAddress: 'your toAddress',
+    tokenId: 'TokenId',
+    amount: '0',
+    message: '123456'
+});
+```
 
 ### createContract 
 创建合约
@@ -85,6 +114,17 @@ async function sendAccountBlock(accountBlock) {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('send', {
+    address: 'your address',
+    toAddress: 'your toAddress',
+    tokenId: 'TokenId',
+    amount: '0',
+    message: '123456'
+});
+```
 
 ### callContract 
 调用合约
@@ -256,20 +296,6 @@ async function sendAccountBlock(accountBlock) {
     * `__namedParameters: object`
         - `address: Address` 账户块所属的账户地址        
         - `tokenId: TokenId`     
-
-- **Return**
-    * accountBlock实例 
-
-### transferTokenOwnership 
-转移可增发代币的所有权
-
-可增发代币的所有者可以将代币所有权转移给其他账户。不可增发代币不能转移所有权。
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenId`: `string tokenId` 代币id
-        - `newOwnerAddress`: `string address` 新的所有者账户地址
 
 - **Return**
     * accountBlock实例 

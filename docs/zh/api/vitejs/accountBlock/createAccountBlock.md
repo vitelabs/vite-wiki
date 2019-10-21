@@ -42,6 +42,14 @@ async function sendAccountBlock(accountBlock) {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('receive', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    sendBlockHash: '156a47de8b5a690562278360e41e337ee4f1b4aa8d979f377beb0cc70f939032'
+});
+```
+
 ### send 
 生成一个request accountBlock
 
@@ -56,6 +64,17 @@ async function sendAccountBlock(accountBlock) {
 - **Return**
     * accountBlock实例
 
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('receive', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'tti_5649544520544f4b454e6e40',
+    amount: '0',
+    data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB'
+});
+```
+
 ### sendTransaction 
 发送交易
 
@@ -69,6 +88,17 @@ async function sendAccountBlock(accountBlock) {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('receive', {
+    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
+    tokenId: 'tti_5649544520544f4b454e6e40',
+    amount: '0',
+    message: '123456'
+});
+```
 
 ### createContract 
 创建合约
@@ -85,6 +115,16 @@ async function sendAccountBlock(accountBlock) {
 
 - **Return**
     * accountBlock实例
+
+- **Example**
+```javascript
+const accountBlock = createAccountBlock('receive', {
+    abi:[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}],
+    code: '608060405234801561001057600080fd5b50610141806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100896004803603602081101561005c57600080fd5b81019080803574ffffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008b565b005b8074ffffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508074ffffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a7230582023e9669dd6fec3b6b2a84a1fd7c9939f49197203d0e1db312278e633c219c2480029',
+    responseLatency: 2,
+    params: ['vite_13f1f8e230f2ffa1e030e664e525033ff995d6c2bb15af4cf9']
+});
+```
 
 ### callContract 
 调用合约
@@ -256,20 +296,6 @@ async function sendAccountBlock(accountBlock) {
     * `__namedParameters: object`
         - `address: Address` 账户块所属的账户地址        
         - `tokenId: TokenId`     
-
-- **Return**
-    * accountBlock实例 
-
-### transferTokenOwnership 
-转移可增发代币的所有权
-
-可增发代币的所有者可以将代币所有权转移给其他账户。不可增发代币不能转移所有权。
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenId`: `string tokenId` 代币id
-        - `newOwnerAddress`: `string address` 新的所有者账户地址
 
 - **Return**
     * accountBlock实例 

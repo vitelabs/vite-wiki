@@ -15,11 +15,11 @@
 
 ## 铸币
 
-[Gvite-RPC 铸币](../rpc/mintage)
+[Gvite-RPC 铸币](../rpc/contract_v2)
 
 ## 事件监听
 
-ViteAPI 提供监听功能，[详见 ViteAPI](./client/subscribe)
+ViteAPI 提供监听功能，[详见 ViteAPI](./ViteAPI/start)
 
 ## 发送交易
 
@@ -32,7 +32,7 @@ const { getWallet } = wallet;
 const { createAccountBlock } = accountBlcok;
 
 // 1. 通过助记词派生私钥和地址
-const wallet = getWallet(yourMnemonic);
+const wallet = getWallet('yourMnemonic');
 const { privateKey, address } = wallet.deriveAddress(0);  // 得到助记词0号派生路径下的私钥
 
 // 2. 通过开发地址得到一个provider
@@ -44,21 +44,12 @@ const accountBlock = createAccountBlock('sendTransaction', {
     toAddress: 'your toAddress', 
     tokenId: Vite_TokenId,
     amount: '1000000000000000000000'    // 10Vite + 18个0
-});
+}, provider, privateKey);
 
 // 4. 发送accountBlock
 const sendAccountBlock = async () => {
-    // Step 1
-    accountBlock.setProvider(provider).setPrivateKey(privateKey);
-
-    // Step 2
-    await accountBlock.autoSetPreviousAccountBlock();
-    // 如果是创建合约
-    // await accountBlock.autoSetToAddress();
-    // 如果需要 PoW
-    // await accountBlock.PoW();
-
-    // Step 3
+    await accountBlock.autoSetProperty();
+    await accountBlock.PoW();
     return accountBlock.sign().send();
 }
 

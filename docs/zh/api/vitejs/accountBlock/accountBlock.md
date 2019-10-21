@@ -46,7 +46,7 @@ async function sendAccountBlock() {
         - `amount?: BigInt` 选填，转账金额（必须为最小单位，不支持小数和科学计数法，比如 10Vite应填 => 10000000000000000000）
         - `toAddress?: Address` 选填，响应账户地址
         - `tokenId?: TokenId` 选填，代币ID
-    * `ViteAPI?` provider, 即`ViteAPI`实例
+    * `ViteAPI?` 即`ViteAPI`实例
     * `Hex?` privateKey
 
 - **Example**
@@ -57,7 +57,7 @@ import { ViteAPI, accountBlock } from '@vite/vitejs';
 
 // accountBlock 本身包含相关类库，以及AccountBlock类
 const AccountBlock = accountBlock.AccountBlock;
-const provider = new ViteAPI(new HTTP_RPC("http://example.com"), () => {
+const api = new ViteAPI(new HTTP_RPC("http://example.com"), () => {
     console.log("Connected");
 });
 
@@ -68,7 +68,7 @@ const myAccountBlock = new AccountBlock({
     tokenId: 'your tokenId',
     amount: 'your amount'
 });
-myAccountBlock.setProvider(provider).setPrivateKey('your privateKey');
+myAccountBlock.setProvider(api).setPrivateKey('your privateKey');
 
 myAccountBlock.autoSend().then(data => {
     console.log('success', data);
@@ -107,7 +107,7 @@ myAccountBlock.autoSend().then(data => {
 设置provider, 用于发送请求
 
 - **Parameters**: 
-  * `ViteAPI` provider, 即`ViteAPI`实例
+  * `ViteAPI` 即`ViteAPI`实例
 
 - **Returns**:
     - 当前实例: 即`return this;`
