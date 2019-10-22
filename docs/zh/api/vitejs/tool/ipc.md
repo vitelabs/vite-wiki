@@ -94,5 +94,5 @@ const ipcProvider = new IPC_RPC("~/.gvite/testdata/gvite.ipc");
 - **Parameters**: 
   * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
 
-### unSubscribe
+### unsubscribe
 取消订阅
