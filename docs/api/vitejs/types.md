@@ -4,20 +4,20 @@
 
 ```typescript
 // RPC
-export declare interface RPCrequest {
+export declare interface RPCRequest {
     type?: string;
     methodName: string;
     params: any[];
 }
 
-export declare interface RPCresponse {
+export declare interface RPCResponse {
     jsonrpc?: string;
     id?: number;
     result?: any;
-    error?: RPCerror;
+    error?: RPCError;
 }
 
-export declare interface RPCerror {
+export declare interface RPCError {
     code: number;
     message: string;
 }
@@ -68,29 +68,7 @@ export enum TransactionType {
     'Response',
     'ResponseFail',
     'RefundByContractRequest',
-    'GenesisResponse',
-    'UpdateReg',
-    'RevokeReg',
-    'RetrieveReward',
-    'GetQuota',
-    'WithdrawalOfQuota',
-    'Mintage',
-    'MintageIssue',
-    'MintageTransferOwner',
-    'MintageChangeTokenType',
-    'DexFundUserDeposit',
-    'DexFundUserWithdraw',
-    'DexFundNewOrder',
-    'DexTradeCancelOrder',
-    'DexFundNewMarket',
-    'DexFundPledgeForVx',
-    'DexFundPledgeForVip',
-    'DexFundBindInviteCode',
-    'DexFundNewInviter',
-    'DexFundTransferTokenOwner',
-    'DexFundMarketOwnerConfig',
-    'DexFundPledgeForSuperVip',
-    'DexFundConfigMarketsAgent'
+    'GenesisResponse'
 }
 
 export declare type TokenInfo = {
