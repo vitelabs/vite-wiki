@@ -62,7 +62,7 @@ const httpProvider = new HTTP_RPC("http://localhost:8080");
 - **Returns**:
     - Promise<`JsonRPC response`>
 
-### notification
+### sendNotification
 
 - **Parameters**: 
   * `methodName : string` 方法名

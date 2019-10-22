@@ -65,7 +65,7 @@ const ipcProvider = new IPC_RPC("~/.gvite/testdata/gvite.ipc");
 - **Returns**:
     - Promise<`JsonRPC response`>
 
-### notification
+### sendNotification
 
 - **Parameters**: 
   * `methodName : string` 方法名

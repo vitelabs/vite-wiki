@@ -69,7 +69,7 @@ const wsProvider = new WS_RPC("ws://localhost:8080");
 - **Returns**:
     - Promise<`JsonRPC response`>
 
-### notification
+### sendNotification
 
 - **Parameters**: 
   * `methodName : string` 方法名

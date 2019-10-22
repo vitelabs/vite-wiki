@@ -183,7 +183,7 @@ myNetProcessor.request('rpcMethodName', 1, 1, 2).then(() => {
 });
 ```
 
-### notification
+### sendNotification
 
 - **Parameters**
     * `methods : string` 方法名称
