@@ -75,7 +75,7 @@ const accountBlock = createAccountBlock('receive', {
 });
 ```
 
-### sendTransaction 
+### sendWithMessage 
 发送交易
 
 - **Parameters** 

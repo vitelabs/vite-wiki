@@ -40,7 +40,7 @@ const httpService = new HTTP_RPC("http://example.com");
 const provider = new ViteAPI(httpService);
 
 // 3. 生成accountBlock: 比如创建一个发送交易的accountBlock
-const accountBlock = createAccountBlock('sendTransaction', {
+const accountBlock = createAccountBlock('sendWithMessage', {
     toAddress: 'your toAddress', 
     tokenId: Vite_TokenId,
     amount: '1000000000000000000000'    // 10Vite + 18个0
