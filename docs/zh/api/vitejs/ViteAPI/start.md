@@ -69,7 +69,7 @@ provider.getBalanceInfo('vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68
     * `__namedParameters: object`
         - `address: Address`
         - `pageIndex: number` 
-        - `pageCount?: number` Default 50
+        - `pageSize?: number` Default 50
     * `String[] | 'all'` Default 'all', 需要解析合约参数的合约交易类型，默认解析全部的合约交易
 
 - **Return**:
@@ -82,7 +82,7 @@ provider.getBalanceInfo('vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68
 provider.getTransactionList({
     address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     pageIndex: 0,
-    pageCount: 50
+    pageSize: 50
 });
 ```
 

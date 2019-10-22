@@ -39,8 +39,8 @@ export declare type WalletAddressObj {
 创建助记词
 
 - **Parameters** 
-    * `number` 选填，助记词位数，Default 256
-    * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
+    * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
+    * `Array<String>` 选填，选词列表，Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
 
 - **Return**
     * `String` 助记词
@@ -150,7 +150,7 @@ const addrType2 = wallet.isValidAddress('32323');  // addrType2 === 0
 创建钱包（即私钥管理器）
 
 - **Parameters** 
-    * `number` 选填，助记词位数，Default 256
+    * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
     * `string` 选填，password，Default ''。（根据助记词 + password生成seed）
 
@@ -169,7 +169,7 @@ const myWallet = wallet.createWallet();
 
 - **Parameters** 
     * `string` 必填，助记词，格式为'word1 word2 word3 ...'
-    * `number` 选填，助记词位数，Default 256
+    * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
     * `string` 选填，password，Default ''。（根据助记词 + password生成seed）
 
