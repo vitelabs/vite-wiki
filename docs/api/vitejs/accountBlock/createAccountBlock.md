@@ -66,7 +66,7 @@ const accountBlock = createAccountBlock('receive', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('receive', {
+const accountBlock = createAccountBlock('send', {
     address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     tokenId: 'tti_5649544520544f4b454e6e40',
@@ -91,7 +91,7 @@ const accountBlock = createAccountBlock('receive', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('receive', {
+const accountBlock = createAccountBlock('sendWithMessage', {
     address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     tokenId: 'tti_5649544520544f4b454e6e40',
@@ -118,7 +118,7 @@ const accountBlock = createAccountBlock('receive', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('receive', {
+const accountBlock = createAccountBlock('createContract', {
     abi:[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}],
     code: '608060405234801561001057600080fd5b50610141806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100896004803603602081101561005c57600080fd5b81019080803574ffffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008b565b005b8074ffffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508074ffffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a7230582023e9669dd6fec3b6b2a84a1fd7c9939f49197203d0e1db312278e633c219c2480029',
     responseLatency: 2,
