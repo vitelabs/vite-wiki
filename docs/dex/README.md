@@ -113,7 +113,7 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
   The VX mining reward for market-making has a linear relationship with the **order amount** and **order duration** (i.e. amount of time the pending order stays on the order book). 
   However, the mining reward has an exponential relationship with the **order distance** (i.e. the deviation from the best bid offer). 
   
-  For example, if Alice and Bob both place two separate orders for the same amount of token X. Both orders remain on the order book for the same amount of time. However, Alice prices her order on level 1 (i.e., extremely close to the best bid offer) and Bob prices his order on level 10 (i.e. further away from the best bid offer), the mining reward for Alice will be 100 times that of Bob's. This system is designed to incentive users to place orders as close to the best bid offer as possible.
+  For example, if Alice and Bob both place two separate orders for the same amount of token X. Both orders remain on the order book for the same amount of time. However, Alice prices her order at distance of 1% (i.e., very close to the best bid offer) and Bob prices his order at distance of 10% (i.e. further away from the best bid offer), the mining reward for Alice will be 63 times that of Bob's. This system is designed to incentive users to place orders as close to the best bid offer as possible.
   :::
   
   :::tab Calculation
