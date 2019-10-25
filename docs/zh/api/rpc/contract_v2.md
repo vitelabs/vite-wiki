@@ -876,7 +876,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 - **Parameters**: 
   * `string address`: 账户地址
 
-- **Retrns**: 
+- **Returns**: 
   - `VoteInfo`
     - `blockProducerName`: `string` 超级节点名称
     - `status`: `uint8` 超级节点注册状态：1 正常 2 已取消注册

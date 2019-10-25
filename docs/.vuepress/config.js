@@ -286,7 +286,7 @@ module.exports = {
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Onroad', 'Smart Contract', 'Build-in contracts', 'Net', 'Common'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Smart Contract', 'Net', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
                     '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
