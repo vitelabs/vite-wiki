@@ -14,7 +14,7 @@ Vite Mainnet will launch in Q3, 2019.
 
 ::: warning
 In Pre-Mainnet all historical transaction records of Testnet will be cleared, and only account balances are kept. 
-See [VEP 10: Vite TestNet-PreMainnet Data Migration Plan](/zh/vep/vep-10.html) for details.
+See [VEP 10: Vite TestNet-PreMainnet Data Migration Plan](/vep/vep-10.html) for details.
 :::
 
 ## Rewards in Pre-Mainnet
