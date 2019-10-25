@@ -15,7 +15,7 @@
 
 - **Parameters** 
     * `String` 必填，助记词
-    * `String` 选填，根据助记词 + password生成seed，Default ''
+    * `String` 选填，密码短语 passphrase, Default ''
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
 
 - **Return**
@@ -28,7 +28,7 @@
 
 - **Parameters** 
     * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
-    * `String` 选填，根据助记词 + password生成seed，Default ''
+    * `String` 选填，密码短语 passphrase, Default ''
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
 
 - **Return**

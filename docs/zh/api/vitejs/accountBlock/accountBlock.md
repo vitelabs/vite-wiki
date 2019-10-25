@@ -1,13 +1,14 @@
 # accountBlock 类
 
+补全accountBlock信息，并发送一个accountBlock
+
 ## 如何发送一个accountBlock
 
 1. 得到一个AccountBlock实例
 2. 配置 provider 和 privateKey
     - provider: 用于发送请求
     - privateKey: 用于签名AccountBlock
-3. 补全AccountBlock缺少的属性（height、previousHash; 如果是创建合约，还需要请求toAddress）
-    - 如果需要PoW，则需要按顺序补全 difficulty -> nonce
+3. 补全AccountBlock缺少的属性（height、previousHash）
 4. 签名并发送AccountBlock
 
 - **Example**
@@ -24,8 +25,6 @@ async function sendAccountBlock() {
 
     // 2. 自动补全AccountBlock缺少的属性
     await myAccountBlock.autoSetProperty();
-    // 如果需要PoW, 若不需要则忽略
-    // await myAccountBlock.PoW();
 
     // 3. 签名并发送AccountBlock
     const result = await myAccountBlock.sign().send();
@@ -339,7 +338,7 @@ async function test() {
 ```
 
 ### getDifficulty
-获取PoW难度，即通过Gvite_RPC接口`ledger_getPoWDifficulty`获取
+根据当前AccountBlock的信息获取PoW难度，即通过Gvite_RPC接口`ledger_getPoWDifficulty`获取
 
 - **由于获取 PoW 的difficulty依赖于previousHash，所以应在设置过previousAccountBlock之后调用**
 
@@ -416,33 +415,6 @@ async function test() {
 }
 ```
 
-### getNonce
-根据PoW的难度，获取PoW的nonce
-
-- **应在设置过 PoW 的 difficulty 之后调用**
-
-- **Returns**:
-    - Promise<`Base64`> 返回 nonce
-
-- **Example**
-```javascript
-async function test() {
-    const transferAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }).setProvider(provider);
-
-    await transferAccountBlock.autoSetPreviousAccountBlock();
-    await transferAccountBlock.autoSetDifficulty();
-    const nonce = await transferAccountBlock.getNonce();
-    
-    console.log(nonce);
-}
-```
-
 ### setNonce
 设置PoW的nonce
 
@@ -469,61 +441,6 @@ async function test() {
     const nonce = await transferAccountBlock.getNonce();
     transferAccountBlock.setNonce(nonce);
 
-    console.log(transferAccountBlock.nonce);
-}
-```
-
-### autoSetNonce
-根据PoW的难度，自动获取并设置PoW的nonce, 即`getNonce` + `setNonce`
-
-- **应在设置过 PoW 的 difficulty 之后调用**
-
-- **Returns**:
-    - Promise<`Base64`> 返回 nonce
-
-- **Example**
-```javascript
-async function test() {
-    const transferAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }).setProvider(provider);
-
-    await transferAccountBlock.autoSetPreviousAccountBlock();
-    await transferAccountBlock.autoSetDifficulty();
-    await transferAccountBlock.autoSetNonce();  // 省去get->set步骤
-
-    console.log(transferAccountBlock.nonce);
-}
-```
-
-### PoW
-自动运行PoW (设置PoW难度，并计算nonce); 即无需手动配置difficulty和nonce
-
-- **Parameters**: 
-  * `BigInt?` 选填, PoW的difficulty; 如果, 则根据填入的difficulty计算nonce; 否则自动获取difficulty, 计算nonce
-
-- **Returns**:
-    - Promise<{ `difficulty: BigInt; nonce: Base64` }> 返回对象 `{ difficulty, nonce }`
-
-- **Example**
-```javascript
-async function test() {
-    const transferAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }).setProvider(provider);
-
-    await transferAccountBlock.autoSetPreviousAccountBlock();
-    await transferAccountBlock.PoW();
-
-    console.log(transferAccountBlock.difficulty);
     console.log(transferAccountBlock.nonce);
 }
 ```
@@ -618,62 +535,9 @@ async function test() {
     }).setProvider(provider);
 
     await transferAccountBlock.autoSetProperty();
-    // await transferAccountBlock.PoW();
     transferAccountBlock.sign(privateKey);
     const result = await transferAccountBlock.send();
 
-    console.log('send success', result);
-}
-```
-
-### sendByPoW
-自动进行PoW后，签名并发送AccountBlock
-
-- **Parameters**: 
-  * `Hex?` privateKey, Default `this.privateKey`，即通过`setPrivateKey`配置过私钥后，则不必传参
-
-- **Returns**:
-    - Promise<`AccountBlock`> 返回AccountBlock
-
-- **Example**
-```javascript
-async function test() {
-    const transferAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }).setProvider(provider);
-
-    await transferAccountBlock.autoSetProperty();
-    const result = await transferAccountBlock.sendByPoW(privateKey);
-
-    console.log('send success', result);
-}
-```
-
-### autoSendByPoW
-自动设置属性并进行PoW后，签名并发送AccountBlock `autoSetProperty` + `PoW` + `sign` + `send`
-
-- **Parameters**: 
-  * `Hex?` privateKey, Default `this.privateKey`，即通过`setPrivateKey`配置过私钥后，则不必传参
-
-- **Returns**:
-    - Promise<`AccountBlock`> 返回AccountBlock
-
-- **Example**
-```javascript
-async function test() {
-    const transferAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }, provider);
-
-    const result = await transferAccountBlock.autoSendByPoW(privateKey);
     console.log('send success', result);
 }
 ```
@@ -699,5 +563,84 @@ async function test() {
     }, provider, privateKey);
     const result = await transferAccountBlock.autoSend();
     console.log('send success', result);
+}
+```
+
+## 配额不足
+
+具体了解[配额](../../../tutorial/rule/quota.md)
+
+当账户配额不足时，则会发送交易失败。`{"code":-35002,"message":"out of quota"}`
+
+解决方案为获取配额，[获取配额有两种方式](../../../tutorial/rule/quota#获取配额的两种方式)：抵押 或者 PoW。
+
+### 抵押
+如何发起抵押请求，详见[createAccountBlock](./createAccountBlock.md)
+
+- **example**
+```javascript
+const address = 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2';  // your Address
+const provider = 'your provider';
+const privateKey = 'your privateKey';
+
+const accountBlock = createAccountBlock('stakeForQuota', {
+    address,
+    beneficiaryAddress: address,    // 配额受益地址
+    amount: '134000000000000000000' // 至少134Vite
+});
+
+accountBlock.setProvider(provider).setPrivateKey(privateKey);
+
+accountBlock.autoSend().then(() => {
+    // 发送抵押请求成功
+}).catch(err => {
+    console.warn(err);
+    // 发送抵押请求失败
+});
+
+// 检查配额
+provider.request('contract_getQuotaByAccount', address).then(result => {
+    console.log(result);
+}).catch(err => {
+    console.warn(err);
+});
+```
+
+### PoW
+
+具体了解[PoW计算](../../../tutorial/rule/quota#计算pow)
+
+1. 首先获取 PoW难度: difficulty
+2. 根据difficulty 计算nonce
+3. 将 difficulty + nonce 分别填入accountBlock信息中
+
+- **example**
+```javascript
+
+const PoW = async () => {
+    const provider = 'your provider';
+    const privateKey = 'your privateKey';
+
+    const accountBlock = createAccountBlock(/* type **/, /* parameters **/);
+    accountBlock.setProvider(provider).setPrivateKey(privateKey);
+
+    await accountBlock.autoSetPreviousAccountBlock();
+
+    // 得到difficulty
+    const difficulty = await provider.request('ledger_getPoWDifficulty', {
+        address: accountBlock.address,
+        previousHash: accountBlock.previousHash,
+        blockType: accountBlock.blockType,
+        toAddress: accountBlock.toAddress,
+        data: accountBlock.data
+    });
+
+    // PoW服务通过difficulty计算的nonce, 以base64-string形式设置
+    const nonce = '....';   
+
+    accountBlock.setDifficulty(difficulty);
+    accountBlock.setNonce(nonce);
+
+    await accountBlock.autoSend();
 }
 ```

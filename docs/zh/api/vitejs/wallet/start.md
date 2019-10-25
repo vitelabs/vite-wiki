@@ -33,6 +33,17 @@ export declare type WalletAddressObj {
 }
 ```
 
+:::warning Notice
+
+**密码短语 passphrase**
+bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语passphrase作为盐值(salt)
+
+如果使用助记词 + passphrase的形式生成种子，passphrase遗失也将丢失私钥
+
+具体可参考 https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+
+:::
+
 ## Methods
 
 ### createMnemonics
@@ -85,7 +96,7 @@ const myJapanMnemonics = wallet.validateMnemonics('your menemonics', bip39.wordl
         - `mnemonics: String` 必填，助记词，格式为'word1 word2 word3'
         - `index?: number` 选填，生成地址的序号，Default 0
         - `wordlist?: Array<String>` 选填，选词列表，默认为bip39的英语列表，若需要其他语言可从bip39库中单独选取并传入
-        - `password?: String` 选填，根据助记词 + password生成seed，Default ''
+        - `passphrase?: String` 选填，密码短语 passphrase, Default ''
         - `isContract?: boolean` 选填，是否为合约地址，Default false
 
 - **Return**
@@ -112,7 +123,7 @@ const { originalAddress, publicKey, privateKey, address } = wallet.deriveAddress
         - `startIndex: number` 必填，生成地址的起始序号
         - `endIndex: number` 必填，生成地址的终止序号
         - `wordlist?: Array<String>` 选填，选词列表，默认为bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
-        - `password?: String` 选填，Default ''。（根据助记词 + password生成seed）
+        - `passphrase?: String` 选填，密码短语 passphrase, Default ''
         - `isContract?: boolean` 选填，是否为合约地址，Default false
 
 - **Return**
@@ -152,7 +163,7 @@ const addrType2 = wallet.isValidAddress('32323');  // addrType2 === 0
 - **Parameters** 
     * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
-    * `string` 选填，password，Default ''。（根据助记词 + password生成seed）
+    * `string` 选填，密码短语 passphrase, Default ''
 
 - **Return**
     * Wallet实例
@@ -171,7 +182,7 @@ const myWallet = wallet.createWallet();
     * `string` 必填，助记词，格式为'word1 word2 word3 ...'
     * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
-    * `string` 选填，password，Default ''。（根据助记词 + password生成seed）
+    * `string` 选填，密码短语 passphrase, Default ''
 
 - **Return**
     * Wallet实例

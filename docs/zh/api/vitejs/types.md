@@ -43,7 +43,7 @@ export enum TransactionType {
     'VoteForSBP',
     'CancelVote',
     'StakeForQuota',
-    'CancelStake',
+    'CancelQuotaStake',
     'IssueToken',
     'ReIssueToken',
     'BurnToken',
@@ -245,7 +245,7 @@ export const Contracts = {
         contractAddress: Staking_ContractAddress,
         abi: StakeForQuota_Abi
     },
-    CancelStake: {
+    CancelQuotaStake: {
         contractAddress: Staking_ContractAddress,
         abi: CancelStake_Abi
     },

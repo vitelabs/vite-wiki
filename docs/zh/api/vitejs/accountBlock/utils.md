@@ -178,6 +178,23 @@ const { signature, publicKey } = utils.signAccountBlock({
 }, /** your privateKey */);
 ```
 
+### messageToData
+将交易备注按照[规范](../../../vep/vep-8.md)转换为AccountBlock的data（base64格式）
+
+- **Parameters**
+    * `String` 交易备注
+
+- **Return**
+    * `Base64-string` data
+
+- **Example**
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { utils } = accountBlock;
+const data = utils.messageToData('1212hhhh');
+```
+
 ## 更多方法
 
 ### isRequestBlock

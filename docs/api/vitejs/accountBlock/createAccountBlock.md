@@ -1,6 +1,8 @@
 
 # createAccountBlock
 
+创建一个accountBlock实例
+
 ## 调用
 
 - **Parameters** 
@@ -72,31 +74,6 @@ const accountBlock = createAccountBlock('send', {
     tokenId: 'tti_5649544520544f4b454e6e40',
     amount: '0',
     data: 'pinFMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB'
-});
-```
-
-### sendWithMessage 
-发送交易
-
-- **Parameters** 
-    * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `toAddress: Address` 发送给哪个地址
-        - `tokenId: TokenId` Default Vite_TokenId
-        - `amount: BigInt` Default '0' 金额（最小单位，比如 10vite = 10000000000000000000）
-        - `message: string` 备注（比如, '转账'）
-
-- **Return**
-    * accountBlock实例
-
-- **Example**
-```javascript
-const accountBlock = createAccountBlock('sendWithMessage', {
-    address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
-    toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
-    tokenId: 'tti_5649544520544f4b454e6e40',
-    amount: '0',
-    message: '123456'
 });
 ```
 
@@ -181,7 +158,7 @@ const { Contracts, Vite_TokenId } = constant;
 
 // ....
 
-const accountBlock = createAccountBlock('callContract', {
+const accountBlock = createAccountBlock('registerSBP', {
     address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     sbpName: 'TEST_NODE', 
     blockProducingAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2'
@@ -308,7 +285,7 @@ const accountBlock = createAccountBlock('stakeForQuota', {
 });
 ```
 
-### cancelStake 
+### cancelQuotaStake 
 取消抵押
 
 - **Parameters** 
@@ -322,7 +299,7 @@ const accountBlock = createAccountBlock('stakeForQuota', {
 
 - **Example**
 ```javascript
-const accountBlock = createAccountBlock('cancelStake', {
+const accountBlock = createAccountBlock('cancelQuotaStake', {
     address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     beneficiaryAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
     amount: '134000000000000000000'

@@ -1,5 +1,16 @@
 # Wallet实例
 
+:::warning Notice
+
+**密码短语 passphrase**
+bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语passphrase作为盐值(salt)
+
+如果使用助记词 + passphrase的形式生成种子，passphrase遗失也将丢失私钥
+
+具体可参考 https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+
+:::
+
 ## 应用
 
 ```javascript
@@ -20,11 +31,11 @@ const { originalAddress, publicKey, privateKey, address, path } = theFirstAddres
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| rootPath | string | 根据助记词派生地址的根路径 |
+| rootPath | string | 只读属性，助记词派生地址的根路径; rootPath = 'm/44\'/666666\'' |
 | mnemonics | string | 助记词 |
 | entropy | Hex | 根据助记词生成的熵 |
 | wordlist | String[] | 生成助记词的词语列表 |
-| password | string | 密码，根据助记词 + password生成seed |
+| passphrase | string | 选填，密码短语 passphrase, Default '' |
 | seed | Buffer | 种子 |
 | seedHex | Hex | 种子的Hex-string |
 | id | Hex | 根据0号地址进行blake2b得到的当前助记词的唯一标识 |
