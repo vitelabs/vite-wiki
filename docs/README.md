@@ -18,7 +18,7 @@ projects:
           url: /tutorial/start/
         - name: Asynchronous Architecture
           url: /introduction/asynchronous-architecture/
-    - title: Explore Vite
+    - title: In-depth Exploration
       detail: Quota, Voting and Asset Issuance
       links: 
         - name: Quota

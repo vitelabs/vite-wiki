@@ -9,9 +9,9 @@ Vite已主网上线，用户可以通过[一键置换](https://forum.vite.net/to
 ### 交易所购买
 
 * [ViteX][vitex]
-* [OkEx][okex]
+* [OKEx][okex]
 * [Bittrex][bittrex]
-* [upbit][upbit]
+* [Upbit][upbit]
 
 ### 超级节点奖励
 
