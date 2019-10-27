@@ -37,13 +37,13 @@
 | blockType | byte | Block type. 1->request(create contract). 2->request(transfer). 3->request(re-issue token). 4->response. 5->response(failed). 6->request(refund by contract). 7->response(genesis). |
 | height | string uint64 | Block height |
 | hash | string Hash | Transaction hash |
-| previousHash | string hash | The hash of previous transaction. `0000000000000000000000000000000000000000000000000000000000000000` for the first transaction |
+| previousHash | string hash | The hash of previous transaction. For the first transaction of account, `0000000000000000000000000000000000000000000000000000000000000000` is filled |
 | address| string Address | Account address|
 | publicKey| string base64 | Public key |
 | producer |string address | Block producer's address. For user account, producer is account address. For contract account, producer is the supernode of delegate consensus group |
-| fromAddress |string address | The address of whom the transaction was sent from |
-| toAddress|string address | The address of whom the transaction is sent to |
-| sendBlockHash | string  hash | The hash of request transaction. `0000000000000000000000000000000000000000000000000000000000000000` for response |
+| fromAddress |string address | The address of the account the transaction was sent from |
+| toAddress|string address | The address of the account the transaction is sent to |
+| sendBlockHash | string  hash | The hash of corresponding request transaction. For response transaction only. `0000000000000000000000000000000000000000000000000000000000000000` is filled in for request |
 | tokenId |string tokenId | Token id |
 | amount |string bigint | Transfer amount |
 | tokenInfo | RpcTokenInfo| Token info |

@@ -291,7 +291,7 @@ const accountBlock = createAccountBlock('stakeForQuota', {
 - **Parameters** 
     * `__namedParameters: object`
         - `address: Address` 账户块所属的账户地址        
-        - `beneficiaryAddress: Address` 金额退回地址
+        - `beneficiaryAddress: Address` 配额受益地址
         - `amount: Uint256` 取消金额，单次取消抵押的金额不低于 134 VITE; 剩余抵押金额不低于 134 VITE; 金额（最小单位，比如 10vite = 10000000000000000000）
 
 - **Return**
@@ -348,7 +348,7 @@ const accountBlock = createAccountBlock('issueToken', {
     * `__namedParameters: object`
         - `address: Address` 账户块所属的账户地址        
         - `tokenId: TokenId`     
-        - `amount: BigInd` 销毁金额，金额（最小单位，比如 10vite = 10000000000000000000）
+        - `amount: BigInd` 增发金额，金额（最小单位，比如 10vite = 10000000000000000000）
         - `receiveAddress: Address` 增发代币的接收地址
 
 - **Return**

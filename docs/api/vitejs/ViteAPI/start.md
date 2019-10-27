@@ -1,8 +1,8 @@
-# 开始
+# Start
 
-ViteAPI 包含对于Gvite-RPC接口的扩展，以及 VITE网络请求 / 监听等功能
+ViteAPI wraps and extends Gvite-RPC interface. Functions of network request/listening are also included. 
 
-## 引入
+## Module Import
 
 :::demo
 
@@ -19,8 +19,8 @@ const { ViteAPI } = require('@vite/vitejs');
 ## Constructor
 
 - **Constructor Parameters**
-    * `provider : Provider 实例`
-    * `firstConnectCb : function` : 首次连接后的回调函数
+    * `provider : Provider`
+    * `onInitCallback : function` : Callback function that will be called when connection is established
 
 - **Example**
 ```javascript
@@ -41,10 +41,10 @@ api.request('ledger_getSnapshotChainHeight').then((height) => {
 ## Methods
 
 ### getBalanceInfo
-获取余额信息  *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md) + [ledger_getUnreceivedTransactionSummaryByAddress](../../rpc/ledger.md)*
+Return account balance, including balance not received
 
 - **Parameters** 
-    * `Address`
+    * `Address` Address of account
 
 - **Return**
     * Promise<`{ balance, unreceived }`>
@@ -63,14 +63,14 @@ provider.getBalanceInfo('vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68
 ```
 
 ### getTransactionList
-获取交易列表  *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
+Return transaction list by account
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address`
-        - `pageIndex: number` 
-        - `pageSize?: number` Default 50
-    * `String[] | 'all'` Default 'all', 需要解析合约参数的合约交易类型，默认解析全部的合约交易
+        - `address: Address` Address of account
+        - `pageIndex: number` Page index
+        - `pageSize?: number` Page size. Default is 50
+    * `String[] | 'all'` The contract transaction type of which the internal fields of contract need to be resolved. For default, all contract transactions are resolved
 
 - **Return**:
     * Promise<`Array<Transaction>`>
@@ -93,7 +93,7 @@ provider.getTransactionList({
     "blockType": 2,
     "data": "y/Dk+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjhvJvwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI4byb8EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtjc3Rlc3R0b2tlbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQ1NUVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
     "toAddress": "vite_000000000000000000000000000000000000000595292d996d",
-    "transationType": "Mintage",
+    "transactionType": "Mintage",
     "contractParams": {
         "0": "1",
         "1": "cstesttoken",
@@ -115,28 +115,24 @@ provider.getTransactionList({
 :::
 
 ### callOffChainContract
-离线调用合约的 getter 方法。 *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
+Call contract's offchain method 
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address : Address` 合约账户地址
-        - `abi`
-        - `code : Base64` 用于离线查询的合约代码。即编译代码时指定 --bin 参数后得到的 OffChain Binary 代码。
-        - `params`
+        - `address : Address` Address of contract
+        - `abi` ABI
+        - `code : Base64` Binary code for offchain query. This is the value of "OffChain Binary" section generated when compiling the contract with `--bin`
+        - `params` Encoded passed-in parameters
 
 - **Return**:
     * Promise<`Base64`>
 
 ### addTransactionType
-增加自定义交易类型，通过`provider.getTransactionList`获取交易列表时，会根据新增交易类型进行解析，并填充至`transaction.transactionType`字段中
-
-:::tip
-`addTransactionType`可多次调用，累加交易类型
-:::
+Add new transaction type. When `provider.getTransactionList` is called, transactions returned will be grouped by transaction type.
 
 - **Parameters** 
-    * `__namedParameters: Object` Object.key 是交易类型名称
-        - `contractAddress : Address` 合约地址
+    * `__namedParameters: Object` Name of transaction type is stored as the key
+        - `contractAddress : Address` Address of contract
         - `abi` ABI
 
 - **Example**
@@ -152,21 +148,22 @@ provider.addTransactionType({
 ```
 
 ### setProvider
-Set provider
+Set new provider
 
 - **Parameters**
-    * `provider : Provider Instance`
-    * `firstConnect : Function` 首次连接成功回调函数
-    * `abort : boolean` 是否打断原有provider的残余请求
+    * `provider : Provider Instance` New provider
+    * `onInitCallback : Function` Callback function that will be called when connection is established
+    * `abort : boolean` If `true`, the ongoing request connection of original provider will be interrupted
 
 ### request
+Call RPC method with response returned
 
 - **Parameters**
-    * `methods : string` 方法名称
-    * `...args` 参数
+    * `methods : string` Name of method
+    * `...args` Passed-in parameters
 
 - **Returns**:
-    * Promise<`JsonRPC response`>
+    * Promise<`JsonRPC response`> RPC response
 
 - **Example**
 ```javascript
@@ -184,18 +181,20 @@ myNetProcessor.request('rpcMethodName', 1, 1, 2).then(() => {
 ```
 
 ### sendNotification
+Call RPC method with no response
 
 - **Parameters**
-    * `methods : string` 方法名称
-    * `...args` 参数
+    * `methods : string` Name of method
+    * `...args` Passed-in parameters
 
 ### batch 
+Send a batch of method calling requests
 
 - **Parameters** (RPCrequest[])
     * `__namedParameters: Object`
         - `type: string<request | notification>`
-        - `methodName: string` 方法名称
-        - `params: any` 参数
+        - `methodName: string` Name of method
+        - `params: any` Passed-in parameters
 
 - **Returns**:
     * Promise<`JsonRPC response`>
@@ -220,23 +219,23 @@ myNetProcessor.batch([
 ```
 
 ### subscribe
-订阅事件
+Subscribe to event
 
 :::tip Tips
-如果是采用`http`方式连接`Gvite`，`ViteJS`会自动采用轮询模式。
-[具体参考GVite subscribe](/api/rpc/subscribe_v2)
+Polling, instead of subscription, will be used by the method if gvite connection is established in HTTP. 
+Refer to [Vite RPC Subscription](/api/rpc/subscribe_v2)
 :::
 
 - **Parameters**
-    * `methods : string` 方法名称
-    * `...args : boolean` 参数
+    * `methods : string` Name of method
+    * `...args` Passed-in parameters
 
 - **Returns**:
-    - Promise<`event`>
+    - Promise<`event`> Event
 
-- **event**: subscribe返回的事件实例
-    - on(`callback : Function`): 监听, 有事件发生时, 传入结果到callback函数
-    - off: 取消监听
+- **event**: 
+    - on(`callback : Function`): Start listening to the event. The callback function will be called when the event occurs.
+    - off: Stop listening
 
 - **Example**
 ```javascript
@@ -253,10 +252,10 @@ provider.subscribe('newAccountBlocks').then((event) => {
 ```
 
 ### unsubscribe
-取消订阅
+Cancel subscription
 
 - **Parameters**: 
-  * `event`: subscribe返回的event
+  * `event`: Event returned by `subscribe` method 
 
 - **Example**
 ```javascript
@@ -265,7 +264,7 @@ provider.unsubscribe(event);
 ```
 
 ### unsubscribeAll
-清空全部订阅
+Cancel all subscriptions
 
 - **Example**
 ```javascript

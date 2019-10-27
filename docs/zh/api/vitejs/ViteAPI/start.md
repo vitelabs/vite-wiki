@@ -20,7 +20,7 @@ const { ViteAPI } = require('@vite/vitejs');
 
 - **Constructor Parameters**
     * `provider : Provider 实例`
-    * `firstConnectCb : function` : 首次连接后的回调函数
+    * `onInitCallback : function` : 首次连接后的回调函数
 
 - **Example**
 ```javascript
@@ -93,7 +93,7 @@ provider.getTransactionList({
     "blockType": 2,
     "data": "y/Dk+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjhvJvwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI4byb8EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtjc3Rlc3R0b2tlbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQ1NUVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
     "toAddress": "vite_000000000000000000000000000000000000000595292d996d",
-    "transationType": "Mintage",
+    "transactionType": "Mintage",
     "contractParams": {
         "0": "1",
         "1": "cstesttoken",
@@ -156,7 +156,7 @@ Set provider
 
 - **Parameters**
     * `provider : Provider Instance`
-    * `firstConnect : Function` 首次连接成功回调函数
+    * `onInitCallback : Function` 首次连接成功回调函数
     * `abort : boolean` 是否打断原有provider的残余请求
 
 ### request

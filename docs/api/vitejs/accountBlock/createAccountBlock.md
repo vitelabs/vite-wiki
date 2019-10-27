@@ -1,16 +1,15 @@
+# Create AccountBlock
 
-# createAccountBlock
+## createAccountBlock
 
-创建一个accountBlock实例
-
-## 调用
+Create an accountBlock instance
 
 - **Parameters** 
-    * `methodName: String` [accountBlock 类型](#accountblock-类型)
-    * `params: Object` [accountBlock 类型](#accountblock-类型) 对应的参数
+    * `type: String` See [accountBlock Type](#accountblock-type)
+    * `params: Object` Passed-in parameters
 
 - **Return**
-    * AccountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -31,18 +30,18 @@ async function sendAccountBlock(accountBlock) {
 }
 ```
 
-## accountBlock 类型
+## accountBlock Type
 
 ### receive 
-接收交易
+Type of response
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `sendBlockHash: Hex` 接收的accountBlock的hash值
+        - `address: Address` Address of current account
+        - `sendBlockHash: Hex` Hash of the block of request transaction
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -53,18 +52,18 @@ const accountBlock = createAccountBlock('receive', {
 ```
 
 ### send 
-生成一个request accountBlock
+Type of request
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `toAddress: Address` 发送给哪个地址
-        - `tokenId: TokenId` Default Vite_TokenId
-        - `amount: BigInt` Default '0' 金额（最小单位，比如 10vite = 10000000000000000000）
-        - `data: Base64`
+        - `address: Address` Address of current account
+        - `toAddress: Address` Address of transaction recipient
+        - `tokenId: TokenId` Token id. Default is `Vite_TokenId`
+        - `amount: BigInt` Amount to send, including decimals. Default is `0`. For example, fill in `10000000000000000000` for 10 VITE
+        - `data: Base64` Additional data, optional
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -78,20 +77,20 @@ const accountBlock = createAccountBlock('send', {
 ```
 
 ### createContract 
-创建合约
+Type of creating smart contract
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `code: Hex` 编译器编译出的合约代码
-        - `responseLatency?: Uint8` Default '0' 确认数
-        - `quotaMultiplier?: Uint8` Default '10' 配额翻倍数
-        - `randomDegree?: Uint8` Default '0' 随机数确认数
-        - `abi?: Object | Array<Object>` abi
-        - `params?: string | Array<string | boolean>` abi构造函数的参数
+        - `address: Address` Address of current account (creator)
+        - `code: Hex` Complied code of contract
+        - `responseLatency?: Uint8` Response latency. Default is `0`
+        - `quotaMultiplier?: Uint8` Quota multiplier. Default is `10`
+        - `randomDegree?: Uint8` Random degree. Default is `0`
+        - `abi?: Object | Array<Object>` ABI
+        - `params?: string | Array<string | boolean>` Passed-in parameters of contract constructor
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -104,21 +103,21 @@ const accountBlock = createAccountBlock('createContract', {
 ```
 
 ### callContract 
-调用合约
+Type of calling contract
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `toAddress: Address` 合约地址
-        - `abi: Object | Array<Object>` 合约
-        - `methodName?: string` 调用合约的名称 name
-        - `params?: any` 合约入参
-        - `tokenId?: TokenId` Default Vite_TokenId
-        - `amount?: BigInt` Default '0'
-        - `fee?: BigInt` Default '0'
+        - `address: Address` Address of current account
+        - `toAddress: Address` Address of contract
+        - `abi: Object | Array<Object>` ABI
+        - `methodName?: string` Name of method
+        - `params?: any` Passed-in parameters
+        - `tokenId?: TokenId` Token id. Default is `Vite_TokenId`
+        - `amount?: BigInt` Amount to send. Default is `0`
+        - `fee?: BigInt` Transaction fee. Default is `0`
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -138,18 +137,18 @@ const accountBlock = createAccountBlock('callContract', {
 ```
 
 ### registerSBP 
-注册超级节点
+Type of SBP registration
 
-注册超级节点时需要转账100w `VITE`作为抵押，超级节点注册成功后7776000个快照块（大约3个月）后可以注销超级节点。
+To register an SBP node, transferring 1m `VITE` is required as stake. The transferred VITE will be locked for 7,776,000 snapshot blocks (about 3 months).
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `sbpName: string` 超级节点名称
-        - `blockProducingAddress: Address` 出块地址，建议将注册地址和出块地址分开
+        - `address: Address` Address of current account (register)
+        - `sbpName: string` Name of SBP
+        - `blockProducingAddress: Address` Block producing address
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -166,16 +165,16 @@ const accountBlock = createAccountBlock('registerSBP', {
 ```
 
 ### updateSBPBlockProducingAddress 
-更新超级节点出块地址
+Type of updating SBP's block producing address
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `sbpName: string` 超级节点名称
-        - `newBlockProducingAddress: Address` 新的出块地址
+        - `address: Address` Address of current account. Must be the same as original registration address of the SBP
+        - `sbpName: string` Name of SBP
+        - `newBlockProducingAddress: Address` New block producing address
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -187,15 +186,15 @@ const accountBlock = createAccountBlock('updateSBPBlockProducingAddress', {
 ```
 
 ### revokeSBP 
-注销超级节点
+Type of cancelling SBP
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `sbpName: string` 超级节点名称
+        - `address: Address` Address of current account. Must be the same as original registration address of the SBP
+        - `sbpName: string` Name of SBP
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -206,16 +205,16 @@ const accountBlock = createAccountBlock('revokeSBP', {
 ```
 
 ### withdrawSBPReward 
-提取出块奖励
+Type of withdrawing SBP rewards
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `sbpName: string` 超级节点名称
-        - `receiveAddress: Address` 奖励接收地址
+        - `address: Address` Address of current account. Must be the same as original registration address of the SBP
+        - `sbpName: string` Name of SBP
+        - `receiveAddress: Address` Address to receive rewards
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -227,17 +226,17 @@ const accountBlock = createAccountBlock('withdrawSBPReward', {
 ```
 
 ### voteForSBP 
-投票给超级节点
+Type of voting for SBP
 
-计票时用当时的账户余额作为投票数。同一个账户多次发起投票请求交易，后一次投票的结果会覆盖前一次投票的结果。
+The balance of VITE in account will be used as voting weight
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
-        - `sbpName: string` 超级节点名称
+        - `address: Address` Address of current account
+        - `sbpName: string` Name of SBP
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -248,14 +247,14 @@ const accountBlock = createAccountBlock('voteForSBP', {
 ```
 
 ### cancelVote 
-取消投票
+Type of cancelling voting
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址
+        - `address: Address` Address of current account
         
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -265,16 +264,16 @@ const accountBlock = createAccountBlock('cancelVote', {
 ```
 
 ### stakeForQuota 
-抵押获取配额
+Type of staking for quota
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `beneficiaryAddress: Address` 配额受益地址
-        - `amount: BigInt` 抵押多少vite, 至少134Vite; 金额（最小单位，比如 10vite = 10000000000000000000）
+        - `address: Address` Address of current account
+        - `beneficiaryAddress: Address` Address of staking beneficiary
+        - `amount: BigInt` Amount of VITE to stake, including decimals. A minimum amount of 134 is required. For example, staking 134 VITE, fill in `134000000000000000000`
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -286,16 +285,16 @@ const accountBlock = createAccountBlock('stakeForQuota', {
 ```
 
 ### cancelQuotaStake 
-取消抵押
+Type of cancelling quota staking
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `beneficiaryAddress: Address` 金额退回地址
-        - `amount: Uint256` 取消金额，单次取消抵押的金额不低于 134 VITE; 剩余抵押金额不低于 134 VITE; 金额（最小单位，比如 10vite = 10000000000000000000）
+        - `address: Address` Address of current account      
+        - `beneficiaryAddress: Address` Address of staking beneficiary
+        - `amount: Uint256` Amount of VITE to retrieve, including decimals. Cannot be less than 134 VITE. The remaining staking amount cannot be less than 134 VITE. For example, retrieving 134 VITE, fill in `134000000000000000000`
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -307,23 +306,24 @@ const accountBlock = createAccountBlock('cancelQuotaStake', {
 ```
 
 ### issueToken 
-铸币
+Type of token issuance
 
-铸币请求会支付1000 `VITE`手续费。铸币成功后，铸币账户即为代币所有者，会收到一笔金额等于发行总量的在途交易。
+An issuance fee of 1,000 VITE will be charged from the account of issuer, who will subsequently receive an amount of issued tokens equivalent to the total initial supply. 
+Token has owner. The initial owner is token issuer.
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenName: string` 代币名称，1 到 40 个字符，包含大小写字母、下划线、空格，不能以空格开头或结尾，不能包含连续空格
-        - `tokenSymbol: string` 代币简称，1 到 10 个字符，包含大写字母、数字，不能使用 VITE 、 VCP 、 VX
-        - `decimals: Uint8` 小数位数，$10^{decimals} \leq totalSupply$
-        - `maxSupply: Uint256` 最大发行量，不可增发代币此字段值填0，可增发代币$totalSupply \leq maxSupply \leq 2^{256}-1$
-        - `totalSupply: Uint256` 发行总量，$totalSupply \leq 2^{256}-1$
-        - `isReIssuable: boolean` 是否可增发，true 可增发 false 不可增发
-        - `isOwnerBurnOnly: boolean` 是否仅所有者可销毁，true 仅所有者可销毁 false 所有持币账户可销毁，不可增发代币此字段填false
+        - `address: Address` Address of current account (token issuer)     
+        - `tokenName: string` Name of token in 1-40 characters, including uppercase/lowercase letters, spaces and underscores. Cannot have consecutive spaces or start/end with space
+        - `tokenSymbol: string` Symbol of token in 1-10 characters, including uppercase/lowercase letters, spaces and underscores. Cannot use `VITE`, `VCP` or `VX`
+        - `decimals: Uint8` Decimal places. Having $10^{decimals} \leq totalSupply$
+        - `maxSupply: Uint256` Maximum supply. Mandatory for re-issuable token. Having $totalSupply \leq maxSupply \leq 2^{256}-1$. For non-reissuable token, fill in `0` 
+        - `totalSupply: Uint256` Total supply. Having $totalSupply \leq 2^{256}-1$. For re-issuable token, this is initial total supply
+        - `isReIssuable: boolean` If `true`, newly additional tokens can be minted after initial issuance
+        - `isOwnerBurnOnly: boolean` If `true`, the token can only burned by owner. Mandatory for re-issuable token. For non-reissuable token, fill in `false`
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -340,19 +340,19 @@ const accountBlock = createAccountBlock('issueToken', {
 ```
 
 ### reIssueToken 
-增发代币
+Type of reissuing token
 
-可增发代币的所有者可以发起交易来增发代币
+Re-issuable token's owner can mint additional amount of tokens by re-issuance. Non applicable to non-reissuable token.
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenId: TokenId`     
-        - `amount: BigInd` 销毁金额，金额（最小单位，比如 10vite = 10000000000000000000）
-        - `receiveAddress: Address` 增发代币的接收地址
+        - `address: Address` Address of current account (token owner)        
+        - `tokenId: TokenId` Token id
+        - `amount: BigInd` Amount to mint, including decimals. For example, re-issuing 100 VITE, fill in `100000000000000000000`
+        - `receiveAddress: Address` Address to receive newly minted tokens
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
    
 - **Example**
 ```javascript
@@ -365,18 +365,18 @@ const accountBlock = createAccountBlock('reIssueToken', {
 ```
 
 ### burnToken 
-销毁代币
+Type of burning token
 
-可增发代币可以销毁，销毁时将需要销毁的金额转账给铸币合约地址。不可增发代币不能销毁。
+Re-issuable tokens can be burned by sending the amount of tokens to built-in token issuance contract. Non applicable to non-reissuable token.
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenId: TokenId`     
-        - `amount: BigInd` 销毁金额，金额（最小单位，比如 10vite = 10000000000000000000）
+        - `address: Address` Address of current account     
+        - `tokenId: TokenId` Token id
+        - `amount: BigInd` Amount to burn, including decimals. For example, burning 100 VITE, fill in `100000000000000000000`
 
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
        
 - **Example**
 ```javascript
@@ -388,17 +388,17 @@ const accountBlock = createAccountBlock('burnToken', {
 ```
 
 ### disableReIssueToken 
-将可增发代币修改为不可增发代币
+Type of changing re-issuable token to non-reissuable
 
-可增发代币的所有者可以将可增发代币修改为不可增发代币。
+Owner of re-issuable token can change the token to non-reissuable. Note: this action cannot be reversed
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenId: TokenId`     
+        - `address: Address` Address of current account (owner)     
+        - `tokenId: TokenId` Token id
 
 - **Return**
-    * accountBlock实例 
+    * accountBlock instance
 
 - **Example**
 ```javascript
@@ -409,18 +409,16 @@ const accountBlock = createAccountBlock('disableReIssueToken', {
 ```
 
 ### transferTokenOwnership 
-转移可增发代币的所有权
-
-可增发代币的所有者可以将代币所有权转移给其他账户。不可增发代币不能转移所有权。
+Type of transferring token's ownership. Only applicable to re-issuable tokens.
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `address: Address` 账户块所属的账户地址        
-        - `tokenId`: `string tokenId` 代币id
-        - `newOwnerAddress`: `string address` 新的所有者账户地址
+        - `address: Address` Address of current account (owner)       
+        - `tokenId`: `string tokenId` Token id
+        - `newOwnerAddress`: `string address` Address of new owner
 
 - **Return**
-    * accountBlock实例 
+    * accountBlock instance
 
 - **Example**
 ```javascript

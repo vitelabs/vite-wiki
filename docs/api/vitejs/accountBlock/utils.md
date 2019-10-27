@@ -2,11 +2,11 @@
 
 ## Methods
 
-### isValidAccountBlockBeforeHash
-参数是否可以生成AccountBlock的hash
+### isValidAccountBlockWithoutHash
+Verify if the given account block is valid regardless of block hash
 
 - **Parameters** 
-    * `__namedParameters: Object`
+    * `__namedParameters: Object` AccountBlock
         - `blockType: BlockType`
         - `address: Address`
         - `height: Uint64`
@@ -21,7 +21,7 @@
         - `nonce?: Base64`
 
 - **Return**
-    * `Boolean` 验证结果
+    * `Boolean` If `true`, the account block is valid
 
 - **Example**
 ```javascript
@@ -44,11 +44,11 @@ utils.isValidAccountBlockBeforeHash({
 });
 ```
 
-### isValidAccountBlockBeforeSignature
-参数是否可以生成AccountBlock的签名
+### isValidAccountBlockWithoutSignature
+Verify if the given account block is valid regardless of signature
 
 - **Parameters** 
-    * `__namedParameters: Object`
+    * `__namedParameters: Object` AccountBlock
         - `blockType: BlockType`
         - `address: Address`
         - `height: Uint64`
@@ -64,13 +64,13 @@ utils.isValidAccountBlockBeforeHash({
         - `nonce?: Base64`
 
 - **Return**
-    * `Boolean` 验证结果
+    * `Boolean` If `true`, the account block is valid
 
 ### isValidAccountBlock
-是否为一个完整、合法、可发送的AccountBlock
+Verify if the given account block is complete and can be sent 
 
 - **Parameters** 
-    * `__namedParameters: Object`
+    * `__namedParameters: Object` AccountBlock
         - `blockType: BlockType`
         - `address: Address`
         - `height: Uint64`
@@ -88,13 +88,13 @@ utils.isValidAccountBlockBeforeHash({
         - `nonce?: Base64`
 
 - **Return**
-    * `Boolean` 验证结果
+    * `Boolean` If `true`, the account block is valid
 
 ### getAccountBlockHash
-获取AccountBlock的hash
+Return hash of the given account block
 
 - **Parameters**
-    * `__namedParameters: object`
+    * `__namedParameters: object` AccountBlock
         `blockType: BlockType`
         `address: Address`
         `hash?: Hex`
@@ -113,7 +113,7 @@ utils.isValidAccountBlockBeforeHash({
         `triggeredSendBlockList?: AccountBlockType[]`
 
 - **Return**
-    * `Hex` AccountBlock的hash
+    * `Hex` Hash of AccountBlock
  
 - **Example**
 ```javascript
@@ -136,7 +136,7 @@ const hash = utils.getAccountBlockHash({
 ```
 
 ### signAccountBlock
-签名accountBlock
+Sign an account block
 
 - **Parameters**
     * `__namedParameters: object` AccountBlock
@@ -153,7 +153,7 @@ const hash = utils.getAccountBlockHash({
         - `fee?: BigInt`
         - `difficulty?: BigInt`
         - `nonce?: Base64`
-    * `Hex` privateKey 私钥
+    * `Hex` privateKey 
   
 - **Return**
     * `Object`
@@ -179,13 +179,13 @@ const { signature, publicKey } = utils.signAccountBlock({
 ```
 
 ### messageToData
-将交易备注按照[规范](../../../vep/vep-8.md)转换为AccountBlock的data（base64格式）
+Encode comment of transaction into base64 data of AccountBlock based on [VEP-8](../../../vep/vep-8.md)
 
 - **Parameters**
-    * `String` 交易备注
+    * `String` Comment of transaction
 
 - **Return**
-    * `Base64-string` data
+    * `Base64-string` data of account block
 
 - **Example**
 ```javascript
@@ -195,16 +195,16 @@ const { utils } = accountBlock;
 const data = utils.messageToData('1212hhhh');
 ```
 
-## 更多方法
+## More Methods
 
 ### isRequestBlock
-根据blockType判断, 是非为一个请求块
+Verify if an account block is request block based on `blockType`
 
 - **Parameters**
-    * `BlockType`: blockType
+    * `BlockType`: Block type
 
 - **Return**
-    * `boolean`: 判断结果
+    * `boolean`: If `true`, the block is request block
 
 - **Example**
 ```javascript
@@ -215,13 +215,13 @@ utils.isRequestBlock(1);
 ```
 
 ### isResponseBlock
-根据blockType判断, 是非为一个响应块
+Verify if an account block is response block based on `blockType`
 
 - **Parameters**
-    * `BlockType`: blockType
+    * `BlockType`: Block type
 
 - **Return**
-    * `boolean`: 判断结果
+    * `boolean`: If `true`, the block is response block
 
 - **Example**
 ```javascript
@@ -232,16 +232,16 @@ utils.isResponseBlock(1);
 ```
 
 ### getCreateContractData
-生成创建合约 (即 blockType 为1) 的 AccountBlock 的 data
+Generate data of AccountBlock for creating smart contract
 
 - **Parameters**
     * `__namedParameters: object`
-        - `responseLatency?: Uint8` 确认数
-        - `quotaMultiplier?: Uint8` 配额翻倍数
-        - `randomDegree?: Uint8` 随机数确认数
-        - `code?: Hex` 合约代码
-        - `abi?: Object | Array<Object>` Abi
-        - `params?: string | Array<string | boolean>` Abi 参数
+        - `responseLatency?: Uint8` Response latency
+        - `quotaMultiplier?: Uint8` Quota multiplier
+        - `randomDegree?: Uint8` Random degree
+        - `code?: Hex` Code of contract
+        - `abi?: Object | Array<Object>` ABI
+        - `params?: string | Array<string | boolean>` Passed-in parameters of contract constructor
 
 - **Return**
     * `Base64`: AccountBlock.data
@@ -262,7 +262,7 @@ const data = utils.getCreateContractData({
 ```
 
 ### getCallContractData
-生成调用合约的 AccountBlock 的 data
+Generate data of AccountBlock for calling smart contract
 
 - **Parameters**
     * `__namedParameters: object`
@@ -285,16 +285,16 @@ const data = utils.getCallContractData({ params, abi });
 ```
 
 ### getTransactionType 
-获取详细的交易类型
+Return transaction type
 
 - **Parameters**
     * `__namedParameters: object`
         - `toAddress : HexAddr` ToAddress
-        - `data : string` `accountBlock.data` 
-        - `blockType : BlockType`
+        - `data : string` `accountBlock.data` Data of account block
+        - `blockType : BlockType` Block type
 
 - **Return**
-    * `txType : TxType`
+    * `txType : TxType` Transaction type
 
 - **Example**
 ```javascript
@@ -313,17 +313,18 @@ const txType = utils.getTransactionType(RevokeVoting);
 ```
 
 ### decodeAccountBlockByContract
+Decode account block of smart contract
 
 - **Parameters**
     * `__namedParameters: object`
-        - `accountBlock: AccountBlock`
-        - `contractAddr: Address`
-        - `abi: jsonInterface | Array<jsonInterface>`
-        - `topics?: Array<hexString>`
-        - `mehtodName?: string` 当第一个参数为jsonInterface数组时, 此参数必填(用于识别abi, 取出对应inputs)
+        - `accountBlock: AccountBlock` Account block
+        - `contractAddr: Address` Address of contract
+        - `abi: jsonInterface | Array<jsonInterface>` ABI
+        - `topics?: Array<hexString>` Optional topics
+        - `mehtodName?: string` Name of method to decode, mandatory if the parameter of `abi` is a `jsonInterface` array.
 
 - **Return**
-    * `decodeResult`: 如果accountBlock不属于这个合约，return null
+    * `decodeResult`: Decoding result. If the input account block and ABI do not match，return null
 
 - **Example**
 ```javascript

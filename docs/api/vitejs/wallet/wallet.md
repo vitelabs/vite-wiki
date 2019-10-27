@@ -1,17 +1,16 @@
-# Wallet实例
+# Wallet Class
 
-:::warning Notice
+:::warning Note
 
-**密码短语 passphrase**
-bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语passphrase作为盐值(salt)
+**Passphrase**
 
-如果使用助记词 + passphrase的形式生成种子，passphrase遗失也将丢失私钥
+BIP-39 uses PBKDF2 to generate seed, where mnemonic phrase is feed as password and passphrase as salt. Losing passphrase will result in lost of the private key.
 
-具体可参考 https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+See [here](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for details
 
 :::
 
-## 应用
+## How to Get Address in Wallet
 
 ```javascript
 import { wallet } from '@vite/vitejs';
@@ -31,21 +30,22 @@ const { originalAddress, publicKey, privateKey, address, path } = theFirstAddres
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| rootPath | string | 只读属性，助记词派生地址的根路径; rootPath = 'm/44\'/666666\'' |
-| mnemonics | string | 助记词 |
-| entropy | Hex | 根据助记词生成的熵 |
-| wordlist | String[] | 生成助记词的词语列表 |
-| passphrase | string | 选填，密码短语 passphrase, Default '' |
-| seed | Buffer | 种子 |
-| seedHex | Hex | 种子的Hex-string |
-| id | Hex | 根据0号地址进行blake2b得到的当前助记词的唯一标识 |
+| rootPath | string | Root path of mnemonic derived address, read-only. For example, rootPath = `'m/44\'/666666\''` |
+| mnemonics | string | Mnemonic phrase |
+| entropy | Hex | Entropy of mnemonics |
+| wordlist | String[] | Wordlist |
+| passphrase | string | Passphrase, optional. Default is `''` |
+| seed | Buffer | Seed |
+| seedHex | Hex | Seed in hex string |
+| id | Hex | Hash of address at index 0 |
 
 ## Methods
 
 ### getAddressList
+Return a list of addresses that have been generated
 
 - **Return**
-    * Object{ index: `WalletAddressObj` } 当前已经生成过的地址列表
+    * Object{ index: `WalletAddressObj` } 
 
 - **Example**
 ```javascript
@@ -54,9 +54,10 @@ const currentAddressList = myWallet.getAddressList();
 ```
 
 ### deriveAddress
+Derive new address
 
 - **Parameters**
-    * `number` 必填，index，生成地址的序号
+    * `number` Address index
 
 - **Return**
     * `WalletAddressObj` { originalAddress, publicKey, privateKey, address, path }
@@ -79,10 +80,11 @@ console.log(addressObj.path)
 ```
 
 ### deriveAddressList
+Derive a list of new addresses
 
 - **Parameters**
-    * `number` 必填，startIndex，生成地址的起始序号
-    * `number` 必填，endIndex，生成地址的终止序号
+    * `number` Start index, included
+    * `number` End index, included
 
 - **Return**
     * `WalletAddressObj[]` [{ originalAddress, publicKey, privateKey, address, path }, ...]

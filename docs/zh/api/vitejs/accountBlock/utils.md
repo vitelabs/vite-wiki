@@ -2,7 +2,7 @@
 
 ## Methods
 
-### isValidAccountBlockBeforeHash
+### isValidAccountBlockWithoutHash
 参数是否可以生成AccountBlock的hash
 
 - **Parameters** 
@@ -44,7 +44,7 @@ utils.isValidAccountBlockBeforeHash({
 });
 ```
 
-### isValidAccountBlockBeforeSignature
+### isValidAccountBlockWithoutSignature
 参数是否可以生成AccountBlock的签名
 
 - **Parameters** 

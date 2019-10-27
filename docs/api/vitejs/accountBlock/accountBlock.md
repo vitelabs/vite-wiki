@@ -1,21 +1,21 @@
-# accountBlock 类
+# AccountBlock Class
 
 补全accountBlock信息，并发送一个accountBlock
 
-## 如何发送一个accountBlock
+## How to Send AccountBlock
 
-1. 得到一个AccountBlock实例
-2. 配置 provider 和 privateKey
-    - provider: 用于发送请求
-    - privateKey: 用于签名AccountBlock
-3. 补全AccountBlock缺少的属性（height、previousHash）
-4. 签名并发送AccountBlock
+1. Create an AccountBlock instance
+2. Configure `provider` and `privateKey`
+   - `provider`: send the request
+   - `privateKey`: sign the AccountBlock
+3. Complete missing attributes of AccountBlock such as `height` and `previousHash`
+4. Sign and send the AccountBlock
 
 - **Example**
 
 ```javascript
 async function sendAccountBlock() {
-    // 1. 得到一个AccountBlock实例, 并设置 provider 和 privateKey
+    // 1. Create an AccountBlock instance, then set `provider` and `privateKey`
     const myAccountBlock = createAccountBlock('send', {
         address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
         toAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
@@ -23,10 +23,10 @@ async function sendAccountBlock() {
         amount: '0'
     }).setProvider(provider).setPrivateKey(privateKey);
 
-    // 2. 自动补全AccountBlock缺少的属性
+    // 2. Auto-complete missing attributes
     await myAccountBlock.autoSetProperty();
 
-    // 3. 签名并发送AccountBlock
+    // 3. Sign and send the AccountBlock
     const result = await myAccountBlock.sign().send();
     return result;
 }
@@ -36,16 +36,16 @@ async function sendAccountBlock() {
 
 - **Constructor Parameters**
     * `__namedParameters: object`
-        - `blockType: BlockType` 必填，AccountBlock类型
-        - `address: Address` 必填，账户块所属的账户地址
-        - `fee?: BigInt` 选填，手续费
-        - `data?: Base64` 选填，备注
-        - `sendBlockHash?: Hex` 选填，当AccountBlock为响应块时，必填；其值为对应的请求块的hash
-        - `amount?: BigInt` 选填，转账金额（必须为最小单位，不支持小数和科学计数法，比如 10Vite应填 => 10000000000000000000）
-        - `toAddress?: Address` 选填，响应账户地址
-        - `tokenId?: TokenId` 选填，代币ID
-    * `ViteAPI?` 即`ViteAPI`实例
-    * `Hex?` privateKey
+        - `blockType: BlockType` Type of AccountBlock, mandatory
+        - `address: Address` Address of current account, mandatory
+        - `fee?: BigInt` Transaction fee, optional
+        - `data?: Base64` Additional data, optional
+        - `sendBlockHash?: Hex` Hash of the block of corresponding request transaction, mandatory for response block
+        - `amount?: BigInt` Amount to transfer, including decimals, optional. For example, transferring 10 VITE, fill in `10000000000000000000`
+        - `toAddress?: Address` Address of recipient, optional
+        - `tokenId?: TokenId` Token id, optional
+    * `ViteAPI?` `ViteAPI` instance
+    * `Hex?` Private key
 
 - **Example**
 
@@ -53,7 +53,6 @@ async function sendAccountBlock() {
 import HTTP_RPC from '@vite/vitejs-http');
 import { ViteAPI, accountBlock } from '@vite/vitejs';
 
-// accountBlock 本身包含相关类库，以及AccountBlock类
 const AccountBlock = accountBlock.AccountBlock;
 const api = new ViteAPI(new HTTP_RPC("http://example.com"), () => {
     console.log("Connected");
@@ -79,36 +78,36 @@ myAccountBlock.autoSend().then(data => {
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| blockType | BlockType | AccountBlock类型 1 创建合约请求 2 转账或调用合约请求 3 增发请求 4 响应 5 响应失败 6 退款请求 7 创世响应 |
-| address | Address | 账户块所属的账户地址  |
-| fee |  BigInt | 手续费 |
-| data | Base64 | 备注 |
-| sendBlockHash | Hex | AccountBlock为响应块时，其值为对应的请求块的hash |
-| toAddress | Address | 响应账户地址 |
-| tokenId | TokenId | 代币ID |
-| amount | BigInt | 转账金额 |
-| height | Uint64 | 账户块高度 |
-| previousHash | Hex | 账户链上上一个AccountBlock的hash, 如果当前AccountBlock是账户链上的第一个AccountBlock, hash为`0000000000000000000000000000000000000000000000000000000000000000` |
-| difficulty | BigInt | PoW的难度 |
-| nonce | Base64 | PoW的nonce |
-| hash | Hex | 当前AccountBlock的Hash |
-| signature | Base64 | 签名 |
-| publicKey | Base64 | 账户公钥 |
-| accountBlock | AccountBlock | 当前AccountBlock实例根据已知信息，组成的完整AccountBlock |
-| originalAddress | originalAddress | 账户块所属账户地址的原始地址 |
-| isRequestBlock | Boolean | 是否为请求块 |
-| isResponseBlock | Boolean | 是否为响应块 |
+| blockType | BlockType | Type of AccountBlock 1->request(create contract). 2->request(transfer). 3->request(re-issue token). 4->response. 5->response(failed). 6->request(refund by contract). 7->response(genesis). |
+| address | Address | Address of current account |
+| fee |  BigInt | Transaction fee |
+| data | Base64 | Optional data the transaction may carry |
+| sendBlockHash | Hex | Hash of the block of corresponding request transaction. For response transaction only |
+| toAddress | Address | Address of the account the transaction is sent to. Transaction recipient |
+| tokenId | TokenId | Token id |
+| amount | BigInt | Amount to transfer |
+| height | Uint64 | Height of current account chain |
+| previousHash | Hex | Hash of the block of previous transaction. For the first transaction of account, `0000000000000000000000000000000000000000000000000000000000000000` is filled |
+| difficulty | BigInt | PoW difficulty |
+| nonce | Base64 | PoW nonce |
+| hash | Hex | Hash of AccountBlock |
+| signature | Base64 | Signature |
+| publicKey | Base64 | Public key of current account |
+| accountBlock | AccountBlock | Complete AccountBlock instance |
+| originalAddress | originalAddress | Original address of current account |
+| isRequestBlock | Boolean | If `true`, the block is a request block |
+| isResponseBlock | Boolean | If `true`, the block is a response block |
 
 ## Methods
 
 ### setProvider
-设置provider, 用于发送请求
+Set provider
 
 - **Parameters**: 
-  * `ViteAPI` 即`ViteAPI`实例
+  * `ViteAPI` `ViteAPI` instance
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -124,13 +123,13 @@ myAccountBlock.setProvider(provider);
 ```
 
 ### setPrivateKey
-设置privateKey, 用于签名AccountBlock
+Set private key
 
 - **Parameters**: 
   * `Hex` privateKey
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -146,10 +145,10 @@ myAccountBlock.setPrivateKey('your privateKey');
 ```
 
 ### getPreviousAccountBlock
-获取当前账户链上的上一个AccountBlock
+Get previous block of current account
 
 - **Returns**:
-    - Promise<`AccountBlock`>  返回 previousAccountBlock
+    - Promise<`AccountBlock`>  Previous AccountBlock
 
 - **Example**
 ```javascript
@@ -167,7 +166,7 @@ myAccountBlock.getPreviousAccountBlock().then((previousAccountBlock) => {
 ```
 
 ### setPreviousAccountBlock
-根据当前账户链上的上一个AccountBlock, 即`previousAccountBlock`，设置height和previousHash
+Set previous account block. This method will set `height` and `previousHash` based on the previous block.
 
 ```javascript
 height = previousAccountBlock ? previousAccountBlock.height + 1 : 1
@@ -178,7 +177,7 @@ previousHash = previousAccountBlock ? previousAccountBlock.hash : '0000000000000
   * `AccountBlock` previousAccountBlock
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -191,29 +190,28 @@ async function test() {
         amount: 'your amount'
     }).setProvider(provider);
 
-    // 一般和 getPreviousAccountBlock 配合使用
+    // Usually work together with getPreviousAccountBlock
     const previousAccountBlock = await myAccountBlock.getPreviousAccountBlock();
     myAccountBlock.setPreviousAccountBlock(previousAccountBlock);
 }
 ```
 
 ### autoSetPreviousAccountBlock
-自动获取并设置 previousAccountBlock, 即`getPreviousAccountBlock` + `setPreviousAccountBlock`
+Set previous account block. This is the aggregation method of `getPreviousAccountBlock` and `setPreviousAccountBlock`
 
 - **Returns**:
-    - Promise<{ `height: Uint64; previousHash: Hex` }> 返回对象 `{ height, previousHash }`
+    - Promise<{ `height: Uint64; previousHash: Hex` }> 
 
 - **Example**
 ```javascript
 const myAccountBlock = new AccountBlock({
     blockType: 2,
-    address: 'your address',
+    address: 'your address', 
     toAddress: 'your toAddress',
     tokenId: 'your tokenId',
     amount: 'your amount'
 }).setProvider(provider);
 
-// 省去get=>set流程
 myAccountBlock.autoSetPreviousAccountBlock().then(({ height, previousHash }) => {
     console.log('height', height);
     console.log('previousHash', previousHash);
@@ -222,6 +220,7 @@ myAccountBlock.autoSetPreviousAccountBlock().then(({ height, previousHash }) => 
 
 ### getToAddress
 当blockType为1，即创建合约请求时，需要通过Gvite_RPC接口`contract_createContractAddress`请求toAddress
+
 
 - **由于获取 toAddress 依赖于previousHash，所以应在设置过previousAccountBlock之后调用**
 
@@ -246,13 +245,17 @@ async function test() {
 ```
 
 ### setToAddress
-当blockType为1，即创建合约请求时，需要通过Gvite_RPC接口`contract_createContractAddress`请求toAddress
+Set `toAddress` to account block. 
+
+:::tip Note
+When creating new smart contract (having `blockType` = 1), call `getToAddress` method to get a new contract address
+:::
 
 - **Parameters**: 
   * `Address` toAddress
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -261,24 +264,25 @@ async function test() {
         blockType: 1,
         address: 'your address',
         data: 'your data',
-        fee: '10000000000000000000',    // 创建合约固定消耗10Vite手续费; 否则创建失败
+        fee: '10000000000000000000',    // A fee of 10 VITE is charged for creating new smart contract
         tokenId: Vite_TokenId
     }).setProvider(provider);
 
     await myAccountBlock.autoSetPreviousAccountBlock();
-    // 一般和 getToAddress 配合使用
+    // Usually work together with getToAddress
     const toAddress = await myAccountBlock.getToAddress();
     myAccountBlock.setToAddress(toAddress);
 }
 ```
 
 ### autoSetToAddress
-主动判断blockType, 并在blockType为1, 自动请求 toAddress 并设置
+Auto-set `toAddress` for new smart contract
 
-- **由于获取 toAddress 依赖于previousHash，所以应在设置过previousAccountBlock之后调用**
-
+:::warning Note
+Set `previousHash` first before calling this method. Call `autoSetPreviousAccountBlock` to set `previousHash`.
+:::
 - **Returns**
-    - Promise<`Address`> 返回toAddress
+    - Promise<`Address`> `toAddress`
 
 - **Example**
 ```javascript
@@ -287,42 +291,41 @@ async function testCreateContract() {
         blockType: 1,
         address: 'your address',
         data: 'your data',
-        fee: '10000000000000000000',    // 创建合约固定消耗10Vite手续费; 否则创建失败
+        fee: '10000000000000000000',    // A fee of 10 VITE is charged for creating new smart contract
         tokenId: Vite_TokenId
     }).setProvider(provider);
 
     await createContractAccountBlock.autoSetPreviousAccountBlock();
-    // 省去 get=>set 步骤
     await createContractAccountBlock.autoSetToAddress();
     console.log(createContractAccountBlock.toAddress);
 }
 ```
 
 ### autoSetProperty
-自动设置属性: height、previousHash (如果blockType为1, 则还会自动获取toAddress); 即`autoSetPreviousAccountBlock` + `autoSetToAddress`
+Auto-set properties to account block, including height and previousHash. If blockType is 1, this method will set toAddress as well. This is the aggregation method of `autoSetPreviousAccountBlock` and `autoSetToAddress`
 
 - **Returns**:
-    - Promise<{ `height: Uint64; previousHash: Hex; toAddress: Address;` }> 返回对象 `{ height, previousHash, toAddress }`
+    - Promise<{ `height: Uint64; previousHash: Hex; toAddress: Address;` }> 
 
 - **Example**
 ```javascript
 async function test() {
-    // 1. blockType 为1
+    // 1. blockType is 1
     const createContractAccountBlock = new AccountBlock({
         blockType: 1,
         address: 'your address',
         data: 'your data',
-        fee: '10000000000000000000',    // 创建合约固定消耗10Vite手续费; 否则创建失败
+        fee: '10000000000000000000',    // A fee of 10 VITE is charged for creating new smart contract
         tokenId: Vite_TokenId
     }).setProvider(provider);
 
-    // 省去单独请求并设置各属性的步骤
+    // Call autoSetProperty will set height, previousHash and toAddress
     await createContractAccountBlock.autoSetProperty();
     console.log(createContractAccountBlock.height);
     console.log(createContractAccountBlock.previousHash);
     console.log(createContractAccountBlock.toAddress);
 
-    // 2. blockType 不为1时，调用方式没有区别
+    // 2. blockType is not 1
     const transferAccountBlock = new AccountBlock({
         blockType: 2,
         address: 'your address',
@@ -331,6 +334,7 @@ async function test() {
         amount: 'your amount'
     }).setProvider(provider);
 
+    // Call autoSetProperty will set height and previousHash
     await transferAccountBlock.autoSetProperty();
     console.log(transferAccountBlock.height);
     console.log(transferAccountBlock.previousHash);
@@ -338,12 +342,14 @@ async function test() {
 ```
 
 ### getDifficulty
-获取PoW难度，即通过Gvite_RPC接口`ledger_getPoWDifficulty`获取
+Return PoW difficulty
 
-- **由于获取 PoW 的difficulty依赖于previousHash，所以应在设置过previousAccountBlock之后调用**
+:::warning Note
+Set `previousHash` first before calling this method. Call `autoSetPreviousAccountBlock` to set `previousHash`.
+:::
 
 - **Returns**
-    - Promise<`BigInt`> 返回 difficulty
+    - Promise<`BigInt`>  PoW difficulty
 
 - **Example**
 ```javascript
@@ -364,13 +370,13 @@ async function test() {
 ```
 
 ### setDifficulty
-设置PoW难度
+Set PoW difficulty to account block
 
 - **Parameters**: 
-  * `BigInt` difficulty
+  * `BigInt` PoW difficulty
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -390,12 +396,14 @@ async function test() {
 ```
 
 ### autoSetDifficulty
-自动获取并设置PoW难度, 即`getDifficulty` + `setDifficulty`
+Auto-set PoW difficulty to account block. This is the aggregation method of `getDifficulty` and `setDifficulty`
 
-- **由于获取 PoW 的difficulty依赖于previousHash，所以应在设置过previousAccountBlock之后调用**
+:::warning Note
+Set `previousHash` first before calling this method. Call `autoSetPreviousAccountBlock` to set `previousHash`.
+:::
 
 - **Returns**:
-    - Promise<`BigInt`> 返回 difficulty
+    - Promise<`BigInt`> PoW difficulty
 
 - **Example**
 ```javascript
@@ -416,13 +424,13 @@ async function test() {
 ```
 
 ### setNonce
-设置PoW的nonce
+Set PoW nonce to account block
 
 - **Parameters**: 
   * `Base64` nonce
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -437,7 +445,7 @@ async function test() {
 
     await transferAccountBlock.autoSetPreviousAccountBlock();
     await transferAccountBlock.autoSetDifficulty();
-    // 一般和getNonce配合使用
+    // Usually work together with getNonce
     const nonce = await transferAccountBlock.getNonce();
     transferAccountBlock.setNonce(nonce);
 
@@ -446,13 +454,13 @@ async function test() {
 ```
 
 ### setPublicKey
-设置公钥
+Set public key to account block
 
 - **Parameters**: 
-  * `Hex | Base64` publicKey
+  * `Hex | Base64` Public key
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -468,13 +476,13 @@ transferAccountBlock.setPublicKey('your publicKey');
 ```
 
 ### setSignature
-设置签名
+Set signature to account block
 
 - **Parameters**: 
-  * `Hex | Base64` signature
+  * `Hex | Base64` Signature
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -490,15 +498,17 @@ transferAccountBlock.setSignature('your signature');
 ```
 
 ### sign
-签名AccountBlok
+Sign account block
 
-- **签名需在补全AccountBlock所有属性之后进行；如果需要PoW, 应在运行过PoW之后进行签名**
+:::warning Note
+Complete all necessary block properties first before calling this method. Call `autoSetProperty` to set block properties. If quota is acquired through PoW, run `PoW` method to set the properties too.
+:::
 
 - **Parameters**: 
-  * `Hex?` privateKey, Default `this.privateKey`，即通过`setPrivateKey`配置过私钥后，则不必传参
+  * `Hex?` Private key. Default is `this.privateKey`
 
 - **Returns**:
-    - 当前实例: 即`return this;`
+    - this AccountBlock instance
 
 - **Example**
 ```javascript
@@ -518,10 +528,10 @@ async function test() {
 ```
 
 ### send
-发送AccountBlock (根据已知信息，组成的完整AccountBlock) 
+Send account block. The account block must be complete.
 
 - **Returns**:
-    - Promise<`AccountBlock`> 返回AccountBlock
+    - Promise<`AccountBlock`> 
 
 - **Example**
 ```javascript
@@ -544,13 +554,13 @@ async function test() {
 ```
 
 ### autoSend
-自动设置属性后，签名并发送AccountBlock `autoSetProperty` + `sign` + `send`
+Auto-set properties, sign, then send the account block. This is the aggregation method of `autoSetProperty`, `sign` and `send`
 
 - **Parameters**: 
-  * `Hex?` privateKey, Default `this.privateKey`，即通过`setPrivateKey`配置过私钥后，则不必传参
+  * `Hex?` Private key. Default is `this.privateKey`
 
 - **Returns**:
-    - Promise<`AccountBlock`> 返回AccountBlock
+    - Promise<`AccountBlock`> 
 
 - **Example**
 ```javascript

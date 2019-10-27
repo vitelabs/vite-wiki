@@ -1,6 +1,6 @@
-# 常用类型及说明
+# Type Definition
 
-## 类型
+## Type
 
 ```typescript
 // RPC
@@ -183,15 +183,15 @@ const tokenId = "tti_5649544520544f4b454e6e40";
 const originalTokenId = "5649544520544f4b454e";
 ```
 
-## 常量
+## Constant
 
-### 引入
+### Package Import
 
 ```javascript import
 import { constant } from '@vite/vitejs';
 ```
 
-### 常用变量
+### Common constants
 
 - Vite_TokenId
 - Vite_Token_Info
@@ -204,8 +204,8 @@ import { constant } from '@vite/vitejs';
 ### BlockType
 
 - BlockType : `AccountBlock Type`
-    - CreateContractRequest = 1 : `创建合约`
-    - TransferRequest: `发送交易`
+    - CreateContractRequest = 1
+    - TransferRequest
     - ReIssueRequest
     - Response
     - ResponseFail

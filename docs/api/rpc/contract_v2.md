@@ -266,8 +266,8 @@ Issue a new token at a cost of 1,000 VITE. The issuing account will become token
   * `isReIssuable`: `bool` If `true`, newly additional tokens can be minted after initial issuance
   * `tokenName`: `string` Name of token in 1-40 characters, including uppercase/lowercase letters, spaces and underscores. Cannot have consecutive spaces or start/end with space
   * `tokenSymbol`: `string` Symbol of token in 1-10 characters, including uppercase/lowercase letters, spaces and underscores. Cannot use `VITE`, `VCP` or `VX`
-  * `totalSupply`: `string bigint` Total supply. Having $totalSupply \leq 2^{256}-1$
-  * `decimals`: `uint8` Decimal digits. Having $10^{decimals} \leq totalSupply$
+  * `totalSupply`: `string bigint` Total supply. Having $totalSupply \leq 2^{256}-1$. For re-issuable token, this is initial total supply
+  * `decimals`: `uint8` Decimal places. Having $10^{decimals} \leq totalSupply$
   * `maxSupply`: `string bigint` Maximum supply. Mandatory for re-issuable token. Having $totalSupply \leq maxSupply \leq 2^{256}-1$. For non-reissuable token, fill in `0` 
   * `isOwnerBurnOnly`: `bool` If `true`, the token can only burned by owner. Mandatory for re-issuable token. For non-reissuable token, fill in `false`
   
@@ -1029,7 +1029,7 @@ Return a list of all tokens issued
       - `tokenName`: `string`  Token name
       - `tokenSymbol`: `string`  Token symbol
       - `totalSupply`: `big.Int` Total supply
-      - `decimals`: `uint8` Decimal digits
+      - `decimals`: `uint8` Decimal places
       - `owner`: `Address` Token owner
       - `isReIssuable`: `bool`  Whether the token can be re-issued
       - `maxSupply`: `big.Int`  Maximum supply
@@ -1083,7 +1083,7 @@ Return token information
     - `tokenName`: `string`  Token name
     - `tokenSymbol`: `string`  Token symbol
     - `totalSupply`: `big.Int` Total supply
-    - `decimals`: `uint8` Decimal digits
+    - `decimals`: `uint8` Decimal places
     - `owner`: `Address` Token owner
     - `isReIssuable`: `bool`  Whether the token can be re-issued
     - `maxSupply`: `big.Int`  Maximum supply
@@ -1132,7 +1132,7 @@ Return a list of tokens issued by the given owner
     - `tokenName`: `string`  Token name
     - `tokenSymbol`: `string`  Token symbol
     - `totalSupply`: `big.Int` Total supply
-    - `decimals`: `uint8` Decimal digits
+    - `decimals`: `uint8` Decimal places
     - `owner`: `Address` Token owner
     - `isReIssuable`: `bool`  Whether the token can be re-issued
     - `maxSupply`: `big.Int`  Maximum supply
