@@ -107,15 +107,18 @@ const PoW = async () => {
         data: accountBlock.data
     });
 
-    // 1. 使用自己的PoW服务通过difficulty计算出nonce, 以base64-string形式设置
-    // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
+    // 返回 difficulty 为空代表当前配额足够发这笔交易，无需PoW
+    if (difficulty) {
+        // 1. 使用自己的PoW服务通过difficulty计算出nonce, 以base64-string形式设置
+        // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
 
-    const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
-    const getNonceHash = utils.blake2bHex(getNonceHashBuffer, null, 32);
-    const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
+        const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
+        const getNonceHash = utils.blake2bHex(getNonceHashBuffer, null, 32);
+        const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
 
-    accountBlock.setDifficulty(difficulty);
-    accountBlock.setNonce(nonce);
+        accountBlock.setDifficulty(difficulty);
+        accountBlock.setNonce(nonce);
+    }
 
     await accountBlock.sign().send();
 }
