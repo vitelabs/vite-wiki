@@ -32,6 +32,95 @@ async function sendAccountBlock() {
 }
 ```
 
+## 配额不足
+
+具体了解[配额](../../../tutorial/rule/quota.md)
+
+每当账户发送一个accountBlock时，都会消耗一部分配额，如果账户配额不足，则会发送交易失败。`{"code":-35002,"message":"out of quota"}`
+
+[获取配额有两种方式](../../../tutorial/rule/quota#获取配额的两种方式)：抵押 或者 PoW。
+
+### 抵押
+如何发起抵押请求，详见[createAccountBlock](./createAccountBlock.md)
+
+- **example**
+```javascript
+const address = 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2';  // your Address
+const provider = 'your provider';
+const privateKey = 'your privateKey';
+
+const accountBlock = createAccountBlock('stakeForQuota', {
+    address,
+    beneficiaryAddress: address,    // 配额受益地址
+    amount: '134000000000000000000' // 至少134Vite
+});
+
+accountBlock.setProvider(provider).setPrivateKey(privateKey);
+
+accountBlock.autoSend().then(() => {
+    // 发送抵押请求成功
+}).catch(err => {
+    console.warn(err);
+    // 发送抵押请求失败
+});
+
+// 检查配额
+provider.request('contract_getQuotaByAccount', address).then(result => {
+    console.log(result);
+}).catch(err => {
+    console.warn(err);
+});
+```
+
+### PoW
+
+具体了解[PoW计算](../../../tutorial/rule/quota#计算pow)
+
+GVite-RPC 也提供获取 nonce 的方法，可参考 `util_getPoWNonce`
+
+1. 首先获取 PoW难度: difficulty
+2. 根据 difficulty 计算 nonce
+3. 将 difficulty + nonce 分别填入accountBlock信息中
+
+- **example**
+```javascript
+import { utils, wallet, accountBlock, ViteAPI } from '@vite/vitejs';
+import HTTP_RPC from "@vite/vitejs-http";
+
+const { createAccountBlock } = accountBlock;
+
+const PoW = async () => {
+    const provider = new ViteAPI(new HTTP_RPC('http://example.com'));
+    const privateKey = 'your privateKey';
+
+    const accountBlock = createAccountBlock(/* type **/, /* parameters **/);
+    accountBlock.setProvider(provider).setPrivateKey(privateKey);
+
+    await accountBlock.autoSetPreviousAccountBlock();
+
+    // 得到difficulty
+    const difficulty = await provider.request('ledger_getPoWDifficulty', {
+        address: accountBlock.address,
+        previousHash: accountBlock.previousHash,
+        blockType: accountBlock.blockType,
+        toAddress: accountBlock.toAddress,
+        data: accountBlock.data
+    });
+
+    // 1. 使用自己的PoW服务通过difficulty计算出nonce, 以base64-string形式设置
+    // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
+
+    const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
+    const getNonceHash = utils.blake.blake2bHex(getNonceHashBuffer, null, 32);
+    const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
+
+    accountBlock.setDifficulty(difficulty);
+    accountBlock.setNonce(nonce);
+
+    await accountBlock.sign().send();
+}
+```
+
 ## Constructor
 
 - **Constructor Parameters**
@@ -454,93 +543,3 @@ async function test() {
 ```
 
 
-## 配额不足
-
-具体了解[配额](../../../tutorial/rule/quota.md)
-
-当账户配额不足时，则会发送交易失败。`{"code":-35002,"message":"out of quota"}`
-
-解决方案为获取配额，[获取配额有两种方式](../../../tutorial/rule/quota#获取配额的两种方式)：抵押 或者 PoW。
-
-### 抵押
-如何发起抵押请求，详见[createAccountBlock](./createAccountBlock.md)
-
-- **example**
-```javascript
-// .....
-
-const address = 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2';  // your Address
-const provider = 'your provider';
-const privateKey = 'your privateKey';
-
-const accountBlock = createAccountBlock('stakeForQuota', {
-    address,
-    beneficiaryAddress: address,    // 配额受益地址
-    amount: '134000000000000000000' // 至少134Vite
-});
-
-accountBlock.setProvider(provider).setPrivateKey(privateKey);
-
-accountBlock.autoSend().then(() => {
-    // 发送抵押请求成功
-}).catch(err => {
-    console.warn(err);
-    // 发送抵押请求失败
-});
-
-// 检查配额
-provider.request('contract_getQuotaByAccount', address).then(result => {
-    console.log(result);
-}).catch(err => {
-    console.warn(err);
-});
-```
-
-### PoW
-
-具体了解[PoW计算](../../../tutorial/rule/quota#计算pow)
-
-GVite-RPC 也提供获取 nonce 的方法，可参考 `util_getPoWNonce`
-
-1. 首先获取 PoW难度: difficulty
-2. 根据 difficulty 计算 nonce
-3. 将 difficulty + nonce 分别填入accountBlock信息中
-
-- **example**
-```javascript
-import { utils, wallet, accountBlock, ViteAPI } from '@vite/vitejs';
-import HTTP_RPC from "@vite/vitejs-http";
-
-const { createAccountBlock } = accountBlock;
-
-const PoW = async () => {
-    const provider = new ViteAPI(new HTTP_RPC('http://example.com'));
-    const privateKey = 'your privateKey';
-
-    const accountBlock = createAccountBlock(/* type **/, /* parameters **/);
-    accountBlock.setProvider(provider).setPrivateKey(privateKey);
-
-    await accountBlock.autoSetPreviousAccountBlock();
-
-    // 得到difficulty
-    const difficulty = await provider.request('ledger_getPoWDifficulty', {
-        address: accountBlock.address,
-        previousHash: accountBlock.previousHash,
-        blockType: accountBlock.blockType,
-        toAddress: accountBlock.toAddress,
-        data: accountBlock.data
-    });
-
-    // 1. 使用自己的PoW服务通过difficulty计算出nonce, 以base64-string形式设置
-    // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
-
-    const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
-    const getNonceHash = utils.blake.blake2bHex(getNonceHashBuffer, null, 32);
-    const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
-
-    accountBlock.setDifficulty(difficulty);
-    accountBlock.setNonce(nonce);
-
-    await accountBlock.sign().send();
-}
-```
