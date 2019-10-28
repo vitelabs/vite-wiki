@@ -85,7 +85,6 @@ Get address from private key
 
 - **Parameters** 
     * `Hex?` Private key, optional. If not present, private key will be generated in method
-    * `boolean?` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `AddressObj`
@@ -99,7 +98,6 @@ Get address from public key
 
 - **Parameters** 
     * `Hex` Public key
-    * `boolean?` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `Address` Address

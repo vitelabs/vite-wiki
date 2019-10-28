@@ -96,7 +96,6 @@ Derive new address based on mnemonic phrase
         - `index?: number` Address index, optional. Default is `0`
         - `wordlist?: Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
         - `passphrase?: String` Passphrase, optional. Default is `''`
-        - `isContract?: boolean` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `AddressObj` { originalAddress, publicKey, privateKey, address }
@@ -121,7 +120,6 @@ Derive a list of new addresses based on mnemonic phrase
         - `endIndex: number` End index, included
         - `wordlist?: Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
         - `passphrase?: String` Passphrase, optional. Default is `''`
-        - `isContract?: boolean` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `AddressObj[]` [{ originalAddress, publicKey, privateKey, address }, ...]

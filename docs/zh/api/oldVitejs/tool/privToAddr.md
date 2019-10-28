@@ -27,7 +27,6 @@ import * as privToAddr from '@vite/vitejs-privtoaddr';
 
 - **Parameters**
     * `privateKey? : string | buffer` 私钥
-    * `isContract? : boolean` 是否为合约地址 Default false
 
 - **Return**
     * `addrObj : AddrObj`
@@ -44,7 +43,6 @@ const { addr, pubKey, privKey, hexAddr } = newHexAddr();
 
 - **Parameters**
     * `publickey : string | buffer` 公钥
-    * `isContract? : boolean` 是否为合约地址 Default false
 
 - **Return**
     * `hexaddr : HexAddr` hex编码地址

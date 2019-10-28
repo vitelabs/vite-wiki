@@ -96,7 +96,6 @@ bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语pa
 
 - **Parameters** 
     * `Hex?` 选填，私钥（如果没有，则会自动生成私钥）
-    * `boolean?` 选填，是否为合约地址。Default false
 
 - **Return**
     * `AddressObj`
@@ -110,7 +109,6 @@ bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语pa
 
 - **Parameters** 
     * `Hex` 必填，公钥
-    * `boolean?` 选填，是否为合约地址。Default false
 
 - **Return**
     * `Address` 地址

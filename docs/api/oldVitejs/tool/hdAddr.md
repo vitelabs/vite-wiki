@@ -29,7 +29,6 @@ Automatic generation mnemonics and address (index = 0)
     * `bits? : number` Decimals of mnemonic words. Default 256
     * `lang? : LangList` Language. Default english
     * `pwd? : string` Password
-    * `isContract? : boolean` Is it a contract address? Default false
 
 - **Return**
     * `mnemonicAddrObj: object`
@@ -52,7 +51,6 @@ Get an address by mnemonic words
     * `index? : number` Number. Default 0
     * `lang? : LangList` Language. Default english
     * `pwd? : string` Password.
-    * `isContract? : boolean` Is it a contract address? Default false
 
 - **Return** 
     * `addrObj: AddrObj`
@@ -73,7 +71,6 @@ Get a group of addresses by mnemonic words
     * `num : number` Amount of addresses. Default 10
     * `lang? : LangList` Language. Default english
     * `pwd? : string` Password
-    * `isContract? : boolean` Is it a contract address? Default false
 
 - **Return**
     * `addrObjArr: Array<AddrObj>`

@@ -97,7 +97,6 @@ const myJapanMnemonics = wallet.validateMnemonics('your menemonics', bip39.wordl
         - `index?: number` 选填，生成地址的序号，Default 0
         - `wordlist?: Array<String>` 选填，选词列表，默认为bip39的英语列表，若需要其他语言可从bip39库中单独选取并传入
         - `passphrase?: String` 选填，密码短语 passphrase, Default ''
-        - `isContract?: boolean` 选填，是否为合约地址，Default false
 
 - **Return**
     * `AddressObj` { originalAddress, publicKey, privateKey, address }
@@ -124,7 +123,6 @@ const { originalAddress, publicKey, privateKey, address } = wallet.deriveAddress
         - `endIndex: number` 必填，生成地址的终止序号
         - `wordlist?: Array<String>` 选填，选词列表，默认为bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
         - `passphrase?: String` 选填，密码短语 passphrase, Default ''
-        - `isContract?: boolean` 选填，是否为合约地址，Default false
 
 - **Return**
     * `AddressObj[]` [{ originalAddress, publicKey, privateKey, address }, ...]

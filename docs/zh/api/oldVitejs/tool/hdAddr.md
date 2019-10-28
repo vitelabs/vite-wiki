@@ -29,7 +29,6 @@ import * as hdAddr from '@vite/vitejs-hdaddr';
     * `bits? : number` 获取多少位的助记词 Default 256
     * `lang? : LangList` 语言 Default english
     * `pwd? : string` 密码
-    * `isContract? : boolean` 是否为合约地址 Default false
 
 - **Return**
     * `mnemonicAddrObj: object`
@@ -52,7 +51,6 @@ let { addr, entropy, mnemonic } = newAddr();
     * `index? : number` 地址序号 Default 0
     * `lang? : LangList` 语言 Default english
     * `pwd? : string` 密码
-    * `isContract? : boolean` 是否为合约地址 Default false
 
 - **Return**
     * `addrObj: AddrObj`
@@ -73,7 +71,6 @@ let { addr, hexAddr, pubKey, privKey } = getAddrFromMnemonic('your mnemonic');
     * `num? : number` 个数，获取多少个地址 Default 10
     * `lang? : LangList` 语言 Default english
     * `pwd? : string` 密码
-    * `isContract? : boolean` 是否为合约地址 Default false
 
 - **Return**
     * `addrObjArr: Array<AddrObj>`
