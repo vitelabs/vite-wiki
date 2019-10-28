@@ -518,15 +518,21 @@ provider.request('contract_getQuotaByAccount', address).then(result => {
 
 具体了解[PoW计算](../../../tutorial/rule/quota#计算pow)
 
+GVite-RPC 也提供获取 nonce 的方法，可参考 `util_getPoWNonce`
+
 1. 首先获取 PoW难度: difficulty
-2. 根据difficulty 计算nonce
+2. 根据 difficulty 计算 nonce
 3. 将 difficulty + nonce 分别填入accountBlock信息中
 
 - **example**
 ```javascript
+import { utils, wallet, accountBlock, ViteAPI } from '@vite/vitejs';
+import HTTP_RPC from "@vite/vitejs-http";
+
+const { createAccountBlock } = accountBlock;
 
 const PoW = async () => {
-    const provider = 'your provider';
+    const provider = new ViteAPI(new HTTP_RPC('http://example.com'));
     const privateKey = 'your privateKey';
 
     const accountBlock = createAccountBlock(/* type **/, /* parameters **/);
@@ -543,12 +549,16 @@ const PoW = async () => {
         data: accountBlock.data
     });
 
-    // PoW服务通过difficulty计算的nonce, 以base64-string形式设置
-    const nonce = '....';   
+    // 1. 使用自己的PoW服务通过difficulty计算出nonce, 以base64-string形式设置
+    // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
+
+    const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
+    const getNonceHash = utils.blake.blake2bHex(getNonceHashBuffer, null, 32);
+    const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
 
     accountBlock.setDifficulty(difficulty);
     accountBlock.setNonce(nonce);
 
-    await accountBlock.autoSend();
+    await accountBlock.sign().send();
 }
 ```
