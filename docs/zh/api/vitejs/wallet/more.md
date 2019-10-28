@@ -127,7 +127,6 @@ bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语pa
 
 - **Parameters** 
     * `originalAddress` 必填，原始地址
-    * `boolean?` 选填，是否为合约地址。Default false
 
 - **Return**
     * `Address` 地址

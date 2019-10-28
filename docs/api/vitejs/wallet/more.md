@@ -116,7 +116,6 @@ Get address from original address
 
 - **Parameters** 
     * `originalAddress` Original address
-    * `boolean?` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `Address` Address
