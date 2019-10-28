@@ -1,7 +1,5 @@
 # AccountBlock Class
 
-补全accountBlock信息，并发送一个accountBlock
-
 ## How to Send AccountBlock
 
 1. Create an AccountBlock instance
@@ -32,16 +30,18 @@ async function sendAccountBlock() {
 }
 ```
 
-## 配额不足
+## Quota Mechanism
 
-具体了解[配额](../../../tutorial/rule/quota.md)
+Learn about [Quota](../../../tutorial/rule/quota.md)
 
-每当账户发送一个accountBlock时，都会消耗一部分配额，如果账户配额不足，则会发送交易失败。`{"code":-35002,"message":"out of quota"}`
+Quota are consumed for sending account block. Transaction will fail if the quota of the account is insufficient. The following message shows a failed transaction due to out of quota: 
 
-[获取配额有两种方式](../../../tutorial/rule/quota#获取配额的两种方式)：抵押 或者 PoW。
+`{"code":-35002,"message":"out of quota"}`
 
-### 抵押
-如何发起抵押请求，详见[createAccountBlock](./createAccountBlock.md)
+In Vite Mainnet, [Two Methods to Obtain Quota](../../../tutorial/rule/quota.html#two-methods-to-obtain-quota) are provided: Staking or PoW
+
+### Staking
+For how to send a staking request, see [createAccountBlock](./createAccountBlock.md) for details.
 
 - **example**
 ```javascript
@@ -51,20 +51,20 @@ const privateKey = 'your privateKey';
 
 const accountBlock = createAccountBlock('stakeForQuota', {
     address,
-    beneficiaryAddress: address,    // 配额受益地址
-    amount: '134000000000000000000' // 至少134Vite
+    beneficiaryAddress: address,    // Quota recipient
+    amount: '134000000000000000000' // The minimum staking amount is 134 VITE
 });
 
 accountBlock.setProvider(provider).setPrivateKey(privateKey);
 
 accountBlock.autoSend().then(() => {
-    // 发送抵押请求成功
+    // Staking succeeded
 }).catch(err => {
     console.warn(err);
-    // 发送抵押请求失败
+    // Staking failed
 });
 
-// 检查配额
+// Check quota in account
 provider.request('contract_getQuotaByAccount', address).then(result => {
     console.log(result);
 }).catch(err => {
@@ -74,13 +74,13 @@ provider.request('contract_getQuotaByAccount', address).then(result => {
 
 ### PoW
 
-具体了解[PoW计算](../../../tutorial/rule/quota#计算pow)
+For how PoW works in Vite, refer to [PoW](../../../tutorial/rule/quota.html#calculating-pow) for more information
 
-GVite-RPC 也提供获取 nonce 的方法，可参考 `util_getPoWNonce`
+At the time being, GVite-RPC provides an API `util_getPoWNonce` for getting nonce
 
-1. 首先获取 PoW难度: difficulty
-2. 根据 difficulty 计算 nonce
-3. 将 difficulty + nonce 分别填入accountBlock信息中
+1. Get PoW difficulty
+2. Calculate nonce based on difficulty
+3. Fill difficulty and nonce into account block
 
 - **example**
 ```javascript
@@ -98,7 +98,7 @@ const PoW = async () => {
 
     await accountBlock.autoSetPreviousAccountBlock();
 
-    // 得到difficulty
+    // Get difficulty
     const difficulty = await provider.request('ledger_getPoWDifficulty', {
         address: accountBlock.address,
         previousHash: accountBlock.previousHash,
@@ -107,11 +107,9 @@ const PoW = async () => {
         data: accountBlock.data
     });
 
-    // 返回 difficulty 为空代表当前配额足够发这笔交易，无需PoW
+    // If difficulty is null, current account has enough quota to send the transaction. No need to do PoW
     if (difficulty) {
-        // 1. 使用自己的PoW服务通过difficulty计算出nonce, 以base64-string形式设置
-        // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
-
+        // Call GVite-RPC API to calculate nonce from difficulty
         const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
         const getNonceHash = utils.blake2bHex(getNonceHashBuffer, null, 32);
         const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
@@ -258,7 +256,7 @@ myAccountBlock.getPreviousAccountBlock().then((previousAccountBlock) => {
 ```
 
 ### setPreviousAccountBlock
-Set previous account block. This method will set `height` and `previousHash` based on the previous block.
+Set previous account block. This method will set `height` and `previousHash` to current account block.
 
 ```javascript
 height = previousAccountBlock ? previousAccountBlock.height + 1 : 1

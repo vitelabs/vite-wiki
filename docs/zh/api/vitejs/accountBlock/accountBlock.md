@@ -38,7 +38,7 @@ async function sendAccountBlock() {
 
 每当账户发送一个accountBlock时，都会消耗一部分配额，如果账户配额不足，则会发送交易失败。`{"code":-35002,"message":"out of quota"}`
 
-[获取配额有两种方式](../../../tutorial/rule/quota#获取配额的两种方式)：抵押 或者 PoW。
+[获取配额有两种方式](../../../tutorial/rule/quota.html#获取配额的两种方式)：抵押 或者 PoW。
 
 ### 抵押
 如何发起抵押请求，详见[createAccountBlock](./createAccountBlock.md)
@@ -74,7 +74,7 @@ provider.request('contract_getQuotaByAccount', address).then(result => {
 
 ### PoW
 
-具体了解[PoW计算](../../../tutorial/rule/quota#计算pow)
+具体了解[PoW计算](../../../tutorial/rule/quota.html#计算pow)
 
 GVite-RPC 也提供获取 nonce 的方法，可参考 `util_getPoWNonce`
 
