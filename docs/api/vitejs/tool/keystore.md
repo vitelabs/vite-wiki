@@ -1,5 +1,7 @@
 # Keystore
 
+Legacy keystore interface. For new users, use [Wallet](../wallet/start.md) to manage your private key and address.
+
 ## Installation
 
 :::demo
