@@ -49,7 +49,7 @@ import * as keystore from '@vite/vitejs-keystore';
 Verify keystore
 
 - **Parameters**
-    * `keystore : string` Keystore string
+    * `keystore : string` Content of keystore
 
 - **Return**
     * `validate : boolean` If `true`, the keystore is valid
@@ -62,20 +62,20 @@ const result = isValid('{}'); // false
 ```
 
 ### decrypt
-Decrypt keystore
+Decrypt keystore to get key string
 
 - **Parameters**
-    * `keystore : string` Keystore string
+    * `keystore : string` Content of keystore
     * `pwd : string` Passphrase
 
 - **Return**
     * Promise<`key : string`> Plain key string
 
 ### encrypt
-Encrypt keystore
+Encrypt key string into keystore
 
 - **Parameters**
-    * `keystore : string` Keystore string
+    * `key : string` Plain key string to be encrypted
     * `pwd : string` Passphrase
     * `scryptParams : Object` Scrypt parameters
         - n
@@ -85,4 +85,4 @@ Encrypt keystore
         - salt
     
 - **Return**
-    * Promise<`keystore: string`> Encrypted keystore string
+    * Promise<`keystore: string`> Keystore
