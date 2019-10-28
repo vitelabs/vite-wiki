@@ -67,7 +67,7 @@ Verify if the given account block is valid regardless of signature
     * `Boolean` If `true`, the account block is valid
 
 ### isValidAccountBlock
-Verify if the given account block is complete and can be sent 
+Verify if the given account block is complete and ready to be sent 
 
 - **Parameters** 
     * `__namedParameters: Object` AccountBlock
@@ -95,22 +95,22 @@ Return hash of the given account block
 
 - **Parameters**
     * `__namedParameters: object` AccountBlock
-        `blockType: BlockType`
-        `address: Address`
-        `hash?: Hex`
-        `height?: Uint64`
-        `previousHash?: Hex`
-        `fromAddress?: Address`
-        `toAddress?: Address`
-        `sendBlockHash?: Hex`
-        `tokenId?: TokenId`
-        `amount?: BigInt`
-        `fee?: BigInt`
-        `data?: Base64`
-        `difficulty?: BigInt`
-        `nonce?: Base64`
-        `vmlogHash?: Hex`
-        `triggeredSendBlockList?: AccountBlockType[]`
+        - `blockType: BlockType`
+        - `address: Address`
+        - `hash?: Hex`
+        - `height?: Uint64`
+        - `previousHash?: Hex`
+        - `fromAddress?: Address`
+        - `toAddress?: Address`
+        - `sendBlockHash?: Hex`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fee?: BigInt`
+        - `data?: Base64`
+        - `difficulty?: BigInt`
+        - `nonce?: Base64`
+        - `vmlogHash?: Hex`
+        - `triggeredSendBlockList?: AccountBlockType[]`
 
 - **Return**
     * `Hex` Hash of AccountBlock
@@ -136,7 +136,7 @@ const hash = utils.getAccountBlockHash({
 ```
 
 ### signAccountBlock
-Sign an account block
+Sign account block
 
 - **Parameters**
     * `__namedParameters: object` AccountBlock
@@ -179,7 +179,7 @@ const { signature, publicKey } = utils.signAccountBlock({
 ```
 
 ### messageToData
-Encode comment of transaction into base64 data of AccountBlock based on [VEP-8](../../../vep/vep-8.md)
+Encode comment of transaction into base64 data of AccountBlock according to [VEP-8](../../../vep/vep-8.md)
 
 - **Parameters**
     * `String` Comment of transaction

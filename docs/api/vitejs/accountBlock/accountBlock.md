@@ -4,9 +4,9 @@
 
 1. Create an AccountBlock instance
 2. Configure `provider` and `privateKey`
-   - `provider`: send the request
-   - `privateKey`: sign the AccountBlock
-3. Complete missing attributes of AccountBlock such as `height` and `previousHash`
+   - `provider`: to send the request
+   - `privateKey`: to sign the AccountBlock
+3. Complete missing properties of AccountBlock such as `height` and `previousHash`
 4. Sign and send the AccountBlock
 
 - **Example**
@@ -21,7 +21,7 @@ async function sendAccountBlock() {
         amount: '0'
     }).setProvider(provider).setPrivateKey(privateKey);
 
-    // 2. Auto-complete missing height and previousHash
+    // 2. Auto-fill height and previousHash
     await myAccountBlock.autoSetProperty();
 
     // 3. Sign and send the AccountBlock
@@ -34,14 +34,14 @@ async function sendAccountBlock() {
 
 Learn about [Quota](../../../tutorial/rule/quota.md)
 
-Quota are consumed for sending account block. Transaction will fail if the quota of the account is insufficient. The following message shows a failed transaction due to out of quota: 
+Quota are consumed for sending account block. Transaction will fail if the quota in the account is insufficient. The following message shows a failed transaction due to out of quota: 
 
 `{"code":-35002,"message":"out of quota"}`
 
 In Vite Mainnet, [Two Methods to Obtain Quota](../../../tutorial/rule/quota.html#two-methods-to-obtain-quota) are provided: Staking or PoW
 
 ### Staking
-For how to send a staking request, see [createAccountBlock](./createAccountBlock.md) for details.
+For how to send staking request, see [createAccountBlock](./createAccountBlock.md) for details.
 
 - **example**
 ```javascript
@@ -64,7 +64,7 @@ accountBlock.autoSend().then(() => {
     // Staking failed
 });
 
-// Check quota in account
+// Check quota of the account
 provider.request('contract_getQuotaByAccount', address).then(result => {
     console.log(result);
 }).catch(err => {
@@ -107,7 +107,7 @@ const PoW = async () => {
         data: accountBlock.data
     });
 
-    // If difficulty is null, current account has enough quota to send the transaction. No need to do PoW
+    // If difficulty is null, it indicates the account has enough quota to send the transaction. There is no need to do PoW
     if (difficulty) {
         // Call GVite-RPC API to calculate nonce from difficulty
         const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
@@ -468,7 +468,7 @@ transferAccountBlock.setSignature('your signature');
 Sign account block
 
 :::warning Note
-Complete all necessary block properties first before calling this method. Call `autoSetProperty` to set block properties. If quota is acquired through PoW, run `PoW` method to set the properties too.
+Complete all necessary block properties first before calling this method. Call `autoSetPreviousAccountBlock` to set block properties.
 :::
 
 - **Parameters**: 
@@ -494,7 +494,7 @@ async function test() {
 ```
 
 ### send
-Send account block. The account block must be complete.
+Send account block. The account block must be complete and signed.
 
 - **Returns**:
     - Promise<`AccountBlock`> 
