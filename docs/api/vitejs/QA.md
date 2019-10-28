@@ -48,8 +48,7 @@ const accountBlock = createAccountBlock('send', {
 
 // 4. 发送accountBlock
 const sendAccountBlock = async () => {
-    await accountBlock.autoSetProperty();
-    await accountBlock.PoW();
+    await accountBlock.autoSetPreviousAccountBlock();
     return accountBlock.sign().send();
 }
 

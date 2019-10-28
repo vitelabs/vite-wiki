@@ -23,8 +23,8 @@ async function sendAccountBlock() {
         amount: '0'
     }).setProvider(provider).setPrivateKey(privateKey);
 
-    // 2. 自动补全AccountBlock缺少的属性
-    await myAccountBlock.autoSetProperty();
+    // 2. 自动设置previousAccountBlock
+    await myAccountBlock.autoSetPreviousAccountBlock();
 
     // 3. 签名并发送AccountBlock
     const result = await myAccountBlock.sign().send();
@@ -245,97 +245,6 @@ async function test() {
 }
 ```
 
-### setToAddress
-当blockType为1，即创建合约请求时，需要通过Gvite_RPC接口`contract_createContractAddress`请求toAddress
-
-- **Parameters**: 
-  * `Address` toAddress
-
-- **Returns**:
-    - 当前实例: 即`return this;`
-
-- **Example**
-```javascript
-async function test() {
-    const myAccountBlock = new AccountBlock({
-        blockType: 1,
-        address: 'your address',
-        data: 'your data',
-        fee: '10000000000000000000',    // 创建合约固定消耗10Vite手续费; 否则创建失败
-        tokenId: Vite_TokenId
-    }).setProvider(provider);
-
-    await myAccountBlock.autoSetPreviousAccountBlock();
-    // 一般和 getToAddress 配合使用
-    const toAddress = await myAccountBlock.getToAddress();
-    myAccountBlock.setToAddress(toAddress);
-}
-```
-
-### autoSetToAddress
-主动判断blockType, 并在blockType为1, 自动请求 toAddress 并设置
-
-- **由于获取 toAddress 依赖于previousHash，所以应在设置过previousAccountBlock之后调用**
-
-- **Returns**
-    - Promise<`Address`> 返回toAddress
-
-- **Example**
-```javascript
-async function testCreateContract() {
-    const createContractAccountBlock = new AccountBlock({
-        blockType: 1,
-        address: 'your address',
-        data: 'your data',
-        fee: '10000000000000000000',    // 创建合约固定消耗10Vite手续费; 否则创建失败
-        tokenId: Vite_TokenId
-    }).setProvider(provider);
-
-    await createContractAccountBlock.autoSetPreviousAccountBlock();
-    // 省去 get=>set 步骤
-    await createContractAccountBlock.autoSetToAddress();
-    console.log(createContractAccountBlock.toAddress);
-}
-```
-
-### autoSetProperty
-自动设置属性: height、previousHash (如果blockType为1, 则还会自动获取toAddress); 即`autoSetPreviousAccountBlock` + `autoSetToAddress`
-
-- **Returns**:
-    - Promise<{ `height: Uint64; previousHash: Hex; toAddress: Address;` }> 返回对象 `{ height, previousHash, toAddress }`
-
-- **Example**
-```javascript
-async function test() {
-    // 1. blockType 为1
-    const createContractAccountBlock = new AccountBlock({
-        blockType: 1,
-        address: 'your address',
-        data: 'your data',
-        fee: '10000000000000000000',    // 创建合约固定消耗10Vite手续费; 否则创建失败
-        tokenId: Vite_TokenId
-    }).setProvider(provider);
-
-    // 省去单独请求并设置各属性的步骤
-    await createContractAccountBlock.autoSetProperty();
-    console.log(createContractAccountBlock.height);
-    console.log(createContractAccountBlock.previousHash);
-    console.log(createContractAccountBlock.toAddress);
-
-    // 2. blockType 不为1时，调用方式没有区别
-    const transferAccountBlock = new AccountBlock({
-        blockType: 2,
-        address: 'your address',
-        toAddress: 'your toAddress',
-        tokenId: 'your tokenId',
-        amount: 'your amount'
-    }).setProvider(provider);
-
-    await transferAccountBlock.autoSetProperty();
-    console.log(transferAccountBlock.height);
-    console.log(transferAccountBlock.previousHash);
-}
-```
 
 ### getDifficulty
 根据当前AccountBlock的信息获取PoW难度，即通过Gvite_RPC接口`ledger_getPoWDifficulty`获取
@@ -511,8 +420,7 @@ async function test() {
         amount: 'your amount'
     }).setProvider(provider);
 
-    await transferAccountBlock.autoSetProperty();
-    // await transferAccountBlock.PoW();
+    await transferAccountBlock.autoSetPreviousAccountBlock();
     transferAccountBlock.sign(privateKey);
 }
 ```
@@ -534,7 +442,7 @@ async function test() {
         amount: 'your amount'
     }).setProvider(provider);
 
-    await transferAccountBlock.autoSetProperty();
+    await transferAccountBlock.autoSetPreviousAccountBlock();
     transferAccountBlock.sign(privateKey);
     const result = await transferAccountBlock.send();
 
@@ -543,7 +451,7 @@ async function test() {
 ```
 
 ### autoSend
-自动设置属性后，签名并发送AccountBlock `autoSetProperty` + `sign` + `send`
+自动设置属性后，签名并发送AccountBlock `autoSetPreviousAccountBlock` + `sign` + `send`
 
 - **Parameters**: 
   * `Hex?` privateKey, Default `this.privateKey`，即通过`setPrivateKey`配置过私钥后，则不必传参
