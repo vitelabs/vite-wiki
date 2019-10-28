@@ -111,7 +111,7 @@ const PoW = async () => {
     // 2. 当前 GVite-RPC 也提供根据difficulty计算nonce的方法, 以 GVite-Rpc 为例, 调用方式如下
 
     const getNonceHashBuffer = Buffer.from(accountBlock.originalAddress + accountBlock.previousHash, 'hex');
-    const getNonceHash = utils.blake.blake2bHex(getNonceHashBuffer, null, 32);
+    const getNonceHash = utils.blake2bHex(getNonceHashBuffer, null, 32);
     const nonce = await yourPoWProvider.request('util_getPoWNonce', difficulty, getNonceHash)
 
     accountBlock.setDifficulty(difficulty);
