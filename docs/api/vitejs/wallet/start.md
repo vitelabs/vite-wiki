@@ -1,6 +1,6 @@
-# 开始
+# Start
 
-## 引入
+## Module Import
 
 :::demo
 
@@ -14,7 +14,7 @@ const { wallet } = require('@vite/vitejs');
 
 :::
 
-## 常用类型
+## Common Types
 
 ```typescript
 export declare type AddressObj = {
@@ -33,28 +33,27 @@ export declare type WalletAddressObj {
 }
 ```
 
-:::warning Notice
+:::warning Note
 
-**密码短语 passphrase**
-bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语passphrase作为盐值(salt)
+**Passphrase**
 
-如果使用助记词 + passphrase的形式生成种子，passphrase遗失也将丢失私钥
+BIP-39 uses PBKDF2 to generate seed, where mnemonic phrase is feed as password and passphrase as salt. Losing passphrase will result in lost of the private key.
 
-具体可参考 https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+See [here](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for details
 
 :::
 
 ## Methods
 
 ### createMnemonics
-创建助记词
+Create mnemonic phrase
 
 - **Parameters** 
-    * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
-    * `Array<String>` 选填，选词列表，Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
+    * `number` Number of bits of the entropy, optional. Default is `256`. (256-bit entropy will generate 24-word phrase while 128 bits will create 12-word mnemonics)
+    * `Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
 
 - **Return**
-    * `String` 助记词
+    * `String` Mnemonic phrase
 
 - **Example**
 ```javascript
@@ -64,19 +63,19 @@ import { wallet } from '@vite/vitejs';
 const { createMnemonics } = wallet;
 
 const myMnemonics = createMnemonics();
-// 如果选择其他语言
+// In case of other language
 const myJapanMnemonics = createMnemonics(256, bip39.wordlists.japanese)
 ```
 
 ### validateMnemonics
-校验助记词
+Verify mnemonic phrase
 
 - **Parameters** 
-    * `string` 必填，助记词
-    * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
+    * `string` Mnemonic phrase
+    * `Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
 
 - **Return**
-    * `boolean` 校验结果
+    * `boolean` If `true`, the mnemonic phrase is valid
 
 - **Example**
 ```javascript
@@ -84,20 +83,20 @@ const bip39 = require('bip39');
 import { wallet } from '@vite/vitejs';
 
 const result = wallet.validateMnemonics('your menemonics');
-// 若是语言不是英语
+// In case of other language
 const myJapanMnemonics = wallet.validateMnemonics('your menemonics', bip39.wordlists.japanese);
 ```
 
 ### deriveAddress
-根据助记词派生地址
+Derive new address based on mnemonic phrase
 
 - **Parameters** 
     * `__namedParameters: Object`
-        - `mnemonics: String` 必填，助记词，格式为'word1 word2 word3'
-        - `index?: number` 选填，生成地址的序号，Default 0
-        - `wordlist?: Array<String>` 选填，选词列表，默认为bip39的英语列表，若需要其他语言可从bip39库中单独选取并传入
-        - `passphrase?: String` 选填，密码短语 passphrase, Default ''
-        - `isContract?: boolean` 选填，是否为合约地址，Default false
+        - `mnemonics: String` Mnemonic phrase
+        - `index?: number` Address index, optional. Default is `0`
+        - `wordlist?: Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
+        - `passphrase?: String` Passphrase, optional. Default is `''`
+        - `isContract?: boolean` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `AddressObj` { originalAddress, publicKey, privateKey, address }
@@ -113,18 +112,16 @@ const { originalAddress, publicKey, privateKey, address } = wallet.deriveAddress
 ```
 
 ### deriveAddressList
-根据助记词派生地址列表
-
-**startIndex <= 地址列表 <= endIndex**
+Derive a list of new addresses based on mnemonic phrase
 
 - **Parameters** 
     * `__namedParameters: Object`
-        - `mnemonics: String` 必填，助记词，格式为'word1 word2 word3 ...'
-        - `startIndex: number` 必填，生成地址的起始序号
-        - `endIndex: number` 必填，生成地址的终止序号
-        - `wordlist?: Array<String>` 选填，选词列表，默认为bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
-        - `passphrase?: String` 选填，密码短语 passphrase, Default ''
-        - `isContract?: boolean` 选填，是否为合约地址，Default false
+        - `mnemonics: String` Mnemonic phrase
+        - `startIndex: number` Start index, included
+        - `endIndex: number` End index, included
+        - `wordlist?: Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
+        - `passphrase?: String` Passphrase, optional. Default is `''`
+        - `isContract?: boolean` If `true`, the address is smart contract. Default is `false`
 
 - **Return**
     * `AddressObj[]` [{ originalAddress, publicKey, privateKey, address }, ...]
@@ -141,10 +138,10 @@ const addressList = wallet.deriveAddressList({
 ```
 
 ### isValidAddress
-判断地址类型
+Verify address
 
 - **Parameters** 
-    * `string` 地址
+    * `string` Address
 
 - **Return**
     * `0 | 1 | 2` Illegal: 0; Account Address: 1; Contract Address: 2
@@ -158,15 +155,15 @@ const addrType2 = wallet.isValidAddress('32323');  // addrType2 === 0
 ```
 
 ### createWallet
-创建钱包（即私钥管理器）
+Create wallet. Wallet is responsible for managing private keys.
 
 - **Parameters** 
-    * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
-    * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
-    * `string` 选填，密码短语 passphrase, Default ''
+    * `number` Number of bits of the entropy, optional. Default is `256`. (256-bit entropy will generate 24-word phrase while 128 bits will create 12-word mnemonics)
+    * `Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
+    * `string` Passphrase, optional. Default is `''`
 
 - **Return**
-    * Wallet实例
+    * Wallet instance
 
 - **Example**
 ```javascript
@@ -176,16 +173,16 @@ const myWallet = wallet.createWallet();
 ```
 
 ### getWallet
-根据助记词还原钱包（即私钥管理器）
+Restore wallet based on mnemonic phrase
 
 - **Parameters** 
-    * `string` 必填，助记词，格式为'word1 word2 word3 ...'
-    * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
-    * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
-    * `string` 选填，密码短语 passphrase, Default ''
+    * `string` Mnemonic phrase
+    * `number` Number of bits of the entropy, optional. Default is `256`. (256-bit entropy will generate 24-word phrase while 128 bits will create 12-word mnemonics)
+    * `Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
+    * `string` Passphrase, optional. Default is `''`
 
 - **Return**
-    * Wallet实例
+    * Wallet instance
 
 
 - **Example**

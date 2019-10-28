@@ -1,24 +1,24 @@
 ---
 sidebarDepth: 4
-title: 开始
+title: Start
 ---
 
-:::tip 作者
+:::tip Maintainer
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-GoVite的JS类库
+The Javascript SDK of Vite
 
-:::warning 注意
+:::tip Note
 
-阅读文档前, 建议先行了解
-1. [相关概念](./QA.md)
-2. [Gvite-RPC](../rpc/README.md) 接口
+Reading through the following documents is highly recommended
+1. [Key Concepts](./QA.md)
+2. [Vite RPC API](../rpc/README.md)
 
 :::
 
-## 安装
+## Installation
 
 :::demo
 
@@ -34,7 +34,7 @@ yarn add @vite/vitejs-ws
 
 :::
 
-## 引入
+## Module Import
 
 :::demo
 
@@ -44,7 +44,7 @@ import {
     accountBlock, ViteAPI, wallet
 } from '@vite/vitejs';
 
-// 需要使用网络服务时，需单独安装http/ipc/ws包
+// must install http/ipc/ws packages separately if you need set up network connection
 import ws from '@vite/vitejs-ws';
 import http from '@vite/vitejs-http';
 import ipc from '@vite/vitejs-ipc';
@@ -56,7 +56,7 @@ const {
     accountBlock, ViteAPI, wallet
 } = require('@vite/vitejs');
 
-// 需要使用网络服务时，需单独安装http/ipc/ws包
+// must install http/ipc/ws packages separately if you need set up network connection
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { HTTP_RPC } = require('@vite/vitejs-http');
 const { IPC_RPC } = require('@vite/vitejs-ipc');
@@ -64,11 +64,11 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 
 :::
 
-## 快速开始  
+## Quick Start
 
 1. `npm install @vite/vitejs-ws`
 2. `npm install @vite/vitejs`
-3. 新建文件 `test.js`
+3. Create file `test.js`
 ```javascript
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { ViteAPI } = require('@vite/vitejs');

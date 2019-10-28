@@ -1,27 +1,26 @@
-# 常见问题
+# Q&A
 
-## 助记词
+## About Mnemonic
 
-一个助记词可以派生多个私钥，一个私钥对应一个地址。[具体参考](/tutorial/wallet/hdwallet.md)
+A mnemonic phrase can derive multiple private keys, each having independent address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md)
 
-:::warning Notice
-1. 请注意保管自己的助记词
-2. 不要向不认识的地址转账
+:::warning Note
+Always keep your mnemonic phrase safe
 :::
 
-## 配额
+## About Quota
 
-发送交易会消耗一部分配额，配额可以通过PoW或抵押获取。[具体参考配额](/tutorial/rule/quota)
+Quota is necessary for sending transaction on Vite. As fee-less blockchain, quota can be obtained through PoW or staking. Refer to [Quota](/tutorial/rule/quota)
 
-## 铸币
+## About Token Issuance
 
-[Gvite-RPC 铸币](../rpc/contract_v2)
+Refer to [RPC Token Issuance API](../rpc/contract_v2)
 
-## 事件监听
+## About Subscription
 
-ViteAPI 提供监听功能，[详见 ViteAPI](./ViteAPI/start)
+Event subscription is provided in `ViteAPI`. Refer to [ViteAPI](./ViteAPI/start)
 
-## 发送交易
+## About Sending Transaction
 
 ```typescript
 import HTTP_RPC from '../../src/HTTP';
@@ -31,22 +30,22 @@ const { Vite_TokenId } = constant;
 const { getWallet } = wallet;
 const { createAccountBlock } = accountBlcok;
 
-// 1. 通过助记词派生私钥和地址
+// 1. Get private key and account address from mnemonic phrase
 const wallet = getWallet('yourMnemonic');
-const { privateKey, address } = wallet.deriveAddress(0);  // 得到助记词0号派生路径下的私钥
+const { privateKey, address } = wallet.deriveAddress(0);  // get the private key at index 0.
 
-// 2. 通过开发地址得到一个provider
+// 2. Get provider by HTTP address
 const httpService = new HTTP_RPC("http://example.com");
 const provider = new ViteAPI(httpService);
 
-// 3. 生成accountBlock: 比如创建一个发送交易的accountBlock
+// 3. Create accountBlock instance
 const accountBlock = createAccountBlock('send', {
     toAddress: 'your toAddress', 
     tokenId: Vite_TokenId,
-    amount: '1000000000000000000000'    // 10Vite + 18个0
+    amount: '1000000000000000000000'    // 10 Vite (18 decimals)
 }, provider, privateKey);
 
-// 4. 发送accountBlock
+// 4. Send accountBlock
 const sendAccountBlock = async () => {
     await accountBlock.autoSetPreviousAccountBlock();
     return accountBlock.sign().send();

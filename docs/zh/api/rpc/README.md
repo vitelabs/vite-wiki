@@ -8,7 +8,7 @@ title: 开始
 ## 说明
 * **IPC方式**：支持所有API调用
 
-    1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `~/.gvite/testdata/gvite.ipc`
+    1. **\*nix(linux darwin)**: `Unix domain Socket` 文件名称    `~/.gvite/maindata/gvite.ipc`
 
     2. **Windows**: Named Pipe 受限于Windows的规范 文件名就是  `\\.\pipe\gvite.ipc`
 * **Http**：仅支持公共API(非wallet模块) 默认端口**48132**

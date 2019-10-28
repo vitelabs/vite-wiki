@@ -2,10 +2,10 @@
 
 ## About Mnemonic
 
-A mnemonic phrase is able to derive multiple private keys, each having an address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md)
+A mnemonic phrase can derive multiple private keys, each having independent address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md)
 
 :::warning Notice
-1. Always keep your mnemonics safe
+1. Always keep your mnemonic phrase safe
 2. Never transfer to unknown address
 :::
 

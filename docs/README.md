@@ -18,7 +18,7 @@ projects:
           url: /tutorial/start/
         - name: Asynchronous Architecture
           url: /introduction/asynchronous-architecture/
-    - title: Explore Vite
+    - title: In-depth Exploration
       detail: Quota, Voting and Asset Issuance
       links: 
         - name: Quota
@@ -59,7 +59,7 @@ projects:
         - name: Cryptography Related
           url: /technology/design-features.html
         - name: Design and Implementation of ViteX Contract
-          url: https://forum.vite.net/topic/2588/vitex内置合约设计与实现简介
+          url: https://medium.com/vitelabs/vitex-contract-design-implementation-e44c35d961f0
     - title: DApp
       detail: DApp Development, Solidity++ and Asynchronous Smart Contract
       links: 

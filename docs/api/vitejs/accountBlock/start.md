@@ -1,22 +1,24 @@
-# 开始
+# Start
 
-## 什么是AccountBlock
+## What is AccountBlock
 
-Vite 采用 DAG 账本结构，每个账户对应一条链（可以理解为此账户的账本），这条链就是由多个AccountBlock串联形成。
+Vite adopts the ledger structure of DAG (Directed Acyclic Graph). Each account has a chain composed of a list of account blocks.
 
-当A账户发送一笔交易给B账户，就是A账户在自己的账户链上形成一个toAddress为B账户的AccountBlock，并得到确认的过程。
+If account A wants to send a transaction to account B, A will form an instance of AccountBlock with `toAddress` as the address of B on A's account chain, then send the block in a transaction. 
+When the transaction is confirmed, the transfer is done.
 
-所以AccountBlock必须包含两部分信息
-1. 发送给谁，发送多少
-2. 上一个账户块的hash（以此顺序得到一条链，达到账本记录的目的）
+Therefore, AccountBlock must contain two pieces of information.
+1. Recipient's address and the amount to send
+2. Hash of the previous account block so that account blocks can be linked into a chain
 
-## 介绍
-accountBlock类库则集成了
-1. 生成各类型交易的accountBlock方法；详见[createAccountBlock](./createAccountBlock.md)
-2. 如何补充AccountBlock信息，以及如何发送一个AccountBlock；详见[accountBlock类](./accountBlock.md)
-3. 相关功能函数；详见[utils](./utils.md)
+## AccountBlock in Vite.js
 
-## 引入
+The following functions are integrated into the `accountBlock` library
+1. Methods to generate account blocks for various types of transaction. Refer to [Create Account Block](./createAccountBlock.md)
+2. How to populate and send an AccountBlock. Refer to [accountBlock Class](./accountBlock.md) for more information
+3. Related utility functions. See [utils](./utils.md) for details
+
+## Module Import
 
 :::demo
 

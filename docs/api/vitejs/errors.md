@@ -1,17 +1,17 @@
-# 常见错误汇总
+# Common Error
 
-1. [Gvite 常见错误类型](../rpc/README.md)
+1. [Gvite Common Error](../rpc/README.md)
 
-2. ViteJS 常见错误类型
+2. ViteJS Common Error
 
-| 属性 | code | 说明 |
+| Property | Code | Description |
 |:-----:|:-------:|:--------:|
-| unknown | 100000 | 未知错误 |
-| paramsMissing | 100001 | 丢失参数 |
-| paramsFormat | 100002 | 参数格式错误 |
-| paramsConflict | 100003 | 参数冲突 |
-| addressIllegal | 200001 | 地址不合法 |
-| addressMissing | 200002 | 地址不存在 |
-| integerIllegal | 200003 | 整数类型不合法 |
-| unsafeInteger | 200004 | 不安全的整数 |
-| requestTimeout | 300001 | 请求超时 |
+| unknown | 100000 | Unknown Error |
+| paramsMissing | 100001 | Missing Parameters |
+| paramsFormat | 100002 | Wrong Format |
+| paramsConflict | 100003 | Parameter Conflict |
+| addressIllegal | 200001 | Illegal Address |
+| addressMissing | 200002 | Address Not Existed |
+| integerIllegal | 200003 | Illegal Integer |
+| unsafeInteger | 200004 | Unsafe Integer |
+| requestTimeout | 300001 | Request Timeout |

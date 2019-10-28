@@ -399,7 +399,7 @@ transferAccountBlock.setSignature('your signature');
 ```
 
 ### sign
-签名AccountBlok
+签名AccountBlock
 
 - **签名需在补全AccountBlock所有属性之后进行；如果需要PoW, 应在运行过PoW之后进行签名**
 

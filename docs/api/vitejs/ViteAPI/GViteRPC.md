@@ -1,20 +1,20 @@
 
-# Gvite-RPC 接口调用
+# How to Call Gvite-RPC Methods
 
-## Gvite-RPC 接口
+## RPC Interface
 
-请移步至
-- [钱包相关 wallet](/api/rpc/wallet_v2.md) 
-- [账本相关 ledger](/api/rpc/ledger_v2.md) 
-- [合约相关 contract](/api/rpc/contract_v2.md)
+See the following links for detailed description of RPC method definitions
+- [Wallet](/api/rpc/wallet_v2.md) 
+- [Ledger](/api/rpc/ledger_v2.md) 
+- [Contract](/api/rpc/contract_v2.md)
 
-## 调用
+## Example
 
-- **使用方法`provider.request`**
+- **Call `provider.request`**
 
 - **Parameters** 
-    * `methodName: string` Gvite-RPC 接口名称
-    * `...args` Gvite-RPC 接口入参
+    * `methodName: string` RPC method name
+    * `...args` Passed-in parameters
 
 - **Example**
 ```javascript
