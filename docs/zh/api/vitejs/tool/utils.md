@@ -23,7 +23,7 @@ import { utils } from '@vite/vitejs';
 - **Other Parameters**
   | 参数名 | 类型          | 描述                                     | 例子                                                  |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
-  | amount     | number        | 交易数目                 |  1vite  amount=1 ,default :0               |
+  | amount     | number        | 交易额                 |  1vite  amount=1 ,default :0               |
   | data       | base64 string | 附加数据	| data=MTIzYWJjZA  ,default: nil                                   |
   | fee        | number        | 交易费用               |  1vite  fee=1 ,default :0                           |
   | tti        | token_type_id | 交易币种id                                | default : vite tti	tti=tti_5649544520544f4b454e6e40 |

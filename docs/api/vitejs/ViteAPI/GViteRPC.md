@@ -3,7 +3,7 @@
 
 ## RPC Interface
 
-See the following links for detailed description of RPC method definitions
+See the following links for detailed description of RPC API definitions
 - [Wallet](/api/rpc/wallet_v2.md) 
 - [Ledger](/api/rpc/ledger_v2.md) 
 - [Contract](/api/rpc/contract_v2.md)
@@ -13,7 +13,7 @@ See the following links for detailed description of RPC method definitions
 - **Call `provider.request`**
 
 - **Parameters** 
-    * `methodName: string` RPC method name
+    * `methodName: string` RPC API name
     * `...args` Passed-in parameters
 
 - **Example**

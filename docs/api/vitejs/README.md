@@ -8,11 +8,11 @@ title: Start
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-The Javascript SDK of Vite
+The Vite Javascript SDK
 
-:::tip Note
+:::tip Tips
 
-Reading through the following documents is highly recommended
+Before you start, reading through the following documents is highly recommended
 1. [Key Concepts](./QA.md)
 2. [Vite RPC API](../rpc/README.md)
 

@@ -1,6 +1,6 @@
 # HTTP
 
-## 安装
+## Installation
 
 :::demo
 ```bash tab:npm
@@ -12,7 +12,7 @@ yarn add @vite/vitejs-http
 ```
 :::
 
-## 引入
+## Module Import
 
 :::demo
 ```javascript tab:ES6
@@ -27,10 +27,10 @@ const { HTTP_RPC } = require('@vite/vitejs-http');
 ## Constructor
 
 - **Constructor Parameters**: 
-    * `url : string` 连接 url Default: 'http://localhost:8415'
-    * `timout : number` 超时时间(ms) Default: 60000
+    * `url : string` Connection URL. Default is `http://localhost:8415`
+    * `timout : number` Timeout(ms). Default is `60000`
     * `Object` 
-        - `headers : object` : 请求头信息
+        - `headers : object` : Request header
 
 - **Example**:
 ```javascript
@@ -41,40 +41,42 @@ const httpProvider = new HTTP_RPC("http://localhost:8080");
 
 ## Properties
 
-|  名称  | 类型 | 说明 |
+|  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| type |  string | 网络传输协议类型 |
-| timeout | number(ms) | 请求超时时间 |
+| type |  string | Protocol type |
+| timeout | number(ms) | Timeout |
 
 
 ## Methods
 
 ### abort
-打断当前连接的剩余请求，并将请求列表清空
+Abort current connection and discard all pending requests
 
 ### request
-发起request请求
+Call RPC API and return response
 
 - **Parameters**: 
-  * `methodName : string` 方法名
-  * `params : any` 请求参数
+  * `methodName : string` Name of API method
+  * `params : any` Passed-in parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - Promise<`JsonRPC response`> RPC response
 
 ### sendNotification
+Call RPC API and do not return response
 
 - **Parameters**: 
-  * `methodName : string` 方法名
-  * `params : any` 请求参数
+  * `methodName : string` Name of API method
+  * `params : any` Passed-in parameters
 
 ### batch
+Call a batch of RPC APIs
 
 - **Parameters**: 
   * `requests : array<object>` 
-	- `type : string<request | notification | batch>` : 请求类型
-    - `methodName : string`: 方法名
-    - `params : any`: 请求参数
+	- `type : string<request | notification | batch>` : Type
+    - `methodName : string`: Name of API method
+    - `params : any`: Passed-in parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - Promise<`JsonRPC response`> RPC response

@@ -2,7 +2,7 @@
 
 1. [Gvite Common Error](../rpc/README.md)
 
-2. ViteJS Common Error
+2. Vite.js Common Error
 
 | Property | Code | Description |
 |:-----:|:-------:|:--------:|

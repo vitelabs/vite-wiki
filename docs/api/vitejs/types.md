@@ -185,13 +185,13 @@ const originalTokenId = "5649544520544f4b454e";
 
 ## Constant
 
-### Package Import
+### Module Import
 
 ```javascript import
 import { constant } from '@vite/vitejs';
 ```
 
-### Common constants
+### Common Constants
 
 - Vite_TokenId
 - Vite_Token_Info

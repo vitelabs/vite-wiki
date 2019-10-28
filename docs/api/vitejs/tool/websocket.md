@@ -1,6 +1,6 @@
 # Websocket
 
-## 安装
+## Installation
 
 :::demo
 ```bash tab:npm
@@ -12,7 +12,7 @@ yarn add @vite/vitejs-ws
 ```
 :::
 
-## 引入
+## Module Import
 
 :::demo
 ```javascript tab:ES6
@@ -27,14 +27,14 @@ const { WS_RPC } = require('@vite/vitejs-ws');
 ## Constructor
 
 - **Constructor Parameters**: 
-    * `url : string` 连接url Default 'ws://localhost:31420'
-    * `timeout? : number` 超时时间(ms) Default: 60000
+    * `url : string` Connection URL. Default is `ws://localhost:31420`
+    * `timeout? : number` Timeout(ms). Default is `60000`
     * `__namedParameters? : object` 
-        - `headers? : object` : 请求头信息
-        - `protocol?` : 协议
+        - `headers? : object` : Request header
+        - `protocol?` : Protocol
         - `clientConfig? : object`: [require('websocket').w3cwebsocket ==> clientConfig](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)
-        - `retryTimes? : number`: 重连次数 Default: 10
-        - `retryInterval? : number`: 重连间隔时长(ms) Default: 10000
+        - `retryTimes? : number`: Retry times. Default is `10`
+        - `retryInterval? : number`: Retry interval(ms). Default is `10000`
 
 - **Example**:
 ```javascript
@@ -43,60 +43,61 @@ const wsProvider = new WS_RPC("ws://localhost:8080");
 ```
 
 ## Properties
-除却通用实例方法与属性外
 
-|  名称  | 类型 | 说明 |
+|  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| url | string | 网络连接路径 |
-| protocol | string | 协议 |
-| headers | object | 请求头信息 |
-| clientConfig | object | [同上](https://github.com/theturtle32/WebSocket-Node/blob/58f301a6e245ee25c4ca50dbd6e3d30c69c9d3d1/docs/WebSocketClient.md)|
-| type |  string | 网络传输协议类型 |
-| timeout | number(ms) | 请求超时时间 |
+| url | string | Connection URL |
+| protocol | string | Protocol |
+| headers | object | Request header |
+| clientConfig | object | Client config object |
+| type |  string | Protocol type |
+| timeout | number(ms) | Timeout |
 
 ## Methods
 
 ### abort
-打断当前连接的剩余请求，并将请求列表清空
+Abort current connection and discard all pending requests
 
 ### request
-发起request请求
+Call RPC API and return response
 
 - **Parameters**: 
-  * `methodName : string` 方法名
-  * `params : any` 请求参数
+  * `methodName : string` Name of API method
+  * `params : any` Passed-in parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - Promise<`JsonRPC response`> RPC response
 
 ### sendNotification
+Call RPC API and do not return response
 
 - **Parameters**: 
-  * `methodName : string` 方法名
-  * `params : any` 请求参数
+  * `methodName : string` Name of API method
+  * `params : any` Passed-in parameters
 
 ### batch
+Call a batch of RPC APIs
 
 - **Parameters**: 
   * `requests : array<object>` 
-	- `type : string<request | notification | batch>` : 请求类型
-    - `methodName : string`: 方法名
-    - `params : any`: 请求参数
+	- `type : string<request | notification | batch>` : Type
+    - `methodName : string`: Name of API method
+    - `params : any`: Passed-in parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - Promise<`JsonRPC response`> RPC response
 
 ### reconnect
-网络重连
+Reconnect
 
 ### disconnect
-断开连接
+Disconnect
 
 ### subscribe
-订阅服务端推送事件
+Subscribe to event
 
 - **Parameters**: 
-  * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
+  * `callback : Function` Callback function will be called when the event occurs
 
 ### unsubscribe
-取消订阅
+Cancel subscription

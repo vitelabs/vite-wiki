@@ -1,188 +1,190 @@
 # Utils
 
-## 引入
+## Module Import
 
 ```javascript
 import { utils } from '@vite/vitejs';
 ```
 
 ## uriStringify
-序列化一个 vite schema 的uri
+Generate Vite URI based on the given parameters
 
 - **Parameters**
     * `opt : object`
-        - `opt.schema:string?` Default vite
-        - `opt.target_address:vite Address string` 对方交易地址
-        - `opt.chain_id?` 网络类型，默认主网
-        - `opt.function_name?` 合约方法名
-        - `opt.params:object?` 其他参数
+        - `opt.schema:string?` Default is `vite`
+        - `opt.target_address:vite Address string` Address of transaction's recipient
+        - `opt.chain_id?` Network id. Default is `1` (Vite Mainnet)
+        - `opt.function_name?` Method name of contract to be called
+        - `opt.params:object?` Passed-in parameters
 
 - **Return**
-    * `uri : string` 
+    * `uri : string` URI string
 
 - **Other Parameters**
-  | 参数名 | 类型          | 描述                                     | 例子                                                  |
-  | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
-  | amount     | number        | 交易数目                 |  1vite  amount=1 ,default :0               |
-  | data       | base64 string | 附加数据	| data=MTIzYWJjZA  ,default: nil                                   |
-  | fee        | number        | 交易费用               |  1vite  fee=1 ,default :0                           |
-  | tti        | token_type_id | 交易币种id                                | default : vite tti	tti=tti_5649544520544f4b454e6e40 |
+  | Parameter name | Type          | Description                          | Example                                 |
+  | ---------- | ------------- | ---------------------------------------- | --------------------------------------- |
+  | amount     | number        | Amount to transfer. Default is `0`       | amount=1     (1 VITE)              |
+  | data       | base64 string | Additional data. Default is nil	        | data=MTIzYWJjZA                                  |
+  | fee        | number        | Transaction fee. Default is `0`          | fee=1        (1 VITE)                           |
+  | tti        | token_type_id | Token id. Default is `tti_5649544520544f4b454e6e40` | tti=tti_5649544520544f4b454e6e40 |
 
 ## isValidTokenId
-tokenId 是否合法
+Verify token id
 
 - **Parameters**
-    * `TokenId` 代币ID
+    * `TokenId` Token id
 
 - **Return**
-    * `boolean` 是否合法
+    * `boolean` If `true`, the token id is valid
 
 ## getOriginalTokenIdFromTokenId
-获取原始代币ID
+Get original token id from token id
 
 - **Parameters**
-    * `tokenId : TokenId`
+    * `tokenId : TokenId` Token id
 
 - **Return**
-    * `rawTokenId : RawTokenId` 原始代币ID
+    * `rawTokenId : RawTokenId` Original token id
 
 ## getTokenIdFromOriginalTokenId
-根据原始代币ID，获取代币ID
+Get token id from original token id
 
 - **Parameters**
-    * `OriginalTokenId` 原始代币ID
+    * `OriginalTokenId` Original token id
 
 - **Return**
-    * `TokenId` 代币ID
+    * `TokenId` Token id
 
 ## isValidSBPName 
-验证是否为合法的节点名称
+Verify SBP name
 
 - **Parameters**
-    * `string`  字符串 sbpName
+    * `string`  Name of SBP
 
 - **Return**
-    * `boolean` 验证结果: true(是), false(不是)
+    * `boolean` If `true`, the SBP name is valid 
   
 ## isInteger
-判断输入的字符串是否为整数
+Check if the input is integer
 
 - **Parameters**
-    * `string`  number字符串
+    * `string`  Input string
 
 - **Return**
-    * `boolean` 验证结果: true(是), false(不是)
+    * `boolean` If `true`, the input string is integer
 
 ## isNonNegativeInteger
-判断输入的字符串是否为非负整数
+Check if the input is non-negative integer
 
 - **Parameters**
-    * `string`  number字符串
+    * `string`  Input string
 
 - **Return**
-    * ` boolean` 验证结果: true(是), false(不是)
+    * ` boolean` If `true`, the input string is non-negative integer
 
 ## isSafeInteger
-判断输入是否为安全的整数
+Check if the input is safe integer
 
 - **Parameters**
-    * `string | number` number 或者 number-string
+    * `string | number` Input number or string
 
 - **Return**
-    * `number` -1: 输入不是整型; 0: 输入为number类型，但是超出安全数字范围(或者是小数); 1: 输入正确
+    * `number` -1: Not integer; 0: Un-safe integer or decimal; 1: Safe integer
 
 
 ## isArray
+Check if the input is array
 
 - **Parameters**
-    * `any`
+    * `any` Input value
 
 - **Return**
-    * `boolean` true | false
+    * `boolean` If `true`, the input is array
 
 ## isObject
+Check if the input is object
 
 - **Parameters**
-    * `any`
+    * `any` Input value
 
 - **Return**
-    * `boolean` true | false
+    * `boolean` If `true`, the input is object
 
 ## isHexString
-字符串是否为hex-string
+Check if the input is hex string
 
 - **Parameters**
-    * `string`
+    * `string` Input string
 
 - **Return**
-    * `boolean` true | false
+    * `boolean` If `true`, the input is hex string
 
 ## isBase64String
-字符串是否为base64-string
+Check if the input is base64 string
 
 - **Parameters**
-    * `string`
+    * `string` Input string
 
 - **Return**
-    * `boolean` true | false
+    * `boolean` If `true`, the input is base64 string
 
 ## blake2b 
-对blake2b的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+Hash function. For more information about blake2b, refer to [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
 ## blake2bHex
-对blake2bHex的快捷引用 参考 [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+Hash function. For more information about blake2bHex, refer to [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
 ## _Buffer 
-对buffer的快捷引用
+A quick reference to buffer
 
 ## _bn
-对bn.js的快捷引用
+A quick reference to bn.js
 
 ## ed25519
 
 ### keyPair 
-获取私钥对
+Get key pair
 
 - **Return**
-    * Object 私钥对
+    * Object : Key pair
         - `publicKey : Uint8Array with 32-byte public key`
         - `privateKey : Uint8Array with 64-byte private key`
 
 ### getPublicKey
-通过私钥获取公钥 (此私钥必须是由keyPair派生出来的)
+Get public key from private key. The private key must be derived from key pair
 
 - **Parameters**
-    * `Buffer` privateKey 私钥
+    * `Buffer` privateKey
 
 - **Return**
-    * `Uint8Array with 32-byte public key` publicKey 公钥
+    * `Uint8Array with 32-byte public key` publicKey
 
 ### sign 
-签名
+Sign
 
 - **Parameters**
-    * `Hex` hex-string 字符串
-    * `Hex` privateKey 私钥
+    * `Hex` Original text
+    * `Hex` Private key
 
 - **Return**
-    * `Hex` hex-string signature 签名结果
+    * `Hex` Signature
   
 ### verify
-验证
+Verify signature
 
 - **Parameters**
-    * `Hex` 原始信息
-    * `Hex` signature 签名结果
-    * `Hex` publicKey 公钥
+    * `Hex` Original text
+    * `Hex` Signature
+    * `Hex` Public key
 
 - **Return**
-    * `Boolean` 验证结果 true or false
+    * `Boolean` If `true`, the signature is valid
   
 ### random
-生成随机数
+Generate random number
 
 - **Parameters**
-    * `number` 字节长度 Default: 32
+    * `number` byte length. Default is `32`
   
 - **Return**
-    * `num : Uint8Array` 随机数
+    * `num : Uint8Array` Random number

@@ -4,7 +4,7 @@
 
 Vite adopts the ledger structure of DAG (Directed Acyclic Graph). Each account has a chain composed of a list of account blocks.
 
-If account A wants to send a transaction to account B, A will form an instance of AccountBlock with `toAddress` as the address of B on A's account chain, then send the block in a transaction. 
+If account A wants to send a transaction to account B, A will form an instance of AccountBlock with `toAddress` as the address of B, then send the block as a transaction. 
 When the transaction is confirmed, the transfer is done.
 
 Therefore, AccountBlock must contain two pieces of information.
@@ -15,7 +15,7 @@ Therefore, AccountBlock must contain two pieces of information.
 
 The following functions are integrated into the `accountBlock` library
 1. Methods to generate account blocks for various types of transaction. Refer to [Create Account Block](./createAccountBlock.md)
-2. How to populate and send an AccountBlock. Refer to [accountBlock Class](./accountBlock.md) for more information
+2. How to create and send an AccountBlock. Refer to [accountBlock Class](./accountBlock.md) for more information
 3. Related utility functions. See [utils](./utils.md) for details
 
 ## Module Import

@@ -1,6 +1,6 @@
 # IPC 
 
-## 安装
+## Installation
 
 :::demo
 ```bash tab:npm
@@ -12,7 +12,7 @@ yarn add @vite/vitejs-ipc
 ```
 :::
 
-## 引入
+## Module Import
 
 :::demo
 ```javascript tab:ES6
@@ -27,12 +27,12 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 ## Constructor
 
 - **Constructor Parameters**
-    * `path : string` 连接路径
-    * `timeout? : number` 超时时间(ms) Default: 60000
+    * `path : string` Connection path
+    * `timeout? : number` Timeout(ms). Default is `60000`
     * `__namedParameters? : object` 
-        - `delimiter? : string` : 分隔符 Default: `\n`
-        - `retryTimes? : number`: 连接断开后，重试连接次数 Default 10
-        - `retryInterval? : number`: 连接断开后，重试连接间隔(ms) Default 10000
+        - `delimiter? : string` : Delimiter. Default is `\n`
+        - `retryTimes? : number`: Retry times in case the connection is broken. Default is `10`
+        - `retryInterval? : number`: Retry interval(ms) in case the connection is broken. Default is `10000`
 
 - **Example**
 ```javascript
@@ -45,54 +45,56 @@ const ipcProvider = new IPC_RPC("~/.gvite/testdata/gvite.ipc");
 
 |  Name  | Type | Description |
 |:------------:|:-----:|:-----:|
-| path | string | 连接路径 |
-| delimiter | string | 分隔符 |
-| type |  string | 网络传输协议类型 |
-| timeout | number(ms) | 请求超时时间 |
+| path | string | Connection path |
+| delimiter | string | Delimiter |
+| type |  string | Protocol type |
+| timeout | number(ms) | Timeout |
 
 ## Methods
 
 ### abort
-打断当前连接的剩余请求，并将请求列表清空
+Abort current connection and discard all pending requests
 
 ### request
-发起request请求
+Call RPC API and return response
 
 - **Parameters**: 
-  * `methodName : string` 方法名
-  * `params : any` 请求参数
+  * `methodName : string` Name of API method
+  * `params : any` Passed-in parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - Promise<`JsonRPC response`> RPC response
 
 ### sendNotification
+Call RPC API and do not return response
 
 - **Parameters**: 
-  * `methodName : string` 方法名
-  * `params : any` 请求参数
+  * `methodName : string` Name of API method
+  * `params : any` Passed-in parameters
 
 ### batch
+Call a batch of RPC APIs
 
 - **Parameters**: 
   * `requests : array<object>` 
-	- `type : string<request | notification | batch>` : 请求类型
-    - `methodName : string`: 方法名
-    - `params : any`: 请求参数
+	- `type : string<request | notification | batch>` : Type
+    - `methodName : string`: Name of API method
+    - `params : any`: Passed-in parameters
 
 - **Returns**:
-    - Promise<`JsonRPC response`>
+    - Promise<`JsonRPC response`> RPC response
 
 ### reconnect
-重连
+Reconnect
 
 ### disconnect
-断开连接
+Disconnect
 
 ### subscribe
-订阅服务端推送事件
+Subscribe to event
 
 - **Parameters**: 
-  * `callback : Function` 当有服务端推送事件时, 则返回数据到此事件中
+  * `callback : Function` Callback function will be called when the event occurs
 
 ### unsubscribe
-取消订阅
+Cancel subscription

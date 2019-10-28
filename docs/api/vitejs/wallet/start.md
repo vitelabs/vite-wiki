@@ -33,11 +33,9 @@ export declare type WalletAddressObj {
 }
 ```
 
-:::warning Note
+:::warning Passphrase
 
-**Passphrase**
-
-BIP-39 uses PBKDF2 to generate seed, where mnemonic phrase is feed as password and passphrase as salt. Losing passphrase will result in lost of the private key.
+BIP-39 uses PBKDF2 to generate seed, where mnemonic phrase is feed as password and passphrase as salt. Losing passphrase will result in lost of private key.
 
 See [here](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for details
 

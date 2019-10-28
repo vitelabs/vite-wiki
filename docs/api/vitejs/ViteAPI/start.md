@@ -1,6 +1,6 @@
 # Start
 
-ViteAPI wraps and extends Gvite-RPC interface. Functions of network request/listening are also included. 
+ViteAPI wraps and extends Gvite-RPC API. Functions of network request/listening are included. 
 
 ## Module Import
 
@@ -156,10 +156,10 @@ Set new provider
     * `abort : boolean` If `true`, the ongoing request connection of original provider will be interrupted
 
 ### request
-Call RPC method with response returned
+Call RPC API and return response
 
 - **Parameters**
-    * `methods : string` Name of method
+    * `methods : string` Name of API method
     * `...args` Passed-in parameters
 
 - **Returns**:
@@ -181,23 +181,23 @@ myNetProcessor.request('rpcMethodName', 1, 1, 2).then(() => {
 ```
 
 ### sendNotification
-Call RPC method with no response
+Call RPC API and do not return response
 
 - **Parameters**
-    * `methods : string` Name of method
+    * `methods : string` Name of API method
     * `...args` Passed-in parameters
 
 ### batch 
-Send a batch of method calling requests
+Call a batch of RPC APIs
 
 - **Parameters** (RPCrequest[])
     * `__namedParameters: Object`
         - `type: string<request | notification>`
-        - `methodName: string` Name of method
+        - `methodName: string` Name of API method
         - `params: any` Passed-in parameters
 
 - **Returns**:
-    * Promise<`JsonRPC response`>
+    * Promise<`JsonRPC response`> RPC response
 
 - **Example**
 ```javascript
