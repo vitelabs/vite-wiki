@@ -18,3 +18,4 @@ title: "VEP"
 * [VEP 12: The Implementation of Random Numbers in Vite](./vep-12.html)
 * [VEP 13: Rules of SBP Rewards Calculation and Distribution](./vep-13.html)
 * [VEP 15: Introduce Block Producing Rate in SBP Selection](./vep-15.html)
+* [VEP 16: Specification of Address Generation](./vep-16.html)
