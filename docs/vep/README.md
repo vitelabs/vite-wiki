@@ -16,4 +16,5 @@ title: "VEP"
 * [VEP 8: AccountBlock Data Content Type Definition](./vep-8.html)
 * [VEP 10: Vite TestNet-PreMainnet Data Migration Plan](./vep-10.html)
 * [VEP 12: The Implementation of Random Numbers in Vite](./vep-12.html)
+* [VEP 13: Rules of SBP Rewards Calculation and Distribution](./vep-13.html)
 * [VEP 15: Introduce Block Producing Rate in SBP Selection](./vep-15.html)
