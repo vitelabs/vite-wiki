@@ -99,7 +99,7 @@ const PoW = async () => {
     await accountBlock.autoSetPreviousAccountBlock();
 
     // Get difficulty
-    const difficulty = await provider.request('ledger_getPoWDifficulty', {
+    const { difficulty } = await provider.request('ledger_getPoWDifficulty', {
         address: accountBlock.address,
         previousHash: accountBlock.previousHash,
         blockType: accountBlock.blockType,
