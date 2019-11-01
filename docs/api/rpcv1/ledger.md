@@ -625,7 +625,7 @@ Return current snapshot chain height
 Return a snapshot block by hash
 
 - **Parameters**: 
-    - `Hash`  Snapshot block hash
+    - `Hash` Snapshot block hash
 
 - **Returns**: 
                
