@@ -1,6 +1,8 @@
 # Keystore
 
-## 安装
+Legacy keystore interface. For new users, use [Wallet](../wallet/start.md) to manage your private key and address.
+
+## Installation
 
 :::demo
 ```bash tab:npm
@@ -12,7 +14,7 @@ yarn add @vite/vitejs-keystore
 ```
 :::
 
-## 引入
+## Module Import
 
 ```javascript import
 import { keystore } from '@vite/vitejs';
@@ -20,7 +22,7 @@ import { keystore } from '@vite/vitejs';
 import * as keystore from '@vite/vitejs-keystore';
 ```
 
-## Keystore 结构
+## Keystore Structure
 
 ```json
 {
@@ -46,13 +48,13 @@ import * as keystore from '@vite/vitejs-keystore';
 ## Methods
 
 ### isValid 
-keystore是否合法
+Verify keystore
 
 - **Parameters**
-    * `keystore : string` Keystore string
+    * `keystore : string` Content of keystore
 
 - **Return**
-    * `validate : boolean` 是否合法
+    * `validate : boolean` If `true`, the keystore is valid
 
 - **Example**
 ```javascript
@@ -62,22 +64,22 @@ const result = isValid('{}'); // false
 ```
 
 ### decrypt
-解密keystore
+Decrypt keystore to get key string
 
 - **Parameters**
-    * `keystore : string` Keystore string
-    * `pwd : string` 密码
+    * `keystore : string` Content of keystore
+    * `pwd : string` Passphrase
 
 - **Return**
-    * Promise<`key : string`> 加密前的字符串
+    * Promise<`key : string`> Plain key string
 
 ### encrypt
-加密字符串，生成keystore
+Encrypt key string into keystore
 
 - **Parameters**
-    * `string` 需要加密的字符串
-    * `string` 密码
-    * `scryptParams : Object` 加密参数(非必填)
+    * `key : string` Plain key string to be encrypted
+    * `pwd : string` Passphrase
+    * `scryptParams : Object` Scrypt parameters
         - n
         - r
         - p
@@ -85,4 +87,4 @@ const result = isValid('{}'); // false
         - salt
     
 - **Return**
-    * Promise<`keystore: json-string`> keystore字符串
+    * Promise<`keystore: string`> Keystore

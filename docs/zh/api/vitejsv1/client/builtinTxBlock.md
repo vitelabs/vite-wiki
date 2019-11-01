@@ -1,6 +1,6 @@
 # BuiltinTxBlock
 
-Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)
+Gvite-RPC [ledger_getLatestBlock](../../rpcv1/ledger.md)
 
 ```javascript
 // For example
@@ -48,7 +48,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
     * Promise<`AccountBlock`>
 
 ### pow
-获取运行PoW成功后的AccountBlock。 *Gvite-RPC [pow_getPowNonce](../../rpc/pow.md)*
+获取运行PoW成功后的AccountBlock。 *Gvite-RPC [pow_getPowNonce](../../rpcv1/pow.md)*
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -69,7 +69,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
     * Promise<`AccountBlock`>
 
 ### autoPow
-当没有配额时，自动运行PoW获取accountBlock。 *Gvite-RPC [tx_calcPoWDifficulty](../../rpc/tx.md) + [pow_getPowNonce](../../rpc/pow.md)*
+当没有配额时，自动运行PoW获取accountBlock。 *Gvite-RPC [tx_calcPoWDifficulty](../../rpcv1/tx.md) + [pow_getPowNonce](../../rpcv1/pow.md)*
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -127,7 +127,7 @@ const block = myclient.builtinTxBlock.getAccountBlock(/** ... */);
 ## Contract
 
 ### createContract
-获取创建合约的accountBlock。 *Gvite-RPC [contract_getCreateContractToAddress](../../rpc/contract.md)*
+获取创建合约的accountBlock。 *Gvite-RPC [contract_getCreateContractToAddress](../../rpcv1/contract.md)*
 
 - **Parameters** 
     * `__namedParameters: object`

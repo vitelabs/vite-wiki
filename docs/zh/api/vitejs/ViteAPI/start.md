@@ -41,7 +41,7 @@ api.request('ledger_getSnapshotChainHeight').then((height) => {
 ## Methods
 
 ### getBalanceInfo
-获取余额信息  *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md) + [ledger_getUnreceivedTransactionSummaryByAddress](../../rpc/ledger.md)*
+获取余额信息  *Gvite-RPC [ledger_getAccountByAccAddr](../../rpcv1/ledger.md) + [ledger_getUnreceivedTransactionSummaryByAddress](../../rpcv1/ledger.md)*
 
 - **Parameters** 
     * `Address`
@@ -63,7 +63,7 @@ provider.getBalanceInfo('vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68
 ```
 
 ### getTransactionList
-获取交易列表  *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
+获取交易列表  *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpcv1/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -115,7 +115,7 @@ provider.getTransactionList({
 :::
 
 ### callOffChainContract
-离线调用合约的 getter 方法。 *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
+离线调用合约的 getter 方法。 *Gvite-RPC [contract_callOffChainMethod](../../rpcv1/contract.md)*
 
 - **Parameters** 
     * `__namedParameters: object`

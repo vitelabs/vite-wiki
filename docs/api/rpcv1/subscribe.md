@@ -213,6 +213,9 @@ Create a filter for polling for new transactions on all accounts by passing into
 ## subscribe_newAccountBlocksByAddrFilter
 Create a filter for polling for new transactions on specified account by passing into `subscribe_getFilterChanges` as parameter
 
+- **Parameters**:
+  * `string address`: Address of account
+  
 - **Returns**:  
 	- `string` filterId
 
@@ -238,6 +241,9 @@ Create a filter for polling for new transactions on specified account by passing
 Create a filter for polling for un-received transactions on specified account by passing into `subscribe_getFilterChanges` as parameter. 
 The events include new un-received transaction, transaction is received and un-received transaction is rolled back.
 
+- **Parameters**:
+  * `string address`: Address of account
+  
 - **Returns**:  
 	- `string` filterId
 

@@ -1,13 +1,13 @@
-# Client 实例
+# The Client Instance
 `Client extends netProcessor`
 
-## Constructor
+## Constructor 
 
-- **Constructor Parameters**
-    * `provider : Provider 实例`
-    * `firstConnectCb : function` : 首次连接后的回调函数
+- **Constructor params**
+    * `provider : Provider Instance`
+    * `firstConnectCb : function` : Callback function upon initial connection setup
     * `config: object`
-        - `isDecodeTx? : boolean` : Default false 调用`client.getTxList`时，是否尝试用内置合约decode交易。
+        - `isDecodeTx? : boolean` : Whether the transaction should be decoded by built-in contracts' ABI when calling `client.getTxList`. Default is false. 
 
 - **Example**
 ```javascript
@@ -49,12 +49,13 @@ myClient.request(methods.subscribe.newAccountBlocksFilter).then(()=>{
 ## Methods
 
 ### getBalance
-获取余额。 *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md) + [onroad_getOnroadInfoByAddress](../../rpc/ledger.md)*
+Get balance. This method will return information of both the account and un-received transactions. See [ledger_getAccountByAccAddr](../../rpcv1/ledger.md) and [onroad_getOnroadInfoByAddress](../../rpcv1/ledger.md) for more information
+
 - **Parameters** 
     * `addr: Address`
 
 - **Return**
-    * Promise<`{ balance, onroad }`>
+    * `Promise<{ balance, onroad }>`
 
 - **Example**
 ```javascript
@@ -68,17 +69,17 @@ myClient.getBalance.then(({balance, onroad}) => {
 ```
 
 ### getTxList
-获取交易列表。 *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md) + [ledger_getAccountByAccAddr](../../rpc/ledger.md)*
+Get transaction list. See [ledger_getBlocksByAccAddr](../../rpcv1/ledger.md) and [ledger_getAccountByAccAddr](../../rpcv1/ledger.md) for more information
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `addr: Address`
-        - `index: number` 
-        - `pageCount?: number` Default 50
-        - `totalNum?: number` 总交易量. 如果 `totalNum === 0`, 返回 Object`{ totalNum: 0, list: []  }`; 如果 `!totalNum`, 自动请求 Gvite-RPC 接口 `ledger_getAccountByAccAddr` 获取totalNum.
+        - `addr: Address` Account address
+        - `index: number` Page index
+        - `pageCount?: number` Page size. Default is 50 
+        - `totalNum?: number` Total transaction number returned. If `totalNum === 0`, Object`{ totalNum: 0, list: []  }` will be returned. If `!totalNum` is true, all transactions in `ledger_getAccountByAccAddr` will be returned
 
 - **Return**:
-    * Promise<`{ list, totalNum }`>
+    * `Promise<{ list, totalNum }>`
 
 - **Example**
 
@@ -123,61 +124,61 @@ myClient.getTxList({
 :::
 
 ### callOffChainContract
-查询合约状态。 *Gvite-RPC [contract_callOffChainMethod](../../rpc/contract.md)*
+Query contract status off chain. See [contract_callOffChainMethod](../../rpcv1/contract.md) for more information
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `addr : HexAddr` 合约账户地址
-        - `abi`
-        - `offChainCode : Hex` 合约代码
+        - `addr : HexAddr` Contract address
+        - `abi` Contract's ABI
+        - `offChainCode : Hex` Contract's hex code
         - `params: Array`
 
 - **Return**:
-    * Promise<`result`>
+    * `Promise<result>`
 
 ### sendTx
-发送交易
+Send transaction
 
 - **Parameters** 
-    * `accountBlock: AccountBlock` 规范化后的accountBlock (无需签名)
-    * `privateKey` 私钥
+    * `accountBlock: AccountBlock` An `accountBlock` instance which stands for the transaction to be sent (un-signed)
+    * `privateKey` Private Key
 
 - **Return**:
-    * Promise<`AccountBlock`>
+    * `Promise<AccountBlock>`
 
 ### sendAutoPowTx
-当没有配额时，自动运行PoW发送交易
+Send transaction. This method will automatically run PoW when the account's quota is insufficient
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `accountBlock : AccountBlock` 规范化后的accountBlock (无需签名)
-        - `privateKey` 私钥
-        - `usePledgeQuota : Boolean` 是否优先使用配额
+        - `accountBlock : AccountBlock` An `accountBlock` instance which stands for the transaction to be sent (un-signed)
+        - `privateKey` Private Key
+        - `usePledgeQuota : Boolean` Whether account's quota is used in preference (when sufficient)
 
 - **Return**:
-    * Promise<`AccountBlock`>
+    * `Promise<AccountBlock>`
 
 ### sendRawTx
-增加返回值accountBlock。 *Gvite-RPC [tx_sendRawTx](../../rpc/tx.md)*
+Send transaction. See [tx_sendRawTx](../../rpcv1/tx.md) for more information
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `accountBlock : AccountBlock` 签名后的accountBlock
+        - `accountBlock : AccountBlock` An `accountblock` instance which stands for the transaction to be sent (signed)
 
 - **Return**:
-    * Promise<`AccountBlock`>
+    * `Promise<AccountBlock>`
 
 ### addTxType
-增加自定义交易类型，通过`client.getTxList`获取交易列表时，会根据新增交易类型进行解析，并填充至`tx.txType`字段中
+Add a new type for parsing transaction. Transactions will be parsed according to the transaction type and populated into `tx.txType` field when `client.getTxList` is called
 
-:::tip
-`addTxType`可多次调用，累加交易类型
+:::tip Note
+`addTxType` can be called multiple times. In this case, transaction type will accumulate
 :::
 
 - **Parameters** 
-    * `__namedParameters: Object` Object.key 是交易类型
-        - `contractAddr : Address` 合约地址
-        - `abi : jsonInterface`
+    * `__namedParameters: Object` Object.key is transaction type
+        - `contractAddr : Address` Contract address
+        - `abi : jsonInterface` Contract's ABI
 
 - **Example**
 ```js ::Demo

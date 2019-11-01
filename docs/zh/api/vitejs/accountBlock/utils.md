@@ -95,22 +95,22 @@ utils.isValidAccountBlockBeforeHash({
 
 - **Parameters**
     * `__namedParameters: object`
-        `blockType: BlockType`
-        `address: Address`
-        `hash?: Hex`
-        `height?: Uint64`
-        `previousHash?: Hex`
-        `fromAddress?: Address`
-        `toAddress?: Address`
-        `sendBlockHash?: Hex`
-        `tokenId?: TokenId`
-        `amount?: BigInt`
-        `fee?: BigInt`
-        `data?: Base64`
-        `difficulty?: BigInt`
-        `nonce?: Base64`
-        `vmlogHash?: Hex`
-        `triggeredSendBlockList?: AccountBlockType[]`
+        - `blockType: BlockType`
+        - `address: Address`
+        - `hash?: Hex`
+        - `height?: Uint64`
+        - `previousHash?: Hex`
+        - `fromAddress?: Address`
+        - `toAddress?: Address`
+        - `sendBlockHash?: Hex`
+        - `tokenId?: TokenId`
+        - `amount?: BigInt`
+        - `fee?: BigInt`
+        - `data?: Base64`
+        - `difficulty?: BigInt`
+        - `nonce?: Base64`
+        - `vmlogHash?: Hex`
+        - `triggeredSendBlockList?: AccountBlockType[]`
 
 - **Return**
     * `Hex` AccountBlock的hash

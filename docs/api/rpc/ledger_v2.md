@@ -1452,12 +1452,13 @@ sidebarDepth: 4
 
 
 ## ledger_getVmLogs
+Return event logs generated in the given contract response block
 
 - **Parameters**:
-  * `Hash`: Hash of AccountBlock
+  * `Hash`: Hash of contract account block
 
 - **Return**:
-  * `List<VmLog>`: VmLog list of AccountBlock
+  * `List<VmLog>`: Event logs
 
 - **Example**:
 ::: demo
@@ -1487,4 +1488,116 @@ sidebarDepth: 4
 }
 ```
 
+:::
+
+## ledger_getVmlogsByFilter
+Return event logs generated in contract response blocks by specified height range and topics
+
+- **Parameters**: 
+  * `FilterParam`
+    * `addressHeightRange`: `map[Address]Range` Query logs of the specified contract account address with given range. At least one address must be specified.
+      * `fromHeight`: `uint64` Start height. `0` means starting from the latest block
+      * `toHeight`: `uint64` End height. `0` means no specific ending block
+    * `topics`: `[][]Hash` Prefix of topics
+
+- **Returns**:  
+	* `Array<VmlogMessage>` 
+    * `result`: `Array<VmlogMessage>`
+      * `accountBlockHash`: `Hash` Hash of account block
+      * `accountBlockHeight`: `uint64` Height of account block
+      * `address`: `Address` Address of account
+      * `vmlog`: `VmLog` Event log of smart contract
+        * `topics`: `Array<string hash>` Event signature and indexed field. The signature can be generated from ABI
+        * `data`: `string base64` Non-indexed field of event, can be decoded based on ABI
+      * `removed`: `bool` If `true`, the log has been rolled back
+	
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "ledger_getVmlogsByFilter",
+	"params": [{
+		"addressHeightRange":{
+			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
+				"fromHeight":"1",
+				"toHeight":"10"
+			}
+		}
+	}]
+}
+```
+```json tab:Response
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result": [
+    {
+      "vmlog": {
+        "topics": [
+          "28e6ea56797f4a1b22a1d1986cb6c22e80099ba8e4fd14d42accfaedfe5f6640"
+        ],
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQQurTFV9WklB2DRvsX8wLCgyoVomYHSCebb9Br/hQ+RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwYLIcJLnbQjGl+qeU7YWlTWwfsoF6mescP5xz2fDTEg="
+      },
+      "accountBlockHash": "e4917f357a4588ec1752797ee5516939f46078f5356b14422d4a9dfe45f88bf5",
+      "accountBlockHeight": "10",
+      "address": "vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa",
+      "removed": false
+    }
+  ]
+}
+```
+:::
+
+## ledger_getPoWDifficulty
+Return PoW difficulty for sending transaction
+
+This method first calculates the required amount of quota based on transaction parameters, and then determines whether the account has sufficient quota. If no, it returns PoW difficulty that is necessary for sending the transaction.
+
+If the method returns with error, usually it is because the transaction data is too long, or the transaction is not able to obtain quota by calculating PoW. 
+For example, if PoW has been calculated for the previous transaction, the new transaction of the account is not permitted to do PoW again in the same snapshot block.
+
+- **Parameters**: 
+  * `GetPoWDifficultyParams`
+    * `address`: `string address` Address of account
+    * `previousHash`: `string hash` Hash of the previous account block
+    * `blockType`: `byte` Block type
+    * `toAddress`: `string address` Address of transaction's recipient, required for request transaction
+    * `data`: `string base64` Additional data that the transaction may carry, optional
+
+- **Returns**: 
+  - `GetPoWDifficultyResult`
+    - `requiredQuota`: `string uint64`  Quota required for sending the transaction
+    - `difficulty`: `string bigint` PoW difficulty. If `''`, sending the transaction does not need PoW
+    - `qc`: `string bigint ` Congestion factor * 1e18
+    - `isCongestion`: `bool` If `true`, there is a network congestion. In this case, sending the transaction will consume more quota
+    
+- **Example**:
+::: demo
+```json tab:Request
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"method": "ledger_getPoWDifficulty",
+	"params": [{
+		"address":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
+		"previousHash":"7b5dcb470889997100e0e09cd292d221ad1c11bb0daf8b9fa39a2d1f90210aa0",
+		"blockType":2,
+		"toAddress":"vite_0000000000000000000000000000000000000004d28108e76b",
+		"data":"8pxs4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAICy1ooG9SwPu0VPZ17lQ1+3hyUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFc3VwZXIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+	}]
+}
+```
+```json tab:Response
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+        "requiredQuota": 32152,
+        "difficulty": "102920708",
+        "qc": "1000000000000000000",
+        "isCongestion": false
+    }
+}
+```
 :::

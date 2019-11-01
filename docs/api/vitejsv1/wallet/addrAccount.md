@@ -129,13 +129,13 @@ Query contract status. *[client.callOffChainContract](../client/client.md)*
     * Promise<`result`>
 
 ### getOnroad
-Get unreceived tokens. *Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpc/onroad.md)*
+Get unreceived tokens. *Gvite-RPC [onroad_getOnroadInfoByAddress](../../rpcv1/onroad.md)*
 
 - **Return**:
     * Promise
 
 ### getOnroadBlocks
-Get unreceived account block list. *Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpc/onroad.md)*
+Get unreceived account block list. *Gvite-RPC [onroad_getOnroadBlocksByAddress](../../rpcv1/onroad.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -158,7 +158,7 @@ myAddrAccount.getOnroadBlocks({
 ``` 
 
 ### getBlocks
-Get account block list. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.md)*
+Get account block list. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpcv1/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -169,19 +169,19 @@ Get account block list. *Gvite-RPC [ledger_getBlocksByAccAddr](../../rpc/ledger.
     * Promise
 
 ### getAccountBalance
-Get account balance. *Gvite-RPC [ledger_getAccountByAccAddr](../../rpc/ledger.md)*
+Get account balance. *Gvite-RPC [ledger_getAccountByAccAddr](../../rpcv1/ledger.md)*
 
 - **Return**:
     * Promise
 
 ### getLatestBlock
-Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
+Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpcv1/ledger.md)*
 
 - **Return**:
     * Promise
 
 ### getBlockByHeight
-*Gvite-RPC [ledger_getBlockByHeight](../../rpc/ledger.md)*
+*Gvite-RPC [ledger_getBlockByHeight](../../rpcv1/ledger.md)*
 
 - **Parameters** 
     * `height`
@@ -190,7 +190,7 @@ Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
     * Promise
 
 ### getBlocksByHash
-*Gvite-RPC [ledger_getBlocksByHash](../../rpc/ledger.md)*
+*Gvite-RPC [ledger_getBlocksByHash](../../rpcv1/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -201,7 +201,7 @@ Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
     * Promise
 
 ### getBlocksByHashInToken
-*Gvite-RPC [ledger_getBlocksByHashInToken](../../rpc/ledger.md)*
+*Gvite-RPC [ledger_getBlocksByHashInToken](../../rpcv1/ledger.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -213,7 +213,7 @@ Get last block. *Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)*
     * Promise
 
 ### getPledgeQuota
-*Gvite-RPC [pledge_getPledgeQuota](../../rpc/pledge.md)*
+*Gvite-RPC [pledge_getPledgeQuota](../../rpcv1/pledge.md)*
 
 - **Return**:
     * Promise
@@ -228,7 +228,7 @@ myAddrAccount.getPledgeQuota().then((pledgeQuota) => {
 ```
 
 ### getPledgeList
-*Gvite-RPC [pledge_getPledgeList](../../rpc/pledge.md)*
+*Gvite-RPC [pledge_getPledgeList](../../rpcv1/pledge.md)*
 
 - **Parameters** 
     * `__namedParameters: object`
@@ -239,7 +239,7 @@ myAddrAccount.getPledgeQuota().then((pledgeQuota) => {
     * Promise
 
 ### getRegistrationList
-*Gvite-RPC [register_getPledgeList](../../rpc/consensus.md)*
+*Gvite-RPC [register_getPledgeList](../../rpcv1/consensus.md)*
 
 - **Return**:
     * Promise
@@ -254,7 +254,7 @@ myAddrAccount.getRegistrationList().then((list) => {
 ```
 
 ### getVoteInfo
-*Gvite-RPC [vote_getVoteInfo](../../rpc/consensus.md)*
+*Gvite-RPC [vote_getVoteInfo](../../rpcv1/consensus.md)*
 
 - **Return**:
     * Promise
@@ -269,7 +269,7 @@ myAddrAccount.getVoteInfo().then((voteInfo) => {
 ```
 
 ### getTokenInfoListByOwner
-*Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpc/mintage.md)*
+*Gvite-RPC [mintage_getTokenInfoListByOwner](../../rpcv1/mintage.md)*
 
 - **Return**:
     * Promise

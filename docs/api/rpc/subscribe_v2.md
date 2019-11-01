@@ -3,41 +3,92 @@ sidebarDepth: 4
 ---
 
 # Subscribe
-:::tip 维护者
+:::tip Maintainer
 [viteLiz](https://github.com/viteLiz)
 :::
 
-事件订阅相关接口。Vite提供两种事件订阅模式：轮询模式和长连接模式。
+Two subscription schemes, **polling** and **callback**, are provided in Vite.
 
-轮询模式先创建`filter`，然后通过`filterId`轮询`subscribe_getChangesByFilterId`接口，获取新事件。轮询模式如果超过5分钟没有请求则自动关闭这个`filterId`，也可以通过`subscribe_uninstallFilter`接口主动取消订阅。
+* **Polling API** asks the client program to create a filter, then polls `subscribe_getChangesByFilterId` method for new events. 
+Filter will expire if it has not been used in 5 minutes, in this case you should create a new filter for further usage. 
+You can also manually stop subscription by calling `subscribe_uninstallFilter` method.
 
-长连接模式先注册一个`subscription`，当产生新事件时`subscription`会通过回调的方式返回新事件。长连接断开时自动取消订阅。
+`subscribe_createSnapshotBlockFilter`, `subscribe_createAccountBlockFilter`, `subscribe_createAccountBlockFilterByAddress`, `subscribe_createUnreceivedBlockFilterByAddress`, `subscribe_createVmlogFilter`, `subscribe_uninstallFilter` and `subscribe_getChangesByFilterId` are polling APIs.
 
-当前支持5种类型的事件：新快照（即新快照块）事件、新交易（即新账户块）事件、单个账户的新交易（即新账户块）事件、单个账户的新在途事件、新日志（即新账户块中的日志）事件。每一种类型的事件都包含相应的回滚事件，回滚时，事件消息中的removed字段为true。
+* **Callback API** registers new subscription through WebSocket. Once listening starts, subscribed events will be returned in callback when generated. 
+This kind of subscription will close automatically when the WebSocket connection is broken.
 
-## 使用说明
+`subscribe_createSnapshotBlockSubscription`, `subscribe_createAccountBlockSubscription`, `subscribe_createAccountBlockSubscriptionByAddress`, `subscribe_createUnreceivedBlockSubscriptionByAddress` and `subscribe_createVmlogSubscription` are callback APIs.
 
-### 长连接模式订阅日志
+At the time being 5 kinds of events are supported: new snapshot, new transaction, new transaction on certain account, new unreceived transaction on certain account and new log. 
+All events support rollback. If rollback takes place, `removed` field of the event is set to true.
 
-先注册一个`subscription`，例如订阅`vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f`地址的日志事件。
-```bash
-// method填subscribe_subscribe，params的第一个参数为长连接注册subscription的方法名，第二个参数开始为方法参数。
-{"jsonrpc": "2.0","id": 1,"method": "subscribe_subscribe","params": ["createVmlogSubscription", {"addressHeightRange":{"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f":{"fromHeight":"0","toHeight":"0"}}}]}
-// 注册成功后返回订阅id 0x4b97e0674a5ebef942dbb07709c4a608。
-{"jsonrpc": "2.0","id": 1,"result": "0x4b97e0674a5ebef942dbb07709c4a608"}
+:::tip Note
+Add `"subscribe"` into `"PublicModules"` and set `"SubscribeEnabled":true` in node_config.json to enable subscription API
+:::
+
+## Example
+
+### Subscribe via Callback 
+
+First, register a new subscription on address `vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f` by calling `subscribe_subscribe` method with parameter `createVmlogSubscription`.
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "subscribe_subscribe",
+  "params": [
+    "createVmlogSubscription",
+    {
+      "addressHeightRange":{
+        "vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f":{
+          "fromHeight":"0",
+          "toHeight":"0"
+        }
+      }
+    }
+  ]
+}
 ```
-订阅成功后，产生新事件时自动回调。
-```bash
-// 返回值中的subscription为订阅id，result为事件内容
-{"jsonrpc":"2.0","method":"subscribe_subscription","params":{"subscription":"0x4b97e0674a5ebef942dbb07709c4a608","result":[{"vmlog":{"topics":["aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb","000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"],"data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="},"accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40","accountBlockHeight":"10","address":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f","removed":false}]}}
+This will return a new subscription id `0x4b97e0674a5ebef942dbb07709c4a608`
+```json
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0x4b97e0674a5ebef942dbb07709c4a608"
+}
 ```
-长连接模式订阅无需取消订阅，断开连接时会自动取消。
+New logs will be sent to subscriber in callback's `result` field when generated
+```json
+{
+  "jsonrpc":"2.0",
+  "method":"subscribe_subscription",
+  "params":{
+    "subscription":"0x4b97e0674a5ebef942dbb07709c4a608",
+    "result":[
+      {
+        "vmlog":{
+          "topics":[
+            "aa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb",
+            "000000000000000000000000bb6ad02107a4422d6a324fd2e3707ad53cfed935"
+          ],
+          "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo="
+        },
+        "accountBlockHash":"23ea04b0dea4b9d0aa4d1f84b246b298a30faba753fa48303ad2deb29cd27f40",
+        "accountBlockHeight": "10",
+        "address":"vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f",
+        "removed":false
+      }
+    ]
+  }
+}
+```
+Callback subscription does not need to be cancelled explicitly. The subscription will stop once the connection is closed.
 
-### 轮询模式订阅日志
+### Subscribe via Polling
 
-先创建一个`filter`。
-```bash
-// method和其他RPC接口一样，填"模块名_方法名"，params填方法参数。
+Create a filter on address `vite_f48f811a1800d9bde268e3d2eacdc4b4f8b9110e017bd7a76f`
+```json
 {
 	"jsonrpc": "2.0",
 	"id": 1,
@@ -48,23 +99,26 @@ sidebarDepth: 4
       }
 		}]
 }
-// 订阅成功后返回filterId
+```
+This will return a new filter id `0x61d780619649fb0872e1f94a40cec713`
+```json
 {
     "jsonrpc": "2.0",
     "id": 1,
     "result": "0x61d780619649fb0872e1f94a40cec713"
 }
 ```
-按一定的时间间隔用`filterId`轮询新事件。
-```bash
-// params填filterId
+Poll for new events periodically by filter id
+```json
 {
 	"jsonrpc": "2.0",
 	"id": 2,
 	"method": "subscribe_getChangesByFilterId",
 	"params": ["0x61d780619649fb0872e1f94a40cec713"]
 }
-// 根据订阅类型，返回对应格式的数据，返回的数据是上一次查询之后发生的新事件
+```
+New logs after last poll are returned
+```json
 {
     "jsonrpc": "2.0",
     "id": 2,
@@ -88,8 +142,8 @@ sidebarDepth: 4
     }
 }
 ```
-轮询模式需要手动取消订阅
-```bash
+You should cancel polling subscription by `subscribe_uninstallFilter` explicitly
+```json
 {
 	"jsonrpc": "2.0",
 	"id": 1,
@@ -98,20 +152,14 @@ sidebarDepth: 4
 }
 ```
 
-### 补全数据
+### Log Completion
 
-如果由于断开连接导致订阅不连续，可以通过`ledger_getSnapshotBlocks`（按高度范围查询快照块）、`ledger_getBlocksByHeight`（按高度范围查询账户块）、`ledger_getUnreceivedBlocksByAddress`（查询在途交易列表）、`ledger_getVmlogsByFilter`（按账户地址、索引信息查询日志）一次性获取一段时间内的所有事件。
+Accidental connection close may cause subscription stopped. In this situation, historical snapshot blocks, account blocks or unreceived blocks can be fetched by `ledger_getSnapshotBlocks`, `ledger_getBlocksByHeight` or `ledger_getUnreceivedBlocksByAddress`, while historical logs can be retrieved by `ledger_getVmlogsByFilter` method.
 
-例如，在重新订阅快照事件时，应该先通过`subscribe_createSnapshotBlockFilter`或者`subscribe_createSnapshotBlockSubscription`订阅事件，然后通过`ledger_getLatestSnapshotBlock`接口获取最新的快照块高度，然后通过`ledger_getSnapshotBlocks`补全断开连接时缺失的快照块。
-
-注意：
- * 需要在node_config.json的PublicModules中配置"subscribe"，并且配置"SubscribeEnabled":true，才能使用事件订阅接口。
+For example, in order to re-subscribe to new snapshot event, you should call `subscribe_createSnapshotBlockFilter` or `subscribe_newSnapshotBlocks` to resume subscription first, then obtain latest snapshot block height by `ledger_getLatestSnapshotBlock`, finally call `ledger_getSnapshotBlocks` to get all missing snapshot blocks.
 
 ## subscribe_createSnapshotBlockFilter
-轮询模式，创建一个新快照事件的filter，创建成功后可以通过subscribe_getChangesByFilterId轮询新事件。
-
-- **Parameters**: 
-  null
+Create a filter for polling for new snapshot blocks by passing into `subscribe_getChangesByFilterId` as parameter
   
 - **Returns**:  
 	- `string` filterId
@@ -135,10 +183,7 @@ sidebarDepth: 4
 :::
 
 ## subscribe_createAccountBlockFilter
-轮询模式，创建一个所有账户新交易事件的filter，创建成功后可以通过subscribe_getChangesByFilterId轮询新事件。
-
-- **Parameters**: 
-  null
+Create a filter for polling for new transactions on all accounts by passing into `subscribe_getChangesByFilterId` as parameter
 
 - **Returns**:  
 	- `string` filterId
@@ -162,10 +207,10 @@ sidebarDepth: 4
 :::
 
 ## subscribe_createAccountBlockFilterByAddress
-轮询模式，创建单个账户新交易事件的filter，创建成功后可以通过subscribe_getChangesByFilterId轮询新事件。
+Create a filter for polling for new transactions on specified account by passing into `subscribe_getChangesByFilterId` as parameter
 
 - **Parameters**:
-  * `string address`: 订阅的账户地址
+  * `string address`: Address of account
 
 - **Returns**:  
 	- `string` filterId
@@ -189,10 +234,11 @@ sidebarDepth: 4
 :::
 
 ## subscribe_createUnreceivedBlockFilterByAddress
-轮询模式，创建单个账户在途交易事件的filter，创建成功后可以通过subscribe_getChangesByFilterId轮询新事件。新事件包括新在途交易、在途交易被接收和在途交易被回滚。
+Create a filter for polling for unreceived transactions on specified account by passing into `subscribe_getChangesByFilterId` as parameter. 
+The events include new unreceived transaction generated, received and rolled back.
 
 - **Parameters**:
-  * `Address`: 订阅的账户地址
+  * `Address`: Address of account
 
 - **Returns**:  
 	- `string` filterId
@@ -216,22 +262,22 @@ sidebarDepth: 4
 :::
 
 ## subscribe_createVmlogFilter
-轮询模式，创建一个指定参数的新日志事件filter，创建成功后可以通过subscribe_getChangesByFilterId轮询新事件。
+Create a filter for polling for new logs by passing into `subscribe_getChangesByFilterId` as parameter
 
 - **Parameters**:
   * `FilterParam`
-    * `addressHeightRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围，必须至少指定一个账户地址
-      * `fromHeight`: `uint64` 起始高度，为0表示从最新的高度开始查询
-      * `toHeight`: `uint64` 结束高度，为0表示不设置结束高度
-    * `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
+    * `addressHeightRange`: `map[Address]Range` Query logs of the specified account address with given range. Address and height range should be filled in the map. At least one address must be specified.
+      * `fromHeight`: `uint64` Start height. `0` means starting from the latest block
+      * `toHeight`: `uint64` End height. `0` means no specific ending block
+    * `topics`: `[][]Hash` Prefix of topics. See below example for reference
 
 ```
-topics取值示例：
- [] 匹配所有日志
- [[A]] 匹配topics中第一个元素为A的日志
- [[],[B]] 匹配topics中第二个元素为B的日志
- [[A],[B]] 匹配topics中第一个元素为A且第二个元素为B的日志
- [[A,B],[C,D]] 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
+Topic examples：
+ {} matches all logs
+ {{A}} matches the logs having "A" as the first element
+ {{},{B}} matches the logs having "B" as the second element
+ {{A},{B}} matches the logs having "A" as the first element and "B" as the second element
+ {{A,B},{C,D}} matches the logs having "A" or "B" as the first element, and "C" or "D" as the second element
 ```
 
 - **Returns**:  
@@ -263,13 +309,13 @@ topics取值示例：
 :::
 
 ## subscribe_uninstallFilter
-轮询模式，轮询模式取消订阅。
+Cancel subscription by removing specified filter 
 
 - **Parameters**:
   * `string`: filterId
 
 - **Returns**:  
-	- `bool` 取消结果，true 取消成功，false 取消失败。
+	- `bool` If `true`, the subscription is cancelled
 
 ::: demo
 ```json tab:Request
@@ -290,53 +336,53 @@ topics取值示例：
 :::
 
 ## subscribe_getChangesByFilterId
-轮询模式，轮询新事件。返回值类型取决于订阅事件类型。如果上一次轮询后未产生新事件，则返回空数组。
+Poll for new events. The content of return value depends on various subscription. If no new event is generated, empty array will be returned.
 
 - **Parameters**:
   * `string`: filterId
 
-- **subscribe_createSnapshotBlockFilter返回值**: 
+- **Returns (in case of `subscribe_createSnapshotBlockFilter`)**: 
   * `SnapshotBlocks`
     * `subscription`: `string` filterId
     * `result`: `Array<SnapshotBlockMessage>`
-      * `hash`: `string hash` 快照块哈希
-      * `height`: `string uint64` 快照块高度
-      * `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+      * `hash`: `string hash` Hash of snapshot block
+      * `height`: `string uint64` Height of snapshot block
+      * `removed`: `bool` If `true`, the snapshot block was rolled back. For new snapshot block, `false` is filled
 
-- **subscribe_createAccountBlockFilter返回值**: 
+- **Returns (in case of `subscribe_createAccountBlockFilter`)**: 
   * `AccountBlocks`
     * `subscription`: `string` filterId
     * `result`: `Array<AccountBlockMessage>`
-      * `hash`: `string hash` 账户块哈希
-      * `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+      * `hash`: `string hash` Hash of account block
+      * `removed`: `bool` If `true`, the account block was rolled back. For new account block, `false` is filled
 
-- **subscribe_createAccountBlockFilterByAddress返回值**: 
+- **Returns (in case of `subscribe_createAccountBlockFilterByAddress`)**: 
   * `AccountBlocksWithHeight`
     * `subscription`: `string` filterId
     * `result`: `Array<AccountBlockWithHeightMessage>`
-      * `hash`: `string hash` 账户块哈希
-      * `height`: `string height` 账户块高度
-      * `removed`: `bool` 是否回滚。true表示回滚，false表示新交易。
+      * `hash`: `string hash` Hash of account block
+      * `height`: `string height` Height of account block
+      * `removed`: `bool` If `true`, the account block was rolled back. For new account block, `false` is filled
 
-- **subscribe_createUnreceivedBlockFilterByAddress返回值**: 
+- **Returns (in case of `subscribe_createUnreceivedBlockFilterByAddress`)**: 
   * `UnreceivedBlocks`
     * `subscription`: `string` filterId
     * `result`: `Array<UnreceivedBlockMessage>`
-      * `hash`: `string hash` 账户块哈希
-      * `received`: `bool` 在途交易是否被接收。
-      * `removed`: `bool` 是否回滚。removed为true时表示在途交易被回滚；removed为false，received为false时表示为新在途交易；removed为false，received为true时表示在途交易被接收。
+      * `hash`: `string hash` Hash of account block
+      * `received`: `bool` If `true`, the transaction was received
+      * `removed`: `bool` If `true`, the unreceived transaction was rolled back. In the case of `false`, if `received` is `false`, this is new unreceived block, otherwise (`received` is `true`) the transaction has been received. 
   
-- **subscribe_createVmlogFilter返回值**:
+- **Returns (in case of `subscribe_createVmlogFilter`)**:
   * `Vmlogs` 
     * `subscription`: `string` filterId
     * `result`: `Array<VmlogMessage>`
-      * `accountBlockHash`: `Hash` 账户块哈希
-      * `accountBlockHeight`: `uint64` 账户块高度
-      * `address`: `Address` 账户地址
-      * `vmlog`: `VmLog` 日志信息，即智能合约event
-        * `topics`: `Array<string hash>` event签名和索引字段，其中签名可以用ABI定义生成
-        * `data`: `string base64` event的非索引字段，可以用ABI定义反解析
-      * `removed`: `bool` 是否回滚。true表示回滚；false表示新日志。
+      * `accountBlockHash`: `Hash` Hash of account block
+      * `accountBlockHeight`: `uint64` Height of account block
+      * `address`: `Address` Address of account
+      * `vmlog`: `VmLog` Event log of smart contract
+        * `topics`: `Array<string hash>` Event signature and indexed field. The signature can be generated from ABI
+        * `data`: `string base64` Non-indexed field of event, can be decoded based on ABI
+      * `removed`: `bool` If `true`, the log has been rolled back
 
 ::: demo
 ```json tab:Request
@@ -461,16 +507,18 @@ topics取值示例：
 :::
 
 ## subscribe_createSnapshotBlockSubscription
-长连接模式，创建一个新快照事件的长连接。
-
-- **Parameters**: 
-  null
+Start listening for new snapshot blocks. New blocks will be returned in callback
   
 - **Returns**:  
-	- `string` 订阅id
+	- `string` Subscription id
 	
 - **Callback**:  
-  - `SnapshotBlocks` 同`subscribe_getChangesByFilterId`返回值
+  - `SnapshotBlocks` 
+    * `subscription`: `string`  Subscription id
+    * `result`: `Array<SnapshotBlockMessage>`
+      * `hash`: `string hash` Hash of snapshot block
+      * `height`: `string uint64` Height of snapshot block
+      * `removed`: `bool` If `true`, the snapshot block was rolled back. For new snapshot block, `false` is filled
 
 ::: demo
 ```json tab:Request
@@ -501,16 +549,20 @@ topics取值示例：
 :::
 
 ## subscribe_createAccountBlockSubscription
-长连接模式，创建一个所有账户新交易事件的subscription。
+Start listening for new account blocks. New blocks will be returned in callback
 
 - **Parameters**: 
   null
   
 - **Returns**:  
-	- `string` 订阅id
+	- `string` Subscription id
 	
 - **Callback**:  
-  - `AccountBlocks` 同`subscribe_getChangesByFilterId`返回值
+  - `AccountBlocks` 
+    * `subscription`: `string` filterId
+    * `result`: `Array<AccountBlockMessage>`
+      * `hash`: `string hash` Hash of account block
+      * `removed`: `bool` If `true`, the account block was rolled back. For new account block, `false` is filled
 
 ::: demo
 ```json tab:Request
@@ -544,16 +596,21 @@ topics取值示例：
 :::
 
 ## subscribe_createAccountBlockSubscriptionByAddress
-长连接模式，创建单个账户新交易事件的subscription。
+Start listening for new account blocks on specified account. New blocks will be returned in callback
 
 - **Parameters**:
-  * `string address` 订阅的账户地址
+  * `string address` Address of account
 
 - **Returns**:  
-	- `string` 订阅id
+	- `string` Subscription id
 	
 - **Callback**:  
-  - `AccountBlocksWithHeight` 同`subscribe_getChangesByFilterId`返回值
+  - `AccountBlocksWithHeight`
+    * `subscription`: `string` filterId
+    * `result`: `Array<AccountBlockWithHeightMessage>`
+      * `hash`: `string hash` Hash of account block
+      * `height`: `string height` Height of account block
+      * `removed`: `bool` If `true`, the account block was rolled back. For new account block, `false` is filled
 
 ::: demo
 ```json tab:Request
@@ -588,16 +645,21 @@ topics取值示例：
 :::
 
 ## subscribe_createUnreceivedBlockSubscriptionByAddress
-长连接模式，创建单个账户在途交易事件的subscription。
+Start listening for unreceived transactions on specified account. Unreceived blocks will be returned in callback
 
 - **Parameters**:
-  * `address` 订阅的账户地址
+  * `address` Address of account
 
 - **Returns**:  
-	- `string` 订阅id
+	- `string` Subscription id
 	
 - **Callback**:  
-  - `UnreceivedBlocks` 同`subscribe_getChangesByFilterId`返回值
+  - `UnreceivedBlocks` 
+    * `subscription`: `string` filterId
+    * `result`: `Array<UnreceivedBlockMessage>`
+      * `hash`: `string hash` Hash of account block
+      * `received`: `bool` If `true`, the transaction was received
+      * `removed`: `bool` If `true`, the unreceived transaction was rolled back. In the case of `false`, if `received` is `false`, this is new unreceived block, otherwise (`received` is `true`) the transaction has been received. 
 
 ::: demo
 ```json tab:Request
@@ -632,16 +694,29 @@ topics取值示例：
 :::
 
 ## subscribe_createVmlogSubscription
-长连接模式，创建一个新日志事件的subscription。
+Start listening for new logs. New logs will be returned in callback
 
 - **Parameters**:
-  * `FilterParam` 订阅参数，同`subscribe_createVmlogFilter`
+  * `FilterParam`
+    * `addressHeightRange`: `map[Address]Range` Query logs of the specified account address with given range. Address and height range should be filled in the map. At least one address must be specified.
+      * `fromHeight`: `uint64` Start height. `0` means starting from the latest block
+      * `toHeight`: `uint64` End height. `0` means no specific ending block
+    * `topics`: `[][]Hash` Prefix of topics. See below example for reference
 
 - **Returns**:  
-	- `string` 订阅id
+	- `string` Subscription id
 	
 - **Callback**:  
-  - `Vmlogs` 同`subscribe_getChangesByFilterId`返回值
+  - `Vmlogs` 
+    * `subscription`: `string` filterId
+    * `result`: `Array<VmlogMessage>`
+      * `accountBlockHash`: `Hash` Hash of account block
+      * `accountBlockHeight`: `uint64` Height of account block
+      * `address`: `Address` Address of account
+      * `vmlog`: `VmLog` Event log of smart contract
+        * `topics`: `Array<string hash>` Event signature and indexed field. The signature can be generated from ABI
+        * `data`: `string base64` Non-indexed field of event, can be decoded based on ABI
+      * `removed`: `bool` If `true`, the log has been rolled back
 
 ::: demo
 ```json tab:Request

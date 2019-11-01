@@ -1,6 +1,6 @@
 # BuiltinTxBlock
 
-Gvite-RPC [ledger_getLatestBlock](../../rpc/ledger.md)
+Gvite-RPC [ledger_getLatestBlock](../../rpcv1/ledger.md)
 
 ```javascript
 // For example
@@ -48,7 +48,7 @@ Get accountBlock asynchronously
     * Promise<`AccountBlock`>
 
 ### pow
-Get the AccountBlock after running PoW successfully. *Gvite-RPC [pow_getPowNonce](../../rpc/pow.md)*
+Get the AccountBlock after running PoW successfully. *Gvite-RPC [pow_getPowNonce](../../rpcv1/pow.md)*
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -69,7 +69,7 @@ Get the AccountBlock after running PoW successfully. *Gvite-RPC [pow_getPowNonce
     * Promise<`AccountBlock`>
 
 ### autoPow
-Automatically run PoW to get the accountBlock, when there is no quota. *Gvite-RPC [tx_calcPoWDifficulty](../../rpc/tx.md) + [pow_getPowNonce](../../rpc/pow.md)*
+Automatically run PoW to get the accountBlock, when there is no quota. *Gvite-RPC [tx_calcPoWDifficulty](../../rpcv1/tx.md) + [pow_getPowNonce](../../rpcv1/pow.md)*
 
 - **Parameters** 
     * `__namedParameters: Object`
@@ -127,7 +127,7 @@ Get accountBlock of receiving transaction
 ## Contract
 
 ### createContract
-Get accountBlock of creating contract. *Gvite-RPC [contract_getCreateContractToAddress](../../rpc/contract.md)*
+Get accountBlock of creating contract. *Gvite-RPC [contract_getCreateContractToAddress](../../rpcv1/contract.md)*
 
 - **Parameters** 
     * `__namedParameters: object`

@@ -224,7 +224,7 @@ myAccount.getOnroadBlocks({
     1. Get block. `this.getBlock[methodName](...params)`
 * **beforeCheckPow** 
     1. *beforeCheckPow ? beforeCheckPow() : go to **2***
-    2. Check PoW. [tx_calcPoWDifficulty](../../rpc/tx.md)
+    2. Check PoW. [tx_calcPoWDifficulty](../../rpcv1/tx.md)
 * **checkPowDone**
     1. The check results, if need PoW go to **2**; else go to **powDone 1**.
     2. *beforePow ? beforePow() : go to **3***

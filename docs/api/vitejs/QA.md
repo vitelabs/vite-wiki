@@ -1,26 +1,26 @@
 # Q&A
 
-## About Mnemonic
+## Mnemonics
 
-A mnemonic phrase can derive multiple private keys, each having independent address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md)
+Multiple private keys can be derived from one mnemonic phrases, each having independent address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md) for more information
 
 :::warning Note
 Always keep your mnemonic phrase safe
 :::
 
-## About Quota
+## Quota
 
-Quota is necessary for sending transaction on Vite. As fee-less blockchain, quota can be obtained through PoW or staking. Refer to [Quota](/tutorial/rule/quota)
+Quota is necessary for sending transaction on Vite. In the Mainnet, quota can be obtained through PoW or staking. Refer to [Quota](/tutorial/rule/quota) for details
 
-## About Token Issuance
+## Token Issuance
 
 Refer to [RPC Token Issuance API](../rpc/contract_v2)
 
-## About Subscription
+## Subscription
 
-Event subscription is provided in `ViteAPI`. Refer to [ViteAPI](./ViteAPI/start)
+Event subscription is provided in `ViteAPI`. Refer to [ViteAPI](./ViteAPI/start) for detailed information
 
-## About Sending Transaction
+## Sending Transaction
 
 ```typescript
 import HTTP_RPC from '../../src/HTTP';

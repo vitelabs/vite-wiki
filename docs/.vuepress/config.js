@@ -286,8 +286,8 @@ module.exports = {
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
                     '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'RPC interface', 'Wallet', 'Ledger', 'Smart Contract', 'Net', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite JS', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'Vite RPC API', 'Wallet', 'Ledger', 'Smart Contract', 'Net', 'Common'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
                     '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
                 },
@@ -311,8 +311,8 @@ module.exports = {
                     '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
                     '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', 'FAQ'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC', '钱包', '账本', '智能合约', '网络', '其他'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite JS', 'ViteAPI', 'AccountBlock', 'Wallet', '更多'),
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC API', '钱包', '账本', '智能合约', '网络', '其他'),
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', '更多'),
                     '/zh/api/java-sdk/': genSidebarConfig('api/java-sdk', 'zh', '快速开始'),
                   '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
                 },

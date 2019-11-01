@@ -2,10 +2,10 @@
 
 ## createAccountBlock
 
-Create an accountBlock instance
+Create an AccountBlock instance
 
 - **Parameters** 
-    * `type: String` See [accountBlock Type](#accountblock-type)
+    * `type: String` See [AccountBlock Type](#accountblock-type)
     * `params: Object` Passed-in parameters
 
 - **Return**
@@ -30,7 +30,7 @@ async function sendAccountBlock(accountBlock) {
 }
 ```
 
-## accountBlock Type
+## AccountBlock Type
 
 ### receive 
 Type of response
