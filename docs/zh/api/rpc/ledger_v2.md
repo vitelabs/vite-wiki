@@ -1484,12 +1484,32 @@ sidebarDepth: 4
 ## ledger_getVmlogsByFilter
 根据参数查询历史日志。返回值按账户块高度从低到高排序。
 
-- **Parameters**: 
-  - 查询参数，同`subscribe_createVmlogFilter`，注意`fromHeight`和`toHeight`都填0时会查询整个账户链，可能会导致返回数据过多，最好指定明确的查询高度范围
+- **Parameters**:
+  * `FilterParam`
+    * `addressHeightRange`: `map[Address]Range` 只查询指定的账户地址和账户高度的日志，可以同时指定多个账户地址和高度范围，必须至少指定一个账户地址
+      * `fromHeight`: `uint64` 起始高度（包含），为0表示起始高度为账户链上的第一个块
+      * `toHeight`: `uint64` 结束高度（包含），为0表示结束高度为账户链上的最新高度。注意`fromHeight`和`toHeight`都填0时会查询整个账户链，可能会导致返回数据过多，最好指定明确的查询高度范围
+    * `topics`: `[][]Hash` 订阅的topics的前缀组合，使用方法见示例。
+
+```
+topics取值示例：
+ [] 匹配所有日志
+ [[A]] 匹配topics中第一个元素为A的日志
+ [[],[B]] 匹配topics中第二个元素为B的日志
+ [[A],[B]] 匹配topics中第一个元素为A且第二个元素为B的日志
+ [[A,B],[C,D]] 匹配topics中第一个元素为A或B，且第二个元素为C或D的日志
+```
 
 - **Returns**:  
-	- `Array<VmlogMessage>` 日志信息，同`subscribe_getChangesByFilterId`返回值
-	
+  - `Array<VmlogMessage>` 日志信息
+    - `accountBlockHash`: `Hash` 账户块哈希
+    - `accountBlockHeight`: `uint64` 账户块高度
+    - `address`: `Address` 账户地址
+    - `vmlog`: `VmLog` 日志信息，即智能合约event
+      - `topics`: `Array<string hash>` event签名和索引字段，其中签名可以用ABI定义生成
+      - `data`: `string base64` event的非索引字段，可以用ABI定义反解析
+    - `removed`: `bool` 是否回滚，固定为false。
+      
 ::: demo
 ```json tab:Request
 {
