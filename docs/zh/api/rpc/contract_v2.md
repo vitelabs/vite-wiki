@@ -58,77 +58,88 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 #### ABI
 ```json
 [
-  // 抵押获取配额
+  // 抵押获取配额（旧接口）
   {"type":"function","name":"Stake", "inputs":[{"name":"beneficiary","type":"address"}]},
+  // 抵押获取配额
+  {"type":"function","name":"StakeForQuota", "inputs":[{"name":"beneficiary","type":"address"}]},
+  // 取消抵押（旧接口）
+  {"type":"function","name":"CancelStake","inputs":[{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"}]}, 
   // 取消抵押
-  {"type":"function","name":"CancelStake","inputs":[{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"}]},
-  // 代理抵押
-  {"type":"function","name":"DelegateStake", "inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"bid","type":"uint8"},{"name":"stakeHeight","type":"uint64"}]},
-  // 取消代理抵押
-  {"type":"function","name":"CancelDelegateStake","inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
+  {"type":"function","name":"CancelQuotaStaking","inputs":[{"name":"id","type":"bytes32"}]},
+  // 抵押获取配额，带回调
+  {"type":"function","name":"StakeForQuotaWithCallback", "inputs":[{"name":"beneficiary","type":"address"},{"name":"stakeHeight","type":"uint64"}]},
+  // 取消抵押，带回调
+  {"type":"function","name":"CancelQuotaStakingWithCallback","inputs":[{"name":"id","type":"bytes32"}]}
 ]
 ```
 其中，代理抵押和取消代理抵押的回调方法定义如下：
 ```json
 [
-  // 代理抵押回调
-  {"type":"function","name":"DelegateStakeCallback","inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]},
-  // 取消代理抵押回调
-  {"type":"function","name":"CancelDelegateStakeCallback","inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]}       
+  // 抵押回调
+  {"type":"function","name":"StakeForQuotaWithCallbackCallback", "inputs":[{"name":"id","type":"bytes32"},{"name":"success","type":"bool"}]},
+  // 取消抵押回调
+  {"type":"function","name":"CancelQuotaStakingWithCallbackCallback","inputs":[{"name":"id","type":"bytes32"},{"name":"success","type":"bool"}]}       
 ]
 ```
+#### Stake 抵押获取配额（旧接口）
 
-#### Stake 抵押获取配额
-
-抵押时需要转账，最少抵押134 `VITE`。抵押后259200个快照块（大约3天）后可以取回，多次给同一个配额受益地址抵押时，到期高度按最后一次抵押时的快照块高度计算。
+抵押时需要转账，最少抵押134 `VITE`。抵押后259200个快照块（大约3天）后可以取回，多次给同一个配额受益地址抵押时，到期高度按最后一次抵押时的快照块高度计算。抵押到期后根据受益地址和金额取回抵押。
 
 - **Parameters**: 
   * `beneficiary`: `string address` 配额受益地址
 
-#### CancelStake 取消抵押
+#### StakeForQuota 抵押获取配额（新接口，EARTH硬分叉后支持）
+
+抵押时需要转账，最少抵押134 `VITE`。抵押后259200个快照块（大约3天）后可以取回。多次给同一个配额受益地址抵押时，会生成多笔不同的抵押记录。抵押请求交易的块哈希为抵押id，抵押到期后可以直接用这个id取回抵押。
+
+- **Parameters**: 
+  * `beneficiary`: `string address` 配额受益地址
+
+#### CancelStake 取消抵押（旧接口）
 
 抵押到期后可以取消抵押，取消抵押时可以部分取消，取消抵押不影响抵押到期高度。
 
 - **Parameters**: 
   * `beneficiary`: `string address` 配额受益地址
   * `amount`: `string bigint` 取消金额，单次取消抵押的金额不低于134 `VITE`，剩余抵押金额不低于134 `VITE`
+  
+#### CancelQuotaStaking 取消抵押（新接口，EARTH硬分叉后支持）
 
-#### DelegateStake 代理抵押
-
-代理抵押时需要转账，最少抵押134 `VITE`，发起代理抵押请求交易的地址为代理地址。
+抵押到期后可以取消抵押，取消抵押时一次性取回该笔抵押的所有抵押金额。
 
 - **Parameters**: 
-  * `stakeAddress`: `string address` 抵押地址
+  * `id`: `string hash` 抵押id
+
+**注意**：
+
+1. 旧接口抵押时，多次给同一个地址抵押会合并成一条，抵押到期高度按最后一次抵押时的快照块高度计算，取消时可以按金额分批取消或者一次性取消所有的抵押金额；新接口抵押时，多次给同一个地址抵押会生成多笔不同的记录，每笔记录的到期高度分别计算，取消时按抵押记录取消，一次性取消一笔抵押的所有金额。
+2. 旧接口的抵押，只能用旧接口取消抵押，新接口的抵押，只能用新接口抵押。例如，用`Stake`接口抵押，只能用`CancelStake`接口取消抵押，不能用`CancelQuotaStaking`接口取消抵押。
+
+#### StakeForQuotaWithCallback 抵押获取配额，带回调
+
+同`StakeForQuota`，可以指定抵押高度。交易发起成功后，会收到一笔回调交易。
+
+- **Parameters**: 
   * `beneficiary`: `string address` 配额受益地址
-  * `bid`: `uint8` 业务id，同一个抵押地址通过同一个代理给同一个受益地址的抵押，会按bid聚合成不同的抵押记录，抵押到期高度按该bid最后一次抵押时的快照块高度计算。
   * `stakeHeight`: `string uint64` 抵押高度，即多少个快照块后可以取消抵押，不低于259200
 
-#### DelegateStakeCallback 代理抵押回调
+#### StakeForQuotaWithCallbackCallback 抵押回调
 
 - **Parameters**: 
-  * `stakeAddress`: `string address` 抵押地址
-  * `beneficiary`: `string address` 配额受益地址
-  * `bid`: `uint8` 业务id
-  * `stakeHeight`: `string uint64` 抵押高度
+  * `id`: `string hash` 抵押id
   * `success`: `bool` 是否抵押成功，如果抵押失败，通过回调请求交易退回抵押金额
 
-#### CancelDelegateStake 取消代理抵押
+#### CancelQuotaStakingWithCallback 取消抵押，带回调
 
-代理抵押到期后可以由代理地址发起请求交易取消抵押，取消抵押时可以部分取消，取消抵押不影响抵押到期高度。
-
-- **Parameters**: 
-  * `stakeAddress`: `string address` 抵押地址
-  * `beneficiary`: `string address` 配额受益地址
-  * `amount`: `string bigint` 取消金额，单次取消抵押的金额不低于134 `VITE`，剩余抵押金额不低于134 `VITE`
-  * `bid`: `uint8` 业务id
-
-#### CancelDelegateStakeCallback 取消代理抵押回调
+同`CancelQuotaStaking`。交易发起成功后，会收到一笔回调交易。
 
 - **Parameters**: 
-  * `stakeAddress`: `string address` 抵押地址
-  * `beneficiary`: `string address` 配额受益地址
-  * `amount`: `string bigint` 取消金额，单次取消抵押的金额不低于134 `VITE`，剩余抵押金额不低于134 `VITE`
-  * `bid`: `uint8` 业务id
+  * `id`: `string hash` 抵押id
+  
+#### CancelQuotaStakingWithCallbackCallback 取消抵押回调
+
+- **Parameters**: 
+  * `id`: `string hash` 抵押id
   * `success`: `bool` 是否取消抵押成功，如果取消成功，通过回调请求交易退回抵押金额
 
 ### 共识合约
@@ -139,69 +150,72 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 ```json
 [
   // 注册超级节点
-  {"type":"function","name":"Register", "inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"},{"name":"blockProducingAddress","type":"address"}]},
+  {"type":"function","name":"RegisterSBP", "inputs":[{"name":"sbpName","type":"string"},{"name":"blockProducingAddress","type":"address"},{"name":"rewardWithdrawAddress","type":"address"}]},
   // 更新超级节点出块地址
-  {"type":"function","name":"UpdateBlockProducingAddress", "inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"},{"name":"newBlockProducingAddress","type":"address"}]},
+  {"type":"function","name":"UpdateSBPBlockProducingAddress", "inputs":[{"name":"sbpName","type":"string"},{"name":"blockProducingAddress","type":"address"}]},
+  // 更新奖励提取地址
+  {"type":"function","name":"UpdateSBPRewardWithdrawAddress", "inputs":[{"name":"sbpName","type":"string"},{"name":"rewardWithdrawAddress","type":"address"}]},
   // 注销超级节点
-  {"type":"function","name":"Revoke","inputs":[{"name":"gid","type":"gid"}, {"name":"sbpName","type":"string"}]},
+  {"type":"function","name":"RevokeSBP","inputs":[{"name":"sbpName","type":"string"}]},
   // 提取出块奖励
-  {"type":"function","name":"WithdrawReward","inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"},{"name":"receiveAddress","type":"address"}]},
+  {"type":"function","name":"WithdrawSBPReward","inputs":[{"name":"sbpName","type":"string"},{"name":"receiveAddress","type":"address"}]},
   // 给超级节点投票
-  {"type":"function","name":"Vote", "inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"}]},
+  {"type":"function","name":"VoteForSBP", "inputs":[{"name":"sbpName","type":"string"}]},
   // 取消投票
-  {"type":"function","name":"CancelVote","inputs":[{"name":"gid","type":"gid"}]}
+  {"type":"function","name":"CancelSBPVoting","inputs":[]}
 ]
 ```
 
-#### Register 注册超级节点
+#### RegisterSBP 注册超级节点
 
 注册超级节点时需要转账100w `VITE`作为抵押，超级节点注册成功后7776000个快照块（大约3个月）后可以注销超级节点。建议在注册超级节点前先准备好一台gvite节点，并同步到最新高度。
 
 - **Parameters**: 
-  * `gid`: `string gid` 快照共识组id，当前为`00000000000000000001`
   * `sbpName`: `string` 超级节点名称，不允许重复
   * `blockProducingAddress`: `string address` 出块地址，建议将注册地址和出块地址分开
+  * `rewardWithdrawAddress`: `string address` 奖励提取地址，注册成功后可以用注册地址或者奖励提取地址提取奖励
 
-#### UpdateBlockProducingAddress 更新超级节点出块地址
+#### UpdateSBPBlockProducingAddress 更新超级节点出块地址
 
-超级节点未注销时，可以修改出块地址。例如当平滑迁移超级节点机器时，可以在新机器上配置一个新的出块地址，启动gvite节点，并同步到最新高度，然后发交易更新出块地址，再下掉旧节点。
+超级节点未注销时，注册超级节点的地址可以发交易修改出块地址。例如当平滑迁移超级节点机器时，可以在新机器上配置一个新的出块地址，启动gvite节点，并同步到最新高度，然后发交易更新出块地址，再下掉旧节点。
 
 - **Parameters**: 
-  * `gid`: `string gid` 快照共识组id，当前为`00000000000000000001`
   * `sbpName`: `string` 超级节点名称
-  * `newBlockProducingAddress`: `string address` 新的出块地址
+  * `blockProducingAddress`: `string address` 新的出块地址
 
-#### Revoke 注销超级节点
+#### UpdateSBPRewardWithdrawAddress 更新超级节点奖励提取地址
+
+注册超级节点的地址可以发交易修改奖励提取地址。
+
+- **Parameters**: 
+  * `sbpName`: `string` 超级节点名称
+  * `rewardWithdrawAddress`: `string address` 新的奖励提取地址
+
+#### RevokeSBP 注销超级节点
 
 超级节点抵押到期后，可以注销超级节点。注销后超级节点不能再继续出块，也无法再获得超级节点奖励。
 
 - **Parameters**: 
-  * `gid`: `string gid` 快照共识组id，当前为`00000000000000000001`
   * `sbpName`: `string` 超级节点名称
 
-#### WithdrawReward 提取出块奖励
+#### WithdrawSBPReward 提取出块奖励
 
-每个周期最后一轮排名在前100名的超级节点，可以在该周期结束1小时后提取超级节点奖励。
+每个周期最后一轮排名在前100名的超级节点，可以在该周期结束1小时后提取超级节点奖励。超级节点注册地址和奖励提取地址都可以提取出块奖励。
 
 - **Parameters**: 
-  * `gid`: `string gid` 快照共识组id，当前为`00000000000000000001`
   * `sbpName`: `string` 超级节点名称
   * `receiveAddress`: `string address` 奖励接收地址
 
-#### Vote 给超级节点投票
+#### VoteForSBP 给超级节点投票
 
 投票时不需要转账，计票时用当时的账户余额作为投票数。同一个账户多次发起投票请求交易，后一次投票的结果会覆盖前一次投票的结果。
 
 - **Parameters**: 
-  * `gid`: `string gid` 快照共识组id，当前为`00000000000000000001`
   * `sbpName`: `string` 超级节点名称
 
-#### CancelVote 取消投票
+#### CancelSBPVoting 取消投票
 
 投票可以随时取消。
-
-- **Parameters**: 
-  * `gid`: `string gid` 快照共识组id，当前为`00000000000000000001`
 
 ### 铸币合约
 #### 合约账户地址
@@ -221,7 +235,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
   // 将可增发代币修改为不可增发代币
   {"type":"function","name":"DisableReIssue","inputs":[{"name":"tokenId","type":"tokenId"}]},
   // 查询代币信息
-  {"type":"function","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"}]},
+  {"type":"function","name":"GetTokenInformation","inputs":[{"name":"tokenId","type":"tokenId"}]},
   // 铸币成功事件
   {"type":"event","name":"issue","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
   // 增发成功事件
@@ -238,7 +252,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 ```json
 [
   // 查询代币信息回调
-  {"type":"function","name":"GetTokenInfoCallback","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"},{"name":"exist","type":"bool"},{"name":"decimals","type":"uint8"},{"name":"tokenSymbol","type":"string"},{"name":"index","type":"uint16"},{"name":"owner","type":"address"}]}
+  {"type":"function","name":"GetTokenInformationCallback","inputs":[{"name":"id","type":"bytes32"},{"name":"exist","type":"bool"},{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"isOwnerBurnOnly","type":"bool"},{"name":"index","type":"uint16"},{"name":"ownerAddress","type":"address"}]},
 ]
 ```
 
@@ -250,9 +264,9 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
   * `isReIssuable`: `bool` 是否可增发，true 可增发 false  不可增发
   * `tokenName`: `string` 代币名称，1到40个字符，包含大小写字母、下划线、空格，不能以空格开头或结尾，不能包含连续空格
   * `tokenSymbol`: `string` 代币简称，1到10个字符，包含大写字母、数字，不能使用`VITE`、`VCP`、`VX`
-  * `totalSupply`: `string bigint` 发行总量，$totalSupply \leq 2^{256}-1$
-  * `decimals`: `uint8` 小数位数，$10^{decimals} \leq totalSupply$
-  * `maxSupply`: `string bigint` 最大发行量，不可增发代币此字段值填0，可增发代币$totalSupply \leq maxSupply \leq 2^{256}-1$
+  * `totalSupply`: `string bigint` 发行总量（最小单位），$totalSupply \leq 2^{256}-1$，不可增发代币$totalSupply \geq 0$
+  * `decimals`: `uint8` 小数位数，值为0时表示没有小数
+  * `maxSupply`: `string bigint` 最大发行量（最小单位），不可增发代币此字段值填0，可增发代币$totalSupply \leq maxSupply \leq 2^{256}-1$
   * `isOwnerBurnOnly`: `bool` 是否仅所有者可销毁，true 仅所有者可销毁 false 所有持币账户可销毁，不可增发代币此字段填false
   
 #### ReIssue 增发代币
@@ -283,20 +297,25 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 - **Parameters**: 
   * `tokenId`: `string tokenId` 代币id
 
-#### GetTokenInfo 查询代币信息
+#### GetTokenInformation 查询代币信息
 
 - **Parameters**: 
   * `tokenId`: `string tokenId` 代币id
-  * `bid`: `uint8` 业务id，业务id字段会在回调中返回
 
-#### GetTokenInfoCallback 查询代币信息回调
+#### GetTokenInformationCallback 查询代币信息回调
 - **Parameters**: 
+  * `id`: `string hash` 查询请求交易的哈希
   * `tokenId`: `string tokenId` 代币id
-  * `bid`: `uint8` 业务id
   * `exist`: `bool` 代币是否存在，true 存在 false 不存在
+  * `isReIssuable`: `bool` 是否可增发，true 可增发 false  不可增发
+  * `tokenName`: `string` 代币名称
   * `tokenSymbol`: `string` 代币简称
+  * `totalSupply`: `string bigint` 发行总量
+  * `decimals`: `uint8` 小数位数
+  * `maxSupply`: `string bigint` 最大发行量，不可增发代币此字段值为0
+  * `isOwnerBurnOnly`: `bool` 是否仅所有者可销毁，true 仅所有者可销毁 false 所有持币账户可销毁，不可增发代币此字段值为false
   * `index`: `uint16` 序号，从0开始，同名tokenSymbol的序号按铸币顺序递增
-  * `owner`: `string address` 所有者
+  * `owner`: `string address` 所有者账户
 
 ## contract_createContractAddress
 创建合约时生成新的合约地址
@@ -489,9 +508,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
       - `expirationHeight`: `string uint64`  到期快照块高度，到期后可以取回抵押
       - `beneficiary`: `string address`  配额受益地址
       - `expirationTime`: `int64`  预估到期时间
-      - `isDelegated`: `bool`  是否代理抵押，true-代理抵押 false-普通抵押
-      - `delegateAddress`: `string address`  代理地址，普通抵押代理地址为0
-      - `bid`: `uint8`  代理业务id，非代理抵押业务id为0
+      - `id`: `string hash` 抵押id，值为空时表示通过旧接口抵押，取消抵押时需要调用旧接口`CancelStake`；值非空时表示通过新接口抵押，取消抵押时需要调用新接口`CancelQuotaStaking`
     
 - **Example**:
 ::: demo
@@ -555,54 +572,6 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 ```
 :::
 
-## contract_getDelegatedStakeInfo
-查询代理抵押信息
-
-- **Parameters**: 
-  * `Params`
-    * `stakeAddress`:`string address`  实际抵押地址
-    * `delegateAddress`:`string address`  代理抵押地址
-    * `beneficiary`:`string address`  配额受益地址
-    * `bid`:`uint8`  业务id，来自同一个代理地址相同业务id的多笔抵押金额会合并，抵押到期高度按最后一笔抵押时的快照块高度计算
-
-- **Returns**: 
-  - `StakeInfo` 同`contract_getStakeList`
-    
-- **Example**:
-::: demo
-```json tab:Request
-{
-	"jsonrpc": "2.0",
-	"id": 1,
-	"method": "contract_getDelegatedStakeInfo",
-	"params": [
-		{
-			"stakeAddress":"vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906", 
-			"delegateAddress":"vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-			"beneficiary":"vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
-			"bid":2
-		}
-	]
-}
-```
-```json tab:Response
-{
-    "jsonrpc": "2.0",
-    "id": 1,
-    "result": {
-        "stakeAmount": "1000000000000000000000",
-        "beneficiary": "vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68",
-        "expirationHeight": "543",
-        "expirationTime": 1567490406,
-        "isDelegated": true,
-        "delegateAddress": "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",
-        "stakeAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
-        "bid": 2
-    }
-}
-```
-:::
-
 ## contract_getSBPList
 查询注册的超级节点列表，包括已取消注册的超级节点，返回结果中未取消在前，已取消在后，按抵押到期高度倒序排列
 
@@ -613,6 +582,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
   - `Array<SBPInfo>`
     - `name`: `string`  超级节点名称
     - `blockProducingAddress`: `string address`  签名快照块的账户地址
+    - `rewardWithdrawAddress`: `string address`  奖励提取地址
     - `stakeAddress`: `string address`  抵押账户，即注册账户地址
     - `stakeAmount`: `string bigint`  抵押金额
     - `expirationHeight`: `string uint64`  抵押到期高度，到期后可以取消注册并取回抵押
@@ -637,6 +607,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
         {
             "name": "s1",
             "blockProducingAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
+            "rewardWithdrawAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
             "stakeAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
             "stakeAmount": "1000000000000000000000000",
             "expirationHeight": "7776000",
@@ -819,6 +790,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
     "result": {
         "name": "s1",
         "blockProducingAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
+        "rewardWithdrawAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
         "stakeAddress": "vite_e41be57d38c796984952fad618a9bc91637329b5255cb18906",
         "stakeAmount": "500000000000000000000000",
         "expirationHeight": "7776000",
