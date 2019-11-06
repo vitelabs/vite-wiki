@@ -252,7 +252,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 ```json
 [
   // 查询代币信息回调
-  {"type":"function","name":"GetTokenInformationCallback","inputs":[{"name":"id","type":"bytes32"},{"name":"exist","type":"bool"},{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"isOwnerBurnOnly","type":"bool"},{"name":"index","type":"uint16"},{"name":"ownerAddress","type":"address"}]},
+  {"type":"function","name":"GetTokenInformationCallback","inputs":[{"name":"id","type":"bytes32"},{"name":"tokenId","type":"tokenId"},{"name":"exist","type":"bool"},{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"isOwnerBurnOnly","type":"bool"},{"name":"index","type":"uint16"},{"name":"ownerAddress","type":"address"}]},
 ]
 ```
 
