@@ -128,3 +128,25 @@ curl -X POST \
 
 ## 跑多个全节点时，能否直接复制账本
 可以，先kill掉gvite节点，然后复制ledger目录即可，不要复制net目录。
+
+## 节点异常退出，runlog中报too many open files
+Linux系统常见错误，修改系统限制的打开文件数量即可。
+
+1. 命令行方式修改
+
+执行命令：
+```
+ulimit -n 2048
+```
+这种方式会立即生效，但重启后会还原成默认值。
+
+2. 修改配置文件
+```
+vim /etc/security/limits.conf 
+#在最后加入  
+* soft nofile 4096  
+* hard nofile 4096 
+或者只加入
+* - nofile 8192
+```
+这种方式需要注销后才会生效。
