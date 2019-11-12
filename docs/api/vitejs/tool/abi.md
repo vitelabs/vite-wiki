@@ -1,4 +1,4 @@
-# Abi
+# ABI
 
 ## Installation
 
@@ -12,7 +12,7 @@ yarn add @vite/vitejs-abi
 ```
 :::
 
-## Import
+## Module Import
 
 ```javascript import
 import { abi } from '@vite/vitejs';
@@ -20,25 +20,26 @@ import { abi } from '@vite/vitejs';
 import * as abi from '@vite/vitejs-abi';
 ```
 
-## Parameter type
-Contract methods (including constructors, asynchronous invoke, offline reading) are able to contain multiple parameters, in addition，offline reading api can contain more than one return values. Currently the parameter types beneath could be supported:
+## Parameter Types
+Contract methods (including constructors, asynchronous calls, offline queries) can contain multiple parameters, where the offline methods can also have multiple return values.
+Currently, the following parameter types are supported:
 
 
-| Param Type | Name | Instance | Before Encode | After Encode |
+| Type | Name | Example | Value | Encoded Value |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| `uint<M>` | Unsigned integer, 0 < M <= 256，M % 8 == 0 | uint256 | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
-| `int<M>` | Signed integer, 0 < M <= 256，M % 8 == 0 | int8 | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
+| `uint<M>` | Unsigned integer, 0 < M <= 256, M % 8 == 0 | uint256 | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
+| `int<M>` | Signed integer, 0 < M <= 256, M % 8 == 0 | int8 | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
 | `uint` | Equivalent to uint256 | uint | '2345675643' | '000000000000000000000000000000000000000000000000000000008bd02b7b' |
-| `int` | Equivalent to int256 | int | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
+| `int` | Equivalent to  int256 | int | '2' | '0000000000000000000000000000000000000000000000000000000000000002' |
 | `tokenId` | Token id | tokenId | 'tti_5649544520544f4b454e6e40' | '000000000000000000000000000000000000000000005649544520544f4b454e' |
-| `address` | Account address | address | 'vite_010000000000000000000000000000000000000063bef3da00' | '0000000000000000000000010000000000000000000000000000000000000000' |
-| `gid` | Delegated consensus group id | gid | '01000000000000000000' | '0000000000000000000000000000000000000000000001000000000000000000' |
-| `bool` | Bool | bool | true | '0000000000000000000000000000000000000000000000000000000000000001' |
-| `bytes<M>` | Immutable array of bytes, 0 < M <= 32 | bytes32 | '0x0100000000000000000000000000000000000000000000000000000000000000' | '0100000000000000000000000000000000000000000000000000000000000000' |
-| `bytes` | Non-immutable array of bytes | bytes | '0xdf3234' | '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003df32340000000000000000000000000000000000000000000000000000000000' | 
-| `string` | Non-immutable string | string | 'foobar' | '0000000000000000000000000000000000000000000000000000000000000006666f6f6261720000000000000000000000000000000000000000000000000000' |
-| `<type>[M]` | Non-immutable array with 'type' mode, M >= 0，the value rage of type:`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint8[2] | ['1','2'] | '00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
-| `<type>[]` | Non-immutable array with 'type' mode, the value rage of type:`uint<M>`、`int<M>`、`uint`、`int`、`tokenId`、`address`、`gid`、`bool`、`string` | uint256[] | ['1','2'] | '000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
+| `address` | Address of account | address | 'vite_010000000000000000000000000000000000000063bef3da00' | '0000000000000000000000010000000000000000000000000000000000000000' |
+| `gid` | Consensus group id | gid | '01000000000000000000' | '0000000000000000000000000000000000000000000001000000000000000000' |
+| `bool` | Boolean | bool | true | '0000000000000000000000000000000000000000000000000000000000000001' |
+| `bytes<M>` | Fixed-length byte array, 0 < M <= 32 | bytes32 | '0x0100000000000000000000000000000000000000000000000000000000000000' | '0100000000000000000000000000000000000000000000000000000000000000' |
+| `bytes` | Variable-length byte array | bytes | '0xdf3234' | '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003df32340000000000000000000000000000000000000000000000000000000000' | 
+| `string` | Variable-length string | string | 'foobar' | '0000000000000000000000000000000000000000000000000000000000000006666f6f6261720000000000000000000000000000000000000000000000000000' |
+| `<type>[M]` | Fixed-length array of type, M >= 0. Range of values:`uint<M>`, `int<M>`, `uint`, `int`, `tokenId`, `address`, `gid`, `bool` and `string` | uint8[2] | ['1','2'] | '00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
+| `<type>[]` | Variable-length array of type. Range of values: `uint<M>`, `int<M>`, `uint`, `int`, `tokenId`, `address`, `gid`, `bool` and `string` | uint256[] | ['1','2'] | '000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002' |
 
 - **Example jsonInterface**
 
@@ -57,8 +58,8 @@ Contract methods (including constructors, asynchronous invoke, offline reading) 
 ### encodeLogSignature
 
 - **Parameters**
-    * `jsonInterface | Array<jsonInterface>`
-    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
+    * `jsonInterface | Array<jsonInterface>` 
+    * `methodName?` Name of method to encode, mandatory if the first parameter is a `jsonInterface` array.
 
 - **Return**
     * `hexString`
@@ -83,8 +84,8 @@ let encodeLogSignatureResult22 = abi.encodeLogSignature([
 ### encodeFunctionSignature
 
 - **Parameters**
-    * `jsonInterface | Array<jsonInterface>`
-    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
+    * `jsonInterface | Array<jsonInterface>` 
+    * `methodName?` Name of method to encode, mandatory if the first parameter is a `jsonInterface` array.
 
 - **Return**
     * `hexString`
@@ -102,9 +103,9 @@ let encodeMethodResult1 = abi.encodeFunctionSignature({
 ### encodeFunctionCall
 
 - **Parameters**
-    * `jsonInterface | Array<jsonInterface>`
-    * `params`
-    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi)
+    * `jsonInterface | Array<jsonInterface>` 
+    * `params` Input parameters
+    * `methodName?` Name of method to encode, mandatory if the first parameter is a `jsonInterface` array.
 
 - **Return**
     * `hexString`
@@ -151,8 +152,8 @@ let result1 = abi.encodeFunctionCall([{
 ### encodeParameter
 
 - **Parameters**
-    * `type`
-    * `params` The second parameter should pass an array type when the first parameter is an array (Both parameters should be consistent)
+    * `type` Parameter type
+    * `params` Input parameters. If the parameter type is array, an parameter array should be passed in 
 
 - **Return**
     * `hexString`
@@ -169,8 +170,8 @@ let encodeParameterResult4 = abi.encodeParameter('uint16[]', [1,2]);
 ### decodeParameter
 
 - **Parameters**
-    * `type`
-    * `hexString`
+    * `type` Parameter type
+    * `hexString` Encoded hex string
 
 - **Return**
     * `decodeResult`
@@ -187,9 +188,9 @@ let encodeParameterResult2 = abi.decodeParameter('uint8[]', '0000000000000000000
 ### encodeParameters
 
 - **Parameters**
-    * `jsonInterface | Array<type-string> | Array<jsonInterface>`
-    * `params<Array | json-string>`
-    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
+    * `jsonInterface | Array<type-string> | Array<jsonInterface>` 
+    * `params<Array | json-string>` Input parameters
+    * `methodName?` Name of method to encode, mandatory if the first parameter is an array.
 
 - **Return**
     * `hexString`
@@ -224,8 +225,8 @@ let encodeParametersResult12 = abi.encodeParameters([
 
 - **Parameters**
     * `jsonInterface | Array<type-string> | Array<jsonInterface>`
-    * `hexString`
-    * `methodName?` This parameter is required when type of the first parameter is array (Used to identify abi and get corresponding types)
+    * `hexString` Encoded hex string
+    * `methodName?` Name of method to decode, mandatory if the first parameter is an array.
 
 - **Return**
     * `decodeResult`
@@ -254,9 +255,9 @@ let decodeParametersResult22 = abi.decodeParameters([
 
 - **Parameters**
     * `jsonInterface.inputs | jsonInterface | Array<jsonInterface>`
-    * `hexString`
+    * `hexString` Encoded hex string
     * `Array<hexString>`
-    * `methodName?` This parameter is required when type of the first parameter is JsonInterface (Used to identify abi and get corresponding inputs)
+    * `methodName?` Name of method to decode, mandatory if the first parameter is a `jsonInterface` array.
 
 - **Return**
     * `decodeResult`

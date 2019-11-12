@@ -2,11 +2,11 @@
 
 1. [Gvite Common Error](../rpc/README.md)
 
-2. ViteJS Common Error
+2. Vite.js Common Error
 
 | Property | Code | Description |
 |:-----:|:-------:|:--------:|
-| no | 100000 | Unknown Error |
+| unknown | 100000 | Unknown Error |
 | paramsMissing | 100001 | Missing Parameters |
 | paramsFormat | 100002 | Wrong Format |
 | paramsConflict | 100003 | Parameter Conflict |

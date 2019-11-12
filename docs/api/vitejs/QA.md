@@ -1,64 +1,59 @@
 # Q&A
 
-## About Mnemonic
+## Mnemonics
 
-A mnemonic phrase is able to derive multiple private keys, each having an address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md)
+Multiple private keys can be derived from one mnemonic phrases, each having independent address. Refer to [HD Wallet](/tutorial/wallet/hdwallet.md) for more information
 
-:::warning Notice
-1. Always keep your mnemonics safe
-2. Never transfer to unknown address
+:::warning Note
+Always keep your mnemonic phrase safe
 :::
 
-## About Quota
+## Quota
 
-Sending transaction consumes quota, which can be obtained through PoW calculation or staking Vite. Refer to [Quota](/tutorial/rule/quota)
+Quota is necessary for sending transaction on Vite. In the Mainnet, quota can be obtained through PoW or staking. Refer to [Quota](/tutorial/rule/quota) for details
 
-## About Mintage
+## Token Issuance
 
-Client module provides token issuance function. Refer to [client/builtinTxBlock/Mintage](./client/builtinTxBlock)
+Refer to [RPC Token Issuance API](../rpc/contract_v2)
 
-## About Subscription
+## Subscription
 
-Client module extends `netProcessor` and supports event subscription. Refer to [client/subscription](./client/subscribe)
+Event subscription is provided in `ViteAPI`. Refer to [ViteAPI](./ViteAPI/start) for detailed information
 
-## About Account Instance
+## Sending Transaction
 
-Wallet module is mainly used to quickly generate a wallet. Refer to [Wallet Introduction](./wallet/wallet)
+```typescript
+import HTTP_RPC from '../../src/HTTP';
+import { wallet, accountBlock, ViteAPI, constant } from '@vite/vitejs';
 
-## About Sending Transaction
-Refer to [Account](./wallet/account) and [HdAccount](./wallet/hdAccount)
+const { Vite_TokenId } = constant;
+const { getWallet } = wallet;
+const { createAccountBlock } = accountBlcok;
 
-1. Generate `hdAccount` instance from mnemonic phrase. See more [Instances](./wallet/wallet) in wallet module.
+// 1. Get private key and account address from mnemonic phrase
+const wallet = getWallet('yourMnemonic');
+const { privateKey, address } = wallet.deriveAddress(0);  // get the private key at index 0.
 
-```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, hdAccount } from '@vite/vitejs';
+// 2. Get provider by HTTP address
+const httpService = new HTTP_RPC("http://example.com");
+const provider = new ViteAPI(httpService);
 
-let myClient = new client( new WS_RPC("ws://example.com") );
-let myHdAccount = new hdAccount({ 
-    client: myClient,
-    mnemonic: 'your mnemonic'
-});
-```
+// 3. Create accountBlock instance
+const accountBlock = createAccountBlock('send', {
+    toAddress: 'your toAddress', 
+    tokenId: Vite_TokenId,
+    amount: '1000000000000000000000'    // 10 Vite (18 decimals)
+}, provider, privateKey);
 
-2. Get `account` instance for certain address through `hdAccount` instance. Below example shows how to get an account instance at address 0.
+// 4. Send accountBlock
+const sendAccountBlock = async () => {
+    await accountBlock.autoSetPreviousAccountBlock();
+    return accountBlock.sign().send();
+}
 
-```javascript
-const firstAccount = myHdAccount.getAccount({
-    index: 0
-});
-```
-
-3. Send transaction through `account` instance
-
-```javascript
-firstAccount.sendTx({
-    toAddress: 'Your toAddress',
-    amount: '10000000000000000000',    // 10 Vite (having 18 decimals)
-    tokenId: Vite_TokenId
-}).then((accountBlock) => {
-    console.log(accountBlock);
+sendAccountBlock().then(() => {
+    console.log('Send success');
 }).catch((err) => {
-    console.log(err);
+    console.warn(err);
 });
 ```

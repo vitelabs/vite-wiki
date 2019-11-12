@@ -10,17 +10,8 @@
     "@vuepress/plugin-back-to-top": "^1.0.0-alpha.47",
     "@vuepress/plugin-i18n-ui": "^1.0.0-alpha.44",
     "@vuepress/plugin-pwa": "^1.0.0-alpha.47",
-    "babel-eslint": "^8.2.2",
-    "eslint": "^4.18.2",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-html": "^4.0.2",
     "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.7"
+    "node-sass": "^4.7.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
@@ -33,6 +24,7 @@
     "deepmerge": "^2.1.1",
     "markdown-it-mathjax-chtml": "^0.1.0",
     "moment": "^2.24.0",
+    "sass-loader": "^8.0.0",
     "vue-codemirror": "^4.0.5",
     "vue-tabs-component": "^1.4.0",
     "vue-toasted": "^1.1.24",

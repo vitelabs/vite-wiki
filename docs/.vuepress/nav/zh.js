@@ -11,11 +11,11 @@ module.exports = [
     text: 'API',
     items: [
       {
-        text: 'RPC 接口',
+        text: 'Vite RPC API',
         link: '/zh/api/rpc/'
       },
     {
-        text: 'Vite JS',
+        text: 'Vite.js',
         link: '/zh/api/vitejs/'
       },
       {

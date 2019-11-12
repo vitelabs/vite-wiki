@@ -1,5 +1,7 @@
 # Keystore
 
+Legacy keystore interface. For new users, use [Wallet](../wallet/start.md) to manage your private key and address.
+
 ## Installation
 
 :::demo
@@ -12,7 +14,7 @@ yarn add @vite/vitejs-keystore
 ```
 :::
 
-## Import
+## Module Import
 
 ```javascript import
 import { keystore } from '@vite/vitejs';
@@ -46,13 +48,13 @@ import * as keystore from '@vite/vitejs-keystore';
 ## Methods
 
 ### isValid 
-Keystore is valid or not
+Verify keystore
 
 - **Parameters**
-    * `keystore : string` Keystore string
-  
+    * `keystore : string` Content of keystore
+
 - **Return**
-    * `validate : boolean` Valid or not
+    * `validate : boolean` If `true`, the keystore is valid
 
 - **Example**
 ```javascript
@@ -62,27 +64,27 @@ const result = isValid('{}'); // false
 ```
 
 ### decrypt
-Decrypt keystore
+Decrypt keystore to get key string
 
 - **Parameters**
-    * `keystore : string` Keystore String
-    * `pwd : string` Password
+    * `keystore : string` Content of keystore
+    * `pwd : string` Passphrase
 
 - **Return**
-    * Promise<`key : string`> String before encrypts
+    * Promise<`key : string`> Plain key string
 
 ### encrypt
-Encrypt Keystore
+Encrypt key string into keystore
 
 - **Parameters**
-    * `keystore : string` Keystore String
-    * `pwd : string` Password
-    * `scryptParams : Object` Encrypt Parameters (Optional)
+    * `key : string` Plain key string to be encrypted
+    * `pwd : string` Passphrase
+    * `scryptParams : Object` Scrypt parameters
         - n
         - r
         - p
         - keylen
         - salt
-
+    
 - **Return**
-    * Promise<`keystore: string`> Keystore String
+    * Promise<`keystore: string`> Keystore

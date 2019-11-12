@@ -3,22 +3,22 @@ sidebarDepth: 4
 title: Start
 ---
 
-:::tip Created by
+:::tip Maintainer
 [cs](https://github.com/lovelycs)
 [hurrytospring](https://github.com/hurrytospring)
 :::
 
-As implementation of Vite JavaScript client API, **Vite JS** encapsulates [Vite RPC API](../rpc/README.md) and provides features like address generation, signature, ABI resolution, wallet function, etc. **Vite JS** supports IPC, HTTP and WebSocket protocols.
+The Vite Javascript SDK
 
-:::warning Warning
+:::tip Tips
 
-Necessary knowledge about [Vite RPC API](../rpc/README.md) should be present before reading this document.
+Before you start, reading through the following documents is highly recommended
+1. [Key Concepts](./QA.md)
+2. [Vite RPC API](../rpc/README.md)
 
 :::
 
 ## Installation
-
-ES5 syntax is supported in all Vite JS packages. Additional coding for ES5 compatibility is not necessary.
 
 :::demo
 
@@ -34,26 +34,17 @@ yarn add @vite/vitejs-ws
 
 :::
 
-## Import
-
-**Starting from v2.0.0, the package structure of ViteJS has been refactored for more direct and clear definition**.
-
-:::warning Warning
-
-Versions of imported npm packages should be consistent to avoid any incompatibility.
-
-:::
+## Module Import
 
 :::demo
 
 ```javascript tab:ES6
 import {
-    constant, error, utils, accountBlock, keystore, 
-    privToAddr, hdAddr, netProcessor, client, 
-    addrAccount, account, hdAccount, abi
+    abi, error, keystore, utils, constant,
+    accountBlock, ViteAPI, wallet
 } from '@vite/vitejs';
 
-// If you need to use network services, you must install http/ipc/ws packages separately.
+// must install http/ipc/ws packages separately if you need set up network connection
 import ws from '@vite/vitejs-ws';
 import http from '@vite/vitejs-http';
 import ipc from '@vite/vitejs-ipc';
@@ -61,12 +52,11 @@ import ipc from '@vite/vitejs-ipc';
 
 ```javascript tab:require
 const {
-    constant, error, utils, accountBlock, keystore, 
-    privToAddr, hdAddr, netProcessor, client, 
-    addrAccount, account, hdAccount, abi
+    abi, error, keystore, utils, constant,
+    accountBlock, ViteAPI, wallet
 } = require('@vite/vitejs');
 
-// If you need to use network services, you must install http/ipc/ws packages separately.
+// must install http/ipc/ws packages separately if you need set up network connection
 const { WS_RPC } = require('@vite/vitejs-ws');
 const { HTTP_RPC } = require('@vite/vitejs-http');
 const { IPC_RPC } = require('@vite/vitejs-ipc');
@@ -74,31 +64,24 @@ const { IPC_RPC } = require('@vite/vitejs-ipc');
 
 :::
 
-1. If you need all the functions of ViteJS, just import `@vite/vitejs` directly.
+## Quick Start
 
-```javascript tab:ES6
-import {
-    constant, error, utils, accountBlock, keystore, 
-    privToAddr, hdAddr, netProcessor, client, 
-    addrAccount, account, hdAccount, abi
-} from '@vite/vitejs';
+1. `npm install @vite/vitejs-ws`
+2. `npm install @vite/vitejs`
+3. Create file `test.js`
+```javascript
+const { WS_RPC } = require('@vite/vitejs-ws');
+const { ViteAPI } = require('@vite/vitejs');
+
+let WS_service = new WS_RPC("ws://example.com");
+let provider = new ViteAPI(WS_service, () => {
+    console.log("Connected");
+});
+
+provider.request('ledger_getSnapshotChainHeight').then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.warn(err);
+});
 ```
-
-2. If you need certain function, you can import the package separately. The list of packages contains
-`@vite/vitejs-abi`, `@vite/vitejs-addraccount`, `@vite/vitejs-account`, `@vite/vitejs-accountblock`,
-`@vite/vitejs-client`, `@vite/vitejs-communication`, `@vite/vitejs-constant`, `@vite/vitejs-error`,
-`@vite/vitejs-hdaccount`, `@vite/vitejs-hdaddr`, `@vite/vitejs-keystore`, `@vite/vitejs-netprocessor`,
-`@vite/vitejs-privtoaddr`, `@vite/vitejs-utils`, `@vite/vitejs-ws`, `@vite/vitejs-http` and `@vite/vitejs-ipc`
-
-```javascript tab:ES6
-import ws from '@vite/vitejs-ws';
-import * as abi from '@vite/vitejs-abi';
-import * as utils from '@vite/vitejs-utils';
-```
-
-3. If you need to handle project dependency and avoid code redundancy when using only part of functions, you can install `@vite/vitejs`, import es5 module and package your project in your own way.
-
-```javascript tab:ES6
-import * as abi from '@vite/vitejs/es5/abi';
-import * as utils from '@vite/vitejs/es5/utils';
-```
+4. `node test.js`

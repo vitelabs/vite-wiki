@@ -72,11 +72,11 @@ const result = isValid('{}'); // false
     * Promise<`key : string`> 加密前的字符串
 
 ### encrypt
-加密keystore
+加密字符串，生成keystore
 
 - **Parameters**
-    * `keystore : string` Keystore string
-    * `pwd : string` 密码
+    * `string` 需要加密的字符串
+    * `string` 密码
     * `scryptParams : Object` 加密参数(非必填)
         - n
         - r
@@ -85,4 +85,4 @@ const result = isValid('{}'); // false
         - salt
     
 - **Return**
-    * Promise<`keystore: string`> 加密后的keystore字符串
+    * Promise<`keystore: json-string`> keystore字符串

@@ -1,245 +1,190 @@
 # Utils
 
-## Installation
+## Module Import
 
-:::demo
-```bash tab:npm
-npm install @vite/vitejs-utils --save
-```
-
-```bash tab:yarn
-yarn add @vite/vitejs-utils
-```
-:::
-
-## Import
-
-```javascript import
-import { utils } from '@vite/vitejs';
-// Or
-import * as utils from '@vite/vitejs-utils';
-```
-
-## checkParams 
-
-- **Parameters**
-    * `obj : Object` Params that need to be verified
-    * `requiredP : Array<string>` Compulsory Parameters
-    * `validFunc : Array<{ name, func, msg? }>` Validation Function
-
-- **Return**
-    * `error : null | Object<code, message>`
-
-- **Example**
 ```javascript
-import { checkParams } from '@vite/vitejs-utils';
-
-function test(a, b, c, d) {
-    let err = checkParams({ a, b, c, d }, ['b', 'c'], [{
-        name: 'a',
-        func: (_a)=>{
-            return validA(_a);
-        },
-        msg: 'Is not A'
-    },{
-        name: 'd',
-        func: (_d)=>{
-            return validD(_d);
-        }
-    }]);
-
-    if (err) {
-        return err;
-    }
-
-    // Continue ...
-}
-
-test(a); // Got an error
-```  
-
-## getRawTokenId
-Get original token ID
-
-- **Parameters**
-    * `tokenId : TokenId`
-
-- **Return**
-    * `rawTokenId : RawTokenId` Original token ID
-
-## getTokenIdFromRaw
-Get token ID according to original token ID
-
-- **Parameters**
-    * `rawTokenId : RawTokenId` Original token ID
-
-- **Return**
-    * `tokenId : TokenId`
-
-## validNodeName 
-Verify if the node is legal
-
-- **Parameters**
-    * `str : string` 
-
-- **Return**
-    * `target : boolean` Results: true(yes), false(no)
-  
-## isInteger
-Verify if the input string is an integer
-
-- **Parameters**
-    * `num : string`
-
-- **Return**
-    * `target : boolean` Results: true, false
-
-## isNonNegativeInteger
-Verify if the input string is a non-negative integer
-
-- **Parameters**
-    * `num : string`
-
-- **Return**
-    * `target : boolean` Results: true, false
-
-## isSafeInteger
-Verify if the input is a safe integer
-
-- **Parameters**
-    * `num : string | number`
-
-- **Return**
-    * `target : number` -1: the input isn't integer; 0: the input type is number, but isn't a safe integer(
-or a decimal); 1: it's ok
+import { utils } from '@vite/vitejs';
+```
 
 ## uriStringify
-Convert a transaction object into formatted uri that complies to a specific schema
+Generate Vite URI based on the given parameters
 
 - **Parameters**
     * `opt : object`
-        - `opt.schema:string?` Schema type. Default is vite
-        - `opt.target_address:vite Address string` Target address that the transaction will be sent to
-        - `opt.chain_id?` Network id. Default is Vite mainnet 
-        - `opt.function_name?` Contract function name 
-        - `opt.params:object?` Other parameters 
+        - `opt.schema:string?` Default is `vite`
+        - `opt.target_address:vite Address string` Address of transaction's recipient
+        - `opt.chain_id?` Network id. Default is `1` (Vite Mainnet)
+        - `opt.function_name?` Method name of contract to be called
+        - `opt.params:object?` Passed-in parameters
 
 - **Return**
-    * `uri : string` 
+    * `uri : string` URI string
 
 - **Other Parameters**
-  | Param Name | Type          | Desc                                     | Example                                                  |
-  | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
-  | amount     | number        | Amount of token to be sent in below token id. Default is 0               |  amount=1            |
-  | data       | base64 string | Data encoded in url safe format. Default is nil      	| data=MTIzYWJjZA                                  |
-  | fee        | number        | Amount of fee in below token id. Default is 0                | fee=1                         |
-  | tti        | token_type_id | Token id. Default is the token id of VITE                                 | 	tti=tti_5649544520544f4b454e6e40|
+  | Parameter name | Type          | Description                          | Example                                 |
+  | ---------- | ------------- | ---------------------------------------- | --------------------------------------- |
+  | amount     | number        | Amount to transfer. Default is `0`       | amount=1     (1 VITE)              |
+  | data       | base64 string | Additional data. Default is nil	        | data=MTIzYWJjZA                                  |
+  | fee        | number        | Transaction fee. Default is `0`          | fee=1        (1 VITE)                           |
+  | tti        | token_type_id | Token id. Default is `tti_5649544520544f4b454e6e40` | tti=tti_5649544520544f4b454e6e40 |
+
+## isValidTokenId
+Verify token id
+
+- **Parameters**
+    * `TokenId` Token id
+
+- **Return**
+    * `boolean` If `true`, the token id is valid
+
+## getOriginalTokenIdFromTokenId
+Get original token id from token id
+
+- **Parameters**
+    * `tokenId : TokenId` Token id
+
+- **Return**
+    * `rawTokenId : RawTokenId` Original token id
+
+## getTokenIdFromOriginalTokenId
+Get token id from original token id
+
+- **Parameters**
+    * `OriginalTokenId` Original token id
+
+- **Return**
+    * `TokenId` Token id
+
+## isValidSBPName 
+Verify SBP name
+
+- **Parameters**
+    * `string`  Name of SBP
+
+- **Return**
+    * `boolean` If `true`, the SBP name is valid 
+  
+## isInteger
+Check if the input is integer
+
+- **Parameters**
+    * `string`  Input string
+
+- **Return**
+    * `boolean` If `true`, the input string is integer
+
+## isNonNegativeInteger
+Check if the input is non-negative integer
+
+- **Parameters**
+    * `string`  Input string
+
+- **Return**
+    * ` boolean` If `true`, the input string is non-negative integer
+
+## isSafeInteger
+Check if the input is safe integer
+
+- **Parameters**
+    * `string | number` Input number or string
+
+- **Return**
+    * `number` -1: Not integer; 0: Un-safe integer or decimal; 1: Safe integer
+
 
 ## isArray
+Check if the input is array
 
 - **Parameters**
-    * `params : any`
+    * `any` Input value
 
 - **Return**
-    * `result : boolean`
+    * `boolean` If `true`, the input is array
 
 ## isObject
+Check if the input is object
 
 - **Parameters**
-    * `params : any`
+    * `any` Input value
 
 - **Return**
-    * `result : boolean`
+    * `boolean` If `true`, the input is object
 
-## bytesToHex 
+## isHexString
+Check if the input is hex string
 
 - **Parameters**
-    * `arr : buffer`
+    * `string` Input string
 
 - **Return**
-    * `addr : Hex`
-  
-## hexToBytes
+    * `boolean` If `true`, the input is hex string
+
+## isBase64String
+Check if the input is base64 string
 
 - **Parameters**
-    * `hex : Hex`
+    * `string` Input string
 
 - **Return**
-    * `arr : Uint8Array` Bytes
+    * `boolean` If `true`, the input is base64 string
 
-## getBytesSize 
-Get different byte length of encoded string
-
-- **Parameters**
-    * `str : string` 
-    * `charset : string<'utf8' | 'utf16'>` 
-
-- **Return**
-    * `length : number`
-  
-## utf8ToBytes
-Convert utf8 string to bytes
-
-- **Parameters**
-    * `str : string` Utf8 string
-
-- **Return**
-    * `target : Uint8Array` Bytes
-  
 ## blake2b 
-Quick reference to blake2b. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+Hash function. For more information about blake2b, refer to [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
 ## blake2bHex
-Quick reference to blake2bHex. See more about [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
+Hash function. For more information about blake2bHex, refer to [blakejs/blake2b](https://www.npmjs.com/package/blakejs)
 
 ## _Buffer 
-Quick reference to buffer.
+A quick reference to buffer
+
+## _bn
+A quick reference to bn.js
 
 ## ed25519
 
 ### keyPair 
-Get private key pair
+Get key pair
 
 - **Return**
-    * `keyPair : KeyPairObj` Private Key Pair
+    * Object : Key pair
+        - `publicKey : Uint8Array with 32-byte public key`
+        - `privateKey : Uint8Array with 64-byte private key`
 
-- **KeyPairObj**
-    * `publicKey : Uint8Array with 32-byte public key`
-    * `privateKey : Uint8Array with 64-byte private key`
-  
 ### getPublicKey
-Get public key via private key (This private key has to be derived from keyPair)
+Get public key from private key. The private key must be derived from key pair
 
 - **Parameters**
-    * `privateKey : Buffer`
+    * `Buffer` privateKey
 
 - **Return**
-    * `publicKey : Uint8Array with 32-byte public key`
+    * `Uint8Array with 32-byte public key` publicKey
 
 ### sign 
+Sign
 
 - **Parameters**
-    * `message : string` 
-    * `privateKey : buffer`
+    * `Hex` Original text
+    * `Hex` Private key
 
 - **Return**
-    * `signature : Hex` 
+    * `Hex` Signature
   
 ### verify
+Verify signature
 
 - **Parameters**
-    * `message : string` 
-    * `signature : Hex` 
-    * `publicKey : Buffer` 
+    * `Hex` Original text
+    * `Hex` Signature
+    * `Hex` Public key
 
 - **Return**
-    * `target : Boolean` Result
+    * `Boolean` If `true`, the signature is valid
   
 ### random
-Generating random number
+Generate random number
 
 - **Parameters**
-    * `bytesLen : number` Default 32
-
+    * `number` byte length. Default is `32`
+  
 - **Return**
-    * `num : Uint8Array` Random Number
+    * `num : Uint8Array` Random number
