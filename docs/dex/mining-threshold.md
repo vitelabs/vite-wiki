@@ -16,14 +16,14 @@
 |:----:|:----:|:----:|:----:|:----:|
 |  VX/ETH-000       | 10% | 100 | 10% | 0.01 |
 |  VITE/ETH-000     | 15% | 100 | 5%  | 0.01 | 
-| GRIN/ETH-000      | 8%  | 10  | 8%  | 10   |   
+| GRIN-000/ETH-000      | 8%  | 10  | 8%  | 10   |   
 
 ## VITE Market
 
 |  Pair  | Valid Mining Threshold (Buy) | Buy Cap | Valid Mining Threshold (Sell) | Sell Cap |
 |:----:|:----:|:----:|:----:|:----:|
 |  VX/VITE          | 10% | 100 | 10% | 0.01 |
-| GRIN/VITE         | 8%  | 10  | 8%  | 10   |   
+| GRIN-000/VITE         | 8%  | 10  | 8%  | 10   |   
 
 ## USDT Market
 
