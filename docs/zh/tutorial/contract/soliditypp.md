@@ -163,6 +163,90 @@ send:关键字，是一条message的发送操作，需要有两个参数，一�
 
 合约B因为要给A发送消息，因此合约B要按照A定义的add的消息监听器的规范定义消息，合约A在add消息的监听器中，要给合约B发送消息，因此合约A要按照B定义的sum的消息监听器的规范定义sum消息
 
+对于关键字message和send的补充:
+
+在Solidity++的0.4.5版本开始,合约间消息传递的语法支持以下两个功能:
+
+1.发送消息时转账
+
+2.发送消息的send语法可以获取一个bytes32类型的返回值,该返回值代表的是当前的请求hash
+
+```
+pragma soliditypp ^0.4.5;
+contract A {
+   message messageWithPay(uint result) payable;
+
+   onMessage add(uint a, uint b) {
+        uint result = a + b;
+        address sender = msg.sender;
+        send(sender, messageWithPay(result), "tti_5649544520544f4b454e6e40", 100 vite);
+   }
+}
+contract B {
+    uint total;
+
+    onMessage messageWithPay(uint result) payable {
+        if (result > 10) {
+           total += result;
+       }
+    }
+}
+```
+
+如上所示:
+
+合约B中的"onMessage messageWithPay(uint result)"是payable类型的,因此,合约A需要定义一个payable类型的messageWithPay消息
+
+在send的语法中,因为消息是payable的,所以需要带上转账的tokenId和转账的金额,在如上所示的例子中,send一共有四个参数,第一个参数是合约地址,第二个参数是发送的消息,第三个参数是转账的tokenId,第四个参数是转账的金额
+
+对于messageWithPay这个消息来说,因为消息定义为payable类型的,所以在写send语句的时候,可以在第三个和第四个参数的位置上写tokenId和金额这两个参数,这两个参数也可以不指定,如果不指定,则编译过程会自动填写默认的vite的tokenId和0金额
+
+另外,如果定义的消息不是payable的话,那么在写send语句的时候,一定不能指定tokenId和金额,只需要指定合约地址和消息这两个参数即可,如下的写法是会编译不通过的
+
+```
+pragma soliditypp ^0.4.5;
+contract A {
+   message message(uint result);
+
+   onMessage add(uint a, uint b) {
+        uint result = a + b;
+        address sender = msg.sender;
+        send(sender, message(result), "tti_5649544520544f4b454e6e40", 100 vite);
+   }
+}
+```
+
+当然,如果onMessage方法定义的是payable类型,那么对应的message最好定义为payable类型,不推荐把payable类型的onMessage方法对应的message定义为非payable类型
+
+```
+pragma soliditypp ^0.4.5;
+contract A {
+   message messageWithPay(uint result) payable;
+   bytes32 hash;
+
+   onMessage add(uint a, uint b) {
+        uint result = a + b;
+        address sender = msg.sender;
+        hash = send(sender, messageWithPay(result), "tti_5649544520544f4b454e6e40", 100 vite);
+   }
+}
+contract B {
+    uint total;
+
+    onMessage messageWithPay(uint result) payable {
+        if (result > 10) {
+           total += result;
+       }
+    }
+}
+```
+
+如上所示,在合约A中定义了一个bytes32类型的hash,并且在send时给hash赋值
+
+send语法的返回值只能是byte32类型的,定义为其他类型会编译不通过,当然这个返回值并不是发送的消息执行之后的返回结果,而是发送消息是的请求哈希值
+
+对于这个请求哈希的用法,例如我们可以获取抵押请求的hash，后续直接用这个hash直接用来取消抵押
+
 ## Solidity++中的getter
 
 在Solidity++中，合约间的交互是通过消息传递的机制进行的，是异步的，因此合约内public类型的静态变量无法被合约外部访问，然而对于合约内部的状态，Solidity++提供了一种特殊的访问方式
@@ -201,33 +285,53 @@ contract A {
 
 ## Solidity++合约示例
 
-定义一个合约，合约的主要功能是给一个地址和金额的列表，合约给指定的地址转账指定金额数
+定义一个合约，合约的主要功能是给一个地址投票,但是需要调用第三方的投票验证合约,验证投票合法性，第三方投票验证合约需要收取手续费
 
 ```
-// 告诉该合约用的是0.4.3版本的soliditypp编写，并且这些代码具有向上兼容性。保证不会在不同soliditypp编译版本下编译会出现不同的行为。
-pragma soliditypp ^0.4.3;
+pragma soliditypp ^0.4.5;
+contract VoteContract {
+    // 第三方投票验证合约的地址
+    address private checkAddr = "vite_0102030405060708090807060504030201020304eddd83748e";
+    // 投票的计票器
+    mapping(address => uint) public voteMap;
+    // 投票合法地址map
+    mapping(address => bool) public invalidAddrsMap;
+    // 投票合法验证消息,payable类型
+    message checkValid(address addr) payable;
  
+    // 投票接口
+    onMessage vote(address addr, uint voteNum) payable {
+        // 发送投票合法性验证消息,调用第三方验证合约
+        send(checkAddr, checkValid(addr), msg.tokenid, msg.amount);
+        // 更新计票器
+        voteMap[addr] = voteMap[addr] + voteNum;
+    }
  
-// 定义一个合约A
-contract A {
-     // 定义一个消息监听器，合约只能通过消息的传递进行交互，因此凡是需要向外部提供的接口都需要定义成监听器
-     // 监听器需要定义监听的消息名称和消息所带的参数，不需要定义可见性，监听器没有返回值
-     // 在这里监听器的名称是transfer，传的参数是一个uint类型的数组body，数组的第奇数位的元素是地址，偶数位的元素是地址对应的需要转账的金额数
-     onMessage transfer(uint[] calldata body) payable {
-         // 判断入参的长度是否是偶数，因为地址和金额数是一一对应的
-         require(body.length%2==0);
-         uint256 totalAmount = 0;
-         for(uint i = 0; i < body.length; i=i+2) {
-             uint addr = body[i];
-             uint amount = body[i+1];
-             totalAmount = totalAmount + amount;
-             require(totalAmount >= amount);
-             if(amount > 0) {
-                // 向addr地址转账，金额是amount，转账的tokenId是msg.tokenid
-                address(addr).transfer(msg.tokenid, amount);
-             }
-         }
-         require(totalAmount == msg.amount);
-     }
+    // 根据投票合法性验证结果更新投票合法地址的map
+    onMessage isValid(address addr, bool valid) {
+        if(!valid && !invalidAddrsMap[addr]) {
+            invalidAddrsMap[addr] = true;
+        }
+    }
+    
+    getter getVoteNum(address addr) returns(bool isInValid, uint voteNum) {
+        return (invalidAddrsMap[addr], voteMap[addr]);
+    }
+}
+
+contract CheckContract {
+    
+    // 给投票合约发送验证结果
+    message isValid(address addr, bool valid);
+
+    // 接收并验证投票地址是否合法
+    onMessage checkValid(address addr) payable {
+        bool result = check(addr);
+        send(msg.sender, isValid(addr, result));
+    }
+
+    function check(address addr) private pure returns(bool checkResult) {
+        // 投票验证逻辑
+    }
 }
 ```
