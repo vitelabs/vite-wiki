@@ -49,7 +49,7 @@ After the launch of VX mining, there will be two phases of VX release with the t
   * Year 1: **0.5%** daily decrement rate. 477,032.36 VX will be released on the first day while 76,939.48 will be released on the last day. 
   * Year 2: **0.2%** daily decrement rate. 76,785.60 VX will be released on the first day.
 
-![vx_release_chart.jpg](https://forum.vite.net/assets/uploads/files/1567510383257-vx_release_chart.jpg)  
+![](~/images/vx-release-chart-en.png)
 
 
 ### VX Mining Allocation
