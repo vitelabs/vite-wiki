@@ -49,7 +49,7 @@ After the launch of VX mining, there will be two phases of VX release with the t
   * Year 1: **0.5%** daily decrement rate. 477,032.36 VX will be released on the first day while 76,939.48 will be released on the last day. 
   * Year 2: **0.2%** daily decrement rate. 76,785.60 VX will be released on the first day.
 
-![vx_release_chart.jpg](https://forum.vite.net/assets/uploads/files/1567510383257-vx_release_chart.jpg)  
+![](~/images/vx-release-chart-en.png)
 
 
 ### VX Mining Allocation
@@ -104,32 +104,54 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
 * **Allocation**: 10% of daily released VX, with each market (BTC, ETCH, VITE and USDT) weighted equally at 2.5% 
 * **How to participate**: stake VITE with the beneficiary set to the ViteX smart contract
   - Only eligible trading pairs will be considered for market-making as mining rewards
-  - Only buy orders will be considered for market-making as mining rewards
   - The buy orders must not deviate more than 10% from the best buy offer in the order book
-* **Calculation rules**:
-  
-  ::::tabs
-  :::tab Overview
-  The VX mining reward for market-making has a linear relationship with the **order amount** and **order duration** (i.e. amount of time the pending order stays on the order book). 
-  However, the mining reward has an exponential relationship with the **order distance** (i.e. the deviation from the best bid offer). 
-  
-  For example, if Alice and Bob both place two separate orders for the same amount of token X. Both orders remain on the order book for the same amount of time. However, Alice prices her order at distance of 1% (i.e., very close to the best bid offer) and Bob prices his order at distance of 10% (i.e. further away from the best bid offer), the mining reward for Alice will be 63 times that of Bob's. This system is designed to incentive users to place orders as close to the best bid offer as possible.
-  :::
-  
-  :::tab Calculation
 
-  **Glossary**:
-    * **Mining interval** ($M_{INT}$) and **mining threshold** ($TH$): Buy orders that are set within mining threshold from the best buy offer in the order book will be considered for mining rewards. For most of trading pairs the mining threshold is **10%**, however, different mining thresholds are also allowed. For threshold table please refer to: [Mining Thresholds](./mining-threshold.html).
+> The VX mining reward for market-making has a linear relationship with the **order amount** and **order duration** (i.e. amount of time the pending order stays on the order book). 
+However, the mining reward has an exponential relationship with the **order distance** (i.e. the deviation from the best bid offer). 
+> For example, if Alice and Bob both place two separate orders for the same amount of token X. Both orders remain on the order book for the same amount of time. However, Alice prices her order at distance of 1% (i.e., very close to the best bid offer) and Bob prices his order at distance of 10% (i.e. further away from the best bid offer), the mining reward for Alice will be 63 times that of Bob's. This system is designed to incentive users to place orders as close to the best bid offer as possible.
+
+* **Calculation rules**:
+  * **Mining interval** ($M_{INT}$) and **mining threshold** ($TH$): Buy orders that are set within mining threshold from the best buy offer in the order book will be considered for mining rewards. For most of trading pairs the mining threshold is **10%**, however, different mining thresholds are also allowed. For threshold table please refer to: [Mining Thresholds](./mining-threshold.html).
       
-      $TH = 10\%$
+    $TH = 10\%$
       
-      $M_{INT} = [{Best Buy Order} * (1-TH), {Best Buy Order})$
+    $M_{INT} = [{Best Buy Order} * (1-TH), {Best Buy Order})$
           
-    * **Order duration** ($T$): A buy order must stay pending on the **mining level** for at least **300** seconds. Orders placed for less than **300** seconds will not be considered for the mining reward.
-    
-    * **Pending order amount** ($a$): The unfilled amount of a user's order in primary coins within a certain time range
+  * **Buy cap** ($B_{max}$): The maximum ratio of VX eligible being mined by one buy order to best sell order. The value varies among different markets.
+  
+  * **Sell cap** ($S_{max}$): The maximum ratio of VX eligible being mined by one sell order to best buy order. The value varies among different markets.
+  
+  * **Order duration** ($T$): A buy order must stay pending on the **mining level** for at least **300** seconds. Orders placed for less than **300** seconds will not be considered for the mining reward.
+
+  * **Total amount of buy orders** ($A_{buy}$): The sum of unfilled amount of all buy orders in the **mining interval** for one trading pair
+
+  * **Total amount of sell orders** ($A_{sell}$): The sum of unfilled amount of all sell orders in the **mining interval** for one trading pair
+    
+  * **Actual pending order amount** ($\beta$): The unfilled amount of a user's pending order within a certain time range
+
+  * **Valid pending order amount** ($a$): The unfilled amount of a user's pending order within a certain time range **valid** for mining VX. The value is related to $B_{max}$, $S_{max}$, $A_{buy}$ and $A_{sell}$.
+
+  ***If the order is a buy order***:
+
+    * If $A_{sell}$ > $A_{buy}$, $a= \beta$
+
+    * If $A_{sell}$ <= $A_{buy}$
+
+      * When $B_{max} < \frac{A_{buy}}{A_{sell}}$, $a = \frac{\beta B_{max}}{\frac{A_{buy}}{A_{sell}}}$
+
+      * When $B_{max} >= \frac{A_{buy}}{A_{sell}}$, $a = \beta$
+
+  ***If the order is a sell order***:
+
+    * If $A_{sell}$ > $A_{buy}$
+
+      * When $S_{max} < \frac{A_{sell}}{A_{buy}}$, $a = \frac{\beta S_{max}}{\frac{A_{sell}}{A_{buy}}}$
+
+      * When $S_{max} >= \frac{A_{sell}}{A_{buy}}$, $a = \beta$
+
+    * If $A_{sell}$ <= $A_{buy}$, $a= \beta$
         
-    * **Order distance** ($d$): The amount of deviation from the user's buy order to the best buy offer. 
+  * **Order distance** ($d$): The amount of deviation from the user's buy order to the best buy offer. 
     
       $d = \frac {Best Buy Order - User Order} {Best Buy Order}$
       
@@ -165,7 +187,7 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
       
       $d = \left \lceil \frac {11 - 10} {11} \right \rceil = 0.1$ 
       
-      $M = t_1 * a_1 * 0.6^{1+\frac{9d_1}{TH}} + t_1 * a_1 * 0.6^{1+\frac{9d_2}{TH}}$
+      $M = t_1 * a_1 * 0.6^{1+\frac{9d_1}{TH}} + t_2 * a_2 * 0.6^{1+\frac{9d_2}{TH}}$
 
          = $60 * 500 * 0.6^{1+\frac{9 * 0.1}{0.1}} + 240 * 250 * 0.6^{1+\frac{9 * 0.1}{0.1}}$
          
@@ -181,8 +203,6 @@ Placing orders on ViteX will also earn users VX rewards. The amount of VX earned
     
     $V = \frac{M} { M_{all}} *0.025*H$ 
 
-  :::
-  ::::
   
 ### Referring as Mining
 
