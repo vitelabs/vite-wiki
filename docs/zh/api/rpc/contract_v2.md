@@ -88,7 +88,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 - **Parameters**: 
   * `beneficiary`: `string address` 配额受益地址
 
-#### StakeForQuota 抵押获取配额（新接口，EARTH硬分叉后支持）
+#### StakeForQuota 抵押获取配额
 
 抵押时需要转账，最少抵押134 `VITE`。抵押后259200个快照块（大约3天）后可以取回。多次给同一个配额受益地址抵押时，会生成多笔不同的抵押记录。抵押请求交易的块哈希为抵押id，抵押到期后可以直接用这个id取回抵押。
 
@@ -103,7 +103,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
   * `beneficiary`: `string address` 配额受益地址
   * `amount`: `string bigint` 取消金额，单次取消抵押的金额不低于134 `VITE`，剩余抵押金额不低于134 `VITE`
   
-#### CancelQuotaStaking 取消抵押（新接口，EARTH硬分叉后支持）
+#### CancelQuotaStaking 取消抵押
 
 抵押到期后可以取消抵押，取消抵押时一次性取回该笔抵押的所有抵押金额。
 
