@@ -132,13 +132,15 @@ curl -X POST \
 ## 节点异常退出，runlog中报too many open files
 Linux系统常见错误，修改系统限制的打开文件数量即可。
 
+### 解决方法
 1. 命令行方式修改
 
 执行命令：
 ```
 ulimit -n 2048
+# 然后启动需要运行的程序
 ```
-这种方式会立即生效，但重启后会还原成默认值。
+这种方式会立即生效，但退出登录后会立即失效。
 
 2. 修改配置文件
 ```
@@ -148,5 +150,28 @@ vim /etc/security/limits.conf
 * hard nofile 4096 
 或者只加入
 * - nofile 8192
+
+# 如果是root用户，这样追加
+root soft nofile 4096  
+root hard nofile 4096
 ```
-这种方式需要注销后才会生效。
+这种方式需要注销重新登录才会生效。
+
+### 确定生效
+1. 通过ulimit -n查看当前的数量
+```
+$ ulimit -n
+1024 # 这个就是当前的设置结果；
+``` 
+
+2. 通过查看具体进程的信息查看，这样更加准确：
+```
+$ ps -ef | grep gvite
+先通过上面命令拿到pid
+
+$ cat /proc/{pid}/limits | grep open
+然后查看具体生效的结果
+
+```
+最后，如果实在没有生效，请自行google "too many open files"，有一大堆解决方法
+
