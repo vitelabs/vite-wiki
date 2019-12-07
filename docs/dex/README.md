@@ -23,31 +23,31 @@ See: [VX One Page](./one-page.html)
 
 ## ViteX Coin （VX）
 
-VX is the coin native to the VX platform. VX holders enjoy benefits in the form of dividends as the trading and listing fees collected by the exchange are distributed back to VX holders. 
+VX is the coin native to the VX platform. VX holders enjoy benefits in the form of dividends as the trading fees collected by the exchange are distributed back to VX holders. 
 
 ### VX Basics
 
-* **Total supply**: 100 million
+* **Total supply**: **29,328,797**
 * **Smallest denomination**: $10^{-18}$
-* **Features**: VX holders receive daily dividends from a shared dividend pool which aggregates the trading & listing fees accumulated by ViteX and redistributes back to VX holders.
+* **Features**: VX holders receive daily dividends from a shared dividend pool which aggregates the trading fees accumulated by ViteX and redistributes back to VX holders.
 * **Distribution**: VX will have no private sale nor public sale. The only way to obtain VX is through mining. VX can be mined in five ways:
   - Trading as mining: whenever a trader takes an order off the order book, they get VX.
   - Staking as mining: since ViteX is a dApp on the Vite platform, ViteX requires quota in order to properly allocate computing resources on the Vite platform. By staking VITE for the benefit of ViteX, users receive VX as a reward. 
-  - Referring as mining: for every friend that you bring to trade on ViteX (via a personal referral code), you are rewarded with VX.
+  - Referring as mining: for every friend that you bring to trade on ViteX (via a personal referral code), you are rewarded with VX in terms of 5% of VX mined by the invitee through trading. Your friend will get additional 2.5%.
   - Market-making as mining: place orders to boost liquidity on ViteX and get rewarded with VX. 
   - Listing as mining: a user that lists a new trading pair receives VX. 
-* **Release schedule**: 100 million VX will be released over the course of two years at a fixed percentage rate. 
+* **Release schedule**: All VX will be released over the course of 8 years and 3 months. 
   
 ### VX Distribution Schedule
 
-After the launch of VX mining, there will be two phases of VX release with the total supply set to 100,000,000 with no inflation. All VX will be mined in about 2 years. 
+After the launch of VX mining, there will be two phases of VX release with the total supply set to ***29,328,797*** with no inflation. 
 
-* **Phase 1**: Buffer Phase. In Phase 1 a fixed amount of 10,000 VX will be released daily
+* **Phase 1**: Buffer Phase. In Phase 1 a fixed amount of 10,000 VX will be released daily. Phase 1 ends on December 6, 2019.
 
 * **Phase 2**: Standard Phase. In this phase, all un-mined VX will be released according to below schedule:
 
-  * Year 1: **0.5%** daily decrement rate. 477,032.36 VX will be released on the first day while 76,939.48 will be released on the last day. 
-  * Year 2: **0.2%** daily decrement rate. 76,785.60 VX will be released on the first day.
+  * Sub-phase 1: Starting at 10,000 from December 7, 2019, daily release will increase for 90 days at a fixed rate of **1.80435%**, until reaching **50,000** on March 6, 2020
+  * Sub-phase 2: Starting from March 7, 2020, daily release decreases at a rate of **0.189724%**
 
 ![](~/images/vx-release-chart-en.png)
 
@@ -70,12 +70,11 @@ The daily amount of released VX will be allocated according to the breakdown bel
 All fees collected by the ViteX platform will be collected into a shared dividend pool and distributed at a rate of **1%** daily. For any given day, the total fees collected during that day will be fully distributed by the 100th day.
 
 * **This shared dividend pools will consist of the following**: 
-  - All **trading fees** collected by ViteX (excluding Operator Zone fees)
-  - Each time a new trading pair is listed, **5,000 VITE** from the 10,000 VITE listing cost goes into the dividend pool
-  - Each time a referral code is generated, the **1,000 VITE** fee (paid by the user requesting the referral code) goes into the dividend pool
+  - All **trading fees** collected by ViteX (excluding Operator fees)
+  - Starting from December 8, 2019, all **VITE** in the dividend pool will be destroyed
 
 * **In order to receive dividends**:
-  - You must hold **a minimum of 10 VX**. Please note that VX held in a wallet account will not make you eligible for dividends — the VX must be held on the ViteX exchange account in order to be considered for dividend rewards.
+  - You must stake **a minimum of 10 VX** in the exchange. Please note that VX held in a wallet account will not make you eligible for dividends — the VX must be staked on the ViteX exchange's Dividends tab in order to be considered for dividend rewards.
 
 ## VX Mining
 
@@ -206,19 +205,27 @@ However, the mining reward has an exponential relationship with the **order dist
   
 ### Referring as Mining
 
-  User can request invitation codes to invite friends to join the ViteX platform. The invitees will enjoy a **10%** discount on trading fees on the ViteX platform while the inviter will receive a "commission" of **5%** on all transaction fees generated by the invitees. This means that 5% of their invitees trading fees will get counted towards the inviter's total trading fees.
+  User can request invitation codes to invite friends to join the ViteX platform. 
+  * **For invitees, they will**:
+    - Enjoy a **10%** discount on trading fees on the ViteX platform
+    - Get a "bonus" of **2.5%** on the transaction fees generated
+    - Get a "bonus" of **1.25%** on the market-making points generated
+    
+  * **The inviter will**:
+    - Receive a "commission" of **5%** on all transaction fees generated by the invitees
+    - Receive a "commission" of **2.5%** on all market-making points generated by the invitees
   
   * **How to participate**:
     - Apply for a referral code at [Vite Web Wallet](https://x.vite.net)
     - If you are approved, you will get a referral code that you can send to your friends
   
   * **How to generate a referral code**:
-    - In order to obtain a referral code, the user will also need to pay 1,000 VITE, of which 100% will go into the shared dividend pool.
-    - Currently, the referral code generation will not be available to all users. Those who are interested need to apply for a referral code via this form. Later on, the referral code generation function will be added as a feature to the Vite wallet and users will be able to generate the code without having to apply. 
+    - In order to obtain a referral code, the user will also need to pay 1,000 VITE, of which 100% will be burned.
   
   * **Mining reward calculation**:
   
-    As an example, let’s say Bob gets a referral code from Alice. When Bob signs up and starts trading on ViteX, he gets 10% off of all trading fees (Base Transaction Fee + any applicable Zone Fees) on ViteX. Alice, on the other hand, benefits from Bob’s trading activity as 5% of Bob’s accumulated trading fees count for Alice’s accumulated trading fees. For example, if Bob accrues $100 in trading fees and Alice accrues $200, Alice will effectively have $205 in accumulated trading fees (thus boosting the ratio of her trading fees to the total collected fees = more VX rewards).
+    As an example, let’s say Bob gets a referral code from Alice. When Bob signs up and starts trading on ViteX, he gets 10% off of all trading fees (Base Transaction Fee + any applicable Operator Fees) on ViteX. 
+    Alice, on the other hand, benefits from Bob’s trading activity as 5% of Bob’s accumulated trading fees count for Alice’s accumulated trading fees. For example, if Bob accrues $100 in trading fees and Alice accrues $200, Alice will effectively have $205 in accumulated trading fees while Bob will have $102.5 as he is rewarded with additional 2.5% of his own trading fees.
 
   :::warning Note
   If you are a ViteX VIP (users who have staked 10,000 VITE to obtain a 0.1% reduction in trading fees) AND joined ViteX via a referral code, your 10% discount will be applied after the 0.1% reduction.
@@ -238,7 +245,7 @@ All trading actions on ViteX will incur a fee provided that the orders are succe
 
 ### Transaction Fee Formula
 
-***Total Transaction Fee = Base Transaction Fee + Operator Zone Fee***
+***Total Transaction Fee = Base Transaction Fee + Operator Fee***
 
 :::tip Tips
 Unlike other DEXes, ViteX does not charge fees for pending orders and withdrawals provided that users have the requisite amount of quota. Related documentation: [What is quota](../tutorial/rule/quota.html). 
@@ -248,7 +255,7 @@ Unlike other DEXes, ViteX does not charge fees for pending orders and withdrawal
 
 This transaction fee will be applied to all trading pairs in the ViteX ecosystem. All the fees collected from this will be put into the shared dividend pool to be redistributed back to VX holders. 
 
-**Operator Zone Fee**: ***0 - 0.2%***
+**Operator Fee**: ***0 - 0.2%***
 
 This is the fee that will be set by ViteX Operators for their respective Zones. Operators may set fees ranging from 0% to 0.2%. Proceeds from this fee belong to the Operators. 
 
@@ -268,7 +275,7 @@ Users that sign up for ViteX via a referral code will get a 10% discount on the 
 
 If the user is a VIP user, his or her fee will first be reduced by 0.1% followed by an additional 10% off the Total Transaction Fee.
 
-For example, if the VIP user who joined via a referral code trades on a Zone with a 0.15% Operator Zone Fee, the final fee for this user is: $((0.2\% - 0.1\%) + 0.15\%)*90\% = 0.225\%$.
+For example, if the VIP user who joined via a referral code trades on a Zone with a 0.15% Operator Fee, the final fee for this user is: $((0.2\% - 0.1\%) + 0.15\%)*90\% = 0.225\%$.
 
 :::
 
