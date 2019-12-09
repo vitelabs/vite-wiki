@@ -179,7 +179,12 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
 
 ### 安装docker
+  
   参照docker[官方文档](https://docs.docker.com/v17.12/install/)
+
+### 启动docker daemon
+  
+  参照docker官方文档
 
 ### 获取gvite源码
 
