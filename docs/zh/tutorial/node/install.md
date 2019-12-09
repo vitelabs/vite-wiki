@@ -9,9 +9,9 @@ gvite节点分为`全节点`和`超级节点`，超级节点是特殊的全节�
 
 安装方式支持`二进制`安装和`源码`安装两种
 
-| 操作系统 | ubuntu  |  mac |   windows |
-| ------------- | ------------------------------ |------|-------|
-| gvite  Pre-Mainnet  | yes  |yes |yes |
+| 操作系统           | ubuntu | mac | windows |
+| ------------------ | ------ | --- | ------- |
+| gvite  Pre-Mainnet | yes    | yes | yes     |
 
 
 
@@ -163,6 +163,42 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   nohup ./gvite -pprof >> gvite.log 2>&1 &
   ```
   启动
+
+## docker部署
+
+### golang 环境确认
+
+```
+go env
+```
+
+:::warning
+需要至少安装1.11.0 以上版本golang
+golang 安装方法 [go 安装](https://golang.org/doc/install)
+:::
+
+
+### 安装docker
+  参照docker[官方文档](https://docs.docker.com/v17.12/install/)
+
+### 获取gvite源码
+
+   ```
+    go get github.com/vitelabs/go-vite
+  ```
+
+### 构建gvite镜像
+
+  ```
+    cd $GOPATH/src/github.com/vitelabs/go-vite/
+    docker build -t gvite .
+  ```
+
+### 启动gvite容器
+
+  ```
+    docker run -p 48132:48132 -p 41420:41420 -p 8483:8483 -p 8484:8484 -p 8483:8483/udp -d gvite
+  ```
 
 ## 监控
 
