@@ -164,7 +164,21 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
   ```
   启动
 
-## docker部署
+## docker直接部署
+
+### 安装docker
+  
+  参照docker[官方文档](https://docs.docker.com/v17.12/install/)
+
+### 启动docker daemon
+  
+  参照docker官方文档
+  
+### 通过docker启动gvite
+
+sudo docker run -v ~/.gvite/:/root/.gvite/ -p 48132:48132 -p 41420:41420 -p 8483:8483 -p 8484:8484 -p 8483:8483/udp -d vitelabs/gvite:latest
+
+## docker编译部署
 
 ### golang 环境确认
 
