@@ -202,7 +202,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 ### 启动gvite容器
 
   ```
-    docker run -p 48132:48132 -p 41420:41420 -p 8483:8483 -p 8484:8484 -p 8483:8483/udp -d gvite
+    docker run -v $HOME/.gvite/:/root/.gvite/ -p 48132:48132 -p 41420:41420 -p 8483:8483 -p 8484:8484 -p 8483:8483/udp -d gvite
   ```
 
 ## 监控
