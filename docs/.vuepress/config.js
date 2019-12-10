@@ -141,7 +141,7 @@ const sidebarConfigs = {
             children: ['tool/http', 'tool/websocket', 'tool/ipc', 'tool/abi', 'tool/utils', 'tool/keystore']
         }
     ],
-    'api/java-sdk': [
+    'api/javasdk_v2': [
         {
           children: ['','faq','types','rpc','wallet']
         }
@@ -313,7 +313,7 @@ module.exports = {
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', 'FAQ'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC API', '钱包', '账本', '智能合约', '网络', '其他'),
                     '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', '更多'),
-                    '/zh/api/java-sdk/': genSidebarConfig('api/java-sdk', 'zh', 'Vitej'),
+                    '/zh/api/javasdk_v2/': genSidebarConfig('api/javasdk_v2', 'zh', 'Vitej'),
                   '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
                 },
                 algolia: {
