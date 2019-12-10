@@ -1,8 +1,7 @@
 ---
 sidebarDepth: 4
-title: 开始
 ---
-# Vite java sdk
+# 快速开始
 
 ## github
 
@@ -23,31 +22,50 @@ title: 开始
 
 ### 使用示例
 
-`Vitej`包装了go-vite的大部分RPC接口
+```
+import com.alibaba.fastjson.JSON;
+import org.vitej.core.constants.CommonConstants;
+import org.vitej.core.protocol.HttpService;
+import org.vitej.core.protocol.Vitej;
+import org.vitej.core.protocol.methods.Address;
+import org.vitej.core.protocol.methods.Hash;
+import org.vitej.core.protocol.methods.enums.EBlockType;
+import org.vitej.core.protocol.methods.request.Request;
+import org.vitej.core.protocol.methods.request.TransactionParams;
+import org.vitej.core.protocol.methods.response.EmptyResponse;
+import org.vitej.core.wallet.KeyPair;
+import org.vitej.core.wallet.Wallet;
 
-三种创建Vitej的方式如下：
-```
-默认连接到http://127.0.0.1:48132
-Vitej vitej = new Vitej(new HttpService());
-指定go-vite http url
-Vitej vitej = new Vitej(new HttpService("http://127.0.0.1:48132"));
-指定go-vite http url和默认地址，后续发交易或者查询时默认使用keyPair地址
-KeyPair keyPairDefault = new Wallet(Arrays.asList("alarm", "canal", "scheme", "actor", "left", "length", "bracket", "slush", "tuna", "garage", "prepare", "scout", "school", "pizza", "invest", "rose", "fork", "scorpion", "make", "enact", "false", "kidney", "mixed", "vast")).deriveKeyPair();
-Vitej vitej = new Vitej(new HttpService("http://127.0.0.1:48132"), keyPairDefault);
-```
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Arrays;
 
-同步查询用户账户链
-```
-AccountBlocksResponse response = vitej.getAccountBlocksByAddress(
-        new Address("vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a"), 0, 10
-    ).send();
-```
-异步查询用户账户链
-```
-CompletableFuture<AccountBlocksResponse> future = vitej.getAccountBlocksByAddress(
-        new Address("vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a"), 0, 10
-).sendAsync();
-AccountBlocksResponse response = future.get();
+public class QuickStart {
+    public static void main(String[] args) {
+        try {
+            // 初始化Vitej client
+            Vitej vitej = new Vitej(new HttpService());
+            // 通过助记词恢复钱包，取钱包中派生的第0个地址
+            KeyPair keyPair = new Wallet(Arrays.asList("network", "north", "tell", "potato", "predict", "almost", "wonder", "spirit", "wheel", "smile", "disease", "bonus", "round", "flock", "pole", "review", "music", "oven", "clarify", "exclude", "loyal", "episode", "image", "notable")).deriveKeyPair();
+            // 构造一笔转账交易
+            Request<?, EmptyResponse> request = vitej.sendTransaction(keyPair,
+                    new TransactionParams()
+                            .setBlockType(EBlockType.SEND_CALL.getValue())
+                            .setToAddress(new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"))
+                            .setAmount(BigInteger.valueOf(1))
+                            .setTokenId(CommonConstants.VITE_TOKEN_ID)
+                            .setData("Hello".getBytes()),
+                    true);
+            Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
+            System.out.println(sendBlockHash);
+            // 发送转账交易
+            EmptyResponse response = request.send();
+            System.out.println(JSON.toJSONString(response));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
 ```
 
 

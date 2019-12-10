@@ -1,15 +1,17 @@
 ---
 sidebarDepth: 4
-title: 开始
 ---
 
 # 常用类型及说明
+
+## 类型
 
 ### Address
 账户地址
 ```demo
 // 创建地址对象
-Address address = new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68");
+Address address = new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd");
+Address address = Address.stringToAddress("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd");
 // 判断是否用户地址
 boolean isUser = address.isUser();
 // 判断是否合约地址
@@ -20,6 +22,7 @@ boolean isContact = address.isContract();
 ```demo
 // 创建代币id对象
 TokenId tokenId = new TokenId("tti_5649544520544f4b454e6e40");
+TokenId tokenId = TokenId.stringToTokenId("tti_5649544520544f4b454e6e40");
 ```
 
 ### Hash
@@ -27,6 +30,7 @@ TokenId tokenId = new TokenId("tti_5649544520544f4b454e6e40");
 ```demo
 // 创建hash对象
 Hash hash = new Hash("7683bbc8be1391172ed21cc1fe0843ac3b1311109aa329601b73f717e6a93b53");
+Hash hash = Hash.stringToHash("7683bbc8be1391172ed21cc1fe0843ac3b1311109aa329601b73f717e6a93b53");
 // 计算一个字节数组的hash
 byte[] data = BytesUtils.hexStringToBytes("7683bbc8be1391172ed21cc1fe0843ac3b1311109aa329601b73f717e6a93b53");
 Hash dataHash = Hash.dataToHash(data);

@@ -1,0 +1,35 @@
+---
+sidebarDepth: 4
+---
+
+# 工具
+
+## 判断交易类型
+
+```demo
+// 根据blockType字段判断交易类型
+Boolean isSendBlock = BlockUtils.isSendBlock(EBlockType.SEND_CALL.getValue());
+Boolean isReceiveBlock = BlockUtils.isReceiveBlock(EBlockType.RECEIVE.getValue());
+// 直接判断一个accountBlock的交易类型
+AccountBlock accountBlock = ...;
+Boolean isSendBlock = accountBlock.isSendBlock();
+Boolean isReceiveBlock = accountBlock.isReceiveBlock();
+```
+
+## 校验调用合约是否成功
+
+判断逻辑为：
+
+1. 校验sendBlockHash对应的账户块是否存在，如果不存在，返回false；
+2. 校验sendBlockHash对应的交易是否为调用合约交易（toAddress为合约账户地址，交易类型为SEND_CALL或者SEND_CREATE），如果不是，返回false；
+3. 判断sendBlockHash对应的请求交易是否被合约接收（通过accountBlock中的receiveBlockHash字段是否存在来判断），如果未被接收，则每隔一秒查询一次，直到请求交易被接收或者到达最大重试次数（retryTime，默认为10），如果到达最大重试次数仍然未被接收，返回false。这里未被接收的原因可能是合约没有配额，或者合约在创建时设置的ResponseLatency或者randomDegree过高，导致合约需要等待一定的确认数之后才会接收交易；
+4. 判断接收是否成功（根据接收交易的data字段的第33字节值是否为0来判断，值为0表示执行合约代码成功，非0表示执行合约代码失败），如果失败返回false；
+5. 如果接收交易是一个RS块（即在接收之后又发起了新的请求交易），并且新的请求交易中包含合约调用交易，则继续判断这些调用合约交易是否执行成功。如果接收交易没有发起新的请求交易，或者请求交易中没有发起合约调用交易，那么返回true。
+
+```
+Vitej vitej = new Vitej(new HttpService());
+Hash sendBlockHash = new Hash("7683bbc8be1391172ed21cc1fe0843ac3b1311109aa329601b73f717e6a93b53");
+// 下面两种方式效果相同
+boolean success = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash);
+boolean success = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash, 10);
+```

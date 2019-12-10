@@ -1,6 +1,5 @@
 ---
 sidebarDepth: 4
-title: 开始
 ---
 
 # 钱包
@@ -12,7 +11,7 @@ title: 开始
 // 创建新钱包
 Wallet wallet = new Wallet();
 // 根据助记词恢复钱包
-Wallet wallet = new Wallet(Arrays.asList("alarm", "canal", "scheme", "actor", "left", "length", "bracket", "slush", "tuna", "garage", "prepare", "scout", "school", "pizza", "invest", "rose", "fork", "scorpion", "make", "enact", "false", "kidney", "mixed", "vast"));
+Wallet wallet = new Wallet(Arrays.asList("network","north","tell","potato","predict","almost","wonder","spirit","wheel","smile","disease","bonus","round","flock","pole","review","music","oven","clarify","exclude","loyal","episode","image","notable"));
 // 获取钱包的助记词
 List<String> mnemonic = wallet.getMnemonic();
 ```
