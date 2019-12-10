@@ -63,19 +63,13 @@ Below is a full example of node_config.json：
   "VmLogAll":true,
   "OpenPlugins":true,
   "PublicModules": [
+    "net",
     "wallet",
-    "public_onroad",
-    "tx",
     "ledger",
     "contract",
-    "pledge",
-    "register",
-    "vote",
-    "mintage",
-    "net",
-    "testapi",
     "dashboard",
-    "vmdebug"
+    "debug",
+    "util"
   ]
 }
 ```
@@ -125,6 +119,26 @@ Below is a full example of genesis_config.json with following settings:
       "DexFork":{
         "Height":2,
         "Version":2
+      },
+      "DexFeeFork":{
+        "Height":3,
+        "Version":3
+      },
+      "StemFork":{
+        "Height":4,
+        "Version":4
+      },
+      "LeafFork":{
+        "Height":5,
+        "Version":5
+      },
+      "EarthFork":{
+        "Height":6,
+        "Version":6
+      },
+      "DexMiningFork":{
+        "Height":7,
+        "Version":7
       }
     },
   "ConsensusGroupInfo": {

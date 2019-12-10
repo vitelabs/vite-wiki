@@ -64,19 +64,13 @@ node_config.json完整示例：
   "VmLogAll":true,
   "OpenPlugins":true,
   "PublicModules": [
+    "net",
     "wallet",
-    "public_onroad",
-    "tx",
     "ledger",
     "contract",
-    "pledge",
-    "register",
-    "vote",
-    "mintage",
-    "net",
-    "testapi",
     "dashboard",
-    "vmdebug"
+    "debug",
+    "util"
   ]
 }
 ```
@@ -122,6 +116,26 @@ genesis_config.json完整示例，包含以下内容：
       "DexFork":{
         "Height":2,
         "Version":2
+      },
+      "DexFeeFork":{
+        "Height":3,
+        "Version":3
+      },
+      "StemFork":{
+        "Height":4,
+        "Version":4
+      },
+      "LeafFork":{
+        "Height":5,
+        "Version":5
+      },
+      "EarthFork":{
+        "Height":6,
+        "Version":6
+      },
+      "DexMiningFork":{
+        "Height":7,
+        "Version":7
       }
     },
   "ConsensusGroupInfo": {
