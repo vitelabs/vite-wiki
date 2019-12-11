@@ -50,7 +50,7 @@ projects:
         - name: Vite.js
           url: /zh/api/vitejs/
         - name: Vite JAVA SDK
-          url: /zh/api/java-sdk/
+          url: /zh/api/javasdk_v2/
     - title: 技术细节
       detail: Vite相关技术实现方案
       links: 
