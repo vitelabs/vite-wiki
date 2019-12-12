@@ -130,7 +130,7 @@ Request<?, EmptyResponse> request = vitej.sendTransaction(keyPair,
                 // 请求交易哈希，必填
                 .setSendBlockHash(new Hash("ef5dccd73a6ef6370bc72b56b686362fd095152e2746f21113c2015e243b5056")),
         true);
-Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
+Hash receiveBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 ```
 
