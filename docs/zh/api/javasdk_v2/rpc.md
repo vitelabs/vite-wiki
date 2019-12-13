@@ -113,7 +113,7 @@ Request<?, EmptyResponse> request = vitej.sendTransaction(
                 // 备注，非必填，默认空
                 .setData("Hello".getBytes()),
         // 如果配额不足，是否自动计算PoW
-        true);
+        false);
 Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 ```
@@ -129,7 +129,7 @@ Request<?, EmptyResponse> request = vitej.sendTransaction(keyPair,
                 .setBlockType(EBlockType.RECEIVE.getValue())
                 // 请求交易哈希，必填
                 .setSendBlockHash(new Hash("ef5dccd73a6ef6370bc72b56b686362fd095152e2746f21113c2015e243b5056")),
-        true);
+        false);
 Hash receiveBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 ```
@@ -157,8 +157,7 @@ Request<?, EmptyResponse> request = vitej.sendTransaction(
                 .setTokenId(CommonConstants.VITE_TOKEN_ID)
                 // 调用合约的data，非必填，默认空
                 .setData(callContractData),
-        true
-);
+        false);
 Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 // 检查调用合约是否成功
@@ -192,8 +191,7 @@ Request<?, EmptyResponse> request = vitej.sendTransaction(
                 .setFee(CommonConstants.CREATE_CONTRACT_FEE)
                 // 创建合约参数，必填
                 .setData(createContractData),
-        true
-);
+        false);
 Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 boolean callSuccess = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash);
