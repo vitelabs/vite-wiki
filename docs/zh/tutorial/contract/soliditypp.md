@@ -31,12 +31,15 @@ Solidity中内联汇编的语法暂时不提供
 Solidity++新增的语法如下:
 
 ```
+uint height = height();
 bytes32 b1 = fromhash();
 uint height = accountheight();
 bytes32 b2 = prevhash();
 uint64 random = random64();
 uint64 newRandom = nextrandom();
 ```
+
+"height()"返回当前快照块的高度
 
 "fromhash()"返回请求交易的哈希值
 
