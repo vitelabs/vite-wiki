@@ -11,15 +11,15 @@
 
 gvite版本记录可以从 [gvite release history](https://github.com/vitelabs/go-vite/releases)获得，下载Latest release版本。
 
-```bash
+```bash replace version
 ## 下载
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
-```bash
+```bash replace version
 ## 解压
 tar -xzvf gvite-${version}-linux.tar.gz
 ```
-```bash
+```bash replace version
 ## 修改目录名为vite, 进入解压目录，包含三个文件 gvite、bootstrap 和 node_config.json
 mv gvite-${version}-linux vite
 cd vite

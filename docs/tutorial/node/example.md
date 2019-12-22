@@ -12,15 +12,15 @@ This document explains how to set up an SBP node. All steps have been tested on 
 Latest installation package can be found at [gvite Releases](https://github.com/vitelabs/go-vite/releases).
 
 
-```bash
+```bash replace version
 ## Download
 curl -L -O https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```
-```bash
+```bash replace version
 ## Unpack package
 tar -xzvf gvite-${version}-linux.tar.gz
 ```
-```bash
+```bash replace version
 ## Enter the folder. You should see 3 files: gvite, bootstrap and node_config.json
 mv gvite-${version}-linux vite
 cd vite

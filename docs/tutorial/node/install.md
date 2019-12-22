@@ -14,7 +14,7 @@ Gvite supports installation from binary or source code
 
 | OS | ubuntu  |  mac |   windows |
 | ------------- | ------------------------------ |------|-------|
-| gvite-v2.x.x   | Yes  |Yes |Yes |
+| {{$page.version}}  | Yes  |Yes |Yes |
 
 
 ## Install from binary
@@ -22,7 +22,7 @@ Gvite supports installation from binary or source code
 Download latest gvite installation package at [gvite Releases](https://github.com/vitelabs/go-vite/releases) in command line then install
 
 ### Installation example on ubuntu
-```bash  replace version
+```bash replace version
 ## Download
 curl -L -O  https://github.com/vitelabs/go-vite/releases/download/${version}/gvite-${version}-linux.tar.gz
 ```

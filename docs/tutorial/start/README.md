@@ -1,4 +1,4 @@
-# Introduction to Vite Mainnet <Badge text="2.6.x"/>
+# Introduction to Vite Mainnet <Badge :text="$page.version"/>
 
 Vite Mainnet was launched on September 25, 2019. Hit [Token Swap](https://medium.com/vitelabs/announcing-the-vite-mainnet-launch-4d55fc4b4bd2) to learn about how to convert ERC20 to native Vite coins.
 
