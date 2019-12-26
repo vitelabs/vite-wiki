@@ -629,3 +629,11 @@ Vitej vitej = new Vitej(new HttpService());
 NetSyncDetailResponse response = vitej.netSyncDetail().send();
 NetSyncDetailResponse.Result nodeInfo = response.getResult();
 ```
+
+### 查询其他RPC接口
+
+```
+Vitej vitej = new Vitej(new HttpService());
+CommonResponse response = vitej.commonMethod("ledger_getAccountBlocksByAddress", "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",0,10).send();
+Object result = response.getResult();
+```

@@ -12,6 +12,8 @@ sidebarDepth: 4
 Wallet wallet = new Wallet();
 // 根据助记词恢复钱包
 Wallet wallet = new Wallet(Arrays.asList("network","north","tell","potato","predict","almost","wonder","spirit","wheel","smile","disease","bonus","round","flock","pole","review","music","oven","clarify","exclude","loyal","episode","image","notable"));
+// 或者
+Wallet wallet = new Wallet("network north tell potato predict almost wonder spirit wheel smile disease bonus round flock pole review music oven clarify exclude loyal episode image notable");
 // 获取钱包的助记词
 List<String> mnemonic = wallet.getMnemonic();
 ```
