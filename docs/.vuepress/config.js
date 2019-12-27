@@ -132,7 +132,7 @@ const sidebarConfigs = {
             children: ['ViteAPI/start', 'ViteAPI/GViteRPC']
         },
         {
-            children: ['accountBlock/start', 'accountBlock/createAccountBlock', 'accountBlock/accountBlock', 'accountBlock/utils']
+            children: ['accountBlock/start', 'accountBlock/createAccountBlock', 'accountBlock/accountBlock', 'accountBlock/receiveAccountBlockTask', 'accountBlock/utils']
         },
         {
             children: ['wallet/start', 'wallet/wallet', 'wallet/more']
