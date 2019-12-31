@@ -27,7 +27,7 @@ VX is the coin native to the VX platform. VX holders enjoy benefits in the form 
 
 ### VX Basics
 
-* **Total supply**: **29,328,797**
+* **Total supply**: **29,328,807.8**
 * **Smallest denomination**: $10^{-18}$
 * **Features**: VX holders receive daily dividends from a shared dividend pool which aggregates the trading fees accumulated by ViteX and redistributes back to VX holders.
 * **Distribution**: VX will have no private sale nor public sale. The only way to obtain VX is through mining. VX can be mined in five ways:
@@ -49,7 +49,7 @@ After the launch of VX mining, there will be two phases of VX release with the t
   * Sub-phase 1: Starting at 10,000 from December 7, 2019, daily release will increase for 90 days at a fixed rate of **1.80435%**, until reaching **50,000** on March 6, 2020
   * Sub-phase 2: Starting from March 7, 2020, daily release decreases at a rate of **0.189724%**
 
-![](~/images/vx-release-chart-en.png)
+![](~/images/vx-release-schedule.png)
 
 
 ### VX Mining Allocation
@@ -93,17 +93,23 @@ By staking VITE to help ViteX obtain necessary quota, users receive VX rewards.
 * **Allocation**: 20% of daily released VX
 * **How to participate**: stake VITE with the beneficiary set to the ViteX smart contract
   * **Staking amount**: the minimum amount of VITE that users can stake is 134 VITE. There is no maximum cap.
-  * **Staking duration**: if a user stakes his or her VITE, they will be able to withdraw it after 3 days. There is no maximum number of days for staking VITE (i.e. users can stake VITE indefinitely if they want to). Note: after the staking amount is retrieved, it will not be counted towards staking as mining rewards. The user must re-stake VITE in order to participate in staking as mining rewards.
+  * **Staking duration**: if a user stakes his or her VITE, they will be able to withdraw it after 3 days. There is no maximum number of days for staking VITE (i.e. users can stake VITE indefinitely if they want to). It takes 7 days for the retrieved tokens to arrive in user's account.
+  
+  Note: after the staking amount is retrieved, it will not be counted towards staking as mining rewards. The user must re-stake VITE in order to participate in staking as mining rewards.
 * **Mining reward calculation** : the amount of VX rewards will be calculated based on the proportion of VITE staked by a user's account to the total amount of VITE staked that day. 
   
 ### Market-making as Mining
 
 Placing orders on ViteX will also earn users VX rewards. The amount of VX earned depends on three factors: 1) the amount of order, 2) the amount of time your order remains on the order book, and 3) the amount of deviation from the best bid and best offer in the order book spread. 
 
-* **Allocation**: 10% of daily released VX, with each market (BTC, ETCH, VITE and USDT) weighted equally at 2.5% 
+* **Allocation**: 10% of daily released VX
+  - BTC market **5%**
+  - ETH market **1.5%**
+  - VITE market **1.5%**
+  - USDT market **2%**
 * **How to participate**: stake VITE with the beneficiary set to the ViteX smart contract
   - Only eligible trading pairs will be considered for market-making as mining rewards
-  - The buy orders must not deviate more than 10% from the best buy offer in the order book
+  - The orders must not deviate more than 10% from the best buy/sell offer in the order book
 
 > The VX mining reward for market-making has a linear relationship with the **order amount** and **order duration** (i.e. amount of time the pending order stays on the order book). 
 However, the mining reward has an exponential relationship with the **order distance** (i.e. the deviation from the best bid offer). 
