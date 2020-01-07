@@ -51,4 +51,5 @@ public class QuickStart {
 }
 ```
 
+更多示例见[Vitej demo](https://github.com/vitelabs/vitej-demo)
 
