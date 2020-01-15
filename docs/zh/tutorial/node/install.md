@@ -75,6 +75,26 @@ Prepare the Node success!!!
 Start the Node success!!!
 ```
 
+### windows 安装示例
+
+只支持64位windows系统
+
+```
+## 从https://github.com/vitelabs/go-vite/releases下载最新的release版本，解压缩。
+## 打开命令行工具，进入解压目录，目录下包含两个文件 gvite-windows-amd64.exe 和 node_config.json
+## 后台运行服务，并将控制台日志输出到gvite.log文件中
+start /b gvite-windows-amd64.exe >> gvite.log
+```
+
+如下说明启动成功
+
+```
+t=2020-01-15T11:34:11.593+0800 lvl=info msg=NodeServer.DataDir:C:\\Users\\Administrator\\AppData\\Roaming\\GVite\\maindata module=gvite/node_manager
+t=2020-01-15T11:34:11.593+0800 lvl=info msg=NodeServer.KeyStoreDir:C:\\Users\\Administrator\\AppData\\Roaming\\GVite\\maindata\\wallet module=gvite/node_manager
+Node prepared successfully!!!
+Node started successfully!!!
+```
+
 ### 安装目录文件说明
 
 **安装目录**：指gvite启动脚本和配置文件所在文件夹。例如上文中的安装目录路径为：
@@ -119,6 +139,8 @@ gvite 数据目录说明:
 * `wallet`： 钱包keyStore目录，用于存储私钥生成的keyStore文件，如果是超级节点涉及到挖矿账户安全，请`妥善保管`
 
 mac 默认目录：~/Library/GVite/maindata
+
+windows 默认目录：C:\Users\Administrator\AppData\Roaming\GVite\maindata
 
 ## 源码安装
 ### golang 环境确认
