@@ -143,7 +143,7 @@ const sidebarConfigs = {
     ],
     'api/javasdk_v2': [
         {
-          children: ['','faq','types','rpc','wallet']
+          children: ['','faq','types','wallet','rpc','quota','sbp','asset','subscribe','utils']
         }
     ],
     vep: [
