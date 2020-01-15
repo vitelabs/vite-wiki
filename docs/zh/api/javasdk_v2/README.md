@@ -15,12 +15,12 @@ sidebarDepth: 4
 <dependency>
   <groupId>org.vite</groupId>
   <artifactId>vitej</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
 </dependency>
 <dependency>
     <groupId>org.vite</groupId>
     <artifactId>vitej-dependencies</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 

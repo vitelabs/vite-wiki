@@ -8,16 +8,41 @@ sidebarDepth: 4
 
 ### 创建`Vitej`对象
 
-后续使用`Vitej`来调用RPC接口。三种方式创建`Vitej`：
+后续使用`Vitej`来调用RPC接口。
 
-```demo
-// 默认连接到http://127.0.0.1:48132
+使用http方式调用RPC接口：
+
+```
+// 默认连接到 http://127.0.0.1:48132
 Vitej vitej = new Vitej(new HttpService());
 // 指定go-vite http url
 Vitej vitej = new Vitej(new HttpService("http://127.0.0.1:48132"));
-// 指定go-vite http url和默认地址，后续发交易或者查询时默认使用keyPair地址
-KeyPair keyPairDefault = new Wallet(Arrays.asList("network","north","tell","potato","predict","almost","wonder","spirit","wheel","smile","disease","bonus","round","flock","pole","review","music","oven","clarify","exclude","loyal","episode","image","notable")).deriveKeyPair();
-Vitej vitej = new Vitej(new HttpService("http://127.0.0.1:48132"), keyPairDefault);
+// 指定go-vite http url和http client
+Vitej vitej = new Vitej(new HttpService("http://127.0.0.1:48132", new OkHttpClient.Builder().build()));
+// 指定默认地址，后续发交易或者查询时默认使用keyPair地址
+KeyPair keyPair = new Wallet(Arrays.asList("network","north","tell","potato","predict","almost","wonder","spirit","wheel","smile","disease","bonus","round","flock","pole","review","music","oven","clarify","exclude","loyal","episode","image","notable")).deriveKeyPair();
+Vitej vitej = new Vitej(new HttpService(), keyPair);
+```
+
+使用WebSocket方式调用RPC接口：
+```
+// 默认连接到 ws://127.0.0.1:41420
+WebSocketService ws = new WebSocketService();
+ws.connect();
+Vitej vitej = new Vitej(ws);
+// 指定go-vite WebSocket url
+WebSocketService ws = new WebSocketService("ws://127.0.0.1:41420");
+ws.connect();
+Vitej vitej = new Vitej(ws);
+// 指定go-vite WebSocket url和http client
+WebSocketService ws = new WebSocketService("ws://127.0.0.1:41420", new OkHttpClient.Builder().build());
+ws.connect();
+Vitej vitej = new Vitej(ws);
+// 指定默认地址，后续发交易或者查询时默认使用keyPair地址
+WebSocketService ws = new WebSocketService();
+ws.connect();
+KeyPair keyPair = new Wallet(Arrays.asList("network","north","tell","potato","predict","almost","wonder","spirit","wheel","smile","disease","bonus","round","flock","pole","review","music","oven","clarify","exclude","loyal","episode","image","notable")).deriveKeyPair();
+Vitej vitej = new Vitej(ws, keyPair);
 ```
 
 ### 调用RPC接口
@@ -197,47 +222,6 @@ EmptyResponse response = request.send();
 boolean callSuccess = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash);
 ```
 
-### 获取交易所需配额
-
-```
-Vitej vitej = new Vitej(new HttpService());
-RequiredQuotaResponse response = vitej.getRequiredQuota(
-        // 交易参数，同sendTransaction接口
-        new TransactionParams()
-                // 交易类型，默认值SEND_CALL
-                .setBlockType(EBlockType.SEND_CALL.getValue())
-                // 签名交易地址
-                .setAddress(new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"))
-                // 接收交易地址
-                .setToAddress(new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"))
-                // 交易备注
-                .setData("Hello".getBytes())).send();
-Long requiredQuota = response.getRequiredQuota();
-```
-
-### 获取发交易需要计算的PoW难度
-
-```
-Vitej vitej = new Vitej(new HttpService());
-PoWDifficultyResponse response = vitej.getPoWDifficulty(
-        // 交易参数，同sendTransaction接口
-        new TransactionParams()
-                // 交易类型，默认值SEND_CALL
-                .setBlockType(EBlockType.SEND_CALL.getValue())
-                // 签名交易地址
-                .setAddress(new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"))
-                // 接收交易地址
-                .setToAddress(new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"))
-                // 交易备注
-                .setData("Hello".getBytes())).send();
-// 发送交易所需配额
-Long requiredQuota = response.getResult().getRequiredQuota();
-// 判断网络是否拥堵，如果网络拥堵，建议等待一段时间后再发交易
-boolean isCongested = response.getResult().getCongestion();
-// 发送这笔交易需要计算的PoW难度
-BigInteger difficulty = response.getResult().getDifficulty();
-```
-
 ### 计算PoW
 
 ```
@@ -284,6 +268,18 @@ AccountBlock accountBlock = response.getResult();
 ```
 Vitej vitej = new Vitej(new HttpService());
 AccountBlockResponse response = vitej.getAccountBlockByHash(
+        // 账户块哈希
+        new Hash("c4b11ff481c5476945000993816794fbc21a315901aaecb523b503c19c133154")).send();
+AccountBlock accountBlock = response.getResult();
+```
+
+### 根据哈希查询完整账户块
+
+如果传入合约RS块的S交易哈希，则返回完整的RS块
+
+```
+Vitej vitej = new Vitej(new HttpService());
+AccountBlockResponse response = vitej.getCompleteAccountBlockByHash(
         // 账户块哈希
         new Hash("c4b11ff481c5476945000993816794fbc21a315901aaecb523b503c19c133154")).send();
 AccountBlock accountBlock = response.getResult();
@@ -456,154 +452,6 @@ CallOffChainMethodResponse response = vitej.callOffChainMethod(
 // 用ABI反解析返回值
 List<?> outputList = abi.decodeOffchainOutput(methodName, response.getReturnData());
 BigInteger output = ((BigInteger) outputList.get(0));
-```
-
-### 查询账户配额
-
-```
-Vitej vitej = new Vitej(new HttpService());
-QuotaResponse response = vitej.getQuotaByAccount(
-        // 账户地址
-        new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")
-).send();
-// 当前可用配额
-Long currentQuota = response.getResult().getCurrentQuota();
-// 最大可用配额
-Long maxQuota = response.getResult().getMaxQuota();
-// 抵押受益金额
-BigInteger stakeAmount = response.getResult().getStakeAmount();
-```
-
-### 查询抵押信息列表
-
-```
-Vitej vitej = new Vitej(new HttpService());
-StakeListResponse response = vitej.getStakeList(
-        // 抵押地址
-        new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"),
-        // 页码，从0开始
-        0,
-        // 每页条数
-        10
-).send();
-// 总抵押金额
-BigInteger totalStakeAmount = response.getResult().getTotalStakeAmount();
-// 抵押信息条数
-Integer totalStakeCount = response.getResult().getTotalStakeCount();
-// 抵押信息
-List<StakeListResponse.StakeInfo> stakeInfoList = response.getResult().getStakeList();
-```
-
-### 根据配额预估抵押金额
-
-```
-Vitej vitej = new Vitej(new HttpService());
-// 平均每个快照块消耗的配额，例如预期每秒发送一笔不带备注的转账交易（消耗21000配额），那么入参填21000
-StakeAmountResponse response = vitej.getRequiredStakeAmount(21000L).send();
-BigInteger stakeAmount = response.getStakeAmount();
-```
-
-### 根据地址查询超级节点列表
-
-```
-Vitej vitej = new Vitej(new HttpService());
-SBPListResponse response = vitej.getSBPList(
-        // 账户地址
-        new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")
-).send();
-// 该账户注册的超级节点和可以提取奖励的超级节点列表
-List<SBPInfo> sbpInfoList = response.getResult();
-```
-
-### 查询超级节点待提取奖励
-
-```
-Vitej vitej = new Vitej(new HttpService());
-SBPRewardResponse response = vitej.getSBPRewardPendingWithdrawal(
-        // 超级节点名称
-        "Vite_SBP01"
-).send();
-SBPRewardResponse.Result reward = response.getResult();
-```
-
-### 查询超级节点信息
-
-```
-Vitej vitej = new Vitej(new HttpService());
-SBPResponse response = vitej.getSBP(
-        // 超级节点名称
-        "Vite_SBP01"
-).send();
-SBPInfo sbpInfo = response.getResult();
-```
-
-### 查询一个周期内的超级节点奖励信息
-
-```
-Vitej vitej = new Vitej(new HttpService());
-SBPRewardDetailResponse response = vitej.getSBPRewardByCycle(
-        // 周期，20190521T12:00:00+08:00 ~ 20190522T12:00:00+08:00为第0个周期
-        1L
-).send();
-SBPRewardDetailResponse.Result rewardDetail = response.getResult();
-```
-
-### 按周期查询超级节点投票信息
-
-```
-Vitej vitej = new Vitej(new HttpService());
-SBPVoteDetailsResponse response = vitej.getSBPVoteDetailsByCycle(
-        // 周期，20190521T12:00:00+08:00 ~ 20190522T12:00:00+08:00为第0个周期
-        0L
-).send();
-List<SBPVoteDetailsResponse.Result> voteDetail = response.getResult();
-```
-
-### 查询投票信息
-
-```
-Vitej vitej = new Vitej(new HttpService());
-VotedSBPResponse response = vitej.getVotedSBP(
-        new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")
-).send();
-VotedSBPResponse.Result votedSBP = response.getResult();
-```
-
-### 查询代币信息列表
-
-```
-Vitej vitej = new Vitej(new HttpService());
-TokenInfoListWithTotalResponse response = vitej.getTokenInfoList(
-        // 页码，从0开始
-        0,
-        // 每页条数
-        10
-).send();
-// 代币总数
-Integer count = response.getResult().getTotalCount();
-// 代币信息列表
-List<TokenInfo> tokenInfoList = response.getResult().getTokenInfoList();
-```
-
-### 查询代币信息
-
-```
-Vitej vitej = new Vitej(new HttpService());
-TokenInfoResponse response = vitej.getTokenInfoById(
-        // 代币id
-        new TokenId("tti_5649544520544f4b454e6e40")
-).send();
-TokenInfo tokenInfo = response.getResult();
-```
-
-### 根据所有者账户查询代币信息列表
-
-```
-Vitej vitej = new Vitej(new HttpService());
-TokenInfoListResponse response = vitej.getTokenInfoListByOwner(
-        new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")
-).send();
-List<TokenInfo> tokenInfo = response.getResult();
 ```
 
 ### 查询节点网络连接信息

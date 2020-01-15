@@ -33,3 +33,41 @@ Hash sendBlockHash = new Hash("7683bbc8be1391172ed21cc1fe0843ac3b1311109aa329601
 boolean success = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash);
 boolean success = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash, 10);
 ```
+
+## abi编码和解析工具
+```
+// json字符串解析为Abi对象
+Abi abi = Abi.fromJson("[" +
+        "{\"type\":\"function\",\"name\":\"voteForSBP\", \"inputs\":[{\"name\":\"sbpName\",\"type\":\"string\"}]}," +
+        "{\"type\":\"offchain\",\"name\":\"getVotes\", \"inputs\":[{\"name\":\"voteAddress\",\"type\":\"address\"}], \"outputs\":[{\"name\":\"sbpName\",\"type\":\"string\"}]}," +
+        "{\"type\":\"event\",\"name\":\"VoteForSBP\", \"inputs\":[{\"name\":\"sbpName\",\"type\":\"string\"},{\"name\":\"voteAddress\",\"type\":\"address\"}]}" +
+        "]");
+// 根据名称查询方法
+Abi.Function functionByName = abi.findFunctionByName("voteForSBP");
+// 方法编码，即调用合约请求交易的data字段
+byte[] encodedFunctionData1 = functionByName.encode("Vite_SBP01");
+byte[] encodedFunctionData2 = abi.encodeFunction("voteForSBP", "Vite_SBP01");
+// 根据data查询方法
+Abi.Function functionByData = abi.findFunctionByData(encodedFunctionData1);
+// data反解析
+List<?> decodedFunctionParams = functionByData.decode(encodedFunctionData1);
+List<?> decodedFunctionParams2 = abi.decodeFunction(encodedFunctionData1);
+
+// 根据名称查询getter方法
+Abi.Offchain offchainByName = abi.findOffchainByName("getVotes");
+// getter方法编码，即离线调用合约方法的data字段
+byte[] encodedOffchainData1 = offchainByName.encode(new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"));
+byte[] encodedOffchainData2 = abi.encodeOffchain("getVotes", new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"));
+// 反解析离线调用合约方法的返回值
+List<?> decodedOffchainParams = abi.decodeOffchainOutput("getVotes", BytesUtils.hexStringToBytes("0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000a566974655f534250303100000000000000000000000000000000000000000000"));
+
+// 根据名称查询event
+Abi.Event eventByName = abi.findEventByName("VoteForSBP");
+// 根据vmlog的topics查询event
+List<Hash> eventTopics = Arrays.asList(new Hash("afa4799f2c9e07964e722c02e1c5b6f1a84aca56854e5b0eba69c2a067843cd1"));
+Abi.Event eventByTopics = abi.findEventByTopics(eventTopics);
+// 反解析vmlog
+byte[] eventData = BytesUtils.hexStringToBytes("000000000000000000000000000000000000000000000000000000000000004000000000000000000000000996e651f3885e6e6b83dfba8caa095ff7aa248e00000000000000000000000000000000000000000000000000000000000000000a566974655f534250303100000000000000000000000000000000000000000000");
+List<?> decodedEventParams1 = eventByTopics.decode(eventData, eventTopics);
+List<?> decodedEventParams2 = abi.decodeEvent(eventData, eventTopics);
+```
