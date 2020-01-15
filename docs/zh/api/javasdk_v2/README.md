@@ -9,8 +9,10 @@ sidebarDepth: 4
 
 ## 开始
 
-### 添加maven依赖
-在项目`pom.xml`中添加依赖
+### 添加依赖
+
+#### maven
+
 ```
 <dependency>
   <groupId>org.vite</groupId>
@@ -18,10 +20,18 @@ sidebarDepth: 4
   <version>1.1.0</version>
 </dependency>
 <dependency>
-    <groupId>org.vite</groupId>
-    <artifactId>vitej-dependencies</artifactId>
-    <version>1.1.0</version>
+  <groupId>org.vite</groupId>
+  <artifactId>vitej-dependencies</artifactId>
+  <version>1.1.0</version>
+  <type>pom</type>
 </dependency>
+```
+
+#### gradle
+
+```
+implementation 'org.vite:vitej:1.1.0'
+implementation 'org.vite:vitej-dependencies:1.1.0'
 ```
 
 ### 使用示例
