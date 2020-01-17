@@ -17,15 +17,17 @@ sidebarDepth: 4
 <dependency>
   <groupId>org.vite</groupId>
   <artifactId>vitej</artifactId>
-  <version>1.1.0</version>
+  <version>${latest-release-version}</version>
 </dependency>
 <dependency>
   <groupId>org.vite</groupId>
   <artifactId>vitej-dependencies</artifactId>
-  <version>1.1.0</version>
+  <version>${latest-release-version}</version>
   <type>pom</type>
 </dependency>
 ```
+
+[Release log](https://github.com/vitelabs/vitej/releases)
 
 #### gradle
 
