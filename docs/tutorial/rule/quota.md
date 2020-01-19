@@ -1,7 +1,7 @@
 # Quota
 
 ::: tip
-Quota and quota-related topics are described in this page.
+Quota and related topics are described in this page.
 
 Definition of Terms:
 * **Quota**： In Vite network, CPU cycles, storage space and network bandwidth consumed in transactions are paid by quota, instead of transaction fees or gas.

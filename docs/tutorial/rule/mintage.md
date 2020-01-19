@@ -1,116 +1,116 @@
 # Mintage
 
 ::: tip
-Please note this is not a technical document, but mainly introduces asset issuance on Vite. Technical details will be provided in the yellow paper.
+Token issuance and related topics are described in this page.
 
-The Definitions of Terms:
-* **Token**： A digital asset
-* **Mintage**： The process of issuing new tokens
-* **Mintage transaction**： A special transaction through which users can issue tokens
+Definitions of Terms:
+* **Token**: A digital asset
+* **Mintage**: Issuing new token
+* **Re-issuance**: Issuing an additional amount of token after initial mintage
+* **Burn**: Destroying an amount of token
+* **Token owner**: The account that issued the token. Token ownership can be transferred to another account. In this case, the previous account is not the owner any more.
 :::
 
 ## What is Token?
 
-In Ethereum, new token can be issued by deploying a smart contract that complies with Ethereum's token standard, such as ERC20. 
-During this process, an amount of token corresponding to total supply are generated and a map of token holding relationship is maintained within the contract. 
-Token transfers will not change the status of accounts, but the contract itself.
+In Ethereum, new token can be issued by deploying a smart contract that complies with Ethereum's token standard such as ERC20. 
+In this operation, an amount of token equal to total supply are generated and a holding relationship map is maintained within the contract. 
+Transfers of the token are executed internally, and do not change the status of user's accounts.
 
-Vite supports two types of tokens, Vite native token **VITE** and user-issued tokens. 
-In addition to being traded, **VITE** can also be staked for obtaining quota. User-issued tokens can only be traded. 
-User-issued token includes fixed-supply token and re-issuable token.
+Unlike Ethereum, Vite supports users to issue their own tokens natively. 
+User can send a mintage transaction to issue new token, specifying token type(re-issuable or fixed-supply), total supply, token name, token symbol, and optional maximum supply if the token is re-issuable. 
+Issued token (equivalent to total supply) will be sent to token owner's account. Token balance is maintained in each Vite account, not just in a smart contract as Ethereum does.
 
-In Vite, users can send a mintage transaction to issue new token by specifying token type(re-issuable or fixed), total supply, token name, token symbol, and optional maximum supply if the token is re-issuable. 
-After mintage is successful, the amount of total supply of issued tokens will be sent to token issuer's account. Unlike Ethereum, each account maintains its own balance. Both sender's and receiver's accounts status will be modified during transfer.
-
-For re-issuable token, token owner can send re-issuance transaction to mint additional tokens after first issuance, and the total supply will increase accordingly. 
-Similarly, re-issuable token can be destroyed by burning a certain amount of tokens through burn transaction, which will reduce total supply of the token. 
-The ownership of re-issuable token can be transferred, also the token type can be changed to fixed-supply.
+For re-issuable token, the owner can re-issue an additional amount of token after initial mintage. In this case, token's total supply will increase accordingly. 
+Similarly, re-issuable token can be destroyed by burning a certain amount through burn transaction. As the result, this will reduce the total supply. 
+In addition, the ownership and token type of re-issuable token can also be changed.
 
 ## Mintage
 
-Mintage transaction is the transaction of issuing a new token on Vite. The issuer can send mintage transaction to mintage contract with passed-in parameters. 
-Once the transaction is processed successfully, a total supply amount of tokens will be sent to the issuer's account and the issuer is assigned as owner.
+Mintage transaction is the transaction of issuing new token on Vite. Token issuer can send such a transaction to Vite's built-in mintage contract with given parameters. 
+Once the transaction is done, minted token will be sent to the issuer's account and the issuer is marked as owner.
 
-Mintage transaction will burn ***1,000 VITE***.
+Issuing a new token will burn ***1,000 VITE***.
 
 ### Parameters
 
-* `tokenName`: **1**-**40** characters token name, including uppercase and lowercase letters, spaces and underscores. Cannot have consecutive spaces; cannot begin or end with spaces
-* `tokenSymbol`: **1**-**10** characters token symbol, including uppercase and lowercase letters and numbers. Existing names like VITE, VCP and VX cannot be reused.
-* `totalSupply` and `decimals`: Having $totalSupply \times 10^{decimals} \leq 2^{256}-1$
-* `isReIssuable`: Token type. Fixed-supply or re-issuable.
-* `maxSupply`: Maximum supply. Mandatory for re-issuable token. Having $maxSupply \leq 2^{256}-1$
-* `ownerBurnOnly`: Whether the token can be burned by owner only. Mandatory for re-issuable token.
+* `tokenName`: Name of token, 1-40 characters, including uppercase/lowercase letters, spaces and underscores. Cannot have consecutive spaces or start/end with space
+* `tokenSymbol`: Symbol of token, 1-10 characters, including uppercase/lowercase letters, spaces and underscores. Cannot use `VITE`, `VCP` or `VX`
+* `totalSupply`: Total supply. Having $totalSupply \leq 2^{256}-1$. For re-issuable token, this is the initial total supply
+* `decimals`: Decimal places. Fill 0 if there is no decimal 
+* `isReIssuable`: If `true`, newly additional amount of token can be issued after initial mintage
+* `maxSupply`: Maximum supply. Having $totalSupply \leq maxSupply \leq 2^{256}-1$. For non-reissuable token, fill in 0
+* `isOwnerBurnOnly`: If `true`, the token can burned only by owner. Mandatory for re-issuable token. For non-reissuable token, fill in `false`
 
 ## Re-issuance
 
-Re-issuance transaction is always initiated by token owner by calling mintage contract and specifying necessary parameters. 
-Once the transaction is processed successfully, mintage contract will transfer the newly minted tokens to the specified account. 
+Re-issuance transaction must be initiated by the token owner. 
+Once the transaction is done, newly issued token will be transferred to the specified account. 
 
 ### Parameters
 
-* `tokenId`: The unique id of a re-issuable token
-* `amount`: Re-issuance amount. Having $newTotalSupply = oldTotalSupply+amount$
-* `beneficial`: Account address to receive newly minted tokens
+* `tokenId`: Re-issuable token id
+* `amount`: Issuance amount
+* `receiveAddress`: Address to receive newly issued token
 
 ## Burn
 
-Burn transaction can be initiated either by token owner or holders, by calling mintage contract's 'burn' method and feeding the amount of tokens to be burned. 
-Once the transaction is processed successfully by the contract, the token's total supply will be reduced to reflect the change. 
+Burn transaction can be initiated by token owner or holders. 
+Once the transaction is done, the amount of token are burned and the total supply is reduced to reflect the change. 
 
-`ownerBurnOnly` is used to specify whether the token can only be burned by the owner. If this flag is turned on, only token's owner has privilege for token destruction, otherwise all token holders can burn their own tokens.
+If `ownerBurnOnly` is turned on, only the owner can burn this token.
 
 ### Parameters
-
-* `tokenId`: The unique id of a re-issuable token
-* `amount`: Burn amount. Having $newTotalSupply = oldTotalSupply-amount$. Destroyed tokens will be deducted from the account of transaction initiator.
+* `tokenId`: Re-issuable token id
+* `amount`: Burn amount. Having $newTotalSupply = oldTotalSupply-amount$. Destroyed token amount will be deducted from the account of transaction initiator.
 
 ## Transfer Ownership
 
-Ownership of re-issuable tokens can be transferred. In this case, the token owner should send a ownership-transfer transaction to mintage contract, specifying necessary parameters, once the transaction is processed successfully, the ownership of the token has been transferred to new owner.
+Ownership of re-issuable tokens can be transferred. In this case, the original owner should send a transaction to initiate the transfer. 
+Once the transaction is done, the token has been transferred to new owner.
 
-A certain token can have only one owner at a moment. 
+A token can only have one owner at a time. 
 
 ### Parameters
-* Token id: The unique id of a re-issuable token
-* Account address: The new owner's account address
+* `tokenId`: Re-issuable token id
+* `newOwner`: Address of the new owner
 
 ## Change Token Type
 
-Re-issuable tokens can be changed to non-reissuable, or fixed-supply, tokens. However, this process is one-way only, meaning once the type is changed, it cannot be changed back. 
-In this case, the token owner should send a transaction to mintage contract, specifying necessary parameters, once the transaction is processed successfully, the token type is modified to be non-reissuable tokens.
+Re-issuable tokens can be changed to non-reissuable. Note this operation is one-way only and cannot be reversed. 
+Once the transaction is done, the token's type is permanently set to fixed-supply token.
 
 ### Parameters
-* Token id: The unique id of a re-issuable token
+* `tokenId`: Re-issuable token id
 
 ## Tokens in Vite
 
-In addition to native token **VITE**, two other coins **VCP**(Vite Community Points) and **VX**(ViteX Coin) were issued in Vite. The specific parameters are as follows:
+In addition to native coin **VITE**, two other tokens **VCP** (Vite Community Points) and **VX** (ViteX Coin) are issued in Vite. The parameters are as follows:
 
 | Token Id | Token Name | Token Symbol | Total Supply | Decimals |
 |:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
-| tti_5649544520544f4b454e6e40 | VITE | VITE | 1 billion | 18 |
+| tti_5649544520544f4b454e6e40 | Vite Coin | VITE | 1 billion | 18 |
 | tti_251a3e67a41b5ea2373936c8 | Vite Community Point | VCP | 10 billion | 0 |
-| tti_564954455820434f494e69b5 | ViteX Coin | VX | 100,000,000 | 18 |
+| tti_564954455820434f494e69b5 | ViteX Coin | VX | 10 million | 18 |
 
 ## FAQ
 
 * Can I issue multiple tokens in my account?
 
-Yes, all you need to do is to send multiple mintage transactions.
+Yes, there is no limitation of mintage number of an account.
 
-* Can I issue token with existing token name and token symbol?
+* Can I use existing token name and symbol?
 
-Token name can be reused. A token symbol can have up to 1000 indexes as suffix from '000' to '999'. For example, `BTC-000`.
+Token name can be reused. But token symbol is unique. A suffix number from '000' to '999' will be added to token name by issuance time. For example, BTC can have symbol 'BTC-000', 'BTC-001', 'BTC-002', etc.
 
 * Does mintage transaction consume quota?
 
-Yes. Token issuance, re-issuance, burning, ownership transfer and change of token type need to consume quota. For specific consumption table please refer to [Quota Consumption Rules](./quota.html#quota-consumption-rules).
+Yes. Mintage, re-issuance, burning, ownership transfer and change of token type consume quota. For specific quota consumption please refer to [Quota Consumption Rules](./quota.html#quota-consumption-rules).
 
-* Does re-issuance transaction need to destroy **VITE**?
+* I understand token mintage costs **1,000 VITE**. Does re-issuance also cost Vite coins?
 
-No, re-issuance transaction does not consume **VITE**.
+No, re-issuance transaction does not cost Vite coin.
 
 * Can I change fix-supply tokens to re-issuable?
 
-No. Change of token type is one-way only and not reversible.
+No. Change of token type is one-way and not reversible.
