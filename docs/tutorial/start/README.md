@@ -7,6 +7,7 @@ Vite Mainnet was launched on September 25, 2019. Hit [Token Swap](https://medium
 ### Purchase at Exchanges
 
 * [ViteX][vitex]
+* [Binance][binance]
 * [OKEx][okex]
 * [Bittrex][bittrex]
 * [Upbit][upbit]
@@ -120,5 +121,6 @@ As the platform token of ViteX, VX's holders are subject to the exchange's divid
 [okex]: <https://www.okex.com/spot/trade#product=vite_btc>
 [bittrex]: <https://international.bittrex.com/Market/Index?MarketName=BTC-VITE>
 [upbit]: <https://upbit.com/exchange?code=CRIX.UPBIT.BTC-VITE>
+[binance]: <https://www.binance.com/en/trade/VITE_BTC>
 [solidity++]: </zh/tutorial/contract/soliditypp.html>
 
