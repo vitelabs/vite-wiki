@@ -129,7 +129,7 @@ myAccount.createContract({
 });
 ```
 
-合约创建成功后，可以通过[合约信息查询接口](../rpc/contract.html#contract-getcontractinfo)查询合约信息，并**确保合约代码不为空**。如果创建合约请求交易被成功接收，但合约代码为空，可能是创建合约交易在接收过程中发生了不可预期的错误，导致合约创建失败。 
+合约创建成功后，可以通过[合约信息查询接口](../../api/rpc/contract_v2.html#contract-getcontractinfo)查询合约信息，并**确保合约代码不为空**。如果创建合约请求交易被成功接收，但合约代码为空，可能是创建合约交易在接收过程中发生了不可预期的错误，导致合约创建失败。 
 
 ## 调用合约
 
@@ -192,7 +192,7 @@ bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringi
 
 ### 常用查询接口
 
-全部接口信息和接口调用注意事项见 [RPC接口说明](../../api/rpc/) [vitejs接口调用说明和示例](../../api/vitejs/client/instance.md)
+全部接口信息和接口调用注意事项见 [RPC接口说明](../../api/rpc/) [vitejs接口调用说明和示例](../../api/vitejs/ViteAPI/start.md)
 
 |  接口名称  | 接口说明 |
 |:------------:|:-----------:|
@@ -237,7 +237,7 @@ myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
 
 [事件订阅说明](./subscribe.md)
 
-[事件订阅接口说明](../../api/rpc/subscribe.md)
+[事件订阅接口说明](../../api/rpc/subscribe_v2.md)
 
 
 

@@ -1,7 +1,7 @@
 # DAG Ledger
 
 ::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
+This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://github.com/vitelabs/whitepaper/blob/master/vite_en.pdf)
 :::
 
 Vite makes use of a DAG ledger structure called block-lattice. Each account has its own chain. Each transaction refers to the hash of the previous transaction in the same account. Transactions are divided into two types: "request transactions" and "response transactions.”  A response transaction needs to refer to the hash of the corresponding request transaction. This setup creates a grid-like DAG structure. 

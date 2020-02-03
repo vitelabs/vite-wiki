@@ -64,7 +64,7 @@ contract TransferContract {
 
 ## 事件订阅使用说明
 
-见[事件订阅使用说明](../../api/rpc/subscribe.html#使用说明)
+见[事件订阅使用说明](../../api/rpc/subscribe_v2.html#使用说明)
 
 ## 其他订阅类型
 

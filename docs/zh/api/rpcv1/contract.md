@@ -37,7 +37,7 @@ Vite链上部署的智能合约可以通过`getter`方法来离线读取合约�
 
 ## 调用内置合约
 
-调用内置合约和调用普通合约类似，也是向内置合约发起一笔转账交易，并指定调用的接口和参数。Vite提供了[抵押获取配额](./pledge.html)、[铸币](./mintage.html)、[共识信息](./consensus_group.html)3个内置合约。
+调用内置合约和调用普通合约类似，也是向内置合约发起一笔转账交易，并指定调用的接口和参数。Vite提供了[抵押获取配额](./pledge.html)、[铸币](./mintage.html)、[共识信息](./consensus.html)3个内置合约。
 
 调用内置合约时，先调用相应的`getData`接口，例如铸币时，调用`mintage_getMintData`接口，然后通过`tx_sendRawTx`发送交易。
 

@@ -70,7 +70,7 @@ If client does not send request for more than 5 minutes, subscription will close
 
 ## Usage Example
 
-See [Usage Example](../../api/rpc/subscribe.html#Usage-Example)
+See [Usage Example](../../api/rpc/subscribe_v2.html#Usage-Example)
 
 ## Other Subscriptions
 

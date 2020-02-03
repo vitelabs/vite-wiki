@@ -285,6 +285,7 @@ module.exports = {
                 nav: require('./nav/en'),
                 sidebar: {
                     '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
+                    '/technology/': genSidebarConfig('technology', 'en', 'Start'),
                     '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
                     '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'Vite RPC API', 'Wallet', 'Ledger', 'Smart Contract', 'Net', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),

@@ -54,7 +54,7 @@ Mac下执行`⇧⌘P`或者`F1`，Windows下执行`Ctrl+Shift+P`调起命令行�
 * 区域2：当前账户地址。使用当前账户地址发起交易来部署或调用合约。点击`+`号新增并初始化新账户地址，在下拉列表中切换当前地址。
 * 区域3：部署合约。当前代码文件中只有一个名为`HelloWorld`的合约，构造方法没有参数。`amount`为创建合约交易的转账金额，单位默认为`vite`，`1 vite = 1e18 attov`。点击`deploy`部署合约到本地测试网络。
 * 区域4：已部署的合约。如果在本次调试期间部署了多个合约，则展示多个合约和对应的合约账户地址。如果合约有多个接口，则展示这个合约的多个接口和相应的接口参数。其中接口参数的第一个`amount`为调用这个接口时的转账金额，单位默认为`vite`，`1 vite = 1e18 attov`。点击`call "SayHello"`调用`HelloWorld`合约的`SayHello`接口。
-* 区域5：`HelloWorld`合约的部署和调用结果。其中`send`表示部署或调用的请求交易，`receive`表示部署或调用的响应交易，如果合约执行方法时又发起了新的请求交易，则新的请求交易依次展示在`redceive`中。注意Vite中的交易是异步的，发起`send`后，`receive`可能需要等一段时间才会生成。`send`和`receive`的字段说明参考[accountblock](https://vite.wiki/zh/api/rpc/common_models.html#accountblock)。
+* 区域5：`HelloWorld`合约的部署和调用结果。其中`send`表示部署或调用的请求交易，`receive`表示部署或调用的响应交易，如果合约执行方法时又发起了新的请求交易，则新的请求交易依次展示在`redceive`中。注意Vite中的交易是异步的，发起`send`后，`receive`可能需要等一段时间才会生成。`send`和`receive`的字段说明参考[AccountBlock](../../../api/rpc/common_models_v2.html#accountblock)。
 
 ## 手动部署开发环境和开发环境调试
 

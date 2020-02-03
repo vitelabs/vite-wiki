@@ -7,7 +7,7 @@
 # 其他设计
 
 ::: tip
-此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)
+此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://github.com/vitelabs/whitepaper/blob/master/vite_cn.pdf)
 :::
 
 Vite中还有一些其他的细节设计，面向去中心化应用实践中的一些问题和痛点，给出了现实可行的解决方案。随着Vite社区的发展和VEP改进计划的实施，Vite将成为一个持续迭代的开放平台，会有越来越多的改进和优化方案被采纳。

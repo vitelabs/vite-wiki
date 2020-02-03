@@ -119,7 +119,7 @@ curl -X POST \
       	"params":null
       }'
 ```
-* 通过gvite.log日志或者[RPC接口](../../api/rpc/ledger.html#ledger_getSnapshotChainHeight)查看本地最新快照块高度，和区块链浏览器上的快照块高度做对比，如果高度一致说明同步完成。
+* 通过gvite.log日志或者[RPC接口](../../api/rpc/ledger_v2.html#ledger_getSnapshotChainHeight)查看本地最新快照块高度，和区块链浏览器上的快照块高度做对比，如果高度一致说明同步完成。
 
 ## 如何分配超级节点奖励
 见[超级节点奖励计算规则](../rule/sbp.html#出块奖励)。区块链浏览器的SBP节点详情页面提供了每个周期的得票明细下载功能。

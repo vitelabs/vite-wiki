@@ -13,7 +13,7 @@ Thanks to the protocol "ViteX Gateway Technical Specification" designed by Vite,
 
 * Forge a new token on Vite chain to represent the digital asset in the Source Chain. See [here](./../../tutorial/rule/mintage.html) for instructions of token forging. The new token should have the same total issuance amount and decimal places as the Source Chain asset.
 * The operator must be able to verify and send transactions for Gateway Token. To do so, she can either run a Vite full node or use API from full nodes from Vite team. 
-> * Instructions for how to run a Vite full node are [here](./../..//tutorial/node/install.html). 
+> * Instructions for how to run a Vite full node are [here](./../../tutorial/node/install.html). 
 > * Instructions for sending and inquiring about Vite transactions are [here](./../../api/rpc/).
 * The operator must be able to verify and send transactions for Source Chain token as well. Similarly to the above bullet point, she can run a full node for the Source Chain, or use API provided by trustworthy full nodes on the Source Chain.
 * Integrate with the interface as defined in the [ViteX Gateway Technical Specification](../api/gate.md).

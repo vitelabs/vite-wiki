@@ -7,7 +7,7 @@
 # 异步架构
 
 ::: tip
-此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)
+此文档仅作为介绍使用，若需要了解详细细节，请浏览[ Vite 白皮书](https://github.com/vitelabs/whitepaper/blob/master/vite_cn.pdf)
 :::
  
 Vite中的**异步设计**主要包括三个方面：

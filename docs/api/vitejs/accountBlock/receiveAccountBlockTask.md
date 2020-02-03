@@ -1,13 +1,13 @@
 
-# receiveAccountBlockTask
+# Auto-Receive AccountBlock
 
-Recieve AccountBlock task (Start auto receiving transactions)
+Enable auto-receive on the account for incoming transactions
 
 ## Constructor
 
 - **Constructor Parameters**
     * `__namedParameters: object`        
-        - `address: Address` Address of current account, mandatory
+        - `address: Address` Address of account, mandatory
         - `provider: ViteAPI` `ViteAPI` instance
         - `privateKey: Hex` privateKey
 
@@ -25,7 +25,7 @@ const ReceiveTask = new ReceiveAccountBlockTask({
 
 ReceiveTask.onSuccess((result) => {
     console.log('success', result);
-    // Don\'t have unrecieved accountBlocks, stop receiving-task
+    // No unreceived accountBlocks, stop receiving-task
     if (!result.accountBlockList) {
         ReceiveTask.stop();
     }
@@ -42,12 +42,12 @@ ReceiveTask.start({
 ## Methods
 
 ### start
-Start receiving accountBlocks
+Start auto-receive account blocks
 
 - **Parameters** 
     * `__namedParameters: object`
-        - `checkTime?: number` 定时检测是否有交易未接收 Default 3000(ms)
-        - `transctionNumber?: number` 一次性接收交易数量 Default 5
+        - `checkTime?: number` Polling interval of unreceived transactions. Default is 3000(ms)
+        - `transctionNumber?: number` Transactions handled in each poll. Default is 5
 
 - **Example**
 ```javascript
@@ -68,7 +68,7 @@ ReceiveTask.start({
 ```
 
 ### stop
-Stop receiving accountBlocks
+Stop auto-receive account blocks
 
 - **Example**
 ```javascript
@@ -90,16 +90,17 @@ ReceiveTask.stop();
 ```
 
 ### onError
+Receive failed handler
 
 - **Parameters** 
-    * `errorCB: Function` 每次接收失败时触发失败事件, errorCB(`<error>`)
+    * `errorCB: Function` Event handler on receive failure
 
-- **error** 返回的error信息
+- **error** Error message
     - `status: 'error'`
-    - `message: string` 错误信息描述
-    - `timestamp: number` 当前时间戳
-    - `unreceivedHash?: Hex` 未接收成功的accountBlock hash
-    - `error: any` RPC接口的报错信息, 可参照RPC接口的错误信息格式
+    - `message: string` Error message
+    - `timestamp: number` Timestamp
+    - `unreceivedHash?: Hex` Hash of AccountBlock that was received unsuccessfully
+    - `error: any` RPC error message
 
 - **Example**
 ```javascript
@@ -118,20 +119,21 @@ ReceiveTask.onError((error) => {
 });
 ReceiveTask.start({
     checkTime: 3000,
-    transctionNumber: 10
+    transactionNumber: 10
 });
 ```
 
 ### onSuccess
+Receive succeeded handler
 
 - **Parameters** 
-    * `successCB: Function` 每次接收成功时触发成功事件, successCB(`<success>`)
+    * `successCB: Function` Event handler on receive success
 
-- **success** 返回的成功信息
+- **success** Success message
     - `status: 'ok'`
-    - `message: string` 成功信息描述
-    - `timestamp: number` 当前时间戳
-    - `accountBlockList?: AccountBlock[]` 接收成功的accountBlockList
+    - `message: string` Success message
+    - `timestamp: number` Timestamp
+    - `accountBlockList?: AccountBlock[]` AccountBlockList that has been received
 
 - **Example**
 ```javascript
@@ -150,6 +152,6 @@ ReceiveTask.onSuccess((result) => {
 });
 ReceiveTask.start({
     checkTime: 3000,
-    transctionNumber: 10
+    transactionNumber: 10
 });
 ```

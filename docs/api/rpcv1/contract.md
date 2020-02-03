@@ -42,7 +42,7 @@ Contract's states can be accessed off-chain through `getter` methods. The ABI de
 ## Call Built-in Contract
 
 Similar to calling common contract, calling built-in contract is sending a special transaction to built-in contract's account, specifying calling method name and parameters. 
-Vite has implemented [Staking](./pledge.html), [Token Issuance](./mintage.html) and [Consensus Group](./consensus_group.html) 3 built-in smart contracts.
+Vite has implemented [Staking](./pledge.html), [Token Issuance](./mintage.html) and [Consensus](./consensus.html) 3 built-in smart contracts.
 
 1. Generate transaction data by calling relevant `xxx_getxxxData` RPC method. For example, call `mintage_getMintData` when issuing new token.
 2. Call RPC method `tx_sendRawTx` to send the transaction to built-in contract.

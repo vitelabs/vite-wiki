@@ -1,7 +1,7 @@
 # Vite Tokens
 
 ::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
+This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://github.com/vitelabs/whitepaper/blob/master/vite_en.pdf)
 :::
 
 ## Transaction quotas

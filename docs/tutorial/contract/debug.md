@@ -61,7 +61,7 @@ Please note that all data will be cleared from the node after debugging is compl
 * Section 2: current address used for contract deployment and debugging. If you want to use a different address, click `+` to generate a new address and then choose the address in the droplist on the right side
 * Section 3: deploy panel. Field `amount` can be used to send VITE (1 VITE = 1e18 attov) upon deploying the contract. Click `deploy` button to deploy the contract in local development environment.
 * Section 4: contracts deployed. Multiple results will be displayed if more than one contracts are deployed. Parameter `amount` is used to send VITE to the contract when calling a function. For example, clicking `call "SayHello"` will call method `SayHello` of contract `HelloWorld`
-* Section 5: deployment/debugging result. `Send`/`Receive` shows the information of request/response transaction. New request transaction is displayed in `Receive` if it calls other method. Please note that transactions in Vite are asynchronous and user may need wait until the response transaction is generated after sending the request. More information about `Send` and `Receive` please see [AccountBlock](../../api/rpc/common_models.html#accountblock)。
+* Section 5: deployment/debugging result. `Send`/`Receive` shows the information of request/response transaction. New request transaction is displayed in `Receive` if it calls other method. Please note that transactions in Vite are asynchronous and user may need wait until the response transaction is generated after sending the request. More information about `Send` and `Receive` please see [AccountBlock](../../api/rpc/common_models_v2.html#accountblock)。
 
 ## Debugging in Command Line
  

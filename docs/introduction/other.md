@@ -1,7 +1,7 @@
 # Other Designs
 
 ::: tip
-This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://www.vite.org/whitepaper/vite_en.pdf)
+This document is only for introduction. if you need more detail on vite, please move to [White Paper](https://github.com/vitelabs/whitepaper/blob/master/vite_en.pdf)
 :::
 
 Vite’s design also comes with a few other features.  They are practical solutions to problems and pain points in the realm of decentralized applications. The development of Vite's community and implementation of the VEPs( Vite Enhancement Proposals) will drive continual improvement of Vite protocol.
@@ -17,4 +17,4 @@ The resource allocation mechanism in Vite is based on the stake of VITE tokens, 
 Moreover, the design of Vite includes the naming services, contract updating, timer scheduling, Solidity++ standard library, block pruning, and so on.
 
 
-[The white paper contains more specifics](https://www.vite.org/whitepaper/vite_en.pdf)。
+[The white paper contains more specifics](https://github.com/vitelabs/whitepaper/blob/master/vite_en.pdf).

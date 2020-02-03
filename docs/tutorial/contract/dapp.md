@@ -129,7 +129,7 @@ myAccount.createContract({
 });
 ```
 
-Successfully created contract can be queried at [Contract Query](../rpc/contract.html#contract-getcontractinfo). This operation requires the contract's code is not null. A contract creation request without code may be accepted but due to absence of code the operation will eventually fail.
+Successfully created contract can be queried at [Contract Query](../../api/rpc/contract_v2.html#contract-getcontractinfo). This operation requires the contract's code is not null. A contract creation request without code may be accepted but due to absence of code the operation will eventually fail.
 
 ## Call Contract
 
@@ -210,7 +210,7 @@ See [Further Example](https://github.com/vitelabs/bridge/blob/master/example/sen
 
 For API definitions for all RPC methods, please refer to [RPC API](../../api/rpc/)
 
-For vite.js usage, please refer to [vite.js Specification](../../api/vitejs/client/instance.md)
+For vite.js usage, please refer to [vite.js Specification](../../api/vitejs/ViteAPI/start.md)
 
 ```javascript
 import WS_RPC from '@vite/vitejs-ws';
@@ -240,7 +240,7 @@ myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
 
 Event subscription can be used to monitor contract state change.
 
-For more details please visit [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/subscribe.md)
+For more details please visit [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/subscribe_v2.md)
 
 
 
