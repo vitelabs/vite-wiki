@@ -57,7 +57,7 @@ module.exports = [
           },
           {
             text: '区块浏览器',
-            link: 'https://testnet.vite.net'
+            link: 'https://explorer.vite.net'
           },
           {
             text: '论坛',

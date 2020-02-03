@@ -73,7 +73,7 @@ module.exports = [
           },
           {
             text: 'Block explorer',
-            link: 'https://testnet.vite.net'
+            link: 'https://explorer.vite.net'
           },
           {
             text: 'Forum',
