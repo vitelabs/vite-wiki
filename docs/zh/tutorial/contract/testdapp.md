@@ -14,8 +14,12 @@
 2. 如果没有安装过 TestFlight， 请点击 “在 App Store 中查看”，跳转到 App Store 后，安装 TestFlight，如果安装了 TestFlight 请忽略
 3. 安装好 TestFlight 后，返回 Safari，点击开始测试，进入 DApp Master 下载页面，点击“安装”即可安装 DApp Master App
 
+:::tip 注意
+如果以上链接过期，请联系ViteLabs获取最新测试钱包
+:::
+
 ### 使用说明
 1. 打开 App，创建或倒入助记词后进入 App 首页
 2. 点击 Tabbar 最右侧小齿轮按钮，进入调试页面
-3. 点击 “Pre-Mainnet” 可以修改连接的测试节点 URL，留空默认表示连接 Pre-Mainnet
+3. 点击 “Mainnet” 可以修改连接的测试节点 URL，留空默认表示连接 Mainnet
 4. 点击 “Add URL” 可以添加并保存 DApp URL，并进入 DApp 页面

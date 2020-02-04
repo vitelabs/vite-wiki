@@ -22,4 +22,4 @@ Vite中的资源配置是基于用户持有的VITE代币、一次性支付的费
 
 除此之外，Vite中还有关于VNS命名服务、合约升级、合约定时调度、Solidity++标准库支持、区块裁剪等相关的设计。
 
-具体的技术方案请参阅[ Vite 白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)。
+具体的技术方案请参阅[ Vite 白皮书](https://github.com/vitelabs/whitepaper/blob/master/vite_cn.pdf)。
