@@ -8,9 +8,9 @@ demoUrl: "https://vitex.vite.net/test"
 
 ### Network
 
-* **Pre-mainnet**: https://vitex.vite.net/
+* **Mainnet**: https://vitex.vite.net/
 
-* **Testnet**: https://vitex.vite.net/test
+* **Test**: https://vitex.vite.net/test
 
 ### `/api/v1/limit`
 

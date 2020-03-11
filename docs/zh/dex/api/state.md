@@ -7,8 +7,8 @@ demoUrl: "https://vitex.vite.net/test"
 ## RestAPI接入文档
 
 ### 环境地址
-* 【test】`https://vitex.vite.net/test`
-* 【Pre-mainnet】: `https://vitex.vite.net/`
+* 【Test】`https://vitex.vite.net/test`
+* 【Mainnet】: `https://vitex.vite.net/`
 
 ### `/api/v1/limit`
 

@@ -10,12 +10,12 @@ sidebarDepth: 4
 
 ## Create Contract
 
-Basically, creating contract is sending a transaction (transaction type = 1) by specifying contract's binary code and input parameters. This process includes the following steps.
+Basically, creating contract is sending a transaction (transaction type = 1) by specifying contract's binary code and parameters. This process has the following steps.
 
 1. Call RPC method `contract_createContractToAddress` to generate a new contract address;
-2. Encode input parameters according to contract constructor in ABI. This can be completed by calling `abi.encodeParameters` in **vite.js**. If constructor has no input parameter, skip this step;
-3. Generate transaction data. The data content consists of a 14-byte fixed-length prefix (10-byte delegated consensus group id + 1 byte contract type + 1 byte response latency + 1 byte random degree + 1 byte quota multiplier), compiled contract code and encoded parameters (generated in Step 2).
-4. Construct account block by calling RPC method `ledger_sendRawTransaction` to create contract. Here parameter `toAddress` is the contract address generated in Step 1. `data` is transaction data created in Step 3. `blockType` = 1, indicating creating contract transaction. `amount` and `tokenId` stand for the amount of token that are transferred to the contract upon creation. `fee` is a fixed amount of 10 VITE as contract deployment expense.
+2. Encode constructor's input parameters according to ABI. This can be done by calling method `abi.encodeParameters` provided in **vite.js**. If the constructor has no input parameter, skip this step;
+3. Generate transaction data. The data content consists of a prefix of 14 byte length (10 byte consensus group id + 1 byte contract type + 1 byte response latency + 1 byte random degree + 1 byte quota multiplier), compiled code and encoded constructor parameters (generated in Step 2).
+4. Build account block, then call RPC method `ledger_sendRawTransaction` to create contract. Here parameter `toAddress` is the contract address generated in Step 1. `data` is transaction data created in Step 3. Choose `blockType` = 1, indicating creating contract transaction. Set `amount` and `tokenId` as the amount of the token that will be transferred to the contract upon creation. `fee` is always 10 VITE, which is the cost of creating contract on Vite network.
 
 :::tip Tips
 Above steps are implemented in method `builtinTxBlock.createContract` in **vite.js** 
@@ -23,11 +23,11 @@ Above steps are implemented in method `builtinTxBlock.createContract` in **vite.
 
 Parameter description:
 
-* **Delegated consensus group id**: The response transaction blocks on contract chain are produced by the supernodes of delegated consensus group that the contract registers for. Public delegated consensus group has id `00000000000000000002`.
-* **Contract type**: Use 1 to indicate Solidity++ contract.
-* **Response latency**: The number of snapshot blocks by which request sent to the contract has been confirmed before responding to the transaction. The value range is 0-75. The value 0 means that there is no need to wait and the respond block will be produced immediately. If timestamp, snapshot block height, or random number is used in the contract, this parameter must be greater than zero. Larger response latency means slower contract response and each response transaction will consume more extra quota.
-* **Random degree**: The number of snapshot blocks having random seed by which request sent to this contract is confirmed before responding to the transaction. The value range is 0-75. The value 0 indicates that there is no need to wait for the request transaction to be included in a snapshot block containing random number. If random number instruction is used in the contract, the value is required to be above 0. The larger the value, the more secure the random number. This parameter must be no less than response latency.
-* **Quota multiplier**: This parameter defines how many times the quota is consumed for requested transaction when the contract is called. The quota charged by the contract response transaction is not affected. The value ranges from 10 to 100, which means that the quota consumed is 1-10 times. For example, a value of 15 means that the requested transaction to the contract is charged 1.5 times quota.
+* **Delegated consensus group id**: The response blocks of contract chain are produced by the supernodes of delegated consensus group that the contract has registered for. One available consensus group at the time being is public consensus group, which has id `00000000000000000002`.
+* **Contract type**: Using 1 to indicate Solidity++ contract.
+* **Response latency**: The number of snapshot blocks by which request sent to the contract has been confirmed before responding to the specific transaction. The value ranges from 0 to 75. 0 means there is no waiting period and respond block will be produced immediately. If either timestamp, snapshot block height, or random number is used in the contract, the value must be bigger than zero. Generally speaking, larger response latency means slower contract response and response transaction will consume more quota.
+* **Random degree**: The number of snapshot blocks having random seed by which request sent to this contract is confirmed before responding to the specific transaction. Value range is 0-75. 0 indicates that there is no waiting for the request transaction to be included in a snapshot block that contains random number. If any random number related instruction is used in the contract, the value must be above 0. In general, the larger the value, the more secure the random number. **This parameter must be no less than response latency.**
+* **Quota multiplier**: This parameter defines x times of quota is consumed for requested transaction when the contract is called. Quota charged on contract response transaction is not affected. The value ranges from 10 to 100, which means 1-10x quota should be consumed. For example, a value of 15 means that the requested transaction to the contract is charged 1.5x quota.
 
 ## Call Contract
 
@@ -66,36 +66,47 @@ Methods of built-in contracts are provided in `builtinTxBlock` in **vite.js**
 ### ABI
 ```json
 [
-  // Stake for quota
+  // Stake for quota (Depreciated)
   {"type":"function","name":"Stake", "inputs":[{"name":"beneficiary","type":"address"}]},
-  // Cancel staking
+  // Stake for quota
+  {"type":"function","name":"StakeForQuota", "inputs":[{"name":"beneficiary","type":"address"}]},
+  // Cancel staking (Depreciated)
   {"type":"function","name":"CancelStake","inputs":[{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"}]},
-  // Stake for quota delegation
-  {"type":"function","name":"DelegateStake", "inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"bid","type":"uint8"},{"name":"stakeHeight","type":"uint64"}]},
-  // Cancel staking via delegation
-  {"type":"function","name":"CancelDelegateStake","inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"}]},
+  // Cancel staking
+  {"type":"function","name":"CancelQuotaStaking","inputs":[{"name":"id","type":"bytes32"}]},
+  // Stake for quota with callback
+  {"type":"function","name":"StakeForQuotaWithCallback", "inputs":[{"name":"beneficiary","type":"address"},{"name":"stakeHeight","type":"uint64"}]},
+  // Cancel quota staking with callback
+  {"type":"function","name":"CancelQuotaStakingWithCallback","inputs":[{"name":"id","type":"bytes32"}]}
 ]
 ```
 Callback methods:
 ```json
 [
-  // Callback function for delegated staking
-  {"type":"function","name":"DelegateStakeCallback","inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]},
-  // Callback function for cancelling delegated staking
-  {"type":"function","name":"CancelDelegateStakeCallback","inputs":[{"name":"stakeAddress","type":"address"},{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"},{"name":"bid","type":"uint8"},{"name":"success","type":"bool"}]}       
+  // Callback function for stake for quota
+  {"type":"function","name":"StakeForQuotaWithCallbackCallback", "inputs":[{"name":"id","type":"bytes32"},{"name":"success","type":"bool"}]},
+  // Callback function for cancel quota staking
+  {"type":"function","name":"CancelQuotaStakingWithCallbackCallback","inputs":[{"name":"id","type":"bytes32"},{"name":"success","type":"bool"}]}   
 ]
 ```
 
-#### Stake
+#### Stake (Deprecated)
 
-Stake for quota. The minimum staking amount is 134 VITE, which can be retrieved after 259,200 snapshot blocks (about 3 days). The locking period will be reset if a new staking record is done for the same beneficiary. 
+Stake for quota. The minimum staking amount is 134 VITE. Staked tokens can be retrieved after 259,200 snapshot blocks (about 3 days). The locking period will renew if new staking request is submitted for the same beneficiary. 
+
+- **Parameters**: 
+  * `beneficiary`: `string address` Address of staking beneficiary
+  
+#### StakeForQuota
+
+Stake for quota. The minimum staking amount is 134 VITE. Staked tokens can be retrieved after 259,200 snapshot blocks (about 3 days). Multiple staking records will be generated if staking for the same beneficiary repeatedly. The hash of staking request transaction is used as staking id, which can be used to retrieve staked tokens when locking period expires. 
 
 - **Parameters**: 
   * `beneficiary`: `string address` Address of staking beneficiary
 
-#### CancelStake
+#### CancelStake (Deprecated)
 
-Cancel an existing staking and retrieves staked tokens after the lock period expires. However, retrieving a part of staked tokens is also permitted. In that case, the original staking is still valid.  
+Cancel staking and retrieve staked tokens after the lock period expires. Retrieving a portion of staked tokens is permitted. 
 
 - **Parameters**: 
   * `beneficiary`: `string address` Address of staking beneficiary

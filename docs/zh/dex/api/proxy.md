@@ -1,25 +1,26 @@
-# ViteX.net REST API V1.0
-# 概述
-ViteX.net REST API是由Vite Labs提供的中心化服务，搭建在ViteX去中心化协议之上，允许用户在不暴露私钥的情况下，通过REST API来实现ViteX去中心化交易所的相关操作。
+# 交易所订单服务
+
+## 概述
+交易所订单服务是由Vite Labs提供的中心化服务，搭建在ViteX去中心化协议之上，允许用户在不暴露私钥的情况下，通过REST API来实现ViteX去中心化交易所的相关操作。
 
 * 当您需要第三方做市商来操作您的账户完成交易时，可以不将自己的私钥提供给做市商，而只提供API Key和API Secret。对方只能在您授权的交易对下进行下单和撤单操作，无法转移您的资产。
 * 您可以针对每个交易对单独授权，ViteX合约会阻止API服务操作未经授权的交易对。
 * 您可以随时发起链上交易，取消对API的授权。授权取消后，即使仍持有有效的API Key和API Secret，ViteX合约也不再接受来自API的订单操作请求。
 * 请注意：用户通过API完成的订单操作，是通过ViteX.net API服务的私钥进行签名的，所产生的Vite链上交易也记录在ViteX.net API服务的账户中，用户无法在自己的Vite地址下找到相应的记录。
-# 链上授权
+## 链上授权
 在使用ViteX.net API前，需要用户在Vite链上对API服务进行授权，允许API服务所对应的Vite账户来代理用户进行订单操作。
 
 为保证安全，建议您只授权必要的交易对。授权的对象是ViteX.net API的Vite地址，不需要提供私钥。请注意：在任何情况下，您都不要将自己的私钥和助记词提供给第三方，包括Vite Labs在内。
 
 API服务会为每个用户分配一个单独的Vite地址，来代理用户签名链上交易。您需要为该地址抵押VITE代币来提供配额，以执行下单、撤单等操作。
 
-# 接入URL
-https://api.vitex.net
+## 网络
+* 【Mainnet】: `https://api.vitex.net`
 
-# 接口鉴权
+## 接口鉴权
 接口分为公有和私有两种，私有接口需要通过签名来进行权限认证。
 
-接口鉴权需要`API Key`和`API Secret`，请在 [此处](https://vitex.net/) 获取。`API Key`和`API Secret`是大小写敏感的。 
+接口鉴权需要`API Key`和`API Secret`，请联系Vite Labs获取。注意`API Key`和`API Secret`是大小写敏感的。 
 
 调用私有接口时，除了接口本身所需的参数外，还需要传递`key`、`timestamp`和`signature`三个参数。
 
@@ -27,7 +28,17 @@ https://api.vitex.net
 * timestamp参数为UNIX时间戳（毫秒级）(UNIX-style timestamp in epoch millisecond format)，例如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求中的时间戳小于服务端时间5000 ms或大于1000 ms，均认为该请求无效。
 * signature字段通过`HMAC SHA256`签名算法生成。`API Secret`作为`HMAC SHA256`的密钥，其他所有参数作为`HMAC SHA256`的操作对象，得到的输出即为签名。签名大小写不敏感。
 
-# 基本规范
+timestamp 校验逻辑如下:
+
+```
+    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 5000) {
+      // process request
+    } else {
+      // reject request
+    }
+```
+
+## 基本规范
 所有接口的响应均为JSON格式，时间戳均为UNIX时间，单位为毫秒。
 HTTP状态码：
 
@@ -59,20 +70,10 @@ code状态码：
 * `1004` 其他错误：撤销订单不属于当前地址、该订单状态不可以撤销、查询订单信息异常、
 * `1005` 服务端异常：服务端server异常
 
-# 访问限制
+## 访问限制
 API接口的访问以60秒为一个固定周期，周期内次数用完，则调用接口失败；上一个周期未使用的次数不会顺延到下一个周期；
 
-timestamp 校验逻辑如下:
-
-```
-    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 5000) {
-      // process request
-    } else {
-      // reject request
-    }
-```
-
-# 需要签名的接口
+## 需要签名的接口
 * 按照参数名称的字典顺序对请求的所有参数(接口定义的参数和key)需要按照字母先进行排序；
 * 其中参数名称和值使用英文符号(=)进行连接；再把英文等号连接得到的字符串按参数名字的字典顺序依次使用&符号连接，即得到规范化的请求字符串；
 * 签名使用`HMAC SHA256`算法. API-KEY所对应的API-Secret作为 `HMAC SHA256` 的密钥，其他所有参数作为`HMAC SHA256`的操作对象，得到的输出即为签名。
@@ -99,11 +100,11 @@ price | 0.02
 timestamp | 1567067137937
 
 ### 接口签名示例
-* **queryString:** amount=10&key=11111111&price=0.09&side=0&symbol=VTT-000_VITE&timestamp=1567755178560
+* **queryString:** amount=10&key=11111111&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560
 * **签名消息(参数排序):**
 
     ```
-    $ echo -n "amount=10&key=11111111&price=0.09&side=0&symbol=VTT-000_VITE&timestamp=1567755178560" | openssl dgst -sha256 -hmac "22222222"
+    $ echo -n "amount=10&key=11111111&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560" | openssl dgst -sha256 -hmac "22222222"
     (stdin)= 409cf00bb97c08ae99317af26b379ac59f4cfaba9591df7738c0604a4cb68b9a
     ```
 
@@ -111,7 +112,7 @@ timestamp | 1567067137937
 * **调用API:**
 
     ```
-    $ curl -X POST -d "amount=10&key=11111111&price=0.09&side=0&symbol=VTT-000_VITE&timestamp=1567755178560&signature=409cf00bb97c08ae99317af26b379ac59f4cfaba9591df7738c0604a4cb68b9a" https://api.vitex.net/api/v1/order
+    $ curl -X POST -d "amount=10&key=11111111&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=409cf00bb97c08ae99317af26b379ac59f4cfaba9591df7738c0604a4cb68b9a" https://api.vitex.net/api/v1/order
     ```
 
 # 公开API接口
@@ -400,7 +401,7 @@ GET /api/v1/ticker/bookTicker
 
 **参数:**
 
-Name | Type | Mandatory | Description
+名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
 symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
 
@@ -482,7 +483,7 @@ GET /api/v1/trades
 
 **参数:**
 
-Name | Type | Mandatory | Description
+名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
 symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
 limit | INT | NO | 限制返回数据的数量，最大 500.
@@ -522,7 +523,7 @@ GET /api/v1/klines
 
 **参数:**
 
-Name | Type | Mandatory | Description
+名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
 symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
 limit | INT | NO | 限制返回数据的数量，最大 500.
@@ -578,7 +579,7 @@ timestamp | LONG | YES | 客户端时间戳
 key | STRING | YES | API Key
 signature | STRING | YES | 签名
 
-**Response**
+**响应:**
 
 ```javascript
 {
@@ -609,7 +610,7 @@ timestamp | LONG | YES | 客户端时间戳
 key | STRING | YES | API Key
 signature | STRING | YES | 签名
 
-**Response**
+**响应:**
 
 ```javascript
 {
@@ -657,7 +658,7 @@ filledValue | STRING | 已成交金额，单位为基础币种
 fee | STRING | 手续费，单位为基础币种
 created | LONG | 订单创建时间
 updated | LONG | 订单最后更新时间
-timeInForce | INT | 订单[Time In Force](#Time-In_Force)
+timeInForce | INT | 订单[Time In Force](#time-in-force)
 type | INT | 订单类型，[订单类型定义](#订单类型)
 
 
@@ -693,7 +694,7 @@ DELETE /api/v1/order  (HMAC SHA256)
 **配额消耗:**
 1 UT
 
-**Parameters:**
+**参数:**
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
@@ -726,7 +727,7 @@ DELETE /api/v1/orders  (HMAC SHA256)
 **配额消耗:**
 N UT(N与订单数量有关)
 
-**Parameters:**
+**参数:**
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
