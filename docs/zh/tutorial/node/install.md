@@ -37,7 +37,7 @@ cd gvite-${version}-linux
 ```
 程序是否正常启动，通过查看启动脚本所在目录的 gvite.log 看日志来确定, 这个文件
 ```bash
-cat gvite.log
+tail -100f gvite.log
 ```
 如下说明启动成功
 ```bash
