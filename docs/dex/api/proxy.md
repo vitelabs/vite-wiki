@@ -80,7 +80,7 @@ The counter is reset in every counting period (60s). In each period, API request
 
 * List all parameters (parameter and API key) in alphabet order;
 * Generate normalized request string by concatenating parameter name and value with `=` and name-value pairs with `&`;
-* Sign the request string by HMAC SHA256 signature algorithm, as the encryption key is API key;
+* Sign the request string by HMAC SHA256 signature algorithm, as the encryption key is API secret;
 * Signature is case in-sensitive;
 * Signature is also required to pass in API in `signature` field;
 * When both request string and request body are present, put request string in ahead of request body to produce signature.
