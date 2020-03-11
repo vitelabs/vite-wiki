@@ -40,7 +40,7 @@ cd gvite-${version}-linux
 ```
 Check the content of gvite.log in the same folder to determine whether the program is up and running.
 ```bash
-cat gvite.log
+tail -f100 gvite.log
 ```
 The following messages indicate boot is successful.
 ```bash
