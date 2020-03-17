@@ -15,6 +15,7 @@ bip39使用 PBKDF2 生成seed。助记词作为其中的password, 密码短语pa
 根据助记词获取熵
 
 - **Parameters** 
+    * `String` 必填，助记词
     * `number` 选填，entropy的位数(bit)，Default 256 (256 即生成24个单词；128 即生成12个单词)
     * `Array<String>` 选填，选词列表， Default bip39.wordlists.EN，若需要其他语言可从bip39库中单独选取并传入
 

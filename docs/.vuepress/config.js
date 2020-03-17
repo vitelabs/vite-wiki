@@ -141,7 +141,7 @@ const sidebarConfigs = {
             children: ['tool/http', 'tool/websocket', 'tool/ipc', 'tool/abi', 'tool/utils', 'tool/keystore']
         }
     ],
-    'api/javasdk_v2': [
+    'api/javasdk': [
         {
           children: ['','faq','types','wallet','rpc','quota','sbp','asset','subscribe','utils']
         }
@@ -289,6 +289,7 @@ module.exports = {
                     '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
                     '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'Vite RPC API', 'Wallet', 'Ledger', 'Smart Contract', 'Net', 'Common'),
                     '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),
+                    '/api/javasdk/': genSidebarConfig('api/javasdk', 'en', 'ViteJ'),
                     '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
                     '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
                 },
@@ -314,8 +315,8 @@ module.exports = {
                     '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', 'FAQ'),
                     '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC API', '钱包', '账本', '智能合约', '网络', '其他'),
                     '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', '更多'),
-                    '/zh/api/javasdk_v2/': genSidebarConfig('api/javasdk_v2', 'zh', 'Vitej'),
-                  '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
+                    '/zh/api/javasdk/': genSidebarConfig('api/javasdk', 'zh', 'ViteJ'),
+                    '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',

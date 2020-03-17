@@ -4,6 +4,7 @@
 Get entropy from mnemonic phrase
 
 - **Parameters** 
+    * `String` Mnemonic phrase
     * `number` Number of bits of the entropy, optional. Default is `256`. (256-bit entropy will generate 24-word phrase while 128 bits will create 12-word mnemonics)
     * `Array<String>` Wordlist, optional. Default is `bip39.wordlists.EN`
 

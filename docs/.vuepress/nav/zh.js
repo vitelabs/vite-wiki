@@ -20,7 +20,7 @@ module.exports = [
       },
       {
         text: 'Vite Java SDK',
-        link: '/zh/api/javasdk_v2/'
+        link: '/zh/api/javasdk/'
       }
     ]
   },

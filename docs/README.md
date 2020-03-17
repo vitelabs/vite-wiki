@@ -50,7 +50,7 @@ projects:
         - name: Vite.js
           url: /api/vitejs/
         - name: Vite JAVA SDK
-          url: /api/java-sdk/
+          url: /api/javasdk/
     - title: Tech Details
       detail: Implementations
       links: 
