@@ -9,12 +9,17 @@
     * `__namedParameters: object`        
         - `address: Address` 必填，账户块所属的账户地址
         - `provider` 即`ViteAPI`实例
-        - `privateKey: Hex` privateKey
+        - `privateKey?: Hex` privateKey
+        - `sign?: Function`<Badge text="v2.3.6"/>  签名时调用的函数，仅在`privateKey`不存在的时候起作用，该方法用于无法取到私钥，需要“远程”签名的时候，可以用这个方法。例如：使用硬件钱包。
+        
 
 - **Return**
     * receiveAccountBlockTask 实例
 
 - **Example**
+
+:::: tabs
+::: tab privateKey
 ```javascript
 import { accountBlock } from '@vite/vitejs';
 
@@ -28,10 +33,6 @@ const ReceiveTask = new ReceiveAccountBlockTask({
 
 ReceiveTask.onSuccess((result) => {
     console.log('success', result);
-    // 当不存在未接收交易时，停止接收任务
-    if (!result.accountBlockList) {
-        ReceiveTask.stop();
-    }
 });
 ReceiveTask.onError((error) => {
     console.log('error', error);
@@ -41,6 +42,48 @@ ReceiveTask.start({
     transctionNumber: 10
 });
 ```
+:::
+
+::: tab sign
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { ReceiveAccountBlockTask } = accountBlock;
+
+
+const signWithHardWallet = async () => {
+    let signature = '';
+    // Sign with hard wallet, and return signature
+
+    return signature;
+}
+
+const ReceiveTask = new ReceiveAccountBlockTask({
+    address: 'your address',
+    provider: viteProvider,
+    sign: async (_accountBlock) => {
+        let signature = await signWithHardWallet();
+        // Set publicKey if not
+        _accountBlock.setPublicKey(this.publicKey);
+        // Set signature, this is required
+        _accountBlock.setSignature(signature);
+    }
+});
+
+ReceiveTask.onSuccess((result) => {
+    console.log('success', result);
+});
+ReceiveTask.onError((error) => {
+    console.log('error', error);
+});
+ReceiveTask.start({
+    checkTime: 3000,
+    transctionNumber: 10
+});
+```
+:::
+
+::::
 
 ## Methods
 
