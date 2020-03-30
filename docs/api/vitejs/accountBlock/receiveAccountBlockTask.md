@@ -10,8 +10,11 @@ Enable auto-receive on the account for incoming transactions
         - `address: Address` Address of account, mandatory
         - `provider: ViteAPI` `ViteAPI` instance
         - `privateKey: Hex` privateKey
+        - `sign?: Function`<Badge text="v2.3.6"/>  Used for when you can't get the `privateKey`, such as the privateKey is on the hardware wallet. You can use this function to set signature. See bellow Examples. 
 
 - **Example**
+:::: tabs
+::: tab privateKey
 ```javascript
 import { accountBlock } from '@vite/vitejs';
 
@@ -25,10 +28,6 @@ const ReceiveTask = new ReceiveAccountBlockTask({
 
 ReceiveTask.onSuccess((result) => {
     console.log('success', result);
-    // No unreceived accountBlocks, stop receiving-task
-    if (!result.accountBlockList) {
-        ReceiveTask.stop();
-    }
 });
 ReceiveTask.onError((error) => {
     console.log('error', error);
@@ -38,7 +37,47 @@ ReceiveTask.start({
     transctionNumber: 10
 });
 ```
+:::
 
+::: tab sign
+```javascript
+import { accountBlock } from '@vite/vitejs';
+
+const { ReceiveAccountBlockTask } = accountBlock;
+
+
+const signWithHardWallet = async () => {
+    let signature = '';
+    // Sign with hard wallet, and return signature
+
+    return signature;
+}
+
+const ReceiveTask = new ReceiveAccountBlockTask({
+    address: 'your address',
+    provider: viteProvider,
+    sign: async (_accountBlock) => {
+        let signature = await signWithHardWallet();
+        // Set publicKey if not
+        _accountBlock.setPublicKey(this.publicKey);
+        // Set signature, this is required
+        _accountBlock.setSignature(signature);
+    }
+});
+
+ReceiveTask.onSuccess((result) => {
+    console.log('success', result);
+});
+ReceiveTask.onError((error) => {
+    console.log('error', error);
+});
+ReceiveTask.start({
+    checkTime: 3000,
+    transctionNumber: 10
+});
+```
+:::
+::::
 ## Methods
 
 ### start
