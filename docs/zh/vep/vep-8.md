@@ -21,3 +21,4 @@ Content Type 使用 UInt16 标示，采用大端格式存储，规定小于等�
 | 类型 | Type(Hex) | 说明 |
 | --- | --- | --- |
 | Grin 钱包数据 | 0x8001 | 保存 Grin 文件索引 |
+| ViteX 网关交易数据 | 0x0bc3 | 保存 ViteX 网关充值提现数据 |
