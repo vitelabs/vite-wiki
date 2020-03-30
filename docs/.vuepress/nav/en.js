@@ -98,7 +98,7 @@ module.exports = [
           },
           {
             text: 'iOS Wallet',
-            link: 'https://app.vite.net'
+            link: 'https://app.vite.net/'
           },
           {
             text: 'Android Wallet',

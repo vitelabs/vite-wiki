@@ -228,7 +228,7 @@ module.exports = {
         '@vuepress/back-to-top',
         '@vuepress/i18n-ui',
         ['mathjax', {
-          target: 'chtml',
+          target: 'svg',
         }],
         '@vuepress/plugin-notification',
         ['redirect', {
@@ -271,7 +271,7 @@ module.exports = {
         docsDir: 'docs',
         search: true,
         docsRepo: 'vitelabs/vite-wiki',
-        sidebarDepth: 3,
+        sidebarDepth: 4,
         logo: '/logo_black.svg',
         repo: 'vitelabs/go-vite',
         docsBranch: docBranch,
@@ -298,7 +298,7 @@ module.exports = {
                     indexName: 'vite_labs',
                     algoliaOptions: {
                         facetFilters: ['lang:en', searchFilter],
-                        hitsPerPage: 10
+                        hitsPerPage: 20
                     }
                 }
             },
@@ -323,7 +323,7 @@ module.exports = {
                     indexName: 'vite_labs',
                     algoliaOptions: {
                         facetFilters: ['lang:zh', searchFilter],
-                        hitsPerPage: 10
+                        hitsPerPage: 20
                     }
                 },
                 demo: {
@@ -340,7 +340,7 @@ function genSidebarConfig(nav, lang, ...titles) {
     lang = lang === 'en' ? '' : lang
     let itemList = sidebarConfigs[nav].map((item, index) => {
         return Object.assign({
-          collapsable: true
+          collapsable: false
         }, item, {
             title: titles[index]
         })

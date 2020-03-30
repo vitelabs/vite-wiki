@@ -92,7 +92,14 @@ In Vite network, quota cap and calculation weights are constants:
 
 Quota factor is calculated by the following formula:
 
-$$Qc =\begin{cases} 1, if g \leq 1050000\\ 2-e^{8.260667775706495e-09 \times (g - 1050000)}, if 1050000<g \leq 2100000\\ e^{1.6949794096275418e-10 \times (2100000-g)}-0.9, if g>2100000 	\end{cases}$$
+$$
+Qc =
+\begin{cases} 
+    1, & \text{for } g \leq 1050000 \\ 
+    2-e^{8.260667775706495e-09 \times (g - 1050000)}, & \text{for } 1050000 < g \leq 2100000 \\ 
+    e^{1.6949794096275418e-10 \times (2100000-g)}-0.9, & \text{for } g > 2100000 \\
+\end{cases}
+$$
 
 * $g$: Average quota consumed in last 74 snapshot blocks
 

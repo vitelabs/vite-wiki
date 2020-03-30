@@ -78,7 +78,7 @@ module.exports = [
           },
           {
             text: 'iOS 钱包',
-            link: 'https://app.vite.net'
+            link: 'https://app.vite.net/'
           },
           {
             text: 'Android 钱包',

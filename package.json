@@ -21,7 +21,7 @@
     "@vuepress/plugin-google-analytics": "^1.2.0",
     "@vuepress/plugin-medium-zoom": "^1.2.0",
     "@vuepress/plugin-notification": "^1.0.0-alpha.42",
-    "deepmerge": "^2.1.1",
+    "deepmerge": "^4.2.2",
     "markdown-it-mathjax-chtml": "^0.1.0",
     "moment": "^2.24.0",
     "sass-loader": "^8.0.0",
@@ -30,13 +30,13 @@
     "vue-toasted": "^1.1.24",
     "vuepress": "^1.2.0",
     "vuepress-plugin-baidu-autopush": "^1.0.1",
-    "vuepress-plugin-mathjax": "^1.2.4",
+    "vuepress-plugin-mathjax": "^1.2.8",
     "vuepress-plugin-pangu": "^1.0.1",
     "vuepress-plugin-redirect": "^1.1.2",
     "vuepress-plugin-seo": "^0.1.2",
     "vuepress-plugin-server-push": "^0.2.1",
     "vuepress-plugin-sitemap": "^2.3.1",
-    "vuepress-plugin-tabs": "^0.2.2",
-    "whatwg-fetch": "^2.0.4"
+    "vuepress-plugin-tabs": "^0.3.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }
