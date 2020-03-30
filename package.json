@@ -37,6 +37,6 @@
     "vuepress-plugin-server-push": "^0.2.1",
     "vuepress-plugin-sitemap": "^2.3.1",
     "vuepress-plugin-tabs": "^0.3.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^2.0.4"
   }
 }
