@@ -84,7 +84,7 @@ const accountBlock = createAccountBlock('send', {
     * `__namedParameters: object`
         - `address: Address` 账户块所属的账户地址
         - `code: Hex` 编译器编译出的合约代码
-        - `responseLatency?: Uint8` Default '0' 确认数
+        - `responseLatency?: Uint8` Default '0' 确认数, 注意：`responseLatency`必须大于或者等于`randomDegree`
         - `quotaMultiplier?: Uint8` Default '10' 配额翻倍数
         - `randomDegree?: Uint8` Default '0' 随机数确认数
         - `abi?: Object | Array<Object>` abi

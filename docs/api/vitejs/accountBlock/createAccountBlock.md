@@ -83,7 +83,7 @@ Type of creating smart contract
     * `__namedParameters: object`
         - `address: Address` Address of current account (creator)
         - `code: Hex` Complied code of contract
-        - `responseLatency?: Uint8` Response latency. Default is `0`
+        - `responseLatency?: Uint8` Response latency. Default is `0`, `responseLatency` must >= `randomDegree`
         - `quotaMultiplier?: Uint8` Quota multiplier. Default is `10`
         - `randomDegree?: Uint8` Random degree. Default is `0`
         - `abi?: Object | Array<Object>` ABI
