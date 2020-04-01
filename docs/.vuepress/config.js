@@ -1,190 +1,20 @@
 const path = require('path')
 const fs = require('fs')
+const slugify = require('transliteration').slugify;
 
 const docBranch = process.env.BRANCH || 'master'
 const searchFilter = 'version: ' + docBranch
 
-const sidebarConfigs = {
-    introduction: [
-        {
-            children: [
-                '',
-                'dag-ledger',
-                'asynchronous-architecture',
-                'other',
-                'vite-token'
-            ]
-        }
-    ],
-    technology: [
-        {
-            children: [
-                '',
-                'design-features'
-            ]
-        },
-        {
-            children: [
-                'gen-address'
-            ]
-        },
-        {
-            children: [
-                'ledger-struct'
-            ]
-        }
-    ],
-    tutorial: [
-        {
-            children: [
-                'start/',
-            ]
-        },
-        {
-            children: [
-                'wallet/install',
-                'wallet/manage',
-                'wallet/hdwallet',
-            ]
-        },
-        {
-            children: [
-                'node/install',
-                'node/wallet-manage',
-                // 'node/fullnode',
-                'node/sbp',
-                'node/node_config',
-                'node/example',
-                'node/pre_mainnet_config'
-            ]
-        },
-        {
-            children: [
-                'rule/sbp',
-                'rule/fullnode',
-                'rule/quota',
-                'rule/mintage',
-                'rule/vote'
-            ]
-        },
-        {
-          children: [
-              'contract/contract',
-              'contract/soliditypp',
-              'contract/debug',
-              'contract/instructions',
-              'contract/subscribe',
-              'contract/dapp'
-          ]
-        },
-        {
-          children: [
-            'faq/node',
-            'faq/develop'
-          ]
-        }
-    ],
-    'api/rpc': [
-        {
-            children: ['']
-        },
-
-        // wallet
-        {
-            children: [
-                'wallet_v2'
-            ]
-        },
-        // ledger
-        {
-            children: [
-                'ledger_v2'
-            ]
-        },
-        // smart-contract
-        {
-            children: [
-              'contract_v2'
-            ]
-        },
-
-        // net
-        {
-            children: [
-                'net'
-            ]
-        },
-
-        // common
-        {
-            children: [
-                'common_models_v2',
-                'util',
-                'subscribe_v2'
-            ]
-        },
-    ],
-    'api/vitejs': [
-        {
-            children: ['', 'types', 'errors', 'QA']
-        },
-        {
-            children: ['ViteAPI/start', 'ViteAPI/GViteRPC']
-        },
-        {
-            children: ['accountBlock/start', 'accountBlock/createAccountBlock', 'accountBlock/accountBlock', 'accountBlock/receiveAccountBlockTask', 'accountBlock/utils']
-        },
-        {
-            children: ['wallet/start', 'wallet/wallet', 'wallet/more']
-        },
-        {
-            children: ['tool/http', 'tool/websocket', 'tool/ipc', 'tool/abi', 'tool/utils', 'tool/keystore']
-        }
-    ],
-    'api/javasdk': [
-        {
-          children: ['','faq','types','wallet','rpc','quota','sbp','asset','subscribe','utils']
-        }
-    ],
-    vep: [
-        {
-            children: [
-                '',
-                'vep-3',
-                'vep-4',
-                'vep-5',
-                'vep-6',
-                'vep-7',
-                'vep-8',
-                'vep-10',
-                'vep-12',
-                'vep-13',
-                'vep-15',
-                'vep-16',
-                'vep-17',
-                'vep-18'
-            ]
-        }
-    ],
-    dex: [
-      {
-        children: ['']
-      },
-      {
-        children: ['api/gate', 'api/state', 'api/proxy']
-      },
-      {
-        children: [
-          'operation/gate-integration',
-          // 'operation/', 'operation/how-to', 'operation/tutorial'
-        ]
-      }
-    ]
-};
+const sidebarConfigs = require('./nav/sidebar');
 
 
 module.exports = {
     dest: 'dist',
+    extraWatchFiles: [
+        '.vuepress/nav/en.js',
+        '.vuepress/nav/zh.js',
+        '.vuepress/nav/sidebar.js'
+    ],
     locales: {
         '/': {
             lang: 'en-US',
@@ -215,6 +45,15 @@ module.exports = {
                 'images': path.resolve(__dirname, '../../assets/images')
             }
         }
+    },
+    markdown: {
+        anchor: {
+            permalink: true, 
+            permalinkBefore: true, 
+            permalinkSymbol: '#',
+            slugify: slugify
+        },
+        slugify: slugify
     },
     plugins: [
         ['@vuepress/google-analytics', {
@@ -254,17 +93,7 @@ module.exports = {
         }],
         'pangu',
         'tabs',
-        [require('./plugins/tab-code-example')],
-        // [
-        //   '@vuepress/last-updated',
-        //   {
-        //     transformer: (timestamp, lang) => {
-        //       const moment = require('moment')
-        //       moment.locale(lang)
-        //       return moment(timestamp).fromNow()
-        //     }
-        //   }
-        // ]
+        [require('./plugins/tab-code-example')]
     ],
     themeConfig: {
         editLinks: true,
@@ -284,21 +113,21 @@ module.exports = {
                 lastUpdated: 'Last Updated',
                 nav: require('./nav/en'),
                 sidebar: {
-                    '/introduction/': genSidebarConfig('introduction', 'en', 'Introduction'),
-                    '/technology/': genSidebarConfig('technology', 'en', 'Start'),
-                    '/tutorial/': genSidebarConfig('tutorial', 'en', 'Start', 'Wallet', 'Node', 'Rules', 'Smart contract'),
-                    '/api/rpc/': genSidebarConfig('api/rpc', 'en', 'Vite RPC API', 'Wallet', 'Ledger', 'Smart Contract', 'Net', 'Common'),
-                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', 'More'),
-                    '/api/javasdk/': genSidebarConfig('api/javasdk', 'en', 'ViteJ'),
-                    '/vep/': genSidebarConfig('vep', 'en', 'VEP'),
-                    '/dex/': genSidebarConfig('dex', 'en', 'Overview', 'API', 'Tutorial', 'Operation')
+                    '/introduction/': genSidebarConfig('introduction', 'en'),
+                    '/technology/': genSidebarConfig('technology', 'en'),
+                    '/tutorial/': genSidebarConfig('tutorial', 'en'),
+                    '/api/rpc/': genSidebarConfig('api/rpc', 'en'),
+                    '/api/vitejs/': genSidebarConfig('api/vitejs', 'en'),
+                    '/api/javasdk/': genSidebarConfig('api/javasdk', 'en'),
+                    '/vep/': genSidebarConfig('vep', 'en'),
+                    '/dex/': genSidebarConfig('dex', 'en')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
                     indexName: 'vite_labs',
                     algoliaOptions: {
                         facetFilters: ['lang:en', searchFilter],
-                        hitsPerPage: 20
+                        hitsPerPage: 30
                     }
                 }
             },
@@ -309,22 +138,23 @@ module.exports = {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    '/zh/introduction/': genSidebarConfig('introduction', 'zh', '介绍'),
-                    '/zh/technology/': genSidebarConfig('technology', 'zh', '开始', '地址', '账本', 'VEP'),
-                    '/zh/vep/': genSidebarConfig('vep', 'zh', '提案'),
-                    '/zh/tutorial/': genSidebarConfig('tutorial', 'zh', '开始', '钱包', '节点', '深入了解', '智能合约', 'FAQ'),
-                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh', 'Vite RPC API', '钱包', '账本', '智能合约', '网络', '其他'),
-                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh', 'Vite.js', 'ViteAPI', 'AccountBlock', 'Wallet', '更多'),
-                    '/zh/api/javasdk/': genSidebarConfig('api/javasdk', 'zh', 'ViteJ'),
-                    '/zh/dex/': genSidebarConfig('dex', 'zh', '介绍', 'API', '教程', '运营')
+                    '/zh/introduction/': genSidebarConfig('introduction', 'zh'),
+                    '/zh/technology/': genSidebarConfig('technology', 'zh'),
+                    '/zh/vep/': genSidebarConfig('vep', 'zh'),
+                    '/zh/tutorial/': genSidebarConfig('tutorial', 'zh'),
+                    '/zh/api/rpc/': genSidebarConfig('api/rpc', 'zh'),
+                    '/zh/api/vitejs/': genSidebarConfig('api/vitejs', 'zh'),
+                    '/zh/api/javasdk/': genSidebarConfig('api/javasdk', 'zh'),
+                    '/zh/dex/': genSidebarConfig('dex', 'zh')
                 },
                 algolia: {
                     apiKey: 'fe006d1336f2a85d144fdfaf4a089378',
                     indexName: 'vite_labs',
                     algoliaOptions: {
                         facetFilters: ['lang:zh', searchFilter],
-                        hitsPerPage: 20
-                    }
+                        hitsPerPage: 30
+                    },
+                    debug: false
                 },
                 demo: {
                     errorMessage: 'JSON解析失败，请检查代码格式是否正确。以下是错误信息：',
@@ -336,13 +166,13 @@ module.exports = {
     }
 }
 
-function genSidebarConfig(nav, lang, ...titles) {
-    lang = lang === 'en' ? '' : lang
+function genSidebarConfig(nav, _lang) {
+    lang = _lang === 'en' ? '' : _lang
     let itemList = sidebarConfigs[nav].map((item, index) => {
         return Object.assign({
           collapsable: false
         }, item, {
-            title: titles[index]
+            title: item[_lang]
         })
     })
     itemList.forEach(item => {
