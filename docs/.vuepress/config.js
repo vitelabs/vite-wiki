@@ -128,6 +128,10 @@ module.exports = {
                     algoliaOptions: {
                         facetFilters: ['lang:en', searchFilter],
                         hitsPerPage: 30
+                    },
+                    debug: false,
+                    autocompleteOptions: {
+                      openOnFocus: true
                     }
                 }
             },
@@ -154,7 +158,10 @@ module.exports = {
                         facetFilters: ['lang:zh', searchFilter],
                         hitsPerPage: 30
                     },
-                    debug: false
+                    debug: false,
+                    autocompleteOptions: {
+                      openOnFocus: true
+                    }
                 },
                 demo: {
                     errorMessage: 'JSON解析失败，请检查代码格式是否正确。以下是错误信息：',
