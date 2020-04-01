@@ -100,7 +100,7 @@ Key | Value
 symbol | ETH-000_BTC-000
 side | 0
 amount | 10
-price | 0.02
+price | 0.09
 timestamp | 1567067137937
 
 The ordered request string is:
