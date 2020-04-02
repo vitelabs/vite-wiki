@@ -2,15 +2,15 @@
 sidebarDepth: 4
 ---
 
-# RPC API Wrapper
+# RPC API Bridge
 
 ## How to Call RPC API
 
 ### Create ViteJ Object
 
-ViteJ object is instantiated to call RPC API
+At beginning, you should create a ViteJ object and choose how to connect to a node. 
 
-Using HTTP:
+Use HTTP:
 
 ```java
 // default url is http://127.0.0.1:48132
@@ -24,7 +24,7 @@ KeyPair keyPair = new Wallet(Arrays.asList("network","north","tell","potato","pr
 Vitej vitej3 = new Vitej(new HttpService(), keyPair);
 ```
 
-Using WebSocket:
+Use WebSocket:
 ```java
 // default url is ws://127.0.0.1:41420
 WebSocketService ws0 = new WebSocketService();
@@ -47,7 +47,7 @@ Vitej vitej = new Vitej(ws, keyPair);
 
 ### Call RPC API
 
-Refer to [Vite RPC API](../rpc/)
+See [RPC API Documentation](../rpc/) to know more information about Vite RPC API.
 
 #### Request
 
@@ -86,7 +86,7 @@ Response JSON object (JSON-RPC 2.0)
 }
 ```
 
-#### Make the API Call
+#### Make the Call
 
 Synchronous call:
 
@@ -111,112 +111,112 @@ List<AccountBlock> accountBlockList = response.getResult();
 
 ### Send Transaction
 
-Sending a transaction contains the following steps (by `sendTransaction` method):
-1. Validate transaction object and fill in default values if some required attributes are not present;
-2. If `autoPoW`=`true`, firstly complete quota consumption estimation. If current quota in account is insufficient, do a PoW puzzle to obtain temporary quota;
+Sending a transaction (by `sendTransaction` method) includes the following steps :
+1. Check transaction object. Fill in default value if required parameters are not present;
+2. Calculate quota consumption. If the available quota of the account is insufficient and having `autoPoW`=`true`, do a PoW puzzle to get temporary quota;
 3. Create transaction hash, then sign the transaction.
 
 :::tip Note
-Make sure `util` module is correctly configured in `PublicModules` in `node_config.json` on your node when `autoPoW`=`true`.
+Make sure `util` module is configured in `PublicModules` in `node_config.json` on your node when `autoPoW`=`true`.
 :::
 
-#### 发送普通转账交易
-```
+#### Send a Transfer
+```java
 Vitej vitej = new Vitej(new HttpService());
 KeyPair keyPair = new Wallet(Arrays.asList("network", "north", "tell", "potato", "predict", "almost", "wonder", "spirit", "wheel", "smile", "disease", "bonus", "round", "flock", "pole", "review", "music", "oven", "clarify", "exclude", "loyal", "episode", "image", "notable")).deriveKeyPair();
 Request<?, EmptyResponse> request = vitej.sendTransaction(
-        // 签名这笔交易的公私钥对
+        // key used to sign the transaction
         keyPair,
-        // 交易参数
+        // transaction information
         new TransactionParams()
-                // 交易类型，非必填，默认SEND_CALL
+                // transaction type, optional. Default is SEND_CALL
                 .setBlockType(EBlockType.SEND_CALL.getValue())
-                // 交易接收地址，必填
+                // recipient address. must present
                 .setToAddress(new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"))
-                // 转账金额，非必填，默认0
+                // transfer amount, optional. Default is 0
                 .setAmount(BigInteger.valueOf(1))
-                // 转账代币id，非必填，默认VITE
+                // transfer token id, optional. Default token is VITE
                 .setTokenId(CommonConstants.VITE_TOKEN_ID)
-                // 备注，非必填，默认空
+                // transaction comment, optional
                 .setData("Hello".getBytes()),
-        // 如果配额不足，是否自动计算PoW
+        // enable/disable pow
         false);
 Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 ```
 
-#### 发送响应交易
+#### Receive
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 KeyPair keyPair = new Wallet(Arrays.asList("network", "north", "tell", "potato", "predict", "almost", "wonder", "spirit", "wheel", "smile", "disease", "bonus", "round", "flock", "pole", "review", "music", "oven", "clarify", "exclude", "loyal", "episode", "image", "notable")).deriveKeyPair();
 Request<?, EmptyResponse> request = vitej.sendTransaction(keyPair,
         new TransactionParams()
-                // 交易类型，必填，填RECEIVE
+                // transaction type. must be RECEIVE
                 .setBlockType(EBlockType.RECEIVE.getValue())
-                // 请求交易哈希，必填
+                // request transaction hash. must present
                 .setSendBlockHash(new Hash("ef5dccd73a6ef6370bc72b56b686362fd095152e2746f21113c2015e243b5056")),
         false);
 Hash receiveBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
 ```
 
-#### 发送调用合约接口
+#### Call Smart Contract
 
-参考 [调用合约步骤](https://vite.wiki/zh/api/rpc/contract_v2.html#调用合约步骤)
+See [Call Contract](../rpc/contract_v2.html#call-contract) for detailed information
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 KeyPair keyPair = new Wallet(Arrays.asList("network", "north", "tell", "potato", "predict", "almost", "wonder", "spirit", "wheel", "smile", "disease", "bonus", "round", "flock", "pole", "review", "music", "oven", "clarify", "exclude", "loyal", "episode", "image", "notable")).deriveKeyPair();
-// 根据ABI定义生成调用合约的data（包括方法签名和方法参数）
+// use abi to generate binary data to call a method on contract
 Abi abi = Abi.fromJson("[{\"type\":\"function\",\"name\":\"VoteForSBP\", \"inputs\":[{\"name\":\"sbpName\",\"type\":\"string\"}]}]");
 byte[] callContractData = abi.encodeFunction("VoteForSBP", "Vite_SBP01");
 Request<?, EmptyResponse> request = vitej.sendTransaction(
         keyPair,
         new TransactionParams()
-                // 交易类型，非必填，默认SEND_CALL
+                // transaction type. must be SEND_CALL
                 .setBlockType(EBlockType.SEND_CALL.getValue())
-                // 合约账户地址，必填
+                // smart contract address. must present
                 .setToAddress(new Address("vite_0000000000000000000000000000000000000004d28108e76b"))
-                // 调用合约接口时的转账金额，非必填，默认0
+                // transfer amount, optional. Default is 0
                 .setAmount(new BigInteger("0"))
-                // 调用合约接口时的转账代币id，非必填，默认VITE
+                // transfer token id, optional. Default token is VITE
                 .setTokenId(CommonConstants.VITE_TOKEN_ID)
-                // 调用合约的data，非必填，默认空
+                // data generated in above step to call contain method. If not present, no method will be called
                 .setData(callContractData),
         false);
 Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
 EmptyResponse response = request.send();
-// 检查调用合约是否成功
+// check result
 boolean callSuccess = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash);
 ```
 
-#### 创建合约
+#### Create Smart Contract
 
-参考 [创建合约步骤](https://vite.wiki/zh/api/rpc/contract_v2.html#创建合约步骤)
+See [Create Contract](../rpc/contract_v2.html#create-contract) for detailed information
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 KeyPair keyPair = new Wallet(Arrays.asList("network", "north", "tell", "potato", "predict", "almost", "wonder", "spirit", "wheel", "smile", "disease", "bonus", "round", "flock", "pole", "review", "music", "oven", "clarify", "exclude", "loyal", "episode", "image", "notable")).deriveKeyPair();
-// 智能合约二进制代码。编译代码时指定--bin参数后得到的Binary代码。
+// specify binary code of the contract. tips: use --bin to generate binary when compiling soliditypp source code
 byte[] bytecode = BytesUtils.hexStringToBytes("6080604052348015600f57600080fd5b50604051602080608183398101806040526020811015602d57600080fd5b810190808051906020019092919050505050603580604c6000396000f3fe6080604052600080fdfea165627a7a723058208602dc0b6a1bf2e56f2160299868dc8c3f435c9af6d384858722a21906c7c0740029");
-// 根据构造函数的ABI定义生成参数
+// use abi to load constructor
 Abi abi = Abi.fromJson("[{\"inputs\":[{\"name\":\"i\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}]");
 byte[] callConstructorData = abi.encodeConstructor(BigInteger.valueOf(1));
-// 生成创建合约的data，5个参数含义分别为：二进制代码，构造函数的参数，确认数，随机数确认数，配额翻倍数
+// generate binary data. pass in 5 parameters (binary code, constructor data, response latency, random degree, quota multiplier)
 byte[] createContractData = ContractUtils.getCreateContractData(bytecode, callConstructorData, 2, 1, 10);
 Request<?, EmptyResponse> request = vitej.sendTransaction(
         keyPair,
         new TransactionParams()
-                // 交易类型，必填，值为SEND_CREATE
+                // transaction type. must be SEND_CREATE
                 .setBlockType(EBlockType.SEND_CREATE.getValue())
-                // 调用构造函数时的转账金额，非必填，默认为0
+                // transfer amount, optional. Default is 0
                 .setAmount(new BigInteger("0"))
-                // 调用构造函数时的转账代币id，非必填，默认为VITE
+                // transfer token id, optional. Default token is VITE
                 .setTokenId(CommonConstants.VITE_TOKEN_ID)
-                // 创建合约需要销毁10 VITE，非必填，默认为10 VITE
+                // 10 VITE contract creation fee, optional. Default is 10 VITE
                 .setFee(CommonConstants.CREATE_CONTRACT_FEE)
-                // 创建合约参数，必填
+                // data generated in above step to create smart contract. must present
                 .setData(createContractData),
         false);
 Hash sendBlockHash = ((TransactionParams) request.getParams().get(0)).getHashRaw();
@@ -224,197 +224,200 @@ EmptyResponse response = request.send();
 boolean callSuccess = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash);
 ```
 
-### 计算PoW
+### Calculate PoW
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 PoWNonceResponse response = vitej.getPoWNonce(
-        // PoW难度
+        // PoW difficulty
         BigInteger.valueOf(67108863),
-        // data，可以通过BlockUtils.getPoWData接口获取
+        // hash value. can be obtained through BlockUtils.getPoWData
         new Hash("d517e8d4dc9c676876b72ad0cbb4c45890804aa438edd1f171ffc66276202a95")
 ).send();
 byte[] nonce = response.getNonce();
 ```
 
-### 根据地址查询账户块列表
+### Get Account Block List
 
-从账户链上最新的块开始，往前查询账户块，返回值按高度倒序排序。
+Get a list of account blocks in descending order of block height, starting at the latest block
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlocksResponse response = vitej.getAccountBlocksByAddress(
-        // 账户地址
+        // address of account
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"),
-        // 页码，从0开始
+        // page index. start at 0
         0,
-        // 每页条数
+        // page size
         10).send();
 List<AccountBlock> accountBlockList = response.getResult();
 ```
 
-### 根据高度查询账户块
+### Get Account Block (by height)
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlockResponse response = vitej.getAccountBlockByHeight(
-        // 账户地址
+        // address of account
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"),
-        // 账户块高度
+        // block height
         1L).send();
 AccountBlock accountBlock = response.getResult();
 ```
 
-### 根据哈希查询账户块
+### Get Account Block (by hash)
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlockResponse response = vitej.getAccountBlockByHash(
-        // 账户块哈希
+        // hash of account block
         new Hash("c4b11ff481c5476945000993816794fbc21a315901aaecb523b503c19c133154")).send();
 AccountBlock accountBlock = response.getResult();
 ```
 
-### 根据哈希查询完整账户块
+### Get Account Block (full block)
 
-如果传入合约RS块的S交易哈希，则返回完整的RS块
+This method can be also used to return a full RS (Receive-Send) block by specifying RS block hash
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlockResponse response = vitej.getCompleteAccountBlockByHash(
-        // 账户块哈希
+        // hash of account block
         new Hash("c4b11ff481c5476945000993816794fbc21a315901aaecb523b503c19c133154")).send();
 AccountBlock accountBlock = response.getResult();
 ```
 
-### 查询最新的账户块
+### Get the Latest Account Block
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlockResponse response = vitej.getLatestAccountBlock(
-        // 账户地址
+        // address of account
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")).send();
 AccountBlock accountBlock = response.getResult();
 ```
 
-### 根据代币id查询账户块
+### Get Account Block List (by token id)
 
-```
+Get a list of account blocks in which the transfers are done in certain token
+
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlocksResponse response = vitej.getAccountBlocks(
-        // 账户地址，必填
+        // account address. must present
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"),
-        // 开始查询的账户块哈希，非必填，如果为空，默认从最新的账户块开始查询
+        // hash of account block to start from. If not present, use the latest account block
         new Hash("c4b11ff481c5476945000993816794fbc21a315901aaecb523b503c19c133154"),
-        // 查询的代币id，非必填，如果为空，默认查询所有的代币
+        // token id
         CommonConstants.VITE_TOKEN_ID,
-        // 查询条数，必填
+        // number of item returned. must present
         10
 ).send();
 List<AccountBlock> accountBlockList = response.getResult();
 ```
 
-### 查询账户信息
+### Get Account Info
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountInfoResponse response = vitej.getAccountInfoByAddress(
-        // 账户地址
+        // address of account
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")
 ).send();
-// 交易数量
+// total transaction number
 Long blockCount = response.getResult().getBlockCount();
-// 各代币账户余额
+// token-balance summary
 Map<TokenId, AccountInfoResponse.BalanceInfo> balanceInfoMap = response.getResult().getBalanceInfoMap();
 ```
 
-### 根据地址查询待接收交易
+### Get Unreceived Transaction List
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountBlocksResponse response = vitej.getUnreceivedBlocksByAddress(
-        // 账户地址
+        // account address
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd"),
-        // 页码，从0开始
+        // page index. start at 0
         0,
-        // 每页条数
+        // page size
         10
 ).send();
-// 待接收交易列表
+// unreceived transaction list
 List<AccountBlock> accountBlockList = response.getResult();
 ```
 
-### 查询账户待接收交易汇总信息
+### Get Unreceived Transaction Summary
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 AccountInfoResponse response = vitej.getUnreceivedTransactionSummaryByAddress(
-        // 账户地址
+        // account address
         new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68")
 ).send();
-// 待接收交易数量
+// number of unreceived transaction
 Long blockCount = response.getResult().getBlockCount();
-// 待接收交易中，各代币金额汇总
+// unreceived token-balance summary
 Map<TokenId, AccountInfoResponse.BalanceInfo> balanceInfoMap = response.getResult().getBalanceInfoMap();
 ```
 
-### 查询最新的快照块哈希
+### Get the Latest Snapshot Block Hash
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 LatestSnapshotHashResponse response = vitej.getLatestSnapshotHash().send();
 Hash latestSnapshotHash = response.getHash();
 ```
 
-### 查询最新的快照块高度
+### Get the Latest Snapshot Block Height
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 SnapshotChainHeightResponse response = vitej.getSnapshotChainHeight().send();
 Long latestSnapshotHeight = response.getHeight();
 ```
 
-### 查询最新的快照块信息
+### Get the Latest Snapshot Block
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 SnapshotBlockResponse response = vitej.getLatestSnapshotBlock().send();
 SnapshotBlock snapshotBlock = response.getResult();
 ```
 
-### 查询快照块列表
+### Get Snapshot Block List
 
-从指定高度开始往前批量查询快照块信息，返回值按高度倒序排序
+Get a list of snapshot blocks in descending order, starting at specified height
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 SnapshotBlocksResponse response = vitej.getSnapshotBlocks(
-        // 开始查询的高度
+        // height to start from
         100L,
-        // 查询条数
+        // number of item returned
         10
 ).send();
 List<SnapshotBlock> snapshotBlock = response.getResult();
 ```
 
-### 根据合约响应交易哈希查询合约事件
+### Get Smart Contract Event Log 
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 VmlogsResponse response = vitej.getVmlogs(
+        // hash of smart contract response block
         new Hash("d519bd49599df00b6a5992a50065af7945c4b6af269af8791cca5688f3277e37")
 ).send();
 List<Vmlog> vmLogList = response.getResult();
 ```
 
-### 根据过滤条件查询合约事件
+### Get Smart Contract Event Log (by filter)
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
-// 过滤条件，只查询vite_000000000000000000000000000000000000000595292d996d合约高度范围为1-10的账户块
+// only get event log from account block height 1-10 on smart contract vite_000000000000000000000000000000000000000595292d996d
 VmLogFilter filter = new VmLogFilter(new Address("vite_000000000000000000000000000000000000000595292d996d"),
         1L, 10L);
-// 合约事件topics过滤条件，下面的条件表示合约事件至少有两个indexed字段，其中，第一个indexed字段值取值为000000000000000000000000000000000000000000005649544520544f4b454e或者00000000000000000000000000000000000000000000564954455820434f494e
+// define a topic to get event log which has two indexed fields as the value specified
 filter.setTopics(Arrays.asList(
         Collections.emptyList(),
         Arrays.asList(new Hash("000000000000000000000000000000000000000000005649544520544f4b454e"), new Hash("00000000000000000000000000000000000000000000564954455820434f494e")),
@@ -426,9 +429,9 @@ VmlogInfosResponse response = vitej.getVmlogsByFilter(
 List<VmLogInfo> vmLogInfoList = response.getResult();
 ```
 
-### 查询合约信息
+### Get Smart Contract Info
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 ContractInfoResponse response = vitej.getContractInfo(
         new Address("vite_000000000000000000000000000000000000000595292d996d")
@@ -436,53 +439,55 @@ ContractInfoResponse response = vitej.getContractInfo(
 ContractInfo contractInfo = response.getResult();
 ```
 
-### 离线调用合约方法
+### Call Offchain Method
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
-// 智能合约offchain ABI定义
+// load abi of offchain method
 Abi abi = Abi.fromJson("[{\"inputs\":[],\"name\":\"getData\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"type\":\"offchain\"}]");
 String methodName = "getData";
+// call offchain method
 CallOffChainMethodResponse response = vitej.callOffChainMethod(
-        // 合约地址
+        // contract address
         new Address("vite_da0e4189f8155035d5b373f8f1328e43d7d70980f4fb69ff18"),
-        // 合约offchain二进制代码。编译代码时指定--bin参数后得到的Offchain Binary代码。
+        // specify binary code of the offchain method. tips: use --bin to generate offchain binary when compiling soliditypp source code
         BytesUtils.hexStringToBytes("6080604052600436106042576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c1a34865146044576042565b005b604a6060565b6040518082815260200191505060405180910390f35b60006000600050549050606e565b9056fea165627a7a7230582098acc939ef119097e24d6b599d9dd18bb2061a9fab6ec77401def1c0a7e52ecd0029"),
-        // 离线调用合约方法的data，包括方法签名和方法参数
         abi.encodeOffchain(methodName)
 ).send();
-// 用ABI反解析返回值
+// use abi to decode result
 List<?> outputList = abi.decodeOffchainOutput(methodName, response.getReturnData());
 BigInteger output = ((BigInteger) outputList.get(0));
 ```
 
-### 查询节点网络连接信息
+### Get Node Status
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 NetNodeInfoResponse response = vitej.netNodeInfo().send();
 NetNodeInfoResponse.Result nodeInfo = response.getResult();
 ```
 
-### 查询节点同步状态
+### Get Sync Status
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 NetSyncInfoResponse response = vitej.netSyncInfo().send();
 NetSyncInfoResponse.Result nodeInfo = response.getResult();
 ```
 
-### 查询节点同步详情
+### Get Sync Detail
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 NetSyncDetailResponse response = vitej.netSyncDetail().send();
 NetSyncDetailResponse.Result nodeInfo = response.getResult();
 ```
 
-### 查询其他RPC接口
+### Call Raw RPC Method
 
-```
+Below we show an example to call `ledger_getAccountBlocksByAddress` method of RPC API. You can call any RPC method with necessary method name and parameters as this way. 
+
+```java
 Vitej vitej = new Vitej(new HttpService());
 CommonResponse response = vitej.commonMethod("ledger_getAccountBlocksByAddress", "vite_ab24ef68b84e642c0ddca06beec81c9acb1977bbd7da27a87a",0,10).send();
 Object result = response.getResult();
