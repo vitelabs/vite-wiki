@@ -48,8 +48,8 @@ module.exports = {
             zh: '钱包',
             en: 'Wallet',
             children: [
-                'wallet/install',
-                'wallet/manage',
+                // 'wallet/install',
+                // 'wallet/manage',
                 'wallet/hdwallet',
             ]
         },

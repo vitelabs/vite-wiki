@@ -70,10 +70,6 @@ module.exports = {
           target: 'svg',
         }],
         '@vuepress/plugin-notification',
-        ['redirect', {
-          locales: true,
-          storage: true
-        }],
         ['seo', {
           siteTitle: (_, $site) => $site.title,
           title: $page => $page.title,
@@ -92,7 +88,14 @@ module.exports = {
           hostname: 'https://vite.wiki'
         }],
         'pangu',
-        'tabs',
+        ['tabs', {
+          dedupeIds: true,
+          tabsAttributes: {
+            options: {
+              useUrlFragment: false
+            }
+          }
+        }],
         [require('./plugins/tab-code-example')]
     ],
     themeConfig: {
