@@ -32,7 +32,7 @@ implementation 'org.vite:vitej:1.1.0'
 implementation 'org.vite:vitej-dependencies:1.1.0'
 ```
 
-### One Simple Example
+### A Simple Example
 
 ```java
 import com.alibaba.fastjson.JSON;

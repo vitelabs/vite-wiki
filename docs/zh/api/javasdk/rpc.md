@@ -478,7 +478,7 @@ NetSyncDetailResponse response = vitej.netSyncDetail().send();
 NetSyncDetailResponse.Result nodeInfo = response.getResult();
 ```
 
-### 查询其他RPC接口
+## 查询其他RPC接口
 
 ```java
 Vitej vitej = new Vitej(new HttpService());

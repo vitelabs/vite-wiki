@@ -2,10 +2,12 @@
 sidebarDepth: 4
 ---
 
-# WebSocket事件订阅
+# Subscription API
 
-## 订阅快照块事件
-```
+You must enable WebSocket service (default port 41420) on the node in order to use subscription API. 
+
+## Listen to New Snapshot Block
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -14,8 +16,8 @@ vitej.snapshotBlockFlowable().subscribe(msg -> {
 });
 ```
 
-## 订阅账户块事件
-```
+## Listen to New Account Block
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -24,8 +26,8 @@ vitej.accountBlockFlowable().subscribe(msg -> {
 });
 ```
 
-## 订阅指定账户的账户块事件
-```
+## Listen to New Account Block (by address)
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -34,8 +36,8 @@ vitej.accountBlockByAddressFlowable(new Address("vite_00000000000000000000000000
 });
 ```
 
-## 订阅待接收交易事件
-```
+## Listen to New Unreceived Transaction
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -44,8 +46,8 @@ vitej.unreceivedBlockFlowable(new Address("vite_00000000000000000000000000000000
 });
 ```
 
-## 订阅vmlog事件
-```
+## Listen to New Smart Contract Event 
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);

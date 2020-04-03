@@ -6,7 +6,7 @@ sidebarDepth: 4
 
 ## 判断交易类型
 
-```demo
+```java
 // 根据blockType字段判断交易类型
 Boolean isSendBlock = BlockUtils.isSendBlock(EBlockType.SEND_CALL.getValue());
 Boolean isReceiveBlock = BlockUtils.isReceiveBlock(EBlockType.RECEIVE.getValue());
@@ -26,7 +26,7 @@ Boolean isReceiveBlock = accountBlock.isReceiveBlock();
 4. 判断接收是否成功（根据接收交易的data字段的第33字节值是否为0来判断，值为0表示执行合约代码成功，非0表示执行合约代码失败），如果失败返回false；
 5. 如果接收交易是一个RS块（即在接收之后又发起了新的请求交易），并且新的请求交易中包含合约调用交易，则继续判断这些调用合约交易是否执行成功。如果接收交易没有发起新的请求交易，或者请求交易中没有发起合约调用交易，那么返回true。
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 Hash sendBlockHash = new Hash("7683bbc8be1391172ed21cc1fe0843ac3b1311109aa329601b73f717e6a93b53");
 // 下面两种方式效果相同
@@ -35,7 +35,7 @@ boolean success = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash, 10
 ```
 
 ## abi编码和解析工具
-```
+```java
 // json字符串解析为Abi对象
 Abi abi = Abi.fromJson("[" +
         "{\"type\":\"function\",\"name\":\"voteForSBP\", \"inputs\":[{\"name\":\"sbpName\",\"type\":\"string\"}]}," +

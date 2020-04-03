@@ -17,11 +17,11 @@ module.exports = [
       {
         text: 'Vite.js',
         link: '/api/vitejs/'
+      },
+      {
+        text: 'Vite Java SDK',
+        link: '/api/javasdk/'
       }
-      // {
-      //   text: 'Vite Java SDK',
-      //   link: '/api/javasdk/'
-      // }
     ]
   },
   {

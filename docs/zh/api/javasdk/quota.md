@@ -5,7 +5,7 @@ sidebarDepth: 4
 # 配额相关接口
 
 ## 发送抵押交易
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.stakeForQuota(keyPair, keyPair.getAddress(), org.vitej.core.constants.BuiltinContracts.MINIMUM_STAKE_FOR_QUOTA_AMOUNT);
 EmptyResponse response = request.send();
@@ -14,7 +14,7 @@ Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((Trans
 ```
 
 ## 发送撤销抵押交易
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.cancelQuotaStaking(keyPair, new Hash("874aeae0389118ade5f81371041a45bb39a85630b3eb463c3329dfef89618d36"));
 EmptyResponse response = request.send();
@@ -24,7 +24,7 @@ Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((Trans
 
 ## 查询账户配额
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 QuotaResponse response = vitej.getQuotaByAccount(
         // 账户地址
@@ -40,7 +40,7 @@ BigInteger stakeAmount = response.getResult().getStakeAmount();
 
 ## 查询抵押信息列表
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 StakeListResponse response = vitej.getStakeList(
         // 抵押地址
@@ -60,7 +60,7 @@ List<StakeListResponse.StakeInfo> stakeInfoList = response.getResult().getStakeL
 
 ## 根据配额预估抵押金额
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 // 平均每个快照块消耗的配额，例如预期每秒发送一笔不带备注的转账交易（消耗21000配额），那么入参填21000
 StakeAmountResponse response = vitej.getRequiredStakeAmount(21000L).send();
@@ -69,7 +69,7 @@ BigInteger stakeAmount = response.getStakeAmount();
 
 ## 获取交易所需配额
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 RequiredQuotaResponse response = vitej.getRequiredQuota(
         // 交易参数，同sendTransaction接口
@@ -87,7 +87,7 @@ Long requiredQuota = response.getRequiredQuota();
 
 ## 获取发交易需要计算的PoW难度
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 PoWDifficultyResponse response = vitej.getPoWDifficulty(
         // 交易参数，同sendTransaction接口

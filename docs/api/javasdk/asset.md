@@ -2,10 +2,10 @@
 sidebarDepth: 4
 ---
 
-# 资产发行相关接口
+# Asset & Token Issuance API
 
-## 发送发行代币交易
-```
+## Issue New Token
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.issueToken(keyPair,
         new IssueTokenParams()
@@ -21,8 +21,11 @@ Preconditions.checkArgument(response.getError() == null);
 Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((TransactionParams) request.getParams().get(0)).getHashRaw()));
 ```
 
-## 发送增发代币交易
-```
+## Re-issue Token
+
+Mint an additional amount of token and increase token's total supply
+
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.reIssue(keyPair, new TokenId("tti_10b56995f5d6a6e1f9a60441"), BigInteger.valueOf(100), keyPair.getAddress());
 EmptyResponse response = request.send();
@@ -30,8 +33,11 @@ Preconditions.checkArgument(response.getError() == null);
 Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((TransactionParams) request.getParams().get(0)).getHashRaw()));
 ```
 
-## 发送销毁代币交易
-```
+## Burn Token
+
+Burn an amount of token and decrease token's total supply
+
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.burn(keyPair, new TokenId("tti_10b56995f5d6a6e1f9a60441"), BigInteger.valueOf(100));
 EmptyResponse response = request.send();
@@ -39,8 +45,11 @@ Preconditions.checkArgument(response.getError() == null);
 Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((TransactionParams) request.getParams().get(0)).getHashRaw()));
 ```
 
-## 发送转移代币所有权交易
-```
+## Transfer Token Ownership
+
+Ownership of token can be transferred to another address. When a token is firstly issued, the token owner is the issuer. 
+
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.transferOwnership(keyPair, new TokenId("tti_10b56995f5d6a6e1f9a60441"), new Address("vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68"));
 EmptyResponse response = request.send();
@@ -48,8 +57,15 @@ Preconditions.checkArgument(response.getError() == null);
 Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((TransactionParams) request.getParams().get(0)).getHashRaw()));
 ```
 
-## 发送修改代币类型交易
-```
+## Disable Token Re-issuance
+
+Change a re-issuable token to non-reissuable. 
+
+:::warning One-way Operation
+Be careful with this method. The operation can not be reversed.
+:::
+
+```java
 Vitej vitej = new Vitej(new HttpService());
 Request<?, EmptyResponse> request = vitej.disableReIssue(keyPair, new TokenId("tti_10b56995f5d6a6e1f9a60441"));
 EmptyResponse response = request.send();
@@ -57,36 +73,36 @@ Preconditions.checkArgument(response.getError() == null);
 Preconditions.checkArgument(ProtocolUtils.checkCallContractResult(vitej, ((TransactionParams) request.getParams().get(0)).getHashRaw()));
 ```
 
-## 查询代币信息列表
+## Get Token List
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 TokenInfoListWithTotalResponse response = vitej.getTokenInfoList(
-        // 页码，从0开始
+        // page index. start at 0
         0,
-        // 每页条数
+        // page size
         10
 ).send();
-// 代币总数
+// total token nunmber
 Integer count = response.getResult().getTotalCount();
-// 代币信息列表
+// token list
 List<TokenInfo> tokenInfoList = response.getResult().getTokenInfoList();
 ```
 
-## 查询代币信息
+## Get Token Summary
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 TokenInfoResponse response = vitej.getTokenInfoById(
-        // 代币id
+        // token id
         new TokenId("tti_5649544520544f4b454e6e40")
 ).send();
 TokenInfo tokenInfo = response.getResult();
 ```
 
-## 根据所有者账户查询代币信息列表
+## Get Token List (by owner)
 
-```
+```java
 Vitej vitej = new Vitej(new HttpService());
 TokenInfoListResponse response = vitej.getTokenInfoListByOwner(
         new Address("vite_0996e651f3885e6e6b83dfba8caa095ff7aa248e4a429db7bd")

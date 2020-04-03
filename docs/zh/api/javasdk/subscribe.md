@@ -5,7 +5,7 @@ sidebarDepth: 4
 # WebSocket事件订阅
 
 ## 订阅快照块事件
-```
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -15,7 +15,7 @@ vitej.snapshotBlockFlowable().subscribe(msg -> {
 ```
 
 ## 订阅账户块事件
-```
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -25,7 +25,7 @@ vitej.accountBlockFlowable().subscribe(msg -> {
 ```
 
 ## 订阅指定账户的账户块事件
-```
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -35,7 +35,7 @@ vitej.accountBlockByAddressFlowable(new Address("vite_00000000000000000000000000
 ```
 
 ## 订阅待接收交易事件
-```
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
@@ -45,7 +45,7 @@ vitej.unreceivedBlockFlowable(new Address("vite_00000000000000000000000000000000
 ```
 
 ## 订阅vmlog事件
-```
+```java
 WebSocketService ws = new WebSocketService();
 ws.connect();
 Vitej vitej = new Vitej(ws);
