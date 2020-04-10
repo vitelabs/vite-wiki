@@ -77,7 +77,7 @@ module.exports = {
                 'rule/vote'
             ]
         },
-        {   
+        {
             zh: '智能合约',
             en: 'Smart contract',
             children: [
@@ -207,7 +207,7 @@ module.exports = {
         {
             zh: 'API',
             en: 'API',
-            children: ['api/gate', 'api/state', 'api/proxy']
+            children: ['api/gate', 'api/dex-apis']
         },
         {
             zh: '教程',
