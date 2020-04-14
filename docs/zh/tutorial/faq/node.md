@@ -144,16 +144,16 @@ ulimit -n 2048
 
 2. 修改配置文件
 ```
-vim /etc/security/limits.conf 
+sudo vim /etc/security/limits.conf 
 #在最后加入  
-* soft nofile 4096  
-* hard nofile 4096 
+* soft nofile 10240  
+* hard nofile 10240 
 或者只加入
-* - nofile 8192
+* - nofile 10240
 
 # 如果是root用户，这样追加
-root soft nofile 4096  
-root hard nofile 4096
+root soft nofile 10240  
+root hard nofile 10240
 ```
 这种方式需要注销重新登录才会生效。
 
@@ -161,7 +161,7 @@ root hard nofile 4096
 1. 通过ulimit -n查看当前的数量
 ```
 $ ulimit -n
-1024 # 这个就是当前的设置结果；
+10240 # 这个就是当前的设置结果；
 ``` 
 
 2. 通过查看具体进程的信息查看，这样更加准确：
