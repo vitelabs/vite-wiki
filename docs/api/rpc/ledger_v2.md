@@ -1783,7 +1783,7 @@ Return event logs generated in the given response block of contract
 
 :::
 
-## ledger_getVmlogsByFilter
+## ledger_getVmLogsByFilter
 Return event logs generated in contract response blocks by specified height range and topics
 
 - **Parameters**: 
@@ -1809,7 +1809,7 @@ Return event logs generated in contract response blocks by specified height rang
 {
 	"jsonrpc": "2.0",
 	"id": 1,
-	"method": "ledger_getVmlogsByFilter",
+	"method": "ledger_getVmLogsByFilter",
 	"params": [{
 		"addressHeightRange":{
 			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
