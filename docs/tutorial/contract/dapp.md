@@ -1,49 +1,61 @@
-# Vite dApp Development Guide
+# Vite DApp Development Guide
 
-## How dApp Works in Vite
-![](~/images/dapp-architecture-en.png)
+## How DApp Works in Vite
+![](~/images/DApp-architecture-en.png)
 
-Above diagram describes how user interacts with dApp in Vite wallet. 
-Typically, in order to launch a dApp, user should either scan QR code of the dApp using Vite wallet or find an entry to it inside the wallet. This will show a landing page. 
-Vite dApp may communicate with a private full node via HTTP RPC or WS connection, fetch data on chain and display in the page. 
-In scenario where user needs call the contract, a call contract transaction is signed in the wallet and then sent to contract through Vite full node.
+Above diagram shows how DApp works in Vite. In general, a DApp consists of one (or several) smart contract and companion web application. DApp communicates to a full node (private or non-private) via HTTP or WebSocket connection, fetches data from blockchain and then displays on the webpage. Usually DApp doesn't manage private keys and addresses. Instead, a DApp establishes a connection to Vite wallet (where mnemonic seed and private keys are managed) for sending/receiving transactions, calling smart contract deployed on blockchain, etc. 
+To set up the connection between DApp and Vite wallet, at present there are three options.
 
-## Deployment Steps
+1. Scan a QR code on the DApp by using Vite wallet for every transaction;
+2. Integrate the DApp into Vite wallet;
+3. **Use ViteConnect**. 
+
+The first option is not good enough because you have to scan QR code each time you send transaction or call smart contract. It only applies to very simple DApp where user should only talk to smart contract once! A simple voting program could be an example of this case. 
+
+Integrating DApp into Vite wallet is a good choice once you got approval from Vite team, so that you have a place for your DApp in Vite wallet! So far so good! However, you need request first and there is no guarantee that it must be approved. 
+
+We recommend ViteConnect. ViteConnect establishes WebSocket connection between DApp and Vite wallet. More safe, and more convenient. User just need scan QR code once and the subsequent transactions can be auto-signed (if you turn on the switch). For how to incorporate ViteConnect into your DApp, see [Vite Connect SDK](https://github.com/vitelabs/vite-connect-client). 
+
+## DApp Release Process
  
-* Complete dApp(both contract and web application) development and testing
-* Deploy at least one full node that provides HTTP RPC and WS services
-* Deploy the contract on chain and stake for the contract account for quota
-* Deploy dApp web application
-* Register the dApp in Vite wallet. Now your dApp will have an entry point in the wallet.
+* Complete DApp (smart contract and companion web application) development and testing;
+* Set up a full node that provides both HTTP and WebSocket RPC services;
+* Deploy smart contract on blockchain and stake VITE coins for the contract's account to make sure it has enough quota;
+* Deploy companion web application;
+* Test DApp's functionalities to make sure it works well. If it should integrate with Vite wallet, test in [Vite Test Wallet](./testDApp.html).
 
-## Prepare for Development Environment
+## Before Development
 
 ### Run Local Dev Node
 
-See [Run a Local Dev Node](./testnode.html)
+See [Run Local Development Node](./testnode.html) to install your local development node.
 
-### Configure vite.js
+### Install Vite.js
 
-See vite.js [Installation](../../api/vitejs/README.md)
+Install the latest release of [Vite.js](../../api/vitejs/README.md). Vite.js is the Javascript SDK provided by Vite team. 
 
-### Download solppc
+### Download `solppc`
 
-Download Solidity++ compiler at [solppc releases](https://github.com/vitelabs/soliditypp-bin/releases)
+Download the latest Solidity++ compiler at [solppc Releases](https://github.com/vitelabs/soliditypp-bin/releases)
 
-### Install Testing Wallet
+### Install Test Wallet (optional)
 
-[Install Vite testing wallet](./testdapp.html) and connect to your local dev node.
+Setup [Vite Test Wallet](./testDApp.html) to connect to your development node.
 
-## Write Contract
+## Debug Contract
 
-Install [VS Code](https://code.visualstudio.com/) and [Soliditypp VS Code Plug-in](./debug.html). 
-Then write business code and debug your contract.
+Install VSCode IDE and Soliditypp Extension Plugin at [https://code.visualstudio.com]((https://code.visualstudio.com/)). 
+Follow [This Guide](./debug.html#debugging-in-vs-code) to write and debug your smart contract in VSCode IDE.
 
 ## Deploy Contract
 
-Deploy contract in vite.js. Remember to stake for your contract account for quota.
+We suggest to deploy smart contract through Vite.js SDK. 
 
-The following code shows a simple HelloWorld contract:
+:::tip Quota Required
+Do not forget to get some quota for your contract by staking.
+:::
+
+Now let's see an example. The following code presents a simple HelloWorld contract.
 ```
 pragma soliditypp ^0.4.2;
 contract HelloWorld {
@@ -54,208 +66,284 @@ contract HelloWorld {
      }
 }
 ```
-Compile contract. Contract's ABI and binary code are generated in this step.
-```
+Compile the contract by running the following command. Now we get contract's ABI and binary code.
+```bash
 ./solppc --abi --bin HelloWorld.solpp
 ```
 
-Below vite.js code shows how to deploy contract and stake for quota:
-```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, account, hdAccount, constant } from '@vite/vitejs';
+:::tip Tips
+ABI and binary code can also be generated in the IDE. 
+:::
 
-let { Vite_TokenId } = constant;
-let provider = new WS_RPC("wss://example.com");
-let myClient = new client(provider);
+Now deploy the contract through a node. 
+Below Javascript code shows how to deploy smart contract and obtain quota using Vite.js:
+```javascript
+const { HTTP_RPC } = require('@vite/vitejs-http');
+const { ViteAPI, accountBlock, wallet, constant } = require('@vite/vitejs');
+
+let provider = new HTTP_RPC("http://127.0.0.1:23456");
+let client = new ViteAPI(provider);
 
 // import account
-let myAccount = new account({
-    client: myClient,
-    privateKey: 'your privateKey'
-});
-// Or
-// let myHdAccount = new hdAccount({ 
-//     client: myClient,
-//     mnemonic: 'your mnemonic'
-// });
-// let myAccount = myHdAccount.getAccount();
+let mnemonic = "sadness bright mother bid tongue same pear recycle useless hub beauty frozen toward nominee glide cheese picnic vibrant vague thought hurry sleep hold lizard";
+let myAccount = wallet.getWallet(mnemonic).deriveAddress(0);
 
 let abi = [{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"SayHello","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"transfer","type":"event"}];
-let binaryCode ='0x608060405234801561001057600080fd5b5061013e806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008a565b005b8073ffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508073ffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a723058209e71140ee2fdf78fceeb608c3caa88fd69b06431f165312c4726b9fcbf46dbfb0029';
+let binaryCode ='608060405234801561001057600080fd5b50610141806100206000396000f3fe608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806391a6cb4b14610046575b600080fd5b6100896004803603602081101561005c57600080fd5b81019080803574ffffffffffffffffffffffffffffffffffffffffff16906020019092919050505061008b565b005b8074ffffffffffffffffffffffffffffffffffffffffff164669ffffffffffffffffffff163460405160405180820390838587f1505050508074ffffffffffffffffffffffffffffffffffffffffff167faa65281f5df4b4bd3c71f2ba25905b907205fce0809a816ef8e04b4d496a85bb346040518082815260200191505060405180910390a25056fea165627a7a72305820f50fe89a37e6cda887aaeae59bf45670d552e27215ee8aed9b83fe0c8d525fcb0029';
 
 // create a new contract
-myAccount.createContract({
-    abi,
-    hexCode: binaryCode,
-    confirmTime: 2,                    // Awaiting snapshot block number in 0-75
-    seedCount:2,                       // Awaiting snapshot block number which contains random seed. 取值范围0-75, 如果合约代码中使用了随机数指令，要求这个字段值大于0。注意confirmTime必须大于或等于seedCount。
-    // quotaRatio: 10,                       // 翻倍数 Default 10, 如传递此参数：取值范围为10-100
-    params: [/** your parameters  */],
-    tokenId: Vite_TokenId,              // Default Vite_TokenId
-    amount: '0',                        // Default '0'
-    fee: '10000000000000000000',        // Default '10000000000000000000'
-}).then((accountBlock) => {
-    // accouuntBlock like this
-    // { 
-    //     accountAddress: 'vite_13f1f8e230f2ffa1e030e664e525033ff995d6c2bb15af4cf9',
-    //     blockType: 1,
-    //     prevHash: '19fd67e7e9a60196c9e832ea3718f2baca34adfaf00e4a3eda90e6c97f1aa314',
-    //     height: '33',
-    //     tokenId: 'tti_5649544520544f4b454e6e40',
-    //     amount: '0',
-    //     fee: '10000000000000000000',
-    //     toAddress: 'vite_fb057bbfc47c243ea518ae72c17357b95a8eb64d73adf3c8a7',
-    //     data: 'AAAAAAAAAAAAAgECYIBgQFI0gBVhABBXYACA/VtQYQHKgGEAIGAAOWAA8/5ggGBAUmAENhBhAEFXYAA1fAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkARj/////xaAY4CuDqEUYQBGV1tgAID9W2EAvWAEgDYDYCCBEBVhAFxXYACA/VuBAZCAgDWQYCABkGQBAAAAAIERFWEAeVdgAID9W4IBg2AgggERFWEAi1dgAID9W4A1kGAgAZGEYCCDAoQBEWQBAAAAAIMRFxVhAK1XYACA/VuQkZKTkZKTkFBQUGEAv1ZbAFtgAGACg4OQUIEVFWEA0Ff+WwYUFRVhAN1XYACA/VtgAICQUGAAgJBQW4ODkFCBEBVhAYpXYACEhIOBgRAVFWEBA1f+W5BQYCACATWQUGAAhYVgAYUBgYEQFRVhAR9X/luQUGAgAgE1kFCAhAGTUICEEBUVFWEBPFdgAID9W2AAgREVYQF9V4Fz//////////////////////////8WRmn/////////////FoJgQFFgQFGAggOQg4WH8VBQUFBbUFBgAoEBkFBhAOhWW1A0gRQVFWEBmVdgAID9W1BQUFb+oWVienpyMFggPO9KP5OzPmTpng+I9YYSEoIIQ5T21LcPEDDKjDYLdGIAKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAyTi80ebqatkV99gQZXQzvrWO3ZxxxxxxxxxxwAAAAADJ5ZlffgaxpkVKSVN1QehSP53y+OOOOOOOOOO',
-    //     nonce: 'VJejnMfUyOM=',
-    //     difficulty: '262137',
-    //     hash: 'a53b80a6eb6fa078df55fa3497e7f5d0a86a5cd07f693edf0b6b5eceaeaadf77',
-    //     signature: 'V+fshT2neE5DgH0PTSbskt5Vg1IAfbM17ymVJ9CJfIngbIKnpR2twbSjDY8SOX3lMf8tofdopTFdGrryoW1/DQ==',
-    //     publicKey: 'iE0KOlLusSBOImOb6BA/tTzocFgtW2q0iHVM1WsFkuA=' 
-    // } 
+let block = accountBlock.createAccountBlock('createContract', {
+        address: myAccount.address,
+        abi,
+        code: binaryCode,
+        params: []
+    }).setProvider(client).setPrivateKey(myAccount.privateKey);
 
-    // stake for the new contract 
-    let contractAddress = accountBlock.toAddress;
-    myAccount.getQuota({
-        toAddress: contractAddress,
-        tokenId: Vite_TokenId,
-        amount: '10000000000000000000000'
-    }).then(() => {
-        console.log('Okay~~');
-    }).catch((err) => {
-        console.error('Error', err);
+block.autoSetPreviousAccountBlock().then(() => {
+    block.sign().send().then((result) => {
+        console.log('Smart contract %s deployed!', result.toAddress);
+
+        // stake 10000 VITE for the new contract for quota
+        let contractAddress = result.toAddress;
+        let block = accountBlock.createAccountBlock('stakeForQuota', {
+            address: myAccount.address,
+            beneficiaryAddress: contractAddress,
+            amount: '10000000000000000000000'
+        }).setProvider(client).setPrivateKey(myAccount.privateKey);
+        block.autoSetPreviousAccountBlock().then(() => {
+            block.sign().send().then(() => {
+                console.log('Staked %s VITE to address %s!', 10000, contractAddress);
+            }).catch((err) => {
+                console.error('Error', err);
+            });
+        });
     });
 }).catch(err => {
-    console.warn(err);
+    console.error(err);
 });
 ```
 
-Successfully created contract can be queried at [Contract Query](../../api/rpc/contract_v2.html#contract-getcontractinfo). This operation requires the contract's code is not null. A contract creation request without code may be accepted but due to absence of code the operation will eventually fail.
+To verify a deployed smart contract, use [Contract Query API](../../api/rpc/contract_v2.html#contract_getcontractinfo). If the contract summary is returned, the contract is successfully deployed. 
 
 ## Call Contract
 
-When successfully deployed, contract can be called by sending call contract request transaction through vite.js library. However, this operation would require to know user's mnemonic in advance.
+In above example, the smart contract we deployed has one function `SayHello(address addr)`, which accepts an address parameter. Let's call it.
 
-### Isolation of dApp and Private Key
+```javascript
+async function callContract(contractAddress, methodName, abi, params, amount) {
+    const block = accountBlock.createAccountBlock('callContract', {
+        address: myAccount.address,
+        abi,
+        methodName,
+        amount,
+        toAddress: contractAddress,
+        params
+    }).setProvider(client).setPrivateKey(myAccount.privateKey);
 
-As independent application developed by 3rd party, for security reason, dApp should not have access to user's private key or mnemonics. To address this issue, Vite mobile wallet provides two solutions.
+    await block.autoSetPreviousAccountBlock();
+    await block.sign().send();
+}
+// say hello to vite_d8f67aa50fd158f1394130a554552204d90586f5d061c6db4f
+callContract(contractAddress,'SayHello', abi, ['vite_d8f67aa50fd158f1394130a554552204d90586f5d061c6db4f'], '100000000000000000000')
+.then(res => console.log(res))
+.catch(err => console.error(err));
+```
+
+### Isolate DApp and Private Key
+
+In most cases, DApp should not manage private keys and mnemonics, which, for safety reasons, should stay in user's wallet. Therefore, how does DApp call up a wallet and send transactions through becomes important. How is it addressed in Vite? 
+
+We provides two schemes.
 - [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
-    Vite bridge is the recommended option for dApp integrated into Vite mobile wallet. By calling native-js bridge, the following actions are performed:
-    - Request for sending transaction from application
-    - Obtain current user address from application
-    Example:
+    Vite Bridge is recommended for DApps that are integrated into Vite wallet. Through Vite Bridge client SDK, you are able to
+    - Obtain current user's Vite address within web application, and
+    - Send transaction or call smart contract from web application.
+    
+:::warning Important
+If your DApp is not to be integrated with Vite wallet app. Do NOT use Vite Bridge.
+:::
+
+Let's see an example of sending 1 VITE to a second address.
 ```javascript
-// A normal transfer. Sending 1 Vite to receiver's address
 import Bridge from "@vite/bridge";
-import { utils } from "@vite/vitejs";
+import { utils, constant } from "@vite/vitejs";
+
+// initiate bridge instance
 const bridge = new Bridge();
-bridge["wallet.sendTxByURI"]({address:"sender's vite address", uri: utils.uriStringify({target_address:`receiver's vite address`,params:{amount:1}}) }).then(accountBlock => {
-  console.log(accountBlock);
-});// For other token, you should specify "tti" in parameter
 
-
-
-// Calling a contract
+// get current account address
+bridge['wallet.currentAddress']().then(accountAddress => {
+    // send 1 vite to target address
+    bridge["wallet.sendTxByURI"]({
+        address: accountAddress, 
+        uri: utils.uriStringify({ 
+            target_address: 'vite_9de8095568105ee9a5297fd4237e2c466e20200c9fb012f573', 
+            params: { 
+                amount: 1, // 1 vite
+                tti: constant.Vite_TokenId // default is vite. use another tti if you need to send other tokens
+             }
+        })
+    }).then(accountBlock => {
+      console.log(accountBlock);
+    });
+}).catch(err => {
+    console.error(err);
+});
+```
+Here below is another example of calling a smart contract.
+```javascript
 import Bridge from "@vite/bridge";
-import { abi,utils } from "@vite/vitejs";
+import { abi, utils } from "@vite/vitejs";
 
 const bridge = new Bridge();
-const hexData=abi.encodeFunctionCall([{
-    name: 'myMethod',
-    type: 'function',
-    inputs: [{
-        type: 'uint256',
-        name: 'myNumber'
-    },{
-        type: 'string',
-        name: 'myString'
+// encode function call
+const hexdata = abi.encodeFunctionCall([{
+    "name": "SayHello",
+    "type": "function",
+    "inputs": [{
+        "type": "address",
+        "name": "addr"
     }]
-}, {
-    name: 'myethod',
-    type: 'function',
-    inputs: [{
-        type: 'uint256',
-        name: 'myNumber'
-    },{
-        type: 'string',
-        name: 'myString'
-    }]
-}], ['2345675643', 'Hello!%'], 'myMethod');
-const base64Data=utils._Buffer.from(hexData,'hex').toString('base64');
-bridge["wallet.sendTxByURI"]({address:"self vite address", uri: utils.uriStringify({target_address:`合约地址`,function_name:'myMethod',params:{data:base64Data}}) }).then(accountBlock => {
+}], ['vite_9de8095568105ee9a5297fd4237e2c466e20200c9fb012f573'], 'SayHello');
+// convert to base64
+const base64data = utils._Buffer.from(hexdata, 'hex').toString('base64');
+// send the call
+bridge["wallet.sendTxByURI"]({
+    address: accountAddress, // your account address
+    uri: utils.uriStringify({
+        target_address: contractAddress, // smart contract address
+        function_name: 'SayHello',
+        params: {
+            data: base64data
+        }
+    })
+}).then(accountBlock => {
   console.log(accountBlock);
 });
 ```
-See [Further Example](https://github.com/vitelabs/bridge/blob/master/example/sendTx/index.js)
+To learn more about Vite Bridge, access our source code on [Github](https://github.com/vitelabs/bridge/).
 
-- Vite Bifrost  
-    Vite Bifrost is the universal solution that supports signing/sending transactions from application for all scenarios, still under development.
-
-## Query Chain Data
-
-### Query API
-
-|  Method name  | Description |
-|:------------:|:-----------:|
-| ledger_getLatestBlock | Return the latest transaction of the specified account |
-| ledger_getAccountByAccAddr | Return account info by address, including account chain height, balances of various tokens, etc. |
-| ledger_getBlocksByAccAddr | Return transaction list of the specified account |
-| ledger_getBlockByHeight | Return a certain transaction by account height |
-| ledger_getBlockByHash | Return a certain transaction by transaction hash  |
-| ledger_getVmLogList | Return contract execution logs by transaction hash |
-| onroad_getAccountOnroadInfo | Return pending receive info for specified account, including pending receive transaction number and total amount |
-| onroad_getOnroadBlocksByAddress | Return pending receive transaction list for specified account |
-| contract_getContractInfo | Return contract info by contract account, including code, designated consensus group, etc |
-| contract_callOffChainMethod | Query contract state off-chain |
-| testapi_getTestToken | Apply for test tokens |
-
-For API definitions for all RPC methods, please refer to [RPC API](../../api/rpc/)
-
-For vite.js usage, please refer to [vite.js Specification](../../api/vitejs/ViteAPI/start.md)
-
+- [@vite/connector](https://github.com/vitelabs/vite-connect-client)
+    Vite Connect is the recommended solution for signing transactions for DApps that are not hosted in Vite wallet. At present the following features are supported
+    - Establish connection sessions from Vite wallet to DApp by scanning QR code displayed on DApp's web page
+    - Connection is retained for the whole session until disconnected
+    - Transactions triggered on DApp are signed and sent out through Vite wallet app, not on DApp
+    - Once enabled, transactions can be auto-signed
+    
+:::tip Recommended
+Vite Connect is the remote signing solution recommended for most DApps that will not be integrated into Vite Wallet.
+:::
+Let's see a piece of code that defines how Vite Connect should be setup in Javascript client.
 ```javascript
-import WS_RPC from '@vite/vitejs-ws';
-import { client, constant } from '@vite/vitejs';
+import Connector from '@vite/connector'
 
-const { methods } = constant;
-const wsProvider = new WS_RPC("ws://example.com");
+const BRIDGE = 'http://192.168.31.82:5001' // url to vite connect server
 
-const myClient = new Client(wsProvider, function(_myclient) {
-    console.log("Connected.");
+const vbInstance = new Connector({ bridge: BRIDGE })
+
+vbInstance.createSession().then(() => {
+    // vbInstance.uri can converted into an QR code image.
+    // in most scenarios, you should display the QR code here so it can be scanned by the vite wallet in order to establish connection
+    console.log('connect uri', vbInstance.uri)
 });
 
-const address = 'vite_098dfae02679a4ca05a4c8bf5dd00a8757f0c622bfccce7d68';
+vbInstance.on('connect', (err, payload) => { // connection established
+    /* 
+     * Payload is an Object following the following definition: (usually the peer is Vite App)
 
-myclient.ledger.getLatestBlock(address).then((data) => {
-    console.log(data);
-});
+     *  {
+     *      version: number,    // vc protocol version, 2 at present
+     *      peerId: string,     // can be ignored
+     *      peerMeta: {         // Vite App meta info
+     *          bridgeVersion: number,
+     *          description: string,
+     *          url: string,
+     *          icons: string[],
+     *          name: string,
+     *      },
+     *      chainId: number,    // can be ignored
+     *      accounts: string[]  // the address returned from Vite wallet.
+     *  }
+     */
+    const { accounts } = payload.params[0];
+    if (!accounts || !accounts[0]) throw new Error('address is null');
 
-// Or
-myClient.request(methods.ledger.getAccountByAccAddr, address).then(()=>{});
+    const address = accounts[0];
+    console.log(address)
+})
 
-// Or
-myClient.request('ledger_getBlockByHeight', address, '75').then(()=>{});
+// send transaction
+vbInstance.sendCustomRequest({
+    method: 'vite_signAndSendTx',
+    params: {
+        /*
+         * block should have the following parameters:
+           {
+                toAddress: string;   // account address or contract address
+                tokenId: string;    // asset id that you would like to send
+                amount: string;     // in atomic unit (with full decimals)
+                fee?: string;       // in atomic unit (with full decimals)
+                data? string;       // base64 encoded string, necessary when calling smart contract
+           }
+         */
+        block: {
+            accountAddress: "vite_61404d3b6361f979208c8a5c442ceb87c1f072446f58118f68",
+            amount: "2000000000000000000",
+            data: "c2FkZmFzZg==",
+            toAddress: "vite_61404d3b6361f979208c8a5c442ceb87c1f072446f58118f68",
+            tokenId: "tti_5649544520544f4b454e6e40",
+        },
+    }
+}).then(signedBlock => console.log(signedBlock), err => console.error(err))
+// register disconnection listener
+vbInstance.on('disconnect', err => {
+    console.log(err) // any handling logic here
+})  
 ```
+To learn more about Vite Connect, access our source code on [Github](https://github.com/vitelabs/vite-connect-client).
+
+## Useful APIs
+
+You may use the following API methods in your DApp.
+
+### RPC Query API
+
+|  API  | Description |
+|:------------|:-----------|
+| [ledger_getLatestAccountBlock](../../api/rpc/ledger_v2.html#ledger_getlatestaccountblock) | Get the latest transaction of the specified account |
+| [ledger_getAccountInfoByAddress](../../api/rpc/ledger_v2.html#ledger_getaccountinfobyaddress) | Get account summary by address, including chain height, balances, etc. |
+| [ledger_getAccountBlocksByAddress](../../api/rpc/ledger_v2.html#ledger_getaccountblocksbyaddress) | Get transaction list of the specified account |
+| [ledger_getAccountBlockByHeight](../../api/rpc/ledger_v2.html#ledger_getaccountblockbyheight) | Get transaction by block height |
+| [ledger_getAccountBlockByHash](../../api/rpc/ledger_v2.html#ledger_getaccountblockbyhash) | Get transaction by hash  |
+| [ledger_getVmLogs](../../api/rpc/ledger_v2.html#ledger_getvmlogs) | Get smart contract execution logs by log hash |
+| [ledger_getUnreceivedTransactionSummaryByAddress](../../api/rpc/ledger_v2.html#ledger_getunreceivedtransactionsummarybyaddress) | Get summary of unreceived transactions for the specified account |
+| [ledger_getUnreceivedBlocksByAddress](../../api/rpc/ledger_v2.html#ledger_getunreceivedblocksbyaddress) | Get unreceived transaction list for the specified account |
+| [contract_getContractInfo](../../api/rpc/contract_v2.html#contract_getcontractinfo) | Get contract summary, including code, consensus group, etc. |
+| [contract_callOffChainMethod](../../api/rpc/contract_v2.html#contract_calloffchainmethod) | Call contract's' off-chain method |
+| [testapi_getTestToken](../../api/rpcv1/testapi.html#testapi_gettesttoken) | Get some test tokens (works on testnet and dev environment only) |
+
+For API definitions for all RPC methods, please visit [RPC API](../../api/rpc/)
+
+To learn more abut calling RPC API in Vite.js, please visit [Vite.js SDK](../../api/vitejs/ViteAPI/GViteRPC.html#how-to-call-gvite-rpc-methods)
 
 ### Event Subscription
 
-Event subscription can be used to monitor contract state change.
+Event subscription is an advanced function that can be used in DApp to monitor state change of smart contract.
 
-For more details please visit [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/subscribe_v2.md)
+See [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/subscribe_v2.md) for more information.
 
+## FAQ
 
-
-
-## Q&A
-
-* How to determine contract execution result?
+* How to know smart contract execution result in time?
   
-  Contract is executed asynchronously in Vite. User is unable to know execution result immediately when user has successfully sent a call contract transaction. 
-  Contract execution result can only be obtained after the response transaction is handled. 
+  Since smart contract is executed asynchronously on Vite, you do not know execution result immediately after a request function call has been sent. 
+  You must get the execution info in the response transaction, which is performed a bit later according to various contract parameters and Vite network status. 
   
-  One way to obtain execution result is to poll `ledger_getBlockByHash` by transaction hash of the request to determine if it was received. Another is using event subscription to monitor the contract.
+  One way to obtain execution result is polling `ledger_getAccountBlockByHash` by your request transaction hash to see if it is received by smart contract. 
+  Another is to use event subscription.
       
-  Once the request transaction is successfully received, user can check the 33 byte in data field of contract response for execution status, where 0 means success while 1 stands for failure. 
-  Usually execution failure may result from execution reverted, insufficient quota or insufficient balance upon transferring to a 3rd account.
+  Once the request transaction is successfully received, you can check the 33th byte in data field of the response transaction. `0` means execution succeeded while `1` stands for failure. 
+  Usually a failed execution may result from request function call has been reverted, insufficient quota of smart contract or insufficient balance upon transferring to 3rd account.
   
-  If the status is 0 (success) and some events were triggered during execution, they will be logged in `logHash` field of response transaction. User is able to call `ledger_getVmLogList` method to query the events by response transaction hash.
+  Usually (depending on how your smart contract is written), some events were triggered during execution and saved in `logHash` field of the response transaction. Use `ledger_getVmLogs` to get the events.
   

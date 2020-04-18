@@ -4,9 +4,9 @@
 ## Gvite-RPC 接口
 
 请移步至
-- [钱包相关 wallet](/api/rpc/wallet_v2.md) 
-- [账本相关 ledger](/api/rpc/ledger_v2.md) 
-- [合约相关 contract](/api/rpc/contract_v2.md)
+- [钱包相关 wallet](../../rpc/wallet_v2.md) 
+- [账本相关 ledger](../../rpc/ledger_v2.md) 
+- [合约相关 contract](../../rpc/contract_v2.md)
 
 ## 调用
 
