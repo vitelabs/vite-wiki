@@ -38,7 +38,7 @@ brew install yarn
 
 ### 安装依赖
 
-在doc.vite.org项目路径下，执行以下代码：
+在 `vite.wiki` 项目路径下，执行以下代码：
 
 ```
 yarn
@@ -47,7 +47,7 @@ yarn
 ### 开始写作
 
 ```
-npm run dev
+yarn dev
 ```
 
 ### 静态资源管理

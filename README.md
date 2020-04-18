@@ -1,5 +1,9 @@
 # [vite.wiki](https://vite.wiki)
 
+### How to write documentation on vite.wiki?
+
+https://vite.wiki/zh/about/#yun-xing-zhi-nan
+
 ### Env
 
 * node: >= 9.xx

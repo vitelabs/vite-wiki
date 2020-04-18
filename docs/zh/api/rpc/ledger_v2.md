@@ -1770,7 +1770,7 @@ sidebarDepth: 4
 
 :::
 
-## ledger_getVmlogsByFilter
+## ledger_getVmLogsByFilter
 根据参数查询历史日志。返回值按账户块高度从低到高排序。
 
 - **Parameters**:
@@ -1804,7 +1804,7 @@ topics取值示例：
 {
 	"jsonrpc": "2.0",
 	"id": 1,
-	"method": "ledger_getVmlogsByFilter",
+	"method": "ledger_getVmLogsByFilter",
 	"params": [{
 		"addressHeightRange":{
 			"vite_8810e12ec2d4d61e7568cac25ebd5dd44735d36a405b94f1fa":{
