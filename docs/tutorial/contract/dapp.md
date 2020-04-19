@@ -1,7 +1,7 @@
 # Vite DApp Development Guide
 
 ## How DApp Works in Vite
-![](~/images/DApp-architecture-en.png)
+![](~/images/dapp-architecture-en.png)
 
 Above diagram shows how DApp works in Vite. In general, a DApp consists of one (or several) smart contract and companion web application. DApp communicates to a full node (private or non-private) via HTTP or WebSocket connection, fetches data from blockchain and then displays on the webpage. Usually DApp doesn't manage private keys and addresses. Instead, a DApp establishes a connection to Vite wallet (where mnemonic seed and private keys are managed) for sending/receiving transactions, calling smart contract deployed on blockchain, etc. 
 To set up the connection between DApp and Vite wallet, at present there are three options.
@@ -22,7 +22,7 @@ We recommend ViteConnect. ViteConnect establishes WebSocket connection between D
 * Set up a full node that provides both HTTP and WebSocket RPC services;
 * Deploy smart contract on blockchain and stake VITE coins for the contract's account to make sure it has enough quota;
 * Deploy companion web application;
-* Test DApp's functionalities to make sure it works well. If it should integrate with Vite wallet, test in [Vite Test Wallet](./testDApp.html).
+* Test DApp's functionalities to make sure it works well. If it should integrate with Vite wallet, test in [Vite Test Wallet](./testdapp.html).
 
 ## Before Development
 
@@ -40,7 +40,7 @@ Download the latest Solidity++ compiler at [solppc Releases](https://github.com/
 
 ### Install Test Wallet (optional)
 
-Setup [Vite Test Wallet](./testDApp.html) to connect to your development node.
+Setup [Vite Test Wallet](./testdapp.html) to connect to your development node.
 
 ## Debug Contract
 
