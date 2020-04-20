@@ -123,7 +123,7 @@ block.autoSetPreviousAccountBlock().then(() => {
 });
 ```
 
-To verify a deployed smart contract, use [Contract Query API](../../api/rpc/contract_v2.html#contract_getcontractinfo). If the contract summary is returned, the contract is successfully deployed. 
+To verify a deployed smart contract, use [Contract Query API](../../api/rpc/contract_v2.html#contract_getcontractinfo). If the returned summary has binary code contained, the contract is successfully deployed. 
 
 ## Call Contract
 
@@ -149,11 +149,11 @@ callContract(contractAddress,'SayHello', abi, ['vite_d8f67aa50fd158f1394130a5545
 .catch(err => console.error(err));
 ```
 
-### Isolate DApp and Private Key
+## Remote Signing Library
 
-In most cases, DApp should not manage private keys and mnemonics, which, for safety reasons, should stay in user's wallet. Therefore, how does DApp call up a wallet and send transactions through becomes important. How is it addressed in Vite? 
+In most cases, DApp should not manage private keys and mnemonics, which, for safety reasons, should always be stored in user's Vite wallet. Therefore, how DApp calls up Vite wallet and sends transactions through becomes the real concern. How is it addressed in Vite? 
 
-We provides two schemes.
+We provide two libraries.
 - [@vite/bridge](https://www.npmjs.com/package/@vite/bridge)   
     Vite Bridge is recommended for DApps that are integrated into Vite wallet. Through Vite Bridge client SDK, you are able to
     - Obtain current user's Vite address within web application, and
@@ -231,7 +231,7 @@ To learn more about Vite Bridge, access our source code on [Github](https://gith
     - Once enabled, transactions can be auto-signed
     
 :::tip Recommended
-Vite Connect is the remote signing solution recommended for most DApps that will not be integrated into Vite Wallet.
+Vite Connect is the general remote signing solution for all DApps that will not be integrated into Vite Wallet.
 :::
 Let's see a piece of code that defines how Vite Connect should be setup in Javascript client.
 ```javascript
@@ -304,7 +304,7 @@ To learn more about Vite Connect, access our source code on [Github](https://git
 
 ## Useful APIs
 
-You may use the following API methods in your DApp.
+You may use the following APIs in your DApp.
 
 ### RPC Query API
 
@@ -320,7 +320,6 @@ You may use the following API methods in your DApp.
 | [ledger_getUnreceivedBlocksByAddress](../../api/rpc/ledger_v2.html#ledger_getunreceivedblocksbyaddress) | Get unreceived transaction list for the specified account |
 | [contract_getContractInfo](../../api/rpc/contract_v2.html#contract_getcontractinfo) | Get contract summary, including code, consensus group, etc. |
 | [contract_callOffChainMethod](../../api/rpc/contract_v2.html#contract_calloffchainmethod) | Call contract's' off-chain method |
-| [testapi_getTestToken](../../api/rpcv1/testapi.html#testapi_gettesttoken) | Get some test tokens (works on testnet and dev environment only) |
 
 For API definitions for all RPC methods, please visit [RPC API](../../api/rpc/)
 
@@ -343,7 +342,7 @@ See [Event Subscription](./subscribe.md) and [Subscription API](../../api/rpc/su
   Another is to use event subscription.
       
   Once the request transaction is successfully received, you can check the 33th byte in data field of the response transaction. `0` means execution succeeded while `1` stands for failure. 
-  Usually a failed execution may result from request function call has been reverted, insufficient quota of smart contract or insufficient balance upon transferring to 3rd account.
+  Usually a failed execution may result from `REVERT` instruction in function call, insufficient quota of smart contract or insufficient balance upon transferring to 3rd account.
   
   Usually (depending on how your smart contract is written), some events were triggered during execution and saved in `logHash` field of the response transaction. Use `ledger_getVmLogs` to get the events.
   
