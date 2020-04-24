@@ -970,7 +970,7 @@ Return voting information by account
 ```
 :::
 
-## vote_getVoteDetails
+## contract_getSBPVoteDetailsByCycle
 Return voting details of all SBP nodes by cycle
 
 - **Parameters**: 

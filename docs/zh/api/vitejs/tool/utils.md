@@ -7,26 +7,26 @@ import { utils } from '@vite/vitejs';
 ```
 
 ## uriStringify
-序列化一个 vite schema 的uri
+序列化一个Vite schema URI，该URI符合[VEP-6](../../../vep/vep-6.md)规定的标准
 
 - **Parameters**
     * `opt : object`
-        - `opt.schema:string?` Default vite
-        - `opt.target_address:vite Address string` 对方交易地址
+        - `opt.schema:string?` 默认 'vite'
+        - `opt.target_address:vite Address string` 交易发送地址
         - `opt.chain_id?` 网络类型，默认主网
         - `opt.function_name?` 合约方法名
         - `opt.params:object?` 其他参数
 
 - **Return**
-    * `uri : string` 
+    * `uri : string` 符合VEP-6的schema URI
 
-- **Other Parameters**
-  | 参数名 | 类型          | 描述                                     | 例子                                                  |
-  | ---------- | ------------- | ---------------------------------------- | --------------------------------------------------- |
-  | amount     | number        | 交易额                 |  1vite  amount=1 ,default :0               |
-  | data       | base64 string | 附加数据	| data=MTIzYWJjZA  ,default: nil                                   |
-  | fee        | number        | 交易费用               |  1vite  fee=1 ,default :0                           |
-  | tti        | token_type_id | 交易币种id                                | default : vite tti	tti=tti_5649544520544f4b454e6e40 |
+- **其他参数**
+  | 参数名      | 类型          | 描述                                     | 例子                             |
+  | ---------- | ------------- | --------------------------------------- | -------------------------------- |
+  | amount     | number        | 交易额（基本单位是1 VITE），默认为0         | amount=1                         |
+  | data       | base64 string | 附加数据，默认为nil                       | data=MTIzYWJjZA                  |
+  | fee        | number        | 交易费用（基本单位是1 VITE），默认为0       | fee=1                            |
+  | tti        | token_type_id | 交易币种id，默认发送VITE                  | tti=tti_5649544520544f4b454e6e40 |
 
 ## isValidTokenId
 tokenId 是否合法

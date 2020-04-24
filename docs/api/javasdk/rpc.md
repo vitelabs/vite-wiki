@@ -2,7 +2,11 @@
 sidebarDepth: 4
 ---
 
-# RPC API Bridge
+# RPC API
+
+ViteJ has wrapped most of Vite RPC APIs. This page describes how to use them in your code. 
+
+See [RPC API Documentation](../rpc/) to know more information about Vite RPC API.
 
 ## How to Call RPC API
 
@@ -47,14 +51,12 @@ Vitej vitej = new Vitej(ws, keyPair);
 
 ### Call RPC API
 
-See [RPC API Documentation](../rpc/) to know more information about Vite RPC API.
-
-#### Request
+#### RPC Request
 
 Request JSON object (JSON-RPC 2.0)
 
-* `jsonrpc`: `String` Version. must be `2.0`
-* `id`: `long` Request ID
+* `jsonrpc`: `String` Version id. must be '2.0'
+* `id`: `long` Request id
 * `method`: `String` Method name
 * `params`: `List<Object>` Parameter list
 
@@ -67,12 +69,12 @@ Request JSON object (JSON-RPC 2.0)
 }
 ```
 
-#### Response 
+#### RPC Response 
  
 Response JSON object (JSON-RPC 2.0)
 
-* `id`: `long` Response ID, have the same value with the request ID
-* `jsonrpc`: `String` Version. must be `2.0`
+* `id`: `long` Response ID, have the same value with request id
+* `jsonrpc`: `String` Version id. must be '2.0'
 * `result`: `Object` Response result
 * `error`: Error message
   * `code`: `int` Error code
@@ -88,7 +90,7 @@ Response JSON object (JSON-RPC 2.0)
 
 #### Make the Call
 
-Synchronous call:
+Synchronous method
 
 ```java
 AccountBlocksResponse response = vitej.getAccountBlocksByAddress(
@@ -97,7 +99,7 @@ AccountBlocksResponse response = vitej.getAccountBlocksByAddress(
 List<AccountBlock> accountBlockList = response.getResult();
 ```
 
-Asynchronous call:
+Asynchronous method
 
 ```java
 CompletableFuture<AccountBlocksResponse> future = vitej.getAccountBlocksByAddress(
@@ -107,7 +109,7 @@ AccountBlocksResponse response = future.get();
 List<AccountBlock> accountBlockList = response.getResult();
 ```
 
-## RPC Method
+## RPC API Wrapper
 
 ### Send Transaction
 
@@ -116,8 +118,8 @@ Sending a transaction (by `sendTransaction` method) includes the following steps
 2. Calculate quota consumption. If the available quota of the account is insufficient and having `autoPoW`=`true`, do a PoW puzzle to get temporary quota;
 3. Create transaction hash, then sign the transaction.
 
-:::tip Note
-Make sure `util` module is configured in `PublicModules` in `node_config.json` on your node when `autoPoW`=`true`.
+:::tip Module Required
+Make sure `util` is configured in `PublicModules` in `node_config.json` on your node when `autoPoW`=`true`.
 :::
 
 #### Send a Transfer
@@ -146,6 +148,8 @@ EmptyResponse response = request.send();
 ```
 
 #### Receive
+
+In Vite, you must explicitly send out a 'Receive' transaction to receive a 'pending' transaction that was sent to you.
 
 ```java
 Vitej vitej = new Vitej(new HttpService());
@@ -226,6 +230,8 @@ boolean callSuccess = ProtocolUtils.checkCallContractResult(vitej, sendBlockHash
 
 ### Calculate PoW
 
+'PoW' is used when obtaining temporary quota for sending one transaction. However, we highly recommend to get quota for your account by staking. See [Quota API](./quota.md).
+
 ```java
 Vitej vitej = new Vitej(new HttpService());
 PoWNonceResponse response = vitej.getPoWNonce(
@@ -239,7 +245,7 @@ byte[] nonce = response.getNonce();
 
 ### Get Account Block List
 
-Get a list of account blocks in descending order of block height, starting at the latest block
+Get a list of account blocks in descending order of block height, starting from the latest block
 
 ```java
 Vitej vitej = new Vitej(new HttpService());
@@ -299,7 +305,7 @@ AccountBlock accountBlock = response.getResult();
 
 ### Get Account Block List (by token id)
 
-Get a list of account blocks in which the transfers are done in certain token
+Get a list of account blocks in which the transfers are processed in certain token
 
 ```java
 Vitej vitej = new Vitej(new HttpService());
@@ -483,9 +489,9 @@ NetSyncDetailResponse response = vitej.netSyncDetail().send();
 NetSyncDetailResponse.Result nodeInfo = response.getResult();
 ```
 
-### Call Raw RPC Method
+## Call Raw RPC Method
 
-Below we show an example to call `ledger_getAccountBlocksByAddress` method of RPC API. You can call any RPC method with necessary method name and parameters as this way. 
+Instead of calling a wrapped method as listed above, you can also call a raw RPC method. Below code shows an example of calling RPC method `ledger_getAccountBlocksByAddress`. For more information about raw RPC API, see [RPC API Documentation](../rpc/).
 
 ```java
 Vitej vitej = new Vitej(new HttpService());

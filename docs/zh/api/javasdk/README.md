@@ -13,7 +13,7 @@ sidebarDepth: 4
 
 #### maven
 
-```
+```xml
 <dependency>
   <groupId>org.vite</groupId>
   <artifactId>vitej</artifactId>
@@ -36,7 +36,7 @@ implementation 'org.vite:vitej-dependencies:1.1.0'
 
 ### 使用示例
 
-```
+```java
 import com.alibaba.fastjson.JSON;
 import org.vitej.core.protocol.HttpService;
 import org.vitej.core.protocol.Vitej;

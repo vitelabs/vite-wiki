@@ -7,26 +7,26 @@ import { utils } from '@vite/vitejs';
 ```
 
 ## uriStringify
-Generate Vite URI based on the given parameters
+Generate a [VEP-6](../../../vep/vep-6.md) compatible Vite schema URI based on the given parameters
 
 - **Parameters**
     * `opt : object`
-        - `opt.schema:string?` Default is `vite`
+        - `opt.schema:string?` Default is 'vite'
         - `opt.target_address:vite Address string` Address of transaction's recipient
-        - `opt.chain_id?` Network id. Default is `1` (Vite Mainnet)
+        - `opt.chain_id?` Network id. Default is 1 (Vite Mainnet)
         - `opt.function_name?` Method name of contract to be called
         - `opt.params:object?` Passed-in parameters
 
 - **Return**
-    * `uri : string` URI string
+    * `uri : string` Vite schema URI string
 
-- **Other Parameters**
+- **Passed-in parameters**
   | Parameter name | Type          | Description                          | Example                                 |
   | ---------- | ------------- | ---------------------------------------- | --------------------------------------- |
-  | amount     | number        | Amount to transfer. Default is `0`       | amount=1     (1 VITE)              |
+  | amount     | number        | Amount to transfer. Basic unit is VITE. Default is `0`       | amount=1 (standing for 1 VITE) |
   | data       | base64 string | Additional data. Default is nil	        | data=MTIzYWJjZA                                  |
-  | fee        | number        | Transaction fee. Default is `0`          | fee=1        (1 VITE)                           |
-  | tti        | token_type_id | Token id. Default is `tti_5649544520544f4b454e6e40` | tti=tti_5649544520544f4b454e6e40 |
+  | fee        | number        | Transaction fee. Basic unit is VITE. Default is `0`          | fee=1 (standing for 1 VITE)    |
+  | tti        | token_type_id | Token id. Default is the tti of VITE token | tti=tti_5649544520544f4b454e6e40 |
 
 ## isValidTokenId
 Verify token id
