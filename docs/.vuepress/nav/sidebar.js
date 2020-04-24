@@ -205,8 +205,8 @@ module.exports = {
             children: ['']
         },
         {
-            zh: 'API',
-            en: 'API',
+            zh: '开发文档',
+            en: 'Developers',
             children: ['api/gate', 'api/dex-apis']
         },
         {

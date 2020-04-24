@@ -2,31 +2,33 @@
 demoUrl: "https://vitex.vite.net/test"
 ---
 
-# Dex接口服务
+# ViteX API
 
-## RestAPI接入文档
-
-### 环境地址
+## 接入地址
 * 【Test】`https://vitex.vite.net/test`
 * 【Mainnet】: `https://vitex.vite.net/`
 
-### 交易所订单代理接口
-注意：该部分的操作只针对代理订单
-#### 概述
-交易所订单服务是由Vite Labs提供的中心化服务，搭建在ViteX去中心化协议之上，允许用户在不暴露私钥的情况下，通过REST API来实现ViteX去中心化交易所的相关操作。
+## REST API私有接口
+### 概述
+ViteX REST API允许用户在不暴露私钥的情况下，实现ViteX去中心化交易所的相关操作。
 
-* 当您需要第三方做市商来操作您的账户完成交易时，可以不将自己的私钥提供给做市商，而只提供API Key和API Secret。对方只能在您授权的交易对下进行下单和撤单操作，无法转移您的资产。
-* 您可以针对每个交易对单独授权，ViteX合约会阻止API服务操作未经授权的交易对。
-* 您可以随时发起链上交易，取消对API的授权。授权取消后，即使仍持有有效的API Key和API Secret，ViteX合约也不再接受来自API的订单操作请求。
-* 请注意：用户通过API完成的订单操作，是通过ViteX.net API服务的私钥进行签名的，所产生的Vite链上交易也记录在ViteX.net API服务的账户中，用户无法在自己的Vite地址下找到相应的记录。
-#### 链上授权
-在使用ViteX.net API前，需要用户在Vite链上对API服务进行授权，允许API服务所对应的Vite账户来代理用户进行订单操作。
+* 当您需要第三方做市商来操作您的账户完成交易时，可以不将自己的私钥提供给做市商，
+而只提供API Key和API Secret。对方只能在您授权的交易对下进行下单和撤单操作，无法转移您的资产。
+* 您可以针对每个交易对单独授权，ViteX合约会阻止API操作未经授权的交易对。
+* 您可以随时发起链上交易，取消对API的授权。授权取消后，即使仍持有有效的API Key和API Secret，
+ViteX合约也不再接受来自API的订单请求。
+* 请注意：用户通过API完成的订单操作，是通过ViteX API的私钥进行签名的，
+产生的Vite链上交易也属于ViteX API的账户链，而不在用户自己的Vite地址下。
+### 链上授权
+在使用ViteX REST API前，需要用户在链上对API服务进行授权，允许API服务来代替用户签名链上交易。
 
-为保证安全，建议您只授权必要的交易对。授权的对象是ViteX.net API的Vite地址，不需要提供私钥。请注意：在任何情况下，您都不要将自己的私钥和助记词提供给第三方，包括Vite Labs在内。
+为保证安全，建议您只授权必要的交易对。授权对象是ViteX API服务对应的Vite地址，不需要提供私钥。
+请注意：在任何情况下，您都不要将自己的私钥和助记词提供给第三方，包括Vite Labs在内。
 
-API服务会为每个用户分配一个单独的Vite地址，来代理用户签名链上交易。您需要为该地址抵押VITE代币来提供配额，以执行下单、撤单等操作。
+ViteX REST API会为每个用户分配一个单独的Vite地址，来代理用户签名链上交易。
+您需要为该地址抵押VITE代币来提供配额，以执行下单、撤单等操作。
 
-#### 接口鉴权
+### 接口鉴权
 接口分为公有和私有两种，私有接口需要通过签名来进行权限认证。
 
 接口鉴权需要`API Key`和`API Secret`，请联系Vite Labs获取。注意`API Key`和`API Secret`是大小写敏感的。 
@@ -34,20 +36,20 @@ API服务会为每个用户分配一个单独的Vite地址，来代理用户签�
 调用私有接口时，除了接口本身所需的参数外，还需要传递`key`、`timestamp`和`signature`三个参数。
 
 * key即`API Key`字段。
-* timestamp参数为UNIX时间戳（毫秒级）(UNIX-style timestamp in epoch millisecond format)，例如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求中的时间戳小于服务端时间5000 ms或大于1000 ms，均认为该请求无效。
+* timestamp参数为UNIX时间戳（毫秒级）(UNIX-style timestamp in epoch millisecond format)，例如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求中的时间戳小于服务端时间2000 ms或大于1000 ms，均认为该请求无效。
 * signature字段通过`HMAC SHA256`签名算法生成。`API Secret`作为`HMAC SHA256`的密钥，其他所有参数作为`HMAC SHA256`的操作对象，得到的输出即为签名。签名大小写不敏感。
 
 timestamp 校验逻辑如下:
 
 ```
-    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 5000) {
+    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 2000) {
       // process request
     } else {
       // reject request
     }
 ```
 
-#### 基本规范
+### 基本规范
 所有接口的响应均为JSON格式，时间戳均为UNIX时间，单位为毫秒。
 HTTP状态码：
 
@@ -79,10 +81,10 @@ code状态码：
 * `1004` 其他错误：撤销订单不属于当前地址、该订单状态不可以撤销、查询订单信息异常、
 * `1005` 服务端异常：服务端server异常
 
-#### 访问限制
+### 访问限制
 API接口的访问以60秒为一个固定周期，周期内次数用完，则调用接口失败；上一个周期未使用的次数不会顺延到下一个周期；
 
-#### 需要签名的接口
+### 需要签名的接口
 * 按照参数名称的字典顺序对请求的所有参数(接口定义的参数和key)需要按照字母先进行排序；
 * 其中参数名称和值使用英文符号(=)进行连接；再把英文等号连接得到的字符串按参数名字的字典顺序依次使用&符号连接，即得到规范化的请求字符串；
 * 签名使用`HMAC SHA256`算法. API-KEY所对应的API-Secret作为 `HMAC SHA256` 的密钥，其他所有参数作为`HMAC SHA256`的操作对象，得到的输出即为签名。
@@ -90,7 +92,8 @@ API接口的访问以60秒为一个固定周期，周期内次数用完，则调
 * 调用这些接口时，除了接口本身所需的参数外，还需要传递`signature`即签名参数。
 * 当同时使用query string和request body时，`HMAC SHA256`的输入query string在前，request body在后
 
-#### POST /api/v1/account/order 的示例
+### 接口签名示例
+POST /api/v1/account/order 的示例
 
 下面是调用下单接口的示例，假设API Key和API Secret为：
 
@@ -108,7 +111,7 @@ amount | 10
 price | 0.09
 timestamp | 1567067137937
 
-#### 接口签名示例
+#### 签名示例
 * **queryString:** amount=10&key=11111111&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560
 * **签名消息(参数排序):**
 
@@ -124,9 +127,16 @@ timestamp | 1567067137937
     $ curl -X POST -d "amount=10&key=11111111&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=409cf00bb97c08ae99317af26b379ac59f4cfaba9591df7738c0604a4cb68b9a" https://api.vitex.net/test/api/v1/account/order
     ```
 
-#### 枚举定义
+### 枚举定义
+#### 订单状态
+代码 | 含义 | 描述
+------------ | ------------ | ------------
+1 | 挂单| 在订单簿中的订单
+2 | 已成交 | 订单已完全成交
+3 | 已取消 | 已取消
+4 | 失败 | 订单失败
 
-##### 订单状态
+#### 订单子状态
 代码 | 含义 | 描述
 ------------ | ------------ | ------------
 0 | Unknown | 未知状态
@@ -141,21 +151,21 @@ timestamp | 1567067137937
 9 | Failed | 订单失败
 10 | Expired | 订单过期
 
-##### 订单类型
+#### 订单类型
 
 代码 | 含义 | 描述
 ------------ | ------------ | ------------
 0 | Limit Order | 限价单
 1 | Market Order | 市价单(暂不支持)
 
-##### 订单交易方向
+#### 订单交易方向
 
 代码 | 含义 | 描述
 ------------ | ------------ | ------------
 0 | Buy Order | 买入
 1 | Sell Order | 卖出
 
-##### Time in force
+#### Time in force
 
 代码 | 含义 | 描述
 ------------ | ------------ | ------------
@@ -164,9 +174,10 @@ timestamp | 1567067137937
 2 | FOK - Fill or Kill | 要么全部成交，要么撤销 (暂不支持)
 
 
-#### 下单测试(验证签名)
+### 下单测试
+用来验证签名
 ```
-POST /api/v1/account/order/test  (HMAC SHA256)
+POST /api/v1/order/test  (HMAC SHA256)
 ```
 
 **配额消耗:**
@@ -189,15 +200,15 @@ signature | STRING | YES | 签名
 ```javascript
 {
   "code": 0,
-  "msg": "Success",   
+  "msg": "ok",   
   "data": null
 }
 ```
 
 
-#### 下单
+### 下单
 ```
-POST /api/v1/account/order  (HMAC SHA256)
+POST /api/v1/order  (HMAC SHA256)
 ```
 
 **配额消耗:**
@@ -220,79 +231,18 @@ signature | STRING | YES | 签名
 ```javascript
 {
   "code": 0,
-  "msg": "Success",   
+  "msg": "ok",
   "data": {
-    "symbol": "ETH-000_BTC-000",
-    "orderId": "f848eb32ea44d810b0f35c6c44ccb6795f7d31503b15bdd8171be2809bee4a25",
-    "status": 3
+    "symbol": "VX_ETH-000",
+    "orderId": "c35dd9868ea761b22fc76ba35cf8357db212736ecb56399523126c515113f19d",
+    "subStatus": 1
   }
 }
 ```
 
-#### 查询订单
+### 撤销订单
 ```
-GET /api/v1/account/order (HMAC SHA256)
-```
-查询一个订单的详细信息
-
-**配额消耗:**
-0 UT
-
-**参数:**
-
-名称 | 类型 | 是否必须 | 描述
------------- | ------------ | ------------ | ------------
-symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
-orderId | STRING | YES | 订单ID
-timestamp | LONG | YES | 客户端时间戳
-key | STRING | YES | API Key
-signature | STRING | YES | 签名
-
-
-**响应:**
-
-名称 | 类型 | 描述
------------- | ------------ | ------------
-symbol | STRING | 交易对名称
-orderId | STRING | 订单ID
-status | INT | 订单状态代码，含义参考 [订单状态定义](#订单状态)
-side | INT | 订单方向，买入为0，卖出为1
-price | STRING | 下单价格，单位为基础币种
-amount | STRING | 订单数量，单位为交易币种
-filledAmount | STRING | 已成交数量，单位为交易币种
-filledValue | STRING | 已成交金额，单位为基础币种
-fee | STRING | 手续费，单位为基础币种
-created | LONG | 订单创建时间
-updated | LONG | 订单最后更新时间
-timeInForce | INT | 订单[Time In Force](#time-in-force)
-type | INT | 订单类型，[订单类型定义](#订单类型)
-
-
-```javascript
-{
-  "code": 0,
-  "msg": "Success",   
-  "data": {
-    "symbol": "ETH-000_BTC-000",
-    "orderId": "f848eb32ea44d810b0f35c6c44ccb6795f7d31503b15bdd8171be2809bee4a25",
-    "status": 3,
-    "side": 0,
-    "price": "0.020000",
-    "amount": "1.1100",
-    "filledAmount": "0.1000",
-    "filledValue": "0.002000",
-    "fee": "0.000002",
-    "created": 1565360340430,
-    "updated": 1565360340430,
-    "timeInForce": 0,
-    "type": 0
-  }
-}
-```
-
-#### 撤销订单
-```
-DELETE /api/v1/account/order  (HMAC SHA256)
+DELETE /api/v1/order  (HMAC SHA256)
 ```
 
 撤销一个订单。由于ViteX的订单操作是异步执行的，该接口只是向系统发送撤单请求，不能保证订单撤销成功。
@@ -314,19 +264,19 @@ signature | STRING | YES | 签名
 ```javascript
 {
   "code": 0,
-  "msg", "Success",   
+  "msg": "ok",
   "data": {
-    "symbol": "ETH-000_BTC-000",
-    "orderId": "f848eb32ea44d810b0f35c6c44ccb6795f7d31503b15bdd8171be2809bee4a25",
-    "cancelRequest": "fd7d9ecd2471dbc458ac5d42024e69d6d0a033b9935a3c0524e718adb30b27db",
-    "status": 6
+    "symbol": "VX_ETH-000",
+    "orderId": "c35dd9868ea761b22fc76ba35cf8357db212736ecb56399523126c515113f19d",
+    "cancelRequest": "2d015156738071709b11e8d6fa5a700c2fd30b28d53aa6160fd2ac2e573c7595",
+    "subStatus": 6
   }
 }
 ```
 
-#### 撤销一个交易对下的全部挂单
+### 撤销全部挂单
 ```
-DELETE /api/v1/account/orders  (HMAC SHA256)
+DELETE /api/v1/orders  (HMAC SHA256)
 ```
 
 撤销一个交易对下的全部挂单。由于ViteX的订单操作是异步执行的，该接口只是向系统发送撤单请求，不能保证订单撤销成功。
@@ -347,172 +297,27 @@ signature | STRING | YES | 签名
 ```javascript
 {
   "code": 0,
-  "msg", "Success",   
+  "msg": "ok",
   "data": [
     {
-      "symbol": "ETH-000_BTC-000",
-      "orderId": "f848eb32ea44d810b0f35c6c44ccb6795f7d31503b15bdd8171be2809bee4a25",
-      "cancelRequest": "fd7d9ecd2471dbc458ac5d42024e69d6d0a033b9935a3c0524e718adb30b27db",
-      "status": 6
+      "symbol": "VX_ETH-000",
+      "orderId": "de185edae25a60dff421c1be23ac298b121cb8bebeff2ecb25807ce7d72cf622",
+      "cancelRequest": "355b6fab007d86e7ff09b0793fbb205e82d3880b64d948ed46f88237115349ab",
+      "subStatus": 6
+    },
+    {
+      "symbol": "VX_ETH-000",
+      "orderId": "7e079d4664791207e082c0fbeee7b254f2a31e87e1cff9ba18c5faaeee3d400a",
+      "cancelRequest": "55b80fe42c41fa91f675c04a8423afa85857cd30c0f8878d52773f7096bfac3b",
+      "subStatus": 6
     }
   ]
 }
 ```
 
-#### 查询历史订单
-```
-GET /api/v1/account/orders (HMAC SHA256)
-```
-查询历史订单信息
-
-**配额消耗:**
-0 UT
-
-**参数:**
-
-名称 | 类型 | 是否必须 | 描述
------------- | ------------ | ------------ | ------------
-symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
-startTime |LONG | NO | 
-endTime |LONG | NO | 
-side | INT | NO | 订单方向，买入为0，卖出为1
-status | INT | NO | 订单状态代码，含义参考 [订单状态定义](#订单状态)
-limit | INT | NO | 限制返回数据的数量，最大 500.
-timestamp | LONG | YES | 客户端时间戳
-key | STRING | YES | API Key
-signature | STRING | YES | 签名
-
-
-**响应:**
-
-名称 | 类型 | 描述
------------- | ------------ | ------------
-symbol | STRING | 交易对名称
-orderId | STRING | 订单ID
-status | INT | 订单状态代码，含义参考 [订单状态定义](#订单状态)
-side | INT | 订单方向，买入为0，卖出为1
-price | STRING | 下单价格，单位为基础币种
-amount | STRING | 订单数量，单位为交易币种
-filledAmount | STRING | 已成交数量，单位为交易币种
-filledValue | STRING | 已成交金额，单位为基础币种
-fee | STRING | 手续费，单位为基础币种
-created | LONG | 订单创建时间
-updated | LONG | 订单最后更新时间
-timeInForce | INT | 订单[Time In Force](#Time-In_Force)
-type | INT | 订单类型，[订单类型定义](#订单类型)
-
-
-```javascript
-{
-  "code": 0,
-  "msg": "Success",
-  "data": [
-    {
-      "symbol": "ETH-000_BTC-000",
-      "orderId": "f848eb32ea44d810b0f35c6c44ccb6795f7d31503b15bdd8171be2809bee4a25",
-      "status": 3,
-      "side": 0,
-      "price": "0.020000",
-      "amount": "1.1100",
-      "filledAmount": "0.1000",
-      "filledValue": "0.002000",
-      "fee": "0.000002",
-      "created": 1565360340430,
-      "updated": 1565360340430,
-      "timeInForce": 0,
-      "type": 0
-    }
-  ]
-}
-```
-
-#### 获取服务器时间
-```
-GET /api/v1/timestamp
-```
-获取服务器时间
-
-**参数:**
-NONE
-
-**响应:**
-```javascript
-{
-  "code": 0,
-  "msg": "Success",
-  "data": 1565360340430
-}
-```
-
-
-#### 查询交易所账户余额
-```
-GET /api/v1/account/balance
-```
-查询用户委托地址对应的交易所账户余额
-
-**配额消耗:**
-0 UT
-
-**参数:**
-
-名称 | 类型 | 是否必须 | 描述
------------- | ------------ | ------------ | ------------
-address | STRING | YES | 地址
-
-
-**响应:**
-
-名称 | 类型 | 描述
------------- | ------------ | ------------
-available | STRING | 交易所可用余额
-locked | STRING | 交易所锁定余额(下单锁定)
-
-
-```javascript
-{
-    "code": 0,
-    "msg": "Success",
-    "data": {
-        "VX": {
-            "available": "0.00000000",
-            "locked": "0.00000000"
-        },
-        "VCP": {
-            "available": "373437.00000000",
-            "locked": "0.00000000"
-        },
-        "BTC-000": {
-            "available": "0.02597393",
-            "locked": "0.13721639"
-        },
-        "USDT-000": {
-            "available": "162.58284100",
-            "locked": "170.40459600"
-        },
-        "GRIN-000": {
-            "available": "0.00000000",
-            "locked": "0.00000000"
-        },
-        "VITE": {
-            "available": "30047.62090072",
-            "locked": "691284.75633290"
-        },
-        "ETH-000": {
-            "available": "1.79366977",
-            "locked": "7.93630000"
-        },
-        "ITDC-000": {
-            "available": "0.00000000",
-            "locked": "7186.00370000"
-        }
-    }
-}
-```
-
-
-### 数据查询接口
-#### `/api/v1/limit`
+## REST API公有接口
+### 市场最小金额
+```/api/v1/limit```
 
 获取各个基础交易对的最小下单金额
 
@@ -533,7 +338,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
 
-#### `/api/v1/tokens`
+### 获取所有币种
+```/api/v1/tokens```
 
 获取所有的Token列表
 
@@ -581,9 +387,9 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
 
-#### `/api/v1/token/detail`
+### 获取代币详情
+```/api/v1/token/detail```
 
-获取Token的详细信息
 
 * **Method**: `GET` 
 
@@ -634,9 +440,10 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/token/mapped`
-
+### 已开通交易对的代币
 获取已开通交易对的Token列表
+
+```/api/v1/token/mapped```
 
 * **Method**: `GET` 
 
@@ -675,7 +482,10 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/token/unmapped`
+### 未开通交易对的代币
+获取未开通交易对的Token列表
+
+```/api/v1/token/unmapped```
 
 获取未开通交易对的Token列表(上币使用)
 
@@ -716,7 +526,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/markets`
+### 所有市场
+```/api/v1/markets```
 
 获取所有的市场(交易对)
 
@@ -763,9 +574,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
 
-#### `/api/v1/order`
-
-查询订单信息
+### 订单信息
+```/api/v1/order```
 
 * **Method**: `GET` 
 
@@ -774,7 +584,10 @@ locked | STRING | 交易所锁定余额(下单锁定)
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
   |address|query|the buyer/seller address|yes|string|
-  |orderId|query|the order id|yes|string|
+  |orderId|query|the order id|no|string|
+  |orderHash|query|the order hash|no|string|
+
+orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
 
 * **Responses**
 
@@ -792,24 +605,27 @@ locked | STRING | 交易所锁定余额(下单锁定)
     "code": 0,
     "msg": "ok",
     "data": {
-        "orderId": "quEOx/ai3o7Xyv9em+qJIbJu7pM=",
-        "symbol": "VCP-4_VITE",
-        "tradeTokenSymbol": "VCP.test",
-        "quoteTokenSymbol": "VITE",
-        "tradeToken": "tti_c2695839043cf966f370ac84",
-        "quoteToken": "tti_5649544520544f4b454e6e40",
-        "side": 1,
-        "price": "6.00000000",
-        "quantity": "1.00000000",
-        "amount": "6.00000000",
-        "executedQuantity": "0.00000000",
-        "executedAmount": "0.00000000",
-        "executedPercent": "0.00000000",
-        "executedAvgPrice": "0.00000000",
-        "fee": "0.00000000",
-        "status": 1,
-        "type": 0,
-        "createTime": 1554722699
+      "address": "vite_228f578d58842437fb52104b25750aa84a6f8558b6d9e970b1",
+      "orderId": "000007010000000000000d970100005e70805e0000b8",
+      "orderHash": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
+      "symbol": "VX_ETH-000",
+      "tradeTokenSymbol": "VX",
+      "quoteTokenSymbol": "ETH-000",
+      "tradeToken": "tti_564954455820434f494e69b5",
+      "quoteToken": "tti_06822f8d096ecdf9356b666c",
+      "side": 1,
+      "price": "0.000228",
+      "quantity": "100.0001",
+      "amount": "0.02280002",
+      "executedQuantity": "100.0000",
+      "executedAmount": "0.022800",
+      "executedPercent": "0.999999",
+      "executedAvgPrice": "0.000228",
+      "fee": "0.000045",
+      "status": 1,
+      "subStatus": 5,
+      "type": 0,
+      "createTime": 1586941713
     }
   }
   ```
@@ -820,7 +636,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   :::  
 
 
-#### `/api/v1/orders/open`
+### 所有挂单
+```/api/v1/orders/open```
 
 获取Pending(挂单中)状态的订单
 
@@ -831,6 +648,7 @@ locked | STRING | 交易所锁定余额(下单锁定)
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
   |address|query|the buyer/seller address|yes|string|
+  |symbol|query|market pair symbol. e.g. `ABC-000_VITE`|no|string|
   |quoteTokenSymbol|query|Quote token symbol|no|string|
   |tradeTokenSymbol|query|Trade token symbol|no|string|
   |offset|query|Starting with `0`. Default `0`|no|integer|
@@ -855,27 +673,30 @@ locked | STRING | 交易所锁定余额(下单锁定)
     "data": {
       "order": [
         {
-          "orderId": "quEOx/ai3o7Xyv9em+qJIbJu7pM=",
-          "symbol": "VCP-4_VITE",
-          "tradeTokenSymbol": "VCP.test",
-          "quoteTokenSymbol": "VITE",
-          "tradeToken": "tti_c2695839043cf966f370ac84",
-          "quoteToken": "tti_5649544520544f4b454e6e40",
+          "address": "vite_228f578d58842437fb52104b25750aa84a6f8558b6d9e970b1",
+          "orderId": "000007010000000000000d970100005e70805e0000b8",
+          "orderHash": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
+          "symbol": "VX_ETH-000",
+          "tradeTokenSymbol": "VX",
+          "quoteTokenSymbol": "ETH-000",
+          "tradeToken": "tti_564954455820434f494e69b5",
+          "quoteToken": "tti_06822f8d096ecdf9356b666c",
           "side": 1,
-          "price": "6.00000000",
-          "quantity": "1.00000000",
-          "amount": "6.00000000",
-          "executedQuantity": "0.00000000",
-          "executedAmount": "0.00000000",
-          "executedPercent": "0.00000000",
-          "executedAvgPrice": "0.00000000",
-          "fee": "0.00000000",
+          "price": "0.000228",
+          "quantity": "100.0001",
+          "amount": "0.02280002",
+          "executedQuantity": "100.0000",
+          "executedAmount": "0.022800",
+          "executedPercent": "0.999999",
+          "executedAvgPrice": "0.000228",
+          "fee": "0.000045",
           "status": 1,
+          "subStatus": 5,
           "type": 0,
-          "createTime": 1554722699
+          "createTime": 1586941713
         }
       ],
-      "total": 13
+      "total": -1
     }
   }
   ```
@@ -885,7 +706,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
 
-#### `/api/v1/orders`
+### 订单列表
+```/api/v1/orders```
 
 获取订单列表
 
@@ -896,6 +718,7 @@ locked | STRING | 交易所锁定余额(下单锁定)
   |Name|Located In|Description|Required|Schema|
   |:--|:--|:---|:---|:--:|
   |address|query|the buyer/seller address|yes|string|
+  |symbol|query|market pair symbol. e.g. `ABC-000_VITE`|no|string|
   |quoteTokenSymbol|query|the `symbol` of quote token|no|string|
   |tradeTokenSymbol|query|the `symbol` of trade token|no|string|
   |startTime|query|start time in Seconds|no|long|
@@ -924,27 +747,30 @@ locked | STRING | 交易所锁定余额(下单锁定)
     "data": {
       "order": [
         {
-          "orderId": "ZDFDKEcwCs2BVs8fE8vULzb10/g=",
-          "symbol": "CSTT-47E_VITE",
-          "tradeTokenSymbol": "CSTT.test",
-          "quoteTokenSymbol": "VITE",
-          "tradeToken": "tti_b6f7019878fdfb21908a1547",
-          "quoteToken": "tti_5649544520544f4b454e6e40",
-          "side": 0,
-          "price": "1.00000000",
-          "quantity": "118222.20000000",
-          "amount": "118222.20000000",
-          "executedQuantity": "0.00000000",
-          "executedAmount": "0.00000000",
-          "executedPercent": "0.00000000",
-          "executedAvgPrice": "0.00000000",
-          "fee": "0.00000000",
-          "status": 4,
+          "address": "vite_228f578d58842437fb52104b25750aa84a6f8558b6d9e970b1",
+          "orderId": "000007010000000000000d970100005e70805e0000b8",
+          "orderHash": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
+          "symbol": "VX_ETH-000",
+          "tradeTokenSymbol": "VX",
+          "quoteTokenSymbol": "ETH-000",
+          "tradeToken": "tti_564954455820434f494e69b5",
+          "quoteToken": "tti_06822f8d096ecdf9356b666c",
+          "side": 1,
+          "price": "0.000228",
+          "quantity": "100.0001",
+          "amount": "0.02280002",
+          "executedQuantity": "100.0000",
+          "executedAmount": "0.022800",
+          "executedPercent": "0.999999",
+          "executedAvgPrice": "0.000228",
+          "fee": "0.000045",
+          "status": 1,
+          "subStatus": 5,
           "type": 0,
-          "createTime": 1554702092
+          "createTime": 1586941713
         }
       ],
-      "total": 1215
+      "total": -1
     }
   }
   ```
@@ -954,7 +780,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
 
-#### `/api/v1/ticker/24hr`
+### 24小时行情
+```/api/v1/ticker/24hr```
 
 获取ticker的24小时价格变化统计信息
 
@@ -1012,7 +839,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   :::
 
 
-#### `/api/v1/ticker/bookTicker`
+### 最优价
+```/api/v1/ticker/bookTicker```
 
 获取ticker的最佳价格
 
@@ -1054,7 +882,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/trades`
+### 成交记录
+```/api/v1/trades```
 
 获取所有的交易(订单撮合)记录
 
@@ -1089,27 +918,28 @@ locked | STRING | 交易所锁定余额(下单锁定)
     "code": 0,
     "msg": "ok",
     "data": {
+      "height": null,
       "trade": [
         {
-          "tradeId": "4EOgUqsCyZ73O4+A2gZuK9RfOXs=",
-          "symbol": "VTT-F_ETH",
-          "tradeTokenSymbol": "VTT",
-          "quoteTokenSymbol": "ETH",
-          "tradeToken": "tti_2736f320d7ed1c2871af1d9d",
+          "tradeId": "d3e7529de05e94d247a4e7ef58a56b069b059d52",
+          "symbol": "VX_ETH-000",
+          "tradeTokenSymbol": "VX",
+          "quoteTokenSymbol": "ETH-000",
+          "tradeToken": "tti_564954455820434f494e69b5",
           "quoteToken": "tti_06822f8d096ecdf9356b666c",
-          "price": "0.10000000",
-          "quantity": "1.00000000",
-          "amount": "0.10000000",
-          "time": 1554793244,
+          "price": "0.000228",
+          "quantity": "0.0001",
+          "amount": "0.00000002",
+          "time": 1586944732,
           "side": 0,
-          "buyerOrderId": "DqpoIXTCT+4s1rMBFVCoWY9iDys=",
-          "sellerOrderId": "FB4eiknqAQpIEOYi+HgamZOj/ac=",
-          "buyFee": "0.00010000",
-          "sellFee": "0.00010000",
-          "blockHeight": 2806
+          "buyerOrderId": "00000700fffffffffffff268feff005e70805e0000bb",
+          "sellerOrderId": "000007010000000000000d970100005e70805e0000b8",
+          "buyFee": "0.00000000",
+          "sellFee": "0.00000000",
+          "blockHeight": 260
         }
       ],
-      "total": 1
+      "total": -1
     }
   }
   ```
@@ -1119,7 +949,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/depth`
+### 市场深度
+```/api/v1/depth```
 
 获取市场(交易对)的深度
 
@@ -1171,7 +1002,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
 
-#### `/api/v1/klines`
+### K线
+```/api/v1/klines```
 
 获取市场(交易对)的K线
 
@@ -1230,7 +1062,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/deposit-withdraw`
+### 充提记录
+```/api/v1/deposit-withdraw```
 
 获取充提记录
 
@@ -1279,7 +1112,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::
   
-#### `/api/v1/exchange-rate`
+### 币种汇率
+```/api/v1/exchange-rate```
 
 获取Token的汇率
 
@@ -1323,7 +1157,8 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   :::  
 
-#### `/api/v1/usd-cny`
+### 美元兑RMB汇率
+```/api/v1/usd-cny```
 
 获取USD-CNY的汇率
 
@@ -1358,7 +1193,77 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   ::: 
 
-#### `/api/v1/time`
+
+### 账户交易所余额
+```
+/api/v1/balance
+```
+查询用户委托地址对应的交易所账户余额
+
+* **Method**: `GET` 
+
+**配额消耗:**
+0 UT
+
+**参数:**
+
+名称 | 类型 | 是否必须 | 描述
+------------ | ------------ | ------------ | ------------
+address | STRING | YES | 地址
+
+
+**响应:**
+
+名称 | 类型 | 描述
+------------ | ------------ | ------------
+available | STRING | 交易所可用余额
+locked | STRING | 交易所锁定余额(下单锁定)
+
+
+```javascript
+{
+    "code": 0,
+    "msg": "ok",
+    "data": {
+        "VX": {
+            "available": "0.00000000",
+            "locked": "0.00000000"
+        },
+        "VCP": {
+            "available": "373437.00000000",
+            "locked": "0.00000000"
+        },
+        "BTC-000": {
+            "available": "0.02597393",
+            "locked": "0.13721639"
+        },
+        "USDT-000": {
+            "available": "162.58284100",
+            "locked": "170.40459600"
+        },
+        "GRIN-000": {
+            "available": "0.00000000",
+            "locked": "0.00000000"
+        },
+        "VITE": {
+            "available": "30047.62090072",
+            "locked": "691284.75633290"
+        },
+        "ETH-000": {
+            "available": "1.79366977",
+            "locked": "7.93630000"
+        },
+        "ITDC-000": {
+            "available": "0.00000000",
+            "locked": "7186.00370000"
+        }
+    }
+}
+```
+
+
+### 获取服务器时间
+```/api/v1/time```
 
 获取服务器时间(ms)
 
@@ -1393,9 +1298,9 @@ locked | STRING | 交易所锁定余额(下单锁定)
   ```
   ::: 
 
-## WS接入文档
+## WebSocket
 ### 1. 环境地址：
-* 【Pre-mainnet】wss://vitex.vite.net/websocket
+* 【线上】wss://vitex.vite.net/websocket
 * 【测试】wss://vitex.vite.net/test/websocket
 * op_type:`ping`消息包需要至少1分钟周期发送，如果：心跳间隔超过1分钟后，注册的event会失效清理
 
