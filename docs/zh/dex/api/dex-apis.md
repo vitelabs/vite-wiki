@@ -1,12 +1,12 @@
 ---
-demoUrl: "https://vitex.vite.net/test"
+demoUrl: "https://api.vitex.net/test"
 ---
 
 # ViteX API
 
 ## 接入地址
-* 【Test】`https://vitex.vite.net/test`
-* 【Mainnet】: `https://vitex.vite.net/`
+* 【Test】`https://api.vitex.net/test`
+* 【Mainnet】: `https://api.vitex.net/`
 
 ## REST API私有接口
 ### 概述
@@ -131,14 +131,6 @@ timestamp | 1567067137937
 #### 订单状态
 代码 | 含义 | 描述
 ------------ | ------------ | ------------
-1 | 挂单| 在订单簿中的订单
-2 | 已成交 | 订单已完全成交
-3 | 已取消 | 已取消
-4 | 失败 | 订单失败
-
-#### 订单子状态
-代码 | 含义 | 描述
------------- | ------------ | ------------
 0 | Unknown | 未知状态
 1 | Pending Request| 已提交下单请求，在链上生成Request交易
 2 | Received | 订单已被系统接受，撮合状态未知
@@ -235,7 +227,7 @@ signature | STRING | YES | 签名
   "data": {
     "symbol": "VX_ETH-000",
     "orderId": "c35dd9868ea761b22fc76ba35cf8357db212736ecb56399523126c515113f19d",
-    "subStatus": 1
+    "status": 1
   }
 }
 ```
@@ -269,7 +261,7 @@ signature | STRING | YES | 签名
     "symbol": "VX_ETH-000",
     "orderId": "c35dd9868ea761b22fc76ba35cf8357db212736ecb56399523126c515113f19d",
     "cancelRequest": "2d015156738071709b11e8d6fa5a700c2fd30b28d53aa6160fd2ac2e573c7595",
-    "subStatus": 6
+    "status": 6
   }
 }
 ```
@@ -303,13 +295,13 @@ signature | STRING | YES | 签名
       "symbol": "VX_ETH-000",
       "orderId": "de185edae25a60dff421c1be23ac298b121cb8bebeff2ecb25807ce7d72cf622",
       "cancelRequest": "355b6fab007d86e7ff09b0793fbb205e82d3880b64d948ed46f88237115349ab",
-      "subStatus": 6
+      "status": 6
     },
     {
       "symbol": "VX_ETH-000",
       "orderId": "7e079d4664791207e082c0fbeee7b254f2a31e87e1cff9ba18c5faaeee3d400a",
       "cancelRequest": "55b80fe42c41fa91f675c04a8423afa85857cd30c0f8878d52773f7096bfac3b",
-      "subStatus": 6
+      "status": 6
     }
   ]
 }
@@ -606,8 +598,7 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
     "msg": "ok",
     "data": {
       "address": "vite_228f578d58842437fb52104b25750aa84a6f8558b6d9e970b1",
-      "orderId": "000007010000000000000d970100005e70805e0000b8",
-      "orderHash": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
+      "orderId": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
       "symbol": "VX_ETH-000",
       "tradeTokenSymbol": "VX",
       "quoteTokenSymbol": "ETH-000",
@@ -622,8 +613,7 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
       "executedPercent": "0.999999",
       "executedAvgPrice": "0.000228",
       "fee": "0.000045",
-      "status": 1,
-      "subStatus": 5,
+      "status": 5,
       "type": 0,
       "createTime": 1586941713
     }
@@ -674,8 +664,7 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
       "order": [
         {
           "address": "vite_228f578d58842437fb52104b25750aa84a6f8558b6d9e970b1",
-          "orderId": "000007010000000000000d970100005e70805e0000b8",
-          "orderHash": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
+          "orderId": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
           "symbol": "VX_ETH-000",
           "tradeTokenSymbol": "VX",
           "quoteTokenSymbol": "ETH-000",
@@ -690,8 +679,7 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
           "executedPercent": "0.999999",
           "executedAvgPrice": "0.000228",
           "fee": "0.000045",
-          "status": 1,
-          "subStatus": 5,
+          "status": 5,
           "type": 0,
           "createTime": 1586941713
         }
@@ -748,8 +736,7 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
       "order": [
         {
           "address": "vite_228f578d58842437fb52104b25750aa84a6f8558b6d9e970b1",
-          "orderId": "000007010000000000000d970100005e70805e0000b8",
-          "orderHash": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
+          "orderId": "0dfbafac33fbccf5c65d44d5d80ca0b73bc82ae0bbbe8a4d0ce536d340738e93",
           "symbol": "VX_ETH-000",
           "tradeTokenSymbol": "VX",
           "quoteTokenSymbol": "ETH-000",
@@ -764,8 +751,7 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
           "executedPercent": "0.999999",
           "executedAvgPrice": "0.000228",
           "fee": "0.000045",
-          "status": 1,
-          "subStatus": 5,
+          "status": 5,
           "type": 0,
           "createTime": 1586941713
         }
@@ -932,8 +918,6 @@ orderId或者orderHash(orderHash为私有接口中的orderId)必须有一个
           "amount": "0.00000002",
           "time": 1586944732,
           "side": 0,
-          "buyerOrderId": "00000700fffffffffffff268feff005e70805e0000bb",
-          "sellerOrderId": "000007010000000000000d970100005e70805e0000b8",
           "buyFee": "0.00000000",
           "sellFee": "0.00000000",
           "blockHeight": 260
