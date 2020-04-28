@@ -9,8 +9,8 @@ ViteX API允许用户在不暴露私钥的情况下，完成在ViteX去中心化
 ViteX API分为交易和行情两类。交易API（也称私有API）需要身份验证和授权，为用户提供下单、撤单等功能。行情API（也称公开API）提供市场的行情数据，信息查询等。行情API无需授权即可访问。 
 
 ## 环境地址
-* 【TestNet】`https://api.vitex.net/test`
 * 【MainNet】: `https://api.vitex.net/`
+* 【TestNet】`https://api.vitex.net/test`
 
 ## 接口规范
 API接口的响应均为JSON格式，时间戳为UNIX时间。
@@ -79,7 +79,7 @@ code状态码：
 
 代码 | 含义 | 描述
 ------------ | ------------ | ------------
-0 | GTC - Good Till Cancel | 成交为止
+0 | GTC - Good Till Cancel | 订单保持到成交或被取消
 1 | IOC - Immediate or Cancel | 无法立即成交的部分就撤销 (暂不支持)
 2 | FOK - Fill or Kill | 要么全部成交，要么撤销 (暂不支持)
 
@@ -105,7 +105,7 @@ API访问计数以60秒为一个固定周期，周期内套餐额度用完，则
 ### API鉴权
 私有API需要通过签名来进行权限认证。
 
-鉴权需要 API Key 和 API Secret，您可自行在Web钱包"API"页面申请。请注意，API Key 和 API Secret 是大小写敏感的。
+鉴权需要 API Key 和 API Secret，您可自行在交易所["API"](https://x.vite.net/tradeOpenapi)页面申请。请注意，API Key 和 API Secret 是大小写敏感的。
 
 调用私有API时，除了接口本身要求的参数外，还需要传递`key`、`timestamp`和`signature`三个参数。
 
@@ -132,7 +132,7 @@ API访问计数以60秒为一个固定周期，周期内套餐额度用完，则
 
 ### 接口签名示例
 
-下面是调用下单接口`/api/v1/account/order`的示例，假设API Key和API Secret为：
+下面是调用下单接口`/api/v1/order`的示例，假设API Key和API Secret为：
 
 API Key | API Secret
 ------------ | ------------
@@ -178,10 +178,10 @@ POST /api/v1/order/test
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
+symbol | STRING | YES | 交易对名称，例如:`ETH-000_BTC-000`
 amount | STRING | YES | 下单数量，以交易币种为单位
 price | STRING | YES | 下单价格
-side | INT | YES | 订单方向，买入为0，卖出为1
+side | INT | YES | 订单方向，买入为`0`，卖出为`1`
 timestamp | LONG | YES | 客户端时间戳（毫秒）
 key | STRING | YES | API Key
 signature | STRING | YES | 签名
@@ -208,10 +208,10 @@ POST /api/v1/order
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
+symbol | STRING | YES | 交易对名称，例如:`ETH-000_BTC-000`
 amount | STRING | YES | 下单数量，以交易币种为单位
 price | STRING | YES | 下单价格
-side | INT | YES | 订单方向，买入为0，卖出为1
+side | INT | YES | 订单方向，买入为`0`，卖出为`1`
 timestamp | LONG | YES | 客户端时间戳（毫秒）
 key | STRING | YES | API Key
 signature | STRING | YES | 签名
@@ -242,7 +242,7 @@ DELETE /api/v1/order
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
+symbol | STRING | YES | 交易对名称，例如:`ETH-000_BTC-000`
 orderId | STRING | YES | 订单ID
 timestamp | LONG | YES | 客户端时间戳（毫秒）
 key | STRING | YES | API Key
@@ -274,7 +274,7 @@ N UT (N=订单数量)
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-symbol | STRING | YES | 交易对名称，例如:"ETH-000_BTC-000"
+symbol | STRING | YES | 交易对名称，例如:`ETH-000_BTC-000`
 timestamp | LONG | YES | 客户端时间戳（毫秒）
 key | STRING | YES | API Key
 signature | STRING | YES | 签名
@@ -588,7 +588,8 @@ symbol | STRING | NO | 交易对名称，如`GRIN-000_BTC-000`
 quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`BTC-000`
 tradeTokenSymbol | STRING | NO | 交易币种简称，如`GRIN-000`
 offset | INTEGER | NO | 起始查询索引，从`0`开始，默认`0`
-limit | INTEGER | NO | 查询数量，默认`500`，最大`500`
+limit | INTEGER | NO | 查询数量，默认`30`，最大`100`
+total | INTEGER | NO | 是否在结果中包含查询总数，`0`不包含，`1`包含，默认不返回，此时显示`total=-1`
 
 * **响应：**
 
@@ -649,7 +650,7 @@ side | INTEGER | NO | 订单方向，买入为`0`，卖出为`1`
 status | INTEGER | NO | 订单状态，取值`0-10`，其中`3`和`5`返回所有未完全成交订单，`7`和`8`返回所有已撤销订单
 offset | INTEGER | NO | 起始查询索引，从`0`开始，默认`0`
 limit | INTEGER | NO | 查询数量，默认`30`，最大`100`
-total | INTEGER | NO | 是否返回查询总数，不返回`0`，返回`1`，默认不返回，此时总量显示为`-1`
+total | INTEGER | NO | 是否在结果中包含查询总数，`0`不包含，`1`包含，默认不返回，此时显示`total=-1`
 
 * **响应：**
 
@@ -742,7 +743,6 @@ quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`USDT
   {}
   ```
   :::
-
 
 ### 获取当前最优挂单
 ```  
@@ -1176,9 +1176,9 @@ message DexProtocol {
 :::
 
 ### topics列表
-支持单、多主题订阅，多个主题订阅使用","分割；比如：`topic1,topic2`
+支持单、多主题订阅，多个主题订阅使用","分隔，如：`topic1,topic2`
 
-| 主题 | 描述| Message结构 |
+| 主题 | 描述| Message |
 |:--|:--|:--:|
 |`order.$address`|订单变化| `OrderProto`|
 |`market.$symbol.depth`|深度数据| `DepthListProto`|
