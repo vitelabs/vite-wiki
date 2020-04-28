@@ -6,14 +6,14 @@ demoUrl: "https://api.vitex.net/test"
 
 ## 概述
 ViteX API允许用户在不暴露私钥的情况下，完成在ViteX去中心化交易所的相关操作。
-ViteX API分为交易和行情两类。交易API（也称私有API）需要身份验证，为用户提供下单、撤单等功能。行情API（也称公开API）提供市场的行情数据，订单信息等。所有的行情API都是公开的，无需授权即可访问。 
+ViteX API分为交易和行情两类。交易API（也称私有API）需要身份验证和授权，为用户提供下单、撤单等功能。行情API（也称公开API）提供市场的行情数据，信息查询等。行情API无需授权即可访问。 
 
 ## 环境地址
 * 【TestNet】`https://api.vitex.net/test`
 * 【MainNet】: `https://api.vitex.net/`
 
 ## 接口规范
-API接口的响应均为JSON格式，时间戳均为UNIX时间，单位为毫秒。
+API接口的响应均为JSON格式，时间戳为UNIX时间。
 
 HTTP状态码：
 * HTTP `200` 表示接口正常返回
@@ -38,7 +38,7 @@ data | 接口返回的实际数据
 
 code状态码：
 * `0` 调用成功 
-* `1` 一般错误：可在msg字段中查看错误信息
+* `1` 一般错误：可在msg字段中查看具体错误信息
 * `1001` 访问限制：错误码表示超出API访问频次配额限制。
 * `1002` 参数错误：timestamp异常、订单价格格式错误、订单交易数量异常、订单交易金额过小、订单指定交易市场不存在、不存在的委托授权、symbol不存在
 * `1003` 网络环境：VITE全网拥堵、交易发送频繁，请您稍后再次尝试、代理地址配额不足
@@ -84,20 +84,20 @@ code状态码：
 2 | FOK - Fill or Kill | 要么全部成交，要么撤销 (暂不支持)
 
 ## 私有API授权
+
+在使用ViteX私有API前，用户必须在交易所"[委托代理](https://x.vite.net/tradeTrust)"页面授权，委托ViteX API服务代替用户发起交易。授权对象是API服务生成的代理地址（Delegation Address），用户无需提供私钥。
+
 * 当您需要第三方做市商来操作您的账户完成交易时，可以不将自己的私钥提供给做市商，而只提供API Key和API Secret。对方只能在您授权的交易对下进行下单和撤单操作，无法转移您的资产；
 * 您可以针对每个交易对单独授权，交易所合约会阻止API操作未经授权的交易对；
-* 您可以随时发起链上交易，取消对API的授权。授权取消后，即使仍持有有效的API Key和API Secret，ViteX交易所合约也不再接受来自API的订单请求。
+* 您可以随时取消对API的授权。授权取消后，即使仍持有有效的API Key和API Secret，ViteX交易所合约也不再接受来自API的订单请求。
 
-:::tip 代理地址
-通过API完成的下单、撤单等操作，是由API生成的代理地址（Delegation Address）的私钥进行签名的，产生的链上交易也位于代理地址的账户链，而不在用户自己的账户地址下。
+我们建议您仅授权必要的交易对。另外请注意，在任何情况下，您都不需要将自己的私钥和助记词提供给任何人。
+
+:::tip 代理地址及配额
+通过API完成的下单、撤单等操作，是由API生成的代理地址的私钥进行签名的，产生的链上交易位于代理地址的账户链，而不在用户自己的账户地址下。
 
 每个用户会分配有一个单独的代理地址。您需要为该地址抵押VITE代币来提供配额。 
 :::
-
-### 委托授权
-在使用ViteX私有API前，用户必须在Web钱包"委托代理"页面对交易对进行授权，委托API服务来代替用户发起交易。授权对象是交易所API服务生成的代理地址，用户无需提供私钥。
-
-我们建议您仅授权必要的交易对。另外请注意，在任何情况下，您都不要将自己的私钥和助记词提供给任何人。
 
 ### 访问控制
 API访问计数以60秒为一个固定周期，周期内套餐额度用完，则剩余时间内调用接口会失败。此外，剩余额度不会累积，上一个周期未使用的额度不会顺延到下一个周期。
@@ -110,7 +110,7 @@ API访问计数以60秒为一个固定周期，周期内套餐额度用完，则
 调用私有API时，除了接口本身要求的参数外，还需要传递`key`、`timestamp`和`signature`三个参数。
 
 * key：即`API Key`字段。
-* timestamp：为UNIX毫秒级时间戳 (UNIX-style timestamp in epoch millisecond format)，例如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求时间戳对服务端时间小于**2000 ms**或大于**1000 ms**，均认为该请求无效。
+* timestamp：为UNIX时间戳，单位为毫秒，如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求时间戳对服务端时间小于**2000 ms**或大于**1000 ms**，均认为该请求无效。
 * signature：该字段通过 HMAC SHA256 签名算法生成。取`API Secret`作为 HMAC SHA256 密钥，把其他所有参数作为操作对象，得到的输出即为签名。签名大小写不敏感。
 
 `timestamp`校验逻辑如下:
@@ -160,7 +160,7 @@ $ echo -n "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symb
 * **调用API：**
 
 ```bash
-$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v1/account/order
+$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v1/order
 ```
 
 ## 私有 REST API
@@ -234,9 +234,6 @@ signature | STRING | YES | 签名
 ```
 DELETE /api/v1/order
 ```
-:::tip 注意
-由于ViteX的订单操作是异步执行的，该接口只是向交易所合约发送撤单请求，不保证订单撤销成功。
-:::
 
 **配额消耗:**
 1 UT
@@ -269,9 +266,6 @@ signature | STRING | YES | 签名
 ```
 DELETE /api/v1/orders
 ```
-:::tip 注意
-由于ViteX的订单操作是异步执行的，该接口只是向交易所合约发送撤单请求，不保证订单撤销成功。
-:::
 
 **配额消耗:**
 N UT (N=订单数量)
@@ -599,6 +593,38 @@ limit | INTEGER | NO | 查询数量，默认`500`，最大`500`
 * **响应：**
 
   :::demo
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": {
+      "order": [
+        {
+          "address": "vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee",
+          "orderId": "5379b281583bb17c61bcfb1e523b95a6c153150e03ce9db35f37d652bbb1b321",
+          "symbol": "BTC-000_USDT-000",
+          "tradeTokenSymbol": "BTC-000",
+          "quoteTokenSymbol": "USDT-000",
+          "tradeToken": "tti_322862b3f8edae3b02b110b1",
+          "quoteToken": "tti_973afc9ffd18c4679de42e93",
+          "side": 0,
+          "price": "1.2000",
+          "quantity": "1.0000",
+          "amount": "1.20000000",
+          "executedQuantity": "0.0000",
+          "executedAmount": "0.0000",
+          "executedPercent": "0.0000",
+          "executedAvgPrice": "0.0000",
+          "confirmations": null,
+          "fee": "0.0000",
+          "status": 3,
+          "type": 0,
+          "createTime": 1587906622
+        }
+      ]
+    }
+  }
+  ```
   ```json test: "Test" url: /api/v1/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
@@ -1089,7 +1115,7 @@ locked | STRING | 交易所锁定（下单中）余额
   ```
   ::: 
 
-### 获取服务器时间（毫秒）
+### 获取服务器时间
 ```  
 GET /api/v1/time
 ```
