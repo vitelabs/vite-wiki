@@ -4,6 +4,14 @@ demoUrl: "https://api.vitex.net/test"
 
 # ViteX API
 
+## Update Logs
+2020-04-30
+- All apis will update to v2, v1 will be remained to 2020-05-15, please upgrade quickly.
+- Response msg. Will be changed from `Success` to `ok`.
+- Query order APIs do not need authorization. However, it requires address param. See `GET /api/v2/order /api/v2/orders`
+- Balance API does not require authorization either. `/api/v1/account` is mod to `/api/v2/balance`
+- `/markets、/ticker/24hr、/ticker/bookTicker` API updated
+
 ## Overview
 ViteX API enables users to complete trading operations on ViteX decentralized exchange without exposing private keys.
 ViteX API is categorized into trading API and market trends API. Trading API (also known as private API) requires authentication and authorization, and provides functions such as order placement and cancellation. 
@@ -136,7 +144,7 @@ Sample code of timestamp checking at server side:
 
 ### An Example
 
-Let's place an order through API `/api/v1/order`. Assume we have the following API Key and Secret:
+Let's place an order through API `/api/v2/order`. Assume we have the following API Key and Secret:
 
 API Key | API Secret
 ------------ | ------------
@@ -166,14 +174,14 @@ $ echo -n "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symb
 Call API to place the order:
 
 ```bash
-$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v1/order
+$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order
 ```
 
 ## Private REST API
 
 ### Place Order (test)
 ```
-POST /api/v1/order/test
+POST /api/v2/order/test
 ```
 Test placing order. The request will not be submitted to exchange. This API is generally used to verify that the signature is correct.
 
@@ -204,7 +212,7 @@ signature | STRING | YES | HMAC SHA256 signature of request string
 
 ### Place Order
 ```
-POST /api/v1/order
+POST /api/v2/order
 ```
 
 **Quota consumption:**
@@ -243,7 +251,7 @@ status | INTEGER | Order status
 ```
 ### Cancel Order
 ```
-DELETE /api/v1/order
+DELETE /api/v2/order
 ```
 
 **Quota consumption:**
@@ -283,7 +291,7 @@ status | INTEGER | Order status
 
 ### Cancel All Orders
 ```
-DELETE /api/v1/orders
+DELETE /api/v2/orders
 ```
 
 **Quota consumption:**
@@ -332,7 +340,7 @@ status | INTEGER | Order status
 
 ### Get Order Limit
 ```
-GET /api/v1/limit
+GET /api/v2/limit
 ```
 Get minimum order quantity for all markets
 
@@ -353,14 +361,14 @@ Get minimum order quantity for all markets
     }
   }
   ```
-  ```json test: "Test" url: /api/v1/limit method: GET
+  ```json test: "Test" url: /api/v2/limit method: GET
   {}
   ```
   :::
 
 ### Get All Tokens
 ```
-GET /api/v1/tokens
+GET /api/v2/tokens
 ```
 
 * **Parameters:**
@@ -395,14 +403,14 @@ limit | INTEGER | NO | Search limit, max `500`, default `500`
   }
   ```
   
-  ```json test:Test url: /api/v1/tokens?tokenSymbolLike=ETH method: GET
+  ```json test:Test url: /api/v2/tokens?tokenSymbolLike=ETH method: GET
   {}
   ```
   :::
 
 ### Get Token Detail
 ```
-GET /api/v1/token/detail
+GET /api/v2/token/detail
 ```
 
 * **Parameters:**
@@ -440,14 +448,14 @@ tokenId | STRING | NO | Token id. For example, `tti_5649544520544f4b454e6e40`
   }
   ```
   
-  ```json test:Test url: /api/v1/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Test url: /api/v2/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::
   
 ### Get Listed Tokens
 ```
-GET /api/v1/token/mapped
+GET /api/v2/token/mapped
 ```
 Get tokens that are already listed in specific market
 
@@ -474,14 +482,14 @@ quoteTokenSymbol | STRING | YES | Quote token symbol. For example, `VITE`
   }
   ```
   
-  ```json test:Test url: /api/v1/token/mapped?quoteTokenSymbol=VITE method: GET
+  ```json test:Test url: /api/v2/token/mapped?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
   
 ### Get Unlisted Tokens
 ```
-GET /api/v1/token/unmapped
+GET /api/v2/token/unmapped
 ```
 Get tokens that are not yet listed in specific market
 
@@ -508,14 +516,67 @@ quoteTokenSymbol | STRING | YES | Quote token symbol. For example, `VITE`
   }
   ```
   
-  ```json test:Test url: /api/v1/token/unmapped?quoteTokenSymbol=VITE method: GET
+  ```json test:Test url: /api/v2/token/unmapped?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
   
+### Get Trade Pair Detail
+```  
+GET /api/v2/market
+```
+
+* **Parameters:**
+
+Name | Type | Is Required? | Description
+------------ | ------------ | ------------ | ------------
+symbol | STRING | YES | Trading pair name. For example, `GRIN-000_BTC-000`
+
+* **Response：**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+     "code": 0,
+        "msg": "ok",
+        "data": {
+            "symbol": "GRIN-000_BTC-000",
+            "tradingCurrency": "GRIN-000",
+            "quoteCurrency": "BTC-000",
+            "tradingCurrencyId": "tti_289ee0569c7d3d75eac1b100",
+            "quoteCurrencyId": "tti_b90c9baffffc9dae58d1f33f",
+            "tradingCurrencyName": "Grin",
+            "quoteCurrencyName": "Bitcoin",
+            "operator": "vite_4c2c19f563187163145ab8f53f5bd36864756996e47a767ebe",
+            "operatorName": "Vite Labs",
+            "operatorLogo": "https://token-profile-1257137467.cos.ap-hongkong.myqcloud.com/icon/f62f3868f3cbb74e5ece8d5a4723abef.png",
+            "pricePrecision": 8,
+            "amountPrecision": 2,
+            "minOrderSize": "0.0001",
+            "operatorMakerFee": 5.0E-4,
+            "operatorTakerFee": 5.0E-4,
+            "highPrice": "0.00007000",
+            "lowPrice": "0.00006510",
+            "lastPrice": "0.00006682",
+            "volume": "1476.37000000",
+            "baseVolume": "0.09863671",
+            "bidPrice": "0.00006500",
+            "askPrice": "0.00006999",
+            "openBuyOrders": 27,
+            "openSellOrders": 42
+        }
+  }
+  ```
+  
+  ```json test:Test url: /api/v2/market?symbol=GRIN-000_BTC-000 method: GET
+  {}
+  ```
+  :::
+ 
 ### Get All Trading Pairs
 ```
-GET /api/v1/markets
+GET /api/v2/markets
 ```
 
 * **Parameters:**
@@ -547,14 +608,14 @@ limit | INTEGER | NO | Search limit, max `500`, default `500`
   }
   ```
   
-  ```json test:Test url: /api/v1/markets method: GET
+  ```json test:Test url: /api/v2/markets method: GET
   {}
   ```
   :::
 
 ### Get Order
 ```
-GET /api/v1/order
+GET /api/v2/order
 ```
 
 * **Parameters:**
@@ -596,14 +657,14 @@ orderId | STRING | NO | Order id
   }
   ```
   
-  ```json test:Test url: /api/v1/order?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test:Test url: /api/v2/order?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::  
 
 ### Get Open Order
 ```
-GET /api/v1/orders/open
+GET /api/v2/orders/open
 ```
 Get orders that are unfilled or partially filled.
 
@@ -654,14 +715,14 @@ total | INTEGER | NO | Include total number searched in result? `0` - not includ
     }
   }
   ```
-  ```json test: "Test" url: /api/v1/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test: "Test" url: /api/v2/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::
 
 ### Get Orders
 ```
-GET /api/v1/orders
+GET /api/v2/orders
 ```
 
 * **Parameters:**
@@ -717,14 +778,14 @@ total | INTEGER | NO | Include total number searched in result? `0` - not includ
   }
   ```
   
-  ```json test:Test url: /api/v1/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test:Test url: /api/v2/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::
 
 ### Get 24hr Ticker Price Changes
 ```
-GET /api/v1/ticker/24hr
+GET /api/v2/ticker/24hr
 ```
 
 * **Parameters:**
@@ -767,14 +828,14 @@ quoteTokenSymbol | STRING | NO | Quote token symbol. For example, `USDT-000`. Re
   }
   ```
   
-  ```json test:Test url: /api/v1/ticker/24hr?quoteTokenSymbol=VITE method: GET
+  ```json test:Test url: /api/v2/ticker/24hr?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
 
 ### Get Order Book Ticker
 ```  
-GET /api/v1/ticker/bookTicker
+GET /api/v2/ticker/bookTicker
 ```
 Get current best price/qty on the order book for a trading pair
 
@@ -803,14 +864,56 @@ symbol | STRING | YES | Trading pair name. For example, `GRIN-000_VITE`
   }
   ```
   
-  ```json test:Test url: /api/v1/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
+  ```json test:Test url: /api/v2/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
   {}
   ```
   :::
+ 
+### Get Trade Records Of Partial Data
+```
+GET /api/v2/trades
+```
+* **Parameters:**
+
+Name | Type | Is Required? | Description
+------------ | ------------ | ------------ | ------------
+symbol | STRING | YES | Trading pair name. For example.`GRIN-000_VITE`
+limit | INTEGER | NO | total records，default 500
+
+* **Response：**
+
+  :::demo
   
+  ```json tab:Response
+  {
+    "code": 0,
+    "msg": "ok",
+    "data": [
+      {
+          "timestamp": 1588214534000,
+          "price": "0.024933",
+          "amount": "0.0180",
+          "side": 0
+      },
+      {
+          "timestamp": 1588214364000,
+          "price": "0.024535",
+          "amount": "0.0127",
+          "side": 0
+      }
+    ]
+  }
+  ```
+  
+  ```json test:Test url: /api/v2/trades/part?symbol=BTC-000_USDT-000 method: GET
+  {}
+  ```
+  :::
+ 
+
 ### Get Trade Records
 ```
-Get /api/v1/trades
+Get /api/v2/trades/all
 ```
 
 * **Parameters:**
@@ -859,14 +962,14 @@ total | INTEGER | NO | Include total number searched in result? `0` - not includ
   }
   ```
   
-  ```json test:Test url: /api/v1/trades?symbol=BTC-000_USDT-000 method: GET
+  ```json test:Test url: /api/v2/trades?symbol=BTC-000_USDT-000 method: GET
   {}
   ```
   :::
   
 ### Get Order Book Depth
 ```
-GET /api/v1/depth
+GET /api/v2/depth
 ```
 
 * **Parameters:**
@@ -875,6 +978,7 @@ Name | Type | Is Required? | Description
 ------------ | ------------ | ------------ | ------------
 symbol | STRING | YES | Trading pair name. For example, `GRIN-000_VITE`
 limit | INTEGER | NO | Search limit, max `100`, default `100`
+precision | INTEGER | NO | Price Precision
 
 * **Response:**
 
@@ -882,45 +986,42 @@ limit | INTEGER | NO | Search limit, max `100`, default `100`
   
   ```json tab:Response
   {
-    "code": 0,
-    "msg": "ok",
-    "data": {
-      "asks": [
-        {
-          "price": "7600.7989",
-          "quantity": "0.0001",
-          "amount": "0.7600"
-        },
-        {
-          "price": "7725.0000",
-          "quantity": "0.0001",
-          "amount": "0.7725"
-        }    
-      ],
-      "bids": [
-        {
-          "price": "7600.0000",
-          "quantity": "0.7037",
-          "amount": "5348.1200"
-        },
-        {
-          "price": "7500.9662",
-          "quantity": "0.0011",
-          "amount": "8.2510"
-        }
-      ]
+      "code": 0,
+      "msg": "ok",
+      "data": {
+        "timestamp": 1588170501936,
+        "asks": [
+          [
+              "0.025750",
+              "0.0323"
+          ],
+          [
+              "0.026117",
+              "0.0031"
+          ]    
+        ],
+        "bids": [
+          [
+              "0.024820",
+              "0.0004"
+          ],
+          [
+              "0.024161",
+              "0.0042"
+          ]
+        ]
+      }
     }
-  }
   ```
   
-  ```json test:Test url: /api/v1/depth?symbol=BTC-000_USDT-000 method: GET
+  ```json test:Test url: /api/v2/depth?symbol=BTC-000_USDT-000 method: GET
   {}
   ```
   :::
 
 ### Get Klines
 ```
-GET /api/v1/klines
+GET /api/v2/klines
 ```
 
 * **Parameters:**
@@ -973,14 +1074,14 @@ v | STRING | Trade volume
   }
   ```
   
-  ```json test:Test url: /api/v1/klines?symbol=VITE_BTC-000&interval=minute method: GET
+  ```json test:Test url: /api/v2/klines?symbol=VITE_BTC-000&interval=minute method: GET
   {}
   ```
   :::
   
 ### Get Deposit-Withdrawal Records
 ```
-/api/v1/deposit-withdraw
+/api/v2/deposit-withdraw
 ```
 
 * **Parameters:**
@@ -1014,14 +1115,14 @@ limit | INTEGER | NO | Search limit, max `100`, default `100`
   }
   ```
   
-  ```json test:Test url: /api/v1/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Test url: /api/v2/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::
   
 ### Get Exchange Rate
 ```
-GET /api/v1/exchange-rate
+GET /api/v2/exchange-rate
 ```
 
 * **Parameters:**
@@ -1050,14 +1151,14 @@ tokenIds | STRING | NO | Token ids, split by ",". For example, `tti_564954452054
   }
   ```
   
-  ```json test:Test url: /api/v1/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Test url: /api/v2/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   ::: 
 
 ### Get USD-CNY Rate
 ```
-GET /api/v1/usd-cny
+GET /api/v2/usd-cny
 ```
 
 * **Parameters:**
@@ -1075,14 +1176,14 @@ GET /api/v1/usd-cny
   }
   ```
   
-  ```json test:Run url: /api/v1/usd-cny method: GET
+  ```json test:Run url: /api/v2/usd-cny method: GET
   {}
   ```
   :::
 
 ### Get Exchange Balance
 ```
-/api/v1/balance
+/api/v2/balance
 ```
 
 **Parameters:**
@@ -1137,14 +1238,14 @@ locked | STRING | Balance locked by open order
   }
   ```
   
-  ```json test:Test url: /api/v1/balance method: GET
+  ```json test:Test url: /api/v2/balance method: GET
   {}
   ```
   ::: 
 
 ### Get Server Time
 ```
-GET /api/v1/time
+GET /api/v2/time
 ```
 
 * **Parameters:**
@@ -1162,7 +1263,7 @@ GET /api/v1/time
   }
   ```
   
-  ```json test:Run url: /api/v1/time method: GET
+  ```json test:Run url: /api/v2/time method: GET
   {}
   ```
   ::: 
