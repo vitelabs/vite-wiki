@@ -1746,8 +1746,8 @@ private Double l;
 
 * **定义:**
 ```java
-private List<List<String>> asks; [[price, quantity],[price, quantity]]
-private List<List<String>> bids; [[price, quantity],[price, quantity]]
+private List<List<String>> asks; // [[price, quantity],[price, quantity]]
+private List<List<String>> bids; // [[price, quantity],[price, quantity]]
 ```
 
 * **示例:**

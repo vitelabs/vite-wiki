@@ -1777,8 +1777,8 @@ private Double l;
 
 * **Definition:**
 ```java
-private List<List<String>> asks; [[price, quantity],[price, quantity]]
-private List<List<String>> bids; [[price, quantity],[price, quantity]]
+private List<List<String>> asks; // [[price, quantity],[price, quantity]]
+private List<List<String>> bids; // [[price, quantity],[price, quantity]]
 ```
 
 * **Example:**
