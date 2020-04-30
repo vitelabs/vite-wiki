@@ -4,6 +4,14 @@ demoUrl: "https://api.vitex.net/test"
 
 # ViteX API
 
+## 更新日志
+2020-04-30
+- 所有接口即将升级到v2， v1保留到2020-05-15， 请尽快升级
+- 返回字段 msg 值由`Success` 改为 `ok`
+- 查询订单接口不再授权，需要传入用户地址，详情见`GET /api/v2/order /api/v2/orders`
+- 查询用户余额接口不再授权，`/api/v1/account` 改为 `/api/v2/balance`
+- `/markets、/ticker/24hr、/ticker/bookTicker` 接口变动
+
 ## 概述
 ViteX API允许用户在不暴露私钥的情况下，完成在ViteX去中心化交易所的相关操作。
 ViteX API分为交易和行情两类。交易API（也称私有API）需要身份验证和授权，为用户提供下单、撤单等功能。行情API（也称公开API）提供市场的行情数据，信息查询等。行情API无需授权即可访问。 
@@ -132,7 +140,7 @@ API访问计数以60秒为一个固定周期，周期内套餐额度用完，则
 
 ### 接口签名示例
 
-下面是调用下单接口`/api/v1/order`的示例，假设API Key和API Secret为：
+下面是调用下单接口`/api/v2/order`的示例，假设API Key和API Secret为：
 
 API Key | API Secret
 ------------ | ------------
@@ -160,7 +168,7 @@ $ echo -n "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symb
 * **调用API：**
 
 ```bash
-$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v1/order
+$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order
 ```
 
 ## 私有 REST API
@@ -168,7 +176,7 @@ $ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&sid
 ### 下单测试
 测试订单请求，但不会提交到交易所合约。该接口一般用来验证签名是否正确
 ```
-POST /api/v1/order/test
+POST /api/v2/order/test
 ```
 
 **配额消耗:**
@@ -198,7 +206,7 @@ signature | STRING | YES | 签名
 
 ### 下单
 ```
-POST /api/v1/order
+POST /api/v2/order
 ```
 
 **配额消耗:**
@@ -232,7 +240,7 @@ signature | STRING | YES | 签名
 
 ### 撤销订单
 ```
-DELETE /api/v1/order
+DELETE /api/v2/order
 ```
 
 **配额消耗:**
@@ -264,7 +272,7 @@ signature | STRING | YES | 签名
 
 ### 撤销全部订单
 ```
-DELETE /api/v1/orders
+DELETE /api/v2/orders
 ```
 
 **配额消耗:**
@@ -304,7 +312,7 @@ signature | STRING | YES | 签名
 ## 公有 REST API
 ### 获取各个市场最小下单金额
 ```  
-GET /api/v1/limit 
+GET /api/v2/limit 
 ```
 
 * **响应：**
@@ -324,14 +332,14 @@ GET /api/v1/limit
     }
   }
   ```
-  ```json test: "Test" url: /api/v1/limit method: GET
+  ```json test: "Test" url: /api/v2/limit method: GET
   {}
   ```
   :::
 
 ### 获取所有代币列表
 ```  
-GET /api/v1/tokens
+GET /api/v2/tokens
 ```
 
 * **参数：**
@@ -366,14 +374,14 @@ limit | INTEGER | NO | 查询数量，默认`500`，最大`500`
   }
   ```
   
-  ```json test:Test url: /api/v1/tokens?tokenSymbolLike=ETH method: GET
+  ```json test:Test url: /api/v2/tokens?tokenSymbolLike=ETH method: GET
   {}
   ```
   :::
 
 ### 获取代币详情
 ```  
-GET /api/v1/token/detail
+GET /api/v2/token/detail
 ```
 
 * **参数：**
@@ -411,7 +419,7 @@ tokenId | STRING | NO | 币种id，如`tti_5649544520544f4b454e6e40`
   }
   ```
   
-  ```json test:Test url: /api/v1/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Test url: /api/v2/token/detail?tokenId=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::
@@ -419,7 +427,7 @@ tokenId | STRING | NO | 币种id，如`tti_5649544520544f4b454e6e40`
 ### 获取已开通交易对的代币列表
 
 ```  
-GET /api/v1/token/mapped
+GET /api/v2/token/mapped
 ```
 
 * **参数：**
@@ -445,7 +453,7 @@ quoteTokenSymbol | STRING | YES | 基础币种（定价币种）简称，如`VIT
   }
   ```
   
-  ```json test:Test url: /api/v1/token/mapped?quoteTokenSymbol=VITE method: GET
+  ```json test:Test url: /api/v2/token/mapped?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
@@ -453,7 +461,7 @@ quoteTokenSymbol | STRING | YES | 基础币种（定价币种）简称，如`VIT
 ### 获取未开通交易对的代币列表
 
 ```  
-GET /api/v1/token/unmapped
+GET /api/v2/token/unmapped
 ```
 
 * **参数：**
@@ -479,14 +487,67 @@ quoteTokenSymbol | STRING | YES | 基础币种（定价币种）简称，如`VIT
   }
   ```
   
-  ```json test:Test url: /api/v1/token/unmapped?quoteTokenSymbol=VITE method: GET
+  ```json test:Test url: /api/v2/token/unmapped?quoteTokenSymbol=VITE method: GET
+  {}
+  ```
+  :::
+
+### 获取某个交易对详情
+```  
+GET /api/v2/market
+```
+
+* **参数：**
+
+名称 | 类型 | 是否必须 | 描述
+------------ | ------------ | ------------ | ------------
+symbol | STRING | YES | 交易对名称，如`GRIN-000_BTC-000`
+
+* **响应：**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+     "code": 0,
+        "msg": "ok",
+        "data": {
+            "symbol": "GRIN-000_BTC-000",
+            "tradingCurrency": "GRIN-000",
+            "quoteCurrency": "BTC-000",
+            "tradingCurrencyId": "tti_289ee0569c7d3d75eac1b100",
+            "quoteCurrencyId": "tti_b90c9baffffc9dae58d1f33f",
+            "tradingCurrencyName": "Grin",
+            "quoteCurrencyName": "Bitcoin",
+            "operator": "vite_4c2c19f563187163145ab8f53f5bd36864756996e47a767ebe",
+            "operatorName": "Vite Labs",
+            "operatorLogo": "https://token-profile-1257137467.cos.ap-hongkong.myqcloud.com/icon/f62f3868f3cbb74e5ece8d5a4723abef.png",
+            "pricePrecision": 8,
+            "amountPrecision": 2,
+            "minOrderSize": "0.0001",
+            "operatorMakerFee": 5.0E-4,
+            "operatorTakerFee": 5.0E-4,
+            "highPrice": "0.00007000",
+            "lowPrice": "0.00006510",
+            "lastPrice": "0.00006682",
+            "volume": "1476.37000000",
+            "baseVolume": "0.09863671",
+            "bidPrice": "0.00006500",
+            "askPrice": "0.00006999",
+            "openBuyOrders": 27,
+            "openSellOrders": 42
+        }
+  }
+  ```
+  
+  ```json test:Test url: /api/v2/market?symbol=GRIN-000_BTC-000 method: GET
   {}
   ```
   :::
   
 ### 获取所有市场交易对
 ```  
-GET /api/v1/markets
+GET /api/v2/markets
 ```
 
 * **参数：**
@@ -518,14 +579,14 @@ limit | INTEGER | NO | 查询数量，默认`500`，最大`500`
   }
   ```
   
-  ```json test:Test url: /api/v1/markets method: GET
+  ```json test:Test url: /api/v2/markets method: GET
   {}
   ```
   :::
 
 ### 获取订单信息
 ```  
-GET /api/v1/order
+GET /api/v2/order
 ```
 
 * **参数：**
@@ -567,14 +628,14 @@ orderId | STRING | NO | 订单id
   }
   ```
   
-  ```json test:Test url: /api/v1/order?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test:Test url: /api/v2/order?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::  
 
 ### 获取挂单信息
 ```
-GET /api/v1/orders/open
+GET /api/v2/orders/open
 ```
 
 获取当前未成交与部分成交状态的订单信息
@@ -626,14 +687,14 @@ total | INTEGER | NO | 是否在结果中包含查询总数，`0`不包含，`1`
     }
   }
   ```
-  ```json test: "Test" url: /api/v1/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test: "Test" url: /api/v2/orders/open?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::
 
 ### 获取订单列表
 ```  
-GET /api/v1/orders
+GET /api/v2/orders
 ```
 
 * **参数：**
@@ -689,14 +750,14 @@ total | INTEGER | NO | 是否在结果中包含查询总数，`0`不包含，`1`
   }
   ```
   
-  ```json test:Test url: /api/v1/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
+  ```json test:Test url: /api/v2/orders?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee method: GET
   {}
   ```
   :::
 
 ### 获取24小时行情
 ```  
-GET /api/v1/ticker/24hr
+GET /api/v2/ticker/24hr
 ```
 
 * **参数：**
@@ -739,14 +800,14 @@ quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`USDT
   }
   ```
   
-  ```json test:Test url: /api/v1/ticker/24hr?quoteTokenSymbol=VITE method: GET
+  ```json test:Test url: /api/v2/ticker/24hr?quoteTokenSymbol=VITE method: GET
   {}
   ```
   :::
 
 ### 获取当前最优挂单
 ```  
-GET /api/v1/ticker/bookTicker
+GET /api/v2/ticker/bookTicker
 ```
 
 * **参数：**
@@ -774,14 +835,57 @@ symbol | STRING | YES | 交易对名称，如`GRIN-000_VITE`
   }
   ```
   
-  ```json test:Test url: /api/v1/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
+  ```json test:Test url: /api/v2/ticker/bookTicker?symbol=BTC-000_VITE-000 method: GET
   {}
   ```
   :::
   
-### 获取成交记录
+  
+### 获取精简数据成交记录
+```
+GET /api/v2/trades
+```
+* **参数：**
+
+名称 | 类型 | 是否必须 | 描述
+------------ | ------------ | ------------ | ------------
+symbol | STRING | YES | 交易对名称，如`GRIN-000_VITE`
+limit | INTEGER | NO | 数量，默认500
+
+* **响应：**
+
+  :::demo
+  
+  ```json tab:Response
+  {
+      "code": 0,
+      "msg": "ok",
+      "data": [
+        {
+            "timestamp": 1588214534000,
+            "price": "0.024933",
+            "amount": "0.0180",
+            "side": 0
+        },
+        {
+            "timestamp": 1588214364000,
+            "price": "0.024535",
+            "amount": "0.0127",
+            "side": 0
+        }
+      ]
+    }
+  ```
+  
+  ```json test:Test url: /api/v2/trades/part?symbol=BTC-000_USDT-000 method: GET
+  {}
+  ```
+  :::
+
+
+### 获取完整数据成交记录
 ```  
-GET /api/v1/trades
+GET /api/v2/trades/all
 ```
 
 * **参数：**
@@ -830,14 +934,14 @@ total | INTEGER | NO | 是否返回查询总数，不返回`0`，返回`1`，默
   }
   ```
   
-  ```json test:Test url: /api/v1/trades?symbol=BTC-000_USDT-000 method: GET
+  ```json test:Test url: /api/v2/trades?symbol=BTC-000_USDT-000 method: GET
   {}
   ```
   :::
   
 ### 获取市场深度
 ```  
-GET /api/v1/depth
+GET /api/v2/depth
 ```
 
 * **参数：**
@@ -846,6 +950,7 @@ GET /api/v1/depth
 ------------ | ------------ | ------------ | ------------
 symbol | STRING | YES | 交易对名称，如`GRIN-000_VITE`
 limit | INTEGER | NO | 返回结果数量，最大`100`，缺省`100`
+precision | INTEGER | NO | 价格小数位
 
 * **响应：**
 
@@ -856,42 +961,39 @@ limit | INTEGER | NO | 返回结果数量，最大`100`，缺省`100`
     "code": 0,
     "msg": "ok",
     "data": {
+      "timestamp": 1588170501936,
       "asks": [
-        {
-          "price": "7600.7989",
-          "quantity": "0.0001",
-          "amount": "0.7600"
-        },
-        {
-          "price": "7725.0000",
-          "quantity": "0.0001",
-          "amount": "0.7725"
-        }    
+        [
+            "0.025750",
+            "0.0323"
+        ],
+        [
+            "0.026117",
+            "0.0031"
+        ]    
       ],
       "bids": [
-        {
-          "price": "7600.0000",
-          "quantity": "0.7037",
-          "amount": "5348.1200"
-        },
-        {
-          "price": "7500.9662",
-          "quantity": "0.0011",
-          "amount": "8.2510"
-        }
+        [
+            "0.024820",
+            "0.0004"
+        ],
+        [
+            "0.024161",
+            "0.0042"
+        ]
       ]
     }
   }
   ```
   
-  ```json test:Test url: /api/v1/depth?symbol=BTC-000_USDT-000 method: GET
+  ```json test:Test url: /api/v2/depth?symbol=BTC-000_USDT-000 method: GET
   {}
   ```
   :::
 
 ### 获取K线数据
 ```  
-GET /api/v1/klines
+GET /api/v2/klines
 ```
 
 * **参数：**
@@ -944,14 +1046,14 @@ v | STRING | 交易币种交易量(volume)
   }
   ```
   
-  ```json test:Test url: /api/v1/klines?symbol=VITE_BTC-000&interval=minute method: GET
+  ```json test:Test url: /api/v2/klines?symbol=VITE_BTC-000&interval=minute method: GET
   {}
   ```
   :::
   
 ### 获取充提记录
 ```  
-GET /api/v1/deposit-withdraw
+GET /api/v2/deposit-withdraw
 ```
 
 * **参数：**
@@ -985,14 +1087,14 @@ limit | INTEGER | NO | 查询数量，默认`100`，最大`100`
   }
   ```
   
-  ```json test:Test url: /api/v1/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Test url: /api/v2/deposit-withdraw?address=vite_ff38174de69ddc63b2e05402e5c67c356d7d17e819a0ffadee&tokenId=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::
   
 ### 获取币种汇率
 ```  
-GET /api/v1/exchange-rate
+GET /api/v2/exchange-rate
 ```
 
 * **参数：**
@@ -1021,14 +1123,14 @@ tokenIds | STRING | NO | 币种id列表，用","分隔，如`tti_5649544520544f4
   }
   ```
   
-  ```json test:Test url: /api/v1/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
+  ```json test:Test url: /api/v2/exchange-rate?tokenIds=tti_5649544520544f4b454e6e40 method: GET
   {}
   ```
   :::  
 
 ### 获取美元人民币汇率
 ```  
-GET /api/v1/usd-cny
+GET /api/v2/usd-cny
 ```
 
 * **参数：**
@@ -1046,7 +1148,7 @@ GET /api/v1/usd-cny
   }
   ```
   
-  ```json test:Test url: /api/v1/usd-cny method: GET
+  ```json test:Test url: /api/v2/usd-cny method: GET
   {}
   ```
   ::: 
@@ -1054,7 +1156,7 @@ GET /api/v1/usd-cny
 
 ### 获取用户交易所账户余额
 ```
-GET /api/v1/balance
+GET /api/v2/balance
 ```
 
 **参数：**
@@ -1110,14 +1212,14 @@ locked | STRING | 交易所锁定（下单中）余额
   }
   ```
   
-  ```json test:Test url: /api/v1/balance method: GET
+  ```json test:Test url: /api/v2/balance method: GET
   {}
   ```
   ::: 
 
 ### 获取服务器时间
 ```  
-GET /api/v1/time
+GET /api/v2/time
 ```
 
 * **参数：**
@@ -1135,12 +1237,12 @@ GET /api/v1/time
   }
   ```
   
-  ```json test:Test url: /api/v1/time method: GET
+  ```json test:Test url: /api/v2/time method: GET
   {}
   ```
   ::: 
 
-## WebSocket API
+## WebSocket API By PB
 
 ### 环境地址
 * 【MainNet】`wss://vitex.vite.net/websocket`
@@ -1353,4 +1455,213 @@ message DepthProto {
     //交易量
     string amount = 3;
 }
+```
+
+## WebSocket API By JSON
+
+### 环境地址
+* 【MainNet】`wss://api.vitex.net/ws`
+
+### op_type定义
+* sub，表示订阅
+* un_sub，表示取消订阅
+* ping，表示心跳请求，保证10s内一次，用于判断客户端client_id是否有效
+* pong，服务端响应，通常无须关注
+* push，表示服务推送数据
+
+:::tip 注意
+`ping`心跳消息需要至少1分钟周期发送1次。当心跳间隔超过1分钟后，注册的事件订阅（Event Subscription）会失效清理
+:::
+
+### topics列表
+支持单、多主题订阅，多个主题订阅使用","分隔，如：`topic1,topic2`
+
+| 主题 | 描述| Message |
+|:--|:--|:--:|
+|`order.$address`|订单变化| `OrderProto`|
+|`market.$symbol.depth`|深度数据| `DepthListProto`|
+|`market.$symbol.trade`|交易数据| `TradeListProto`|
+|`market.$symbol.tickers`|某个交易对统计数据|`TickerStatisticsProto`|
+|`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|`TickerStatisticsProto`|
+|`market.quoteTokenCategory.VITE.tickers`|VITE市场的交易对统计数据|`TickerStatisticsProto`|
+|`market.quoteTokenCategory.ETH.tickers`|ETH市场的交易对统计数据|`TickerStatisticsProto`|
+|`market.quoteTokenCategory.USDT.tickers`|USDT市场的交易对统计数据|`TickerStatisticsProto`|
+|`market.quoteTokenCategory.BTC.tickers`|BTC市场的交易对统计数据|`TickerStatisticsProto`|
+|`market.$symbol.kline.minute`|分钟kline数据|`KlineProto`|
+|`market.$symbol.kline.minute30`|30分钟kline数据|`KlineProto`|
+|`market.$symbol.kline.hour`|1小时kline数据|`KlineProto`|
+|`market.$symbol.kline.day`|日kline数据|`KlineProto`|
+|`market.$symbol.kline.week`|周kline数据|`KlineProto`|
+|`market.$symbol.kline.hour6`|6小时kline数据|`KlineProto`|
+|`market.$symbol.kline.hour12`|12小时kline数据|`KlineProto`|
+
+### message数据结构定义
+
+#### Order
+```
+//订单ID(之后会被废弃，使用hash作为api中的orderId)
+private String oid;
+//symbol
+private String s;
+//tradeTokenSymbol
+private String ts;
+//quoteTokenSymbol
+private String qs;
+//trade tokenId
+private String tid;
+//quote tokenId
+private String qid;
+//方向
+private Integer side;
+//价格
+private String p;
+//数量
+private String q;
+//交易量
+private String a;
+//成交Quantity
+private String eq;
+//成交Amount
+private String ea;
+//成交率executedPercent
+private String ep;
+//均价 executedAvgPrice
+private String eap;
+//手续费fee
+private String f;
+//状态status
+private Integer st;
+//类型type
+private Integer tp;
+//时间createTime
+private Long ct;
+//地址 address
+private String d;
+//订单hash order hash
+private String h;
+```
+订阅
+```
+{"clientId": "test", "opType": "sub", "topics": "order.vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072"}
+```
+返回
+```
+{"message":{"a":"13.72516176","ct":1588142062,"d":"vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072","ea":"13.7251","eap":"0.1688","ep":"1.0000","eq":"81.3102","f":"0.0308","h":"b0e0e20739c570d533679315dbb154201c8367b6e23636b6521e9ebdd9f8fc0a","oid":"00002800ffffffffffd8b2bc67ff005ea91f9a000012","p":"0.1688","q":"81.3102","qid":"tti_80f3751485e4e83456059473","qs":"USDT-000","s":"VX_USDT-000","side":0,"st":2,"tid":"tti_564954455820434f494e69b5","tp":0,"ts":"VX"}}
+```
+
+#### Trade
+```
+// tradeId
+private String id;
+//symbol
+private String s;
+//trade symbol
+private String ts;
+//quote symbol
+private String qs;
+//trade tokenId
+private String tid;
+//quote tokenId
+private String qid;
+//price
+private String p;
+//quantity
+private String q;
+//amount
+private String a;
+//time
+private Long t;
+//side
+private Integer side;
+//buyerOrderId
+private String bid;
+//sellerOrderId
+private String sid;
+//buyFee
+private String bf;
+//sellFee
+private String sf;
+//blockHeight
+private Long bh;
+```
+订阅
+```
+{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.trade"}
+```
+返回
+```
+{"message":[{"a":"6324.77710294","bf":"14.23074848","bh":14526719,"bid":"00001f00fffffffff340910fa1ff005e6618cb000030","id":"702d8d5bd6e8d5aa7b40953484acbcfeae6c1fcf","p":"12.8222","q":"493.2677","qid":"tti_5649544520544f4b454e6e40","qs":"VITE","s":"VX_VITE","sf":"14.23074848","sid":"00001f01000000000cbf6ef05e00005e6618cb00002f","side":0,"t":1583749346,"tid":"tti_564954455820434f494e69b5","ts":"VX"}]}
+
+```
+
+#### TickerStatistics
+```
+//symbol
+private String s;
+// trade symbol
+private String ts;
+// quote symbol
+private String qs;
+//tokenId
+private String tid;
+//tokenId
+private String qid;
+//open price价格
+private String op;
+//prevClosePrice 价格
+private String pcp;
+//close price价格
+private String cp;
+//priceChange 价格
+private String pc;
+//priceChangePercent 变化率
+private String pCp;
+//highPrice 价格
+private String hp;
+//lowPrice价格
+private String lp;
+//quantity 数量
+private String q;
+//amount 成交额
+private String a;
+//pricePrecision
+private Integer pp;
+//quantityPrecision
+private Integer qp;
+```
+订阅
+```
+{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.tickers"}
+```
+返回
+```
+{"message":{"a":"14932378.5785","cp":"13.3013","hp":"13.5200","lp":"10.9902","op":"11.3605","pc":"1.9408","pcp":"13.2947","pp":4,"q":"1207963.7611","qid":"tti_5649544520544f4b454e6e40","qp":4,"qs":"VITE","s":"VX_VITE","tid":"tti_564954455820434f494e69b5","ts":"VX"}}
+
+```
+
+#### KLine
+```
+private Long t;
+private Double c;
+private Double o;
+private Double v;
+private Double h;
+private Double l;
+```
+返回
+```
+eg.{"message":{"c":12.935,"h":12.935,"l":12.935,"o":12.935,"t":1583749440,"v":415.1729}}
+```
+#### Depth
+```
+private List<List<String>> asks; [[price, quantity],[price, quantity]]
+private List<List<String>> bids; [[price, quantity],[price, quantity]]
+```
+订阅
+```
+{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.depth"}
+```
+返回
+```
+eg.{"message":{"asks":[["12.9320","185.3194"],["13.3300","48.9177"],["13.3330","500.0000"],["13.4959","1305.9508"],["13.4970","23.9726"],["13.5100","466.7237"],["13.8000","134.5858"],["14.5001","370.1352"],["17.5999","152.3650"],["18.4919","9.1965"],["19.7800","10.3345"],["19.8550","7.5232"],["20.2000","2.7529"],["21.0000","12.9990"],["24.9899","34.6248"],["24.9990","28.0000"],["25.0000","6.6744"],["28.0000","28.0000"],["30.0000","2.0000"],["32.0000","1.5659"],["33.4000","42.3293"],["35.0000","119.3452"],["36.0000","18.3143"],["36.4789","21.1023"],["37.4850","2.7506"],["37.4900","118.0630"],["38.0000","17108.4719"],["40.0000","40.1367"],["41.0000","36.5145"],["45.0000","4.4299"],["48.6419","44.7889"],["52.0000","2.5392"],["55.0000","3.0000"],["57.1897","7.3712"],["70.0000","3.0000"],["75.4500","19.1228"],["80.0000","12.0000"],["81.7000","3.5679"],["100.0000","10.9090"],["102.3742","20.0000"],["113.8305","2.0357"],["120.0000","100.0000"],["125.1148","9.1643"],["132.3742","10.0000"],["142.3742","10.0000"],["150.0000","10.0000"],["152.3742","6.0000"],["162.7266","5.0000"],["165.7266","10.0000"],["168.7266","5.0000"],["180.0000","0.2831"],["200.0000","20.2532"],["1111.0000","0.0469"],["470000.8000","0.0097"]],"bids":[["12.7002","170.2562"],["12.7001","35.8857"],["12.7000","44.3985"],["12.6000","63.6076"],["12.5000","75.2277"],["12.4100","10.5713"],["12.4000","15339.2586"],["12.3010","324.6731"],["12.3000","222.7945"],["12.2523","21445.3107"],["12.2475","842.1940"],["12.2001","151366.1708"],["12.2000","261800.9208"],["12.1499","4.3464"],["12.0001","31.3095"],["12.0000","50.3072"],["11.8000","2632.2226"],["11.0000","5516.0734"],["10.6500","112.6625"],["10.6000","557.6044"],["10.3926","1000.0000"],["10.3400","48.2353"],["10.3000","14.5267"],["10.0000","405.0375"],["9.4000","530.5884"],["9.0000","446.1103"],["8.6000","635.6718"],["8.1000","5822.4356"],["4.3862","22.7885"],["4.1000","24.3792"],["1.0100","1220.3311"],["0.5000","1999.1004"],["0.4000","249.8875"],["0.3000","333.1834"],["0.2000","499.7751"],["0.1000","999.5502"]]}}
 ```
