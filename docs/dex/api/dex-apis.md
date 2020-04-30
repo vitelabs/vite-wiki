@@ -1275,7 +1275,7 @@ GET /api/v2/time
 
 ## WebSocket API
 
-## Definition of op_type  
+### Definition of op_type  
 * sub: subscribe
 * un_sub: un-subscribe
 * ping: heartbeat. 
