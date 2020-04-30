@@ -4,13 +4,14 @@ demoUrl: "https://api.vitex.net/test"
 
 # ViteX API
 
-## 更新日志
+:::tip 更新日志
 2020-04-30
-- 所有接口即将升级到v2， v1保留到2020-05-15， 请尽快升级
-- 返回字段 msg 值由`Success` 改为 `ok`
-- 查询订单接口不再授权，需要传入用户地址，详情见`GET /api/v2/order /api/v2/orders`
-- 查询用户余额接口不再授权，`/api/v1/account` 改为 `/api/v2/balance`
-- `/markets、/ticker/24hr、/ticker/bookTicker` 接口变动
+- API接口版本升级到v2，原有v1版本接口将保留到2020-05-15，请现有API用户尽快升级；
+- 返回字段 msg 值由`Success` 改为 `ok`；
+- 查询订单接口变更为公开接口，不再需要授权，根据用户地址即可查询，详情见`/api/v2/order`和`/api/v2/orders`；
+- 查询用户余额接口变更为公开接口，不再需要授权。由`/api/v1/account` 改为 `/api/v2/balance`；
+- `/markets`、`/ticker/24hr`、`/ticker/bookTicker` 接口发生变动。
+:::
 
 ## 概述
 ViteX API允许用户在不暴露私钥的情况下，完成在ViteX去中心化交易所的相关操作。
@@ -1242,7 +1243,42 @@ GET /api/v2/time
   ```
   ::: 
 
-## WebSocket API By PB
+## WebSocket API
+
+### op_type定义
+* sub，表示订阅
+* un_sub，表示取消订阅
+* ping，表示心跳请求，保证10s内一次，用于判断客户端client_id是否有效
+* pong，服务端响应，通常无须关注
+* push，表示服务推送数据
+
+:::tip 注意
+`ping`心跳消息需要至少1分钟周期发送1次。当心跳间隔超过1分钟后，注册的事件订阅（Event Subscription）会失效清理
+:::
+
+### topics列表
+支持单、多主题订阅，多个主题订阅使用","分隔，如：`topic1,topic2`
+
+| 主题 | 描述| Message |
+|:--|:--|:--:|
+|`order.$address`|订单变化| `Order`|
+|`market.$symbol.depth`|深度数据| `DepthList`|
+|`market.$symbol.trade`|交易数据| `TradeList`|
+|`market.$symbol.tickers`|某个交易对统计数据|`TickerStatistics`|
+|`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.VITE.tickers`|VITE市场的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.ETH.tickers`|ETH市场的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.USDT.tickers`|USDT市场的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.BTC.tickers`|BTC市场的交易对统计数据|`TickerStatistics`|
+|`market.$symbol.kline.minute`|分钟kline数据|`Kline`|
+|`market.$symbol.kline.minute30`|30分钟kline数据|`Kline`|
+|`market.$symbol.kline.hour`|1小时kline数据|`Kline`|
+|`market.$symbol.kline.day`|日kline数据|`Kline`|
+|`market.$symbol.kline.week`|周kline数据|`Kline`|
+|`market.$symbol.kline.hour6`|6小时kline数据|`Kline`|
+|`market.$symbol.kline.hour12`|12小时kline数据|`Kline`|
+
+## Protobuf 消息订阅
 
 ### 环境地址
 * 【MainNet】`wss://vitex.vite.net/websocket`
@@ -1266,47 +1302,13 @@ message DexProtocol {
 }
 ```
 
-### op_type定义
-* sub，表示订阅
-* un_sub，表示取消订阅
-* ping，表示心跳请求，保证10s内一次，用于判断客户端client_id是否有效
-* pong，服务端响应，通常无须关注
-* push，表示服务推送数据
-
-:::tip 注意
-`ping`心跳消息需要至少1分钟周期发送1次。当心跳间隔超过1分钟后，注册的事件订阅（Event Subscription）会失效清理
-:::
-
-### topics列表
-支持单、多主题订阅，多个主题订阅使用","分隔，如：`topic1,topic2`
-
-| 主题 | 描述| Message |
-|:--|:--|:--:|
-|`order.$address`|订单变化| `OrderProto`|
-|`market.$symbol.depth`|深度数据| `DepthListProto`|
-|`market.$symbol.trade`|交易数据| `TradeListProto`|
-|`market.$symbol.tickers`|某个交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.VITE.tickers`|VITE市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.ETH.tickers`|ETH市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.USDT.tickers`|USDT市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.BTC.tickers`|BTC市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.$symbol.kline.minute`|分钟kline数据|`KlineProto`|
-|`market.$symbol.kline.minute30`|30分钟kline数据|`KlineProto`|
-|`market.$symbol.kline.hour`|1小时kline数据|`KlineProto`|
-|`market.$symbol.kline.day`|日kline数据|`KlineProto`|
-|`market.$symbol.kline.week`|周kline数据|`KlineProto`|
-|`market.$symbol.kline.hour6`|6小时kline数据|`KlineProto`|
-|`market.$symbol.kline.hour12`|12小时kline数据|`KlineProto`|
-
-
 ### message数据结构定义
 ```
 syntax = "proto3";
 option java_package = "org.vite.data.dex.bean.proto";
 option java_outer_classname = "DexPushMessage";
 
-
+// TickerStatistics
 message TickerStatisticsProto {
 
     //symbol
@@ -1343,11 +1345,12 @@ message TickerStatisticsProto {
     int32 quantityPrecision = 16;
 }
 
-
+// TradeList
 message TradeListProto {
     repeated TradeProto trade = 1;
 }
 
+// Trade
 message TradeProto {
 
     string tradeId = 1;
@@ -1383,6 +1386,7 @@ message TradeProto {
     int64 blockHeight = 16;
 }
 
+// Kline
 message KlineProto {
 
     int64 t = 1;
@@ -1398,6 +1402,7 @@ message KlineProto {
     double v = 6;
 }
 
+// Order
 message OrderProto {
 
     //订单ID
@@ -1440,6 +1445,7 @@ message OrderProto {
     string address = 19;
 }
 
+// DepthList
 message DepthListProto {
 
     repeated DepthProto asks = 1;
@@ -1447,6 +1453,7 @@ message DepthListProto {
     repeated DepthProto bids = 2;
 }
 
+// Depth
 message DepthProto {
     //价格
     string price = 1;
@@ -1457,190 +1464,250 @@ message DepthProto {
 }
 ```
 
-## WebSocket API By JSON
+## JSON 消息订阅
 
 ### 环境地址
 * 【MainNet】`wss://api.vitex.net/ws`
 
-### op_type定义
-* sub，表示订阅
-* un_sub，表示取消订阅
-* ping，表示心跳请求，保证10s内一次，用于判断客户端client_id是否有效
-* pong，服务端响应，通常无须关注
-* push，表示服务推送数据
-
-:::tip 注意
-`ping`心跳消息需要至少1分钟周期发送1次。当心跳间隔超过1分钟后，注册的事件订阅（Event Subscription）会失效清理
-:::
-
-### topics列表
-支持单、多主题订阅，多个主题订阅使用","分隔，如：`topic1,topic2`
-
-| 主题 | 描述| Message |
-|:--|:--|:--:|
-|`order.$address`|订单变化| `OrderProto`|
-|`market.$symbol.depth`|深度数据| `DepthListProto`|
-|`market.$symbol.trade`|交易数据| `TradeListProto`|
-|`market.$symbol.tickers`|某个交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.VITE.tickers`|VITE市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.ETH.tickers`|ETH市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.USDT.tickers`|USDT市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.quoteTokenCategory.BTC.tickers`|BTC市场的交易对统计数据|`TickerStatisticsProto`|
-|`market.$symbol.kline.minute`|分钟kline数据|`KlineProto`|
-|`market.$symbol.kline.minute30`|30分钟kline数据|`KlineProto`|
-|`market.$symbol.kline.hour`|1小时kline数据|`KlineProto`|
-|`market.$symbol.kline.day`|日kline数据|`KlineProto`|
-|`market.$symbol.kline.week`|周kline数据|`KlineProto`|
-|`market.$symbol.kline.hour6`|6小时kline数据|`KlineProto`|
-|`market.$symbol.kline.hour12`|12小时kline数据|`KlineProto`|
-
 ### message数据结构定义
 
 #### Order
+
+* **定义:**
 ```
-//订单ID(之后会被废弃，使用hash作为api中的orderId)
+```java
+// order id
 private String oid;
-//symbol
+// symbol
 private String s;
-//tradeTokenSymbol
+// trade token symbol
 private String ts;
-//quoteTokenSymbol
+// quote token symbol
 private String qs;
-//trade tokenId
+// trade tokenId
 private String tid;
-//quote tokenId
+// quote tokenId
 private String qid;
-//方向
+// side
 private Integer side;
-//价格
+// price
 private String p;
-//数量
+// quantity
 private String q;
-//交易量
+// amount
 private String a;
-//成交Quantity
+// executed quantity
 private String eq;
-//成交Amount
+// executed amount
 private String ea;
-//成交率executedPercent
+// executed percentage
 private String ep;
-//均价 executedAvgPrice
+// executed average price
 private String eap;
-//手续费fee
+// fee
 private String f;
-//状态status
+// status
 private Integer st;
-//类型type
+// type
 private Integer tp;
-//时间createTime
+// create time
 private Long ct;
-//地址 address
+// address
 private String d;
-//订单hash order hash
-private String h;
 ```
-订阅
-```
-{"clientId": "test", "opType": "sub", "topics": "order.vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072"}
-```
-返回
-```
-{"message":{"a":"13.72516176","ct":1588142062,"d":"vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072","ea":"13.7251","eap":"0.1688","ep":"1.0000","eq":"81.3102","f":"0.0308","h":"b0e0e20739c570d533679315dbb154201c8367b6e23636b6521e9ebdd9f8fc0a","oid":"00002800ffffffffffd8b2bc67ff005ea91f9a000012","p":"0.1688","q":"81.3102","qid":"tti_80f3751485e4e83456059473","qs":"USDT-000","s":"VX_USDT-000","side":0,"st":2,"tid":"tti_564954455820434f494e69b5","tp":0,"ts":"VX"}}
-```
+
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"order.vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+      "a":"13.72516176",
+      "ct":1588142062,
+      "d":"vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072",
+      "ea":"13.7251",
+      "eap":"0.1688",
+      "ep":"1.0000",
+      "eq":"81.3102",
+      "f":"0.0308",
+      "oid":"b0e0e20739c570d533679315dbb154201c8367b6e23636b6521e9ebdd9f8fc0a",
+      "p":"0.1688",
+      "q":"81.3102",
+      "qid":"tti_80f3751485e4e83456059473",
+      "qs":"USDT-000",
+      "s":"VX_USDT-000",
+      "side":0,
+      "st":2,
+      "tid":"tti_564954455820434f494e69b5",
+      "tp":0,
+      "ts":"VX"
+    }
+  }
+  ```
+  :::
 
 #### Trade
-```
+
+* **定义:**
+```java
 // tradeId
 private String id;
-//symbol
+// symbol
 private String s;
-//trade symbol
+// trade token symbol
 private String ts;
-//quote symbol
+// quote token symbol
 private String qs;
-//trade tokenId
+// trade tokenId
 private String tid;
-//quote tokenId
+// quote tokenId
 private String qid;
-//price
+// price
 private String p;
-//quantity
+// quantity
 private String q;
-//amount
+// amount
 private String a;
-//time
+// time
 private Long t;
-//side
+// side
 private Integer side;
-//buyerOrderId
+// buyer orderId
 private String bid;
-//sellerOrderId
+//seller orderId
 private String sid;
-//buyFee
+// buyer fee
 private String bf;
-//sellFee
+// seller fee
 private String sf;
-//blockHeight
+// block height
 private Long bh;
 ```
-订阅
-```
-{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.trade"}
-```
-返回
-```
-{"message":[{"a":"6324.77710294","bf":"14.23074848","bh":14526719,"bid":"00001f00fffffffff340910fa1ff005e6618cb000030","id":"702d8d5bd6e8d5aa7b40953484acbcfeae6c1fcf","p":"12.8222","q":"493.2677","qid":"tti_5649544520544f4b454e6e40","qs":"VITE","s":"VX_VITE","sf":"14.23074848","sid":"00001f01000000000cbf6ef05e00005e6618cb00002f","side":0,"t":1583749346,"tid":"tti_564954455820434f494e69b5","ts":"VX"}]}
 
-```
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.trade"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":[
+     {
+      "a":"6324.77710294",
+      "bf":"14.23074848",
+      "bh":14526719,
+      "bid":"00001f00fffffffff340910fa1ff005e6618cb000030",
+      "id":"702d8d5bd6e8d5aa7b40953484acbcfeae6c1fcf",
+      "p":"12.8222",
+      "q":"493.2677",
+      "qid":"tti_5649544520544f4b454e6e40",
+      "qs":"VITE",
+      "s":"VX_VITE",
+      "sf":"14.23074848",
+      "sid":"00001f01000000000cbf6ef05e00005e6618cb00002f",
+      "side":0,
+      "t":1583749346,
+      "tid":"tti_564954455820434f494e69b5",
+      "ts":"VX"
+      }
+    ]
+  }
+  ```
+  :::
 
 #### TickerStatistics
-```
-//symbol
+
+* **定义:**
+```java
+// symbol
 private String s;
-// trade symbol
+// trade token symbol
 private String ts;
-// quote symbol
+// quote token symbol
 private String qs;
-//tokenId
+// trade tokenId
 private String tid;
-//tokenId
+// quote tokenId
 private String qid;
-//open price价格
+// open price
 private String op;
-//prevClosePrice 价格
+// previous close price
 private String pcp;
-//close price价格
+// close price
 private String cp;
-//priceChange 价格
+// price change 
 private String pc;
-//priceChangePercent 变化率
+// price change percentage
 private String pCp;
-//highPrice 价格
+// high price 
 private String hp;
-//lowPrice价格
+// low price
 private String lp;
-//quantity 数量
+// quantity 
 private String q;
-//amount 成交额
+// amount 
 private String a;
-//pricePrecision
+// price precision
 private Integer pp;
-//quantityPrecision
+// quantity precision
 private Integer qp;
 ```
-订阅
-```
-{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.tickers"}
-```
-返回
-```
-{"message":{"a":"14932378.5785","cp":"13.3013","hp":"13.5200","lp":"10.9902","op":"11.3605","pc":"1.9408","pcp":"13.2947","pp":4,"q":"1207963.7611","qid":"tti_5649544520544f4b454e6e40","qp":4,"qs":"VITE","s":"VX_VITE","tid":"tti_564954455820434f494e69b5","ts":"VX"}}
 
-```
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.tickers"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+      "a":"14932378.5785",
+      "cp":"13.3013",
+      "hp":"13.5200",
+      "lp":"10.9902",
+      "op":"11.3605",
+      "pc":"1.9408",
+      "pcp":"13.2947",
+      "pp":4,
+      "q":"1207963.7611",
+      "qid":"tti_5649544520544f4b454e6e40",
+      "qp":4,
+      "qs":"VITE",
+      "s":"VX_VITE",
+      "tid":"tti_564954455820434f494e69b5",
+      "ts":"VX"
+    }
+  }
+  ```
+  :::
 
 #### KLine
-```
+
+* **定义:**
+```java
 private Long t;
 private Double c;
 private Double o;
@@ -1648,20 +1715,91 @@ private Double v;
 private Double h;
 private Double l;
 ```
-返回
-```
-eg.{"message":{"c":12.935,"h":12.935,"l":12.935,"o":12.935,"t":1583749440,"v":415.1729}}
-```
+
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.kline.minute"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+    "c":12.935,
+    "h":12.935,
+    "l":12.935,
+    "o":12.935,
+    "t":1583749440,
+    "v":415.1729
+    }
+  }
+  ```
+  :::
+  
 #### Depth
-```
+
+* **定义:**
+```java
 private List<List<String>> asks; [[price, quantity],[price, quantity]]
 private List<List<String>> bids; [[price, quantity],[price, quantity]]
 ```
-订阅
-```
-{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.depth"}
-```
-返回
-```
-eg.{"message":{"asks":[["12.9320","185.3194"],["13.3300","48.9177"],["13.3330","500.0000"],["13.4959","1305.9508"],["13.4970","23.9726"],["13.5100","466.7237"],["13.8000","134.5858"],["14.5001","370.1352"],["17.5999","152.3650"],["18.4919","9.1965"],["19.7800","10.3345"],["19.8550","7.5232"],["20.2000","2.7529"],["21.0000","12.9990"],["24.9899","34.6248"],["24.9990","28.0000"],["25.0000","6.6744"],["28.0000","28.0000"],["30.0000","2.0000"],["32.0000","1.5659"],["33.4000","42.3293"],["35.0000","119.3452"],["36.0000","18.3143"],["36.4789","21.1023"],["37.4850","2.7506"],["37.4900","118.0630"],["38.0000","17108.4719"],["40.0000","40.1367"],["41.0000","36.5145"],["45.0000","4.4299"],["48.6419","44.7889"],["52.0000","2.5392"],["55.0000","3.0000"],["57.1897","7.3712"],["70.0000","3.0000"],["75.4500","19.1228"],["80.0000","12.0000"],["81.7000","3.5679"],["100.0000","10.9090"],["102.3742","20.0000"],["113.8305","2.0357"],["120.0000","100.0000"],["125.1148","9.1643"],["132.3742","10.0000"],["142.3742","10.0000"],["150.0000","10.0000"],["152.3742","6.0000"],["162.7266","5.0000"],["165.7266","10.0000"],["168.7266","5.0000"],["180.0000","0.2831"],["200.0000","20.2532"],["1111.0000","0.0469"],["470000.8000","0.0097"]],"bids":[["12.7002","170.2562"],["12.7001","35.8857"],["12.7000","44.3985"],["12.6000","63.6076"],["12.5000","75.2277"],["12.4100","10.5713"],["12.4000","15339.2586"],["12.3010","324.6731"],["12.3000","222.7945"],["12.2523","21445.3107"],["12.2475","842.1940"],["12.2001","151366.1708"],["12.2000","261800.9208"],["12.1499","4.3464"],["12.0001","31.3095"],["12.0000","50.3072"],["11.8000","2632.2226"],["11.0000","5516.0734"],["10.6500","112.6625"],["10.6000","557.6044"],["10.3926","1000.0000"],["10.3400","48.2353"],["10.3000","14.5267"],["10.0000","405.0375"],["9.4000","530.5884"],["9.0000","446.1103"],["8.6000","635.6718"],["8.1000","5822.4356"],["4.3862","22.7885"],["4.1000","24.3792"],["1.0100","1220.3311"],["0.5000","1999.1004"],["0.4000","249.8875"],["0.3000","333.1834"],["0.2000","499.7751"],["0.1000","999.5502"]]}}
-```
+
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.depth"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+    "asks":[
+    [
+      "12.9320",
+      "185.3194"
+    ],[
+      "13.3300",
+      "48.9177"
+    ],[
+      "13.4959",
+      "1305.9508"
+    ],[
+      "13.5100",
+      "466.7237"
+    ],[
+      "13.8000",
+      "134.5858"
+    ]],
+    "bids":[
+    [
+      "12.7002",
+      "170.2562"
+    ],[
+      "12.6000",
+      "63.6076"
+    ],[
+      "12.4000",
+      "15339.2586"
+    ],[
+      "12.3010",
+      "324.6731"
+    ],[
+      "12.3000",
+      "222.7945"
+    ]]
+    }
+  }
+  ```
+  :::

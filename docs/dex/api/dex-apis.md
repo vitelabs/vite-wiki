@@ -4,13 +4,14 @@ demoUrl: "https://api.vitex.net/test"
 
 # ViteX API
 
-## Update Logs
+:::tip Update Logs
 2020-04-30
-- All apis will update to v2, v1 will be remained to 2020-05-15, please upgrade quickly.
-- Response msg. Will be changed from `Success` to `ok`.
-- Query order APIs do not need authorization. However, it requires address param. See `GET /api/v2/order /api/v2/orders`
-- Balance API does not require authorization either. `/api/v1/account` is mod to `/api/v2/balance`
-- `/markets、/ticker/24hr、/ticker/bookTicker` API updated
+- New v2 version ViteX API is released. The current v1 API is deprecated and will stop service after May 15, 2020. Please kindly upgrade your client ASAP.
+- Success message changed from `Success` to `ok` in response.
+- Order query API (`/api/v2/order`, `/api/v2/orders`) changed to public and require no more authorization. New order query API will accept an address parameter.
+- Balance query API (`/api/v2/balance`) changed to public and require no more authorization. 
+- `/markets`, `/ticker/24hr`, `/ticker/bookTicker` changed.
+:::
 
 ## Overview
 ViteX API enables users to complete trading operations on ViteX decentralized exchange without exposing private keys.
@@ -521,10 +522,11 @@ quoteTokenSymbol | STRING | YES | Quote token symbol. For example, `VITE`
   ```
   :::
   
-### Get Trade Pair Detail
+### Get Trading Pair
 ```  
 GET /api/v2/market
 ```
+Get trading pair in detail
 
 * **Parameters:**
 
@@ -869,16 +871,18 @@ symbol | STRING | YES | Trading pair name. For example, `GRIN-000_VITE`
   ```
   :::
  
-### Get Trade Records Of Partial Data
+### Get Trade Summary
 ```
 GET /api/v2/trades
 ```
+Get trade records in summary
+
 * **Parameters:**
 
 Name | Type | Is Required? | Description
 ------------ | ------------ | ------------ | ------------
 symbol | STRING | YES | Trading pair name. For example.`GRIN-000_VITE`
-limit | INTEGER | NO | total records，default 500
+limit | INTEGER | NO | Search limit, default `500`
 
 * **Response：**
 
@@ -915,6 +919,7 @@ limit | INTEGER | NO | total records，default 500
 ```
 Get /api/v2/trades/all
 ```
+Get trade records in detail
 
 * **Parameters:**
 
@@ -1268,7 +1273,43 @@ GET /api/v2/time
   ```
   ::: 
 
-## WebSocket API By PB
+## WebSocket API
+
+## Definition of op_type  
+* sub: subscribe
+* un_sub: un-subscribe
+* ping: heartbeat. 
+* pong: server acknowledgement
+* push: push message to client
+
+:::tip Important
+To keep client alive, `ping` heartbeats should be sent in every 10 seconds, at most no longer than 1 minute. When heartbeats are sent longer than 1 minute, the client is no more regarded as alive and registered subscriptions will be cleaned up.
+:::
+
+### Topic List
+
+Support single and multiple topic subscriptions, separated by ",". For example, `topic1,topic2`.
+
+|Topic|Description| Message |
+|:--|:--|:--:|
+|`order.$address`|Order update|`Order`|
+|`market.$symbol.depth`|Depth data update|`DepthList`|
+|`market.$symbol.trade`|Trade data update|`TradeList`|
+|`market.$symbol.tickers`|Market pair statistics update|`TickerStatistics`|
+|`market.quoteToken.$symbol.tickers`|Quote token statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.VITE.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.ETH.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.USDT.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.BTC.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.$symbol.kline.minute`|1-minute kline update|`Kline`|
+|`market.$symbol.kline.minute30`|30-minute kline update|`Kline`|
+|`market.$symbol.kline.hour`|1-hour kline update|`Kline`|
+|`market.$symbol.kline.day`|1-day kline update|`Kline`|
+|`market.$symbol.kline.week`|1-week kline update|`Kline`|
+|`market.$symbol.kline.hour6`|6-hour kline update|`Kline`|
+|`market.$symbol.kline.hour12`|12-hour kline update|`Kline`|
+
+## Protobuf Message
 
 ### Network
 * 【MainNet】`wss://vitex.vite.net/websocket`
@@ -1292,47 +1333,14 @@ message DexProtocol {
 }
 
 ```
-### Definition of op_type  
-* sub: subscribe
-* un_sub: un-subscribe
-* ping: heartbeat. 
-* pong: server acknowledgement
-* push: push message to client
 
-:::tip Important
-To keep client alive, `ping` heartbeats should be sent in every 10 seconds, at most no longer than 1 minute. When heartbeats are sent longer than 1 minute, the client is no more regarded as alive and registered subscriptions will be cleaned up.
-:::
-
-### Topic List
-
-Support single and multiple topic subscriptions, separated by ",". For example, `topic1,topic2`.
-
-|Topic|Description| Message |
-|:--|:--|:--:|
-|`order.$address`|Order update| See `OrderProto`|
-|`market.$symbol.depth`|Depth data update| See `DepthListProto`|
-|`market.$symbol.trade`|Trade data update| See `TradeListProto`|
-|`market.$symbol.tickers`|Market pair statistics update|See `TickerStatisticsProto`|
-|`market.quoteToken.$symbol.tickers`|Quote token statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.VITE.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.ETH.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.USDT.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.BTC.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.$symbol.kline.minute`|1-minute kline update|See `KlineProto`|
-|`market.$symbol.kline.minute30`|30-minute kline update|See `KlineProto`|
-|`market.$symbol.kline.hour`|1-hour kline update|See `KlineProto`|
-|`market.$symbol.kline.day`|1-day kline update|See `KlineProto`|
-|`market.$symbol.kline.week`|1-week kline update|See `KlineProto`|
-|`market.$symbol.kline.hour6`|6-hour kline update|See `KlineProto`|
-|`market.$symbol.kline.hour12`|12-hour kline update|See `KlineProto`|
-
-###  Messages
+###  Message Definitions
 ```
 syntax = "proto3";
 option java_package = "org.vite.data.dex.bean.proto";
 option java_outer_classname = "DexPushMessage";
 
-
+// TickerStatistics
 message TickerStatisticsProto {
 
     //symbol
@@ -1369,11 +1377,12 @@ message TickerStatisticsProto {
     int32 quantityPrecision = 16;
 }
 
-
+// TradeList
 message TradeListProto {
     repeated TradeProto trade = 1;
 }
 
+// Trade
 message TradeProto {
 
     string tradeId = 1;
@@ -1409,6 +1418,7 @@ message TradeProto {
     int64 blockHeight = 16;
 }
 
+// Kline
 message KlineProto {
 
     int64 t = 1;
@@ -1424,6 +1434,7 @@ message KlineProto {
     double v = 6;
 }
 
+// Order
 message OrderProto {
 
     //order ID
@@ -1466,6 +1477,7 @@ message OrderProto {
     string address = 19;
 }
 
+// DepthList
 message DepthListProto {
 
     repeated DepthProto asks = 1;
@@ -1473,6 +1485,7 @@ message DepthListProto {
     repeated DepthProto bids = 2;
 }
 
+// Depth
 message DepthProto {
     //price
     string price = 1;
@@ -1482,191 +1495,250 @@ message DepthProto {
     string amount = 3;
 }
 ```
-## WebSocket API By JSON
+
+## JSON Message
 
 ### Network
 * 【MainNet】`wss://api.vitex.net/ws`
 
-### Definition of op_type  
-* sub: subscribe
-* un_sub: un-subscribe
-* ping: heartbeat. 
-* pong: server acknowledgement
-* push: push message to client
-
-:::tip Important
-To keep client alive, `ping` heartbeats should be sent in every 10 seconds, at most no longer than 1 minute. When heartbeats are sent longer than 1 minute, the client is no more regarded as alive and registered subscriptions will be cleaned up.
-:::
-
-### Topic List
-
-Support single and multiple topic subscriptions, separated by ",". For example, `topic1,topic2`.
-
-|Topic|Description| Message |
-|:--|:--|:--:|
-|`order.$address`|Order update| See `OrderProto`|
-|`market.$symbol.depth`|Depth data update| See `DepthListProto`|
-|`market.$symbol.trade`|Trade data update| See `TradeListProto`|
-|`market.$symbol.tickers`|Market pair statistics update|See `TickerStatisticsProto`|
-|`market.quoteToken.$symbol.tickers`|Quote token statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.VITE.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.ETH.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.USDT.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.quoteTokenCategory.BTC.tickers`|Quote token category statistics update|See `TickerStatisticsProto`|
-|`market.$symbol.kline.minute`|1-minute kline update|See `KlineProto`|
-|`market.$symbol.kline.minute30`|30-minute kline update|See `KlineProto`|
-|`market.$symbol.kline.hour`|1-hour kline update|See `KlineProto`|
-|`market.$symbol.kline.day`|1-day kline update|See `KlineProto`|
-|`market.$symbol.kline.week`|1-week kline update|See `KlineProto`|
-|`market.$symbol.kline.hour6`|6-hour kline update|See `KlineProto`|
-|`market.$symbol.kline.hour12`|12-hour kline update|See `KlineProto`|
-
-### Message
+### Message Definitions
 
 #### Order
-```
-//order id(will be deprecated, use order hash as id)
+
+* **Definition:**
+```java
+// order id
 private String oid;
-//symbol
+// symbol
 private String s;
-//tradeTokenSymbol
+// trade token symbol
 private String ts;
-//quoteTokenSymbol
+// quote token symbol
 private String qs;
-//trade tokenId
+// trade tokenId
 private String tid;
-//quote tokenId
+// quote tokenId
 private String qid;
-//side
+// side
 private Integer side;
-//price
+// price
 private String p;
-//quantity
+// quantity
 private String q;
-//amount
+// amount
 private String a;
-//executed quantity
+// executed quantity
 private String eq;
-//executed amount
+// executed amount
 private String ea;
-//executedPercent
+// executed percentage
 private String ep;
-//executedAvgPrice
+// executed average price
 private String eap;
-//fee
+// fee
 private String f;
-//status
+// status
 private Integer st;
-//type
+// type
 private Integer tp;
-//createTime
+// create time
 private Long ct;
-//address
+// address
 private String d;
-//order hash
-private String h;
 ```
-Subscribe
-```
-{"clientId": "test", "opType": "sub", "topics": "order.vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072"}
-```
-Response
-```
-{"message":{"a":"13.72516176","ct":1588142062,"d":"vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072","ea":"13.7251","eap":"0.1688","ep":"1.0000","eq":"81.3102","f":"0.0308","h":"b0e0e20739c570d533679315dbb154201c8367b6e23636b6521e9ebdd9f8fc0a","oid":"00002800ffffffffffd8b2bc67ff005ea91f9a000012","p":"0.1688","q":"81.3102","qid":"tti_80f3751485e4e83456059473","qs":"USDT-000","s":"VX_USDT-000","side":0,"st":2,"tid":"tti_564954455820434f494e69b5","tp":0,"ts":"VX"}}
-```
+
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"order.vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+      "a":"13.72516176",
+      "ct":1588142062,
+      "d":"vite_cc392cbb42a22eebc9136c6f9ba416d47d19f3be1a1bd2c072",
+      "ea":"13.7251",
+      "eap":"0.1688",
+      "ep":"1.0000",
+      "eq":"81.3102",
+      "f":"0.0308",
+      "oid":"b0e0e20739c570d533679315dbb154201c8367b6e23636b6521e9ebdd9f8fc0a",
+      "p":"0.1688",
+      "q":"81.3102",
+      "qid":"tti_80f3751485e4e83456059473",
+      "qs":"USDT-000",
+      "s":"VX_USDT-000",
+      "side":0,
+      "st":2,
+      "tid":"tti_564954455820434f494e69b5",
+      "tp":0,
+      "ts":"VX"
+    }
+  }
+  ```
+  :::
 
 #### Trade
-```
+
+* **Definition:**
+```java
 // tradeId
 private String id;
-//symbol
+// symbol
 private String s;
-//trade symbol
+// trade token symbol
 private String ts;
-//quote symbol
+// quote token symbol
 private String qs;
-//trade tokenId
+// trade tokenId
 private String tid;
-//quote tokenId
+// quote tokenId
 private String qid;
-//price
+// price
 private String p;
-//quantity
+// quantity
 private String q;
-//amount
+// amount
 private String a;
-//time
+// time
 private Long t;
-//side
+// side
 private Integer side;
-//buyerOrderId
+// buyer orderId
 private String bid;
-//sellerOrderId
+//seller orderId
 private String sid;
-//buyFee
+// buyer fee
 private String bf;
-//sellFee
+// seller fee
 private String sf;
-//blockHeight
+// block height
 private Long bh;
 ```
-Subscribe
-```
-{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.trade"}
-```
-Response
-```
-{"message":[{"a":"6324.77710294","bf":"14.23074848","bh":14526719,"bid":"00001f00fffffffff340910fa1ff005e6618cb000030","id":"702d8d5bd6e8d5aa7b40953484acbcfeae6c1fcf","p":"12.8222","q":"493.2677","qid":"tti_5649544520544f4b454e6e40","qs":"VITE","s":"VX_VITE","sf":"14.23074848","sid":"00001f01000000000cbf6ef05e00005e6618cb00002f","side":0,"t":1583749346,"tid":"tti_564954455820434f494e69b5","ts":"VX"}]}
 
-```
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.trade"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":[
+     {
+      "a":"6324.77710294",
+      "bf":"14.23074848",
+      "bh":14526719,
+      "bid":"00001f00fffffffff340910fa1ff005e6618cb000030",
+      "id":"702d8d5bd6e8d5aa7b40953484acbcfeae6c1fcf",
+      "p":"12.8222",
+      "q":"493.2677",
+      "qid":"tti_5649544520544f4b454e6e40",
+      "qs":"VITE",
+      "s":"VX_VITE",
+      "sf":"14.23074848",
+      "sid":"00001f01000000000cbf6ef05e00005e6618cb00002f",
+      "side":0,
+      "t":1583749346,
+      "tid":"tti_564954455820434f494e69b5",
+      "ts":"VX"
+      }
+    ]
+  }
+  ```
+  :::
 
 #### TickerStatistics
-```
-//symbol
+
+* **Definition:**
+```java
+// symbol
 private String s;
-// trade symbol
+// trade token symbol
 private String ts;
-// quote symbol
+// quote token symbol
 private String qs;
-//tokenId
+// trade tokenId
 private String tid;
-//tokenId
+// quote tokenId
 private String qid;
-//open price
+// open price
 private String op;
-//prevClosePrice
+// previous close price
 private String pcp;
-//close price
+// close price
 private String cp;
-//priceChange 
+// price change 
 private String pc;
-//priceChangePercent 
+// price change percentage
 private String pCp;
-//highPrice 
+// high price 
 private String hp;
-//lowPrice
+// low price
 private String lp;
-//quantity 
+// quantity 
 private String q;
-//amount 
+// amount 
 private String a;
-//pricePrecision
+// price precision
 private Integer pp;
-//quantityPrecision
+// quantity precision
 private Integer qp;
 ```
-Subscribe
-```
-{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.tickers"}
-```
-Response
-```
-{"message":{"a":"14932378.5785","cp":"13.3013","hp":"13.5200","lp":"10.9902","op":"11.3605","pc":"1.9408","pcp":"13.2947","pp":4,"q":"1207963.7611","qid":"tti_5649544520544f4b454e6e40","qp":4,"qs":"VITE","s":"VX_VITE","tid":"tti_564954455820434f494e69b5","ts":"VX"}}
 
-```
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.tickers"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+      "a":"14932378.5785",
+      "cp":"13.3013",
+      "hp":"13.5200",
+      "lp":"10.9902",
+      "op":"11.3605",
+      "pc":"1.9408",
+      "pcp":"13.2947",
+      "pp":4,
+      "q":"1207963.7611",
+      "qid":"tti_5649544520544f4b454e6e40",
+      "qp":4,
+      "qs":"VITE",
+      "s":"VX_VITE",
+      "tid":"tti_564954455820434f494e69b5",
+      "ts":"VX"
+    }
+  }
+  ```
+  :::
 
 #### KLine
-```
+
+* **Definition:**
+```java
 private Long t;
 private Double c;
 private Double o;
@@ -1674,20 +1746,91 @@ private Double v;
 private Double h;
 private Double l;
 ```
-Response
-```
-eg.{"message":{"c":12.935,"h":12.935,"l":12.935,"o":12.935,"t":1583749440,"v":415.1729}}
-```
+
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.kline.minute"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+    "c":12.935,
+    "h":12.935,
+    "l":12.935,
+    "o":12.935,
+    "t":1583749440,
+    "v":415.1729
+    }
+  }
+  ```
+  :::
+
 #### Depth
-```
+
+* **Definition:**
+```java
 private List<List<String>> asks; [[price, quantity],[price, quantity]]
 private List<List<String>> bids; [[price, quantity],[price, quantity]]
 ```
-Subscribe
-```
-{"clientId": "test", "opType": "sub", "topics": "market.VX_VITE.depth"}
-```
-Response
-```
-eg.{"message":{"asks":[["12.9320","185.3194"],["13.3300","48.9177"],["13.3330","500.0000"],["13.4959","1305.9508"],["13.4970","23.9726"],["13.5100","466.7237"],["13.8000","134.5858"],["14.5001","370.1352"],["17.5999","152.3650"],["18.4919","9.1965"],["19.7800","10.3345"],["19.8550","7.5232"],["20.2000","2.7529"],["21.0000","12.9990"],["24.9899","34.6248"],["24.9990","28.0000"],["25.0000","6.6744"],["28.0000","28.0000"],["30.0000","2.0000"],["32.0000","1.5659"],["33.4000","42.3293"],["35.0000","119.3452"],["36.0000","18.3143"],["36.4789","21.1023"],["37.4850","2.7506"],["37.4900","118.0630"],["38.0000","17108.4719"],["40.0000","40.1367"],["41.0000","36.5145"],["45.0000","4.4299"],["48.6419","44.7889"],["52.0000","2.5392"],["55.0000","3.0000"],["57.1897","7.3712"],["70.0000","3.0000"],["75.4500","19.1228"],["80.0000","12.0000"],["81.7000","3.5679"],["100.0000","10.9090"],["102.3742","20.0000"],["113.8305","2.0357"],["120.0000","100.0000"],["125.1148","9.1643"],["132.3742","10.0000"],["142.3742","10.0000"],["150.0000","10.0000"],["152.3742","6.0000"],["162.7266","5.0000"],["165.7266","10.0000"],["168.7266","5.0000"],["180.0000","0.2831"],["200.0000","20.2532"],["1111.0000","0.0469"],["470000.8000","0.0097"]],"bids":[["12.7002","170.2562"],["12.7001","35.8857"],["12.7000","44.3985"],["12.6000","63.6076"],["12.5000","75.2277"],["12.4100","10.5713"],["12.4000","15339.2586"],["12.3010","324.6731"],["12.3000","222.7945"],["12.2523","21445.3107"],["12.2475","842.1940"],["12.2001","151366.1708"],["12.2000","261800.9208"],["12.1499","4.3464"],["12.0001","31.3095"],["12.0000","50.3072"],["11.8000","2632.2226"],["11.0000","5516.0734"],["10.6500","112.6625"],["10.6000","557.6044"],["10.3926","1000.0000"],["10.3400","48.2353"],["10.3000","14.5267"],["10.0000","405.0375"],["9.4000","530.5884"],["9.0000","446.1103"],["8.6000","635.6718"],["8.1000","5822.4356"],["4.3862","22.7885"],["4.1000","24.3792"],["1.0100","1220.3311"],["0.5000","1999.1004"],["0.4000","249.8875"],["0.3000","333.1834"],["0.2000","499.7751"],["0.1000","999.5502"]]}}
-```
+
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "clientId":"test",
+    "opType":"sub",
+    "topics":"market.VX_VITE.depth"
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "message":{
+    "asks":[
+    [
+      "12.9320",
+      "185.3194"
+    ],[
+      "13.3300",
+      "48.9177"
+    ],[
+      "13.4959",
+      "1305.9508"
+    ],[
+      "13.5100",
+      "466.7237"
+    ],[
+      "13.8000",
+      "134.5858"
+    ]],
+    "bids":[
+    [
+      "12.7002",
+      "170.2562"
+    ],[
+      "12.6000",
+      "63.6076"
+    ],[
+      "12.4000",
+      "15339.2586"
+    ],[
+      "12.3010",
+      "324.6731"
+    ],[
+      "12.3000",
+      "222.7945"
+    ]]
+    }
+  }
+  ```
+  :::
