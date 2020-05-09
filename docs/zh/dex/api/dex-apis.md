@@ -594,7 +594,7 @@ GET /api/v2/order
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | 下单地址
+address | STRING | YES | 用户地址（不是代理地址）
 orderId | STRING | YES | 订单id
 
 * **响应：**
@@ -645,7 +645,7 @@ GET /api/v2/orders/open
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | 下单地址
+address | STRING | YES | 用户地址
 symbol | STRING | NO | 交易对名称，如`GRIN-000_BTC-000`
 quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`BTC-000`
 tradeTokenSymbol | STRING | NO | 交易币种简称，如`GRIN-000`
@@ -702,7 +702,7 @@ GET /api/v2/orders
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | 下单地址
+address | STRING | YES | 用户地址
 symbol | STRING | NO | 交易对名称，如`GRIN-000_VITE`
 quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`VITE`
 tradeTokenSymbol | STRING | NO | 交易币种简称，如`GRIN-000`
