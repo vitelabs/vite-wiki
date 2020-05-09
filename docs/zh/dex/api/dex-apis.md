@@ -595,7 +595,7 @@ GET /api/v2/order
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
 address | STRING | YES | 下单地址
-orderId | STRING | NO | 订单id
+orderId | STRING | YES | 订单id
 
 * **响应：**
 

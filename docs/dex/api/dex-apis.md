@@ -625,7 +625,7 @@ GET /api/v2/order
 Name | Type | Is Required? | Description
 ------------ | ------------ | ------------ | ------------
 address | STRING | YES | Account address
-orderId | STRING | NO | Order id
+orderId | STRING | YES | Order id
 
 * **Response:**
 
