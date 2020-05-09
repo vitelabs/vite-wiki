@@ -1221,6 +1221,7 @@ locked | STRING | 交易所锁定（下单中）余额
 ### 获取服务器时间
 ```  
 GET /api/v2/time
+GET /api/v2/timestamp
 ```
 
 * **参数：**

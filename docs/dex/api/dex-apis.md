@@ -1251,6 +1251,7 @@ locked | STRING | Balance locked by open order
 ### Get Server Time
 ```
 GET /api/v2/time
+GET /api/v2/timestamp
 ```
 
 * **Parameters:**
