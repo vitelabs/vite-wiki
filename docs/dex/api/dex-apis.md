@@ -56,6 +56,8 @@ Error code:
 * `1003` Network - network jam, network broken, insufficient quota and so on.
 * `1004` Other failure - such as attempting to cancel an order of other address, attempting to cancel an order already filled, order status exception
 * `1005` Service error - unexpected API error
+* `1006` Minimum order quantity not satisfied - order quantity doesn't reach the minimal requirement in the market
+* `1007` Insufficient Exchange Balance - user's balance in the exchange is not enough
 
 ## Data Definition
 
