@@ -119,13 +119,13 @@ API访问计数以60秒为一个固定周期，周期内套餐额度用完，则
 调用私有API时，除了接口本身要求的参数外，还需要传递`key`、`timestamp`和`signature`三个参数。
 
 * key：即`API Key`字段。
-* timestamp：为UNIX时间戳，单位为毫秒，如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求时间戳对服务端时间小于**2000 ms**或大于**1000 ms**，均认为该请求无效。
+* timestamp：为UNIX时间戳，单位为毫秒，如：1565360340430。为防止重放攻击，服务端会校验时间戳的合法性，若请求时间戳对服务端时间小于**5000 ms**或大于**1000 ms**，均认为该请求无效。
 * signature：该字段通过 HMAC SHA256 签名算法生成。取`API Secret`作为 HMAC SHA256 密钥，把其他所有参数作为操作对象，得到的输出即为签名。签名大小写不敏感。
 
 `timestamp`校验逻辑如下:
 
 ```java
-    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 2000) {
+    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 5000) {
       // process request
     } else {
       // reject request
@@ -594,7 +594,7 @@ GET /api/v2/order
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | 用户地址（不是代理地址）
+address | STRING | YES | 用户账户地址（非代理地址）
 orderId | STRING | YES | 订单id
 
 * **响应：**
@@ -645,7 +645,7 @@ GET /api/v2/orders/open
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | 用户地址
+address | STRING | YES | 用户账户地址（非代理地址）
 symbol | STRING | NO | 交易对名称，如`GRIN-000_BTC-000`
 quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`BTC-000`
 tradeTokenSymbol | STRING | NO | 交易币种简称，如`GRIN-000`
@@ -702,7 +702,7 @@ GET /api/v2/orders
 
 名称 | 类型 | 是否必须 | 描述
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | 用户地址
+address | STRING | YES | 用户账户地址（非代理地址）
 symbol | STRING | NO | 交易对名称，如`GRIN-000_VITE`
 quoteTokenSymbol | STRING | NO | 基础币种（定价币种）简称，如`VITE`
 tradeTokenSymbol | STRING | NO | 交易币种简称，如`GRIN-000`

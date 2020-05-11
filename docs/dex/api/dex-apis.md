@@ -122,13 +122,13 @@ Private API requires signature authentication by **API Key** and **API Secret**,
 Besides parameters defined by specific API methods, 3 additional parameters `key`, `timestamp` and `signature` should also be included. 
 
 * `key` - Your **API Key**
-* `timestamp` - UNIX timestamp in milliseconds. To avoid replay attack, API request will be rejected if the timestamp in request is **2,000 ms** earlier or **1,000 ms** later than standard time.  
+* `timestamp` - UNIX timestamp in milliseconds. To avoid replay attack, API request will be rejected if the timestamp in request is **5,000 ms** earlier or **1,000 ms** later than standard time.  
 * `signature` - HMAC SHA256 signature on request string, using **API Secret** as secret key
 
 Sample code of timestamp checking at server side:
 
 ```java
-    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 2000) {
+    if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= 5000) {
         // process request
     } else {
         // reject request
@@ -624,7 +624,7 @@ GET /api/v2/order
 
 Name | Type | Is Required? | Description
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | Account address(Not agent address)
+address | STRING | YES | User's account address (not delegation address)
 orderId | STRING | YES | Order id
 
 * **Response:**
@@ -674,7 +674,7 @@ Get orders that are unfilled or partially filled.
 
 Name | Type | Is Required? | Description
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | Account address
+address | STRING | YES | User's account address (not delegation address)
 symbol | STRING | NO | Trading pair name. For example, `GRIN-000_BTC-000`
 quoteTokenSymbol | STRING | NO | Quote token symbol. For example, `BTC-000`
 tradeTokenSymbol | STRING | NO | Trade token symbol. For example, `GRIN-000`
@@ -731,7 +731,7 @@ GET /api/v2/orders
 
 Name | Type | Is Required? | Description
 ------------ | ------------ | ------------ | ------------
-address | STRING | YES | Account address
+address | STRING | YES | User's account address (not delegation address)
 symbol | STRING | NO | Trading pair name. For example, `GRIN-000_BTC-000`
 quoteTokenSymbol | STRING | NO | Quote token symbol. For example, `BTC-000`
 tradeTokenSymbol | STRING | NO | Trade token symbol. For example, `GRIN-000`
