@@ -32,7 +32,7 @@ Navigate to [Full Node Installation Directory][pwd] and execute the following co
   
 Execute the following command
 ```javascript
-vite.wallet_newMnemonicAndEntropyStore("Your_Password")
+vite.wallet_createEntropyFile("Your_Password")
 ```
 This will give you below result
 ```json
@@ -58,14 +58,14 @@ Run `exit` to abort
 Execute the following command
 
 ```javascript
-vite.wallet_recoverEntropyStoreFromMnemonic("Your_Mnemonic", "Your_Password")
+vite.wallet_createEntropyFile("Your_Mnemonic", "Your_Password")
 ```
 
 For example：
 
 :::demo
 ```javascript tab: Input
-vite.wallet_recoverEntropyStoreFromMnemonic("utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource","123456")
+vite.wallet_recoverEntropyFile("utility client point estate auction region jump hat sick blast tomorrow pottery detect mixture clog able person matrix blast volume decide april congress resource","123456")
 ```
 ```json tab: Ouput
 {
