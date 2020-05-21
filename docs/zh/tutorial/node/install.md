@@ -232,7 +232,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 
   ```
     cd $GOPATH/src/github.com/vitelabs/go-vite/
-    docker build -t gvite .
+    docker build -t gvite -f docker/Dockerfile .
   ```
 
 ### 启动gvite容器
