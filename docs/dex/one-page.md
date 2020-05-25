@@ -1,7 +1,7 @@
 # ViteX Coin (VX)
 
 :::tip ViteX
-A decentralized exchange built on the Vite public chain. The world's first DAG-based decentralized exchange. 
+A fully decentralized exchange built on the Vite public chain. The world's first DAG-based decentralized exchange. 
 
 **ViteX is of the community, by the community, for the community.**
 :::
