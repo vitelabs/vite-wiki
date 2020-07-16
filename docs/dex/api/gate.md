@@ -379,7 +379,7 @@ Get historical deposit records
   |outTxHash|The deposit transaction hash on Vite chain|string|false|
   |amount|Deposit amount|string|true|
   |fee|Gateway fee|string|true|
-  |state|Transaction state. Allowed value: <br>`OPPOSITE_PROCESSING` Awaiting confirmation on the source chain<br>`OPPOSITE_CONFIRMED` Confirmed on the source chain<br>`OPPOSITE_CONFIRMED_FAIL` Transaction failed on the source chain<br>`BELOW_MINIMUM` Transaction aborted due to insufficient deposit amount<br>`TOT_PROCESSING` Gateway tokens sent out on Vite chain<br>`TOT_CONFIRMED` Deposit successful|string|true|
+  |state|Transaction state. Allowed value: <br>`OPPOSITE_PROCESSING` Awaiting confirmation on the source chain<br>`OPPOSITE_CONFIRMED` Confirmed on the source chain<br>`OPPOSITE_CONFIRMED_FAIL` Transaction failed on the source chain<br>`BELOW_MINIMUM` Transaction aborted due to insufficient deposit amount<br>`TOT_PROCESSING` Gateway tokens sent out on Vite chain<br>`TOT_CONFIRMED` Deposit successful<br>`FAILED` Deposit failed|string|true|
   |dateTime|Deposit time in millisecond|string|true|
 
 * **Example**
