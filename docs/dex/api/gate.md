@@ -446,7 +446,7 @@ Get historical withdrawal records
   |outTxHash|The withdrawal transaction hash on the source chain|string|false|
   |amount|Actual amount transferred|string|true|
   |fee|Gateway fee|string|true|
-  |state|Transaction state. Allowed value: <br>`TOT_PROCESSING` Awaiting confirmation on Vite chain<br>`TOT_CONFIRMED` Confirmed on Vite chain<br>`TOT_EXCEED_THE_LIMIT` Transaction failed due to exceeding the maximum limit<br>`WRONG_WITHDRAW_ADDRESS` Transaction failed due to invalid withdrawal address<br>`OPPOSITE_PROCESSING` Source chain tokens sent out<br>`OPPOSITE_CONFIRMED` Withdrawal successful|string|true|
+  |state|Transaction state. Allowed value: <br>`TOT_PROCESSING` Awaiting confirmation on Vite chain<br>`TOT_CONFIRMED` Confirmed on Vite chain<br>`TOT_EXCEED_THE_LIMIT` Transaction failed due to exceeding the maximum limit<br>`WRONG_WITHDRAW_ADDRESS` Transaction failed due to invalid withdrawal address<br>`OPPOSITE_PROCESSING` Source chain tokens sent out<br>`OPPOSITE_CONFIRMED` Withdrawal successful <br>`FAILED` Withdraw failed|string|true|
   |dateTime|Withdrawal time in millisecond|string|true|
 
 * **Example**
