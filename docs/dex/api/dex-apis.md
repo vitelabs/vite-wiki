@@ -1026,7 +1026,7 @@ precision | INTEGER | NO | Price Precision
   ```
   :::
 
-### Get Klines
+### Get Klines/Candlestick bars
 ```
 GET /api/v2/klines
 ```
@@ -1551,7 +1551,7 @@ private Integer qp;
   ```
   :::
 
-#### KLine
+#### KLine/Candlestick bars
 
 * **Definition:**
 ```java
