@@ -1249,6 +1249,51 @@ locked | STRING | Balance locked by open order
   {}
   ```
   ::: 
+  
+### Get trade mining pool
+Get today's VX mining pool for trade and fees accumulated
+```
+GET /api/v2/trade_fee_info
+```
+**Response:**
+
+Name | Type | Description
+------------ | ------------ | ------------
+tradePoolVx | OBJECT | VX volume for each market
+tradePoolFee | OBJECT | trade fee for each market
+
+1: VITE
+2: ETH-000
+3: BTC-000
+4: USDT-000
+
+  :::demo
+  
+  ```json tab:Response
+  {
+      "code": 0,
+      "msg": "ok",
+      "data": {
+          "tradePoolVx": {
+              "1": "6005.736536774939954301",
+              "2": "6005.736536774939954301",
+              "3": "6005.736536774939954301",
+              "4": "6005.736536774939954301"
+          },
+          "tradePoolFee": {
+              "1": "17769.748909914626699977",
+              "2": "1.267967346417481080",
+              "3": "0.03045706",
+              "4": "299.338260"
+          }
+      }
+  }
+  ```
+  
+  ```json test:Test url: /api/v2/trade_fee_info method: GET
+  {}
+  ```
+  ::: 
 
 ### Get Server Time
 ```

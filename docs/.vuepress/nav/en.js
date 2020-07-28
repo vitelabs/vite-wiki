@@ -103,6 +103,10 @@ module.exports = [
           {
             text: 'Android Wallet',
             link: 'https://app.vite.net'
+          },
+          {
+            text: 'Desktop Wallet (Mac/Windows)',
+            link: 'https://github.com/vitelabs/vite-wallet/releases'
           }
         ]
       },
