@@ -58,7 +58,7 @@ Run `exit` to abort
 Execute the following command
 
 ```javascript
-vite.wallet_createEntropyFile("Your_Mnemonic", "Your_Password")
+vite.wallet_recoverEntropyFile("Your_Mnemonic", "Your_Password")
 ```
 
 For example：
