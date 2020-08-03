@@ -64,7 +64,7 @@ vite.wallet_createEntropyFile("123456")
 然后在交互命令行中输入
 
 ```javascript
-vite.wallet_createEntropyFile("Your Mnemonic","123456")
+vite.wallet_recoverEntropyFile("Your Mnemonic","123456")
 ```
 其中 `Your Mnemonic` 修改为自己的助记词
 
