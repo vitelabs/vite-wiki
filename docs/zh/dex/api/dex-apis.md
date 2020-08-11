@@ -147,7 +147,7 @@ API访问计数以60秒为一个固定周期，周期内套餐额度用完，则
 
 API Key | API Secret
 ------------ | ------------
-6344A08BB85F5EF6E5F9762CB9F6E767 | 0009431FFA3F9954F3F3CB0A68ABCD99
+913423DE46E97751CCC734F018F09217 | F6BED9F34912C0B658B58C73B6531721
 
 若想在ETH-000/BTC-000的交易对下一个买单，以0.09的价格，买入10 ETH，参数如下：
 
@@ -160,18 +160,18 @@ price | 0.09
 timestamp | 1567067137937
 
 在这个例子中，
-* **请求字符串：** amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560
+* **请求字符串：** amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560
 * **签名(参数已排序)：**
 
 ```bash
-$ echo -n "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560" | openssl dgst -sha256 -hmac "0009431FFA3F9954F3F3CB0A68ABCD99"
+$ echo -n "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560" | openssl dgst -sha256 -hmac "F6BED9F34912C0B658B58C73B6531721"
 (stdin)= 7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47
 ```
 
 * **调用API：**
 
 ```bash
-$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order
+$ curl -X POST -d "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order/test
 ```
 
 ## 私有 REST API

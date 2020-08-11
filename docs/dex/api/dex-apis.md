@@ -151,7 +151,7 @@ Let's place an order through API `/api/v2/order`. Assume we have the following A
 
 API Key | API Secret
 ------------ | ------------
-6344A08BB85F5EF6E5F9762CB9F6E767 | 0009431FFA3F9954F3F3CB0A68ABCD99
+913423DE46E97751CCC734F018F09217 | F6BED9F34912C0B658B58C73B6531721
 
 We place an order on market ETH-000_BTC-000 to buy 10 ETH at price 0.09 BTC. The API request has the following parameters:
 
@@ -165,19 +165,19 @@ timestamp | 1567067137937
 
 The request string is:
 
-`amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560`
+`amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560`
 
 Create signature:
 
 ```bash
-$ echo -n "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560" | openssl dgst -sha256 -hmac "0009431FFA3F9954F3F3CB0A68ABCD99"
+$ echo -n "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560" | openssl dgst -sha256 -hmac "F6BED9F34912C0B658B58C73B6531721"
 (stdin)= 7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47
 ```
 
 Call API to place the order:
 
 ```bash
-$ curl -X POST -d "amount=10&key=6344A08BB85F5EF6E5F9762CB9F6E767&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order
+$ curl -X POST -d "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order/test
 ```
 
 ## Private REST API
