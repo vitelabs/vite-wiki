@@ -96,20 +96,25 @@ This reduces the barrier of token issuance and also improves security by removin
 
 ## Coins in Vite
 
-In addition to **VITE**, two other official coins, **VCP** and **VX**, are issued in Vite Mainnet.
+**VITE**, and two other native coins, **VCP** and **VX**, are officially issued in Vite Mainnet.
+
+### VITE
+Full name：*Vite Coin*
+
+VITE is the native coin of the Vite public chain. VITE is the fuel to power up transactions on the Vite chain. Unlike the traditional fuel of "Gas" that will be consumed on other public chains (e.g. Ethereum), VITE is used to stake for the computational and bandwidth resources, and can be retained at no cost once the transactions are complete. VITE is currently listed on the top exchanges and can be traded for serious investment considerations.
 
 ### VCP
 
 Full name：*Vite Community Points*
 
 VCP is the credit of the community. They are distributed for free to recognize community members who have significant contribution. At the time being, VCP is mainly used for redeeming Vite merchandise (such as T-shirts and hats) in ViteStore. 
-VCP will not be listed for trade in exchange.
+VCP will not be listed or trade in exchange.
 
 ### VX
 
 Full name：*ViteX Coin*
 
-As the platform token of ViteX, VX's holders are subject to the exchange's dividends. Unlike many exchange platforms, VX won't be pre-mined and 100% of VX are mined in real transactions based on an agreed distribution schedule.
+As the platform token of ViteX, VX holders benefit from the exchange's dividend distributions and governance privileges. All VX is 100% mined through real tradings, staking, coin listings, referrals, and market-making activities based on an agreed remittance schedule.
 
 [sbp-reward]: <../rule/sbp.html#SBP-rewards>
 [fullnode-reward]: <../rule/fullnode.html>
