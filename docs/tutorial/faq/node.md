@@ -1,4 +1,4 @@
-# Troubleshooting - Node
+# Troubleshooting & FAQ - Node
 
 ## Recommended Specs
 * SBP (Supernode) - 2 CPUs / 8 GB RAM
@@ -6,37 +6,40 @@
 
 A minimum of 5M bps stable internet connection is required.
 
-## Boot-up failures
+## Troubleshooting
+### Boot-up failures
 * `new node error`
 
-Format error in node_config.json or genesis.json.
+JSON Format error in node_config.json or genesis.json.
 
-* panic: The fork point xxxFork can't be nil. the `ForkPoints` config in genesis.json is not correct, you can remove the `ForkPoints` key in genesis.json then use the default config of `ForkPoints`
+* `panic: The fork point abcFork can't be nil. the ForkPoints config in genesis.json is not correct, you can remove the ForkPoints key in genesis.json then use the default config of ForkPoints`
 
-Unconfigured or incorrect fork point in genesis.json. Check `ForkPoints` in the config file and make sure it is aligned with the upcoming hard fork. For nodes in testnet, the hard fork height can be directly configured in genesis.json.
+Unconfigured or incorrect fork point in genesis.json. Check `ForkPoints` in the config file and make sure it is aligned with the upcoming hard fork. For testnet node, the hard fork height can directly be specified in genesis.json.
 
-* Failed to prepare node, dataDir already used by another process
+* `Failed to prepare node, dataDir already used by another process`
 
-`DataDir` has been occupied by another process. Kill the existing gvite process first. 
+The `DataDir` has been occupied by another gvite process. Kill the process and try again. 
 
-* Failed to prepare node, stat /xxx/maindata/wallet/vite_xxx: no such file or directory
+* `Failed to prepare node, stat {datadir}/maindata/wallet/vite_xxx: no such file or directory`
 
-The keystore file is missing. Check if `DataDir` is configured in node_config.json and the keystore file exists under the folder. You can also add `KeyStoreDir` in node_config.json.
+The keystore file is missing. Check if `DataDir` is specified in node_config.json and the correct keystore file is in the folder. You can also specify a `KeyStoreDir` in node_config.json.
 
-* Failed to prepare node, error decrypt store
+* `Failed to prepare node, error decrypt store`
 
-Unlock account failed, usually caused by mismatched key store file and password.
+Unlock account failed, usually caused by a mismatched key store file and password.
 
-* Failed to start node, no service for name xxx
+* `Failed to start node, no service for name {abc}`
 
-Missing module 'xxx' in `PublicModules`. Remove the module 'xxx' from node_config.json.
+Module {abc} in `PublicModules` does not exist. Remove {abc} from node_config.json.
 
-## Node is not syncing
-The node booted up successfully but the snapshot block height is not increasing in 5 minutes. Follow the self-check steps below.
-* Make sure the node has been upgraded to the latest [stable version](https://github.com/vitelabs/go-vite/releases)
-* Make sure the timestamp on the node is accurate
-* Check connected peers through [net_peers](../../api/rpc/net.html#net_peers). If peerCount=0, make sure port 8483/8484 are exposed, and run `curl https://bootnodes.vite.net/bootmainnet.json` to check if the node has internet access. Wait for 5 minutes, reboot gvite if the peer connected is still 0. 
-```
+### Node is not syncing
+The node boots up successfully but the snapshot block height does not increase in 5 minutes. 
+
+Follow the below steps to check.
+* Make sure the node has been upgraded to the latest [stable version](https://github.com/vitelabs/go-vite/releases);
+* Make sure the timestamp on the node is accurate;
+* Check connected peers through [net_peers](../../api/rpc/net.html#net_peers). If peerCount=0, make sure port 8483/8484 are exposed, and run `curl https://bootnodes.vite.net/bootmainnet.json` to check if the node is connected to internet;
+```sh
 curl -X POST \
   http://127.0.0.1:48132/ \
   -H 'content-type: application/json' \
@@ -47,8 +50,8 @@ curl -X POST \
         "params": null
       }'
 ```
-* If peer is not zero, check sync status through [net_syncDetail](../../api/rpc/net.html#net_syncDetail). If the chunk returned is empty, wait 5 minutes and check again.
-```
+* If the node has connected to other peers, check sync status through [net_syncDetail](../../api/rpc/net.html#net_syncDetail). If the chunk returned is empty, wait 5 minutes and check again;
+```sh
 curl -X POST \
   http://127.0.0.1:48132/ \
   -H 'content-type: application/json' \
@@ -59,9 +62,9 @@ curl -X POST \
         "params": null
       }'
 ```
-* Reboot gvite, wait for 5 minutes and watch if the snapshot chain height increases. 
-* Examine the status of snapshot chain through debug_poolSnapshot (add `debug` in `PublicModules` of node_config.json to enable the method). If there is a height difference between Head and Tail and the value of Tail does not change, send the returned value and the latest log under ~/.gvite/maindata/runlog/ to Vite technical support for further investigation.
-```
+* Reboot gvite, wait for 5 minutes and watch if the snapshot chain height increases;
+* Examine the status of snapshot chain through debug_poolSnapshot (add `debug` in `PublicModules` of node_config.json to enable the debug tool). If there is a difference gap between Head and Tail, and Tail does not change, send the return values together with the latest log under {datadir}/maindata/runlog/ to Vite technical support for investigation.
+```sh
 curl -X POST \
   http://127.0.0.1:48132/ \
   -H 'content-type: application/json' \
@@ -73,38 +76,88 @@ curl -X POST \
       }'
 ```
 
-## SBP staking address and block creation address
+### SBP does not produce block
+The SBP node is synced up but does not produce snapshot block. 
 
-When registering an SBP, it is required to stake 1m VITE, and the staking address becomes the owner of the SBP. The block creation address and reward withdrawal address can be updated. After the lock-up period of staking expires, the SBP owner can cancel the SBP and retain the staked 1m VITE.
-
-The private key of block creation address is saved on the node server (corresponding to `EntropyStorePath` and `EntropyStorePassword` in node_config.json), and is used to sign snapshot blocks.
-
-Therefore, it is highly recommended to separate the staking address from the block creation address. Do NOT store your coins in block creation address.
-
-## SBP does not produce block
-The SBP node is in sync but does not produce block. Follow the self-check steps below.
-* Make sure the node has been upgraded to the latest [stable version](https://github.com/vitelabs/go-vite/releases).
-* Make sure the timestamp on the node is accurate.
-* Make sure the node has installed 4 CPUs and 8GB RAM with 5M bps internet connection, and there is no other program occupying the CPU, RAM, disk I/O and network bandwidth.
-* Check node_config.json, make sure `Miner` is set to true, `EntropyStorePath` and `EntropyStorePassword` are correctly configured.
-* Check the registration information of the SBP on [Vite block explorer](https://explorer.vite.net/SBPList) to make sure the current block creation address matches the address configured in `EntropyStorePath`.
-* Check the SBP rank on [Vite block explorer](https://explorer.vite.net/SBPList). SBP nodes ranked after 25 have a lower probability of producing blocks. SBP ranked after 100 will never have the chance to produce block.
-* Restart the node.
+Follow the below steps to check.
+* Make sure the node has been upgraded to the latest [stable version](https://github.com/vitelabs/go-vite/releases);
+* Make sure the timestamp on the node is accurate;
+* Make sure the node has 4 CPUs and 8GB RAM installed with 5M bps internet connection, and there is no other program occupying the CPU, RAM, disk I/O and network bandwidth;
+* Check node_config.json, make sure `Miner` is set to true, `EntropyStorePath` and `EntropyStorePassword` are correctly configured;
+* Check the registration information of the SBP on [Vite block explorer](https://explorer.vite.net/SBPList) to make sure the current block creation address matches the address configured in `EntropyStorePath`;
+* Check the SBP rank on [Vite block explorer](https://explorer.vite.net/SBPList). SBP nodes ranked after 25 have a smaller rate to produce blocks. SBP ranked after 100 do not have chance to produce snapshot block;
+* Restart the node;
 * If the problem still exists, send the latest log under ~/.gvite/maindata/runlog/ to Vite technical support for further investigation.
 
-## SBP is missing blocks
-The SBP node is in sync but missed some blocks. Follow the self-check steps below.
+### SBP is missing blocks
+The SBP node is in sync but missed some blocks. Follow the steps below to check.
 * Make sure the node has been upgraded to the latest [stable version](https://github.com/vitelabs/go-vite/releases).
 * Make sure the timestamp on the node is accurate.
 * Make sure the node has installed 4 CPUs and 8GB RAM with 5M bps internet connection, and there is no other program occupying the CPU, RAM, disk I/O and network bandwidth.
 * Restart the node.
-* If the problem still exists, send the latest log under ~/.gvite/maindata/runlog/ to Vite technical support for further investigation.
+* If the problem still exists, send the latest log under {datadir}/maindata/runlog/ to Vite technical support for investigation.
 
-## Node upgrade
-There are two types of gvite release. For the releases tagged "Upgrade is required", the upgrade must be completed within the designated time in order to comply with the hard fork. No worries, you have enough time to finish the upgrade. Announcements will be declared on various social channels including Telegram group, Discord channel, Vite block explorer notifications, and Vite forum usually one month ahead of the hard fork.
-Another type of release is general release, including improved stability and performance, network optimization, new toolkit interface, etc. Forced upgrade is not required for this kind of release, but recommended.
+### Node reports too many open files
+It is a common error in Linux. Increase the maximum number of open files in the system. Follow the steps below to fix.
 
-If there are no special instruction in the announcement, to upgrade a node you should just replace the gvite file and restart it. This is convenient and there is no need to modify node_config.json. If there are instructions in the release announcement, follow the instructions.
+Run
+```sh
+sudo vim /etc/security/limits.conf 
+```
+Add 
+```
+* soft nofile 10240  
+* hard nofile 10240
+```
+or 
+```
+* - nofile 10240
+```
+or (if you have root access)
+```
+root soft nofile 10240  
+root hard nofile 10240
+```
+Save and quit
+
+Logout and login again
+
+Run
+```sh
+ulimit -n
+``` 
+to check the new value is applied
+
+You can also run
+```sh
+ps -ef | grep gvite
+```
+Get the pid of gvite
+```sh
+cat /proc/{pid}/limits | grep open
+```
+Check the value displayed
+
+## FAQ
+### What is the difference between SBP staking address and block creation address?
+
+When an SBP is registered, the registration account should stake 1m VITE. The registration address is the staking address and becomes the owner of the SBP. After the staking lock-up period expires, the staking address can cancel the SBP and retain the 1m VITE staked.
+
+Once registered, the staking address cannot be changed. This is different with block creation address and reward withdrawal address, the both can be updated after registration.
+
+The private key of block creation address is saved on the node (corresponding to `EntropyStorePath` and `EntropyStorePassword` in node_config.json), and the only purpose of block creation address is to sign snapshot blocks. 
+
+Reward withdrawal address is used to withdraw SBP rewards. 
+
+:::tip Tip
+It is highly recommended to separate staking address from block creation address. Do NOT store assets in block creation address.
+:::
+
+### Do I need to upgrade my node when there is a new release? 
+There are two types of gvite release. For the releases tagged "Upgrade is required", you should complete the upgrade within the time in order to be compatible with the hard fork. No worries, you have enough time to finish the upgrade. Announcements will be declared on Vite social channels including Telegram group, Discord channel, Vite block explorer notifications, and Vite forum usually one month ahead of the hard fork.
+Another type of release is general release, including improved stability and performance, network optimization, new toolkit interface, etc. Upgrade is not required for this kind of release, but recommended.
+
+If there are no special instruction in the announcement, to upgrade a node you should just replace the gvite file and restart it. This is convenient because there is no need to modify node_config.json. If there are instructions in the release announcement, follow the instructions.
 
 After reboot, watch if the snapshot chain height is increasing (for full node and SBP node) and snapshot blocks are produced normally (for SBP node). If yes, the upgrade is successful.
 
@@ -112,9 +165,9 @@ After reboot, watch if the snapshot chain height is increasing (for full node an
 To avoid unnecessary block missing for SBP node during upgrade, replace gvite file first then reboot the node.
 :::
 
-## Check sync status
+### How to check sync status?
 You have two alternatives.
-* Through [net_syncinfo](../../api/rpc/net.html#net_syncinfo)，`Sync done` indicates the node is synced up. 
+* Check through [net_syncinfo](../../api/rpc/net.html#net_syncinfo)，`Sync done` indicates the node is synced up. 
 ```sh
 curl -X POST \
   http://127.0.0.1:48132/ \
@@ -126,57 +179,25 @@ curl -X POST \
       	"params":null
       }'
 ```
-* Through gvite.log or [ledger_getSnapshotChainHeight](../../api/rpc/ledger_v2.html#ledger_getSnapshotChainHeight) to check the latest snapshot block height on the node and compare to the explorer.
-
-## How is the SBP reward allocated
-See [SBP reward rules](../rule/sbp.html#sbp-rewards). You can download a detailed voting spreadsheet on the SBP details page from the explorer. 
-
-## 跑多个全节点时，能否直接复制账本
-可以，先kill掉gvite节点，然后复制ledger目录即可，不要复制net目录。
-
-## 节点异常退出，runlog中报too many open files
-Linux系统常见错误，修改系统限制的打开文件数量即可。
-
-### 解决方法
-1. 命令行方式修改
-
-执行命令：
+* Check through gvite.log or [ledger_getSnapshotChainHeight](../../api/rpc/ledger_v2.html#ledger_getSnapshotChainHeight) to check the latest snapshot block height on the node and compare to explorer.
+```sh
+curl -X POST \
+  http://127.0.0.1:48132/ \
+  -H 'content-type: application/json' \
+  -d '{
+      	"jsonrpc": "2.0",
+      	"id": 1,
+      	"method":"ledger_getSnapshotChainHeight",
+      	"params":null
+      }'
 ```
-ulimit -n 2048
-# 然后启动需要运行的程序
-```
-这种方式会立即生效，但退出登录后会立即失效。
 
-2. 修改配置文件
-```
-sudo vim /etc/security/limits.conf 
-#在最后加入  
-* soft nofile 10240  
-* hard nofile 10240 
-或者只加入
-* - nofile 10240
+### How is the SBP reward allocated?
+See [SBP reward rules](../rule/sbp.html#sbp-rewards). You can download a detailed voting spreadsheet from the SBP details page of explorer. 
 
-# 如果是root用户，这样追加
-root soft nofile 10240  
-root hard nofile 10240
-```
-这种方式需要注销重新登录才会生效。
+### Can I copy the ledger files to a new node? 
+Copying ledger files to another node is allowed. Be noted to stop the node first, and you just need to copy `{datadir}/maindata/ledger` folder. 
 
-### 确定生效
-1. 通过ulimit -n查看当前的数量
-```
-$ ulimit -n
-10240 # 这个就是当前的设置结果；
-``` 
 
-2. 通过查看具体进程的信息查看，这样更加准确：
-```
-$ ps -ef | grep gvite
-先通过上面命令拿到pid
 
-$ cat /proc/{pid}/limits | grep open
-然后查看具体生效的结果
-
-```
-最后，如果实在没有生效，请自行google "too many open files"，有一大堆解决方法
 
