@@ -1,6 +1,6 @@
 # Introduction to Vite Mainnet <Badge :text="$page.version"/>
 
-Vite Mainnet was launched on September 25, 2019. Hit [Token Swap](https://medium.com/vitelabs/announcing-the-vite-mainnet-launch-4d55fc4b4bd2) to learn about how to convert ERC20 to native Vite coins.
+The Vite Mainnet was launched on September 25, 2019. Visit [Token Swap Guide](https://medium.com/vitelabs/announcing-the-vite-mainnet-launch-4d55fc4b4bd2) to learn about how to convert ERC20 VITE to native Vite coins.
 
 ## How to Get Vite Coins
 
@@ -14,10 +14,10 @@ Vite Mainnet was launched on September 25, 2019. Hit [Token Swap](https://medium
 
 ### SBP Rewards
 
-**SBP (Snapshot Block Producer)** is responsible for producing snapshot blocks and reaching consensus in Vite network. SBP rewards are issued to incentivize SBP nodes. There are 25 SBP nodes in Vite Mainnet.
+**SBP (Snapshot Block Producer)** is responsible for producing snapshot blocks and securing consensus on the Vite chain. SBP rewards are issued to incentivize the SBP nodes. There are 25 SBP nodes in Vite Mainnet.
 
 :::tip
-**Block Creation Reward** is `0.951293759512937595` **VITE** per snapshot block. As part of the protocol, SBP rewards are issued on-chain. Each SBP should send **Reward Retrieval Transaction** to built-in **Consensus** contract to get rewards.
+SBP reward is **0.951293759512937595** VITE per snapshot block plus additional voting reward. The rewards are issued on-chain. Each SBP should send an explicit **Reward Retrieval Transaction** to get rewards.
 :::
 
 Related links:
@@ -27,7 +27,7 @@ Related links:
 
 ### Full Node Rewards
 
-Full nodes play an important role in Vite ecosystem. We are pleased to announce **Full Node Reward Program** has been extended to the Mainnet. Full node rewards are distributed on a daily basis since the program was launched on December 13, 2018. 
+Full node is the cornerstone of the Vite ecosystem. The **Full Node Reward Program** was firstly launched on December 13, 2018 in Vite Testnet, and has been upgraded on January 4, 2020. Full node rewards are distributed on a daily basis.
 
 Related links:
 
@@ -38,63 +38,69 @@ Related links:
 
 ### Fee-less Transactions
 
-Transactions are free in Vite. No gas(as in Ethereum) is charged. Instead, Vite implements a **Quota-Based Model** according to the amount of staking for an account, and thus measures how many transactions the account can process in TPS(Transaction Per Second). 
-For most of users who usually do not need to send frequent transactions, a non-staking PoW(Proof of Work) mechanism is provided to acquire a small amount of quota for one-time use (one transaction). 
-For heavy users like exchange traders, they should stake **VITE** for obtaining sufficient quota.
+Transactions are free on Vite. There is no "Gas" (as in Ethereum) charged. To address the transaction cost, Vite has implemented a **Quota-Based Model** to measure the number of transactions the account can process in UT (Unit Transaction). 
+
+Think of "Quota" as the fuel that keeps the Vite public chain running. Every transaction that is sent requires a certain amount of quota. For users that have high transaction frequency, they will need to obtain quota by staking VITE coins.
+
+Nevertheless, users who do not send frequent transactions can choose to run a quick PoW on their respective devices to get a small amount of quota instead.
 
 ### HDPoS Consensus
 
-The consensus algorithm in Vite is **Hierarchical Delegated Proof of Stake(HDPoS)**. 
-As a multi-tier dPoS algorithm, the top-level consensus in Vite is guaranteed by supernodes in **Snapshot Consensus Group**, while **Delegated Consensus Group** and **Private Consensus Group** are responsible for reaching consensus at smart contract level and user account level respectively.
+The consensus algorithm of Vite is called **Hierarchical Delegated Proof of Stake(HDPoS)**. 
 
-In HDPoS, multiple instances of **Delegated Consensus Group** and **Private Consensus Group** ensure transactions can be verified and written into ledger at high speed, and the existence of **Snapshot Chain** prevents all transactions from being tempered with. 
+HDPoS is a multi-tiered algorithm featured by different levels of consensus groups. The eventual consensus in HDPoS is secured by supernodes of **Snapshot Consensus Group**, while nodes in **Delegated Consensus Group** and **Private Consensus Group** are responsible for reaching consensus for transactions of smart contracts and user accounts.
+
+The existence of multiple instances of consensus group in HDPoS guarantees that transactions can be verified, written into the ledger, and confirmed across smart contracts and account chains at high speed. 
 
 ### Fast Transactions
 
-The DAG ledger and asynchronous communication scheme are essential to high performance. In general, the asynchronization in Vite lies in three aspects: 
+The DAG ledger and asynchronous communication scheme play a big role in achieving high performance. In general, Vite's asynchronous design lies in three areas: 
 
 * Asynchronous Design of Request and Response 
 * Asynchronous Design of Transaction Writing and Confirmation 
-* Asynchronous Design of Inter-Contract Calls
+* Asynchronous Design of Cross-Contract Calls
 
 ### Built-In Smart Contracts
 
-Built-in smart contracts are widely used in Vite. Features like SBP registration, voting, staking, token issuance and ViteX exchange, are implemented in built-in smart contracts .
+Built-in smart contracts are widely used in Vite. Features like SBP registration, voting, staking, token issuance, and ViteX exchange, are implemented in built-in smart contracts.
 
 #### SBP Registration
 
-In the Mainnet, requirements for registering an SBP node are as follows:
+In the Mainnet, the steps for launching an SBP node are as follows:
 
-* Staking 1,000,000 **VITE** with a locking period of 3 months
-* Operating a server and having skills to maintain said server
-* Having substantial community influence and being able to solicit votes from VITE holders
+* Staking **1,000,000** VITE with a locking period of 3 months;
+* Operating a node server and having skills to maintain the said server;
+* Having substantial community influence and being able to solicit votes from VITE holders.
 
 #### Voting for SBP
 
-Users can vote for SBP. The voting weight counts as the balance of **VITE** in user's account. Voting does not have locking period and can be changed at any time. 
-Many SBPs distribute voting rewards to supporters. Vote for them and get rewards!
+Many SBPs distribute voting rewards to supporters. Users can vote for them and get rewards! The VITE balance in the user's address will count toward the voting weight. Voting does not lock VITE, and the user can revote to another SBP at any time. 
 
-#### Staking
+:::tip Notice
+NOT every SBP will distribute voting rewards. Refer to the SBP list that gives rewards on the Vite forum.
+:::
 
-The recommended means to get quota is staking. In the Mainnet, the minimum staking amount is 134 VITE, no maximum limit. 
+#### Staking for Quota
 
-**Staking Lock-up Period**, defined as the period of time in which staked tokens are locked up and cannot be withdrawn, is 3 days in Vite Mainnet. 
-Only the staking account has the permission to retrieve the staked tokens once the locking period expires.
+It is recommended to get quota through staking. In the Mainnet, the minimum staking amount is 134 VITE, and there is no maximum limit. 
+
+**Staking Lock-up Period**: 3 days
+
+The lock-up period is defined as the period of time in which the staked VITE are locked up and cannot be withdrawn. When the lock-up expires, the staking address will be able to withdraw the staked coins.
 
 #### Staking for a Recipient Account
 
-Staking account should designate a beneficiary for receiving quota. If not specified, the default beneficiary is the staking account.
+The staking address can designate a quota beneficiary. If not specified, the default beneficiary is the staking address.
 
 #### Staking Withdrawal
 
-Staking account can cancel unlocked staking and retrieve staked **VITE** tokens. The minimum withdrawal amount is 134 **VITE**.
+The staking address can cancel a staking after the lock-up period has passed and retrieve the VITE coins staked. In correspondence with the minimum staking amount, the minimum withdrawal amount is also **134** VITE.
 
 #### Token Issuance
 
-Unlike Ethereum where ERC20 smart contract has to be written, issuing new token in Vite only needs to send a transaction. 
-This reduces the barrier of token issuance and also improves security by removing explicit third-party token contracts.
+Unlike Ethereum on which the issuer has to write ERC20 smart contract to mint a token, issuing tokens on Vite is simplified as just filling a form. This greatly lowers the barrier of token issuance with additional security improvement by avoiding from introducing unexpected code flaws.
 
-## Coins in Vite
+## Coins on Vite
 
 **VITE**, and two other native coins, **VCP** and **VX**, are officially issued in Vite Mainnet.
 
@@ -114,7 +120,7 @@ VCP will not be listed or trade in exchange.
 
 Full name：*ViteX Coin*
 
-As the platform token of ViteX, VX holders benefit from the exchange's dividend distributions and governance privileges. All VX is 100% mined through real tradings, staking, coin listings, referrals, and market-making activities based on an agreed remittance schedule.
+As the platform token of ViteX, VX holders benefit from the exchange's dividend distributions and governance privileges. All VX are 100% mined through real tradings, staking, coin listings, referrals, and market-making activities based on an agreed remittance schedule.
 
 [sbp-reward]: <../rule/sbp.html#SBP-rewards>
 [fullnode-reward]: <../rule/fullnode.html>
