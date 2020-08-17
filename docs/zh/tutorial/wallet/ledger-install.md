@@ -8,9 +8,8 @@
 下面逐一讲解，请严格按照步骤执行。
 
 ## 安装 VirtualBox 虚拟机
-进入[虚拟机下载页面](https://www.virtualbox.org/wiki/Downloads)，如下图所示，Windows 用户下载 Windows 版本，macOS 用户下载 macOS 版本。下载完成后根据提示进行安装。
+进入[虚拟机下载页面](https://www.virtualbox.org/wiki/Downloads)，如下图所示，Windows 用户下载 Windows 版本，macOS 用户下载 macOS 版本，同时需要下载 Extension Pack。下载完成后根据提示先安装虚拟机，之后安装Extension Pack。
 ![download-virtualbox](~/images/ledger/download-virtualbox.png)
-
 
 ## 在虚拟机中安装 ubuntu 操作系统
 进入[ubuntu下载页面](https://ubuntu.com/#download)，点击下图所示按钮下载 ubuntu 系统镜像文件。
@@ -58,7 +57,7 @@ Name 填入“ubuntu”，选择合适的位置存放虚拟机文件，使用默
 选中添加进来的镜像文件，点击 Choose
 ![install-13](~/images/ledger/install-13.png)
 
-如下图所示，此时镜像文件已经添加进来了，之后点击 Ok，保存设置
+如下图所示，此时镜像文件已经添加进来了，之后点击 OK，保存设置
 ![install-14](~/images/ledger/install-14.png)
 
 点击 Start 启动虚拟机
@@ -89,5 +88,51 @@ Name 填入“ubuntu”，选择合适的位置存放虚拟机文件，使用默
 ![install-23](~/images/ledger/install-23.png)
 
 ## 下载源码配置编译环境
+点击 Activities，在搜索框中输入 terminal，点击打开终端。
+![](~/images/ledger/config-1.jpg)
+
+![](~/images/ledger/config-2.jpg)
+
+安装编译环境，输入如下命令
+```shell
+sudo apt install git build-essential autoconf python3-venv python3-dev libudev-dev libusb-1.0-0-dev gcc-arm-none-eabi gcc-multilib g++-multilib libtinfo5
+```
+安装过程中会要求输入密码，根据提示输入密码后按下回车键。当询问是否继续时，键入“Y”之后按下回车键即可。
+
+安装成功后，执行下列命令，下载源码并准备编译环境
+```shell
+git clone https://github.com/vitelabs/ledger-app-vite.git
+cd ledger-app-vite/
+source prepare-devenv.sh
+```
+执行过程中会要求输入密码，根据提示输入密码后按下回车键即可
 
 ## 编译安装
+将 Ledger Nano S 设备插入电脑的 USB接口中
+![ledger-1](~/images/ledger/ledger-1.jpg)
+
+之后在设备上输入 Pin 码进入初始界面
+![ledger-2](~/images/ledger/ledger-2.jpg)
+
+点击虚拟机窗口右下角 USB 图标，选择 Ledger Nano S，确保 Ledger Nano S 前打勾，如下图所示，此时 Ledger Nano S 设备连接到了虚拟机
+![build-1](~/images/ledger/build-1.png)
+![build-2](~/images/ledger/build-2.png)
+
+在终端输入如下命令，将 vite 固件编译安装到 Ledger Nano S 设备中
+```shell
+make load
+```
+在编译安装过程中需要在 Ledger Nano S 中授权允许安装并被要求输入 Pin 码，按照提示操作即可。
+
+![ledger-3](~/images/ledger/ledger-3.jpg)
+![ledger-4](~/images/ledger/ledger-4.jpg)
+![ledger-5](~/images/ledger/ledger-5.jpg)
+![ledger-6](~/images/ledger/ledger-6.jpg)
+![ledger-7](~/images/ledger/ledger-7.jpg)
+
+安装成功后在初始页面会出现 Vite 图标，表示安装成功。
+
+如果需要删除 Vite，执行如下命令，根据提示操作即可。
+```shell
+make delete
+```
