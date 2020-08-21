@@ -681,7 +681,7 @@ symbol | STRING | NO | Trading pair name. For example, `GRIN-000_BTC-000`
 quoteTokenSymbol | STRING | NO | Quote token symbol. For example, `BTC-000`
 tradeTokenSymbol | STRING | NO | Trade token symbol. For example, `GRIN-000`
 offset | INTEGER | NO | Search starting index, starts at `0`, default `0`
-limit | INTEGER | NO | Search limit, max `30`, default `100`
+limit | INTEGER | NO | Search limit, default `30`, max `100`
 total | INTEGER | NO | Include total number searched in result? `0` - not included, `1` - included. Default is `0`, in this case `total=-1` in response
 
 * **Response:**
@@ -742,7 +742,7 @@ endTime | LONG | NO | End time (s)
 side | INTEGER | NO | Order side. `0` - buy, `1` - sell
 status | INTEGER | NO | Order status, valid in [`0-10`]. `3`,`5` - returns orders that are unfilled or partially filled; `7`,`8` - returns orders that are cancelled or partially cancelled
 offset | INTEGER | NO | Search starting index, starts at `0`, default `0`
-limit | INTEGER | NO | Search limit, max `30`, default `100`
+limit | INTEGER | NO | Search limit, default `30`, max `100`
 total | INTEGER | NO | Include total number searched in result? `0` - not included, `1` - included. Default is `0`, in this case `total=-1` in response
 
 * **Response:**
@@ -933,7 +933,7 @@ startTime | LONG | NO | Start time (s)
 endTime | LONG | NO | End time (s)
 side | INTEGER | NO | Order side. `0` - buy, `1` - sell
 offset | INTEGER | NO | Search starting index, starts at `0`, default `0`
-limit | INTEGER | NO | Search limit, max `30`, default `100`
+limit | INTEGER | NO | Search limit, default `30`, max `100`
 total | INTEGER | NO | Include total number searched in result? `0` - not included, `1` - included. Default is `0`, in this case `total=-1` in response
 
 * **Response:**
@@ -1250,8 +1250,8 @@ locked | STRING | Balance locked by open order
   ```
   ::: 
   
-### Get trade mining pool
-Get today's VX mining pool for trade and fees accumulated
+### Get Trade Mining Info
+Get the current cycle's trade mining pool size and real-time fees accumulated 
 ```
 GET /api/v2/trade_fee_info
 ```
@@ -1259,8 +1259,8 @@ GET /api/v2/trade_fee_info
 
 Name | Type | Description
 ------------ | ------------ | ------------
-tradePoolVx | OBJECT | VX volume for each market
-tradePoolFee | OBJECT | trade fee for each market
+tradePoolVx | OBJECT | Minable VX to be distributed in 4 markets at the cycle end
+tradePoolFee | OBJECT | Real-time cumulative trading fees in 4 markets
 
 1: VITE
 2: ETH-000
