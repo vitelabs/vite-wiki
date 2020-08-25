@@ -51,6 +51,7 @@ module.exports = {
                 // 'wallet/install',
                 // 'wallet/manage',
                 'wallet/hdwallet',
+                'wallet/ledger-install',
             ]
         },
         {

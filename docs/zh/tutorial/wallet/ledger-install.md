@@ -1,5 +1,5 @@
-# Ledger Nano S 安装教程
-目前 Ledger Nano S Vite App 的固件代码已经提交到官方审核，由于审核还没有通过，无法通过 Ledger Live App 直接下载，所以想要通过 Nano S 管理 Vite 链上资产的用户可以通过源码编译的方式进行安装，大约需要如下几个步骤：
+# Ledger Nano S Vite App 安装教程
+目前 **Ledger Nano S Vite App** 的固件代码已经提交到Ledger官方审核，由于审核还在进行中，暂时无法通过 Ledger Live 直接下载，所以想要使用 Ledger Nano S 管理 Vite 链上资产的用户可以通过编译源码的方式进行安装，大约需要如下几个步骤：
 1. 安装 VirtualBox 虚拟机
 2. 在虚拟机中安装 ubuntu 操作系统
 3. 下载源码配置编译环境
@@ -91,7 +91,7 @@ Name 填入“ubuntu”，选择合适的位置存放虚拟机文件，使用默
 
 ![install-18](../../../../assets/images/ledger/install-18.png)
 
-选择 Erase disk and instll Ubuntu，之后点击 Install Now
+选择 Erase disk and install Ubuntu，之后点击 Install Now
 
 ![install-19](../../../../assets/images/ledger/install-19.png)
 
@@ -122,7 +122,7 @@ Name 填入“ubuntu”，选择合适的位置存放虚拟机文件，使用默
 ```shell
 sudo apt install git build-essential autoconf python3-venv python3-dev libudev-dev libusb-1.0-0-dev gcc-arm-none-eabi gcc-multilib g++-multilib libtinfo5
 ```
-安装过程中会要求输入密码，根据提示输入密码后按下回车键。当询问是否继续时，键入“Y”之后按下回车键即可。
+安装过程中会要求输入root密码，根据提示输入密码后按下回车键。当询问是否继续时，键入“Y”之后按下回车键即可。
 
 安装成功后，执行下列命令，下载源码并准备编译环境
 ```shell
@@ -137,7 +137,7 @@ source prepare-devenv.sh
 
 ![ledger-1](../../../../assets/images/ledger/ledger-1.jpg)
 
-之后在设备上输入 Pin 码进入初始界面
+之后在设备上输入 PIN 码进入初始界面
 
 ![ledger-2](../../../../assets/images/ledger/ledger-2.jpg)
 
@@ -147,7 +147,7 @@ source prepare-devenv.sh
 
 ![build-2](../../../../assets/images/ledger/build-2.png)
 
-在终端输入如下命令，将 vite 固件编译安装到 Ledger Nano S 设备中
+在终端输入如下命令，将 Vite App 固件编译安装到 Ledger Nano S 设备中
 ```shell
 make load
 ```
