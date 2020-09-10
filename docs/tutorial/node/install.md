@@ -255,7 +255,7 @@ The modified part of node_config.json is as below(please note this is not the fu
 
 ### Node status check
 
-Reboot full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers) to examine if your node has shown up correctly (result will reflect in 5 minutes).
+Reboot full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers?address=${rewardAddress}) to examine if your node has shown up correctly (result will reflect in 5 minutes).
   
 ## Next steps
 
