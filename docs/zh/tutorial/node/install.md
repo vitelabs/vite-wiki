@@ -298,7 +298,7 @@ golang 安装方法 [go 安装](https://golang.org/doc/install)
 ```
 
 ### 配置结果check
-当配置完成并重启节点后, 可以检查[链接](https://stats.vite.net/api/getAlivePeers)内容(链接内容刷新5min内有延迟), 查看是否包含自己节点, 并检查是否配置成功(例如地址和名称是否正确).
+当配置完成并重启节点后, 可以检查[链接](https://stats.vite.net/api/getAlivePeers?address=${rewardAddress})内容(链接内容刷新5min内有延迟), 查看是否包含自己节点, 并检查是否配置成功(例如地址和名称是否正确).
 
 ## 下一步
 
