@@ -880,7 +880,7 @@ limit | INTEGER | NO | 数量，默认500
     }
   ```
   
-  ```json test:Test url: /api/v2/trades/part?symbol=BTC-000_USDT-000 method: GET
+  ```json test:Test url: /api/v2/trades?symbol=BTC-000_USDT-000 method: GET
   {}
   ```
   :::
