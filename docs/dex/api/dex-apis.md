@@ -1321,7 +1321,10 @@ GET /api/v2/timestamp
   ```
   ::: 
 
-## WebSocket API
+## WebSocket API V1
+
+### Network
+* 【MainNet】`wss://api.vitex.net/ws`
 
 ### Definition of op_type  
 * sub: subscribe
@@ -1356,11 +1359,6 @@ Support single and multiple topic subscriptions, separated by ",". For example, 
 |`market.$symbol.kline.week`|1-week kline update|`Kline`|
 |`market.$symbol.kline.hour6`|6-hour kline update|`Kline`|
 |`market.$symbol.kline.hour12`|12-hour kline update|`Kline`|
-
-## JSON Message
-
-### Network
-* 【MainNet】`wss://api.vitex.net/ws`
 
 ### Message Definitions
 
@@ -1697,17 +1695,24 @@ private List<List<String>> bids; // [[price, quantity],[price, quantity]]
   :::
 
 ## WebSocket API V2
-Subscribe
-```text
-{"command":"", "params":[]}
-eg. 
+### Request Format
+```json
+{"command":"cmd", "params":["paramList"]}
+```
+e.g.
+```json
 {"command":"ping"}
-{"command":"sub", "params":["order.vite_xxx","market.VX_USDT-000.depth"]}
 ```
-Response Data
-```text
-{"code":0, "message":"error msg", "topic":"", "event": "push/sub", "data":{}, "timestamp": milli seconds}
+```json
+{"command":"sub", "params":["order.vite_xxx", "market.VX_USDT-000.depth"]}
 ```
+Response message
+```json
+{"code":0, "message": "error msg", "topic": "topic", "event": "push/sub", "data": "{JSON message}", "timestamp": 0}
+```
+
+### Network
+* 【MainNet】`wss://api.vitex.net/v2/ws`
 
 ### Definition of Command
 * sub: subscribe
@@ -1743,10 +1748,7 @@ Support single and multiple topic subscriptions, separated by ",". For example, 
 |`market.$symbol.kline.hour6`|6-hour kline update|`Kline`|
 |`market.$symbol.kline.hour12`|12-hour kline update|`Kline`|
 
-## JSON Message
-
-### Network
-* 【MainNet】`wss://api.vitex.net/v2/ws`
+### Message Definitions
 
 #### Kline
 * **Example:**

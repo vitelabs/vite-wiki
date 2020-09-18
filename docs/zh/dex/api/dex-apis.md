@@ -1291,7 +1291,10 @@ GET /api/v2/timestamp
   ```
   ::: 
 
-## WebSocket API
+## WebSocket API V1
+
+### 环境地址
+* 【MainNet】`wss://api.vitex.net/ws`
 
 ### op_type定义
 * sub，表示订阅
@@ -1326,12 +1329,7 @@ GET /api/v2/timestamp
 |`market.$symbol.kline.hour6`|6小时kline数据|`Kline`|
 |`market.$symbol.kline.hour12`|12小时kline数据|`Kline`|
 
-## JSON 消息订阅
-
-### 环境地址
-* 【MainNet】`wss://api.vitex.net/ws`
-
-### message数据结构定义
+### 消息数据结构
 
 #### Order
 
@@ -1666,17 +1664,23 @@ private List<List<String>> bids; // [[price, quantity],[price, quantity]]
   :::
 
 ## WebSocket API V2
-订阅格式
-```text
-{"command":"", "params":[]}
-eg. 
+### 订阅格式
+```json
+{"command":"cmd", "params":["paramList"]}
+```
+例如
+```json
 {"command":"ping"}
-{"command":"sub", "params":["order.vite_xxx","market.VX_USDT-000.depth"]}
+```
+```json
+{"command":"sub", "params":["order.vite_xxx", "market.VX_USDT-000.depth"]}
 ```
 消息返回
-```text
-{"code":0, "message":"error msg", "topic":"", "event": "push/sub", "data":{}, "timestamp": 毫秒}
+```json
+{"code":0, "message": "error msg", "topic": "topic", "event": "push/sub", "data": "{JSON message}", "timestamp": 0}
 ```
+### 环境地址
+* 【MainNet】`wss://api.vitex.net/v2/ws`
 
 ### command定义
 * sub，表示订阅
@@ -1711,10 +1715,7 @@ eg.
 |`market.$symbol.kline.hour6`|6小时kline数据|`Kline`|
 |`market.$symbol.kline.hour12`|12小时kline数据|`Kline`|
 
-## JSON 消息订阅
-
-### 环境地址
-* 【MainNet】`wss://api.vitex.net/v2/ws`
+### 消息数据结构
 
 #### Kline
 * **示例:**
