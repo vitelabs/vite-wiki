@@ -1695,3 +1695,253 @@ private List<List<String>> bids; // [[price, quantity],[price, quantity]]
   }
   ```
   :::
+
+## WebSocket API V2
+Subscribe
+```text
+{"command":"", "params":[]}
+eg. 
+{"command":"ping"}
+{"command":"sub", "params":["order.vite_xxx","market.VX_USDT-000.depth"]}
+```
+Response Data
+```text
+{"code":0, "message":"error msg", "topic":"", "event": "push/sub", "data":{}, "timestamp": milli seconds}
+```
+
+### Definition of Command
+* sub: subscribe
+* un_sub: un-subscribe
+* ping: heartbeat. 
+* pong: server acknowledgement
+* push: push message to client
+
+:::tip Important
+To keep client alive, `ping` heartbeats should be sent in every 10 seconds, at most no longer than 1 minute. When heartbeats are sent longer than 1 minute, the client is no more regarded as alive and registered subscriptions will be cleaned up.
+:::
+
+### Topic List
+
+Support single and multiple topic subscriptions, separated by ",". For example, `topic1,topic2`.
+
+|Topic|Description| Message |
+|:--|:--|:--:|
+|`order.$address`|Order update|`Order`|
+|`market.$symbol.depth`|Depth data update|`Depth`|
+|`market.$symbol.trade`|Trade data update|`Trade`|
+|`market.$symbol.tickers`|Market pair statistics update|`TickerStatistics`|
+|`market.quoteToken.$symbol.tickers`|Quote token statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.VITE.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.ETH.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.USDT.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.quoteTokenCategory.BTC.tickers`|Quote token category statistics update|`TickerStatistics`|
+|`market.$symbol.kline.minute`|1-minute kline update|`Kline`|
+|`market.$symbol.kline.minute30`|30-minute kline update|`Kline`|
+|`market.$symbol.kline.hour`|1-hour kline update|`Kline`|
+|`market.$symbol.kline.day`|1-day kline update|`Kline`|
+|`market.$symbol.kline.week`|1-week kline update|`Kline`|
+|`market.$symbol.kline.hour6`|6-hour kline update|`Kline`|
+|`market.$symbol.kline.hour12`|12-hour kline update|`Kline`|
+
+## JSON Message
+
+### Network
+* 【MainNet】`wss://api.vitex.net/v2/ws`
+
+#### Kline
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["market.VX_VITE.kline.minute"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "c": 12.2813,
+      "h": 12.2813,
+      "l": 12.2813,
+      "o": 12.2813,
+      "t": 1600419000,
+      "v": 6.6
+    },
+    "event": "push",
+    "timestamp": 1600419040665,
+    "topic": "market.VX_VITE.kline.minute"
+  }
+  ```
+  :::
+  
+#### Trade
+ * **Example:**
+  
+    :::demo
+    
+    ```json tab:Subscribe
+    {
+      "command":"sub",
+      "params":["market.VX_VITE.trade"]
+    }
+    ```
+    
+    ```json tab:Response
+    {
+      "code": 0,
+      "data": [
+        {
+          "a": "65.0908",
+          "bf": "0.14645450",
+          "bh": 22877949,
+          "bid": "00001f00fffffffff3be8136a2ff005f64754400001a",
+          "id": "b5e1b521bcc70b49cdab5930623dc465fb4b9639",
+          "p": "12.2813",
+          "q": "5.3",
+          "qid": "tti_5649544520544f4b454e6e40",
+          "qs": "VITE",
+          "s": "VX_VITE",
+          "sf": "0.14645450",
+          "sid": "00001f01000000000c417ec95d00005f647544000019",
+          "side": 0,
+          "t": 1600419210,
+          "tid": "tti_564954455820434f494e69b5",
+          "ts": "VX"
+        }
+      ],
+      "event": "push",
+      "timestamp": 1600419210802,
+      "topic": "market.VX_VITE.trade"
+    }
+    ```
+    :::
+
+#### Tickers
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["market.VX_VITE.tickers"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "a": "17982669.3652",
+      "cp": "12.2813",
+      "hp": "13.7996",
+      "lp": "11.9900",
+      "op": "13.7996",
+      "pc": "-1.5183",
+      "pcp": "12.2813",
+      "pp": 4,
+      "q": "1401442.5296",
+      "qid": "tti_5649544520544f4b454e6e40",
+      "qp": 1,
+      "qs": "VITE",
+      "s": "VX_VITE",
+      "tid": "tti_564954455820434f494e69b5",
+      "ts": "VX"
+    },
+    "event": "push",
+    "timestamp": 1600419210817,
+    "topic": "market.VX_VITE.tickers"
+  }
+  ```
+  :::
+
+#### Order
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["order.vite_xxx"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "a": "65.0908",
+      "ct": 1600419206,
+      "d": "vite_xxx",
+      "ea": "0.0000",
+      "eap": "0.0000",
+      "ep": "0.0000",
+      "eq": "0.0",
+      "f": "0.0000",
+      "oid": "3b141cfeb655f248d43a3be7ce714405fdfb20f615ef987b89d5be836b8ba42",
+      "p": "12.2813",
+      "q": "5.3",
+      "qid": "tti_5649544520544f4b454e6e40",
+      "qs": "VITE",
+      "s": "VX_VITE",
+      "side": 1,
+      "st": 5,
+      "tid": "tti_564954455820434f494e69b5",
+      "tp": 0,
+      "ts": "VX"
+    },
+    "event": "push",
+    "timestamp": 1600419206967,
+    "topic": "order.vite_xxxx"
+  }
+  ```
+  :::
+
+#### Depth
+* **Example:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["market.VX_USDT-000.depth"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "asks": [
+        [
+          "0.2329",
+          "18.6"
+        ],
+        [
+          "0.2330",
+          "5.5"
+        ]
+      ],
+      "bids": [
+        [
+          "0.2300",
+          "12.7"
+        ],
+        [
+          "0.2271",
+          "6.7"
+        ]
+      ]
+    },
+    "event": "push",
+    "timestamp": 1600417526089,
+    "topic": "market.VX_USDT-000.depth"
+  }
+  ```
+  :::

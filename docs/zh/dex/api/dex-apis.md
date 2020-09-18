@@ -1336,7 +1336,6 @@ GET /api/v2/timestamp
 #### Order
 
 * **定义:**
-```
 ```java
 // order id
 private String oid;
@@ -1662,6 +1661,255 @@ private List<List<String>> bids; // [[price, quantity],[price, quantity]]
       "222.7945"
     ]]
     }
+  }
+  ```
+  :::
+
+## WebSocket API V2
+订阅格式
+```text
+{"command":"", "params":[]}
+eg. 
+{"command":"ping"}
+{"command":"sub", "params":["order.vite_xxx","market.VX_USDT-000.depth"]}
+```
+消息返回
+```text
+{"code":0, "message":"error msg", "topic":"", "event": "push/sub", "data":{}, "timestamp": 毫秒}
+```
+
+### command定义
+* sub，表示订阅
+* un_sub，表示取消订阅
+* ping，表示心跳请求，保证10s内一次，用于判断客户端通道是否有效
+* pong，服务端响应，通常无须关注
+* push，表示服务推送数据
+
+:::tip 注意
+`ping`心跳消息需要至少1分钟周期发送1次。当心跳间隔超过1分钟后，注册的事件订阅（Event Subscription）会失效清理
+:::
+
+### topics列表
+支持单、多主题订阅，多个主题订阅使用","分隔，如：`topic1,topic2`
+
+| 主题 | 描述| Message |
+|:--|:--|:--:|
+|`order.$address`|订单变化| `Order`|
+|`market.$symbol.depth`|深度数据| `Depth`|
+|`market.$symbol.trade`|交易数据| `Trade`|
+|`market.$symbol.tickers`|某个交易对统计数据|`TickerStatistics`|
+|`market.quoteToken.$symbol.tickers`|计价币种的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.VITE.tickers`|VITE市场的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.ETH.tickers`|ETH市场的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.USDT.tickers`|USDT市场的交易对统计数据|`TickerStatistics`|
+|`market.quoteTokenCategory.BTC.tickers`|BTC市场的交易对统计数据|`TickerStatistics`|
+|`market.$symbol.kline.minute`|分钟kline数据|`Kline`|
+|`market.$symbol.kline.minute30`|30分钟kline数据|`Kline`|
+|`market.$symbol.kline.hour`|1小时kline数据|`Kline`|
+|`market.$symbol.kline.day`|日kline数据|`Kline`|
+|`market.$symbol.kline.week`|周kline数据|`Kline`|
+|`market.$symbol.kline.hour6`|6小时kline数据|`Kline`|
+|`market.$symbol.kline.hour12`|12小时kline数据|`Kline`|
+
+## JSON 消息订阅
+
+### 环境地址
+* 【MainNet】`wss://api.vitex.net/v2/ws`
+
+#### Kline
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["market.VX_VITE.kline.minute"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "c": 12.2813,
+      "h": 12.2813,
+      "l": 12.2813,
+      "o": 12.2813,
+      "t": 1600419000,
+      "v": 6.6
+    },
+    "event": "push",
+    "timestamp": 1600419040665,
+    "topic": "market.VX_VITE.kline.minute"
+  }
+  ```
+  :::
+  
+#### Trade
+ * **示例:**
+  
+    :::demo
+    
+    ```json tab:Subscribe
+    {
+      "command":"sub",
+      "params":["market.VX_VITE.trade"]
+    }
+    ```
+    
+    ```json tab:Response
+    {
+      "code": 0,
+      "data": [
+        {
+          "a": "65.0908",
+          "bf": "0.14645450",
+          "bh": 22877949,
+          "bid": "00001f00fffffffff3be8136a2ff005f64754400001a",
+          "id": "b5e1b521bcc70b49cdab5930623dc465fb4b9639",
+          "p": "12.2813",
+          "q": "5.3",
+          "qid": "tti_5649544520544f4b454e6e40",
+          "qs": "VITE",
+          "s": "VX_VITE",
+          "sf": "0.14645450",
+          "sid": "00001f01000000000c417ec95d00005f647544000019",
+          "side": 0,
+          "t": 1600419210,
+          "tid": "tti_564954455820434f494e69b5",
+          "ts": "VX"
+        }
+      ],
+      "event": "push",
+      "timestamp": 1600419210802,
+      "topic": "market.VX_VITE.trade"
+    }
+    ```
+    :::
+
+#### Tickers
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["market.VX_VITE.tickers"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "a": "17982669.3652",
+      "cp": "12.2813",
+      "hp": "13.7996",
+      "lp": "11.9900",
+      "op": "13.7996",
+      "pc": "-1.5183",
+      "pcp": "12.2813",
+      "pp": 4,
+      "q": "1401442.5296",
+      "qid": "tti_5649544520544f4b454e6e40",
+      "qp": 1,
+      "qs": "VITE",
+      "s": "VX_VITE",
+      "tid": "tti_564954455820434f494e69b5",
+      "ts": "VX"
+    },
+    "event": "push",
+    "timestamp": 1600419210817,
+    "topic": "market.VX_VITE.tickers"
+  }
+  ```
+  :::
+
+#### Order
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["order.vite_xxx"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "a": "65.0908",
+      "ct": 1600419206,
+      "d": "vite_xxx",
+      "ea": "0.0000",
+      "eap": "0.0000",
+      "ep": "0.0000",
+      "eq": "0.0",
+      "f": "0.0000",
+      "oid": "3b141cfeb655f248d43a3be7ce714405fdfb20f615ef987b89d5be836b8ba42",
+      "p": "12.2813",
+      "q": "5.3",
+      "qid": "tti_5649544520544f4b454e6e40",
+      "qs": "VITE",
+      "s": "VX_VITE",
+      "side": 1,
+      "st": 5,
+      "tid": "tti_564954455820434f494e69b5",
+      "tp": 0,
+      "ts": "VX"
+    },
+    "event": "push",
+    "timestamp": 1600419206967,
+    "topic": "order.vite_xxxx"
+  }
+  ```
+  :::
+
+#### Depth
+* **示例:**
+
+  :::demo
+  
+  ```json tab:Subscribe
+  {
+    "command":"sub",
+    "params":["market.VX_USDT-000.depth"]
+  }
+  ```
+  
+  ```json tab:Response
+  {
+    "code": 0,
+    "data": {
+      "asks": [
+        [
+          "0.2329",
+          "18.6"
+        ],
+        [
+          "0.2330",
+          "5.5"
+        ]
+      ],
+      "bids": [
+        [
+          "0.2300",
+          "12.7"
+        ],
+        [
+          "0.2271",
+          "6.7"
+        ]
+      ]
+    },
+    "event": "push",
+    "timestamp": 1600417526089,
+    "topic": "market.VX_USDT-000.depth"
   }
   ```
   :::
