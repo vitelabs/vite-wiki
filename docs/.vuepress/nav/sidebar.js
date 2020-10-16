@@ -215,6 +215,7 @@ module.exports = {
             en: 'Tutorial',
             children: [
                 'operation/gate-integration',
+                'mm'
                 // 'operation/', 'operation/how-to', 'operation/tutorial'
             ]
         }
