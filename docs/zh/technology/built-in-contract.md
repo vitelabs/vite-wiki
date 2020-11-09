@@ -50,7 +50,7 @@ vDex目前版本由两个内置合约组成，dexFund承担充值、提现、上
 
 由两个不同合约组合完成交易所功能，从工程角度便于系统拆分和维护，同时方便后续dexTrade分片以提供更高的吞吐。
 
-![](~https://mmbiz.qpic.cn/mmbiz_png/orUkibFL6BRf4xmrTQ1urcxBxRs9gXRpuj67LT8LhiaibibzaOt8ytVO8pn3ibWodMpwiaGEsRW50QqkIdCRcjsgFpRg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![](../../../assets/images/built-in-contract.png)
 
 
 ## 其他

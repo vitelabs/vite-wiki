@@ -39,7 +39,7 @@ module.exports = {
             zh: '技术文章',
             en: 'Tech Articles',
             children: [
-                ''
+                'built-in-contract'
             ]
         }
     ],
