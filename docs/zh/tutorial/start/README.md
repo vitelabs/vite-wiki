@@ -9,6 +9,7 @@ Vite已主网上线，用户可以通过[一键置换](https://forum.vite.net/to
 ### 交易所购买
 
 * [ViteX][vitex]
+* [Binance][binance]
 * [OKEx][okex]
 * [Bittrex][bittrex]
 * [Upbit][upbit]
@@ -69,6 +70,7 @@ VCP定位为 Vite 社区积分代币，和大家使用其他APP或者信用卡�
 [web-wallet]: <https://wallet.vite.net>
 [app-wallet]: <https://app.vite.net>
 [vitex]: <https://x.vite.net/trade?symbol=VITE_BTC-000&category=BTC>
+[binance]: <https://www.binance.com/en/trade/VITE_BTC>
 [okex]: <https://www.okex.com/spot/trade#product=vite_btc>
 [bittrex]: <https://international.bittrex.com/Market/Index?MarketName=BTC-VITE>
 [upbit]: <https://upbit.com/exchange?code=CRIX.UPBIT.BTC-VITE>
