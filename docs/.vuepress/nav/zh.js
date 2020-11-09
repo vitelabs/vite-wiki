@@ -91,8 +91,12 @@ module.exports = [
         ]
       },
       {
-        text: '参与开发',
+        text: '技术开发',
         items: [
+          {
+            text: '技术文章',
+            link: '/zh/technology/'
+          },
           {
             text: 'Vite.wiki 编写指南',
             link: '/zh/about/'

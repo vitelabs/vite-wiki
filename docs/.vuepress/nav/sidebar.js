@@ -34,6 +34,13 @@ module.exports = {
             children: [
                 'ledger-struct'
             ]
+        },
+        {
+            zh: '技术文章',
+            en: 'Tech Articles',
+            children: [
+                ''
+            ]
         }
     ],
     tutorial: [

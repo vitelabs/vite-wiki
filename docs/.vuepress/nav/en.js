@@ -110,6 +110,15 @@ module.exports = [
           }
         ]
       },
+      {
+        text: 'Tech',
+        items: [
+          {
+            text: 'Tech Articles',
+            link: '/technology/'
+          }
+        ]
+      },
       // {
       //   text: 'Contribute',
       //   items: [
