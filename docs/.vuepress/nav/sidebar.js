@@ -40,7 +40,8 @@ module.exports = {
             en: 'Tech Articles',
             children: [
                 'built-in-contract',
-                'Backend-service'
+                'Backend-service',
+                'viteX-contract'
             ]
         }
     ],
