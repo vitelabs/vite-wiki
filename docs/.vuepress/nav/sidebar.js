@@ -41,7 +41,8 @@ module.exports = {
             children: [
                 'built-in-contract',
                 'Backend-service',
-                'viteX-contract'
+                'viteX-contract',
+                'Vite-EOS-Contract'
             ]
         }
     ],
