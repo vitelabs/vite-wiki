@@ -80,6 +80,7 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 #### 调用合约时：
 
 用户发起调用合约交易，消耗96 bytes NET和1665 µs CPU。如果用户要在3天内发起3283笔调用合约交易，那么需要至少抵押0.36 EOS NET和36.81 EOS CPU。
+
 ![](../../../assets/images/Vite-EOS-Contract-6.png)
 
 注：2019年5月24日，RAM价格大约为1 EOS = 21.975 KB，NET价格大约为1 EOS = 0.84 MB，CPU价格大约为1 EOS=148.5 ms。
