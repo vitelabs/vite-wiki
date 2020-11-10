@@ -1,4 +1,4 @@
-# 技术分享——Vite与EOS智能合约成本对比
+# Vite与EOS智能合约成本对比
 
 ## Vite的合约成本
 
@@ -65,25 +65,7 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 
 
 ### EOS合约代码如下：
-
-#include <eosiolib/eosio.hpp>
-#include <eosiolib/print.hpp>
-using namespace eosio;
- 
-class bet:public eosio::contract {
-  public:
-    using contract::contract;
-     
-    [[eosio::action]]
-    void guess(uint8_t target) {
-      auto random = current_time();
-      if(target == random % 10) {
-        print("win");
-      } else {
-        print("lose");
-      }
-    }
-};
+![](../../../assets/images/Vite-EOS-Contract-5.png)
 
 
 
