@@ -52,6 +52,7 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 
 
 pragma soliditypp ^0.4.2;
+
 contract bet {
     event win();
     event lose();
