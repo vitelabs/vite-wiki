@@ -4,7 +4,7 @@
 ViteX是Vite链上的内置去中心化交易所，是Vite生态的重要组成部分，ViteX由Vite内置合约vDex和链下服务dexServer两部分组成。所有的挂单、撮合及运营数据全部在链上vDex进行，有效的利用了去中心化、安全、可靠的区块链特性。但链上存储所有数据是非常昂贵的，为了能有效的为用户提供体验，特配套了链下服务DexServer。DexServer服务的目的是同步链上挂单、撮合、运营数据以及统计指标等。DexServer的所有数据都是链上可追溯的，仅仅为ViteX提供查询服务，保证了go-vite代码即协议的原则。
 
 按照职责，把DexServer分为了四个服务，分别是Dex-API、Dex-Crawler、Dex-Push及Dex-Task。其中Crawler是核心服务，为其他三个服务提供数据源，整个系统流程如图所示。
-
+![](../../../assets/images/DexServer.png)
 
 ## 1、Dex-API
 API服务为ViteX提供了查询入口，是对Crawler服务和Task服务生成的数据的最终聚合。
