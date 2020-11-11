@@ -42,7 +42,8 @@ module.exports = {
                 'built-in-contract',
                 'Backend-service',
                 'viteX-contract',
-                'Vite-EOS-Contract'
+                'Vite-EOS-Contract',
+                'viteX-Decent'
             ]
         }
     ],
