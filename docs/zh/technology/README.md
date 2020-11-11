@@ -11,3 +11,4 @@
 * [ViteX的去中心化是如何实现的](./viteX-Decent.md)
 * [图解ViteX设计](./viteX-graphic.md)
 * [ViteConnect——扫码登录ViteX，让你的资产更安全](./Vite-con.md)
+* [以实例讲解Vite异步架构](./Vite-asynchronous.md)
