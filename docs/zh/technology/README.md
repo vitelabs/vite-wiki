@@ -10,3 +10,4 @@
 * [Vite与EOS智能合约成本对比](./Vite-EOS-Contract.md)
 * [ViteX的去中心化是如何实现的](./viteX-Decent.md)
 * [图解ViteX设计](./viteX-graphic.md)
+* [ViteConnect——扫码登录ViteX，让你的资产更安全](./Vite-con.md)
