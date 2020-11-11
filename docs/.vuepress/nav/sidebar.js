@@ -43,7 +43,8 @@ module.exports = {
                 'Backend-service',
                 'viteX-contract',
                 'Vite-EOS-Contract',
-                'viteX-Decent'
+                'viteX-Decent',
+                'viteX-graphic'
             ]
         }
     ],
