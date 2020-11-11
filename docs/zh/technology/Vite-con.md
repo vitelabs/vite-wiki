@@ -10,9 +10,9 @@ https://github.com/MyEtherWallet/MEWconnect
 
 https://github.com/WalletConnect/walletconnect-monorepo
 
-两个方案的不同主要区别在于peer之间的连接方式，这里我感觉与webrtc连接方案类似，所以用mdn上关于webrtc架构的一些术语来描述，下面一些图片也引用于mdn。
+两个方案的不同主要区别在于peer之间的连接方式，这里我感觉与webrtc连接方案类似，所以用mdn上关于 [webrtc](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols)架构的一些术语来描述，下面一些图片也引用于mdn。
 
-## mewconnect
+## [mewconnect](https://github.com/myetherwallet)
 1，mewconnect实现了一个类似于STUN server的中间信号服务器。可以检测两个peer的nat类型，并向双方暴露对方的公网地址（某些nat类型下无法实现）。
 
 2，后面就是两个peer之间的直接通讯。
@@ -21,10 +21,14 @@ tips:
 
 mewconnect官网宣传中，与其它同类产品相比主要亮点是P2P通信可以实现无中间服务器，第三方无法访问通讯数据。这点可以通过在应用层建立加密层，对中间服务器透明来实现。（个人猜测webrtc由于大部分场景是针对音/视频数据，如果完全使用中间服务器，服务器压力较大，采用p2p通信的方式有一定优势）并且国内3/4G网络多处于对称型NAT环境中，难以实现p2p通信。
 
+![](../../../assets/images/Vite-con-1.png)
 
 
-## walletconnect
+
+## [walletconnect](https://github.com/trustwallet/walletconnect-monorepo)
 walletconnect 实现了一个类似与TURN server的中继服务器（图中蓝色部分）
+
+![](../../../assets/images/Vite-con-2.png)
 
 
 
@@ -38,6 +42,8 @@ walletconnect 实现了一个类似与TURN server的中继服务器（图中蓝�
 3，mobile端扫码，连接到服务器，并从handshaketopic中取出 会话请求（session request），尝试用key解密消息，得到webclienttopic，后续发送给web的消息讲通过这个topic发布。同时发送一个 approveSession消息给web，携带mobileClientTopic 发送给web端。
 
 4，web端收到approveSession，记录mobileClientTopic，后续通过mobileClientTopic 向mobile通道发送消息。
+
+![](../../../assets/images/Vite-con-3.png)
 
 
 
@@ -68,9 +74,10 @@ peerTopic 只生成一次，缓存在本地（至少web,ios实现是这样），
 
 2，丰富更多的消息类型，让服务端可以实现更多功能。主要有以下种特点的消息：
 
-session相关的消息出于安全考虑 只应被消费一次
-peer与服务端之间的消息不应被key加密，可以利用服务器做一些连接优化。
-普通消息应在一定时间内被保留在服务端，以等待其他peer重连时重新订阅。topic超过一定时间未被更新时被回收。
+   session相关的消息出于安全考虑 只应被消费一次
+   peer与服务端之间的消息不应被key加密，可以利用服务器做一些连接优化。
+   普通消息应在一定时间内被保留在服务端，以等待其他peer重连时重新订阅。topic超过一定时间未被更新时被回收。
+   
 3，版本控制，消息、peer的版本应该被服务器知道，服务器在对待不同版本的peer、消息时兼容不同的处理方式。
 
 参考资料：
