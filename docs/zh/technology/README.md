@@ -9,3 +9,4 @@
 * [深入解析viteX内置合约设计](./viteX-contract.md)
 * [Vite与EOS智能合约成本对比](./Vite-EOS-Contract.md)
 * [ViteX的去中心化是如何实现的](./viteX-Decent.md)
+* [图解ViteX设计](./viteX-graphic.md)
