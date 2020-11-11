@@ -46,7 +46,8 @@ module.exports = {
                 'viteX-Decent',
                 'viteX-graphic',
                 'Vite-con',
-                'Vite-asynchronous'
+                'Vite-asynchronous',
+                'ViteJS-talk'
             ]
         }
     ],
