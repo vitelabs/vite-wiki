@@ -45,7 +45,8 @@ module.exports = {
                 'Vite-EOS-Contract',
                 'viteX-Decent',
                 'viteX-graphic',
-                'Vite-con'
+                'Vite-con',
+                'Vite-asynchronous'
             ]
         }
     ],
