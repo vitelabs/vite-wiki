@@ -1,14 +1,14 @@
 # ViteConnect——扫码登录ViteX，让你的资产更安全
 
 ## 背景
-随着第三方网关入驻.[vitex].(https://x.vite.net/trade?symbol=VITE_BTC-000)，vitex网页中越来越的的第三方服务也带来越来越多的安全风险。以往助记词存储在浏览器本地的方案日不足。迫切需要寻求一个远程签名方案，实现助记词与页面分离。通过手机app扫码登录的方案，用户成本低，不需要购买昂贵的硬件钱包。使用成本低，可以利用已经在手机中导入的助记词，不需要再在插件中再次导入助记词。且已经有很多开源的方案，开发成本较低。
+随着第三方网关入驻[vitex](https://x.vite.net/trade?symbol=VITE_BTC-000),vitex网页中越来越的的第三方服务也带来越来越多的安全风险。以往助记词存储在浏览器本地的方案日不足。迫切需要寻求一个远程签名方案，实现助记词与页面分离。通过手机app扫码登录的方案，用户成本低，不需要购买昂贵的硬件钱包。使用成本低，可以利用已经在手机中导入的助记词，不需要再在插件中再次导入助记词。且已经有很多开源的方案，开发成本较低。
 
 ## 调研：
 在github上发现了两个相关方案：
 
-.(https://github.com/MyEtherWallet/MEWconnect)
+https://github.com/MyEtherWallet/MEWconnect
 
-.(https://github.com/WalletConnect/walletconnect-monorepo)
+https://github.com/WalletConnect/walletconnect-monorepo
 
 两个方案的不同主要区别在于peer之间的连接方式，这里我感觉与webrtc连接方案类似，所以用mdn上关于webrtc架构的一些术语来描述，下面一些图片也引用于mdn。
 
