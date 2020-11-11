@@ -17,14 +17,11 @@ Vite 的异步设计有三个方面，第一个是请求和响应的异步设计
 下面通过一个简单的例子，分别从编译器异步语法和虚拟机执行过程两个方面进行介绍。
 
 pragma soliditypp ^0.4.4;
-
 contract VoteContract {
     address private checkAddr;
     
 	mapping(address => uint) public voteMap;
-  
-    mapping(address => bool) public invalidAddrsMap;
-    
+    mapping(address => bool) public invalidAddrsMap;    
    	message checkValid(address addr);
 
     onMessage vote(address addr, uint voteNum) payable {
@@ -48,7 +45,6 @@ contract VoteContract {
 voteMap 是用来存储所有投票记录的 map ，invalidAddrs 是用来存储无效的投票地址的一个 map ，checkAddr 是提供投票验证功能的合约的地址。
 
 pragma soliditypp ^0.4.4;
-
 contract CheckContract {
 
    	message isValid(address addr, bool valid);
@@ -60,8 +56,7 @@ contract CheckContract {
 
    	function check(address addr) private returns(bool checkResult) {
        	// 投票验证逻辑
-   	}
-    
+   	}    
 }
 
 如上所示是另一个投票验证合约 CheckContract ，这里说一下合约里的 function ，check方法实现了投票验证逻辑，逻辑本身的内容我们不关心，最后会返回地址是否有效的 checkResult。
