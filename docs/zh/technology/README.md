@@ -12,3 +12,4 @@
 * [图解ViteX设计](./viteX-graphic.md)
 * [ViteConnect——扫码登录ViteX，让你的资产更安全](./Vite-con.md)
 * [以实例讲解Vite异步架构](./Vite-asynchronous.md)
+* [泛谈ViteJS](./ViteJS-talk.md)
