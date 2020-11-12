@@ -50,7 +50,8 @@ module.exports = {
                 'ViteJS-talk',
                 'Vite-Built-in-timer',
                 'Vite-storage-layer',
-                'Vite-blockDB'
+                'Vite-blockDB',
+                'Vite-indexDB'
             ]
         }
     ],
