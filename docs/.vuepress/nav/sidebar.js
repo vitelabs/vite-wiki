@@ -48,7 +48,8 @@ module.exports = {
                 'Vite-con',
                 'Vite-asynchronous',
                 'ViteJS-talk',
-                'Vite-Built-in-timer'
+                'Vite-Built-in-timer',
+                'Vite-storage-layer'
             ]
         }
     ],
