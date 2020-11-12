@@ -85,7 +85,6 @@ yarn: v1.15.2
 5. ViteJS-demo文件夹下，新建 index.js 和 config.json
 
 初始化完成，你的项目看起来像是这样
-
 ![](../../../assets/images/ViteJS-talk-4.png)
 
 ### 连接节点
@@ -96,7 +95,6 @@ yarn: v1.15.2
 
 1. 选择自己的测试节点，并配置到 config.json 当中的 http 选项
 2. 将自己的助记词配置到 config.json 当中的 mnemonic 选项。
-
 ![](../../../assets/images/ViteJS-talk-5.png)
 
 ### 开始连接节点
@@ -122,7 +120,6 @@ yarn: v1.15.2
 ![](../../../assets/images/ViteJS-talk-10.png)
 2. 如果有未接收交易，则可以通过account.autoReceiveTx();开启自动接收交易
 3. 发送交易，拿自己的地址进行测试
-
 ![](../../../assets/images/ViteJS-talk-11.png)
 
 到此为止，已完成钱包基本功能。
