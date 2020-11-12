@@ -40,9 +40,7 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 |  对比项  | Vite | EOS |
 |:------------:|:-----------:|:-----------:|
 | 构成合约成本的资源类型和获取难度 | 未细分CPU、网络带宽、内存等资源，统一用配额来表示,抵押VITE coin就能持续获得配额| 资源包括RAM、CPU、NET,RAM需要在二级市场购买,CPU和NET可通过抵押EOS代币持续获得|
-| 创建合约对于合约开发者的成本 | 销毁10VITE,持有一定数量的配额。 | 消耗RAM, 
-持有CPU, 
-持有NET。 |
+| 创建合约对于合约开发者的成本 | 销毁10VITE,持有一定数量的配额。 | 消耗RAM, 持有CPU, 持有NET。 |
 | 调用合约对于合约开发者的成本 | 合约开发者为合约抵押VITE coin来执行响应交易。 | 可能需要合约开发者提前为合约购买RAM。 |
 | 调用合约对于用户的成本 | 用户为自己抵押VITE coin或计算PoW来执行请求交易。 | 用户为自己抵押EOS代币来分别获得CPU和NET,通常需要用户自己购买RAM。 |
 
@@ -57,7 +55,20 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 合约包含一个名为guess的方法，入参为一个数字，范围为0-9。取随机数，如果随机数最后一位和入参相同，则打印”赢了“，否则打印”输了“。
 
 ### Vite合约代码如下：
-![](../../../assets/images/Vite-EOS-Contract-4.png)
+
+pragma soliditypp ^0.4.2;
+contract bet {
+    event win();
+    event lose();
+    onMessage guess(uint8 target) {
+        uint64 random = random64();
+        if (target == random % 10) {
+            emit win();
+        } else {
+            emit lose();
+        }
+    }
+}
 
 
 
@@ -73,7 +84,25 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 
 
 ### EOS合约代码如下：
-![](../../../assets/images/Vite-EOS-Contract-5.png)
+
+#include <eosiolib/eosio.hpp>
+#include <eosiolib/print.hpp>
+using namespace eosio;
+ 
+class bet:public eosio::contract {
+  public:
+    using contract::contract;
+     
+    [[eosio::action]]
+    void guess(uint8_t target) {
+      auto random = current_time();
+      if(target == random % 10) {
+        print("win");
+      } else {
+        print("lose");
+      }
+    }
+};
 
 
 
@@ -89,7 +118,12 @@ CPU和NET，即执行时间和带宽，计费方式类似。都是使用者计�
 
 用户发起调用合约交易，消耗96 bytes NET和1665 µs CPU。如果用户要在3天内发起3283笔调用合约交易，那么需要至少抵押0.36 EOS NET和36.81 EOS CPU。
 
-![](../../../assets/images/Vite-EOS-Contract-6.png)
+|  对比项  | Vite | 所需配额（UT） | Vite最低成本 | EOS最低成本 |
+|:------------:|:-----------:|:-----------:|:-----------:|:-----------:|
+| 创建合约对于合约开发者的成本 | 支付10 VITE，至少抵押400 VITE或者计算一个难度为147722953的PoW | 消耗10 VITE | 10873 bytes RAM 904 bytes NET 4878 µs CPU  | 消耗0.4784EOS 抵押0.0324EOS |
+| 调用合约对于合约开发者的成本 | 至少为合约抵押267VITE | 抵押267VITE | 0 | 0 |
+| 调用合约对于用户的成本 | 至少抵押267 VITE或者计算一个难度为75164738的PoW | 0 | 315168 bytes NET 5466195 µs CPU | 抵押37.17 EOS |
+
 
 注：2019年5月24日，RAM价格大约为1 EOS = 21.975 KB，NET价格大约为1 EOS = 0.84 MB，CPU价格大约为1 EOS=148.5 ms。
 
