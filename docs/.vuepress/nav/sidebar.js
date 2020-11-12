@@ -47,7 +47,8 @@ module.exports = {
                 'viteX-graphic',
                 'Vite-con',
                 'Vite-asynchronous',
-                'ViteJS-talk'
+                'ViteJS-talk',
+                'Vite-Built-in-timer'
             ]
         }
     ],
