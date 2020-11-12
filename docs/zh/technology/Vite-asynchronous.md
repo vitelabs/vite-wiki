@@ -16,6 +16,7 @@ Vite 的异步设计有三个方面，第一个是请求和响应的异步设计
 
 下面通过一个简单的例子，分别从编译器异步语法和虚拟机执行过程两个方面进行介绍。
 
+```
 pragma soliditypp ^0.4.4;
 contract VoteContract {
     address private checkAddr;
@@ -39,11 +40,11 @@ contract VoteContract {
        	return (invalidAddrsMap[addr], voteMap[addr]);
     }
 }
-
+```
 如上所示的是一个投票的合约 VoteContract ，这里简单介绍合约里的数据结构：
 
 voteMap 是用来存储所有投票记录的 map ，invalidAddrs 是用来存储无效的投票地址的一个 map ，checkAddr 是提供投票验证功能的合约的地址。
-
+```
 pragma soliditypp ^0.4.4;
 contract CheckContract {
 
@@ -58,7 +59,7 @@ contract CheckContract {
        	// 投票验证逻辑
    	}    
 }
-
+```
 如上所示是另一个投票验证合约 CheckContract ，这里说一下合约里的 function ，check方法实现了投票验证逻辑，逻辑本身的内容我们不关心，最后会返回地址是否有效的 checkResult。
 
 ## 编译器的异步语法
@@ -112,11 +113,11 @@ CheckContract 合约有一个 onMessage ，投票验证消息的监听器 checkV
 ## getter
 
 虽然异步模式有很多优势，但是也会给我们带来一些问题。因为异步是不会有返回结果的，只能通过定义消息监听器的方式来获取返回的消息，那么用户如果想要获取合约中的一些状态的话就会比较麻烦，因为用户没办法定义消息监听器。
-
+```
 getter getVoteNum(address addr) returns(bool isInValid, uint voteNum) {
 	return (invalidAddrsMap[addr], voteMap[addr]);
 }
-
+```
 在开始的的示例中，我们还有一部分没有介绍，就是上面的这个语法。
 
 简单的说，这个 getter 就是提供给用户用来查询合约内的状态的，它可以有返回值，但是我们对于 getter 有很多的限制。其中最重要的有两点，第一，getter 只能查询状态，不可以修改状态；第二，getter 不可以访问链上的数据。所以，getter 其实是链下的查询方法，所以，定义成 getter 的方法也是不上链的，getter其实类似 ETH 的链下查询的 public 方法。这也说明了 getter 并不会影响 Vite 的异步特性，同时我们也解决了 Vite 异步特性带来的用户查询合约状态的问题。
@@ -125,10 +126,10 @@ getter getVoteNum(address addr) returns(bool isInValid, uint voteNum) {
 
 本文的主要目的是简单介绍 Vite 的异步原理以及实现，通过这个简单的示例让大家了解一下合约间异步通信的流程。
 
-如果大家想了解更多细节，欢迎关注[vite官网](https://vite.org/)
+如果大家想了解更多细节，欢迎关注[Vite官网](https://vite.org/)
 
 ## 参考资料
 
- [vite白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)
+ [Vite白皮书](https://www.vite.org/whitepaper/vite_cn.pdf)
 
- [vite-vm源码](https://github.com/vitelabs/go-vite/tree/master/vm)
+ [Vite-vm源码](https://github.com/vitelabs/go-vite/tree/master/vm)
