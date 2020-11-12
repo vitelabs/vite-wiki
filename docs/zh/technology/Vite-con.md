@@ -84,14 +84,14 @@ peerTopic 只生成一次，缓存在本地（至少web,ios实现是这样），
 
 参考资料：
 
-https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols
+[https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols)
 
-https://github.com/MyEtherWallet/MEWconnect
+[https://github.com/MyEtherWallet/MEWconnect](https://github.com/MyEtherWallet/MEWconnect)
 
-https://github.com/WalletConnect/walletconnect-monorepo
+[https://github.com/WalletConnect/walletconnect-monorepo](https://github.com/WalletConnect/walletconnect-monorepo)
 
-https://github.com/WalletConnect/node-walletconnect-bridge
+[https://github.com/WalletConnect/node-walletconnect-bridge](https://github.com/WalletConnect/node-walletconnect-bridge)
 
-https://www.jianshu.com/p/a6713687bc1d
+[https://www.jianshu.com/p/a6713687bc1d](https://www.jianshu.com/p/a6713687bc1d)
 
-https://www.jianshu.com/p/ecde412d2eeb
+[https://www.jianshu.com/p/ecde412d2eeb](https://www.jianshu.com/p/ecde412d2eeb)
