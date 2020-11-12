@@ -84,7 +84,7 @@ contract bet {
 
 
 ### EOS合约代码如下：
-
+```
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/print.hpp>
 using namespace eosio;
@@ -103,7 +103,7 @@ class bet:public eosio::contract {
       }
     }
 };
-
+```
 
 
 #### 部署合约时：
