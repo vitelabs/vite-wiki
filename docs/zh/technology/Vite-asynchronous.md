@@ -116,6 +116,7 @@ CheckContract 合约有一个 onMessage ，投票验证消息的监听器 checkV
 ## getter
 
 虽然异步模式有很多优势，但是也会给我们带来一些问题。因为异步是不会有返回结果的，只能通过定义消息监听器的方式来获取返回的消息，那么用户如果想要获取合约中的一些状态的话就会比较麻烦，因为用户没办法定义消息监听器。
+
 ```
 getter getVoteNum(address addr) returns(bool isInValid, uint voteNum) {
 	return (invalidAddrsMap[addr], voteMap[addr]);
