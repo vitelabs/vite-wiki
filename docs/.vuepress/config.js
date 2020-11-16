@@ -84,6 +84,14 @@ module.exports = {
           modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
         }],
         'baidu-autopush',
+        [
+          '@vuepress/last-updated',
+          {
+            transformer: (timestamp, lang) => {
+              return new Date(timestamp).toLocaleDateString();
+            }
+          }
+        ],
         ['sitemap', {
           hostname: 'https://vite.wiki'
         }],
