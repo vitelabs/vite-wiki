@@ -121,7 +121,7 @@ yarn: v1.15.2
 
 2. 如果有未接收交易，则可以通过account.autoReceiveTx();开启自动接收交易
 
-3. 发送交易，拿自己的地址进行测试
+3. 发送交易，拿自己的地址进行测试 
 
 ![](../../../assets/images/ViteJS-talk-11.png)
 
