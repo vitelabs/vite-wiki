@@ -4,11 +4,11 @@ module.exports = [
     items: [
       {
         text: 'Introduction',
-        link: '/zh/introduction/'
+        link: '/introduction/'
       },
       {
         text: 'Technology',
-        link: '/zh/technology/'
+        link: '/technology/'
       }
     ]
   },
