@@ -129,12 +129,17 @@ yarn: v1.15.2
 
 ### 相关概念引导
 
-ViteJS git仓库：[https://github.com/vitelabs/vite.js](https://github.com/vitelabs/vite.js)
+ViteJS git仓库：
+[https://github.com/vitelabs/vite.js](https://github.com/vitelabs/vite.js)
 
-ViteJS 文档：[https://vite.wiki/api/vitejs/](https://vite.wiki/api/vitejs/)
+ViteJS 文档：
+[https://vite.wiki/api/vitejs/](https://vite.wiki/api/vitejs/)
 
-Vite 教程：[https://vite.wiki/tutorial/start/](https://vite.wiki/tutorial/start/)
+Vite 教程：
+[https://vite.wiki/tutorial/start/](https://vite.wiki/tutorial/start/)
 
-DApp 开发指南：[https://vite.wiki/zh/tutorial/contract/dapp.html](https://vite.wiki/zh/tutorial/contract/dapp.html)
+DApp 开发指南：
+[https://vite.wiki/zh/tutorial/contract/dapp.html](https://vite.wiki/zh/tutorial/contract/dapp.html)
 
-ViteJS 应用demo：[https://github.com/lovelycs/ViteJS-demo](https://github.com/lovelycs/ViteJS-demo)
+ViteJS 应用demo：
+[https://github.com/lovelycs/ViteJS-demo](https://github.com/lovelycs/ViteJS-demo)
