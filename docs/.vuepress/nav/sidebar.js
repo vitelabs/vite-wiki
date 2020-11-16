@@ -28,30 +28,30 @@ module.exports = {
                 'gen-address'
             ]
         },
-        {
-            zh: '账本',
-            en: 'Ledger',
-            children: [
-                'ledger-struct'
-            ]
-        },
+        // {
+        //     zh: '账本',
+        //     en: 'Ledger',
+        //     children: [
+        //         'ledger-struct'
+        //     ]
+        // },
         {
             zh: '技术文章',
             en: 'Tech Articles',
             children: [
                 'built-in-contract',
-                'Backend-service',
+                'backend-service',
                 'viteX-contract',
-                'Vite-EOS-Contract',
-                'viteX-Decent',
+                'vite-eos-contract',
+                'viteX-decent',
                 'viteX-graphic',
-                'Vite-con',
-                'Vite-asynchronous',
-                'ViteJS-talk',
-                'Vite-Built-in-timer',
-                'Vite-storage-layer',
-                'Vite-blockDB',
-                'Vite-indexDB'
+                'vite-con',
+                'vite-asynchronous',
+                'vitejs-talk',
+                'vite-built-in-timer',
+                'vite-storage-layer',
+                'vite-blockDB',
+                'vite-indexDB'
             ]
         }
     ],

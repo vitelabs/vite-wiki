@@ -1,7 +1,16 @@
 module.exports = [
   {
-    text: '介绍',
-    link: '/zh/introduction/',
+    text: '了解 Vite',
+    items: [
+      {
+        text: '介绍',
+        link: '/zh/introduction/'
+      },
+      {
+        text: '技术细节',
+        link: '/zh/technology/'
+      }
+    ]
   },
   {
     text: '教程',

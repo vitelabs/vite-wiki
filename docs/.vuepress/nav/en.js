@@ -1,7 +1,16 @@
 module.exports = [
   {
-    text: 'Introduction',
-    link: '/introduction/',
+    text: 'About Vite',
+    items: [
+      {
+        text: 'Introduction',
+        link: '/zh/introduction/'
+      },
+      {
+        text: 'Technology',
+        link: '/zh/technology/'
+      }
+    ]
   },
   {
     text: 'Tutorial',
