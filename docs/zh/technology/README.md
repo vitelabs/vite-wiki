@@ -17,4 +17,3 @@
 * [Vite存储层设计概述](./vite-storage-layer.md)
 * [Vite存储层设计详解之blockDB文件系统设计](./vite-blockDB.md)
 * [Vite存储层设计详解之indexDB索引系统设计](./vite-indexDB.md)
-
