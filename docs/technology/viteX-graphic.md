@@ -10,7 +10,7 @@ The ViteX decentralized exchange includes the on-chain data source vDex and the 
 
 Assets traded on ViteX have two types. One is token issued on the Vite chain, such as VITE, VX, EBLX-000; another is cross-chain tokens like ETH-000, BTC-000, USDT-000. The cross-chain tokens are native coins of other public chain and need to be mapped to Vite tokens before they can be traded on ViteX.
 
-![](~/assets/images/viteX-graphic-1.png)
+![](../../../assets/images/yingwen-graphic-1.png)
 
 
 ## 2 Functional Details
@@ -23,7 +23,7 @@ Functional details are explained in the following sections.
 ViteX adopts a multi-contract scheme, which is helpful to build a clear business model and avoid the potential performance bottleneck of single-contract, especially taking into account the large trading volume in the future. In addition, this design also facilitates data pruning.
 The design consists of two built-in contracts. Contract Fund is responsible for asset deposit, withdrawal, settlement, lock, unlock, mining, dividends, etc., while the orders are actually matched in Contract Trade. The interaction flow is as follows:
 
-![](~/assets/images/viteX-graphic-2.png)
+![](../../../assets/images/viteX-graphic-2.png)
 
 
 
