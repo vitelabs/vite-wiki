@@ -52,7 +52,7 @@ module.exports = {
                 'Vite-storage-layer',
                 'Vite-blockDB',
                 'Vite-indexDB',
-                'Vite-As-Ar'
+             
             ]
         }
     ],
