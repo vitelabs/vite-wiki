@@ -14,11 +14,11 @@ The advantages of asynchronous architecture are obvious — it will be much fast
 
 Vite’s asynchronous design mainly lies in three aspects.
 
-1.Asynchronous request and response;
+  1.Asynchronous request and response;
 
-2.Asynchronous transaction writing and confirmation;
+  2.Asynchronous transaction writing and confirmation;
 
-3.Asynchronous communication between smart contracts.
+  3.Asynchronous communication between smart contracts.
 
 Here we focus on the third — the asynchronous communication between smart contracts.
 The following is a simple example to introduce both the asynchronous syntax in Solidity++ and the execution process of VVM (Vite virtual machine).
@@ -97,16 +97,17 @@ The syntax for sending a message is send(address addr, message msg, tokenId toke
 Message listener has no return value. The calling contract will not wait for the result of a message call. As in the above example, VoteContract sends a message checkValid to CheckContract to check the address in message listener vote. When the message is sent, the rest execution will continue. It needs to be pointed out that the message listener is different from an Ethereum function that has no return value. On Ethereum, even if a function call has no code to run, it will still return a result to indicate whether the execution is successful or not. Therefore, function calls on Ethereum are synchronous.
 
 
-##Asynchronous Vite virtual machine
+## Asynchronous Vite virtual machine
+
 In this section, let’s take a look at the implementation of asynchronous contract execution in the Vite virtual machine.
 
 
 Here are some concepts I would like to introduce first:
 
 
-1.Transactions on Vite are classified into request transactions and response transactions. Either sending a transfer or calling a contract will create two separate transactions on the blockchain. When the request transaction is complete, it will return immediately without waiting for the completion of the response transaction.
+  1.Transactions on Vite are classified into request transactions and response transactions. Either sending a transfer or calling a contract will create two separate transactions on the blockchain. When the request transaction is complete, it will return immediately without waiting for the completion of the response transaction.
 
-2.GAS is charged on Ethereum as transaction fees. The EVM will calculate the consumption of GAS and deduct it in the execution of the transaction. Unlike Ethereum, Vite does not charge GAS but replaces it with a different resource called Quota. Because a transaction on Vite is split into a request transaction and a response transaction, the request transaction does not know the quota that will be consumed by the response, quota will be calculated and consumed separately in the request transaction and response transaction.
+  2.GAS is charged on Ethereum as transaction fees. The EVM will calculate the consumption of GAS and deduct it in the execution of the transaction. Unlike Ethereum, Vite does not charge GAS but replaces it with a different resource called Quota. Because a transaction on Vite is split into a request transaction and a response transaction, the request transaction does not know the quota that will be consumed by the response, quota will be calculated and consumed separately in the request transaction and response transaction.
 
 
 In the Vite virtual machine, the execution of the request transaction and the response transaction are separated. A request transaction is usually a message sent by the user, in the form of either transfer or contract call. As in the example, the vote message sent by the user to VoteContract is a request transaction. There is also a passive way to initiate request transactions, which will be introduced later.
