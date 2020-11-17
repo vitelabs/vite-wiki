@@ -52,7 +52,7 @@ module.exports = {
                 'vite-storage-layer',
                 'vite-blockDB',
                 'vite-indexDB'
-                'Vite-As-Ar.md'
+                'Vite-As-Ar'
             ]
         }
     ],
