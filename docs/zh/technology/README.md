@@ -7,7 +7,7 @@
 * [ViteX内置合约设计与实现简介](./built-in-contract.md)
 * [ViteX后端服务设计及实现](./backend-service.md)
 * [深入解析viteX内置合约设计](./viteX-contract.md)
-* [Vite与EOS智能合约成本对比](./vite-eos-contract.md)
+* [Vite与EOS智能合约成本对比](./Vite-EOS-Contract.md)
 * [ViteX的去中心化是如何实现的](./viteX-decent.md)
 * [图解ViteX设计](./viteX-graphic.md)
 * [ViteConnect——扫码登录ViteX，让你的资产更安全](./vite-con.md)
