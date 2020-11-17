@@ -40,18 +40,18 @@ module.exports = {
             en: 'Tech Articles',
             children: [
                 'built-in-contract',
-                'backend-service',
+                'Backend-service',
                 'viteX-contract',
                 'Vite-EOS-Contract',
-                'viteX-decent',
+                'viteX-Decent',
                 'viteX-graphic',
-                'vite-con',
-                'vite-asynchronous',
-                'vitejs-talk',
-                'vite-built-in-timer',
-                'vite-storage-layer',
-                'vite-blockDB',
-                'vite-indexDB',
+                'Vite-con',
+                'Vite-asynchronous',
+                'ViteJS-talk',
+                'Vite-Built-in-timer',
+                'Vite-storage-layer',
+                'Vite-blockDB',
+                'Vite-indexDB',
                 'Vite-As-Ar'
             ]
         }
