@@ -9,7 +9,6 @@ The ViteX decentralized exchange includes the on-chain data source vDex and the 
 
 
 Assets traded on ViteX have two types. One is token issued on the Vite chain, such as VITE, VX, EBLX-000; another is cross-chain tokens like ETH-000, BTC-000, USDT-000. The cross-chain tokens are native coins of other public chain and need to be mapped to Vite tokens before they can be traded on ViteX.
-
 ![](../../../assets/images/viteX-graphic-1.png)
 
 
