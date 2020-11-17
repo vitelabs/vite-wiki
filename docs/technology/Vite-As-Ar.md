@@ -23,7 +23,7 @@ Vite’s asynchronous design mainly lies in three aspects.
 Here we focus on the third — the asynchronous communication between smart contracts.
 The following is a simple example to introduce both the asynchronous syntax in Solidity++ and the execution process of VVM (Vite virtual machine).
 
-:::tip
+```
 pragma soliditypp ^0.4.4;
 contract VoteContract {
     address private checkAddr;
@@ -47,17 +47,29 @@ contract VoteContract {
        	return (invalidAddrsMap[addr], voteMap[addr]);
     }
 }
-:::
-
-
-
+```
 
 As the name shows, VoteContract is a voting contract. Let us take a look at the fields.
 
 
 voteMap is used to store voting records; invalidAddrs is a map to save all invalid voting addresses; checkAddr is the address of another contract that verifies voting address.
 
+```
+pragma soliditypp ^0.4.4;
+contract CheckContract {
 
+   	message isValid(address addr, bool valid);
+
+   	onMessage checkValid(address addr) payable {
+       	bool result = check(addr);
+       	send(msg.sender, isValid(addr, result));
+   	}
+
+   	function check(address addr) private returns(bool checkResult) {
+       	// To verify the address...
+   	}    
+}
+```
 
 CheckContract performs voting address verification. It has a check function that performs verification and returns checkResult.
 
@@ -124,8 +136,11 @@ In the above entire execution process, if an exception occurs in the request, th
 
 Asynchronous message listener has no return values. So in order to get contract states, we introduce the getter method.
 
-
-
+```
+getter getVoteNum(address addr) returns(bool isInValid, uint voteNum) {
+	return (invalidAddrsMap[addr], voteMap[addr]);
+}
+```
 
 In the example, the getter method getVoteNum is provided to query the contract state in the contract. It has a return value. However, you should remember the following two p when using getter methods.
 
