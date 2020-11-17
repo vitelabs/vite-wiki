@@ -14,11 +14,11 @@ The advantages of asynchronous architecture are obvious — it will be much fast
 
 Vite’s asynchronous design mainly lies in three aspects.
 
-  1.Asynchronous request and response;
+  1. Asynchronous request and response;
 
-  2.Asynchronous transaction writing and confirmation;
+  2. Asynchronous transaction writing and confirmation;
 
-  3.Asynchronous communication between smart contracts.
+  3. Asynchronous communication between smart contracts.
 
 Here we focus on the third — the asynchronous communication between smart contracts.
 The following is a simple example to introduce both the asynchronous syntax in Solidity++ and the execution process of VVM (Vite virtual machine).
@@ -105,9 +105,9 @@ In this section, let’s take a look at the implementation of asynchronous contr
 Here are some concepts I would like to introduce first:
 
 
-  1.Transactions on Vite are classified into request transactions and response transactions. Either sending a transfer or calling a contract will create two separate transactions on the blockchain. When the request transaction is complete, it will return immediately without waiting for the completion of the response transaction.
+  1. Transactions on Vite are classified into request transactions and response transactions. Either sending a transfer or calling a contract will create two separate transactions on the blockchain. When the request transaction is complete, it will return immediately without waiting for the completion of the response transaction.
 
-  2.GAS is charged on Ethereum as transaction fees. The EVM will calculate the consumption of GAS and deduct it in the execution of the transaction. Unlike Ethereum, Vite does not charge GAS but replaces it with a different resource called Quota. Because a transaction on Vite is split into a request transaction and a response transaction, the request transaction does not know the quota that will be consumed by the response, quota will be calculated and consumed separately in the request transaction and response transaction.
+  2. GAS is charged on Ethereum as transaction fees. The EVM will calculate the consumption of GAS and deduct it in the execution of the transaction. Unlike Ethereum, Vite does not charge GAS but replaces it with a different resource called Quota. Because a transaction on Vite is split into a request transaction and a response transaction, the request transaction does not know the quota that will be consumed by the response, quota will be calculated and consumed separately in the request transaction and response transaction.
 
 
 In the Vite virtual machine, the execution of the request transaction and the response transaction are separated. A request transaction is usually a message sent by the user, in the form of either transfer or contract call. As in the example, the vote message sent by the user to VoteContract is a request transaction. There is also a passive way to initiate request transactions, which will be introduced later.
@@ -117,11 +117,11 @@ In the first stage, the Vite virtual machine starts to handle the request transa
 In the second stage, when the block producing node of the delegated consensus group of VoteContract receives the request transaction, it starts to construct a response block, and the virtual machine will perform a few operations like depth inspection, quota calculation, and balance increment, etc., then execute the code of the message listener in the response transaction. In the example, a checkValid message is sent to CheckContract, in this case, the virtual machine needs to initiate another request transaction to CheckContract after all the business logic in vote is complete. Let me explain in detail.
 
 
-1.First, the request transaction (to CheckContract) is generated in the response transaction of VoteContract. To handle this situation, the Vite virtual machine keeps a list of request transactions in the response and will send them when the response transaction is complete. Here in the example, a checkValid message is sent from the listener method vote, the latter will continue to run regardless of whether CheckContract sends back a response or not.
+1. First, the request transaction (to CheckContract) is generated in the response transaction of VoteContract. To handle this situation, the Vite virtual machine keeps a list of request transactions in the response and will send them when the response transaction is complete. Here in the example, a checkValid message is sent from the listener method vote, the latter will continue to run regardless of whether CheckContract sends back a response or not.
 
-2.Second, VoteContract initiates a request transaction within the contract. Please note this internal request transaction does not require quota. In addition, because it carries token transfer, the corresponding amount of token needs to be deducted from the balance. In the example, when more than one users vote, VoteContract will initiate multiple transfers to CheckContract and deduct the balance to reflect the changes.
+2. Second, VoteContract initiates a request transaction within the contract. Please note this internal request transaction does not require quota. In addition, because it carries token transfer, the corresponding amount of token needs to be deducted from the balance. In the example, when more than one users vote, VoteContract will initiate multiple transfers to CheckContract and deduct the balance to reflect the changes.
 
-3.Third, regardless of when and in what order these request messages are received by CheckContract, the final amount received by CheckContract must be equal.
+3. Third, regardless of when and in what order these request messages are received by CheckContract, the final amount received by CheckContract must be equal.
 
 
 In the third stage, CheckContract will respond to the request sent by VoteContract in a response transaction. More precisely, in the checkValid message listener. The execution process is similar to the second stage, and an isValid message is sent to VoteContract in a new request.
@@ -146,9 +146,9 @@ getter getVoteNum(address addr) returns(bool isInValid, uint voteNum) {
 In the example, the getter method getVoteNum is provided to query the contract state in the contract. It has a return value. However, you should remember the following two p when using getter methods.
 
 
-1.First, you should only use the getter method to query the state of the contract and cannot modify it;
+1. First, you should only use the getter method to query the state of the contract and cannot modify it;
 
-2.Second, getter methods are not allowed to access the data on the blockchain.
+2. Second, getter methods are not allowed to access the data on the blockchain.
 
 
 Therefore, getter methods are also called off-chain query methods. Actually, they are more like the public method for off-chain queries in Ethereum.
