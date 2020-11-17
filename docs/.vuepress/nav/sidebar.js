@@ -51,7 +51,7 @@ module.exports = {
                 'vite-built-in-timer',
                 'vite-storage-layer',
                 'vite-blockDB',
-                'vite-indexDB'
+                'vite-indexDB',
                 'Vite-As-Ar'
             ]
         }
