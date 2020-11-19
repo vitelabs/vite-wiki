@@ -20,7 +20,7 @@ mewconnect官网宣传中，与其它同类产品相比主要亮点是P2P通信�
 ![](../../../assets/images/Vite-con-1.png)
 
 ## walletconnect
-[walletconnect](https://github.com/trustwallet/walletconnect-monorepo) 实现了一个类似与TURN server的中继服务器（图中蓝色部分）
+ [walletconnect](https://github.com/WalletConnect/walletconnect-monorepo)实现了一个类似与TURN server的中继服务器（图中蓝色部分）
 
 ![](../../../assets/images/Vite-con-2.png)
 
