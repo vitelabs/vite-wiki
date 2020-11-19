@@ -59,7 +59,7 @@ Let’s take a deeper look at the handshake process of a web client and a mobile
 
 
 
-![](../../assets/images/Vite-con-3.png)
+![](../../assets/images/Vite-con-03yw.png)
 
 
 ## Features
@@ -125,13 +125,13 @@ This is a stability/real-time tradeoff. In a poor network environment, whether t
 2. Introduce new message types:
 
 
-a.  Session related messages. The messages should only be consumed once for security reasons.
+    a.  Session related messages. The messages should only be consumed once for security reasons.
 
-b.  In the purpose of connection optimization, messages between peer and server should not be encrypted.
+    b.  In the purpose of connection optimization, messages between peer and server should not be encrypted.
 
-c.  Private messages should be kept on the server for a certain period of time, in case of topic re-subscription after reconnecting.
+    c.  Private messages should be kept on the server for a certain period of time, in case of topic re-subscription after reconnecting.
 
-d.  Topics are recycled when idling for a certain period of time.
+    d.  Topics are recycled when idling for a certain period of time.
 
 3. Support version control. Version of message/peer should be detected by server. The server should select different processing methods when dealing with different versions of peers and messages.
 
