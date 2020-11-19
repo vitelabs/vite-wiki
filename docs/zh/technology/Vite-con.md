@@ -5,7 +5,7 @@
 
 考虑了两个相关方案：
 1. [mewconnect](https://github.com/myetherwallet/MEWconnect)
-2. [walletconnect](https://github.com/trustwallet/walletconnect-monorepo)
+2. [walletconnect](https://github.com/WalletConnect/walletconnect-monorepo)
 
 两个方案的不同主要区别在于peer之间的连接方式。
 
