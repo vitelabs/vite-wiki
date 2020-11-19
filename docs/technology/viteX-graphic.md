@@ -3,7 +3,7 @@
 In the previous articles, we have introduced ViteX from many perspectives of contract design, matching engine, backend service, decentralization, etc. As one of the following educational material of ViteX tech explorations, this article will focus on the execution process and interactions of ViteX smart contracts and the user. Enjoy.
 
 
-## 1 Functional Module
+## 1、Functional Module
 
 The ViteX decentralized exchange includes the on-chain data source vDex and the off-chain data service DexServer. As shown in the figure below, Wallet Gateway, Token Issuance, and DEX Manager are on-chain modules. Users can either map cross-chain tokens to the Vite chain through gateways or issue Vite-native tokens directly, then transfer the tokens to the exchange for trade. DEX Data Processor and Data Collection are off-chain modules. They collect data from full nodes, conduct data processing and indexing, and provide aggregated data service to the user. Specifically, DEX Manager handles deposit, withdrawal, trading, new trading pair opening, Data Collection crawls the chain to capture on-chain events, and DEX Data Processor is responsible for providing the service.
 
@@ -13,7 +13,7 @@ Assets traded on ViteX have two types. One is token issued on the Vite chain, su
 ![](../../assets/images/viteX-graphic-2.png)
 
 
-## 2 Functional Details
+## 2、Functional Details
 
 Functional details are explained in the following sections.
 
