@@ -165,13 +165,13 @@ timestamp | 1567067137937
 
 ```bash
 $ echo -n "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560" | openssl dgst -sha256 -hmac "F6BED9F34912C0B658B58C73B6531721"
-(stdin)= 7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47
+(stdin)= 47033f6086b2afc54a0a1f837dccb4ea6fe56a0312bab311e0bbc3941efaf8d6
 ```
 
 * **调用API：**
 
 ```bash
-$ curl -X POST -d "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=7df4a9731ff6a75ed4037c2e48788fa3b0f478ec835022b17e44ff1cd9486d47" https://api.vitex.net/test/api/v2/order/test
+$ curl -X POST -d "amount=10&key=913423DE46E97751CCC734F018F09217&price=0.09&side=0&symbol=ETH-000_BTC-000&timestamp=1567755178560&signature=47033f6086b2afc54a0a1f837dccb4ea6fe56a0312bab311e0bbc3941efaf8d6" https://api.vitex.net/test/api/v2/order/test
 ```
 
 ## 私有 REST API
