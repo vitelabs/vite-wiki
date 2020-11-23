@@ -8,5 +8,5 @@
 * [Five Charts to Understand How ViteX Works](./viteX-graphic.md)
 * [An Introduction to Vite Connect](./Vite-con.md)
 * [ViteX’s Decentralization Explained](./viteX-Decent.md)
-* [The Economics of Smart Contract — Vite v.s. EOS](./Vite-EOS-Contract.md)
+* [The Economics of Smart Contract—Vite v.s. EOS](./Vite-EOS-Contract.md)
 
