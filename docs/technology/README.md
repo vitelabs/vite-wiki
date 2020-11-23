@@ -9,4 +9,5 @@
 * [An Introduction to Vite Connect](./Vite-con.md)
 * [ViteX’s Decentralization Explained](./viteX-Decent.md)
 * [The Economics of Smart Contract—Vite v.s. EOS](./Vite-EOS-Contract.md)
+* [Inside ViteX’s Built-in Contract](./viteX-contract.md)
 
