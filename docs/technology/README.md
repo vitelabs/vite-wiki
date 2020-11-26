@@ -11,4 +11,5 @@
 * [The Economics of Smart Contract—Vite v.s. EOS](./vite-eos-contract.md)
 * [Inside ViteX’s Built-in Contract](./viteX-contract.md)
 * [Design and Implementation of ViteX Back-End Service](./backend-service.md)
+* [The Design and Implementation of ViteX Contracts](./built-in-contract.md)
 
