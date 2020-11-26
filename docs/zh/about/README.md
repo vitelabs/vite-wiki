@@ -62,6 +62,20 @@ yarn dev
 
 ![dag-ledger](~/images/dag-ledger.png)
 
+::: warning
+图片统一放到 `assets/images` 下，当在 markdown 中引用图片时，请不要用 **相对地址**，请使用 `~images`，`~images` 会映射到 `assets/images`。
+:::
+
+**Bad Case**:
+```
+![dag-ledger](../../../assets/images/dag-ledger.png)
+```
+
+**Good Case**:
+```
+![dag-ledger](~images/dag-ledger.png)
+```
+
 ***静态资源命名规范***: `[markdown文件名]+[静态资源名称]`
 
 例如：
