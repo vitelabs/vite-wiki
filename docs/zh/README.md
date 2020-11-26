@@ -59,7 +59,7 @@ projects:
         - name: 密码学相关
           url: /zh/technology/design-features.html
         - name: ViteX内置合约设计与实现简介
-          url: https://forum.vite.net/topic/2588/vitex内置合约设计与实现简介
+          url: /zh/technology/built-in-contract.html
     - title: DApp
       detail: 如何开发DApp，介绍什么是solidity++，什么是异步智能合约
       links: 
