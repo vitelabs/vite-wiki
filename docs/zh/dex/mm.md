@@ -84,7 +84,7 @@ chmod a+x *.sh
 
 完成之后你会看到以下界面：
 
-![](https://docs.hummingbot.io/assets/img/hummingbot-cli.png)
+![](https://raw.githubusercontent.com/CoinAlpha/hummingbot-docs/master/content/operation/img/hummingbot-cli.png)
 
 #### 设置 Humming Bot
 
