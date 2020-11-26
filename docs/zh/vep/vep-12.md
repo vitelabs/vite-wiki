@@ -37,7 +37,7 @@ VITE随机数的方案是从现实生活中猜骰子的游戏中演化出来的�
 
 将上面的方案具体映射到VITE中实现如下图1：
 
-![figure](../../../assets/images/vep12-random.png)<div align="center">图 1</div>
+![figure](~images/vep12-random.png)<div align="center">图 1</div>
 
 每个随机数从产生到应用经历三个阶段：
 1. 随机数的 $hash_N$ 公布阶段；（类比摇骰子）

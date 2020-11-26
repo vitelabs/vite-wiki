@@ -10,7 +10,7 @@
 
 例如：用户账户A发起一笔请求交易A1，调用合约账户B的方法，合约账户B生成一笔响应交易B1执行合约方法，并生成两笔请求交易B2和B3，B2给用户账户C转账，B3调用合约账户D的方法。这个账本结构中，共涉及到3个请求区块：A1、B2、B3，和3个响应区块：B1、C1、D1。
 
-![figure](../../../assets/images/vep6-no-merge.png)<div align="center">图 1</div>
+![figure](~images/vep6-no-merge.png)<div align="center">图 1</div>
 
 ## 拆分合约的响应交易和响应交易产生的请求交易的优缺点
 
@@ -32,7 +32,7 @@
 
 将图1中的B1、B2、B3合并成一个区块B1，B1包含一笔响应交易和这笔响应交易产生的请求交易B11和B12。这种账本结构中，共涉及1个请求区块A1和3个响应区块B1、C1、D1。
 
-![figure](../../../assets/images/vep6-merge.png)<div align="center">图 2</div>
+![figure](~images/vep6-merge.png)<div align="center">图 2</div>
 
 * 由于响应交易和它的请求交易被写入到了同一个块中，因此在校验和网络传输时都可以直接当做事务来处理。
 

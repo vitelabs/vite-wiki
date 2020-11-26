@@ -6,7 +6,7 @@ In Section 6.2.2(Resource Quantification) of Vite White Paper, it mentions
 
 >Because snapshot chain is equivalent to a global clock, we can use it to quantify the resource usage of an account accurately. In each transaction, the Hash of a snapshot block is quoted, the height of the snapshot block is took as the timestamp of the transaction. Therefore, according to the difference between the two transaction timestamps, we can judge whether the interval between the two transactions is long enough.
 
-![figure](../../assets/images/explicit_timestamp.png)<div align="center">Figure 1. Explicit Timestamps</div>
+![figure](~images/explicit_timestamp.png)<div align="center">Figure 1. Explicit Timestamps</div>
 
 In Figure 1, each transaction contains an explicit hash reference to snapshot block as transaction creation time. The main purpose of this timestamp is to calculate whether the resource consumption of an account exceeds its quota.
 
@@ -14,7 +14,7 @@ In addition to "explicit" timestamp, there is another "implicit" timestamp in th
 
 The two types of timestamp cause two-way dependency between transactiongits and snapshot chain, as shown in Figure 2:
 
-![figure](../../assets/images/timestamps.png)<div align="center">Figure 2. Explicit Timestamps and Implicit Timestamps</div>
+![figure](~images/timestamps.png)<div align="center">Figure 2. Explicit Timestamps and Implicit Timestamps</div>
 
 The red arrows indicate the references from transaction to snapshot block, representing explicit timestamps(the creation time of transaction).
 
@@ -27,7 +27,7 @@ The newer the snapshot block is, the more likely it could be rolled back. Both t
 However, explicit timestamps will receive bigger impact, as explained below:
 
 
-![figure](../../assets/images/explicit_forked.png)<div align="center">Figure 3. Explicit Timestamps with snapshot chain forks</div>
+![figure](~images/explicit_forked.png)<div align="center">Figure 3. Explicit Timestamps with snapshot chain forks</div>
 
 In Figure 3, 
 the snapshot block #N on the right hand side is rolled back and replaced by another forked snapshot block on the left side. 
@@ -39,7 +39,7 @@ An alternative strategy is to reference an older snapshot block, which means the
 
 A conclusion can be reached now that regardless of their benefit, explicit timestamps have this problem. In contrast, implicit timestamps do not have this problem.
 
-![figure](../../assets/images/implicit_forked.png)<div align="center">Figure 4. Implicit Timestamps with snapshot chain forks</div>
+![figure](~images/implicit_forked.png)<div align="center">Figure 4. Implicit Timestamps with snapshot chain forks</div>
 
 Implicit timestamps are simply discarded along with the snapshot block during a rollback. In the example of Figure 4, the second transaction of account A and first transaction of account B will be re-marked as unconfirmed. 
 A forked snapshot block #N will produce a set of new implicit timestamps, but not necessarily the same as those in the original block. 

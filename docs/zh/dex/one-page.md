@@ -18,9 +18,9 @@
 
 * **分配方案**：
   
-![vx-release-chart](../../../assets/images/vx-release-chart.png) 
+![vx-release-chart](~images/vx-release-chart.png) 
   
 * **释放曲线**：分八年发放，先到先得。
 
-![vx-release-schedule](../../../assets/images/vx-release-schedule.png) 
+![vx-release-schedule](~images/vx-release-schedule.png) 
 

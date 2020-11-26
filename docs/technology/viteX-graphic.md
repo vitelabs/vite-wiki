@@ -10,7 +10,7 @@ The ViteX decentralized exchange includes the on-chain data source vDex and the 
 
 Assets traded on ViteX have two types. One is token issued on the Vite chain, such as VITE, VX, EBLX-000; another is cross-chain tokens like ETH-000, BTC-000, USDT-000. The cross-chain tokens are native coins of other public chain and need to be mapped to Vite tokens before they can be traded on ViteX.
 
-![](../../assets/images/viteX-graphic-2.png)
+![](~images/viteX-graphic-2.png)
 
 
 ## 2、Functional Details
@@ -23,7 +23,7 @@ Functional details are explained in the following sections.
 ViteX adopts a multi-contract scheme, which is helpful to build a clear business model and avoid the potential performance bottleneck of single-contract, especially taking into account the large trading volume in the future. In addition, this design also facilitates data pruning.
 The design consists of two built-in contracts. Contract Fund is responsible for asset deposit, withdrawal, settlement, lock, unlock, mining, dividends, etc., while the orders are actually matched in Contract Trade. The interaction flow is as follows:
 
-![](../../assets/images/viteX-graphic-2.png)
+![](~images/viteX-graphic-2.png)
 
 
 
@@ -60,14 +60,14 @@ The order maching process is shown in the following diagram.
 8. Contract Trade matches the order with the buy order of User A. When it completes, 5,000 VITE and 0.5 BTC-000 are respectively sent to the accounts of User A and User B in Contract Fund (Trading fees are not taken into account in the example). At this time, B’s sell order is fully filled and removed from the order book, while A’s buy order is partially filled and will remain on the order book at the moment.
 
 
-![](../../assets/images/viteX-graphic-3.png)
+![](~images/viteX-graphic-3.png)
 
 
 
 ### 2.3 Order Cancellation
 
 
-![](../../assets/images/viteX-graphic-4.png)
+![](~images/viteX-graphic-4.png)
 
 
 Only pending (unfilled or partially filled) orders can be canceled. Attempt to cancel a filled or canceled order will cause an error.
@@ -83,7 +83,7 @@ Only pending (unfilled or partially filled) orders can be canceled. Attempt to c
 
 ### 2.4 Settlement
 
-![](../../assets/images/viteX-graphic-5.png)
+![](~images/viteX-graphic-5.png)
 
 
 

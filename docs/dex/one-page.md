@@ -17,9 +17,9 @@ A fully decentralized exchange built on the Vite public chain. The world's first
   * **Market-making**: Place orders to boost liquidity on ViteX and get rewarded with VX. 
   * **Listing a trading pair**: A user that lists a new trading pair receives VX. 
 
-![vx-release-chart](../../assets/images/vx-release-chart.png) 
+![vx-release-chart](~images/vx-release-chart.png) 
   
 **Release schedule**：***29,328,807.8*** VX will be released over the course of **8 years** as follows:
   
-![vx-release-schedule](../../assets/images/vx-release-schedule.png) 
+![vx-release-schedule](~images/vx-release-schedule.png) 
 

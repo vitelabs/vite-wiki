@@ -11,7 +11,7 @@ In Vite, a request call to a smart contract may influence the status of multiple
 Let's see an example. User A sends a request transaction A1 to contract B, which executes business logic in a response transaction B1 and creates two new request transactions B2 and B3. 
 Here B2 is a transfer transaction to user C while B3 calls contract D. Correspondingly, account C and contract D create related response transactions C1 and D1. In this example, 3 request blocks A1, B2, B3 and 3 response blocks B1, C1, D1 are created all together.
 
-![figure](../../assets/images/vep6-no-merge.png)<div align="center">Figure 1</div>
+![figure](~images/vep6-no-merge.png)<div align="center">Figure 1</div>
 
 ## Pros and Cons of Current Design
 
@@ -36,7 +36,7 @@ Currently in TestNet, ACID on contract response-requests is guaranteed by removi
 
 In the proposed design, in-contract request block B11 and B12 are merged into B1. As shown in Figure 2, the new design creates 1 request block A1 and 3 response blocks: B1, C1 and D1.
 
-![figure](../../assets/images/vep6-merge.png)<div align="center">Figure 2</div>
+![figure](~images/vep6-merge.png)<div align="center">Figure 2</div>
 
 Pros:
 

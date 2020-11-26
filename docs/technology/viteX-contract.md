@@ -17,7 +17,7 @@ We studied the structure of order id in the previous article. The order id, refe
 
 ## 3. Why two order cancellation interfaces exist
 
-![](../../assets/images/YW-viteX-contract.png)
+![](~images/YW-viteX-contract.png)
 
 Because the ViteX’s order book is stored in dexTrade, and to cancel an order only the order book has to be accessed, so in early version of ViteX the interface of order cancellation is in dexTrade. However, order placement is based on the dexFund contract in the purpose of locking up funds, which leads to inconsistent design for order placement and cancellation. In the actual execution of the contracts, an order, after placed, may immediately be cancelled before it is written into the order book in dexTrade due to on-chain consensus delay. At this time, the cancellation fails since the order does not exist in the order book. To address the issue, we have added a cancellation interface in the dexFund contract in recent fork “Mars”. In the new design, for an given order, the guarantee of sequence of requests on user’s account chain ensures that the cancellation request will definitely be processed by the smart contract after the order is placed. Comparing the two interfaces, the new one produces deterministic execution result at a cost of introducing an additional step to pass the cancellation request from dexFund to dexTrade, and is recommended for automated trading tools to use.
 

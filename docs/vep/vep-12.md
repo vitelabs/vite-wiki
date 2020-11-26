@@ -34,7 +34,7 @@ In effect, this is equivalent to the following steps in the dicing example:
 
 Figure 1 shows how above idea is implemented in Vite
 
-![figure](../../assets/images/vep12-random.png)<div align="center">Figure 1</div>
+![figure](~images/vep12-random.png)<div align="center">Figure 1</div>
 
 Each random number goes through three stages in the lifecycle:
 1. $hash_N$ is announced when $random_N$ is generated

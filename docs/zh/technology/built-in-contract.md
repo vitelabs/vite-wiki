@@ -9,7 +9,7 @@ ViteX是Vite链上的内置去中心化交易所，是Vite生态的重要组成�
 ### 价格有序的订单id设计
 
 订单存储的方式决定了写入和读取的效率，也最终决定了撮合的执行效率。Vite链底层基于LevelDB实现存储，支持字节序的顺序遍历，和vDex Taker-Maker撮合规则依次匹配价格有序订单的特点一致。vDex根据levelDB字节序的特点设计了下面的订单id格式，保证taker匹配时只需要一次迭代便利即可完成整个撮合，订单结构实现如下图表示。
-![](../../../assets/images/vDex.png)
+![](~images/vDex.png)
 
        
 订单id为定长的22字节，各个组成部分具体含义如下：
@@ -50,7 +50,7 @@ vDex目前版本由两个内置合约组成，dexFund承担充值、提现、上
 
 由两个不同合约组合完成交易所功能，从工程角度便于系统拆分和维护，同时方便后续dexTrade分片以提供更高的吞吐。
 
-![](../../../assets/images/built-in-contract.png)
+![](~images/built-in-contract.png)
 
 
 ## 其他
