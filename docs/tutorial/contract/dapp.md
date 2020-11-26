@@ -44,7 +44,7 @@ Setup [Vite Test Wallet](./testdapp.html) to connect to your development node.
 
 ## Debug Contract
 
-Install VSCode IDE and Soliditypp Extension Plugin at [https://code.visualstudio.com]((https://code.visualstudio.com/)). 
+Install VSCode IDE and Soliditypp Extension Plugin at [https://code.visualstudio.com](https://code.visualstudio.com/). 
 Follow [This Guide](./debug.html#debugging-in-vs-code) to write and debug your smart contract in VSCode IDE.
 
 ## Deploy Contract
