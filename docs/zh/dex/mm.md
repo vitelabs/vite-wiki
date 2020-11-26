@@ -88,7 +88,7 @@ chmod a+x *.sh
 
 #### 设置 Humming Bot
 
-请按照[hummingbot 官方文档](https://docs.hummingbot.io/quickstart/configure/)的设置教程来配置 Humming Bot。
+请按照[hummingbot 官方文档](https://docs.hummingbot.io/operation/client/)的设置教程来配置 Humming Bot。
 
 期间需要输入：`Access Key`，`Secret Key` 和 `委托地址`。
 
