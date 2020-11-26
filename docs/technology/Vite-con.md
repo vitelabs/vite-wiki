@@ -59,7 +59,8 @@ Let’s take a deeper look at the handshake process of a web client and a mobile
 
 
 
-![](~con-03yw.png)
+![](~images/Vite-con-03yw.png)
+
 
 
 ## Features
