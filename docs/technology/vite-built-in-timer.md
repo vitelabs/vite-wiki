@@ -3,7 +3,7 @@
 
 ## Background
 
-DAG is an acronym for Directed Acyclic Graph. It is a method for sending data in a distributed environment. Originally, DAG is not blockchain technology, but a data structure for solving dynamic programming problems. The first person to propose this concept was Sergio Demian Lerner, who published the article DAG Coin Draft in September 2015, and first proposed the concept of DAG-chain. Although DAG was not created for blockchain, this decentralized network implementation is now classified in the blockchain sector. Popular projects include IOTA, Nano, ByteBall, VITE, etc. All these projects were developed from the basic DAG structure.
+DAG is an acronym for Directed Acyclic Graph. It is a method for sending data in a distributed environment. Originally, DAG is not blockchain technology, but a data structure for solving dynamic programming problems. The first person to propose this concept was Sergio Demian Lerner, who published the article [ DAG Coin Draft](https://bitslog.files.wordpress.com/2015/09/dagcoin-v41.pdf)article DAG Coin Draft in September 2015, and first proposed the concept of DAG-chain. Although DAG was not created for blockchain, this decentralized network implementation is now classified in the blockchain sector. Popular projects include IOTA, Nano, ByteBall, VITE, etc. All these projects were developed from the basic DAG structure.
 
 
 ## The Theory of DAG Technology
