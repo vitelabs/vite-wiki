@@ -14,3 +14,4 @@
 * [The Design and Implementation of ViteX Contracts](./built-in-contract.md)
 * [An Introduction to Vite Asynchronous Architecture](./viteJS-talk.md)
 * [An Overview of Vite Storage Layer](./vite-storage-layer.md)
+* [The Interpretation of DAG Technology on Vite](./vite-built-in-timer.md)
