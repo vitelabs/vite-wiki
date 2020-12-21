@@ -66,11 +66,11 @@ Methods of built-in contracts are provided in `builtinTxBlock` in **vite.js**
 ### ABI
 ```json
 [
-  // Stake for quota (Depreciated)
+  // Stake for quota (Deprecated)
   {"type":"function","name":"Stake", "inputs":[{"name":"beneficiary","type":"address"}]},
   // Stake for quota
   {"type":"function","name":"StakeForQuota", "inputs":[{"name":"beneficiary","type":"address"}]},
-  // Cancel staking (Depreciated)
+  // Cancel staking (Deprecated)
   {"type":"function","name":"CancelStake","inputs":[{"name":"beneficiary","type":"address"},{"name":"amount","type":"uint256"}]},
   // Cancel staking
   {"type":"function","name":"CancelQuotaStaking","inputs":[{"name":"id","type":"bytes32"}]},
@@ -162,74 +162,78 @@ Callback method for cancelling delegated staking. Basically, it is the caller co
 ```json
 [
   // Register block producer
-  {"type":"function","name":"Register", "inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"},{"name":"blockProducingAddress","type":"address"}]},
+  {"type":"function","name":"RegisterSBP", "inputs":[{"name":"sbpName","type":"string"},{"name":"blockProducingAddress","type":"address"},{"name":"rewardWithdrawAddress","type":"address"}]},
   // Update block producing address
-  {"type":"function","name":"UpdateBlockProducingAddress", "inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"},{"name":"newBlockProducingAddress","type":"address"}]},
+  {"type":"function","name":"UpdateSBPBlockProducingAddress", "inputs":[{"name":"sbpName","type":"string"},{"name":"blockProducingAddress","type":"address"}]},
+  // Update reward withdrawal address
+  {"type":"function","name":"UpdateSBPRewardWithdrawAddress", "inputs":[{"name":"sbpName","type":"string"},{"name":"rewardWithdrawAddress","type":"address"}]},
   // Cancel block producer
-  {"type":"function","name":"Revoke","inputs":[{"name":"gid","type":"gid"}, {"name":"sbpName","type":"string"}]},
+  {"type":"function","name":"RevokeSBP","inputs":[{"name":"sbpName","type":"string"}]},
   // Withdraw block producing reward
-  {"type":"function","name":"WithdrawReward","inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"},{"name":"receiveAddress","type":"address"}]},
+  {"type":"function","name":"WithdrawSBPReward","inputs":[{"name":"sbpName","type":"string"},{"name":"receiveAddress","type":"address"}]},
   // Vote for block producer
-  {"type":"function","name":"Vote", "inputs":[{"name":"gid","type":"gid"},{"name":"sbpName","type":"string"}]},
+  {"type":"function","name":"VoteForSBP", "inputs":[{"name":"sbpName","type":"string"}]},
   // Cancel voting
-  {"type":"function","name":"CancelVote","inputs":[{"name":"gid","type":"gid"}]}
+  {"type":"function","name":"CancelSBPVoting","inputs":[]}
 ]
 ```
 
 #### Register
 
-Register new block producer in a consensus group. For snapshot consensus group, this requires staking 1m VITE for a locking period of 7,776,000 snapshot blocks (about 3 months). 
+Register a new block producer. This operation requires to stake 1m VITE for a locking period of 7,776,000 snapshot blocks (about 3 months). 
 
 - **Parameters**: 
-  * `gid`: `string gid` Consensus group id. For snapshot consensus group, fill in `00000000000000000001`
-  * `sbpName`: `string` Distinct name of block producer
-  * `blockProducingAddress`: `string address` Block producing address. Using a different address with registration address is recommended.
+  * `sbpName`: `string` The unique name of the block producer. Cannot be modified after the registration.
+  * `blockProducingAddress`: `string address` Block producing address. This is the address that signs the snapshot block. It's highly recommended to use a different address other than the registration address.
+  * `rewardWithdrawAddress`: `string address` Reward withdrawal address. 
 
 :::tip Tips
-Have your gvite node fully synced before registration
+Always have your node fully synced before registration.
 :::
 
 #### UpdateBlockProducingAddress
 
-Update block producing address for existing producer
+Update the block producing address for an existing producer
 
 - **Parameters**: 
-  * `gid`: `string gid` Consensus group id. For snapshot consensus group, fill in `00000000000000000001`
-  * `sbpName`: `string` Distinct name of block producer
-  * `newBlockProducingAddress`: `string address` New block producing address
+  * `sbpName`: `string` The unique name of the block producer
+  * `blockProducingAddress`: `string address` New block producing address
+  
+#### UpdateRewardWithdrawAddress
+Update reward withdrawal address for an existing producer
+
+- **Parameters**: 
+  * `sbpName`: `string` The unique name of the block producer
+  * `rewardWithdrawAddress`: `string address` New reward withdrawal address
 
 #### Revoke
 
-Cancel block producer after locking period expires. Cancelled producer is not able to produce blocks or receive reward.
+Cancel a block producer after the locking period has passed. A cancelled producer will stop producing snapshot blocks immediately.
 
 - **Parameters**: 
-  * `gid`: `string gid` Consensus group id. For snapshot consensus group, fill in `00000000000000000001`
-  * `sbpName`: `string` Distinct name of block producer
+  * `sbpName`: `string` The unique name of the block producer
 
 #### WithdrawReward
 
-Withdraw block producing reward. For snapshot consensus group, the top 100 block producers of the last round in each cycle can withdraw rewards in 1 hour after the cycle is over.
+Withdraw block producing reward. The first 100 block producers in a cycle's last round can withdraw block producing rewards in 1 hour after the cycle is complete.
 
 - **Parameters**: 
-  * `gid`: `string gid` Consensus group id. For snapshot consensus group, fill in `00000000000000000001`
-  * `sbpName`: `string` Distinct name of block producer
+  * `sbpName`: `string` The unique name of the block producer
   * `receiveAddress`: `string address` Address to receive block producing rewards
 
 #### Vote
 
-Vote for a block producer. User's account balance is used as voting weight. For the same account, the latest voting record will count if multiple votes are made. 
+Vote for a block producer. The VITE balance in the account is taken as voting weight. An account can only vote for one SBP at a time. 
 
 - **Parameters**: 
-  * `gid`: `string gid` Consensus group id. For snapshot consensus group, fill in `00000000000000000001`
   * `sbpName`: `string` Distinct name of block producer
 
 #### CancelVote
 
-Cancel existing voting
+Cancel vote
 
 - **Parameters**: 
-  * `gid`: `string gid` Consensus group id. For snapshot consensus group, fill in `00000000000000000001`
-
+    None
 ## Token Issuance Contract
 ### Contract Address
 `vite_000000000000000000000000000000000000000595292d996d`
@@ -248,7 +252,7 @@ Cancel existing voting
   // Change token type from re-issuable to non-reissuable
   {"type":"function","name":"DisableReIssue","inputs":[{"name":"tokenId","type":"tokenId"}]},
   // Query token information
-  {"type":"function","name":"GetTokenInfo","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"}]},
+  {"type":"function","name":"GetTokenInformation","inputs":[{"name":"tokenId","type":"tokenId"}]},
   // Token issuance event
   {"type":"event","name":"issue","inputs":[{"name":"tokenId","type":"tokenId","indexed":true}]},
   // Token re-issuance event
@@ -265,7 +269,7 @@ Callback method:
 ```json
 [
   // Callback method for querying token information 
-  {"type":"function","name":"GetTokenInfoCallback","inputs":[{"name":"tokenId","type":"tokenId"},{"name":"bid","type":"uint8"},{"name":"exist","type":"bool"},{"name":"decimals","type":"uint8"},{"name":"tokenSymbol","type":"string"},{"name":"index","type":"uint16"},{"name":"owner","type":"address"}]}
+  {"type":"function","name":"GetTokenInformationCallback","inputs":[{"name":"id","type":"bytes32"},{"name":"tokenId","type":"tokenId"},{"name":"exist","type":"bool"},{"name":"isReIssuable","type":"bool"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"},{"name":"totalSupply","type":"uint256"},{"name":"decimals","type":"uint8"},{"name":"maxSupply","type":"uint256"},{"name":"isOwnerBurnOnly","type":"bool"},{"name":"index","type":"uint16"},{"name":"ownerAddress","type":"address"}]},
 ]
 ```
 
@@ -310,21 +314,19 @@ Change re-issuable token to non-reissuable. Cannot change back once it is done
 - **Parameters**: 
   * `tokenId`: `string tokenId` Token id
 
-#### GetTokenInfo
+#### GetTokenInformation
 
 Query token info
 
 - **Parameters**: 
   * `tokenId`: `string tokenId` Token id
-  * `bid`: `uint8` Business id, optional
 
-#### GetTokenInfoCallback
+#### GetTokenInformationCallback
 
 Callback method for querying token info
 
 - **Parameters**: 
   * `tokenId`: `string tokenId` Token id
-  * `bid`: `uint8` Business id
   * `exist`: `bool` If `true`, the token exists
   * `tokenSymbol`: `string` Symbol of token
   * `index`: `uint16` Distinct token index beginning from 0 to 999. For tokens having the same symbol, sequential indexes will be allocated according to issuance time
