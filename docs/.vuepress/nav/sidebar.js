@@ -52,7 +52,7 @@ module.exports = {
                 'vite-storage-layer',
                 'vite-blockDB',
                 'vite-indexDB',
-             
+
             ]
         }
     ],
@@ -115,7 +115,8 @@ module.exports = {
             en: 'FAQ',
             children: [
                 'faq/node',
-                'faq/develop'
+                'faq/develop',
+                'faq/dex'
             ]
         }
     ],
@@ -192,8 +193,8 @@ module.exports = {
     ],
     'api/javasdk': [
         {
-            zh: 'ViteJava',
-            en: 'ViteJava',
+            zh: 'Vite Java SDK',
+            en: 'Vite Java SDK',
             children: ['','faq','types','wallet','rpc','quota','sbp','asset','subscribe','utils']
         }
     ],
