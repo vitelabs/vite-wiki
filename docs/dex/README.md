@@ -282,7 +282,7 @@ Minimum Staking Duration: **30 days**
 
 :::tip VIP Uses Referral Code
 For any VIP user using a referral code, another 10% will be taken off incurred trading fees after the 50% reduction.
-For example, Alice is a VIP and uses a referral code, the token pair she trades on has a 0.15% Operator Fee, the final trading fee she receives is: $((0.2\% - 0.1\%) + 0.15\%)*90\% = 0.225\%$.
+For example, Alice is a VIP and uses a referral code, the token pair she trades on has a 0.15% Operator Fee, the final trading fee she receives is: $((0.2\% - 0.1\%) + 0.05\%)*90\% = 0.135\%$.
 :::
 
 ## ViteX Operator Guide
