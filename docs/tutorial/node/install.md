@@ -217,9 +217,9 @@ Go 1.11.1 or above version is required. See [Go Installation Guide](https://gola
   ```
   The following result will be displayed:
   ```
-  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"2166918\"}"
+  "{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"51821203\"}"
   ```
-  2166918 is current block height. 
+  51821203 is current block height. 
   
 * For more information please run command `vite.help`.
   
@@ -255,7 +255,8 @@ The modified part of node_config.json is as below(please note this is not the fu
 
 ### Node status check
 
-Reboot full node, then visit [Full Node Stats](https://stats.vite.net/api/getAlivePeers?address=${rewardAddress}) to examine if your node has shown up correctly (result will reflect in 5 minutes).
+Reboot full node, then visit [Vite Explorer](https://explorer.vite.net/FullNode) to examine if your node has shown up correctly (result will reflect in 5 minutes).
+Scroll to filter box and input your node name from above.
   
 ## Next steps
 
