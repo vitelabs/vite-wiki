@@ -74,7 +74,7 @@ Such approaches meet the goals of universality and decentralization. But they ar
 
 ### Protocol Overview
 The following figure outlines the architecture of the protocol:
-![alt Protocol Overview](~/images/bridge-overview.png)
+![alt Protocol Overview](../../assets/images/bridge-overview.png)
 
 - The protocol consists of a set of smart contracts deployed on the Vite chain and a set of relay nodes running off-chain programs.
 - The Wallet contract takes the role of a decentralized wallet of the remote chain that is featured to generate public keys, construct remote chain transactions, and sign the transactions within the contract.
@@ -194,7 +194,7 @@ The following figure describes several key workflows of the protocol by using Vi
 
 Below we separately describe the processes of cross-chain transfer of BTC between Bitcoin and Vite, and between Vite and Ethereum.
 
-![alt Protocol Overview](~/images/bridge-workflow.png)
+![alt Protocol Overview](../../assets/images/bridge-workflow.png)
 
 ### Transfer from Bitcoin to Vite
 1. The depositor requests a BTC deposit address from the Bitcoin Wallet contract according to his Vite address.
@@ -626,7 +626,7 @@ This transfer is called *Tranfer Redirect*, a new transfer type in the protocol.
 
 Let's look at a process shown in the following figure, where a user wants to transfer BTC to Ethereum.
 
-![alt Tranfer Redirect](~/images/bridge-redirect.png)
+![alt Tranfer Redirect](../../assets/images/bridge-redirect.png)
 
 1. Alice inputs an Ethereum address and requests a BTC deposit address from the Bitcoin Wallet contract. Since Alice doesn't have a Vite address, the contract will construct a unique BTC address based on Alice's Ethereum address and return it.
 2. Alice transfers 1 BTC to the deposit address.
