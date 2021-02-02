@@ -1,14 +1,10 @@
 module.exports = [
   {
-    text: 'About Vite',
+    text: 'Vite 2.0',
     items: [
       {
-        text: 'Introduction',
-        link: '/introduction/'
-      },
-      {
-        text: 'Technology',
-        link: '/technology/'
+        text: 'Vite Bridge',
+        link: '/introduction/ViteBridge.md'
       }
     ]
   },
@@ -91,6 +87,10 @@ module.exports = [
           {
             text: 'Forum',
             link: 'https://forum.vite.net'
+          },
+          {
+            text: 'ViteX.net',
+            link: 'https://vitex.net'
           },
           {
             text: 'Airdrop',

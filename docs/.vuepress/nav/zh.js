@@ -73,6 +73,10 @@ module.exports = [
             link: 'https://forum.vite.net'
           },
           {
+            text: 'ViteX.net',
+            link: 'https://vitex.net'
+          },
+          {
             text: '参与空投',
             link: 'https://vite.org/airdrop'
           }

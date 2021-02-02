@@ -1,7 +1,7 @@
 ---
 heroImage: /logo_black_transparent.svg
-actionText: Learn About Vite →
-actionLink: /tutorial/start/
+actionText: Vite 2.0 →
+actionLink: /introduction/ViteBridge
 website: Vite.org
 slogan: Blockchain for Government, Enterprise & Developers
 layout: HomePage

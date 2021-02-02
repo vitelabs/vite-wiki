@@ -4,10 +4,9 @@ module.exports = {
             zh: '介绍',
             en: 'Introduction',
             children: [
-                '',
+                'ViteBridge',
                 'dag-ledger',
                 'asynchronous-architecture',
-                'other',
                 'vite-token'
             ]
         }
