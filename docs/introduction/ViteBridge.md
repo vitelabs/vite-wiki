@@ -48,7 +48,7 @@ This approach leverages a smart contract on one blockchain to verify whether the
 
 [Incognito](https://we.incognito.org/t/shielding-cryptocurrencies-turning-any-cryptocurrency-into-a-privacy-coin/83) is a platform of decentralized privacy coins. Through Incognito, a public coin can be shielded to obtain its privacy coin counterpart of the same value. Incognito validators verify the shielding transaction and the deposit proof inside it in particular by using SPV.
 
-Such solutions meet the goals of decentralization and security. However, they are not enough generic.
+Such solutions meet the goals of decentralization and security. However, they are not generic enough.
 Due to the serious challenge of designing a light client for PoS blockchains, it has no efficient way to validate the suffix blocks of those blockchains without the signatures of stakeholders, which depends on the recent stake distributions and cannot be verified externally.
 
 ### Game-Theoretic Approaches
@@ -160,7 +160,7 @@ A more general solution is to introduce a set of *relay nodes* that keep a compl
 
 The integrity of relays is guaranteed by collateral bonding, and any fraud attempt will lead to collateral losses. In some cases, even the relays conspire or collude, the losses they suffer will be much larger than the money they could abuse.
 
-How does relay verify transactions on the remote chain is a key point of this article, which will be explained in detail in the follow-up sections.
+How the relays verify transactions on the remote chain is a key point of this article, which will be explained in detail in the follow-up sections.
 
 ### Mint Transaction Creation
 How to generate a valid Vite chain transaction *T<sub>mint</sub>* according to *T<sub>lock</sub>*?
