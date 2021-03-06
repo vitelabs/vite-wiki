@@ -1,6 +1,6 @@
 # How to Integrate a 3rd Party Exchange
 
-Follow the below steps to integrate Vite into a 3rd-party exchange. This also applies to any tokens issued on Vite.
+Follow the below steps to integrate Vite into a 3rd-party exchange. This guide also applies to any other tokens issued on Vite.
 
 1. [Get to Understand the Vite Chain](../../introduction/README.md)
 

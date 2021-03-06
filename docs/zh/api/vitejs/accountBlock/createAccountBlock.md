@@ -291,18 +291,16 @@ const accountBlock = createAccountBlock('stakeForQuota', {
 - **Parameters** 
     * `__namedParameters: object`
         - `address: Address` 账户块所属的账户地址        
-        - `beneficiaryAddress: Address` 配额受益地址
-        - `amount: Uint256` 取消金额，单次取消抵押的金额不低于 134 VITE; 剩余抵押金额不低于 134 VITE; 金额（最小单位，比如 10vite = 10000000000000000000）
-
+        - `id: string` 抵押id
+        
 - **Return**
-    * accountBlock实例
+    * accountBlock instance
 
 - **Example**
 ```javascript
 const accountBlock = createAccountBlock('cancelQuotaStake', {
     address: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
-    beneficiaryAddress: 'vite_553462bca137bac29f440e9af4ab2e2c1bb82493e41d2bc8b2',
-    amount: '134000000000000000000'
+    id: '401d46c2330d3c76c8f0da6be2a24b17c5e3ece9c28d80a74e91146d1f95ad2e'
 });
 ```
 
