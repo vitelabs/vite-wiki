@@ -4,7 +4,7 @@
 A fully decentralized exchange built on the Vite public chain. The world's first DAG-based decentralized exchange. 
 
 **ViteX is of the community, by the community, for the community.**
-:::
+::: 
 
 * **Features**:
   * Eligible to daily dividends. 100% fee income of ViteX are distributed to VX holders.
