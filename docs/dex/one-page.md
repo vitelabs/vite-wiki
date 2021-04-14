@@ -1,4 +1,4 @@
-# ViteX Coin (VX)
+# ViteX Coin (VX). 
 
 :::tip ViteX
 A fully decentralized exchange built on the Vite public chain. The world's first DAG-based decentralized exchange. 
